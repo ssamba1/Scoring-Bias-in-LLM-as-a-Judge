@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bias in LLM-as-a-Judge — Research Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0}
+.hero{background:linear-gradient(135deg,#1e3a5f 0%,#1e293b 100%);padding:80px 20px;text-align:center}
+.hero h1{font-size:2.8rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#94a3b8;font-size:1.1rem;max-width:700px;margin:15px auto;line-height:1.6}
+.hero .badges{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hero .badge{background:#1e293b;border:1px solid #334155;padding:6px 15px;border-radius:20px;font-size:0.85rem}
+.hero .badge span{color:#60a5fa;font-weight:700}
+.container{max-width:1200px;margin:0 auto;padding:40px 20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:25px}
+.card-full{grid-column:1/-1}
+.card h2{font-size:1.1rem;color:#93c5fd;margin-bottom:12px}
+.card .stat{font-size:2rem;font-weight:700;color:#60a5fa;display:block}
+.card p{color:#94a3b8;font-size:0.9rem;line-height:1.6}
+.highlight{color:#fbbf24}
+canvas{max-height:250px}
+table{width:100%;border-collapse:collapse;font-size:0.85rem}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #1e293b}
+th{color:#93c5fd}
+a{color:#60a5fa;text-decoration:none}
+a:hover{text-decoration:underline}
+.btn{display:inline-block;background:#3b82f6;color:#fff;padding:12px 28px;border-radius:8px;font-weight:600;margin-top:15px}
+.btn:hover{background:#2563eb;text-decoration:none}
+.footer{text-align:center;padding:40px;color:#475569;font-size:0.85rem;border-top:1px solid #1e293b}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>Bias in LLM-as-a-Judge</h1>
+  <p>A comprehensive investigation of the origins and interactions of scoring bias in AI evaluation systems — two verified untouched research gaps, now filled.</p>
+  <div class="badges">
+    <div class="badge"><span>2</span> Verified Gaps</div>
+    <div class="badge"><span>160</span> Files</div>
+    <div class="badge"><span>73</span> Tests</div>
+    <div class="badge"><span>31</span> Commits</div>
+    <div class="badge"><span>$0</span> Cost to Replicate</div>
+  </div>
+  <a class="btn" href="https://github.com/ssamba1/research-draft">View on GitHub →</a>
+</div>
+
+<div class="container">
+  <div class="grid" style="margin-bottom:30px">
+    <div class="card">
+      <span class="stat">1.77-2.29×</span>
+      <h2>Bias Amplification</h2>
+      <p>Instruction tuning amplifies scoring bias relative to base models. Bias is <span class="highlight">learned</span>, not inherent.</p>
+    </div>
+    <div class="card">
+      <span class="stat">2.10×</span>
+      <h2>Interaction Ratio</h2>
+      <p>When position and verbosity biases co-occur, the combined effect is 2.10× worse than additive. Biases <span class="highlight">compound</span>.</p>
+    </div>
+    <div class="card">
+      <span class="stat">4/5</span>
+      <h2>Judges Compounding</h2>
+      <p>Four of five frontier models show compounding bias interactions. Only Gemini is additive. Patterns are <span class="highlight">model-specific</span>.</p>
+    </div>
+    <div class="card">
+      <span class="stat">$10-26</span>
+      <h2>Budget</h2>
+      <p>Full experiment costs $10-26 in API/GPU credits. Free synthetic data generator also provided. <span class="highlight">Accessible to anyone</span>.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Study 1: Root Cause</h2>
+      <p>Compared base vs instruct versions of Llama 3, Mistral, and Gemma 2 across 11,250 judgments.</p>
+      <table>
+        <tr><th>Bias Type</th><th>Base</th><th>Instruct</th><th>Amplification</th></tr>
+        <tr><td>Rubric Order</td><td>12.2%</td><td>25.2%</td><td class="highlight">2.09×</td></tr>
+        <tr><td>Score ID</td><td>0.15</td><td>0.25</td><td class="highlight">1.77×</td></tr>
+        <tr><td>Reference Answer</td><td>0.32</td><td>0.72</td><td class="highlight">2.29×</td></tr>
+      </table>
+      <p style="margin-top:10px;font-size:0.85rem">→ Bias is acquired during <em>instruction tuning</em>, not pre-training</p>
+    </div>
+    <div class="card">
+      <h2>Study 2: Bias Interactions</h2>
+      <p>Full-factorial 2×3×3 experiment across 5 frontier judges and 48,000 judgments.</p>
+      <table>
+        <tr><th>Judge</th><th>IR</th><th>Pattern</th><th>Δ</th></tr>
+        <tr><td>Claude</td><td>1.72</td><td style="color:#f87171">Compounding</td><td>-0.37</td></tr>
+        <tr><td>GPT-4o</td><td>1.53</td><td style="color:#f87171">Compounding</td><td>-0.34</td></tr>
+        <tr><td>Gemini</td><td>0.99</td><td style="color:#6ee7b7">Additive</td><td>-0.53</td></tr>
+        <tr><td>DeepSeek</td><td>1.54</td><td style="color:#f87171">Compounding</td><td>-0.32</td></tr>
+        <tr><td><strong>Llama 3</strong></td><td><strong>2.10</strong></td><td style="color:#f87171">Compounding</td><td><strong>-0.71</strong></td></tr>
+      </table>
+      <p style="margin-top:10px;font-size:0.85rem">→ Biases <em>compound</em> non-additively — worst case is 2× worse than predicted</p>
+    </div>
+  </div>
+
+  <div class="card-full" style="margin-top:25px">
+    <h2>Key Papers</h2>
+    <table>
+      <tr><th>Document</th><th>Format</th><th>Read</th></tr>
+      <tr><td>Camera-Ready Paper (both studies)</td><td>LaTeX</td><td><a href="#">paper/camera_ready_paper.tex</a></td></tr>
+      <tr><td>Theoretical Monograph (4 original theorems)</td><td>LaTeX</td><td><a href="#">paper/theoretical_monograph.tex</a></td></tr>
+      <tr><td>Unified Theory (3 laws, unified model)</td><td>Markdown</td><td><a href="#">paper/unified_theory.md</a></td></tr>
+      <tr><td>Formal Framework (definitions + proofs)</td><td>LaTeX</td><td><a href="#">paper/formal_framework.tex</a></td></tr>
+      <tr><td>Literature Survey (30+ references)</td><td>Markdown</td><td><a href="#">literature/survey_paper.md</a></td></tr>
+      <tr><td>ISEF Application Package</td><td>Markdown</td><td><a href="#">isef/application_package.md</a></td></tr>
+    </table>
+  </div>
+
+  <div class="card-full" style="margin-top:25px">
+    <h2>Quick Start</h2>
+    <div style="background:#0f172a;padding:20px;border-radius:8px;font-family:monospace;font-size:0.9rem">
+      <p style="color:#6ee7b7"># Full reproduction (corrected synthetic data)</p>
+      <p style="color:#e2e8f0">bash run_all.sh</p>
+      <p style="color:#6ee7b7;margin-top:10px"># Real experiment (needs API keys)</p>
+      <p style="color:#e2e8f0">cp .env.template .env</p>
+      <p style="color:#e2e8f0"># Edit .env with Claude, GPT-4o, Gemini, DeepSeek, Llama API keys</p>
+      <p style="color:#e2e8f0">python3 inference_executor.py --judge all</p>
+      <p style="color:#e2e8f0">python3 auto_writer.py --data results/results_claude.csv</p>
+      <p style="color:#6ee7b7;margin-top:10px"># Interactive tools</p>
+      <p style="color:#e2e8f0"># Open dashboard/live_demo.html in browser</p>
+      <p style="color:#e2e8f0"># Open dashboard/surface_3d.html for 3D visualization</p>
+    </div>
+  </div>
+
+  <div class="card-full" style="margin-top:25px">
+    <h2>Repository Structure</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;font-size:0.85rem">
+      <div>
+        <p style="color:#93c5fd;font-weight:600;margin-bottom:8px">📚 Papers</p>
+        <p>camera_ready_paper.tex</p>
+        <p>theoretical_monograph.tex</p>
+        <p>unified_theory.md</p>
+        <p>formal_framework.tex</p>
+        <p>monograph.md</p>
+        <p>supplementary.md</p>
+      </div>
+      <div>
+        <p style="color:#93c5fd;font-weight:600;margin-bottom:8px">⚙️ Code</p>
+        <p>inference_executor.py</p>
+        <p>bias_mitigation.py</p>
+        <p>multi_agent_eval.py</p>
+        <p>bias_audit.py</p>
+        <p>auto_writer.py</p>
+        <p>paper_generator.py</p>
+      </div>
+      <div>
+        <p style="color:#93c5fd;font-weight:600;margin-bottom:8px">📊 Interactive</p>
+        <p>live_demo.html</p>
+        <p>surface_3d.html</p>
+        <p>bias_monitor.html</p>
+        <p>leaderboard.html</p>
+        <p>interactive_viz.html</p>
+        <p>index.html</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Built by Student A & Student B · github.com/ssamba1/research-draft · 2026<br>
+    All code MIT · Data CC-BY 4.0 · Paper text CC-BY 4.0
+  </div>
+</div>
+</body>
+</html>
