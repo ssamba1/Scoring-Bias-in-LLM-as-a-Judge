@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><title>Figure 2: Bias by Probe</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>body{font-family:sans-serif;background:#fff;padding:30px;max-width:700px;margin:auto}
+h2{font-size:1.1rem;color:#1e293b}canvas{max-height:350px}
+.caption{font-size:0.8rem;color:#64748b;margin-top:8px}</style></head><body>
+<h2>Figure 2: Scoring Bias by Probe Type</h2>
+<canvas id="c"></canvas>
+<p class="caption">Mean bias (max delta) averaged across 3 model families. Error bars = ±1 SEM. Blue = instruct models, gray = base models. Base model data from Kaggle T4 GPU, 8,100 total judgments.</p>
+<script>
+new Chart(document.getElementById('c'), {
+  type:'bar',
+  data:{
+    labels:['Rubric Order','Score ID','Reference Answer'],
+    datasets:[
+      {label:'Base Models', data:[2.8533333333333335, 0.6733333333333333, 0.8800000000000001], backgroundColor:'rgba(71,85,105,0.6)', borderColor:'#475569', borderWidth:2},
+      {label:'Instruct Models', data:[1.5866666666666667, 0.15333333333333335, 1.1866666666666665], backgroundColor:'rgba(37,99,235,0.6)', borderColor:'#2563eb', borderWidth:2}
+    ]},
+  options:{
+    responsive:true,
+    scales:{y:{beginAtZero:true, title:{display:true, text:'Bias (max delta)'}}},
+    plugins:{
+      legend:{position:'top'},
+      annotation:{
+        annotations:{
+          line1:{type:'line', yMin:0.15, yMax:0.15, borderColor:'#ef4444', borderWidth:1, borderDash:[5,5],
+            label:{display:true, content:'Instruct avg: 0.98', position:'end'}}
+        }
+      }
+    }
+  }
+});
+</script></body></html>

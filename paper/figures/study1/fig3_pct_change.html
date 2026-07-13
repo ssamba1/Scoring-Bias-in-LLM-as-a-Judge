@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><title>Figure 3: % Change</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>body{font-family:sans-serif;background:#fff;padding:30px;max-width:700px;margin:auto}
+h2{font-size:1.1rem;color:#1e293b}canvas{max-height:350px}
+.caption{font-size:0.8rem;color:#64748b;margin-top:8px}</style></head><body>
+<h2>Figure 3: Percent Change from Base to Instruct</h2>
+<canvas id="c"></canvas>
+<p class="caption">Positive = bias increases with instruction tuning (worse). Negative = bias decreases (better). Instructional tuning has DIFFERENTIAL effects: format biases improve, content bias worsens.</p>
+<script>
+new Chart(document.getElementById('c'), {
+  type:'bar',
+  data:{
+    labels:['Rubric Order','Score ID','Reference Answer'],
+    datasets:[{
+      label:'% Change',
+      data:[-44.39252336448599, -77.22772277227723, 34.848484848484816],
+      backgroundColor:['rgba(34,197,94,0.8)','rgba(34,197,94,0.8)','rgba(239,68,68,0.8)'],
+      borderColor:['#22c55e','#22c55e','#ef4444'],
+      borderWidth:3
+    }]
+  },
+  options:{
+    responsive:true,
+    scales:{
+      y:{title:{display:true, text:'% Change'}, grid:{color:'#e2e8f0'}}
+    },
+    plugins:{legend:{display:false}}
+  }
+});
+</script></body></html>

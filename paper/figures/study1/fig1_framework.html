@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><head><title>Figure 1: Framework</title>
+<style>body{font-family:sans-serif;background:#fff;padding:20px}
+.box{border:2px solid #333;border-radius:8px;padding:15px;margin:5px;text-align:center;display:inline-block}
+.arrow{font-size:24px;padding:10px}
+.container{text-align:center}
+h1{color:#1e293b;font-size:1.2rem}
+.sub{color:#64748b;font-size:0.85rem}
+</style></head><body>
+<h1>Figure 1: Experimental Framework — Base vs Instruct Scoring Bias Comparison</h1>
+<div class="container">
+<div class="box" style="background:#e0f2fe"><strong>3 Model Families</strong><br>Llama 3 8B<br>Mistral 7B<br>Gemma 2 2B</div>
+<div class="arrow">→</div>
+<div class="box" style="background:#dcfce7"><strong>2 Variants Each</strong><br>Base (pre-trained)<br>Instruct (SFT+RLHF)</div>
+<div class="arrow">→</div>
+<div class="box" style="background:#fef3c7"><strong>6 Model Variants</strong><br>Tested at temperature 0</div>
+</div>
+<div class="container" style="margin-top:20px">
+<div class="box" style="background:#f3e8ff"><strong>3 Bias Probes</strong><br>1. Rubric Order (normal/reversed/random)<br>2. Score ID (numeric/letter/descriptive)<br>3. Reference Answer (none/good/poor)</div>
+<div class="arrow">→</div>
+<div class="box" style="background:#fce7f3"><strong>50 Evaluation Items</strong><br>5 domains × 10 items<br>3 repeats each</div>
+<div class="arrow">→</div>
+<div class="box" style="background:#e0f2fe"><strong>8,100 Judgments</strong><br>6 × 3 × 3 × 50 × 3<br>Kaggle T4 GPU</div>
+</div>
+<p class="sub" style="margin-top:20px">Each evaluation: perturb scoring prompt → measure score change → compute bias metrics (FR, MAD, delta, Cohen's d)</p>
+</body></html>

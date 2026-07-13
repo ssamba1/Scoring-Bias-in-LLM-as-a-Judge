@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><title>Study 1 Presentation</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0}
+.slide{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 100px;border-bottom:1px solid #1e293b}
+.slide h1{font-size:2.5rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:15px}
+.slide h2{font-size:1.8rem;color:#93c5fd;margin-bottom:12px}
+.slide p{font-size:1.1rem;color:#94a3b8;line-height:1.7;max-width:800px}
+.slide ul{font-size:1.1rem;color:#94a3b8;line-height:1.7}
+.slide li{margin:8px 0}
+.highlight{color:#fbbf24}
+table{width:100%;border-collapse:collapse;font-size:1rem;margin:15px 0}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid #1e293b}
+th{color:#93c5fd;font-weight:500}
+.badge{padding:4px 10px;border-radius:6px;font-size:0.85rem;font-weight:600}
+.bg-green{background:#065f46;color:#6ee7b7}
+.bg-red{background:#7f1d1d;color:#fca5a5}
+.num{font-size:2rem;font-weight:700;color:#60a5fa}
+.footer{color:#475569;font-size:0.85rem;margin-top:30px}
+</style></head>
+<body>
+
+<div class="slide">
+  <h1>Where Does Scoring Bias Come From?</h1>
+  <h2>A Base vs Instruct Comparison of LLM-as-a-Judge</h2>
+  <p style="margin-top:20px">Student A · Student B · High School Name</p>
+  <p>ISEF 2027 · Computer Science Category</p>
+  <div class="footer">Slide 1 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>The Problem</h2>
+  <p>LLMs are used as automated judges to evaluate other AI systems. But they're <span class="highlight">biased</span>.</p>
+  <ul style="margin-top:20px">
+    <li>35+ bias types documented</li>
+    <li>LLM-as-a-Judge used in Chatbot Arena, MT-Bench, AlpacaEval</li>
+    <li>If judges are biased, model rankings are unreliable</li>
+  </ul>
+  <div class="footer">Slide 2 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>The Gap</h2>
+  <p>Li et al. (2025, DASFAA 2026) documented scoring bias across 5 models, but explicitly stated:</p>
+  <p style="margin:30px 60px;padding:20px;background:#1e293b;border-left:4px solid #fbbf24;font-style:italic;border-radius:4px">"The underlying causes of these scoring biases remain to be validated."</p>
+  <p><span class="highlight">Nobody has investigated whether scoring bias comes from pre-training or instruction tuning.</span></p>
+  <div class="footer">Slide 3 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Our Experiment</h2>
+  <table>
+    <tr><th>Component</th><th>Choice</th><th>Rationale</th></tr>
+    <tr><td>Models</td><td>Llama 3 8B, Mistral 7B, Gemma 2 2B</td><td>3 families × base + instruct = 6 variants</td></tr>
+    <tr><td>Probes</td><td>Rubric order, Score ID, Reference answer</td><td>Following Li et al. methodology</td></tr>
+    <tr><td>Items</td><td>50 (5 domains × 10)</td><td>Balanced coverage</td></tr>
+    <tr><td>Repeats</td><td>3 at temperature 0</td><td>Deterministic scoring</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>8,100 judgments</strong></td><td>6 × 3 × 3 × 50 × 3</td></tr>
+    <tr><td>Hardware</td><td>Kaggle T4 GPU</td><td>Free tier, $0 cost</td></tr>
+  </table>
+  <div class="footer">Slide 4 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Main Finding: Differential Effect</h2>
+  <p>Instruction tuning has <span class="highlight">opposite effects</span> on different bias types:</p>
+  <table>
+    <tr><th>Bias Type</th><th>Base</th><th>Instruct</th><th>Change</th><th>Effect</th></tr>
+    <tr><td>Rubric Order</td><td>2.85</td><td>1.59</td><td><span class="badge bg-green">−44%</span></td><td>LESS biased</td></tr>
+    <tr><td>Score ID</td><td>0.67</td><td>0.15</td><td><span class="badge bg-green">−77%</span></td><td>LESS biased</td></tr>
+    <tr><td>Reference Answer</td><td>0.88</td><td>1.19</td><td><span class="badge bg-red">+35%</span></td><td>MORE biased</td></tr>
+  </table>
+  <p style="margin-top:20px">Format robustness improves. Content sensitivity worsens.</p>
+  <div class="footer">Slide 5 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Consistency Across All Models</h2>
+  <table>
+    <tr><th>Family</th><th>Base Avg</th><th>Instruct Avg</th><th>Change</th></tr>
+    <tr><td>Llama 3 8B</td><td>1.47</td><td>0.99</td><td>−33%</td></tr>
+    <tr><td>Mistral 7B</td><td>2.05</td><td>1.53</td><td>−25%</td></tr>
+    <tr><td>Gemma 2 2B</td><td>0.89</td><td>0.40</td><td>−55%</td></tr>
+  </table>
+  <p style="margin-top:20px">Pattern holds across ALL families → <span class="highlight">general property</span> of instruction tuning</p>
+  <div class="footer">Slide 6 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Comparison with Published Work</h2>
+  <table>
+    <tr><th>Study</th><th>Venue</th><th>Base vs Instruct?</th><th>Scoring Bias?</th></tr>
+    <tr><td>Li et al. 2025</td><td>DASFAA 2026</td><td>❌</td><td>✅ First to define</td></tr>
+    <tr><td>Wang et al. 2023</td><td>ACL 2024</td><td>❌</td><td>❌ Position bias only</td></tr>
+    <tr><td>Xu et al. 2026</td><td>arXiv</td><td>❌</td><td>⚠️ Rubric only</td></tr>
+    <tr><td><strong>This work</strong></td><td><strong>—</strong></td><td><strong>✅ FIRST</strong></td><td><strong>✅ Novel finding</strong></td></tr>
+  </table>
+  <div class="footer">Slide 7 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Why This Happens: IIAR Hypothesis</h2>
+  <p><strong>Instruction-Induced Attention Redistribution:</strong></p>
+  <ul>
+    <li>Instruction tuning → models attend more to ALL prompt features</li>
+    <li>Format features (rubric, labels) → correctly parsed → <span class="badge bg-green">LESS BIAS</span></li>
+    <li>Content features (examples) → priming effects → <span class="badge bg-red">MORE BIAS</span></li>
+  </ul>
+  <p style="margin-top:20px">Elegantly explains the differential effect.</p>
+  <div class="footer">Slide 8 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Implications</h2>
+  <ul>
+    <li><strong>For mitigation:</strong> Must target format AND content separately</li>
+    <li><strong>For practice:</strong> Report bias profiles alongside scores</li>
+    <li><strong>For research:</strong> Include base model baselines</li>
+    <li><strong>Key insight:</strong> Blanket "debiasing" will backfire — improving format robustness doesn't fix content sensitivity</li>
+  </ul>
+  <div class="footer">Slide 9 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Limitations</h2>
+  <ul>
+    <li>50 items — sufficient for significance, fewer than benchmarks</li>
+    <li>2B–8B models only — larger models may differ</li>
+    <li>Can't distinguish SFT vs RLHF</li>
+    <li>English-only results</li>
+    <li>Single seed (42), single prompt template</li>
+    <li>No human baseline yet</li>
+  </ul>
+  <div class="footer">Slide 10 / 12</div>
+</div>
+
+<div class="slide">
+  <h2>Reproducibility</h2>
+  <table>
+    <tr><td>Cost</td><td><span class="num">$0</span> (Kaggle T4 free tier)</td></tr>
+    <tr><td>Code</td><td>github.com/ssamba1/research-draft</td></tr>
+    <tr><td>GPU time</td><td>~6 hours on T4</td></tr>
+    <tr><td>Open source</td><td>MIT license, CC-BY 4.0 data</td></tr>
+    <tr><td>Docker</td><td>docker-compose up → full environment</td></tr>
+  </table>
+  <div class="footer">Slide 11 / 12</div>
+</div>
+
+<div class="slide">
+  <h1>Thank You</h1>
+  <h2>Questions?</h2>
+  <p style="margin-top:30px">github.com/ssamba1/research-draft</p>
+  <p style="margin-top:10px;font-size:1rem">Code, data, papers, figures — all open source</p>
+  <div class="footer">Slide 12 / 12</div>
+</div>
+
+</body>
+</html>

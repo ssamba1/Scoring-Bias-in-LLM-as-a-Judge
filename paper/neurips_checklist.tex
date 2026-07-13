@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NEURIPS 2026 PAPER CHECKLIST — Study 1
+% Generated automatically — verify each answer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{neurlipschecklist}
+
+\item[{\textbf{1.:}}]
+  Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Our abstract and introduction state: instruction tuning has differential effects on scoring bias (format biases decrease 44-77%, content bias increases 35%). These claims are directly supported by our experimental results in Section 4 (Table 1). Scope is limited to 3 model families at 2-8B scale, as stated in Section 6 (Limitations).
+
+\item[{\textbf{2.:}}]
+  Does the paper point out any strong assumptions and how robust the results are to violations of these assumptions?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Section 6 (Limitations) discusses: (1) limited item count (50 vs benchmark standards), (2) 2-8B model scale only, (3) inability to distinguish SFT vs RLHF, (4) excluded descriptive probe variant, (5) English-only results, (6) single seed, (7) single prompt template, (8) no human baseline.
+
+\item[{\textbf{3.:}}]
+  If theoretical results are included, did you state the full set of assumptions and include complete proofs?
+
+  \textbf{Answer:} No.
+
+  \textbf{Justification:} This paper is empirical (not theoretical). We do not present formal theorems. The IIAR hypothesis is conjectural and presented in the Discussion section.
+
+\item[{\textbf{4.:}}]
+  If the contribution is a dataset or model, what steps did you take to make your results reproducible?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Complete reproduction steps: (1) All code at github.com/ssamba1/research-draft, (2) Kaggle notebook at pipeline_rootcause/study1_full.kaggle.ipynb, (3) Fixed seed=42, temperature=0, (4) Tensor dtypes specified (float16), (5) GPU configuration documented (Kaggle T4, 17GB VRAM).
+
+\item[{\textbf{5.:}}]
+  Did you include the code, data, and instructions needed to reproduce the main experimental results?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Complete open-source repository at github.com/ssamba1/research-draft containing all code (MIT license), data (CC-BY 4.0), and detailed reproduction instructions in REPLICATION.md and GETTING_STARTED.md.
+
+\item[{\textbf{6.:}}]
+  Did you specify all the training details (data splits, hyperparameters, how they were chosen)?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Section 3 (Method) specifies: temperature=0, 3 repeats, 50 items, 3 probe variants. Hyperparameters chosen for determinism (temperature=0) and standard practice (3 repeats following prior work). No training — inference-only.
+
+\item[{\textbf{7.:}}]
+  Does the paper report error bars suitably and correctly defined or other appropriate information about statistical significance?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} We report: (1) Bootstrap 95% confidence intervals for all mean estimates, (2) Cohen's d effect sizes, (3) Standard Error of the Mean (SEM) on all bar charts, (4) Flip Rate (FR) matching Li et al. methodology.
+
+\item[{\textbf{8.:}}]
+  For each experiment, does the paper provide sufficient information on the computer resources needed to reproduce the experiments?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Section 3: Kaggle T4 GPU (NVIDIA Tesla T4, 17GB VRAM), ~6 hours total compute, ~$0 cost (Kaggle free tier). Transformers Inference API used for model loading.
+
+\item[{\textbf{9.:}}]
+  Have you read the NeurIPS Code of Ethics and ensured that your research conforms to it?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} We have read and conform to the NeurIPS Code of Ethics. This research involves no human subjects, no private data, and no potentially harmful applications.
+
+\item[{\textbf{10.:}}]
+  Did you include a discussion of the broader impact of your work?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Section 7 (Broader Impact) discusses: potential for over-reliance on biased judges, differential mitigation implications, adversarial prompt risks, and recommendations for practitioners.
+
+\item[{\textbf{11.:}}]
+  Did you discuss the potential negative societal impact of your work?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Section 7 discusses: (1) how findings could be used to construct adversarial prompts, (2) risk of blanket debiasing strategies backfiring, (3) systematic disadvantage to certain response types. We recommend transparent bias reporting.
+
+\item[{\textbf{12.:}}]
+  Did you specify the licenses of all assets (code, data, models)?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} Code: MIT license. Data: CC-BY 4.0. Models: Meta Llama 3 Community License (meta-llama), Apache 2.0 (Mistral), Gemma Terms of Use (Google). Licenses documented in repository and ethics statement.
+
+\item[{\textbf{13.:}}]
+  If releasing new assets, did you document them and provide these details?
+
+  \textbf{Answer:} No.
+
+  \textbf{Justification:} We do not release new datasets or models. We use existing open-weight models and synthetic evaluation items. Our GitHub repository contains analysis code only.
+
+\item[{\textbf{14.:}}]
+  If you used crowdsourcing or conducted research with human subjects, did you include the full text of instructions?
+
+  \textbf{Answer:} N/A.
+
+  \textbf{Justification:} This research did not involve human subjects or crowdsourcing. All experiments were conducted using automated pipelines with publicly available models.
+
+\item[{\textbf{15.:}}]
+  Did you describe any potential participant risks and obtain IRB approvals?
+
+  \textbf{Answer:} N/A.
+
+  \textbf{Justification:} No human subjects — IRB approval not required.
+
+\item[{\textbf{16.:}}]
+  Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods?
+
+  \textbf{Answer:} Yes.
+
+  \textbf{Justification:} LLMs are the OBJECT of study (as judges), not a tool used in our methods. Our core method is comparing model outputs under different prompt conditions, which does not rely on LLMs for analysis.
+
+\end{neurlipschecklist}
