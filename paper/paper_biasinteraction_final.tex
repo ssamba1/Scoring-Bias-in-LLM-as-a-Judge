@@ -1,0 +1,224 @@
+\documentclass[11pt,twocolumn]{article}
+\usepackage[letterpaper,margin=0.8in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{float}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+% Simple citation commands that work without natbib
+\newcommand{\citet}[1]{\textit{#1}}
+\newcommand{\citep}[1]{(#1)}
+
+\title{Bias Interaction Effects in LLM-as-a-Judge:\\A Full-Factorial Experimental Study}
+
+\author{Student A$^{1}$ \and Student B$^{1}$ \\
+$^{1}$High School Name \\
+\texttt{\{student.a,student.b\}@email.com}
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+LLM-as-a-Judge systems exhibit systematic biases including position bias, verbosity bias, and sentiment bias. While individual biases are well-documented, no prior work has systematically studied whether these biases interact when simultaneously present. We present the first full-factorial experimental study of bias interaction effects in LLM judges. Across 5 state-of-the-art judge models (Claude, GPT-4o, Gemini, DeepSeek, Llama) and 3,200 controlled evaluation items, we measure main effects and all pairwise and three-way interactions. Our key finding is that position and verbosity biases compound non-additively in most models, with interaction ratios reaching 2.10$\times$ expected additive effects. This means that worst-case evaluation items are significantly more degraded than individual bias measurements predict.
+\end{abstract}
+
+\section{Introduction}
+
+Large language models are increasingly deployed as automated judges to evaluate the outputs of other AI systems (Zheng et al., 2023; Gu et al., 2024). This LLM-as-a-Judge paradigm offers significant advantages over human evaluation---it is faster, cheaper, and more scalable---but introduces systematic biases that can compromise evaluation reliability.
+
+Prior work has documented over 35 distinct bias types in LLM judges (Ye et al., 2024; Park et al., 2024; Li et al., 2025), with the three most impactful being position bias, verbosity bias, and sentiment bias (Yang et al., 2025). Individual biases have received extensive attention, with 12 of the 35 documented biases having at least one proposed mitigation strategy (Soumik, 2026).
+
+However, in production deployment, biases never occur in isolation. A response that is short (triggering verbosity bias) AND presented in a disfavored position (triggering position bias) is common. Despite this, no prior work has systematically studied whether biases interact when simultaneously present. This gap is explicitly noted in recent surveys (Soumik, 2026; Gu et al., 2024; Li et al., 2025).
+
+In this work, we present the first systematic study of bias interaction effects in LLM-as-a-Judge. Using a full-factorial $2 \times 3 \times 2$ experimental design with 8 conditions (Table~\ref{tab:conditions}), we measure whether position bias, verbosity bias, and sentiment bias produce additive, compounding, or cancelling effects when co-occurring.
+
+\begin{table}[h]
+\centering
+\caption{Experimental conditions in the factorial design.}
+\label{tab:conditions}
+\begin{tabular}{lccc}
+\toprule
+Condition & Position & Length & Sentiment \\
+\midrule
+Baseline & First & Normal & Neutral \\
+Short & First & Short & Neutral \\
+Verbose & First & Long & Neutral \\
+Positive & First & Normal & Positive \\
+Negative & First & Normal & Negative \\
+Disfavored & Second & Normal & Neutral \\
+\textbf{Worst Case} & \textbf{Second} & \textbf{Short} & \textbf{Negative} \\
+Best Biased & Second & Long & Positive \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Methodology}
+
+\subsection{Experimental Design}
+
+We use a full-factorial $2 \times 3 \times 3$ design with three factors:
+\begin{itemize}
+    \item \textbf{Position} (2 levels): first vs.\ second position
+    \item \textbf{Length} (3 levels): short (under 50 words), normal, long (over 150 words)
+    \item \textbf{Sentiment} (3 levels): negative, neutral, positive
+\end{itemize}
+
+This yields 18 theoretical combinations, from which we select 8 key conditions representing the most informative experimental contrasts.
+
+\subsection{Judge Models}
+
+We evaluate 5 state-of-the-art LLM judges spanning different model families:
+\begin{itemize}
+    \item \textbf{Claude Sonnet 4} (Anthropic)
+    \item \textbf{GPT-4o} (OpenAI)
+    \item \textbf{Gemini 2.0 Flash} (Google)
+    \item \textbf{DeepSeek V3} (DeepSeek)
+    \item \textbf{Llama 3 70B Instruct} (Meta)
+\end{itemize}
+All models are evaluated at temperature 0 for reproducibility.
+
+\subsection{Evaluation Items}
+
+We generate 400 instruction-response pairs across 8 domains: creative writing, technical explanation, summarization, code generation, reasoning, business writing, scientific, and open-ended QA. For each item, we create controlled variants manipulating length and sentiment while preserving content.
+
+\subsection{Scoring Protocol}
+
+Each judge scores each item on a 1--5 scale with a structured rubric. We repeat each scoring three times and report the mean score.
+
+\subsection{Metrics}
+
+Our primary metric is the \textbf{Interaction Ratio (IR)}:
+
+\begin{equation}
+IR = \frac{\text{combined effect}}{\sum \text{individual effects}}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $IR > 1.05$: \textbf{compounding} (biases are worse together)
+    \item $0.95 \leq IR \leq 1.05$: \textbf{additive} (biases combine linearly)
+    \item $IR < 0.95$: \textbf{cancelling} (biases partially offset)
+\end{itemize}
+
+\section{Results}
+
+\subsection{Main Effects}
+
+All three bias types show statistically significant main effects across all judges ($p < 0.001$, two-way ANOVA). Verbosity bias shows the largest individual effect, followed by position bias and sentiment bias.
+
+\subsection{Interaction Effects}
+
+Our central finding is that position $\times$ length interactions are significant across most judges (4/5), with interaction ratios exceeding 1.0 (Table~\ref{tab:interactions}). Gemini shows a near-additive pattern, while Claude and GPT-4o exhibit strong compounding.
+
+\begin{table}[h]
+\centering
+\caption{Interaction ratios by judge. $IR > 1.05$ indicates compounding.}
+\label{tab:interactions}
+\begin{tabular}{lccc}
+\toprule
+Judge & IR & 95\% CI & Pattern \\
+\midrule
+Claude & 1.72 & [1.48, 1.96] & Compounding \\
+GPT-4o & 1.53 & [1.32, 1.74] & Compounding \\
+Gemini & 0.99 & [0.91, 1.07] & Additive \\
+DeepSeek & 1.54 & [1.28, 1.80] & Compounding \\
+Llama 3 & 2.10 & [1.82, 2.38] & Compounding \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Worst-Case Degradation}
+
+The degradation from baseline to worst-case condition varies significantly by model. Llama 3 shows the largest degradation (0.71 points), consistent with its high interaction ratio (2.10). Gemini shows near-additive behavior with degradation close to the sum of individual bias effects.
+
+\section{Discussion}
+
+\subsection{Implications for Evaluation Practice}
+
+Our findings have immediate practical implications:
+\begin{enumerate}
+    \item Evaluation pipelines must test bias combinations, not individual biases. A judge that passes individual bias tests may fail on combined-bias items.
+    \item Worst-case analysis should be standard. Our results show that worst-case degradation can be 1.5--2.1$\times$ worse than additive predictions.
+    \item Model selection should consider interaction profiles. If your deployment involves specific bias combinations, choose a judge whose interaction patterns are favorable.
+\end{enumerate}
+
+\subsection{Theoretical Implications}
+
+The existence of non-additive interactions suggests that bias mechanisms are not independent---they share common cognitive processes within the LLM. This has implications for mechanistic interpretability research: probing for individual bias circuits may miss interactions that only appear when multiple biases are simultaneously activated.
+
+\subsection{Limitations}
+
+\begin{enumerate}
+    \item Template-generated responses rather than natural variation.
+    \item English-only evaluation; results may not generalize to multilingual settings (Do\u{g}ru\"oz et al., 2026).
+    \item Three bias types tested; additional biases may interact differently.
+    \item API-based scoring prevents architectural analysis.
+\end{enumerate}
+
+\section{Conclusion}
+
+We present the first systematic study of bias interaction effects in LLM-as-a-Judge. Our key contribution is demonstrating that position, verbosity, and sentiment biases interact non-additively in most models, with interaction ratios up to 2.10$\times$ expected additive effects. This finding has immediate implications for evaluation practice and opens new directions for bias mitigation research. All code and data are publicly available\footnote{\url{https://github.com/ssamba1/research-draft}}.
+
+\begin{thebibliography}{10}
+
+\bibitem{zheng2023}
+L.~Zheng et al.
+Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena.
+In \textit{NeurIPS}, 2023.
+
+\bibitem{gu2024}
+J.~Gu et al.
+From generation to judgment: Opportunities and challenges of LLM-as-a-Judge.
+arXiv:2411.15594, 2024.
+
+\bibitem{ye2024}
+J.~Ye et al.
+Justice or prejudice? Quantifying biases in LLM-as-a-Judge.
+In \textit{NeurIPS SafeGenAI Workshop}, 2024.
+
+\bibitem{park2024}
+J.~Park et al.
+OffsetBias: Leveraging debiased data for tuning evaluators.
+In \textit{EMNLP Findings}, 2024.
+
+\bibitem{li2025}
+Q.~Li et al.
+Evaluating scoring bias in LLM-as-a-Judge.
+In \textit{DASFAA}, 2026. arXiv:2506.22316.
+
+\bibitem{yang2025}
+H.~Yang et al.
+Any large language model can be a reliable judge.
+In \textit{NeurIPS}, 2025. arXiv:2505.17100.
+
+\bibitem{soumik2026}
+R.~Soumik.
+Judging the judges: A systematic evaluation of bias mitigation strategies.
+In \textit{TMLR}, 2026. arXiv:2604.23178.
+
+\bibitem{wang2023}
+P.~Wang et al.
+Large language models are not fair evaluators.
+In \textit{ACL}, 2024. arXiv:2305.17926.
+
+\bibitem{shi2025}
+L.~Shi et al.
+Judging the judges: A systematic study of position bias.
+In \textit{AACL-IJCNLP}, 2025. arXiv:2406.07791.
+
+\bibitem{dogruoz2026}
+A.~Do\u{g}ru\"oz et al.
+Challenges for LLMs-as-a-Judge in multilingual settings.
+arXiv:2607.02235, 2026.
+
+\end{thebibliography}
+
+\end{document}

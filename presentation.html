@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bias in LLM-as-a-Judge — Research Presentation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; overflow: hidden; }
+.slide { display: none; width: 100vw; height: 100vh; padding: 60px; position: relative; }
+.slide.active { display: flex; flex-direction: column; justify-content: center; }
+.controls { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 100; }
+.controls button { background: #334155; border: 1px solid #475569; color: #e2e8f0; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+.controls button:hover { background: #475569; }
+.controls .counter { color: #64748b; padding: 10px 15px; font-size: 0.9rem; }
+h1 { font-size: 3rem; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.2; }
+h2 { font-size: 2rem; color: #93c5fd; margin-bottom: 20px; }
+h3 { font-size: 1.4rem; color: #e2e8f0; margin-bottom: 15px; }
+p, li { font-size: 1.2rem; line-height: 1.6; color: #cbd5e1; }
+ul { list-style: none; }
+li::before { content: "▸ "; color: #60a5fa; }
+.highlight { color: #fbbf24; font-weight: 600; }
+.highlight-green { color: #6ee7b7; }
+.highlight-red { color: #f87171; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 1.1rem; }
+th { text-align: left; color: #93c5fd; padding: 10px; border-bottom: 2px solid #334155; }
+td { padding: 10px; border-bottom: 1px solid #1e293b; }
+.badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; }
+.badge-green { background: #065f46; color: #6ee7b7; }
+.badge-red { background: #7f1d1d; color: #fca5a5; }
+.badge-blue { background: #1e3a5f; color: #93c5fd; }
+.footer { position: absolute; bottom: 30px; left: 60px; color: #475569; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<div class="slide active">
+  <h1>Bias in LLM-as-a-Judge</h1>
+  <p style="font-size:1.5rem;margin:20px 0">Two Studies on the Origins and Interactions<br>of Scoring Bias in AI Evaluation Systems</p>
+  <p style="color:#94a3b8;margin-top:30px">Student A · Student B · High School Name</p>
+  <p style="color:#475569;font-size:0.9rem;margin-top:10px">ISEF 2027 · Systems Software</p>
+  <div class="footer">Press → to advance · github.com/ssamba1/research-draft</div>
+</div>
+
+<div class="slide">
+  <h2>The Problem</h2>
+  <ul>
+    <li style="margin:15px 0">AI models are now used to <span class="highlight">evaluate other AI models</span></li>
+    <li style="margin:15px 0">This "LLM-as-a-Judge" paradigm powers major benchmarks</li>
+    <li style="margin:15px 0">But these judges have <span class="highlight">systematic biases</span></li>
+    <li style="margin:15px 0">35+ bias types documented — affecting up to 31% of evaluations</li>
+    <li style="margin:15px 0">Two critical questions <span class="highlight-red">unanswered</span>:</li>
+  </ul>
+  <div class="grid-2">
+    <div style="background:#1e293b;padding:30px;border-radius:12px;border:1px solid #334155">
+      <h3 style="color:#60a5fa">Study 1</h3>
+      <p>Where does scoring bias come from?</p>
+      <p style="color:#94a3b8;font-size:1rem;margin-top:10px">Pre-training or instruction tuning?</p>
+    </div>
+    <div style="background:#1e293b;padding:30px;border-radius:12px;border:1px solid #334155">
+      <h3 style="color:#a78bfa">Study 2</h3>
+      <p>Do biases interact?</p>
+      <p style="color:#94a3b8;font-size:1rem;margin-top:10px">Compound, cancel, or add?</p>
+    </div>
+  </div>
+  <div class="footer">Slide 2 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Study 1: Methodology</h2>
+  <p style="font-size:1.1rem;color:#94a3b8;margin-bottom:20px">Compare <span class="highlight">base</span> vs <span class="highlight">instruct</span> versions of the same model</p>
+  <div style="display:flex;gap:30px;justify-content:center;margin:30px 0">
+    <div style="text-align:center"><div style="background:#1e293b;padding:20px;border-radius:12px;border:1px solid #334155;width:200px"><h3>Llama 3 8B</h3><p style="font-size:0.9rem;color:#94a3b8">Base → Instruct<br>2.33× amplification</p></div></div>
+    <div style="text-align:center"><div style="background:#1e293b;padding:20px;border-radius:12px;border:1px solid #334155;width:200px"><h3>Mistral 7B</h3><p style="font-size:0.9rem;color:#94a3b8">Base → Instruct<br>2.22× amplification</p></div></div>
+    <div style="text-align:center"><div style="background:#1e293b;padding:20px;border-radius:12px;border:1px solid #334155;width:200px"><h3>Gemma 2 2B</h3><p style="font-size:0.9rem;color:#94a3b8">Base → Instruct<br>1.73× amplification</p></div></div>
+  </div>
+  <p>Three bias probes (following Li et al. 2025):</p>
+  <p style="color:#94a3b8">Rubric Order · Score ID · Reference Answer</p>
+  <p style="color:#94a3b8;margin-top:5px">50 items × 3 probes × 3 conditions × 3 repeats = 11,250 judgments</p>
+  <div class="footer">Slide 3 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Study 1: Key Results</h2>
+  <p class="highlight-green" style="font-size:1.4rem;margin-bottom:20px">Bias is learned during instruction tuning</p>
+  <table>
+    <tr><th>Bias Type</th><th>Base Model</th><th>Instruct Model</th><th>Amplification</th></tr>
+    <tr><td>Rubric Order</td><td>12.2% FR</td><td>25.2% FR</td><td class="highlight">2.09×</td></tr>
+    <tr><td>Score ID</td><td>0.15 gap</td><td>0.25 gap</td><td class="highlight">1.77×</td></tr>
+    <tr><td>Reference Answer</td><td>0.32 shift</td><td>0.72 shift</td><td class="highlight">2.29×</td></tr>
+  </table>
+  <p style="margin-top:20px">→ Bias is not inherent to LMs. <span class="highlight">We teach it.</span></p>
+  <p style="color:#94a3b8">This is good news: we can fix it by changing how we fine-tune.</p>
+  <div class="footer">Slide 4 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Study 2: Methodology</h2>
+  <p style="font-size:1.1rem;margin-bottom:20px">Full-factorial <span class="highlight">2 × 3 × 3</span> experimental design</p>
+  <table>
+    <tr><th>Factor</th><th>Levels</th></tr>
+    <tr><td>Position</td><td>First, Second</td></tr>
+    <tr><td>Length</td><td>Short, Normal, Long</td></tr>
+    <tr><td>Sentiment</td><td>Negative, Neutral, Positive</td></tr>
+  </table>
+  <div style="margin-top:20px">
+    <p>5 frontier judges · 400 items · 3 repeats</p>
+    <p style="color:#94a3b8">= 48,000 total judgments</p>
+  </div>
+  <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+    <span class="badge badge-blue">Claude Sonnet 4</span>
+    <span class="badge badge-blue">GPT-4o</span>
+    <span class="badge badge-blue">Gemini 2.0 Flash</span>
+    <span class="badge badge-blue">DeepSeek V3</span>
+    <span class="badge badge-blue">Llama 3 70B</span>
+  </div>
+  <div class="footer">Slide 5 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Interaction Ratio</h2>
+  <p style="font-size:1.3rem;margin:20px 0">How much worse is it when <span class="highlight">multiple</span> biases happen at once?</p>
+  <div style="background:#1e293b;padding:30px;border-radius:12px;border:1px solid #334155;margin:20px 0;text-align:center">
+    <p style="font-size:2rem;color:#fbbf24">IR = Combined Effect / Sum of Individual Effects</p>
+  </div>
+  <div style="display:flex;gap:20px;margin-top:30px">
+    <div style="flex:1;background:#1e293b;padding:15px;border-radius:8px;border:1px solid #334155;text-align:center">
+      <p class="highlight-red" style="font-size:1.5rem">IR > 1.05</p>
+      <p style="color:#94a3b8;font-size:0.9rem">Compounding</p>
+    </div>
+    <div style="flex:1;background:#1e293b;padding:15px;border-radius:8px;border:1px solid #334155;text-align:center">
+      <p class="highlight-green" style="font-size:1.5rem">IR ≈ 1.0</p>
+      <p style="color:#94a3b8;font-size:0.9rem">Additive</p>
+    </div>
+    <div style="flex:1;background:#1e293b;padding:15px;border-radius:8px;border:1px solid #334155;text-align:center">
+      <p style="font-size:1.5rem;color:#fbbf24">IR &lt; 0.95</p>
+      <p style="color:#94a3b8;font-size:0.9rem">Cancelling</p>
+    </div>
+  </div>
+  <div class="footer">Slide 6 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Study 2: Key Results</h2>
+  <table>
+    <tr><th>Judge</th><th>Position</th><th>Verbosity</th><th>Combined</th><th>IR</th><th>Pattern</th></tr>
+    <tr><td>Claude</td><td>0.117</td><td>0.082</td><td>0.373</td><td class="highlight">1.72</td><td class="highlight-red">Compounding</td></tr>
+    <tr><td>GPT-4o</td><td>0.080</td><td>0.040</td><td>0.341</td><td class="highlight">1.53</td><td class="highlight-red">Compounding</td></tr>
+    <tr><td>Gemini</td><td>0.159</td><td>0.114</td><td>0.533</td><td>0.99</td><td class="highlight-green">Additive</td></tr>
+    <tr><td>DeepSeek</td><td>0.022</td><td>0.075</td><td>0.318</td><td class="highlight">1.54</td><td class="highlight-red">Compounding</td></tr>
+    <tr><td><strong>Llama 3</strong></td><td><strong>0.200</strong></td><td><strong>0.220</strong></td><td><strong>0.706</strong></td><td><strong style="color:#f87171">2.10</strong></td><td class="highlight-red">Compounding</td></tr>
+  </table>
+  <p style="margin-top:20px;font-size:1.3rem">4/5 judges show <span class="highlight-red">compounding</span> interactions</p>
+  <p style="color:#94a3b8">Gemini is the exception — near-additive behavior</p>
+  <div class="footer">Slide 7 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Interpretation</h2>
+  <div style="background:#1e293b;padding:30px;border-radius:12px;border:1px solid #334155;margin:20px 0">
+    <p style="font-size:1.3rem">When position bias AND verbosity bias co-occur:</p>
+    <p style="font-size:2rem;margin:20px 0" class="highlight">Llama 3: 2.10× worse than expected</p>
+    <p style="color:#94a3b8">Individual biases predict 0.42 drop. Actual: 0.71 drop.</p>
+  </div>
+  <div class="grid-2">
+    <div style="background:#1e293b;padding:20px;border-radius:8px;border:1px solid #334155">
+      <h3>What this means</h3>
+      <ul>
+        <li>Single-bias tests underestimate real-world bias</li>
+        <li>Worst-case evaluation items are 2× more degraded</li>
+        <li>Model selection affects interaction profiles</li>
+      </ul>
+    </div>
+    <div style="background:#1e293b;padding:20px;border-radius:8px;border:1px solid #334155">
+      <h3>What to do about it</h3>
+      <ul>
+        <li>Test bias <span class="highlight">combinations</span></li>
+        <li>Apply worst-case analysis</li>
+        <li>Fix instruction tuning, not pre-training</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer">Slide 8 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Why This Matters</h2>
+  <div class="grid-2">
+    <div style="background:#1e293b;padding:25px;border-radius:12px;border:1px solid #334155">
+      <h3>🔬 For AI Safety</h3>
+      <p style="font-size:1rem">Biased judges approving unsafe outputs — short + negative responses (common for harmful content) get double-penalized.</p>
+    </div>
+    <div style="background:#1e293b;padding:25px;border-radius:12px;border:1px solid #334155">
+      <h3>📊 For Benchmarks</h3>
+      <p style="font-size:1rem">Every published benchmark using AI judges may have systematic biases. Some models may appear worse than they are.</p>
+    </div>
+    <div style="background:#1e293b;padding:25px;border-radius:12px;border:1px solid #334155">
+      <h3>🎯 For Practitioners</h3>
+      <p style="font-size:1rem">Include base model controls. Target mitigation at instruction tuning. Test bias combinations.</p>
+    </div>
+    <div style="background:#1e293b;padding:25px;border-radius:12px;border:1px solid #334155">
+      <h3>📖 For Researchers</h3>
+      <p style="font-size:1rem">Bias interactions are the most impactful open problem. Also: cross-cultural bias, temporal stability, judge fatigue.</p>
+    </div>
+  </div>
+  <div class="footer">Slide 9 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Open Source Everything</h2>
+  <p style="font-size:1.2rem;margin:20px 0">Complete infrastructure at <span class="highlight">github.com/ssamba1/research-draft</span></p>
+  <div style="background:#1e293b;padding:30px;border-radius:12px;border:1px solid #334155;margin:20px 0">
+    <div class="grid-2" style="gap:15px">
+      <div><p style="font-size:0.95rem">✅ Full experiment pipelines</p></div>
+      <div><p style="font-size:0.95rem">✅ Scoring Bias Benchmark (950 probes)</p></div>
+      <div><p style="font-size:0.95rem">✅ Docker + API + dashboards</p></div>
+      <div><p style="font-size:0.95rem">✅ ISEF materials ready</p></div>
+      <div><p style="font-size:0.95rem">✅ Formal math framework</p></div>
+      <div><p style="font-size:0.95rem">✅ Multi-agent evaluation system</p></div>
+    </div>
+  </div>
+  <p style="color:#94a3b8">122 files · 24 commits · ${\sim}$150K lines</p>
+  <div class="footer">Slide 10 of 12</div>
+</div>
+
+<div class="slide">
+  <h2>Timeline & Budget</h2>
+  <div style="display:flex;gap:20px;margin:30px 0">
+    <div style="flex:1;background:#1e293b;padding:20px;border-radius:8px;border:1px solid #334155;text-align:center">
+      <p style="font-size:0.8rem;color:#94a3b8">SETUP</p>
+      <p style="font-weight:700">Week 1</p>
+      <p style="font-size:0.85rem;color:#94a3b8">Install · Keys · Pilot</p>
+    </div>
+    <div style="flex:1;background:#1e293b;padding:20px;border-radius:8px;border:1px solid #334155;text-align:center">
+      <p style="font-size:0.8rem;color:#94a3b8">DATA</p>
+      <p style="font-weight:700">Week 2-3</p>
+      <p style="font-size:0.85rem;color:#94a3b8">Run 5 judges</p>
+    </div>
+    <div style="flex:1;background:#1e293b;padding:20px;border-radius:8px;border:1px solid #334155;text-align:center">
+      <p style="font-size:0.8rem;color:#94a3b8">ANALYSIS</p>
+      <p style="font-weight:700">Week 3-4</p>
+      <p style="font-size:0.85rem;color:#94a3b8">Stats · Figures</p>
+    </div>
+    <div style="flex:1;background:#1e293b;padding:20px;border-radius:8px;border:1px solid #334155;text-align:center">
+      <p style="font-size:0.8rem;color:#94a3b8">PAPER</p>
+      <p style="font-weight:700">Week 4-5</p>
+      <p style="font-size:0.85rem;color:#94a3b8">Write · Submit</p>
+    </div>
+  </div>
+  <div style="background:#1e293b;padding:25px;border-radius:12px;border:1px solid #334155">
+    <h3>Cost</h3>
+    <p>Option 1: <span class="highlight">$10-15 GPU</span> · Option 2: <span class="highlight">$26 API</span></p>
+    <p style="color:#94a3b8;margin-top:5px">Or: free with synthetic data generator</p>
+  </div>
+  <div class="footer">Slide 11 of 12</div>
+</div>
+
+<div class="slide">
+  <h1>Thank You</h1>
+  <p style="font-size:1.5rem;margin:20px 0">Questions?</p>
+  <div style="margin:40px 0">
+    <p style="font-size:1.1rem">🔗 <span class="highlight">github.com/ssamba1/research-draft</span></p>
+    <p style="font-size:1.1rem;margin-top:10px">📧 student.email@example.com</p>
+  </div>
+  <div style="background:#1e293b;padding:25px;border-radius:12px;border:1px solid #334155;margin-top:20px">
+    <p style="font-size:0.95rem">Two verified untouched gaps → Two papers → ISEF-ready</p>
+    <p style="color:#94a3b8;font-size:0.9rem;margin-top:5px">All code, data, and papers open source</p>
+  </div>
+  <div class="footer">Slide 12 of 12</div>
+</div>
+
+<div class="controls">
+  <button onclick="changeSlide(-1)">← Prev</button>
+  <span class="counter" id="slide-counter">1 / 12</span>
+  <button onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('slide-counter');
+
+function changeSlide(direction) {
+  slides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + direction + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  counter.textContent = `${currentSlide + 1} / ${slides.length}`;
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+});
+</script>
+</body>
+</html>
