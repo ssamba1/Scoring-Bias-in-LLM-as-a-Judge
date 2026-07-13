@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>Analysis Report</title>
+<style>body{font-family:sans-serif;max-width:900px;margin:auto;padding:20px;}
+table{border-collapse:collapse;width:100%;margin:10px 0}
+th,td{border:1px solid #ddd;padding:8px;text-align:left}
+th{background:#f5f5f5}
+h2{color:#333;border-bottom:2px solid #4CAF50;padding-bottom:5px}
+</style></head><body>
+<h1>Bias Interaction Experiment — Analysis Report</h1>
+<br>
+<h2>Overview</h2>
+<br>
+<tr><td>Judge</td><td>N</td><td>Mean</td><td>StDev</td><td>Baseline</td><td>Worst</td><td>Degradation</td></tr>
+</table><table>
+</thead><tbody>
+<tr><td>claude</td><td>3200</td><td>3.44</td><td>0.34</td><td>3.50</td><td>3.12</td><td>0.373</td></tr>
+<tr><td>deepseek</td><td>3200</td><td>3.47</td><td>0.34</td><td>3.49</td><td>3.17</td><td>0.318</td></tr>
+<tr><td>gemini</td><td>3200</td><td>3.41</td><td>0.40</td><td>3.51</td><td>2.97</td><td>0.533</td></tr>
+<tr><td>gpt4o</td><td>3200</td><td>3.45</td><td>0.29</td><td>3.48</td><td>3.14</td><td>0.341</td></tr>
+<tr><td>llama</td><td>3200</td><td>3.39</td><td>0.48</td><td>3.51</td><td>2.80</td><td>0.706</td></tr>
+<br>
+<h2>Bias Effects</h2>
+<br>
+<tr><td>Judge</td><td>Position Bias</td><td>Verbosity Bias</td><td>Combined</td><td>Interaction Ratio</td><td>Effect</td></tr>
+</table><table>
+</thead><tbody>
+<tr><td>claude</td><td>0.117</td><td>0.082</td><td>0.000</td><td>0.00</td><td>cancelling</td></tr>
+<tr><td>deepseek</td><td>0.022</td><td>0.075</td><td>0.000</td><td>0.00</td><td>cancelling</td></tr>
+<tr><td>gemini</td><td>0.159</td><td>0.114</td><td>0.000</td><td>0.00</td><td>cancelling</td></tr>
+<tr><td>gpt4o</td><td>0.060</td><td>0.076</td><td>0.000</td><td>0.00</td><td>cancelling</td></tr>
+<tr><td>llama</td><td>0.263</td><td>0.155</td><td>0.000</td><td>0.00</td><td>cancelling</td></tr>
+<br>
+<h2>Score Distribution</h2>
+<br>
+<tr><td>Judge</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+</table><table>
+</thead><tbody>
+<tr><td>claude</td><td>0</td><td>7</td><td>1627</td><td>1566</td><td>0</td></tr>
+<tr><td>deepseek</td><td>0</td><td>5</td><td>1516</td><td>1678</td><td>1</td></tr>
+<tr><td>gemini</td><td>0</td><td>54</td><td>1623</td><td>1520</td><td>3</td></tr>
+<tr><td>gpt4o</td><td>0</td><td>2</td><td>1560</td><td>1638</td><td>0</td></tr>
+<tr><td>llama</td><td>0</td><td>155</td><td>1534</td><td>1502</td><td>9</td></tr>
+<br>
+<h2>Key Findings</h2>
+<br>
+<li>**Cancelling biases**: claude, deepseek, gemini, gpt4o, llama — biases partially offset</li>
+<li>**Average degradation across judges**: 0.454</li>
+</tbody></table></body></html>
