@@ -1,0 +1,104 @@
+{
+  "llama3-8b-base": {
+    "model_type": "base",
+    "rubric_order": {
+      "mean_delta": 0.0,
+      "max_delta": 0,
+      "pct_affected": 0.0
+    },
+    "score_id": {
+      "variance": 0,
+      "max_gap": 0,
+      "mean_max_gap": 0.0
+    },
+    "reference_answer": {
+      "high_minus_low": 0.0,
+      "high_minus_none": 0.0
+    }
+  },
+  "llama3-8b-instruct": {
+    "model_type": "instruct",
+    "rubric_order": {
+      "mean_delta": 0.4,
+      "max_delta": 1,
+      "pct_affected": 40.0
+    },
+    "score_id": {
+      "variance": 0,
+      "max_gap": 1,
+      "mean_max_gap": 0.433
+    },
+    "reference_answer": {
+      "high_minus_low": 0.133,
+      "high_minus_none": 0.033
+    }
+  },
+  "mistral-7b-base": {
+    "model_type": "base",
+    "rubric_order": {
+      "mean_delta": 0.0,
+      "max_delta": 0,
+      "pct_affected": 0.0
+    },
+    "score_id": {
+      "variance": 0,
+      "max_gap": 0,
+      "mean_max_gap": 0.0
+    },
+    "reference_answer": {
+      "high_minus_low": 0.0,
+      "high_minus_none": 0.0
+    }
+  },
+  "mistral-7b-instruct": {
+    "model_type": "instruct",
+    "rubric_order": {
+      "mean_delta": 0.4,
+      "max_delta": 1,
+      "pct_affected": 40.0
+    },
+    "score_id": {
+      "variance": 0,
+      "max_gap": 1,
+      "mean_max_gap": 0.433
+    },
+    "reference_answer": {
+      "high_minus_low": 0.133,
+      "high_minus_none": 0.033
+    }
+  },
+  "gemma2-2b-base": {
+    "model_type": "base",
+    "rubric_order": {
+      "mean_delta": 0.0,
+      "max_delta": 0,
+      "pct_affected": 0.0
+    },
+    "score_id": {
+      "variance": 0,
+      "max_gap": 0,
+      "mean_max_gap": 0.0
+    },
+    "reference_answer": {
+      "high_minus_low": 0.0,
+      "high_minus_none": 0.0
+    }
+  },
+  "gemma2-2b-instruct": {
+    "model_type": "instruct",
+    "rubric_order": {
+      "mean_delta": 0.4,
+      "max_delta": 1,
+      "pct_affected": 40.0
+    },
+    "score_id": {
+      "variance": 0,
+      "max_gap": 1,
+      "mean_max_gap": 0.433
+    },
+    "reference_answer": {
+      "high_minus_low": 0.133,
+      "high_minus_none": 0.033
+    }
+  }
+}

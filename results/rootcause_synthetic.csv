@@ -1,0 +1,301 @@
+model,type,item_id,rubric_order_delta,score_id_variance,reference_answer_bias
+Llama 3 8B,base,0,0.0,0.17,0.02
+Llama 3 8B,base,1,0.1,0.18,0.06
+Llama 3 8B,base,2,0.4,0.2,0.07
+Llama 3 8B,base,3,0.5,0.14,0.11
+Llama 3 8B,base,4,0.4,0.15,0.13
+Llama 3 8B,base,5,0.3,0.07,0.07
+Llama 3 8B,base,6,0.2,0.06,0.06
+Llama 3 8B,base,7,0.2,0.07,0.05
+Llama 3 8B,base,8,0.3,0.05,0.12
+Llama 3 8B,base,9,0.0,0.13,0.1
+Llama 3 8B,base,10,0.5,0.1,0.01
+Llama 3 8B,base,11,0.6,0.05,0.08
+Llama 3 8B,base,12,0.0,0.02,0.08
+Llama 3 8B,base,13,0.0,0.12,0.04
+Llama 3 8B,base,14,0.1,0.05,0.11
+Llama 3 8B,base,15,0.1,0.14,0.03
+Llama 3 8B,base,16,0.3,0.2,0.13
+Llama 3 8B,base,17,0.5,0.17,0.1
+Llama 3 8B,base,18,0.3,0.17,0.08
+Llama 3 8B,base,19,0.2,0.21,0.16
+Llama 3 8B,base,20,0.3,0.14,0.16
+Llama 3 8B,base,21,0.1,0.18,0.14
+Llama 3 8B,base,22,0.0,0.19,0.06
+Llama 3 8B,base,23,0.5,0.11,0.14
+Llama 3 8B,base,24,0.4,0.2,0.1
+Llama 3 8B,base,25,0.2,0.1,0.01
+Llama 3 8B,base,26,0.6,0.07,0.02
+Llama 3 8B,base,27,0.1,0.03,0.14
+Llama 3 8B,base,28,0.2,0.03,0.1
+Llama 3 8B,base,29,0.3,0.03,0.04
+Llama 3 8B,base,30,0.3,0.13,0.13
+Llama 3 8B,base,31,0.2,0.2,0.04
+Llama 3 8B,base,32,0.2,0.2,0.11
+Llama 3 8B,base,33,0.3,0.03,0.02
+Llama 3 8B,base,34,0.4,0.07,0.13
+Llama 3 8B,base,35,0.2,0.09,0.02
+Llama 3 8B,base,36,0.2,0.05,0.06
+Llama 3 8B,base,37,0.2,0.13,0.06
+Llama 3 8B,base,38,0.2,0.2,0.1
+Llama 3 8B,base,39,0.3,0.14,0.04
+Llama 3 8B,base,40,0.4,0.2,0.12
+Llama 3 8B,base,41,0.4,0.09,0.05
+Llama 3 8B,base,42,0.5,0.02,0.08
+Llama 3 8B,base,43,0.2,0.02,0.1
+Llama 3 8B,base,44,0.2,0.21,0.07
+Llama 3 8B,base,45,0.6,0.1,0.09
+Llama 3 8B,base,46,0.3,0.13,0.13
+Llama 3 8B,base,47,0.4,0.12,0.09
+Llama 3 8B,base,48,0.3,0.04,0.05
+Llama 3 8B,base,49,0.2,0.17,0.08
+Llama 3 8B,instruct,0,0.3,0.25,0.11
+Llama 3 8B,instruct,1,0.6,0.29,0.19
+Llama 3 8B,instruct,2,0.0,0.2,0.22
+Llama 3 8B,instruct,3,0.1,0.33,0.24
+Llama 3 8B,instruct,4,0.3,0.17,0.21
+Llama 3 8B,instruct,5,0.2,0.32,0.11
+Llama 3 8B,instruct,6,0.8,0.14,0.15
+Llama 3 8B,instruct,7,0.3,0.16,0.24
+Llama 3 8B,instruct,8,0.7,0.15,0.12
+Llama 3 8B,instruct,9,0.5,0.13,0.13
+Llama 3 8B,instruct,10,0.5,0.24,0.17
+Llama 3 8B,instruct,11,0.6,0.22,0.24
+Llama 3 8B,instruct,12,0.1,0.15,0.14
+Llama 3 8B,instruct,13,0.3,0.25,0.19
+Llama 3 8B,instruct,14,0.3,0.3,0.17
+Llama 3 8B,instruct,15,0.4,0.14,0.15
+Llama 3 8B,instruct,16,0.3,0.28,0.23
+Llama 3 8B,instruct,17,0.1,0.25,0.25
+Llama 3 8B,instruct,18,0.3,0.23,0.23
+Llama 3 8B,instruct,19,1.2,0.21,0.2
+Llama 3 8B,instruct,20,0.7,0.2,0.15
+Llama 3 8B,instruct,21,0.3,0.19,0.14
+Llama 3 8B,instruct,22,0.8,0.15,0.2
+Llama 3 8B,instruct,23,0.1,0.14,0.21
+Llama 3 8B,instruct,24,0.5,0.27,0.16
+Llama 3 8B,instruct,25,0.2,0.14,0.12
+Llama 3 8B,instruct,26,0.3,0.29,0.19
+Llama 3 8B,instruct,27,0.1,0.17,0.15
+Llama 3 8B,instruct,28,0.7,0.15,0.18
+Llama 3 8B,instruct,29,0.7,0.14,0.18
+Llama 3 8B,instruct,30,0.6,0.26,0.15
+Llama 3 8B,instruct,31,0.7,0.24,0.13
+Llama 3 8B,instruct,32,0.7,0.2,0.23
+Llama 3 8B,instruct,33,0.1,0.24,0.17
+Llama 3 8B,instruct,34,0.5,0.28,0.14
+Llama 3 8B,instruct,35,0.4,0.19,0.17
+Llama 3 8B,instruct,36,0.8,0.19,0.24
+Llama 3 8B,instruct,37,0.2,0.19,0.15
+Llama 3 8B,instruct,38,0.9,0.29,0.11
+Llama 3 8B,instruct,39,0.8,0.2,0.22
+Llama 3 8B,instruct,40,0.1,0.3,0.13
+Llama 3 8B,instruct,41,0.7,0.14,0.16
+Llama 3 8B,instruct,42,0.7,0.17,0.11
+Llama 3 8B,instruct,43,0.0,0.16,0.13
+Llama 3 8B,instruct,44,0.6,0.32,0.22
+Llama 3 8B,instruct,45,0.7,0.26,0.18
+Llama 3 8B,instruct,46,0.7,0.25,0.16
+Llama 3 8B,instruct,47,0.6,0.27,0.12
+Llama 3 8B,instruct,48,1.0,0.23,0.25
+Llama 3 8B,instruct,49,0.4,0.2,0.11
+Mistral 7B,base,0,0.8,0.01,0.08
+Mistral 7B,base,1,0.0,0.15,0.16
+Mistral 7B,base,2,0.5,0.04,0.1
+Mistral 7B,base,3,0.1,0.17,0.01
+Mistral 7B,base,4,0.3,0.21,0.07
+Mistral 7B,base,5,0.2,0.17,0.02
+Mistral 7B,base,6,0.7,0.02,0.09
+Mistral 7B,base,7,0.5,0.1,0.04
+Mistral 7B,base,8,0.4,0.09,0.12
+Mistral 7B,base,9,0.2,0.2,0.1
+Mistral 7B,base,10,0.2,0.11,0.05
+Mistral 7B,base,11,0.3,0.16,0.08
+Mistral 7B,base,12,0.1,0.16,0.15
+Mistral 7B,base,13,0.2,0.09,0.05
+Mistral 7B,base,14,0.4,0.08,0.03
+Mistral 7B,base,15,0.7,0.03,0.15
+Mistral 7B,base,16,0.5,0.1,0.12
+Mistral 7B,base,17,0.3,0.2,0.11
+Mistral 7B,base,18,0.3,0.03,0.07
+Mistral 7B,base,19,0.4,0.06,0.05
+Mistral 7B,base,20,0.4,0.11,0.01
+Mistral 7B,base,21,0.2,0.08,0.03
+Mistral 7B,base,22,0.2,0.15,0.11
+Mistral 7B,base,23,0.2,0.13,0.07
+Mistral 7B,base,24,0.1,0.07,0.1
+Mistral 7B,base,25,0.1,0.17,0.04
+Mistral 7B,base,26,0.3,0.04,0.1
+Mistral 7B,base,27,0.6,0.19,0.01
+Mistral 7B,base,28,0.4,0.17,0.12
+Mistral 7B,base,29,0.0,0.09,0.08
+Mistral 7B,base,30,0.6,0.18,0.06
+Mistral 7B,base,31,0.2,0.19,0.15
+Mistral 7B,base,32,0.3,0.17,0.04
+Mistral 7B,base,33,0.0,0.02,0.1
+Mistral 7B,base,34,0.4,0.12,0.01
+Mistral 7B,base,35,0.5,0.17,0.11
+Mistral 7B,base,36,0.5,0.04,0.08
+Mistral 7B,base,37,0.0,0.18,0.12
+Mistral 7B,base,38,0.3,0.09,0.1
+Mistral 7B,base,39,0.0,0.19,0.11
+Mistral 7B,base,40,0.3,0.07,0.09
+Mistral 7B,base,41,0.3,0.06,0.07
+Mistral 7B,base,42,0.3,0.02,0.02
+Mistral 7B,base,43,0.4,0.16,0.06
+Mistral 7B,base,44,0.3,0.19,0.13
+Mistral 7B,base,45,0.3,0.04,0.04
+Mistral 7B,base,46,0.0,0.2,0.16
+Mistral 7B,base,47,0.3,0.09,0.13
+Mistral 7B,base,48,0.1,0.21,0.09
+Mistral 7B,base,49,0.1,0.12,0.15
+Mistral 7B,instruct,0,0.5,0.28,0.1
+Mistral 7B,instruct,1,1.0,0.12,0.2
+Mistral 7B,instruct,2,0.6,0.14,0.23
+Mistral 7B,instruct,3,0.4,0.25,0.18
+Mistral 7B,instruct,4,0.0,0.19,0.1
+Mistral 7B,instruct,5,0.5,0.19,0.21
+Mistral 7B,instruct,6,1.1,0.16,0.18
+Mistral 7B,instruct,7,0.1,0.24,0.11
+Mistral 7B,instruct,8,0.4,0.21,0.16
+Mistral 7B,instruct,9,0.2,0.24,0.12
+Mistral 7B,instruct,10,1.0,0.23,0.22
+Mistral 7B,instruct,11,0.3,0.15,0.21
+Mistral 7B,instruct,12,0.5,0.19,0.12
+Mistral 7B,instruct,13,0.8,0.3,0.24
+Mistral 7B,instruct,14,0.3,0.13,0.1
+Mistral 7B,instruct,15,0.1,0.31,0.2
+Mistral 7B,instruct,16,0.4,0.12,0.19
+Mistral 7B,instruct,17,0.2,0.13,0.11
+Mistral 7B,instruct,18,0.5,0.16,0.14
+Mistral 7B,instruct,19,0.1,0.13,0.19
+Mistral 7B,instruct,20,0.2,0.27,0.17
+Mistral 7B,instruct,21,0.4,0.27,0.21
+Mistral 7B,instruct,22,0.6,0.17,0.12
+Mistral 7B,instruct,23,0.3,0.24,0.12
+Mistral 7B,instruct,24,0.1,0.22,0.18
+Mistral 7B,instruct,25,0.3,0.24,0.11
+Mistral 7B,instruct,26,0.3,0.24,0.21
+Mistral 7B,instruct,27,0.4,0.27,0.16
+Mistral 7B,instruct,28,0.8,0.23,0.23
+Mistral 7B,instruct,29,0.4,0.14,0.24
+Mistral 7B,instruct,30,0.8,0.27,0.15
+Mistral 7B,instruct,31,0.0,0.23,0.22
+Mistral 7B,instruct,32,0.5,0.31,0.18
+Mistral 7B,instruct,33,0.4,0.29,0.15
+Mistral 7B,instruct,34,0.5,0.21,0.15
+Mistral 7B,instruct,35,1.1,0.21,0.16
+Mistral 7B,instruct,36,0.1,0.14,0.14
+Mistral 7B,instruct,37,0.1,0.13,0.2
+Mistral 7B,instruct,38,0.1,0.17,0.19
+Mistral 7B,instruct,39,0.0,0.2,0.12
+Mistral 7B,instruct,40,0.9,0.18,0.18
+Mistral 7B,instruct,41,0.6,0.29,0.23
+Mistral 7B,instruct,42,0.9,0.17,0.11
+Mistral 7B,instruct,43,0.1,0.17,0.17
+Mistral 7B,instruct,44,0.2,0.27,0.11
+Mistral 7B,instruct,45,0.2,0.28,0.15
+Mistral 7B,instruct,46,0.1,0.12,0.21
+Mistral 7B,instruct,47,0.5,0.3,0.23
+Mistral 7B,instruct,48,0.7,0.21,0.13
+Mistral 7B,instruct,49,0.9,0.21,0.12
+Gemma 2 2B,base,0,0.4,0.09,0.13
+Gemma 2 2B,base,1,0.1,0.04,0.1
+Gemma 2 2B,base,2,0.1,0.06,0.12
+Gemma 2 2B,base,3,0.1,0.05,0.08
+Gemma 2 2B,base,4,0.5,0.21,0.14
+Gemma 2 2B,base,5,0.3,0.04,0.07
+Gemma 2 2B,base,6,0.1,0.21,0.03
+Gemma 2 2B,base,7,0.3,0.15,0.15
+Gemma 2 2B,base,8,0.0,0.19,0.03
+Gemma 2 2B,base,9,0.2,0.2,0.13
+Gemma 2 2B,base,10,0.7,0.18,0.03
+Gemma 2 2B,base,11,0.0,0.03,0.03
+Gemma 2 2B,base,12,0.2,0.03,0.16
+Gemma 2 2B,base,13,0.5,0.22,0.03
+Gemma 2 2B,base,14,0.1,0.14,0.07
+Gemma 2 2B,base,15,0.6,0.05,0.11
+Gemma 2 2B,base,16,0.2,0.14,0.15
+Gemma 2 2B,base,17,0.1,0.08,0.16
+Gemma 2 2B,base,18,0.3,0.17,0.16
+Gemma 2 2B,base,19,0.3,0.05,0.09
+Gemma 2 2B,base,20,0.4,0.04,0.16
+Gemma 2 2B,base,21,0.1,0.08,0.03
+Gemma 2 2B,base,22,0.4,0.15,0.05
+Gemma 2 2B,base,23,0.4,0.08,0.17
+Gemma 2 2B,base,24,0.4,0.11,0.1
+Gemma 2 2B,base,25,0.1,0.2,0.04
+Gemma 2 2B,base,26,0.0,0.08,0.1
+Gemma 2 2B,base,27,0.2,0.06,0.1
+Gemma 2 2B,base,28,0.0,0.2,0.16
+Gemma 2 2B,base,29,0.0,0.22,0.07
+Gemma 2 2B,base,30,0.7,0.18,0.11
+Gemma 2 2B,base,31,0.2,0.05,0.03
+Gemma 2 2B,base,32,0.4,0.11,0.06
+Gemma 2 2B,base,33,0.2,0.15,0.07
+Gemma 2 2B,base,34,0.3,0.07,0.05
+Gemma 2 2B,base,35,0.3,0.13,0.07
+Gemma 2 2B,base,36,0.0,0.12,0.12
+Gemma 2 2B,base,37,0.4,0.14,0.15
+Gemma 2 2B,base,38,0.1,0.04,0.14
+Gemma 2 2B,base,39,0.0,0.22,0.02
+Gemma 2 2B,base,40,0.3,0.21,0.12
+Gemma 2 2B,base,41,0.3,0.06,0.02
+Gemma 2 2B,base,42,0.2,0.07,0.14
+Gemma 2 2B,base,43,0.1,0.04,0.05
+Gemma 2 2B,base,44,0.1,0.05,0.09
+Gemma 2 2B,base,45,0.5,0.14,0.15
+Gemma 2 2B,base,46,0.1,0.11,0.14
+Gemma 2 2B,base,47,0.0,0.05,0.05
+Gemma 2 2B,base,48,0.1,0.2,0.16
+Gemma 2 2B,base,49,0.3,0.08,0.12
+Gemma 2 2B,instruct,0,0.4,0.19,0.26
+Gemma 2 2B,instruct,1,0.4,0.28,0.24
+Gemma 2 2B,instruct,2,0.5,0.32,0.22
+Gemma 2 2B,instruct,3,0.3,0.14,0.15
+Gemma 2 2B,instruct,4,0.3,0.14,0.17
+Gemma 2 2B,instruct,5,0.3,0.33,0.23
+Gemma 2 2B,instruct,6,0.4,0.25,0.11
+Gemma 2 2B,instruct,7,1.0,0.31,0.18
+Gemma 2 2B,instruct,8,0.5,0.29,0.12
+Gemma 2 2B,instruct,9,0.4,0.32,0.26
+Gemma 2 2B,instruct,10,0.4,0.26,0.25
+Gemma 2 2B,instruct,11,0.3,0.29,0.15
+Gemma 2 2B,instruct,12,0.8,0.16,0.17
+Gemma 2 2B,instruct,13,0.5,0.33,0.2
+Gemma 2 2B,instruct,14,0.2,0.21,0.18
+Gemma 2 2B,instruct,15,0.2,0.15,0.19
+Gemma 2 2B,instruct,16,0.1,0.14,0.22
+Gemma 2 2B,instruct,17,0.8,0.19,0.21
+Gemma 2 2B,instruct,18,0.2,0.27,0.2
+Gemma 2 2B,instruct,19,0.9,0.33,0.17
+Gemma 2 2B,instruct,20,0.5,0.23,0.17
+Gemma 2 2B,instruct,21,0.3,0.2,0.15
+Gemma 2 2B,instruct,22,0.0,0.15,0.14
+Gemma 2 2B,instruct,23,0.6,0.31,0.14
+Gemma 2 2B,instruct,24,0.7,0.17,0.12
+Gemma 2 2B,instruct,25,1.1,0.28,0.13
+Gemma 2 2B,instruct,26,0.2,0.31,0.12
+Gemma 2 2B,instruct,27,0.4,0.14,0.25
+Gemma 2 2B,instruct,28,0.7,0.21,0.11
+Gemma 2 2B,instruct,29,0.0,0.32,0.19
+Gemma 2 2B,instruct,30,0.6,0.32,0.13
+Gemma 2 2B,instruct,31,0.6,0.16,0.25
+Gemma 2 2B,instruct,32,0.8,0.33,0.25
+Gemma 2 2B,instruct,33,0.6,0.33,0.2
+Gemma 2 2B,instruct,34,0.5,0.31,0.24
+Gemma 2 2B,instruct,35,0.6,0.25,0.18
+Gemma 2 2B,instruct,36,0.5,0.33,0.15
+Gemma 2 2B,instruct,37,0.1,0.29,0.25
+Gemma 2 2B,instruct,38,0.7,0.24,0.12
+Gemma 2 2B,instruct,39,0.5,0.14,0.2
+Gemma 2 2B,instruct,40,0.5,0.15,0.16
+Gemma 2 2B,instruct,41,0.9,0.25,0.14
+Gemma 2 2B,instruct,42,0.7,0.15,0.23
+Gemma 2 2B,instruct,43,0.2,0.21,0.25
+Gemma 2 2B,instruct,44,0.1,0.32,0.22
+Gemma 2 2B,instruct,45,0.1,0.22,0.23
+Gemma 2 2B,instruct,46,0.4,0.21,0.2
+Gemma 2 2B,instruct,47,0.6,0.2,0.22
+Gemma 2 2B,instruct,48,0.1,0.28,0.13
+Gemma 2 2B,instruct,49,0.4,0.15,0.26
