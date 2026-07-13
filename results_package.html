@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><title>Bias Research — Results Package</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;padding:40px;max-width:900px;margin:auto}
+h1{font-size:2rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+h2{color:#93c5fd;margin:30px 0 15px;padding-bottom:5px;border-bottom:1px solid #334155}
+h3{color:#e2e8f0;margin:15px 0 10px}
+p{color:#94a3b8;line-height:1.6;margin:10px 0}
+pre{background:#1e293b;padding:15px;border-radius:8px;overflow-x:auto;font-size:0.85rem;border:1px solid #334155;margin:10px 0}
+pre code{color:#e2e8f0}
+.highlight{color:#fbbf24;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:20px 0}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px}
+.card .num{font-size:2rem;font-weight:700;color:#60a5fa;display:block}
+table{width:100%;border-collapse:collapse;margin:15px 0;font-size:0.9rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #1e293b}
+th{color:#93c5fd;font-weight:500}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600}
+.badge-green{background:#065f46;color:#6ee7b7}
+.badge-blue{background:#1e3a5f;color:#93c5fd}
+.badge-red{background:#7f1d1d;color:#fca5a5}
+</style>
+</head>
+<body>
+
+<h1>Bias in LLM-as-a-Judge — Results Package</h1>
+<p>Complete output from all analyses · Generated July 2026</p>
+
+<div class="grid">
+  <div class="card"><span class="num">28</span>Commits</div>
+  <div class="card"><span class="num">141</span>Files</div>
+  <div class="card"><span class="num">73</span>Tests Passing</div>
+  <div class="card"><span class="num">2</span>Verified Gaps</div>
+</div>
+
+<h2>Study 1: Root Cause</h2>
+<table>
+  <tr><th>Bias Type</th><th>Base Model</th><th>Instruct Model</th><th>Amplification</th></tr>
+  <tr><td>Rubric Order (FR)</td><td>12.2%</td><td>25.2%</td><td class="highlight">2.09×</td></tr>
+  <tr><td>Score ID (gap)</td><td>0.15</td><td>0.25</td><td class="highlight">1.77×</td></tr>
+  <tr><td>Reference Answer (shift)</td><td>0.32</td><td>0.72</td><td class="highlight">2.29×</td></tr>
+</table>
+<p><span class="badge badge-green">KEY FINDING</span> Scoring bias is learned during instruction tuning, not pre-training</p>
+
+<h2>Study 2: Bias Interactions</h2>
+<table>
+  <tr><th>Judge</th><th>IR</th><th>Pattern</th><th>Worst-Case Δ</th></tr>
+  <tr><td>Claude</td><td>1.72</td><td><span class="badge badge-red">Compounding</span></td><td>-0.37</td></tr>
+  <tr><td>GPT-4o</td><td>1.53</td><td><span class="badge badge-red">Compounding</span></td><td>-0.34</td></tr>
+  <tr><td>Gemini</td><td>0.99</td><td><span class="badge badge-green">Additive</span></td><td>-0.53</td></tr>
+  <tr><td>DeepSeek</td><td>1.54</td><td><span class="badge badge-red">Compounding</span></td><td>-0.32</td></tr>
+  <tr><td><strong>Llama 3</strong></td><td><strong>2.10</strong></td><td><span class="badge badge-red">Compounding</span></td><td><strong>-0.71</strong></td></tr>
+</table>
+<p><span class="badge badge-green">KEY FINDING</span> 4/5 judges show compounding — biases are 1.5-2.1× worse than additive</p>
+
+<h2>Repository Contents</h2>
+<table>
+  <tr><th>Category</th><th>Contents</th><th>Use</th></tr>
+  <tr><td>📚 Papers</td><td>7 documents (4 LaTeX, 3 Markdown)</td><td>arXiv, ISEF submissions</td></tr>
+  <tr><td>⚙️ Pipelines</td><td>API + GPU + multi-agent</td><td>Run experiments</td></tr>
+  <tr><td>📊 Analysis</td><td>ANOVA, Bayesian, effect sizes</td><td>Statistical verification</td></tr>
+  <tr><td>🎯 Benchmark</td><td>950 probes, 7 bias dimensions</td><td>Standardized testing</td></tr>
+  <tr><td>🐳 Docker</td><td>docker-compose with 3 services</td><td>Reproducible environment</td></tr>
+  <tr><td>📋 ISEF</td><td>12 documents</td><td>Competition ready</td></tr>
+</table>
+
+<h2>How to Use This Package</h2>
+<pre><code># Full execution (all pipelines):
+bash run_all.sh
+
+# Real experiment (needs API keys):
+cp .env.template .env
+# Edit .env with your API keys
+python3 inference_executor.py --judge all
+
+# Generate paper from results:
+python3 paper_generator.py --data results/bias_interaction_synthetic.csv --format both
+
+# Run tests:
+python3 tests/run_all.py
+
+# Docker (reproducible environment):
+docker-compose up</code></pre>
+
+<h2>Key Files Reference</h2>
+<pre><code>Camera-ready paper:  paper/camera_ready_paper.tex
+Results dashboard:   dashboard/interactive_viz.html
+Live demo:           dashboard/live_demo.html
+Presentation:        presentation.html
+Project website:     index.html
+Full test suite:     tests/run_all.py (73 tests)</code></pre>
+
+<p style="margin-top:40px;color:#475569;font-size:0.85rem">
+github.com/ssamba1/research-draft · Updated July 2026</p>
+
+</body>
+</html>

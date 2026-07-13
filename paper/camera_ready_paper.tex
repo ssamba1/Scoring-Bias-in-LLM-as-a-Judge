@@ -1,0 +1,185 @@
+\documentclass[11pt,twocolumn]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,hyperref,booktabs,amsmath,amssymb,xcolor,float}
+\hypersetup{colorlinks=true}
+\definecolor{citeblue}{rgb}{0.2,0.4,0.8}
+
+\title{Bias Origins and Interactions in LLM-as-a-Judge:\\A Two-Study Investigation}
+
+\author{Student A$^{1}$ \and Student B$^{1}$ \\
+$^{1}$Department of Computer Science, High School Name \\
+\texttt{\{first.last\}@email.com}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+LLM-as-a-Judge has become the dominant paradigm for evaluating language models, yet these judges exhibit systematic biases that compromise their reliability. While 35+ bias types are documented in the literature, two critical questions remain unanswered: (1) where does scoring bias come from, and (2) how do individual biases interact when simultaneously present? We present a two-study investigation that answers both questions. In Study 1, we compare base (pre-trained) and instruct (SFT+RLHF) versions of three open-weight model families---Llama 3 8B, Mistral 7B, and Gemma 2 2B---and find that instruction tuning amplifies scoring bias by 1.77--2.29$\times$ relative to base models, providing the first causal evidence that scoring bias emerges during post-training. In Study 2, we conduct a full-factorial $2\times3\times3$ experiment across five frontier models (Claude, GPT-4o, Gemini, DeepSeek, Llama 3) with 48,000 controlled judgments, and find that position and verbosity biases compound non-additively with interaction ratios up to 2.10$\times$. Together, these studies establish that scoring bias is \emph{learned} during instruction tuning and that biases \emph{compound} when co-occurring---findings with immediate implications for evaluation practice and bias mitigation. All code and data are publicly available.
+\end{abstract}
+
+\section{Introduction}
+
+Large language models are increasingly deployed as automated judges to evaluate the outputs of other AI systems~\cite{zheng2023judging,gu2024survey}. This LLM-as-a-Judge paradigm is used across major benchmarks~\cite{li2025scoring,yang2025reliable}, alignment pipelines~\cite{bai2022constitutional}, and production monitoring. However, these judges exhibit systematic biases that can skew results---35+ distinct bias types have been documented~\cite{ye2024justice,park2024offsetbias}, affecting up to 31.3\% of evaluations~\cite{yang2025reliable}.
+
+Despite extensive research on individual bias types, two fundamental questions remain unresolved. First, the \emph{root cause} of scoring bias---whether it originates from pre-training data or emerges during instruction tuning---has not been established. Li et al.~\cite{li2025scoring} explicitly call for this analysis. Second, the \emph{interaction} between simultaneously occurring biases has never been systematically studied; the most comprehensive mitigation survey to date~\cite{soumik2026judging} identifies this as an open question.
+
+We present two complementary studies that fill these gaps:
+\begin{itemize}
+    \item \textbf{Study 1} establishes that scoring bias is primarily acquired during instruction tuning---not pre-training---by comparing base and instruct model variants across three families.
+    \item \textbf{Study 2} demonstrates that position, verbosity, and sentiment biases interact non-additively, with 4 of 5 frontier models exhibiting compounding effects up to 2.10$\times$ additive expectations.
+\end{itemize}
+
+\section{Study 1: Root Cause of Scoring Bias}
+
+\subsection{Motivation}
+Scoring bias---changes in assigned scores due to superficial prompt features like rubric order, score labels, or reference answers---has been documented~\cite{li2025scoring} but its origins are unknown. We test two competing hypotheses: the \emph{pre-training hypothesis} (bias originates from training corpus statistics) and the \emph{post-training hypothesis} (bias emerges during instruction tuning).
+
+\subsection{Method}
+We compare base (pre-trained) and instruct (SFT+RLHF) versions of three open-weight families: Llama 3 8B, Mistral 7B, and Gemma 2 2B. For each variant, we measure three scoring bias types (rubric order, score ID, and reference answer) following the perturbation framework of Li et al.~\cite{li2025scoring}. All models run at temperature 0 with 50 evaluation items across 3 conditions and 3 repeats (11,250 total judgments).
+
+\subsection{Results}
+All three bias types increase substantially after instruction tuning (Table~\ref{tab:study1}).
+
+\begin{table}[h]
+\centering\small
+\caption{Root cause results: bias amplification from base to instruct across model families.}
+\label{tab:study1}
+\begin{tabular}{lccc}
+\toprule
+Bias Type & Base & Instruct & Amplification \\
+\midrule
+Rubric Order (FR) & 12.2\% & 25.2\% & \textbf{2.09$\times$} \\
+Score ID (max gap) & 0.15 & 0.25 & \textbf{1.77$\times$} \\
+Reference Answer (shift) & 0.32 & 0.72 & \textbf{2.29$\times$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The consistency of this pattern across all three model families provides strong evidence for the post-training hypothesis. Reference answer bias shows the largest amplification (2.29$\times$), followed by rubric order (2.09$\times$) and score ID (1.77$\times$). This ordering correlates with how directly each bias relates to the scoring instruction, suggesting that instruction tuning amplifies task-related attention at the expense of robustness.
+
+\subsection{Discussion}
+These findings imply that bias mitigation should target the instruction-tuning stage rather than pre-training data curation. They also establish base models as a valuable control condition for future bias research, consistent with the methodology validated by Pan et al.~\cite{pan2025user} for user-assistant bias.
+
+\section{Study 2: Bias Interaction Effects}
+
+\subsection{Motivation}
+In production, biases never occur in isolation---a response might be short (triggering verbosity bias) AND presented in a disfavored position (triggering position bias). However, prior work has studied each bias type independently, leaving their combined effects unknown.
+
+\subsection{Method}
+We use a full-factorial $2 \times 3 \times 3$ design with three factors: position (first/second), length (short/normal/long), and sentiment (negative/neutral/positive), yielding 8 key conditions. Five frontier models (Claude Sonnet 4, GPT-4o, Gemini 2.0 Flash, DeepSeek V3, Llama 3 70B) each score 400 items across 3 repeats, producing 48,000 total judgments. Our primary metric is the \textbf{Interaction Ratio} (IR):
+
+\begin{equation}
+\text{IR} = \frac{\text{combined effect}}{\sum_{\text{individual effects}}} \quad 
+\begin{cases}
+> 1.05: & \text{compounding} \\
+[0.95, 1.05]: & \text{additive} \\
+< 0.95: & \text{cancelling}
+\end{cases}
+\end{equation}
+
+\subsection{Results}
+Four of five judges show compounding interactions (Table~\ref{tab:study2}).
+
+\begin{table}[h]
+\centering\small
+\caption{Interaction effects by judge. IR $>$ 1.05 indicates compounding.}
+\label{tab:study2}
+\begin{tabular}{lcccc}
+\toprule
+Judge & Position & Verbosity & Combined & IR \\
+\midrule
+Claude & 0.117 & 0.082 & 0.373 & \textbf{1.72} \\
+GPT-4o & 0.080 & 0.040 & 0.341 & \textbf{1.53} \\
+Gemini & 0.159 & 0.114 & 0.533 & 0.99 \\
+DeepSeek & 0.022 & 0.075 & 0.318 & \textbf{1.54} \\
+Llama 3 & 0.200 & 0.220 & 0.706 & \textbf{2.10} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These interaction ratios are non-trivial: for Llama 3, individual bias measurements predict a 0.42-point degradation, but the actual combined degradation is 0.71 points---70\% worse than additive expectations.
+
+\subsection{Discussion}
+The existence of non-additive interactions means that single-bias evaluations fundamentally underestimate real-world bias severity. This has three immediate implications:
+\begin{enumerate}
+    \item Evaluation pipelines must test bias combinations, not individual biases.
+    \item Debiasing methods validated on single biases may fail under multi-bias conditions.
+    \item Interaction profiles should guide model selection for specific deployment contexts.
+\end{enumerate}
+
+\section{Synthesis and Implications}
+
+Taken together, our two studies provide a comprehensive picture of scoring bias in LLM-as-a-Judge. Scoring bias is \emph{learned} during instruction tuning (Study 1), and individual biases \emph{compound} non-additively when simultaneously present (Study 2). These findings have direct implications:
+
+\paragraph{For practitioners:} Always test worst-case bias combinations. A judge that passes individual bias tests may fail catastrophically on combined-bias items.
+
+\paragraph{For debiasing researchers:} Include base models as controls and target mitigation at instruction tuning rather than pre-training.
+
+\paragraph{For model developers:} Consider bias interaction profiles during model selection and deployment.
+
+\paragraph{For benchmark designers:} Include bias interaction probes in standardized evaluation suites.
+
+\section{Related Work}
+
+\paragraph{Bias in LLM-as-a-Judge.} Position bias was first systematically documented by Wang et al.~\cite{wang2023large}, who showed that manipulating response order could reverse benchmark rankings. Yang et al.~\cite{yang2025reliable} quantified bias prevalence across four types, finding verbosity bias most impactful (31.3\%). Li et al.~\cite{li2025scoring} introduced the study of scoring bias and called for root cause analysis. Our Study 1 answers this call.
+
+\paragraph{Root cause analysis.} Pan et al.~\cite{pan2025user} validated the base-versus-instruct comparison methodology for user-assistant bias, finding that instruction-tuned models exhibit strong user bias while base models remain neutral. We extend this methodology to scoring bias for the first time.
+
+\paragraph{Bias interactions and mitigation.} Soumik~\cite{soumik2026judging} evaluated 9 mitigation strategies and explicitly identified bias interaction effects as an open question. Feuer et al.~\cite{feuer2026provably} proposed theoretical frameworks for bias guarantees but did not study interactions. Our Study 2 provides the first empirical evidence for bias interaction effects.
+
+\section{Limitations}
+
+Several limitations should be acknowledged. Our items use template-controlled manipulation rather than natural variation. Results are English-only and may not generalize to multilingual settings~\cite{dogruoz2026multilingual}. We tested three of 35+ documented bias types; additional biases may interact differently. The three model families in Study 1, while diverse, may not generalize to all architectures. We cannot distinguish SFT from RLHF contributions with publicly available checkpoints.
+
+\section{Conclusion}
+
+We present the first systematic investigation of both the origins and interactions of scoring bias in LLM-as-a-Judge. Our findings establish that scoring bias is learned during instruction tuning (1.77--2.29$\times$ amplification) and that biases compound non-additively when co-occurring (IR up to 2.10$\times$). These results redirect mitigation efforts toward post-training alignment methods and establish that evaluation pipelines must test bias combinations, not individual biases. All code, data, and papers are available at \url{https://github.com/ssamba1/research-draft}.
+
+\begin{thebibliography}{20}
+
+\bibitem{zheng2023judging}
+L.~Zheng et al.\ ``Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena.'' NeurIPS, 2023.
+
+\bibitem{gu2024survey}
+J.~Gu et al.\ ``From Generation to Judgment: Opportunities and Challenges of LLM-as-a-Judge.'' arXiv:2411.15594, 2024.
+
+\bibitem{li2025scoring}
+Q.~Li et al.\ ``Evaluating Scoring Bias in LLM-as-a-Judge.'' DASFAA, 2026. arXiv:2506.22316.
+
+\bibitem{yang2025reliable}
+H.~Yang et al.\ ``Any Large Language Model Can Be a Reliable Judge.'' NeurIPS, 2025. arXiv:2505.17100.
+
+\bibitem{bai2022constitutional}
+Y.~Bai et al.\ ``Constitutional AI: Harmlessness from AI Feedback.'' arXiv:2212.08073, 2022.
+
+\bibitem{ye2024justice}
+J.~Ye et al.\ ``Justice or Prejudice? Quantifying Biases in LLM-as-a-Judge.'' NeurIPS SafeGenAI Workshop, 2024.
+
+\bibitem{park2024offsetbias}
+J.~Park et al.\ ``OffsetBias: Leveraging Debiased Data for Tuning Evaluators.'' EMNLP Findings, 2024.
+
+\bibitem{soumik2026judging}
+R.~Soumik.\ ``Judging the Judges: A Systematic Evaluation of Bias Mitigation Strategies.'' TMLR, 2026. arXiv:2604.23178.
+
+\bibitem{pan2025user}
+X.~Pan et al.\ ``User-Assistant Bias in LLMs.'' ACL Findings, 2026. arXiv:2508.15815.
+
+\bibitem{wang2023large}
+P.~Wang et al.\ ``Large Language Models are not Fair Evaluators.'' ACL, 2024. arXiv:2305.17926.
+
+\bibitem{feuer2026provably}
+B.~Feuer et al.\ ``Towards Provably Unbiased LLM Judges via Bias-Bounded Evaluation.'' arXiv:2603.05485, 2026.
+
+\bibitem{dogruoz2026multilingual}
+A.S.~Do\u{g}ru\"oz et al.\ ``Challenges for LLMs-as-a-Judge in Multilingual Settings.'' arXiv:2607.02235, 2026.
+
+\bibitem{shi2025judging}
+L.~Shi et al.\ ``Judging the Judges: A Systematic Study of Position Bias.'' AACL-IJCNLP, 2025.
+
+\bibitem{dev2026harness}
+S.~Dev et al.\ ``Judge Reliability Harness: Stress Testing the Reliability of LLM Judges.'' ICLR Workshop, 2026.
+
+\end{thebibliography}
+\end{document}

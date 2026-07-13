@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><title>Publication Figures</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;max-width:1000px;margin:auto;padding:20px}
+h2{color:#93c5fd;margin:30px 0 15px}
+canvas{max-height:300px;margin:15px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+</style></head><body>
+<h1>Publication Figures — Bias in LLM-as-a-Judge</h1>
+<div class='grid'>
+<div><h2>Interaction Ratios</h2><canvas id='c1'></canvas></div>
+<div><h2>Baseline vs Worst</h2><canvas id='c2'></canvas></div>
+</div>
+<div><h2>Bias Effect Sizes</h2><canvas id='c3' style='max-height:200px'></canvas></div>
+
+<script>
+const d = [{"j": "claude", "pb": 0.2650000000000001, "vb": 0.1825000000000001, "sb": 0.22999999999999998, "co": 0.48, "ir": 0.7084870848708484, "ba": 3.48, "wo": 3.0}, {"j": "deepseek", "pb": 0.10750000000000037, "vb": 0.1974999999999998, "sb": 0.19750000000000023, "co": 0.41500000000000004, "ir": 0.8258706467661686, "ba": 3.47, "wo": 3.055}, {"j": "gemini", "pb": 0.31000000000000005, "vb": 0.3075000000000001, "sb": 0.3450000000000002, "co": 0.5150000000000001, "ir": 0.535064935064935, "ba": 3.52, "wo": 3.005}, {"j": "gpt4o", "pb": 0.23999999999999977, "vb": 0.15500000000000025, "sb": 0.3275000000000001, "co": 0.45500000000000007, "ir": 0.629757785467128, "ba": 3.46, "wo": 3.005}, {"j": "llama", "pb": 0.36250000000000027, "vb": 0.32499999999999973, "sb": 0.31499999999999995, "co": 1.2475, "ir": 1.2443890274314215, "ba": 3.535, "wo": 2.2875}];
+const judges = d.map(x=>x.j);
+const jColors = {claude:'#4C72B0',gpt4o:'#DD8452',gemini:'#55A868',deepseek:'#C44E52',llama:'#8172B2'};
+
+new Chart('c1',{type:'bar',data:{labels:judges,
+  datasets:[{label:'Interaction Ratio',data:d.map(x=>x.ir),
+    backgroundColor:judges.map(j=>d.find(x=>x.j==j).ir>1.05?'#f8717180':'#6ee7b780'),
+    borderColor:judges.map(j=>d.find(x=>x.j==j).ir>1.05?'#f87171':'#6ee7b7'),borderWidth:2}]},
+  options:{responsive:true,scales:{y:{min:0,grid:{color:'#334155'}}},
+  plugins:{annotation:{annotations:{line:{type:'line',yMin:1,yMax:1,borderColor:'red',borderWidth:2,borderDash:[5,5]}}}}}});
+
+new Chart('c2',{type:'bar',data:{labels:judges,
+  datasets:[{label:'Baseline',data:d.map(x=>x.ba),backgroundColor:'#55A86880',borderColor:'#55A868',borderWidth:2},
+  {label:'Worst Case',data:d.map(x=>x.wo),backgroundColor:'#C44E5280',borderColor:'#C44E52',borderWidth:2}]},
+  options:{responsive:true,scales:{y:{min:2.5,max:4,grid:{color:'#334155'}}}}});
+
+new Chart('c3',{type:'bar',data:{labels:judges,
+  datasets:[{label:'Position',data:d.map(x=>x.pb),backgroundColor:'#4C72B080'},
+    {label:'Verbosity',data:d.map(x=>x.vb),backgroundColor:'#DD845280'},
+    {label:'Sentiment',data:d.map(x=>x.sb),backgroundColor:'#55A86880'}]},
+  options:{responsive:true,scales:{y:{min:0,grid:{color:'#334155'}}}}});
+</script></body></html>
