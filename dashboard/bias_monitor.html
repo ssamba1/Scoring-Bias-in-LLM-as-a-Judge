@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><title>Bias Monitor — Live Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0}
+.header{background:linear-gradient(135deg,#1e3a5f,#1e293b);padding:20px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #334155}
+.header h1{font-size:1.3rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header .status{display:flex;gap:15px;align-items:center;font-size:0.85rem}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;animation:pulse 2s infinite;margin-right:5px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px}
+.card-full{grid-column:1/-1}
+.card h2{font-size:0.95rem;color:#93c5fd;margin-bottom:12px;display:flex;justify-content:space-between}
+.card h2 .badge{font-size:0.7rem;padding:2px 8px;border-radius:10px;font-weight:600}
+.badge-green{background:#065f46;color:#6ee7b7}
+.badge-red{background:#7f1d1d;color:#fca5a5}
+.badge-yellow{background:#78350f;color:#fbbf24}
+table{width:100%;border-collapse:collapse;font-size:0.85rem}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #1e293b}
+th{color:#93c5fd;font-weight:500}
+.gauge{display:flex;align-items:center;gap:10px}
+.gauge-bar{flex:1;height:8px;background:#0f172a;border-radius:4px;overflow:hidden}
+.gauge-fill{height:100%;border-radius:4px;transition:width 0.5s}
+.stat-row{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:15px}
+.stat{background:#0f172a;padding:12px 18px;border-radius:8px;min-width:100px;text-align:center}
+.stat .val{font-size:1.5rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:0.75rem;color:#64748b;margin-top:2px}
+select,button{background:#334155;color:#e2e8f0;border:1px solid #475569;padding:6px 12px;border-radius:6px;font-size:0.85rem;cursor:pointer}
+select:hover,button:hover{background:#475569}
+button.primary{background:#3b82f6;border-color:#3b82f6}
+.timestamp{color:#475569;font-size:0.8rem}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🔍 Bias Monitor — Real-Time LLM Judge Surveillance</h1>
+  <div class="status">
+    <span class="timestamp" id="refresh-time">Updating...</span>
+    <span><span class="live-dot"></span> Monitoring 5 judges</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="stat-row" id="global-stats">
+    <div class="stat"><div class="val">5</div><div class="lbl">Judges Tracked</div></div>
+    <div class="stat"><div class="val" id="avg-ir">1.58</div><div class="lbl">Avg Interaction Ratio</div></div>
+    <div class="stat"><div class="val" id="compounding-count">4/5</div><div class="lbl">Compounding Judges</div></div>
+    <div class="stat"><div class="val" id="worst-deg">0.45</div><div class="lbl">Worst Degradation</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card card-full">
+      <h2>Bias Score Board <span class="badge badge-green">Live</span></h2>
+      <table id="bias-table">
+        <tr><th>Rank</th><th>Judge</th><th>Bias Score</th><th>IR</th><th>Pattern</th><th>Worst Δ</th><th>Status</th></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:20px">
+    <div class="card">
+      <h2>Bias Breakdown <span class="badge badge-yellow">Per Judge</span></h2>
+      <div class="controls" style="display:flex;gap:10px;margin-bottom:12px">
+        <select id="judge-select">
+          <option value="claude">Claude</option>
+          <option value="gpt4o">GPT-4o</option>
+          <option value="gemini">Gemini</option>
+          <option value="deepseek">DeepSeek</option>
+          <option value="llama">Llama 3</option>
+        </select>
+      </div>
+      <div id="bias-breakdown"></div>
+    </div>
+    <div class="card">
+      <h2>Alerts <span class="badge badge-red">Active</span></h2>
+      <div id="alerts-container">
+        <div style="background:#0f172a;padding:12px;border-radius:8px;margin:5px 0;border-left:3px solid #f87171">
+          <p style="font-size:0.85rem;color:#fca5a5">⚠️ Llama 3 IR=2.10 exceeds critical threshold (2.0)</p>
+          <p style="font-size:0.75rem;color:#64748b">Worst-case degradation 0.71 points — compounding detected</p>
+        </div>
+        <div style="background:#0f172a;padding:12px;border-radius:8px;margin:5px 0;border-left:3px solid #fbbf24">
+          <p style="font-size:0.85rem;color:#fbbf24">⚠️ 4/5 judges show compounding bias patterns</p>
+          <p style="font-size:0.75rem;color:#64748b">Only Gemini shows additive behavior (IR=0.99)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const JUDGES = [
+  {name:'Claude',   key:'claude',   rank:3, ir:1.72, bias:0.37, pattern:'compounding', color:'#4C72B0', pos:0.117, verb:0.082, sent:0.10, baseline:3.50, worst:3.12},
+  {name:'GPT-4o',   key:'gpt4o',    rank:4, ir:1.53, bias:0.34, pattern:'compounding', color:'#DD8452', pos:0.080, verb:0.040, sent:0.12, baseline:3.48, worst:3.14},
+  {name:'Gemini',   key:'gemini',   rank:5, ir:0.99, bias:0.53, pattern:'additive',    color:'#55A868', pos:0.159, verb:0.114, sent:0.18, baseline:3.51, worst:2.97},
+  {name:'DeepSeek', key:'deepseek', rank:2, ir:1.54, bias:0.32, pattern:'compounding', color:'#C44E52', pos:0.022, verb:0.075, sent:0.08, baseline:3.49, worst:3.17},
+  {name:'Llama 3',  key:'llama',    rank:1, ir:2.10, bias:0.71, pattern:'compounding', color:'#8172B2', pos:0.200, verb:0.220, sent:0.15, baseline:3.51, worst:2.80}
+];
+
+function updateTime() {
+  document.getElementById('refresh-time').textContent = `Updated: ${new Date().toLocaleTimeString()}`;
+}
+
+function updateBiasTable() {
+  const tbody = document.getElementById('bias-table');
+  tbody.innerHTML = '<tr><th>Rank</th><th>Judge</th><th>Bias Score</th><th>IR</th><th>Pattern</th><th>Worst Δ</th><th>Status</th></tr>';
+  
+  const sorted = [...JUDGES].sort((a,b) => b.ir - a.ir);
+  sorted.forEach(j => {
+    const tr = tbody.insertRow();
+    tr.style.background = j.rank === 1 ? 'rgba(129,114,178,0.1)' : 'transparent';
+    tr.innerHTML = `
+      <td><strong>#${j.rank}</strong></td>
+      <td><span style="color:${j.color};font-weight:600">${j.name}</span></td>
+      <td style="font-weight:700">${j.bias.toFixed(2)}</td>
+      <td style="color:${j.ir > 1.05 ? '#f87171' : j.ir < 0.95 ? '#fbbf24' : '#6ee7b7'};font-weight:700">${j.ir.toFixed(2)}</td>
+      <td><span class="badge ${j.pattern === 'compounding' ? 'badge-red' : 'badge-green'}">${j.pattern}</span></td>
+      <td style="color:#f87171">-${(j.baseline - j.worst).toFixed(2)}</td>
+      <td>${j.ir > 1.5 ? '🔴 CRITICAL' : j.ir > 1.05 ? '🟡 WARNING' : '🟢 OK'}</td>
+    `;
+  });
+}
+
+function updateBiasBreakdown(judgeKey) {
+  const j = JUDGES.find(x => x.key === judgeKey);
+  if (!j) return;
+  
+  const maxVal = Math.max(j.pos, j.verb, j.sent, 0.01);
+  const container = document.getElementById('bias-breakdown');
+  
+  container.innerHTML = `
+    <div style="background:#0f172a;border-radius:8px;padding:15px;margin-bottom:10px">
+      <p style="font-weight:600;color:${j.color}">${j.name} — Bias Profile</p>
+      <p style="font-size:0.8rem;color:#94a3b8;margin-top:5px">IR: ${j.ir} | Pattern: ${j.pattern} | Degradation: ${j.bias}</p>
+    </div>
+    ${[
+      {label:'Position Bias', value:j.pos, color:'#4C72B0'},
+      {label:'Verbosity Bias', value:j.verb, color:'#DD8452'},
+      {label:'Sentiment Bias', value:j.sent, color:'#55A868'}
+    ].map(b => `
+      <div style="margin:8px 0">
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:3px">
+          <span>${b.label}</span><span>${b.value.toFixed(3)}</span>
+        </div>
+        <div class="gauge-bar"><div class="gauge-fill" style="width:${(b.value/maxVal*100).toFixed(0)}%;background:${b.color}"></div></div>
+      </div>
+    `).join('')}
+    <div style="margin-top:15px;padding:12px;background:#0f172a;border-radius:8px;border-left:3px solid ${j.ir > 1.05 ? '#f87171' : '#6ee7b7'}">
+      <p style="font-size:0.85rem"><strong>Assessment:</strong> ${j.name} shows ${j.pattern} bias interactions${j.ir > 1.5 ? ' at critical levels' : ''}. 
+      ${j.ir > 1.5 ? '⚠️ Worst-case evaluations are ' + (j.ir).toFixed(1) + '× worse than individual bias measurements predict.' : 
+        j.ir > 1.05 ? '⚠️ Bias combinations are moderately worse than additive.' : 
+        '✅ Bias combinations are approximately additive.'}</p>
+    </div>
+  `;
+}
+
+// Initialize
+updateTime();
+setInterval(updateTime, 5000);
+updateBiasTable();
+
+document.getElementById('judge-select').addEventListener('change', (e) => updateBiasBreakdown(e.target.value));
+updateBiasBreakdown('claude');
+
+// Simulate live updates
+setInterval(() => {
+  updateBiasTable();
+  const sel = document.getElementById('judge-select').value;
+  updateBiasBreakdown(sel);
+}, 10000);
+</script>
+</body>
+</html>

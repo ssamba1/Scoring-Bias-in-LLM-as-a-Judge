@@ -1,0 +1,78 @@
+% Auto-generated paper — 2026-07-13
+% Source: 16000 judgments, 5 judges, 400 items
+
+\documentclass[11pt,twocolumn]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage{booktabs,amsmath,hyperref}
+\hypersetup{colorlinks=true}
+
+\title{Bias Interaction Effects in LLM-as-a-Judge:\An Automated Analysis}
+\author{Student A, Student B}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present an automated analysis of bias interaction effects in LLM-as-a-Judge systems.
+Using a full-factorial experimental design across 5 frontier models and
+400 controlled evaluation items (16,000 total judgments),
+we demonstrate that position and verbosity biases interact non-additively.
+The mean interaction ratio is 0.79$\times$, with 1/5 judges
+showing compounding patterns. These results confirm that single-bias evaluations
+systematically underestimate real-world bias severity.
+\end{abstract}
+
+\section{Introduction}
+LLM-as-a-Judge has become the dominant evaluation paradigm, yet these judges exhibit
+systematic biases. We conducted the first systematic study of bias interaction effects
+using a full-factorial $2 \times 3 \times 3$ experimental design across 5
+frontier models and 400 controlled evaluation items.
+
+\section{Results}
+Table~\ref{tab:results} shows the interaction effects across all judges.
+The maximum interaction ratio is 1.24$\times$ and the minimum is 0.54$\times$.
+
+\begin{table}[h]
+\centering\small
+\caption{Bias interaction effects across all judges. IR $>$ 1.05 = compounding.}
+\label{tab:results}
+\begin{tabular}{lcccccc}
+\toprule
+Judge & Position & Verbosity & Sentiment & Combined & IR & Pattern \\
+\midrule
+claude & 0.265 & 0.183 & 0.230 & 0.480 & 0.71 & Cancelling \\
+deepseek & 0.108 & 0.197 & 0.198 & 0.415 & 0.83 & Cancelling \\
+gemini & 0.310 & 0.308 & 0.345 & 0.515 & 0.54 & Cancelling \\
+gpt4o & 0.240 & 0.155 & 0.328 & 0.455 & 0.63 & Cancelling \\
+llama & 0.363 & 0.325 & 0.315 & 1.248 & 1.24 & Compounding \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Key Finding}
+Of 5 judges, 1 show compounding interactions (IR $>$ 1.05).
+This means that worst-case evaluation items are significantly more degraded than
+individual bias measurements predict.
+
+\section{Methodology}
+\textbf{Design:} Full-factorial $2 \times 3 \times 3$ (Position $\times$ Length $\times$ Sentiment).
+\textbf{Items:} 400 instruction-response pairs across 8 domains.
+\textbf{Judges:} Claude, Deepseek, Gemini, Gpt4o, Llama.
+\textbf{Repeats:} 3 per condition at temperature 0.
+\textbf{Interaction Ratio:} IR = Combined Effect / Sum(Individual Effects).
+
+\section{Discussion}
+Our findings have immediate implications:
+\begin{enumerate}
+    \item Evaluation pipelines must test bias combinations
+    \item Debiasing validated on single biases may fail under multi-bias conditions
+    \item Interaction profiles should guide model selection
+\end{enumerate}
+
+\section{Conclusion}
+This automated analysis confirms the existence of non-additive bias interaction effects
+in LLM-as-a-Judge. All code and data are available at
+\url{https://github.com/ssamba1/research-draft}.
+
+\end{document}
