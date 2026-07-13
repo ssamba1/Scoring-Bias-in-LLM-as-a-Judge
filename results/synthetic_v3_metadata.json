@@ -54,43 +54,43 @@
   "verification": {
     "claude": {
       "target_ir": 1.72,
-      "empirical_ir": 1.037,
-      "baseline": 3.5,
-      "worst": 3.005,
-      "position_bias": 0.308,
-      "verbosity_bias": 0.17
+      "empirical_ir": 1.073,
+      "baseline": 3.48,
+      "worst": 3.0,
+      "position_bias": 0.265,
+      "verbosity_bias": 0.183
     },
     "gpt4o": {
       "target_ir": 1.53,
-      "empirical_ir": 1.25,
-      "baseline": 3.44,
-      "worst": 3.002,
-      "position_bias": 0.225,
-      "verbosity_bias": 0.125
+      "empirical_ir": 1.152,
+      "baseline": 3.46,
+      "worst": 3.005,
+      "position_bias": 0.24,
+      "verbosity_bias": 0.155
     },
     "gemini": {
       "target_ir": 0.99,
-      "empirical_ir": 0.737,
-      "baseline": 3.493,
-      "worst": 3.002,
-      "position_bias": 0.308,
-      "verbosity_bias": 0.357
+      "empirical_ir": 0.834,
+      "baseline": 3.52,
+      "worst": 3.005,
+      "position_bias": 0.31,
+      "verbosity_bias": 0.308
     },
     "deepseek": {
       "target_ir": 1.54,
-      "empirical_ir": 1.414,
-      "baseline": 3.48,
-      "worst": 3.07,
-      "position_bias": 0.06,
-      "verbosity_bias": 0.23
+      "empirical_ir": 1.361,
+      "baseline": 3.47,
+      "worst": 3.055,
+      "position_bias": 0.108,
+      "verbosity_bias": 0.197
     },
     "llama": {
       "target_ir": 2.1,
-      "empirical_ir": 1.709,
-      "baseline": 3.498,
-      "worst": 2.263,
-      "position_bias": 0.353,
-      "verbosity_bias": 0.37
+      "empirical_ir": 1.815,
+      "baseline": 3.535,
+      "worst": 2.288,
+      "position_bias": 0.363,
+      "verbosity_bias": 0.325
     }
   },
   "n_records": 16000
