@@ -1,7 +1,41 @@
 # Paper Reading Notes — Extracted from Full-Text Reading
 
-## Paper 1: Li et al. 2025 — "Evaluating Scoring Bias in LLM-as-a-Judge"
-**arXiv:2506.22316 · DASFAA 2026 · 27 citations**
+## Paper 1: Li et al. 2025 — Full Methodology (Extended)
+
+### Exact Metrics
+1. **Flip Rate (FP):** % of scores that change when rubric is perturbed
+2. **Mean Absolute Deviation (MAD):** Average |score_original - score_perturbed|
+3. **Spearman's ρ and Pearson's r:** Correlation with golden (human/advanced LLM) scores
+4. **Scoring Tendency:** Distribution of scores across the 1-5 scale
+
+### Exact Prompt Template
+```
+Task Description...
+### Reference Answer (Score 5): {reference}
+### Score Rubrics: [{criteria}]
+Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
+### The instruction to evaluate: {instruction}
+### Response to evaluate: {response}
+### Feedback:
+```
+
+### Perturbations (Exact)
+1. **Rubric order:** Ascending-Numeric (1→5), Descending-Numeric (5→1), Random-Numeric
+2. **Score ID:** Arabic numerals {1,2,3,4,5}, Letter-Grades {E,D,C,B,A}, Roman-Numerals {i,ii,iii,iv,v}
+3. **Reference answer:** Ref-5 (reference scored 5), Ref-3 (reference scored 3), No reference
+
+### Models tested (ALL instruct/chat — NO base models):
+- GPT-4o (closed-source, large)
+- DeepSeek-V3-671B (open-weight, large)
+- Qwen3-32B, Qwen3-8B (open-weight, mid/small)
+- Mistral-Small-24B-Instruct-2501 (open-weight, mid)
+
+### Key numeric results:
+- Descending rubric order causes 20-46% of scores to flip (FP)
+- Letter-Grades and Roman-Numerals cause 15-30% flip rates
+- Ref-5 causes 35-48% flip rates — the largest effect
+- Smaller models (Qwen3-8B) show MORE scoring bias than larger ones
+- **Implication:** Model size affects bias susceptibility
 
 ### Key Methodological Details
 - **Models tested:** GPT-4o, DeepSeek-V3-671B, Qwen3-32B, Qwen3-8B, Mistral-Small-24B-Instruct-2501
