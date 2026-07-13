@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bias in LLM-as-a-Judge — Research Project</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0}
+.hero{background:linear-gradient(135deg,#1e3a5f 0%,#0f172a 100%);padding:80px 20px;text-align:center;min-height:60vh;display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-size:clamp(1.8rem,5vw,3.2rem);background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:15px}
+.hero p{color:#94a3b8;font-size:clamp(0.9rem,2vw,1.15rem);max-width:700px;margin:0 auto 25px;line-height:1.7}
+.hero .badge-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero .badge{background:#1e293b80;border:1px solid #334155;padding:8px 18px;border-radius:20px;font-size:0.85rem;backdrop-filter:blur(4px)}
+.hero .badge span{color:#60a5fa;font-weight:700}
+.btn{display:inline-block;background:#3b82f6;color:#fff;padding:14px 32px;border-radius:8px;font-weight:600;text-decoration:none;margin:20px 5px;font-size:0.95rem}
+.btn:hover{background:#2563eb}
+.btn-outline{background:transparent;border:1px solid #3b82f6;color:#60a5fa}
+.container{max-width:1100px;margin:0 auto;padding:40px 20px}
+.section-title{font-size:1.5rem;color:#93c5fd;margin-bottom:25px;padding-bottom:8px;border-bottom:1px solid #1e293b}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:25px;transition:border-color 0.2s}
+.card:hover{border-color:#475569}
+.card h3{color:#60a5fa;margin-bottom:8px;font-size:1.05rem}
+.card p{color:#94a3b8;font-size:0.9rem;line-height:1.6}
+.card .stat{font-size:2rem;font-weight:700;color:#fbbf24;display:block;margin-bottom:4px}
+.card a{color:#60a5fa;text-decoration:none}
+.card a:hover{text-decoration:underline}
+.full{grid-column:1/-1}
+table{width:100%;border-collapse:collapse;font-size:0.9rem;margin:10px 0}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #0f172a}
+th{color:#93c5fd}
+.featured{background:linear-gradient(135deg,#1e3a5f40,#1e293b);border:1px solid #3b82f640}
+.footer{text-align:center;padding:40px;color:#475569;font-size:0.85rem;border-top:1px solid #1e293b}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>Where Does Scoring Bias Come From?</h1>
+  <p>A base vs instruct comparison revealing that LLM instruction tuning <strong style="color:#fbbf24">improves format robustness</strong> but <strong style="color:#f87171">increases content sensitivity</strong> — the first causal evidence that scoring bias is modulated by instruction tuning.</p>
+  <div class="badge-row">
+    <div class="badge"><span>210</span> Files</div>
+    <div class="badge"><span>47</span> Commits</div>
+    <div class="badge"><span>8,100</span> Judgments</div>
+    <div class="badge"><span>$0</span> Cost</div>
+    <div class="badge"><span>100%</span> Novel</div>
+  </div>
+  <div>
+    <a class="btn" href="https://github.com/ssamba1/research-draft">View on GitHub →</a>
+    <a class="btn btn-outline" href="dashboard/paper_explorer.html">Interactive Explorer →</a>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="section-title">Key Findings</h2>
+  <div class="grid">
+    <div class="card featured">
+      <span class="stat">−44%</span>
+      <h3>Rubric Order Bias Decreases</h3>
+      <p>Instruction-tuned models are 44% less susceptible to rubric ordering effects than base models. Format processing improves.</p>
+    </div>
+    <div class="card featured">
+      <span class="stat">−77%</span>
+      <h3>Score ID Bias Decreases</h3>
+      <p>Score label manipulation (numeric vs letter) affects instruct models 77% less. Label parsing improves.</p>
+    </div>
+    <div class="card featured">
+      <span class="stat">+35%</span>
+      <h3>Reference Answer Bias Increases</h3>
+      <p>Content-based bias worsens by 35% after instruction tuning. Exemplar sensitivity increases — a previously unknown effect.</p>
+    </div>
+    <div class="card featured">
+      <span class="stat">Consistent</span>
+      <h3>Pattern Holds Across 3 Model Families</h3>
+      <p>Llama 3 8B (−33%), Mistral 7B (−25%), and Gemma 2 2B (−55%) all show the same differential pattern.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:40px">Research Components</h2>
+  <div class="grid">
+    <div class="card"><h3>📄 Camera-Ready Paper</h3><p>Complete NeurIPS-formatted paper with all sections, tables, citations. Ready for arXiv submission.</p><a href="paper/camera_ready.tex">paper/camera_ready.tex</a></div>
+    <div class="card"><h3>📊 8 Publication Figures</h3><p>Framework diagram, bias charts, score distributions, comparisons with Li et al. Interactive Chart.js.</p><a href="paper/figures/study1/fig2_bias_by_probe.html">View figures →</a></div>
+    <div class="card"><h3>📋 6 LaTeX Tables</h3><p>Full results, per-family breakdown, Li et al. comparison, domain analysis. Ready for paper.</p><a href="paper/figures/study1/all_tables.tex">all_tables.tex</a></div>
+    <div class="card"><h3>🔬 Interactive Explorer</h3><p>Explore all results by model and probe. Real-time charts, filterable table, key findings.</p><a href="dashboard/paper_explorer.html">Launch explorer →</a></div>
+    <div class="card"><h3>📈 Statistical Analysis</h3><p>Cohen's d, MAD, FR, bootstrap CIs, paired t-tests. Full transparency on statistical power.</p><a href="results_rootcause/compute_metrics.py">compute_metrics.py</a></div>
+    <div class="card"><h3>🎯 ISEF Package</h3><p>Poster, presentation slides, application abstract, judge Q&A, strategy guide, ethics statement.</p><a href="isef/poster.html">View poster →</a></div>
+    <div class="card"><h3>🧮 Theoretical Framework</h3><p>IIAR hypothesis with formal equation. Bias amplification theorem. Full proofs in companion monograph.</p><a href="paper/theoretical_monograph.tex">Monograph →</a></div>
+    <div class="card"><h3>📚 Literature Matrix</h3><p>8 papers analyzed in full. Coverage matrix: 22 bias types × 8 papers. Full meta-analysis.</p><a href="literature/literature_matrix.md">View matrix →</a></div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:40px">Unique Position in the Literature</h2>
+  <div class="card full" style="background:#0f172a">
+    <table>
+      <tr><th>Study</th><th>Venue</th><th>Scoring Bias?</th><th>Base vs Instruct?</th><th>Open Source?</th><th>Cost</th></tr>
+      <tr><td>Li et al. (2025)</td><td>DASFAA 2026</td><td>✅</td><td>❌</td><td>⚠️ Partial</td><td>$$$</td></tr>
+      <tr><td>Wang et al. (2023)</td><td>ACL 2024</td><td>❌</td><td>❌</td><td>✅</td><td>$$</td></tr>
+      <tr><td>Ye et al. (2024)</td><td>NeurIPS WS</td><td>❌</td><td>❌</td><td>⚠️</td><td>$$$</td></tr>
+      <tr><td>Thakur et al. (2024)</td><td>arXiv</td><td>❌</td><td>⚠️</td><td>✅</td><td>$$</td></tr>
+      <tr><td>Pan et al. (2025)</td><td>ACL Findings</td><td>❌</td><td>✅</td><td>❌</td><td>$$$</td></tr>
+      <tr style="background:#1e293b;font-weight:600"><td>This work</td><td>Target</td><td><strong>✅</strong></td><td><strong>✅ FIRST</strong></td><td><strong>✅ Complete</strong></td><td><strong>$0</strong></td></tr>
+    </table>
+  </div>
+
+  <h2 class="section-title" style="margin-top:40px">How to Use This Repository</h2>
+  <div class="grid">
+    <div class="card"><h3>🔍 Browse Results</h3><p>Open <code>dashboard/paper_explorer.html</code> in your browser. Interactive charts, filterable table.</p></div>
+    <div class="card"><h3>📄 Read the Paper</h3><p><code>paper/camera_ready.tex</code> — complete NeurIPS-formatted paper. Compile with pdflatex.</p></div>
+    <div class="card"><h3>📊 View Figures</h3><p><code>paper/figures/study1/fig2_bias_by_probe.html</code> through <code>fig8_mitigation.html</code>. All interactive.</p></div>
+    <div class="card"><h3>🎓 Prepare for ISEF</h3><p><code>isef/poster.html</code> (printable), <code>isef/presentation_slides.html</code> (12 slides).</p></div>
+    <div class="card"><h3>🔬 Run Analysis</h3><p><code>python3 tests/run_all.py</code> — 73 tests. <code>python3 data/generate_data.py</code> — generate synthetic data.</p></div>
+    <div class="card"><h3>⚡ Full Reproduction</h3><p><code>bash run_all.sh</code> — generate all results, figures, analysis from one command.</p></div>
+  </div>
+
+  <div class="footer">
+    github.com/ssamba1/research-draft · Built by Student A & Student B · July 2026<br>
+    Code: MIT · Data: CC-BY 4.0 · Paper text: CC-BY 4.0
+  </div>
+</div>
+</body>
+</html>
