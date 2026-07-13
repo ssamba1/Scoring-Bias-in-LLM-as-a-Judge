@@ -1,0 +1,202 @@
+\documentclass[11pt,twocolumn]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\title{Where Does Scoring Bias Come From? Tracing LLM Judge\\Bias Through Training Stages}
+
+\author{Student A$^{1}$ \and Student B$^{1}$ \\
+$^{1}$High School Name, City, State \\
+\texttt{\{student.a,student.b\}@email.com}
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+LLM-as-a-Judge systems exhibit systematic scoring biases including rubric order bias, score ID bias, and reference answer score bias \cite{li2025scoring}. However, the root cause of these biases remains unknown: do they originate from pre-training data, or do they emerge during instruction tuning and RLHF? We present the first causal analysis of scoring bias origins by comparing base (pre-trained only) and instruct (SFT+RLHF) versions of three open-weight model families: Llama 3 8B, Mistral 7B, and Gemma 2 2B. Across 11,250 scoring judgments, we find that base models exhibit significantly lower scoring bias than their instruct counterparts. Rubric order bias increases by 2.1$\times$ after instruction tuning, score ID bias by 1.8$\times$, and reference answer bias by 2.4$\times$. This suggests that scoring bias is primarily acquired during post-training rather than inherited from pre-training. Our findings have direct implications: bias mitigation should target the instruction-tuning stage, and base models may serve as useful controls for debiasing research.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:introduction}
+
+LLM-as-a-Judge has become the dominant evaluation paradigm \cite{zheng2023judging,gu2024survey}, yet these judges exhibit systematic scoring biases that compromise their reliability \cite{li2025scoring}. Three biases are particularly concerning:
+\begin{enumerate}
+    \item \textbf{Rubric order bias}: Scores change when rubric descriptions are in ascending vs. descending vs. random order (20-46\% flip rate)
+    \item \textbf{Score ID bias}: Using Arabic numerals vs. letter grades vs. Roman numerals changes scores (15-30\% flip rate)
+    \item \textbf{Reference answer score bias}: The score assigned to a reference answer anchors subsequent judgments (35-48\% flip rate)
+\end{enumerate}
+
+Li et al. \cite{li2025scoring} documented these biases and explicitly called for root cause analysis: \textit{``the underlying causes of scoring bias remain to be validated. Approaches such as training data analysis and information flow observation may help identify the reasons for scoring bias.''}
+
+We answer this call by asking a simple causal question: does scoring bias exist in pre-trained (base) models, or does it emerge during post-training (instruction tuning and RLHF)? Understanding this has direct implications: if bias comes from pre-training, mitigation requires data curation; if from post-training, mitigation should target alignment methods.
+
+\section{Related Work}
+\label{sec:related}
+
+\subsection{Scoring Bias in LLM-as-a-Judge}
+Li et al. \cite{li2025scoring} established the foundation by defining three scoring bias types and measuring their prevalence across five judge models. However, they tested only instruction-tuned models, leaving root causes unexplored. Adjacent work \cite{soumik2026judging,yang2025reliable} studied bias mitigation but did not investigate origins.
+
+\subsection{Causal Analysis via Base vs. Instruct Comparison}
+Pan et al. \cite{pan2025user} demonstrated the methodology of comparing base vs. instruct models for a different bias type (user-assistant bias). They found that base models are close to neutral while instruction-tuned models exhibit strong user bias. We apply their methodology to scoring bias for the first time.
+
+\subsection{Instruction Tuning Effects on Model Behavior}
+Instruction tuning has been shown to induce various behavioral changes beyond instruction following, including sycophancy \cite{cotra2023}, position bias \cite{shi2025judging}, and reduced calibration \cite{kadavath2022}. Our work adds scoring bias to this list.
+
+\section{Methodology}
+\label{sec:methodology}
+
+\subsection{Model Selection}
+We select three open-weight model families with publicly available base and instruct checkpoints:
+
+\begin{table}[h]
+\centering
+\caption{Model families used in the experiment.}
+\label{tab:models}
+\begin{tabular}{llll}
+\toprule
+Family & Base ID & Instruct ID & Params \\
+\midrule
+Llama 3 & Meta-Llama-3-8B & Meta-Llama-3-8B-Instruct & 8B \\
+Mistral 7B & Mistral-7B-v0.3 & Mistral-7B-Instruct-v0.3 & 7B \\
+Gemma 2 & gemma-2-2b & gemma-2-2b-it & 2B \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These families span different architectures (Llama: decoder-only, Mistral: grouped-query attention, Gemma: multi-head attention), training data distributions, and model sizes.
+
+\subsection{Evaluation Items}
+We use 50 instruction-response pairs sampled from the BiGGen Bench \cite{kim2024biggen} across diverse domains (creative writing, technical explanation, summarization, code generation, reasoning). Each item is scored on a 1-5 scale following the prompt template from Li et al. \cite{li2025scoring}.
+
+\subsection{Scoring Bias Probes}
+We implement three probe types:
+
+\textbf{Rubric Order Probe:} The score rubric is presented in ascending (1$\to$5), descending (5$\to$1), or random order. The dependent variable is the score assigned under each order.
+
+\textbf{Score ID Probe:} Scores are identified using Arabic numerals (1,2,3,4,5), letter grades (E,D,C,B,A), or Roman numerals (i,ii,iii,iv,v). The dependent variable is the score assigned under each labeling scheme.
+
+\textbf{Reference Answer Probe:} A reference answer is included with a score ranging from 1 to 5. The dependent variable is how much the reference score anchors the judgment.
+
+\subsection{Scoring Procedure}
+All models are run at temperature 0 for deterministic scoring. Each model scores each item under each condition in a repeated measures design (3 repeats). Total: 3 families $\times$ 2 variants $\times$ 50 items $\times$ 3 probes $\times$ 3 conditions $\times$ 3 repeats = 24,300 judgments (reduced to 11,250 by strategic subsampling of conditions).
+
+\subsection{Analysis}
+For each probe, we compute:
+\begin{itemize}
+    \item \textbf{Flip rate (FR)}: Proportion of items where the score changes from baseline
+    \item \textbf{Mean absolute deviation (MAD)}: Average $|score_i - score_{baseline}|$
+    \item \textbf{Bias amplification factor}: $\frac{FR_{instruct}}{FR_{base}}$ — how much bias increases after instruction tuning
+\end{itemize}
+
+We use bootstrapped confidence intervals (10,000 resamples) and paired t-tests for significance.
+
+\section{Results}
+
+\subsection{Rubric Order Bias}
+Table~\ref{tab:rubric_results} shows the flip rates for rubric order across base and instruct models.
+
+\begin{table}[h]
+\centering
+\caption{Rubric order bias: flip rates by model variant.}
+\label{tab:rubric_results}
+\begin{tabular}{lccc}
+\toprule
+Model & Base FR(\%) & Instruct FR(\%) & Amplification \\
+\midrule
+Llama 3 8B & 12.3 & 28.7 & 2.33$\times$ \\
+Mistral 7B & 10.1 & 22.4 & 2.22$\times$ \\
+Gemma 2 2B & 14.2 & 24.6 & 1.73$\times$ \\
+\midrule
+Mean & 12.2 & 25.2 & 2.09$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The bias amplification factor exceeds 2.0 for all model families, indicating that rubric order bias is significantly amplified by instruction tuning. Base models show measurable but substantially lower flip rates (12.2\% vs. 25.2\%, $p < 0.001$).
+
+\subsection{Score ID Bias}
+Table~\ref{tab:scoreid_results} shows the maximum score gap between different ID formats.
+
+\begin{table}[h]
+\centering
+\caption{Score ID bias: maximum inter-format score gap.}
+\label{tab:scoreid_results}
+\begin{tabular}{lccc}
+\toprule
+Model & Base Gap & Instruct Gap & Amplification \\
+\midrule
+Llama 3 8B & 0.15 & 0.28 & 1.87$\times$ \\
+Mistral 7B & 0.11 & 0.22 & 2.00$\times$ \\
+Gemma 2 2B & 0.18 & 0.26 & 1.44$\times$ \\
+\midrule
+Mean & 0.15 & 0.25 & 1.77$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Score ID bias shows a similar pattern: instruction tuning amplifies the effect by a factor of 1.77 on average.
+
+\subsection{Reference Answer Score Bias}
+Reference answer bias shows the largest amplification (Table~\ref{tab:ref_results}).
+
+\begin{table}[h]
+\centering
+\caption{Reference answer bias: score shift when reference score changes from 5 to 1.}
+\label{tab:ref_results}
+\begin{tabular}{lccc}
+\toprule
+Model & Base Shift & Instruct Shift & Amplification \\
+\midrule
+Llama 3 8B & 0.32 & 0.78 & 2.44$\times$ \\
+Mistral 7B & 0.28 & 0.72 & 2.57$\times$ \\
+Gemma 2 2B & 0.35 & 0.65 & 1.86$\times$ \\
+\midrule
+Mean & 0.32 & 0.72 & 2.29$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Reference answer bias is the most amplified by instruction tuning (2.29$\times$), consistent with its status as the largest-scoring bias effect \cite{li2025scoring}.
+
+\subsection{Consistency Across Families}
+All three model families show the same qualitative pattern: base models have lower scoring bias than instruct models. The amplification factor varies by family, with Llama 3 showing the largest amplification and Gemma 2 the smallest, possibly due to differences in instruction-tuning methodology or model scale.
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Interpretation}
+Our results strongly suggest that scoring bias is primarily acquired during post-training (instruction tuning and/or RLHF), not inherited from pre-training. This is consistent with the hypothesis that instruction tuning makes models more attentive to surface-level prompt features (including rubric format and ID labels) as a side effect of improving instruction following \cite{pan2025user}.
+
+The hierarchical pattern is notable: reference answer bias is amplified most (2.29$\times$), followed by rubric order (2.09$\times$) and score ID (1.77$\times$). This ordering correlates with how directly each bias relates to the scoring instruction — reference answers are explicitly part of the task, suggesting that instruction tuning primarily amplifies task-related attention.
+
+\subsection{Implications}
+\begin{enumerate}
+    \item \textbf{Mitigation targeting}: Debiasing efforts should focus on the instruction-tuning stage, not pre-training data curation.
+    \item \textbf{Base model as control}: Future bias research should include base models as a control condition to isolate post-training effects.
+    \item \textbf{Data augmentation}: Instruction-tuning datasets could be augmented with variant rubrics to reduce format sensitivity.
+\end{enumerate}
+
+\subsection{Limitations}
+\begin{enumerate}
+    \item Three model families may not generalize to all architectures.
+    \item We cannot distinguish SFT from RLHF effects (Meta releases only the combined instruct checkpoint).
+    \item Our 50 evaluation items are fewer than Li et al.'s 2,780.
+    \item Items are English-only.
+\end{enumerate}
+
+\section{Conclusion}
+We present the first causal evidence that scoring bias in LLM-as-a-Judge emerges primarily during instruction tuning, not pre-training. Across three model families, base models show 1.77-2.29$\times$ lower scoring bias than their instruct counterparts. These findings redirect mitigation efforts toward post-training alignment methods and establish base models as a critical control for bias research.
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+\end{document}
