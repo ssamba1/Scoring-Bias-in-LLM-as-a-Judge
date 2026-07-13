@@ -1,0 +1,44 @@
+% Automatically generated from experimental data
+% Source: 48000 judgments, 5 judges
+% Generated: 2026-07-13
+
+\documentclass[11pt,twocolumn]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage{hyperref}
+
+\title{Bias Interaction Effects in LLM-as-a-Judge: Automated Analysis}
+\author{Generated from experimental data}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report presents an automated analysis of bias interaction effects. Data from 48,000 judgments across 5 judges and 400 items.
+\end{abstract}
+
+\section{Results}
+
+\begin{table}[h]
+\centering
+\caption{Interaction effects across all judges.}
+\label{tab:results}
+\begin{tabular}{lcccccc}
+\toprule
+Judge & Position & Verbosity & Sentiment & Combined & IR & Pattern \\
+\midrule
+claude & 0.187 & 0.126 & 0.037 & 0.060 & 0.19 & Cancelling \\
+deepseek & 0.028 & 0.075 & 0.075 & -0.073 & -0.70 & Cancelling \\
+gemini & 0.197 & 0.069 & 0.073 & -0.036 & -0.13 & Cancelling \\
+gpt4o & 0.087 & 0.027 & 0.087 & -0.060 & -0.52 & Cancelling \\
+llama & 0.278 & 0.117 & 0.088 & -0.037 & -0.09 & Cancelling \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Methodology}
+Full-factorial 2x3x3 design with 5 judges and 400 items.
+
+\end{document}

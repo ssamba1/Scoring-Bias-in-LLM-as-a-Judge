@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Main experiment service
+  experiment:
+    build: .
+    container_name: bias-experiment
+    volumes:
+      - ./results:/app/results
+      - ./results_rootcause:/app/results_rootcause
+      - ./cache:/app/cache
+      - ./.env:/app/.env:ro
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+    restart: unless-stopped
+
+  # Jupyter notebook service for interactive analysis
+  jupyter:
+    build: .
+    container_name: bias-jupyter
+    volumes:
+      - ./results:/app/results
+      - ./notebooks:/app/notebooks
+    ports:
+      - "8888:8888"
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--NotebookApp.token=bias-research"]
+    restart: unless-stopped
+
+  # Dashboard service
+  dashboard:
+    image: nginx:alpine
+    container_name: bias-dashboard
+    volumes:
+      - ./dashboard:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+volumes:
+  results:

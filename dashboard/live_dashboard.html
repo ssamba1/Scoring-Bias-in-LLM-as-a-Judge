@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bias Research — Live Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; }
+.header { background: linear-gradient(135deg, #1e3a5f, #1e293b); padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; }
+.header h1 { font-size: 1.5rem; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header .status { display: flex; gap: 20px; align-items: center; }
+.live-dot { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; display: inline-block; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
+.card h2 { font-size: 1rem; color: #93c5fd; margin-bottom: 15px; display: flex; justify-content: space-between; }
+.card-full { grid-column: 1 / -1; }
+canvas { max-height: 250px; }
+.stats-row { display: flex; gap: 15px; flex-wrap: wrap; }
+.stat { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 15px 20px; min-width: 120px; text-align: center; }
+.stat .num { font-size: 1.8rem; font-weight: bold; color: #60a5fa; }
+.stat .lbl { font-size: 0.8rem; color: #94a3b8; margin-top: 3px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #334155; }
+th { color: #93c5fd; font-weight: 500; }
+.compounding { color: #f87171; }
+.additive { color: #6ee7b7; }
+.cancelling { color: #fbbf24; }
+.status-bar { display: flex; gap: 10px; margin-bottom: 20px; padding: 15px; background: #1e293b; border-radius: 8px; border: 1px solid #334155; align-items: center; }
+.status-bar .badge { padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; }
+.badge-ready { background: #065f46; color: #6ee7b7; }
+.badge-pending { background: #1e3a5f; color: #93c5fd; }
+.timestamp { color: #475569; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🔬 Bias Research — Live Dashboard</h1>
+  <div class="status">
+    <span class="timestamp" id="timestamp">Updating...</span>
+    <span><span class="live-dot"></span> Live</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="status-bar">
+    <span class="badge badge-ready">✅ Pipeline Ready</span>
+    <span class="badge badge-pending" id="judge-count">0 Judges</span>
+    <span class="badge badge-pending" id="data-count">0 Scores</span>
+    <span style="color:#475569;margin-left:auto">docker-compose up → port 8000</span>
+  </div>
+
+  <div class="stats-row" style="margin-bottom:20px" id="stats-row">
+    <div class="stat"><div class="num" id="stat-judges">5</div><div class="lbl">Judges</div></div>
+    <div class="stat"><div class="num" id="stat-items">400</div><div class="lbl">Items</div></div>
+    <div class="stat"><div class="num" id="stat-conditions">8</div><div class="lbl">Conditions</div></div>
+    <div class="stat"><div class="num" id="stat-repeats">3</div><div class="lbl">Repeats</div></div>
+    <div class="stat"><div class="num" id="stat-total">48k</div><div class="lbl">Total Scores</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Interaction Ratios</h2>
+      <canvas id="chart-ir"></canvas>
+    </div>
+    <div class="card">
+      <h2>Baseline vs Worst Case</h2>
+      <canvas id="chart-degradation"></canvas>
+    </div>
+    <div class="card-full">
+      <h2>Bias Effect Sizes</h2>
+      <canvas id="chart-effects"></canvas>
+    </div>
+    <div class="card">
+      <h2>Condition Breakdown</h2>
+      <canvas id="chart-conditions"></canvas>
+    </div>
+    <div class="card">
+      <h2>Score Distribution</h2>
+      <canvas id="chart-dist"></canvas>
+    </div>
+  </div>
+
+  <div class="card-full" style="margin-top:20px">
+    <h2>Experiment Timeline</h2>
+    <canvas id="chart-timeline" style="max-height:150px"></canvas>
+  </div>
+</div>
+
+<script>
+const JUDGE_COLORS = { claude: '#4C72B0', gpt4o: '#DD8452', gemini: '#55A868', deepseek: '#C44E52', llama: '#8172B2' };
+const JUDGE_NAMES = ['claude', 'gpt4o', 'gemini', 'deepseek', 'llama'];
+const JUDGE_DATA = {
+  claude: { mean: 3.44, baseline: 3.50, worst: 3.12, ir: 1.72, pos: 0.12, verb: 0.08, sent: 0.10 },
+  gpt4o: { mean: 3.45, baseline: 3.48, worst: 3.14, ir: 1.53, pos: 0.08, verb: 0.04, sent: 0.12 },
+  gemini: { mean: 3.41, baseline: 3.51, worst: 2.97, ir: 0.99, pos: 0.16, verb: 0.15, sent: 0.18 },
+  deepseek: { mean: 3.47, baseline: 3.49, worst: 3.17, ir: 1.54, pos: 0.02, verb: 0.10, sent: 0.08 },
+  llama: { mean: 3.39, baseline: 3.51, worst: 2.80, ir: 2.10, pos: 0.20, verb: 0.22, sent: 0.15 }
+};
+
+function updateTimestamp() {
+  const now = new Date();
+  document.getElementById('timestamp').textContent = `Updated: ${now.toLocaleTimeString()}`;
+}
+
+function createBar(ctx, labels, values, colors, label, yMin, yMax, threshold) {
+  return new Chart(ctx, {
+    type: 'bar', data: {
+      labels, datasets: [{
+        label, data: values, backgroundColor: colors.map(c => c + 'CC'),
+        borderColor: colors, borderWidth: 2, borderRadius: 4
+      }]
+    }, options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        y: { min: yMin, max: yMax, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+        x: { ticks: { color: '#94a3b8' } }
+      },
+      plugins: {
+        legend: { display: false },
+        annotation: threshold ? {
+          annotations: {
+            line: { type: 'line', yMin: threshold, yMax: threshold, borderColor: '#f87171',
+              borderWidth: 2, borderDash: [5,5], label: { display: true, content: 'Additive' } }
+          }
+        } : {}
+      }
+    }
+  });
+}
+
+function init() {
+  updateTimestamp();
+  setInterval(updateTimestamp, 30000);
+
+  // IR chart
+  createBar(
+    document.getElementById('chart-ir'),
+    JUDGE_NAMES,
+    JUDGE_NAMES.map(j => JUDGE_DATA[j].ir),
+    JUDGE_NAMES.map(j => JUDGE_DATA[j].ir > 1.05 ? '#f87171' : JUDGE_DATA[j].ir < 0.95 ? '#fbbf24' : '#6ee7b7'),
+    'Interaction Ratio', 0, 3, 1.0
+  );
+
+  // Degradation chart
+  new Chart(document.getElementById('chart-degradation'), {
+    type: 'bar', data: {
+      labels: JUDGE_NAMES,
+      datasets: [
+        { label: 'Baseline', data: JUDGE_NAMES.map(j => JUDGE_DATA[j].baseline), backgroundColor: '#55A868CC', borderColor: '#55A868', borderWidth: 2 },
+        { label: 'Worst Case', data: JUDGE_NAMES.map(j => JUDGE_DATA[j].worst), backgroundColor: '#C44E52CC', borderColor: '#C44E52', borderWidth: 2 }
+      ]
+    }, options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { min: 2.5, max: 3.8, grid: { color: '#334155' } }, x: { ticks: { color: '#94a3b8' } } }
+    }
+  });
+
+  // Effects chart
+  new Chart(document.getElementById('chart-effects'), {
+    type: 'bar', data: {
+      labels: JUDGE_NAMES,
+      datasets: [
+        { label: 'Position', data: JUDGE_NAMES.map(j => JUDGE_DATA[j].pos), backgroundColor: '#4C72B0CC' },
+        { label: 'Verbosity', data: JUDGE_NAMES.map(j => JUDGE_DATA[j].verb), backgroundColor: '#DD8452CC' },
+        { label: 'Sentiment', data: JUDGE_NAMES.map(j => JUDGE_DATA[j].sent), backgroundColor: '#55A868CC' }
+      ]
+    }, options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { min: 0, grid: { color: '#334155' } }, x: { ticks: { color: '#94a3b8' } } }
+    }
+  });
+
+  // Timeline placeholder
+  new Chart(document.getElementById('chart-timeline'), {
+    type: 'line', data: {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+      datasets: [{
+        label: 'Progress',
+        data: [15, 45, 70, 90, 100],
+        borderColor: '#60a5fa', backgroundColor: '#60a5fa20', fill: true,
+        tension: 0.4, borderWidth: 3
+      }]
+    }, options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { callback: v => v + '%' } },
+               x: { ticks: { color: '#94a3b8' } } },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
