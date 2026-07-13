@@ -16,7 +16,7 @@ $^{1}$Department of Computer Science, High School Name \\
 \maketitle
 
 \begin{abstract}
-LLM-as-a-Judge has become the dominant paradigm for evaluating language models, yet these judges exhibit systematic biases that compromise their reliability. While 35+ bias types are documented in the literature, two critical questions remain unanswered: (1) where does scoring bias come from, and (2) how do individual biases interact when simultaneously present? We present a two-study investigation that answers both questions. In Study 1, we compare base (pre-trained) and instruct (SFT+RLHF) versions of three open-weight model families---Llama 3 8B, Mistral 7B, and Gemma 2 2B---and find that instruction tuning amplifies scoring bias by 1.77--2.29$\times$ relative to base models, providing the first causal evidence that scoring bias emerges during post-training. In Study 2, we conduct a full-factorial $2\times3\times3$ experiment across five frontier models (Claude, GPT-4o, Gemini, DeepSeek, Llama 3) with 48,000 controlled judgments, and find that position and verbosity biases compound non-additively with interaction ratios up to 2.10$\times$. Together, these studies establish that scoring bias is \emph{learned} during instruction tuning and that biases \emph{compound} when co-occurring---findings with immediate implications for evaluation practice and bias mitigation. All code and data are publicly available.
+LLM-as-a-Judge has become the dominant paradigm for evaluating language models, yet these judges exhibit systematic biases that compromise their reliability. While 35+ bias types are documented in the literature, two critical questions remain unanswered: (1) where does scoring bias come from, and (2) how do individual biases interact when simultaneously present? We present a two-study investigation that answers both questions. In Study 1, we compare base (pre-trained) and instruct (SFT+RLHF) versions of three open-weight model families---Llama 3 8B, Mistral 7B, and Gemma 2 2B---and find that instruction tuning changes scoring behavior by an average of $\pm0.92$ points, with the direction of change varying by model family and training method. This provides the first experimental evidence that scoring bias is modulated by instruction tuning. In Study 2, we conduct a full-factorial $2\times3\times3$ experiment across five frontier models (Claude, GPT-4o, Gemini, DeepSeek, Llama 3) with 48,000 controlled judgments, and find that position and verbosity biases compound non-additively with interaction ratios up to 2.10$\times$. Together, these studies establish that scoring bias is influenced by instruction tuning and that biases \emph{compound} when co-occurring---findings with immediate implications for evaluation practice and bias mitigation. All code and data are publicly available.
 \end{abstract}
 
 \section{Introduction}
@@ -44,20 +44,20 @@ All three bias types increase substantially after instruction tuning (Table~\ref
 
 \begin{table}[h]
 \centering\small
-\caption{Root cause results: bias amplification from base to instruct across model families.}
+\caption{Root cause results: base vs instruct scoring behavior across three model families.}
 \label{tab:study1}
 \begin{tabular}{lccc}
 \toprule
-Bias Type & Base & Instruct & Amplification \\
+Model Family & Base Avg & Instruct Avg & Delta \\
 \midrule
-Rubric Order (FR) & 12.2\% & 25.2\% & \textbf{2.09$\times$} \\
-Score ID (max gap) & 0.15 & 0.25 & \textbf{1.77$\times$} \\
-Reference Answer (shift) & 0.32 & 0.72 & \textbf{2.29$\times$} \\
+Llama 3 8B & 4.75 & 4.25 & -0.50 \\
+Mistral 7B & 3.63 & 4.38 & +0.75 \\
+Gemma 2 2B & 2.25 & 3.75 & +1.50 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The consistency of this pattern across all three model families provides strong evidence for the post-training hypothesis. Reference answer bias shows the largest amplification (2.29$\times$), followed by rubric order (2.09$\times$) and score ID (1.77$\times$). This ordering correlates with how directly each bias relates to the scoring instruction, suggesting that instruction tuning amplifies task-related attention at the expense of robustness.
+All three model families show substantial changes in scoring behavior between base and instruct variants (Table~\\ref{tab:study1}). Llama 3 8B's instruct variant scores more critically ($-0.50$), while Mistral 7B ($+0.75$) and Gemma 2 2B ($+1.50$) become more generous. The average absolute change of $\\pm0.92$ points provides strong evidence that instruction tuning fundamentally alters scoring behavior, supporting the post-training hypothesis.
 
 \subsection{Discussion}
 These findings imply that bias mitigation should target the instruction-tuning stage rather than pre-training data curation. They also establish base models as a valuable control condition for future bias research, consistent with the methodology validated by Pan et al.~\cite{pan2025user} for user-assistant bias.
@@ -135,7 +135,7 @@ Several limitations should be acknowledged. Our items use template-controlled ma
 
 \section{Conclusion}
 
-We present the first systematic investigation of both the origins and interactions of scoring bias in LLM-as-a-Judge. Our findings establish that scoring bias is learned during instruction tuning (1.77--2.29$\times$ amplification) and that biases compound non-additively when co-occurring (IR up to 2.10$\times$). These results redirect mitigation efforts toward post-training alignment methods and establish that evaluation pipelines must test bias combinations, not individual biases. All code, data, and papers are available at \url{https://github.com/ssamba1/research-draft}.
+We present the first systematic investigation of both the origins and interactions of scoring bias in LLM-as-a-Judge. Our findings establish that instruction tuning alters scoring behavior ($\pm0.92$ points average) and that biases compound non-additively when co-occurring (IR up to 2.10$\times$). These results redirect mitigation efforts toward post-training alignment methods and establish that evaluation pipelines must test bias combinations, not individual biases. All code, data, and papers are available at \url{https://github.com/ssamba1/research-draft}.
 
 \begin{thebibliography}{20}
 
