@@ -16,7 +16,7 @@ $^{1}$Department of Computer Science, High School Name \\
 \maketitle
 
 \begin{abstract}
-LLM-as-a-Judge has become the dominant paradigm for evaluating language models, yet these judges exhibit systematic biases that compromise their reliability. While 35+ bias types are documented in the literature, two critical questions remain unanswered: (1) where does scoring bias come from, and (2) how do individual biases interact when simultaneously present? We present a two-study investigation that answers both questions. In Study 1, we compare base and instruct versions of Llama 3 8B, Mistral 7B, and Gemma 2 2B across three scoring bias probes (rubric order, score ID, reference answer) with 8,100 controlled judgments. We find that instruction tuning has differential effects: rubric order bias decreases by 44%, score ID bias decreases by 58%, but reference answer bias increases by 45%. This provides the first experimental evidence that instruction tuning affects scoring bias differentially—improving format robustness while increasing content sensitivity. In Study 2, we conduct a full-factorial $2\times3\times3$ experiment across five frontier models (Claude, GPT-4o, Gemini, DeepSeek, Llama 3) with 48,000 controlled judgments, and find that position and verbosity biases compound non-additively with interaction ratios up to 2.10$\times$. Together, these studies establish that scoring bias is influenced by instruction tuning and that biases \emph{compound} when co-occurring---findings with immediate implications for evaluation practice and bias mitigation. All code and data are publicly available.
+LLM-as-a-Judge has become the dominant paradigm for evaluating language models, yet these judges exhibit systematic biases that compromise their reliability. While 35+ bias types are documented in the literature, two critical questions remain unanswered: (1) where does scoring bias come from, and (2) how do individual biases interact when simultaneously present? We present a two-study investigation that answers both questions. In Study 1, we compare base and instruct versions of Llama 3 8B, Mistral 7B, and Gemma 2 2B across three scoring bias probes (rubric order, score ID, reference answer) with 8,100 controlled judgments. We find that instruction tuning has differential effects: rubric order bias decreases by 44%, score ID bias decreases by 77%, but reference answer bias increases by 35%. This provides the first experimental evidence that instruction tuning affects scoring bias differentially—improving format robustness while increasing content sensitivity. In Study 2, we conduct a full-factorial $2\times3\times3$ experiment across five frontier models (Claude, GPT-4o, Gemini, DeepSeek, Llama 3) with 48,000 controlled judgments, and find that position and verbosity biases compound non-additively with interaction ratios up to 2.10$\times$. Together, these studies establish that scoring bias is influenced by instruction tuning and that biases \emph{compound} when co-occurring---findings with immediate implications for evaluation practice and bias mitigation. All code and data are publicly available.
 \end{abstract}
 
 \section{Introduction}
@@ -37,10 +37,10 @@ We present two complementary studies that fill these gaps:
 Scoring bias---changes in assigned scores due to superficial prompt features like rubric order, score labels, or reference answers---has been documented~\cite{li2025scoring} but its origins are unknown. We test two competing hypotheses: the \emph{pre-training hypothesis} (bias originates from training corpus statistics) and the \emph{post-training hypothesis} (bias emerges during instruction tuning).
 
 \subsection{Method}
-We compare base (pre-trained) and instruct (SFT+RLHF) versions of three open-weight families: Llama 3 8B, Mistral 7B, and Gemma 2 2B. For each variant, we measure three scoring bias types (rubric order, score ID, and reference answer) following the perturbation framework of Li et al.~\cite{li2025scoring}. All models run at temperature 0 with 50 evaluation items across 3 conditions and 3 repeats (11,250 total judgments).
+We compare base (pre-trained) and instruct (SFT+RLHF) versions of three open-weight families: Llama 3 8B, Mistral 7B, and Gemma 2 2B. For each variant, we measure three scoring bias types following the perturbation framework of Li et al.~\cite{li2025scoring}: rubric order (normal vs reversed scale), score ID (numeric vs letter labels), and reference answer (with vs without exemplars). All models run at temperature 0 with 50 evaluation items across 3 variants and 3 repeats (8,100 total judgments).
 
 \subsection{Results}
-All three bias types increase substantially after instruction tuning (Table~\ref{tab:study1}).
+Bias susceptibility shows differential effects across probe types (Table~\ref{tab:study1}).
 
 \begin{table}[h]
 \centering\small
@@ -51,16 +51,16 @@ All three bias types increase substantially after instruction tuning (Table~\ref
 Probe & Base Avg $\Delta$ & Instruct Avg $\Delta$ & Change \\
 \midrule
 Rubric Order & 2.85 & 1.59 & -44\% \\
-Score ID & 1.81 & 0.76 & -58\% \\
-Reference Answer & 0.73 & 1.06 & +45\% \\
+Score ID & 0.67 & 0.15 & -77\% \\
+Reference Answer & 0.88 & 1.19 & +35\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Instruction tuning has differential effects across bias types (Table~\\ref{tab:study1}). Rubric order and score ID biases decrease substantially after instruction tuning ($-44\\%$ and $-58\\%$ respectively), indicating that instruction-tuned models parse scoring formats more robustly. However, reference answer bias increases by $+45\\%$, showing that instruction-tuned models are more susceptible to exemplar-based biasing. This differential pattern supports the Instruction-Induced Attention Redistribution (IIAR) hypothesis: instruction tuning improves format robustness while increasing sensitivity to content-based features.
+Instruction tuning has differential effects across bias types (Table~\\ref{tab:study1}). Rubric order and score ID biases decrease substantially ($-44\\%$ and $-77\\%$ respectively), indicating that instruction-tuned models parse scoring formats more robustly. However, reference answer bias increases by $+35\\%$, showing that instruction-tuned models are more susceptible to exemplar-based biasing.
 
 \subsection{Discussion}
-These findings imply that bias mitigation should target the instruction-tuning stage rather than pre-training data curation. They also establish base models as a valuable control condition for future bias research, consistent with the methodology validated by Pan et al.~\cite{pan2025user} for user-assistant bias.
+These findings suggest that bias mitigation strategies must address both format robustness and content sensitivity separately. Instruction tuning naturally improves format robustness but exacerbates content sensitivity, so mitigation should specifically target the content-based biases introduced during post-training. Base models serve as a valuable control condition for future bias research, consistent with Pan et al.~\cite{pan2025user}.
 
 \section{Study 2: Bias Interaction Effects}
 
@@ -135,7 +135,7 @@ Several limitations should be acknowledged. Our items use template-controlled ma
 
 \section{Conclusion}
 
-We present the first systematic investigation of both the origins and interactions of scoring bias in LLM-as-a-Judge. Our findings establish that instruction tuning has differential effects on scoring bias (rubric order $-44\%$, score ID $-58\%$, reference answer $+45\%$) and that biases compound non-additively when co-occurring (IR up to 2.10$\times$). These results redirect mitigation efforts toward post-training alignment methods and establish that evaluation pipelines must test bias combinations, not individual biases. All code, data, and papers are available at \url{https://github.com/ssamba1/research-draft}.
+We present the first systematic investigation of both the origins and interactions of scoring bias in LLM-as-a-Judge. Our findings establish that instruction tuning has differential effects on scoring bias (rubric order $-44\%$, score ID $-77\%$, reference answer $+35\%$) and that biases compound non-additively when co-occurring (IR up to 2.10$\times$). These results redirect mitigation efforts toward post-training alignment methods and establish that evaluation pipelines must test bias combinations, not individual biases. All code, data, and papers are available at \url{https://github.com/ssamba1/research-draft}.
 
 \begin{thebibliography}{20}
 
