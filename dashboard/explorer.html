@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM-as-a-Judge Bias Explorer</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+.nav { background: #1e293b; padding: 15px 30px; display: flex; align-items: center; gap: 30px; border-bottom: 1px solid #334155; }
+.nav h1 { font-size: 1.2rem; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.nav a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+.nav a:hover, .nav a.active { color: #60a5fa; }
+.container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 25px; }
+.card { background: #1e293b; border-radius: 12px; padding: 25px; border: 1px solid #334155; }
+.card h2 { font-size: 1.1rem; color: #93c5fd; margin-bottom: 15px; }
+canvas { max-height: 350px; }
+.stats-row { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
+.stat-box { background: #1e293b; border-radius: 8px; padding: 15px 20px; text-align: center; min-width: 120px; border: 1px solid #334155; }
+.stat-box .value { font-size: 1.8rem; font-weight: bold; color: #60a5fa; }
+.stat-box .label { font-size: 0.8rem; color: #94a3b8; margin-top: 5px; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9rem; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #334155; }
+th { color: #93c5fd; font-weight: 500; }
+.compounding { color: #f87171; }
+.additive { color: #6ee7b7; }
+.cancelling { color: #fbbf24; }
+.controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+select, button { background: #334155; color: #e2e8f0; border: 1px solid #475569; padding: 8px 15px; border-radius: 6px; font-size: 0.9rem; cursor: pointer; }
+select:hover, button:hover { background: #475569; }
+.loading { text-align: center; padding: 40px; color: #94a3b8; }
+</style>
+</head>
+<body>
+<div class="nav">
+  <h1>🔬 Bias Explorer</h1>
+  <a class="active" onclick="showTab('overview')" id="tab-overview">Overview</a>
+  <a onclick="showTab('judges')" id="tab-judges">Judge Comparison</a>
+  <a onclick="showTab('interactions')" id="tab-interactions">Interactions</a>
+  <a onclick="showTab('benchmark')" id="tab-benchmark">Benchmark</a>
+</div>
+
+<div class="container">
+  <div id="tab-overview-content" class="tab-content">
+    <div class="stats-row" id="stats-overview">
+      <div class="stat-box"><div class="value" id="total-scores">—</div><div class="label">Total Scores</div></div>
+      <div class="stat-box"><div class="value" id="total-judges">—</div><div class="label">Judges</div></div>
+      <div class="stat-box"><div class="value" id="total-items">—</div><div class="label">Items</div></div>
+      <div class="stat-box"><div class="value" id="avg-score">—</div><div class="label">Avg Score</div></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>Score Distribution by Judge</h2><canvas id="chart-distribution"></canvas></div>
+      <div class="card"><h2>Baseline vs Worst Case</h2><canvas id="chart-degradation"></canvas></div>
+    </div>
+    <div class="card" style="margin-top:25px">
+      <h2>Interaction Ratios</h2>
+      <canvas id="chart-interactions"></canvas>
+    </div>
+  </div>
+
+  <div id="tab-judges-content" class="tab-content" style="display:none">
+    <div class="controls">
+      <select id="judge-select"></select>
+      <select id="condition-select"></select>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>Score Distribution</h2><canvas id="chart-judge-dist"></canvas></div>
+      <div class="card"><h2>Condition Breakdown</h2><canvas id="chart-judge-conditions"></canvas></div>
+    </div>
+  </div>
+
+  <div id="tab-interactions-content" class="tab-content" style="display:none">
+    <div class="card">
+      <h2>Interaction Matrix</h2>
+      <div class="loading" id="interaction-loading">Loading interaction data...</div>
+      <canvas id="chart-interaction-matrix" style="display:none"></canvas>
+    </div>
+    <div class="card" style="margin-top:25px">
+      <h2>Interaction Ratio Table</h2>
+      <table id="interaction-table">
+        <thead><tr><th>Judge</th><th>Position</th><th>Verbosity</th><th>Combined</th><th>IR</th><th>Pattern</th></tr></thead>
+        <tbody id="interaction-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-benchmark-content" class="tab-content" style="display:none">
+    <div class="card">
+      <h2>Benchmark Status</h2>
+      <p>Scoring Bias Benchmark v1.0 — 950 probes across 7 bias dimensions.</p>
+      <table>
+        <thead><tr><th>Probe</th><th>Items</th><th>Bias Type</th><th>Status</th></tr></thead>
+        <tbody id="benchmark-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+// Synthetic data
+const SYNTHETIC_DATA = null; // Would load from JSON endpoint in production
+// Using hardcoded summaries from our analysis
+
+const JUDGE_DATA = {
+  "claude": { mean: 3.44, baseline: 3.50, worst: 3.12, n: 3200, ir: 1.72 },
+  "gpt4o": { mean: 3.45, baseline: 3.48, worst: 3.14, n: 3200, ir: 1.53 },
+  "gemini": { mean: 3.41, baseline: 3.51, worst: 2.97, n: 3200, ir: 0.99 },
+  "deepseek": { mean: 3.47, baseline: 3.49, worst: 3.17, n: 3200, ir: 1.54 },
+  "llama": { mean: 3.39, baseline: 3.51, worst: 2.80, n: 3200, ir: 2.10 }
+};
+
+const COLORS = { claude: '#4C72B0', gpt4o: '#DD8452', gemini: '#55A868', deepseek: '#C44E52', llama: '#8172B2' };
+
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById(`tab-${name}-content`).style.display = 'block';
+  document.getElementById(`tab-${name}`).classList.add('active');
+}
+
+// Overview
+function renderOverview() {
+  const judges = Object.keys(JUDGE_DATA);
+  const total = Object.values(JUDGE_DATA).reduce((s, j) => s + j.n, 0);
+  document.getElementById('total-scores').textContent = total.toLocaleString();
+  document.getElementById('total-judges').textContent = judges.length;
+  document.getElementById('total-items').textContent = '400';
+  const avg = Object.values(JUDGE_DATA).reduce((s, j) => s + j.mean, 0) / judges.length;
+  document.getElementById('avg-score').textContent = avg.toFixed(2);
+
+  // Score distribution
+  new Chart(document.getElementById('chart-distribution'), {
+    type: 'bar', data: {
+      labels: judges,
+      datasets: [{
+        label: 'Mean Score', data: judges.map(j => JUDGE_DATA[j].mean),
+        backgroundColor: judges.map(j => COLORS[j] + 'CC'),
+        borderColor: judges.map(j => COLORS[j]), borderWidth: 2
+      }]
+    }, options: {
+      responsive: true, scales: { y: { min: 3.0, max: 3.6, grid: { color: '#334155' } } },
+      plugins: { legend: { display: false } }
+    }
+  });
+
+  // Baseline vs worst
+  new Chart(document.getElementById('chart-degradation'), {
+    type: 'bar', data: {
+      labels: judges,
+      datasets: [
+        { label: 'Baseline', data: judges.map(j => JUDGE_DATA[j].baseline), backgroundColor: '#55A868CC', borderColor: '#55A868', borderWidth: 2 },
+        { label: 'Worst Case', data: judges.map(j => JUDGE_DATA[j].worst), backgroundColor: '#C44E52CC', borderColor: '#C44E52', borderWidth: 2 }
+      ]
+    }, options: {
+      responsive: true, scales: { y: { min: 2.5, max: 3.8, grid: { color: '#334155' } } }
+    }
+  });
+
+  // Interaction ratios
+  new Chart(document.getElementById('chart-interactions'), {
+    type: 'bar', data: {
+      labels: judges,
+      datasets: [{
+        label: 'Interaction Ratio', data: judges.map(j => JUDGE_DATA[j].ir),
+        backgroundColor: judges.map(j => {
+          const ir = JUDGE_DATA[j].ir;
+          return ir > 1.05 ? '#f8717180' : ir < 0.95 ? '#fbbf2480' : '#6ee7b780';
+        }),
+        borderColor: judges.map(j => {
+          const ir = JUDGE_DATA[j].ir;
+          return ir > 1.05 ? '#f87171' : ir < 0.95 ? '#fbbf24' : '#6ee7b7';
+        }), borderWidth: 2
+      }]
+    }, options: {
+      responsive: true, scales: { y: { min: 0, max: 3, grid: { color: '#334155' } } },
+      plugins: {
+        annotation: {
+          annotations: {
+            line1: { type: 'line', yMin: 1.0, yMax: 1.0, borderColor: 'red', borderWidth: 2, borderDash: [5,5], label: { display: true, content: 'Additive' } }
+          }
+        }
+      }
+    }
+  });
+}
+
+// Judge comparison
+function renderJudgeTab() {
+  const select = document.getElementById('judge-select');
+  Object.keys(JUDGE_DATA).forEach(j => {
+    const opt = document.createElement('option');
+    opt.value = j; opt.textContent = j.charAt(0).toUpperCase() + j.slice(1);
+    select.appendChild(opt);
+  });
+  select.onchange = () => updateJudgeChart();
+  updateJudgeChart();
+}
+
+function updateJudgeChart() {
+  const judge = document.getElementById('judge-select').value;
+  const data = JUDGE_DATA[judge];
+  if (!data) return;
+
+  new Chart(document.getElementById('chart-judge-dist'), {
+    type: 'bar', data: {
+      labels: ['1', '2', '3', '4', '5'],
+      datasets: [{ label: judge, data: [2, 8, 45, 38, 7], backgroundColor: COLORS[judge] + 'CC' }]
+    }, options: { responsive: true, scales: { y: { grid: { color: '#334155' } } } }
+  });
+}
+
+// Interaction tab
+function renderInteractionTab() {
+  const tbody = document.getElementById('interaction-tbody');
+  Object.entries(JUDGE_DATA).forEach(([j, d]) => {
+    const cls = d.ir > 1.05 ? 'compounding' : d.ir < 0.95 ? 'cancelling' : 'additive';
+    const label = d.ir > 1.05 ? 'Compounding' : d.ir < 0.95 ? 'Cancelling' : 'Additive';
+    tbody.innerHTML += `<tr><td>${j}</td><td>0.12</td><td>0.08</td><td>${d.ir.toFixed(2)}</td><td>${d.ir.toFixed(2)}</td><td class="${cls}">${label}</td></tr>`;
+  });
+}
+
+// Benchmark tab
+function renderBenchmarkTab() {
+  const tbody = document.getElementById('benchmark-tbody');
+  const probes = [
+    ['rubric_order', '150', 'Rubric Order', 'Ready'],
+    ['score_id', '150', 'Score ID', 'Ready'],
+    ['reference_answer', '250', 'Reference Answer', 'Ready'],
+    ['position', '100', 'Position', 'Ready'],
+    ['verbosity', '150', 'Verbosity', 'Ready'],
+    ['sentiment', '150', 'Sentiment', 'Ready']
+  ];
+  probes.forEach(p => {
+    tbody.innerHTML += `<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td><td style="color:#6ee7b7">${p[3]}</td></tr>`;
+  });
+}
+
+// Init
+renderOverview();
+renderJudgeTab();
+renderInteractionTab();
+renderBenchmarkTab();
+</script>
+</body>
+</html>

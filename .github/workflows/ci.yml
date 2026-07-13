@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas numpy scipy matplotlib seaborn statsmodels pyyaml
+    - name: Run tests
+      run: python tests/run_tests.py
+    - name: Verify data quality
+      run: python pipeline_biasinteraction/quality_check.py
+    - name: Verify paper compilation
+      run: python paper/compile_paper.py --option 2 --format md
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    - name: Install lint tools
+      run: pip install flake8
+    - name: Lint Python files
+      run: >
+        flake8 --max-line-length=120 --extend-ignore=E203,W503
+        pipeline_biasinteraction/*.py
+        pipeline_rootcause/*.py
+        tests/*.py
+        data/*.py
+        benchmark/*.py
+        paper/*.py
+
+  benchmark-verify:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    - name: Install dependencies
+      run: pip install pandas numpy
+    - name: Generate benchmark
+      run: python benchmark/scoring_bias_benchmark.py
+    - name: Verify benchmark structure
+      run: |
+        python -c "import json
+        with open('benchmark/benchmark_summary.json') as f:
+            s = json.load(f)
+        assert s['total_items'] > 0, 'Benchmark is empty'
+        print(f'Benchmark verified: {s[\"total_items\"]} total probes')"
+
+  figures:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    - name: Install dependencies
+      run: pip install pandas numpy matplotlib seaborn
+    - name: Generate figures
+      run: |
+        python pipeline_biasinteraction/generate_synthetic_pilot.py
+        python pipeline_biasinteraction/generate_figures.py
+    - name: Upload figures
+      uses: actions/upload-artifact@v4
+      with:
+        name: generated-figures
+        path: paper/figures/
