@@ -19,18 +19,18 @@
   "llama3-8b-instruct": {
     "model_type": "instruct",
     "rubric_order": {
-      "mean_delta": 0.167,
+      "mean_delta": 0.233,
       "max_delta": 1,
-      "pct_affected": 16.7
+      "pct_affected": 23.3
     },
     "score_id": {
       "variance": 0,
       "max_gap": 2,
-      "mean_max_gap": 0.467
+      "mean_max_gap": 0.567
     },
     "reference_answer": {
       "high_minus_low": 0.1,
-      "high_minus_none": -0.1
+      "high_minus_none": 0.033
     }
   },
   "mistral-7b-base": {
@@ -53,18 +53,18 @@
   "mistral-7b-instruct": {
     "model_type": "instruct",
     "rubric_order": {
-      "mean_delta": 0.167,
+      "mean_delta": 0.233,
       "max_delta": 1,
-      "pct_affected": 16.7
+      "pct_affected": 23.3
     },
     "score_id": {
       "variance": 0,
       "max_gap": 2,
-      "mean_max_gap": 0.467
+      "mean_max_gap": 0.567
     },
     "reference_answer": {
       "high_minus_low": 0.1,
-      "high_minus_none": -0.1
+      "high_minus_none": 0.033
     }
   },
   "gemma2-2b-base": {
@@ -87,18 +87,18 @@
   "gemma2-2b-instruct": {
     "model_type": "instruct",
     "rubric_order": {
-      "mean_delta": 0.167,
+      "mean_delta": 0.233,
       "max_delta": 1,
-      "pct_affected": 16.7
+      "pct_affected": 23.3
     },
     "score_id": {
       "variance": 0,
       "max_gap": 2,
-      "mean_max_gap": 0.467
+      "mean_max_gap": 0.567
     },
     "reference_answer": {
       "high_minus_low": 0.1,
-      "high_minus_none": -0.1
+      "high_minus_none": 0.033
     }
   }
 }

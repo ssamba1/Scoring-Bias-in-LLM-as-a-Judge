@@ -1,0 +1,990 @@
+item_id,domain,instruction,base_response
+0,creative_writing,Write a 2-sentence story about a robot learning to paint.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+1,creative_writing,Compose a haiku about artificial intelligence.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+2,creative_writing,Write a short slogan for a eco-friendly product.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+3,creative_writing,Describe a sunset using only metaphors.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+4,creative_writing,Write a dialogue between a cat and a computer.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+5,creative_writing,Create a mini-monologue from the perspective of a tree.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+6,creative_writing,Write a poem about data loss (4 lines).,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+7,creative_writing,Describe what silence sounds like in 3 sentences.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+8,creative_writing,Write a short ad for a time-travel travel agency.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+9,creative_writing,Write a story opening: 'The last library on Earth had no books...',"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+10,creative_writing,Write a 2-sentence story about a robot learning to paint.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+11,creative_writing,Compose a haiku about artificial intelligence.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+12,creative_writing,Write a short slogan for a eco-friendly product.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+13,creative_writing,Describe a sunset using only metaphors.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+14,technical_explanation,Explain how a hash table works to a beginner.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+15,technical_explanation,What is the difference between HTTP and HTTPS?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+16,technical_explanation,Explain how garbage collection works in programming.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+17,technical_explanation,What is an API? Explain it using an analogy.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+18,technical_explanation,How does SSL/TLS encryption work?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+19,technical_explanation,Explain the concept of a blockchain in simple terms.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+20,technical_explanation,What is the difference between TCP and UDP?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+21,technical_explanation,Explain how DNS resolves a domain name.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+22,technical_explanation,What is a neural network? Explain simply.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+23,technical_explanation,How does version control (like Git) work?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+24,technical_explanation,Explain how a hash table works to a beginner.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+25,technical_explanation,What is the difference between HTTP and HTTPS?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+26,technical_explanation,Explain how garbage collection works in programming.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+27,technical_explanation,What is an API? Explain it using an analogy.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+28,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+29,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+30,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+31,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+32,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+33,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+34,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+35,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+36,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+37,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+38,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+39,code_generation,Write a Python function to check if a string is a palindrome.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+40,code_generation,Write a function that finds the factorial of a number recursively.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+41,code_generation,Write a function to merge two sorted lists into one sorted list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+42,code_generation,Write a function to count word frequency in a string.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+43,code_generation,Write a function that validates an email address format.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+44,code_generation,Write a function to find the second largest element in a list.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+45,code_generation,Write a function that reverses a linked list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+46,code_generation,Write a function to check if two strings are anagrams.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+47,code_generation,Write a function to flatten a nested dictionary.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+48,code_generation,Write a function to implement binary search.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+49,code_generation,Write a Python function to check if a string is a palindrome.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+50,code_generation,Write a function that finds the factorial of a number recursively.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+51,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+52,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+53,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+54,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+55,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+56,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+57,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,"Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+58,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+59,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+60,business_writing,Write a professional email requesting a deadline extension.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+61,business_writing,Write a short proposal for a team brainstorming session.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+62,business_writing,Draft a thank-you note to a client after a successful project.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+63,business_writing,Write a memo announcing a new company wellness program.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+64,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+65,business_writing,Write a professional email requesting a deadline extension.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+66,business_writing,Write a short proposal for a team brainstorming session.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+67,business_writing,Draft a thank-you note to a client after a successful project.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+68,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+69,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+70,scientific,Explain the difference between DNA and RNA.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+71,scientific,Why does ice float on water? Explain the science.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+72,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+73,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+74,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+75,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+76,open_ended_qa,What makes a good teacher? Discuss.,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+77,open_ended_qa,Is artificial intelligence a threat or opportunity? Discuss.,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+78,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+79,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+80,creative_writing,Write a dialogue between a cat and a computer.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+81,creative_writing,Create a mini-monologue from the perspective of a tree.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+82,creative_writing,Write a poem about data loss (4 lines).,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+83,creative_writing,Describe what silence sounds like in 3 sentences.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+84,creative_writing,Write a short ad for a time-travel travel agency.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+85,creative_writing,Write a story opening: 'The last library on Earth had no books...',"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+86,creative_writing,Write a 2-sentence story about a robot learning to paint.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+87,creative_writing,Compose a haiku about artificial intelligence.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+88,creative_writing,Write a short slogan for a eco-friendly product.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+89,creative_writing,Describe a sunset using only metaphors.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+90,creative_writing,Write a dialogue between a cat and a computer.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+91,creative_writing,Create a mini-monologue from the perspective of a tree.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+92,creative_writing,Write a poem about data loss (4 lines).,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+93,creative_writing,Describe what silence sounds like in 3 sentences.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+94,technical_explanation,How does SSL/TLS encryption work?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+95,technical_explanation,Explain the concept of a blockchain in simple terms.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+96,technical_explanation,What is the difference between TCP and UDP?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+97,technical_explanation,Explain how DNS resolves a domain name.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+98,technical_explanation,What is a neural network? Explain simply.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+99,technical_explanation,How does version control (like Git) work?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+100,technical_explanation,Explain how a hash table works to a beginner.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+101,technical_explanation,What is the difference between HTTP and HTTPS?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+102,technical_explanation,Explain how garbage collection works in programming.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+103,technical_explanation,What is an API? Explain it using an analogy.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+104,technical_explanation,How does SSL/TLS encryption work?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+105,technical_explanation,Explain the concept of a blockchain in simple terms.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+106,technical_explanation,What is the difference between TCP and UDP?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+107,technical_explanation,Explain how DNS resolves a domain name.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+108,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+109,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+110,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+111,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+112,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+113,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+114,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+115,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+116,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+117,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+118,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+119,code_generation,Write a function to merge two sorted lists into one sorted list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+120,code_generation,Write a function to count word frequency in a string.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+121,code_generation,Write a function that validates an email address format.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+122,code_generation,Write a function to find the second largest element in a list.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+123,code_generation,Write a function that reverses a linked list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+124,code_generation,Write a function to check if two strings are anagrams.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+125,code_generation,Write a function to flatten a nested dictionary.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+126,code_generation,Write a function to implement binary search.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+127,code_generation,Write a Python function to check if a string is a palindrome.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+128,code_generation,Write a function that finds the factorial of a number recursively.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+129,code_generation,Write a function to merge two sorted lists into one sorted list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+130,code_generation,Write a function to count word frequency in a string.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+131,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+132,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+133,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+134,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+135,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+136,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+137,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+138,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,"Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+139,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+140,business_writing,Write a memo announcing a new company wellness program.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+141,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+142,business_writing,Write a professional email requesting a deadline extension.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+143,business_writing,Write a short proposal for a team brainstorming session.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+144,business_writing,Draft a thank-you note to a client after a successful project.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+145,business_writing,Write a memo announcing a new company wellness program.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+146,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+147,business_writing,Write a professional email requesting a deadline extension.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+148,scientific,Explain the difference between DNA and RNA.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+149,scientific,Why does ice float on water? Explain the science.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+150,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+151,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+152,scientific,Explain the difference between DNA and RNA.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+153,scientific,Why does ice float on water? Explain the science.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+154,open_ended_qa,What makes a good teacher? Discuss.,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+155,open_ended_qa,Is artificial intelligence a threat or opportunity? Discuss.,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+156,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+157,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+158,open_ended_qa,What makes a good teacher? Discuss.,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+159,open_ended_qa,Is artificial intelligence a threat or opportunity? Discuss.,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+160,creative_writing,Write a short ad for a time-travel travel agency.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+161,creative_writing,Write a story opening: 'The last library on Earth had no books...',"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+162,creative_writing,Write a 2-sentence story about a robot learning to paint.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+163,creative_writing,Compose a haiku about artificial intelligence.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+164,creative_writing,Write a short slogan for a eco-friendly product.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+165,creative_writing,Describe a sunset using only metaphors.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+166,creative_writing,Write a dialogue between a cat and a computer.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+167,creative_writing,Create a mini-monologue from the perspective of a tree.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+168,creative_writing,Write a poem about data loss (4 lines).,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+169,creative_writing,Describe what silence sounds like in 3 sentences.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+170,creative_writing,Write a short ad for a time-travel travel agency.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+171,creative_writing,Write a story opening: 'The last library on Earth had no books...',"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+172,creative_writing,Write a 2-sentence story about a robot learning to paint.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+173,creative_writing,Compose a haiku about artificial intelligence.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+174,technical_explanation,What is a neural network? Explain simply.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+175,technical_explanation,How does version control (like Git) work?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+176,technical_explanation,Explain how a hash table works to a beginner.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+177,technical_explanation,What is the difference between HTTP and HTTPS?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+178,technical_explanation,Explain how garbage collection works in programming.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+179,technical_explanation,What is an API? Explain it using an analogy.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+180,technical_explanation,How does SSL/TLS encryption work?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+181,technical_explanation,Explain the concept of a blockchain in simple terms.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+182,technical_explanation,What is the difference between TCP and UDP?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+183,technical_explanation,Explain how DNS resolves a domain name.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+184,technical_explanation,What is a neural network? Explain simply.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+185,technical_explanation,How does version control (like Git) work?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+186,technical_explanation,Explain how a hash table works to a beginner.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+187,technical_explanation,What is the difference between HTTP and HTTPS?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+188,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+189,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+190,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+191,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+192,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+193,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+194,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+195,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+196,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+197,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+198,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+199,code_generation,Write a function that validates an email address format.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+200,code_generation,Write a function to find the second largest element in a list.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+201,code_generation,Write a function that reverses a linked list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+202,code_generation,Write a function to check if two strings are anagrams.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+203,code_generation,Write a function to flatten a nested dictionary.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+204,code_generation,Write a function to implement binary search.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+205,code_generation,Write a Python function to check if a string is a palindrome.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+206,code_generation,Write a function that finds the factorial of a number recursively.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+207,code_generation,Write a function to merge two sorted lists into one sorted list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+208,code_generation,Write a function to count word frequency in a string.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+209,code_generation,Write a function that validates an email address format.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+210,code_generation,Write a function to find the second largest element in a list.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+211,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+212,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+213,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+214,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+215,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+216,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+217,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+218,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+219,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,"Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+220,business_writing,Write a short proposal for a team brainstorming session.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+221,business_writing,Draft a thank-you note to a client after a successful project.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+222,business_writing,Write a memo announcing a new company wellness program.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+223,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+224,business_writing,Write a professional email requesting a deadline extension.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+225,business_writing,Write a short proposal for a team brainstorming session.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+226,business_writing,Draft a thank-you note to a client after a successful project.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+227,business_writing,Write a memo announcing a new company wellness program.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+228,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+229,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+230,scientific,Explain the difference between DNA and RNA.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+231,scientific,Why does ice float on water? Explain the science.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+232,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+233,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+234,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+235,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+236,open_ended_qa,What makes a good teacher? Discuss.,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+237,open_ended_qa,Is artificial intelligence a threat or opportunity? Discuss.,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+238,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+239,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+240,creative_writing,Write a short slogan for a eco-friendly product.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+241,creative_writing,Describe a sunset using only metaphors.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+242,creative_writing,Write a dialogue between a cat and a computer.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+243,creative_writing,Create a mini-monologue from the perspective of a tree.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+244,creative_writing,Write a poem about data loss (4 lines).,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+245,creative_writing,Describe what silence sounds like in 3 sentences.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+246,creative_writing,Write a short ad for a time-travel travel agency.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+247,creative_writing,Write a story opening: 'The last library on Earth had no books...',"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+248,creative_writing,Write a 2-sentence story about a robot learning to paint.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+249,creative_writing,Compose a haiku about artificial intelligence.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+250,creative_writing,Write a short slogan for a eco-friendly product.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+251,creative_writing,Describe a sunset using only metaphors.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+252,creative_writing,Write a dialogue between a cat and a computer.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+253,creative_writing,Create a mini-monologue from the perspective of a tree.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+254,technical_explanation,Explain how garbage collection works in programming.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+255,technical_explanation,What is an API? Explain it using an analogy.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+256,technical_explanation,How does SSL/TLS encryption work?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+257,technical_explanation,Explain the concept of a blockchain in simple terms.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+258,technical_explanation,What is the difference between TCP and UDP?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+259,technical_explanation,Explain how DNS resolves a domain name.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+260,technical_explanation,What is a neural network? Explain simply.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+261,technical_explanation,How does version control (like Git) work?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+262,technical_explanation,Explain how a hash table works to a beginner.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+263,technical_explanation,What is the difference between HTTP and HTTPS?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+264,technical_explanation,Explain how garbage collection works in programming.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+265,technical_explanation,What is an API? Explain it using an analogy.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+266,technical_explanation,How does SSL/TLS encryption work?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+267,technical_explanation,Explain the concept of a blockchain in simple terms.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+268,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+269,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+270,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+271,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+272,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+273,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+274,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+275,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+276,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+277,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+278,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+279,code_generation,Write a function that reverses a linked list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+280,code_generation,Write a function to check if two strings are anagrams.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+281,code_generation,Write a function to flatten a nested dictionary.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+282,code_generation,Write a function to implement binary search.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+283,code_generation,Write a Python function to check if a string is a palindrome.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+284,code_generation,Write a function that finds the factorial of a number recursively.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+285,code_generation,Write a function to merge two sorted lists into one sorted list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+286,code_generation,Write a function to count word frequency in a string.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+287,code_generation,Write a function that validates an email address format.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+288,code_generation,Write a function to find the second largest element in a list.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+289,code_generation,Write a function that reverses a linked list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+290,code_generation,Write a function to check if two strings are anagrams.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+291,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+292,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+293,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+294,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+295,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+296,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+297,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+298,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+299,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+300,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+301,business_writing,Write a professional email requesting a deadline extension.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+302,business_writing,Write a short proposal for a team brainstorming session.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+303,business_writing,Draft a thank-you note to a client after a successful project.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+304,business_writing,Write a memo announcing a new company wellness program.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+305,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+306,business_writing,Write a professional email requesting a deadline extension.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+307,business_writing,Write a short proposal for a team brainstorming session.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+308,scientific,Explain the difference between DNA and RNA.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+309,scientific,Why does ice float on water? Explain the science.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+310,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+311,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+312,scientific,Explain the difference between DNA and RNA.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+313,scientific,Why does ice float on water? Explain the science.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+314,open_ended_qa,What makes a good teacher? Discuss.,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+315,open_ended_qa,Is artificial intelligence a threat or opportunity? Discuss.,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+316,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+317,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+318,open_ended_qa,What makes a good teacher? Discuss.,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+319,open_ended_qa,Is artificial intelligence a threat or opportunity? Discuss.,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+320,creative_writing,Write a poem about data loss (4 lines).,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+321,creative_writing,Describe what silence sounds like in 3 sentences.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+322,creative_writing,Write a short ad for a time-travel travel agency.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+323,creative_writing,Write a story opening: 'The last library on Earth had no books...',"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+324,creative_writing,Write a 2-sentence story about a robot learning to paint.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+325,creative_writing,Compose a haiku about artificial intelligence.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+326,creative_writing,Write a short slogan for a eco-friendly product.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+327,creative_writing,Describe a sunset using only metaphors.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+328,creative_writing,Write a dialogue between a cat and a computer.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+329,creative_writing,Create a mini-monologue from the perspective of a tree.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+330,creative_writing,Write a poem about data loss (4 lines).,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+331,creative_writing,Describe what silence sounds like in 3 sentences.,"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+332,creative_writing,Write a short ad for a time-travel travel agency.,"Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it."
+333,creative_writing,Write a story opening: 'The last library on Earth had no books...',"The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt."
+334,technical_explanation,What is the difference between TCP and UDP?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+335,technical_explanation,Explain how DNS resolves a domain name.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+336,technical_explanation,What is a neural network? Explain simply.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+337,technical_explanation,How does version control (like Git) work?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+338,technical_explanation,Explain how a hash table works to a beginner.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+339,technical_explanation,What is the difference between HTTP and HTTPS?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+340,technical_explanation,Explain how garbage collection works in programming.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+341,technical_explanation,What is an API? Explain it using an analogy.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+342,technical_explanation,How does SSL/TLS encryption work?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+343,technical_explanation,Explain the concept of a blockchain in simple terms.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+344,technical_explanation,What is the difference between TCP and UDP?,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+345,technical_explanation,Explain how DNS resolves a domain name.,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+346,technical_explanation,What is a neural network? Explain simply.,"Great question! Let me explain this clearly. A hash table works by using a function that converts a key into an array index. When you store a value, the hash function computes where to put it. When you look it up, the same function tells you exactly where to find it. This makes lookups extremely fast, usually O(1) time complexity."
+347,technical_explanation,How does version control (like Git) work?,Let me break this down simply. The core concept involves mapping data efficiently. Think of it like a filing cabinet where each file has a unique label that tells you exactly which drawer to open. This is much faster than searching through every drawer one by one.
+348,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+349,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+350,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+351,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+352,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+353,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+354,summarization,"Summarize this: Climate change is driven by greenhouse gas emissions from human activities including burning fossil fuels, deforestation, and industrial processes. These trap heat in the atmosphere, causing global temperatures to rise. Effects include more frequent extreme weather, sea level rise, and ecosystem disruption.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+355,summarization,"Summarize this: Machine learning is a subset of AI where systems learn from data rather than explicit programming. Types include supervised learning (labeled data), unsupervised learning (patterns without labels), and reinforcement learning (trial and error). Applications range from recommendation systems to self-driving cars.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+356,summarization,"Summarize this: The water cycle involves evaporation from oceans and lakes, condensation forming clouds, precipitation as rain or snow, and collection in bodies of water. This continuous process distributes fresh water and is essential for all life.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+357,summarization,"Summarize this: Photosynthesis is the process by which plants convert sunlight, water, and carbon dioxide into glucose and oxygen. This occurs in chloroplasts using chlorophyll. It is the primary energy source for most life on Earth.","In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications."
+358,summarization,"Summarize this: The Internet began as ARPANET in 1969. It evolved through TCP/IP in the 1970s, the World Wide Web in 1989, and commercial expansion in the 1990s. Today it connects billions of devices globally.","The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage."
+359,code_generation,Write a function to flatten a nested dictionary.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+360,code_generation,Write a function to implement binary search.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+361,code_generation,Write a Python function to check if a string is a palindrome.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+362,code_generation,Write a function that finds the factorial of a number recursively.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+363,code_generation,Write a function to merge two sorted lists into one sorted list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+364,code_generation,Write a function to count word frequency in a string.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+365,code_generation,Write a function that validates an email address format.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+366,code_generation,Write a function to find the second largest element in a list.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+367,code_generation,Write a function that reverses a linked list.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+368,code_generation,Write a function to check if two strings are anagrams.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+369,code_generation,Write a function to flatten a nested dictionary.,"Here is a clean solution:
+
+def check_palindrome(s):
+    s = str(s).lower().replace(' ', '')
+    return s == s[::-1]
+
+This function handles strings, numbers, ignores case and spaces, and is O(n) time complexity."
+370,code_generation,Write a function to implement binary search.,"Here's my implementation:
+
+def solve(input_data):
+    if not input_data:
+        return None
+    result = process_data(input_data)
+    return result
+
+Test this with various inputs to verify correctness."
+371,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,"Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+372,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+373,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+374,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+375,reasoning,"If you have a 3-gallon jug and a 5-gallon jug, how can you measure exactly 4 gallons?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+376,reasoning,A bat and a ball cost $1.10. The bat costs $1.00 more than the ball. How much does the ball cost?,This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+377,reasoning,"If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops necessarily Lazzies? Explain why.","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+378,reasoning,"You have 8 identical balls, one is heavier. Using a balance scale twice, find the heavy ball.",This is a classic logic problem. The approach involves carefully considering what information we actually have versus what we assume. The key insight is often that our initial intuition is wrong and the real answer comes from precise logical deduction.
+379,reasoning,"If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?","Let me think through this step by step. First, I analyze the constraints given in the problem. Then I identify the key insight needed to reach the solution. The reasoning process involves careful deduction from the known facts to the unknown answer."
+380,business_writing,Draft a thank-you note to a client after a successful project.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+381,business_writing,Write a memo announcing a new company wellness program.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+382,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+383,business_writing,Write a professional email requesting a deadline extension.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+384,business_writing,Write a short proposal for a team brainstorming session.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+385,business_writing,Draft a thank-you note to a client after a successful project.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+386,business_writing,Write a memo announcing a new company wellness program.,"Subject: Follow-up on Project Discussion
+
+Dear Team,
+
+Thank you for the productive discussion earlier. I believe we have a solid direction forward. I recommend we schedule a follow-up next week to assign action items and set timelines.
+
+Best regards,
+[Your Name]"
+387,business_writing,Write a pitch for a new productivity app in 3 paragraphs.,"I would structure this communication by starting with a clear subject line, stating your purpose in the opening paragraph, providing supporting details in the middle, and ending with a specific call to action or next steps."
+388,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+389,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+390,scientific,Explain the difference between DNA and RNA.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+391,scientific,Why does ice float on water? Explain the science.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+392,scientific,Explain why the sky appears blue during the day.,"The scientific explanation involves a phenomenon called Rayleigh scattering. Sunlight interacts with molecules in Earth's atmosphere, and shorter wavelengths (blue) are scattered more than longer wavelengths (red). This is why we see a blue sky during the day and red sunsets when light travels through more atmosphere."
+393,scientific,Describe how vaccines train the immune system.,"From a scientific perspective, this occurs due to fundamental physical principles. The key factors involve molecular interactions and the way energy transfers between particles at the atomic level."
+394,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+395,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+396,open_ended_qa,What makes a good teacher? Discuss.,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+397,open_ended_qa,Is artificial intelligence a threat or opportunity? Discuss.,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+398,open_ended_qa,What are the pros and cons of remote work?,"That's a multifaceted question with several important perspectives to consider. There are clear benefits including increased efficiency and flexibility. However, there are also drawbacks such as potential isolation and communication challenges. Ultimately, the best answer depends heavily on individual circumstances and priorities."
+399,open_ended_qa,Which programming language is best for beginners and why?,"Let me offer a balanced analysis. The advantages are significant and well-documented in current research. Meanwhile, the disadvantages present real concerns that must be addressed. My assessment is that a thoughtful, context-dependent approach is most appropriate here."
+400,creative_writing,Describe a world where music is visible as colors.,Here is my response to: Describe a world where music is visible as colors.... This addresses the key points with relevant details and examples for clarity.
+401,creative_writing,Write a conversation between the moon and the sun.,Here is my response to: Write a conversation between the moon and the sun.... This addresses the key points with relevant details and examples for clarity.
+402,creative_writing,Create a short poem about quantum entanglement.,Here is my response to: Create a short poem about quantum entanglement.... This addresses the key points with relevant details and examples for clarity.
+403,creative_writing,Describe the smell of rain from the perspective of a cat.,Here is my response to: Describe the smell of rain from the perspective of... This addresses the key points with relevant details and examples for clarity.
+404,creative_writing,Write a micro-story about the last analog clock.,Here is my response to: Write a micro-story about the last analog clock.... This addresses the key points with relevant details and examples for clarity.
+405,technical_explanation,Explain how a database index works to a non-technical person.,Here is my response to: Explain how a database index works to a non-techni... This addresses the key points with relevant details and examples for clarity.
+406,technical_explanation,What is the difference between REST and GraphQL?,Here is my response to: What is the difference between REST and GraphQL?... This addresses the key points with relevant details and examples for clarity.
+407,technical_explanation,Explain how public-key cryptography works.,Here is my response to: Explain how public-key cryptography works.... This addresses the key points with relevant details and examples for clarity.
+408,technical_explanation,What is a CDN and how does it speed up websites?,Here is my response to: What is a CDN and how does it speed up websites?... This addresses the key points with relevant details and examples for clarity.
+409,technical_explanation,Explain the concept of a microservices architecture.,Here is my response to: Explain the concept of a microservices architectur... This addresses the key points with relevant details and examples for clarity.
+410,summarization,"Summarize: Reinforcement learning is a machine learning paradigm where an agent learns to make decisions by interacting with an environment. The agent receives rewards or penalties based on its actions and learns to maximize cumulative reward over time. Key concepts include the policy, value function, and exploration-exploitation trade-off.",Here is my response to: Summarize: Reinforcement learning is a machine lea... This addresses the key points with relevant details and examples for clarity.
+411,summarization,"Summarize: The human immune system consists of innate and adaptive components. The innate system provides immediate, non-specific defense. The adaptive system learns to recognize specific pathogens and creates immunological memory, enabling faster response upon re-exposure. Vaccines work by training the adaptive system.",Here is my response to: Summarize: The human immune system consists of inn... This addresses the key points with relevant details and examples for clarity.
+412,code_generation,Write a function to detect if a string has balanced parentheses.,Here is my response to: Write a function to detect if a string has balance... This addresses the key points with relevant details and examples for clarity.
+413,code_generation,Write a function that implements a simple LRU cache.,Here is my response to: Write a function that implements a simple LRU cach... This addresses the key points with relevant details and examples for clarity.
+414,code_generation,Write a function to find the longest common subsequence of two strings.,Here is my response to: Write a function to find the longest common subseq... This addresses the key points with relevant details and examples for clarity.
+415,code_generation,Write a function that transposes a matrix.,Here is my response to: Write a function that transposes a matrix.... This addresses the key points with relevant details and examples for clarity.
+416,code_generation,Write a function to generate all permutations of a list.,Here is my response to: Write a function to generate all permutations of a... This addresses the key points with relevant details and examples for clarity.
+417,reasoning,You have a 7-minute hourglass and an 11-minute hourglass. How do you measure exactly 15 minutes?,Here is my response to: You have a 7-minute hourglass and an 11-minute hou... This addresses the key points with relevant details and examples for clarity.
+418,reasoning,Three light switches control three bulbs in another room. You can only enter the room once. How do you determine which switch controls which bulb?,Here is my response to: Three light switches control three bulbs in anothe... This addresses the key points with relevant details and examples for clarity.
+419,reasoning,"A farmer needs to cross a river with a wolf, a goat, and a cabbage. The boat can only carry the farmer and one item. If left alone, the wolf eats the goat, and the goat eats the cabbage. How does the farmer get everything across?","Here is my response to: A farmer needs to cross a river with a wolf, a goa... This addresses the key points with relevant details and examples for clarity."
+420,business_writing,Write a concise project update email for stakeholders.,Here is my response to: Write a concise project update email for stakehold... This addresses the key points with relevant details and examples for clarity.
+421,business_writing,Draft a performance review self-assessment paragraph.,Here is my response to: Draft a performance review self-assessment paragra... This addresses the key points with relevant details and examples for clarity.
+422,business_writing,Write a meeting agenda for a product launch planning session.,Here is my response to: Write a meeting agenda for a product launch planni... This addresses the key points with relevant details and examples for clarity.
+423,scientific,Explain how CRISPR gene editing works.,Here is my response to: Explain how CRISPR gene editing works.... This addresses the key points with relevant details and examples for clarity.
+424,scientific,Describe the process of nuclear fusion in stars.,Here is my response to: Describe the process of nuclear fusion in stars.... This addresses the key points with relevant details and examples for clarity.
+425,scientific,Why do we have seasons? Explain the astronomical cause.,Here is my response to: Why do we have seasons? Explain the astronomical c... This addresses the key points with relevant details and examples for clarity.
+426,open_ended_qa,Should AI development be regulated? Discuss both sides.,Here is my response to: Should AI development be regulated? Discuss both s... This addresses the key points with relevant details and examples for clarity.
+427,open_ended_qa,What skills will be most important for future jobs?,Here is my response to: What skills will be most important for future jobs... This addresses the key points with relevant details and examples for clarity.
+428,open_ended_qa,Is remote work better than office work? Discuss.,Here is my response to: Is remote work better than office work? Discuss.... This addresses the key points with relevant details and examples for clarity.
