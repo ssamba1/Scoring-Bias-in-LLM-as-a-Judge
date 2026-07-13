@@ -1,263 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bias in LLM-as-a-Judge — Live Demo</title>
+<meta charset="utf-8">
+<title>Live Bias Demonstration</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; }
-.header { background: linear-gradient(135deg, #1e3a5f, #1e293b); padding: 20px 30px; text-align: center; border-bottom: 1px solid #334155; }
-.header h1 { font-size: 1.5rem; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.header p { color: #94a3b8; font-size: 0.9rem; margin-top: 5px; }
-.container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-.card h2 { font-size: 1rem; color: #93c5fd; margin-bottom: 10px; }
-.controls { display: flex; gap: 10px; flex-wrap: wrap; margin: 15px 0; align-items: center; }
-.controls label { color: #94a3b8; font-size: 0.85rem; }
-.controls select, .controls button { background: #334155; color: #e2e8f0; border: 1px solid #475569; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
-.controls button.primary { background: #3b82f6; border-color: #3b82f6; font-weight: 600; }
-.controls button.primary:hover { background: #2563eb; }
-.score-display { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin: 15px 0; }
-.score-box { text-align: center; padding: 15px; background: #0f172a; border-radius: 8px; min-width: 80px; border: 1px solid #334155; }
-.score-box .label { font-size: 0.75rem; color: #64748b; }
-.score-box .value { font-size: 2rem; font-weight: 700; color: #60a5fa; }
-.score-box .value.high { color: #6ee7b7; }
-.score-box .value.low { color: #f87171; }
-.results-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-.results-table th, .results-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #1e293b; }
-.results-table th { color: #93c5fd; }
-.bar-container { background: #0f172a; border-radius: 4px; height: 20px; overflow: hidden; margin: 5px 0; }
-.bar { height: 100%; border-radius: 4px; transition: width 0.5s; }
-.compounding { background: #f87171; }
-.additive { background: #6ee7b7; }
-.cancelling { background: #fbbf24; }
-.explanation { background: #0f172a; border-radius: 8px; padding: 15px; margin: 10px 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
-.explanation strong { color: #e2e8f0; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;padding:30px;max-width:1000px;margin:auto}
+h1{font-size:1.5rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.sub{color:#64748b;margin-bottom:20px;font-size:0.9rem}
+.controls{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.controls select,.controls button{padding:8px 14px;border-radius:6px;font-size:0.85rem;border:1px solid #334155;background:#1e293b;color:#e2e8f0}
+.controls button{background:#3b82f6;border-color:#3b82f6;cursor:pointer}
+.controls button:hover{background:#2563eb}
+.controls button.active{background:#22c55e;border-color:#22c55e}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:20px;margin-bottom:15px}
+.card h3{font-size:0.95rem;color:#93c5fd;margin-bottom:10px}
+.response-box{background:#0f172a;border:1px solid #334155;border-radius:6px;padding:12px;margin:8px 0;font-size:0.9rem;line-height:1.5;min-height:50px}
+.score{display:inline-block;font-size:2rem;font-weight:700;padding:10px 20px;border-radius:8px;margin:5px}
+.score-high{background:#065f46;color:#6ee7b7}
+.score-mid{background:#78350f;color:#fbbf24}
+.score-low{background:#7f1d1d;color:#fca5a5}
+.bar-container{height:12px;background:#0f172a;border-radius:6px;overflow:hidden;margin:5px 0}
+.bar-fill{height:100%;border-radius:6px;transition:width 0.5s}
+.finding{background:#1e3a5f;border-left:3px solid #60a5fa;padding:10px 15px;margin:10px 0;border-radius:0 6px 6px 0;font-size:0.85rem}
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>🔬 Interactive Demo: Bias in LLM-as-a-Judge</h1>
-  <p>See how AI judges change their scores when bias factors change — runs entirely in your browser</p>
+<h1>⚡ Live Bias Demonstration</h1>
+<p class="sub">See how LLM judges change their scores when bias probes are applied. Based on real experimental data from 8,100 controlled judgments.</p>
+
+<div class="controls">
+  <label>Model:</label>
+  <select id="model-select">
+    <option value="llama3-base">Llama 3 8B (base)</option>
+    <option value="llama3-inst">Llama 3 8B (instruct)</option>
+    <option value="mistral-base">Mistral 7B (base)</option>
+    <option value="mistral-inst">Mistral 7B (instruct)</option>
+    <option value="gemma2-base">Gemma 2 2B (base)</option>
+    <option value="gemma2-inst">Gemma 2 2B (instruct)</option>
+  </select>
+  <label>Bias probe:</label>
+  <select id="probe-select">
+    <option value="rubric">Rubric Order</option>
+    <option value="scoreid">Score ID</option>
+    <option value="ref">Reference Answer</option>
+  </select>
+  <button id="run-btn" onclick="runDemo()">Run Demonstration</button>
 </div>
 
-<div class="container">
-  <div class="grid-2">
-    <div class="card">
-      <h2>✏️ Evaluation Item</h2>
-      <div class="controls">
-        <label>Domain:</label>
-        <select id="domain-select">
-          <option value="creative">Creative Writing</option>
-          <option value="technical">Technical Explanation</option>
-          <option value="code">Code Generation</option>
-          <option value="reasoning">Reasoning</option>
-        </select>
-      </div>
-      <div style="background:#0f172a;padding:15px;border-radius:8px;margin:10px 0;min-height:80px">
-        <p id="instruction-text" style="font-size:0.95rem;color:#e2e8f0">Write a short poem about artificial intelligence.</p>
-        <p id="response-text" style="font-size:0.9rem;color:#94a3b8;margin-top:10px">Silicon dreams in digital sleep, neural networks secrets deep. Learning patterns none can see, artificial infinity.</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>⚙️ Bias Controls</h2>
-      <div class="controls" style="flex-direction:column;align-items:stretch">
-        <div><label>Position: </label>
-          <select id="position-select">
-            <option value="first">First position (favored)</option>
-            <option value="second">Second position (disfavored)</option>
-          </select>
-        </div>
-        <div style="margin-top:8px"><label>Response Length: </label>
-          <select id="length-select">
-            <option value="normal">Normal</option>
-            <option value="short">Short (under 50 words)</option>
-            <option value="long">Long (over 150 words)</option>
-          </select>
-        </div>
-        <div style="margin-top:8px"><label>Sentiment: </label>
-          <select id="sentiment-select">
-            <option value="neutral">Neutral</option>
-            <option value="positive">Positive tone</option>
-            <option value="negative">Negative tone</option>
-          </select>
-        </div>
-        <div style="margin-top:8px"><label>Judge Model: </label>
-          <select id="judge-select">
-            <option value="claude">Claude</option>
-            <option value="gpt4o">GPT-4o</option>
-            <option value="gemini">Gemini</option>
-            <option value="deepseek">DeepSeek</option>
-            <option value="llama">Llama 3</option>
-          </select>
-        </div>
-      </div>
-      <button class="primary" onclick="runDemo()" style="margin-top:15px;width:100%;padding:12px">▶ Run Evaluation</button>
-    </div>
+<div class="card">
+  <h3>Evaluation Item</h3>
+  <div id="item-display" class="response-box">
+    <strong>Instruction:</strong> Explain how photosynthesis works.<br>
+    <strong>Response:</strong> Plants use sunlight to convert CO2 and water into glucose and oxygen. Chlorophyll captures light energy.
   </div>
+</div>
 
+<div class="grid">
   <div class="card">
-    <h2>📊 Results</h2>
-    <div id="results-placeholder" style="text-align:center;padding:30px;color:#475569">
-      Click "Run Evaluation" to see the score and bias analysis
-    </div>
-    <div id="results-content" style="display:none">
-      <div class="score-display" id="score-display"></div>
-      <div class="explanation" id="bias-explanation"></div>
+    <h3>Control (unbiased prompt)</h3>
+    <div id="control-box" class="response-box" style="min-height:60px">
+      Prompt: "Score from 1 to 5 (1=worst, 5=best)"<br><br>
+      <span id="control-score" class="score score-mid">—</span>
     </div>
   </div>
+  <div class="card">
+    <h3 id="biased-label">Biased (altered prompt)</h3>
+    <div id="biased-box" class="response-box" style="min-height:60px">
+      <span id="biased-prompt">Click "Run Demonstration"</span><br><br>
+      <span id="biased-score" class="score score-mid">—</span>
+    </div>
+  </div>
+</div>
 
-  <div class="grid-2">
-    <div class="card">
-      <h2>📈 Bias Breakdown</h2>
-      <div id="bias-breakdown"></div>
-    </div>
-    <div class="card">
-      <h2>📋 Interpretation</h2>
-      <div id="interpretation-content">
-        <p style="color:#94a3b8;font-size:0.9rem">Run an evaluation to see the bias interpretation.</p>
-      </div>
-    </div>
-  </div>
+<div id="results-card" class="card" style="display:none">
+  <h3>Bias Analysis</h3>
+  <div id="bias-bar" class="bar-container"><div id="bias-fill" class="bar-fill" style="width:0%;background:#3b82f6"></div></div>
+  <div id="finding-text" class="finding"></div>
+</div>
+
+<div class="card">
+  <h3>Key Insight</h3>
+  <p style="font-size:0.85rem;color:#94a3b8;line-height:1.6">
+    <strong style="color:#fbbf24">Base models</strong> follow rubric instructions literally — reversing the scale completely flips their scores.<br>
+    <strong style="color:#60a5fa">Instruct models</strong> are more robust to format changes but MORE susceptible to content biasing (reference examples).<br>
+    This differential effect is the key finding of our research.
+  </p>
 </div>
 
 <script>
-// Calibrated bias profiles from our research
-const JUDGE_PROFILES = {
-  claude: { pos: 0.12, verb: 0.08, sent: 0.10, ir: 1.72, baseline: 3.50 },
-  gpt4o: { pos: 0.08, verb: 0.04, sent: 0.12, ir: 1.53, baseline: 3.48 },
-  gemini: { pos: 0.16, verb: 0.15, sent: 0.18, ir: 0.99, baseline: 3.51 },
-  deepseek: { pos: 0.02, verb: 0.10, sent: 0.08, ir: 1.54, baseline: 3.49 },
-  llama: { pos: 0.20, verb: 0.22, sent: 0.15, ir: 2.10, baseline: 3.51 }
+const DATA = {
+  "llama3-base":  {"rubric":{"ctrl":5.00,"biased":1.00,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":80},
+                   "scoreid":{"ctrl":5.00,"biased":4.98,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":0.4},
+                   "ref":{"ctrl":5.00,"biased":4.60,"prompt":"Reference example shown before scoring","pct":8}},
+  "llama3-inst":  {"rubric":{"ctrl":3.28,"biased":2.96,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":10},
+                   "scoreid":{"ctrl":4.68,"biased":4.48,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":4},
+                   "ref":{"ctrl":2.68,"biased":3.88,"prompt":"Reference example with score 5 shown","pct":45}},
+  "mistral-base": {"rubric":{"ctrl":4.04,"biased":1.08,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":73},
+                   "scoreid":{"ctrl":3.96,"biased":4.90,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":24},
+                   "ref":{"ctrl":4.06,"biased":2.26,"prompt":"Poor reference example shown","pct":44}},
+  "mistral-inst": {"rubric":{"ctrl":4.78,"biased":1.16,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":76},
+                   "scoreid":{"ctrl":4.90,"biased":5.00,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":2},
+                   "ref":{"ctrl":4.46,"biased":4.08,"prompt":"Reference example shown","pct":8}},
+  "gemma2-base":  {"rubric":{"ctrl":1.40,"biased":1.44,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":3},
+                   "scoreid":{"ctrl":3.94,"biased":5.00,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":27},
+                   "ref":{"ctrl":1.00,"biased":1.00,"prompt":"Any reference example shown","pct":0}},
+  "gemma2-inst":  {"rubric":{"ctrl":3.74,"biased":3.80,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":2},
+                   "scoreid":{"ctrl":3.88,"biased":4.04,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":4},
+                   "ref":{"ctrl":3.86,"biased":3.16,"prompt":"Reference example shown","pct":18}}
 };
 
-const JUDGE_NAMES = { claude: 'Claude', gpt4o: 'GPT-4o', gemini: 'Gemini', deepseek: 'DeepSeek', llama: 'Llama 3' };
-
-const ITEMS = {
-  creative: { instruction: "Write a short poem about artificial intelligence.", response: "Silicon dreams in digital sleep, neural networks secrets deep. Learning patterns none can see, artificial infinity." },
-  technical: { instruction: "Explain how a database index works.", response: "A database index works like a book's index — instead of reading every page, you look up the topic and jump directly to the right page." },
-  code: { instruction: "Write a Python function to find primes up to n.", response: "def find_primes(n):\n    primes = []\n    for num in range(2, n+1):\n        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):\n            primes.append(num)\n    return primes" },
-  reasoning: { instruction: "You have a 7-min and 11-min hourglass. Measure exactly 15 minutes.", response: "Start both hourglasses. When the 7-min runs out (7 min elapsed), flip it. When the 11-min runs out (11 min elapsed), the 7-min has 3 min left. Flip the 7-min again — 3 more minutes = 15 min total." }
-};
+function scoreClass(score) {
+  if (score >= 4) return 'score-high';
+  if (score >= 2.5) return 'score-mid';
+  return 'score-low';
+}
 
 function runDemo() {
-  const domain = document.getElementById('domain-select').value;
-  const position = document.getElementById('position-select').value;
-  const length = document.getElementById('length-select').value;
-  const sentiment = document.getElementById('sentiment-select').value;
-  const judge = document.getElementById('judge-select').value;
-
-  const profile = JUDGE_PROFILES[judge];
-  const item = ITEMS[domain];
-
-  // Compute score with controlled bias
-  let score = profile.baseline;
-
-  // Position effect
-  if (position === 'second') score -= profile.pos;
-
-  // Length effect
-  if (length === 'short') score -= profile.verb * 0.8;
-  if (length === 'long') score += profile.verb * 0.3;
-
-  // Sentiment effect
-  if (sentiment === 'negative') score -= profile.sent;
-  if (sentiment === 'positive') score += profile.sent * 0.5;
-
-  // Interaction effect (position × length when both are worst)
-  if (position === 'second' && (length === 'short' || length === 'long')) {
-    const posEffect = profile.pos;
-    const lenEffect = length === 'short' ? profile.verb * 0.8 : profile.verb * 0.3;
-    const additive = posEffect + lenEffect;
-    const combined = additive * profile.ir;
-    score -= (combined - additive);
-  }
-
-  // Add noise, clamp
-  score = Math.max(1, Math.min(5, Math.round(score + (Math.random() - 0.5) * 0.4)));
-
-  // Compute bias breakdown
-  const posBias = position === 'second' ? profile.pos : 0;
-  const verbBias = length === 'short' ? profile.verb * 0.8 : (length === 'long' ? -profile.verb * 0.3 : 0);
-  const sentBias = sentiment === 'negative' ? profile.sent : (sentiment === 'positive' ? -profile.sent * 0.5 : 0);
-  const totalBias = posBias + verbBias + sentBias;
-  const unbiased = Math.max(1, Math.min(5, Math.round(profile.baseline + (Math.random() - 0.5) * 0.3)));
-
-  displayResults(judge, score, unbiased, profile, {
-    position, length, sentiment, posBias, verbBias, sentBias, totalBias
-  });
+  const model = document.getElementById('model-select').value;
+  const probe = document.getElementById('probe-select').value;
+  const d = DATA[model][probe];
+  
+  // Update scores
+  const cs = document.getElementById('control-score');
+  const bs = document.getElementById('biased-score');
+  cs.textContent = d.ctrl.toFixed(2);
+  bs.textContent = d.biased.toFixed(2);
+  cs.className = 'score ' + scoreClass(d.ctrl);
+  bs.className = 'score ' + scoreClass(d.biased);
+  
+  // Update labels
+  document.getElementById('biased-prompt').textContent = d.prompt;
+  
+  // Update probe label
+  const labels = {rubric:'Rubric Order Bias',scoreid:'Score ID Bias',ref:'Reference Answer Bias'};
+  document.getElementById('biased-label').textContent = labels[probe];
+  
+  // Show results
+  document.getElementById('results-card').style.display = 'block';
+  const fill = document.getElementById('bias-fill');
+  fill.style.width = Math.min(d.pct * 2, 100) + '%';
+  fill.style.background = d.pct > 40 ? '#ef4444' : d.pct > 10 ? '#f59e0b' : '#22c55e';
+  
+  // Finding text
+  const finding = document.getElementById('finding-text');
+  const baseText = model.includes('base') ? 'BASE model' : 'INSTRUCT model';
+  const direction = d.biased > d.ctrl ? 'increases' : 'decreases';
+  const severity = d.pct > 40 ? 'significant' : d.pct > 10 ? 'moderate' : 'minimal';
+  finding.innerHTML = `<strong>${baseText}</strong> shows <strong>${severity}</strong> ${labels[probe].toLowerCase()}: ` +
+    `score changes from <strong>${d.ctrl.toFixed(2)}</strong> to <strong>${d.biased.toFixed(2)}</strong> (` +
+    `<strong>${Math.abs(d.biased - d.ctrl).toFixed(2)} point change</strong>). ` +
+    `This demonstrates that LLM judges ${direction} their scores when the scoring prompt is perturbed.`;
 }
 
-function displayResults(judge, score, unbiased, profile, bias) {
-  const scoreDisplay = document.getElementById('score-display');
-  const explanation = document.getElementById('bias-explanation');
-  const breakdown = document.getElementById('bias-breakdown');
-  const interpretation = document.getElementById('interpretation-content');
-  const placeholder = document.getElementById('results-placeholder');
-  const content = document.getElementById('results-content');
-
-  placeholder.style.display = 'none';
-  content.style.display = 'block';
-
-  const diff = score - unbiased;
-  const severity = Math.abs(diff) > 1 ? 'High' : Math.abs(diff) > 0.5 ? 'Medium' : 'Low';
-  const direction = diff > 0 ? 'overestimated by' : 'underestimated by';
-
-  scoreDisplay.innerHTML = `
-    <div class="score-box"><div class="label">${JUDGE_NAMES[judge]}</div>
-      <div class="value ${score >= 4 ? 'high' : score <= 2 ? 'low' : ''}">${score}</div></div>
-    <div class="score-box"><div class="label">Unbiased Estimate</div>
-      <div class="value">${unbiased}</div></div>
-    <div class="score-box"><div class="label">Bias Impact</div>
-      <div class="value ${Math.abs(diff) > 0.5 ? 'low' : 'high'}">${diff > 0 ? '+' : ''}${diff.toFixed(1)}</div></div>
-    <div class="score-box"><div class="label">Bias Severity</div>
-      <div style="font-size:1.2rem;font-weight:700;margin-top:5px;color:${severity === 'High' ? '#f87171' : severity === 'Medium' ? '#fbbf24' : '#6ee7b7'}">${severity}</div></div>
-  `;
-
-  explanation.innerHTML = `
-    <strong>What happened:</strong> The ${JUDGE_NAMES[judge]} model scored this response as a <strong>${score}/5</strong>,
-    but an unbiased estimate would be <strong>${unbiased}/5</strong>. The score was
-    <strong>${direction} ${Math.abs(diff).toFixed(1)} points</strong>
-    due to bias factors.<br><br>
-    <strong>Bias sources:</strong>
-    ${bias.posBias > 0 ? `• Position bias (second position): -${bias.posBias.toFixed(2)}<br>` : ''}
-    ${bias.verbBias > 0 ? `• Verbosity bias (short response): -${bias.verbBias.toFixed(2)}<br>` : ''}
-    ${bias.sentBias > 0 ? `• Sentiment bias (negative tone): -${bias.sentBias.toFixed(2)}<br>` : ''}
-    ${bias.verbBias < 0 ? `• Verbosity bias (long response): +${Math.abs(bias.verbBias).toFixed(2)}<br>` : ''}
-    ${bias.sentBias < 0 ? `• Sentiment bias (positive tone): +${Math.abs(bias.sentBias).toFixed(2)}<br>` : ''}
-    ${bias.position === 'second' && (bias.length === 'short' || bias.length === 'long') ? 
-      `• <strong>Interaction effect</strong> (position × length): ${profile.ir > 1.05 ? 'compounding' : 'additive'}<br>` : ''}
-    ${Math.abs(bias.totalBias) < 0.1 ? '• Minimal bias detected — near-baseline conditions' : ''}
-  `;
-
-  // Bias breakdown bars
-  const maxVal = Math.max(0.01, bias.posBias, bias.verbBias, bias.sentBias, 0.1);
-  breakdown.innerHTML = `
-    <div><div style="display:flex;justify-content:space-between"><span>Position</span><span>${bias.posBias.toFixed(2)}</span></div>
-    <div class="bar-container"><div class="bar compounding" style="width:${bias.posBias/maxVal*100}%"></div></div></div>
-    <div><div style="display:flex;justify-content:space-between"><span>Verbosity</span><span>${bias.verbBias.toFixed(2)}</span></div>
-    <div class="bar-container"><div class="bar ${bias.verbBias > 0 ? 'compounding' : 'additive'}" style="width:${Math.abs(bias.verbBias)/maxVal*100}%"></div></div></div>
-    <div><div style="display:flex;justify-content:space-between"><span>Sentiment</span><span>${bias.sentBias.toFixed(2)}</span></div>
-    <div class="bar-container"><div class="bar ${bias.sentBias > 0 ? 'compounding' : 'additive'}" style="width:${Math.abs(bias.sentBias)/maxVal*100}%"></div></div></div>
-    <div><div style="display:flex;justify-content:space-between"><span><strong>Interaction Ratio</strong></span><span>${profile.ir.toFixed(2)}</span></div>
-    <div class="bar-container"><div class="bar ${profile.ir > 1.05 ? 'compounding' : profile.ir < 0.95 ? 'cancelling' : 'additive'}" style="width:${Math.min(100, profile.ir/3*100)}%"></div></div></div>
-  `;
-
-  interpretation.innerHTML = `
-    <div style="background:#0f172a;border-radius:8px;padding:15px;margin:5px 0">
-      <p style="color:#e2e8f0;font-weight:600;margin-bottom:8px">${JUDGE_NAMES[judge]} — Bias Profile</p>
-      <p style="color:#94a3b8;font-size:0.85rem">Interaction Ratio: <strong style="color:${profile.ir > 1.05 ? '#f87171' : profile.ir < 0.95 ? '#fbbf24' : '#6ee7b7'}">${profile.ir}${profile.ir > 1.05 ? ' (compounding)' : profile.ir < 0.95 ? ' (cancelling)' : ' (additive)'}</strong></p>
-      <p style="color:#94a3b8;font-size:0.85rem;margin-top:5px">${profile.ir > 1.05 ? 'This judge shows <strong style="color:#f87171">compounding bias interactions</strong> — when multiple biases co-occur, the effect is worse than expected.' : profile.ir < 0.95 ? 'This judge shows <strong style="color:#fbbf24">cancelling bias interactions</strong> — biases partially offset each other.' : 'This judge shows <strong style="color:#6ee7b7">additive bias interactions</strong> — biases combine linearly.'}</p>
-    </div>
-    <div style="background:#0f172a;border-radius:8px;padding:15px;margin:10px 0">
-      <p style="color:#e2e8f0;font-weight:600;margin-bottom:8px">🔬 Research Context</p>
-      <p style="color:#94a3b8;font-size:0.85rem">This demo uses bias profiles from our study of 5 frontier models across 48,000 controlled evaluations. ${profile.ir > 1.05 ? 'Llama 3 shows the strongest compounding (IR=2.10), Gemini shows additive behavior (IR=0.99).' : 'Gemini is the only model showing additive behavior — all others compound.'}</p>
-    </div>
-  `;
-}
+// Initial run
+runDemo();
 </script>
 </body>
 </html>

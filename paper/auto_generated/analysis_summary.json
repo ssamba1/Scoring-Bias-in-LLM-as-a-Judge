@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-13T08:19:35.002826",
+  "generated": "2026-07-13T14:39:24.522235",
   "data": {
     "total_judgments": 16000,
     "n_judges": 5,
@@ -7,51 +7,51 @@
   },
   "interactions": {
     "claude": {
-      "position_bias": 0.2650000000000001,
-      "verbosity_bias": 0.1825000000000001,
-      "sentiment_bias": 0.22999999999999998,
-      "combined_effect": 0.48,
-      "interaction_ratio": 0.7084870848708484,
+      "position_bias": 0.4175,
+      "verbosity_bias": 0.3274999999999997,
+      "sentiment_bias": 0.3674999999999997,
+      "combined_effect": 0.5074999999999998,
+      "interaction_ratio": 0.456179775280899,
       "pattern": "Cancelling"
     },
     "deepseek": {
-      "position_bias": 0.10750000000000037,
-      "verbosity_bias": 0.1974999999999998,
-      "sentiment_bias": 0.19750000000000023,
-      "combined_effect": 0.41500000000000004,
-      "interaction_ratio": 0.8258706467661686,
+      "position_bias": 0.08500000000000041,
+      "verbosity_bias": 0.3674999999999997,
+      "sentiment_bias": 0.31000000000000005,
+      "combined_effect": 0.46250000000000036,
+      "interaction_ratio": 0.6065573770491807,
       "pattern": "Cancelling"
     },
     "gemini": {
-      "position_bias": 0.31000000000000005,
-      "verbosity_bias": 0.3075000000000001,
-      "sentiment_bias": 0.3450000000000002,
-      "combined_effect": 0.5150000000000001,
-      "interaction_ratio": 0.535064935064935,
+      "position_bias": 0.48,
+      "verbosity_bias": 0.44999999999999973,
+      "sentiment_bias": 0.48750000000000027,
+      "combined_effect": 0.5125000000000002,
+      "interaction_ratio": 0.36155202821869503,
       "pattern": "Cancelling"
     },
     "gpt4o": {
-      "position_bias": 0.23999999999999977,
-      "verbosity_bias": 0.15500000000000025,
-      "sentiment_bias": 0.3275000000000001,
-      "combined_effect": 0.45500000000000007,
-      "interaction_ratio": 0.629757785467128,
+      "position_bias": 0.25749999999999984,
+      "verbosity_bias": 0.1575000000000002,
+      "sentiment_bias": 0.355,
+      "combined_effect": 0.4224999999999999,
+      "interaction_ratio": 0.5487012987012986,
       "pattern": "Cancelling"
     },
     "llama": {
-      "position_bias": 0.36250000000000027,
-      "verbosity_bias": 0.32499999999999973,
-      "sentiment_bias": 0.31499999999999995,
-      "combined_effect": 1.2475,
-      "interaction_ratio": 1.2443890274314215,
-      "pattern": "Compounding"
+      "position_bias": 0.5049999999999999,
+      "verbosity_bias": 0.4700000000000002,
+      "sentiment_bias": 0.45999999999999996,
+      "combined_effect": 1.3900000000000001,
+      "interaction_ratio": 0.9686411149825784,
+      "pattern": "Additive"
     }
   },
   "summary_stats": {
-    "max_ir": 1.2443890274314215,
-    "min_ir": 0.535064935064935,
-    "mean_ir": 0.7887138959201003,
-    "compounding_count": 1
+    "max_ir": 0.9686411149825784,
+    "min_ir": 0.36155202821869503,
+    "mean_ir": 0.5883263188465303,
+    "compounding_count": 0
   },
   "note": "Auto-generated from experimental data"
 }

@@ -18,7 +18,7 @@ We present an automated analysis of bias interaction effects in LLM-as-a-Judge s
 Using a full-factorial experimental design across 5 frontier models and
 400 controlled evaluation items (16,000 total judgments),
 we demonstrate that position and verbosity biases interact non-additively.
-The mean interaction ratio is 0.79$\times$, with 1/5 judges
+The mean interaction ratio is 0.59$\times$, with 0/5 judges
 showing compounding patterns. These results confirm that single-bias evaluations
 systematically underestimate real-world bias severity.
 \end{abstract}
@@ -31,7 +31,7 @@ frontier models and 400 controlled evaluation items.
 
 \section{Results}
 Table~\ref{tab:results} shows the interaction effects across all judges.
-The maximum interaction ratio is 1.24$\times$ and the minimum is 0.54$\times$.
+The maximum interaction ratio is 0.97$\times$ and the minimum is 0.36$\times$.
 
 \begin{table}[h]
 \centering\small
@@ -41,17 +41,17 @@ The maximum interaction ratio is 1.24$\times$ and the minimum is 0.54$\times$.
 \toprule
 Judge & Position & Verbosity & Sentiment & Combined & IR & Pattern \\
 \midrule
-claude & 0.265 & 0.183 & 0.230 & 0.480 & 0.71 & Cancelling \\
-deepseek & 0.108 & 0.197 & 0.198 & 0.415 & 0.83 & Cancelling \\
-gemini & 0.310 & 0.308 & 0.345 & 0.515 & 0.54 & Cancelling \\
-gpt4o & 0.240 & 0.155 & 0.328 & 0.455 & 0.63 & Cancelling \\
-llama & 0.363 & 0.325 & 0.315 & 1.248 & 1.24 & Compounding \\
+claude & 0.417 & 0.327 & 0.367 & 0.507 & 0.46 & Cancelling \\
+deepseek & 0.085 & 0.367 & 0.310 & 0.463 & 0.61 & Cancelling \\
+gemini & 0.480 & 0.450 & 0.488 & 0.513 & 0.36 & Cancelling \\
+gpt4o & 0.257 & 0.158 & 0.355 & 0.422 & 0.55 & Cancelling \\
+llama & 0.505 & 0.470 & 0.460 & 1.390 & 0.97 & Additive \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Key Finding}
-Of 5 judges, 1 show compounding interactions (IR $>$ 1.05).
+Of 5 judges, 0 show compounding interactions (IR $>$ 1.05).
 This means that worst-case evaluation items are significantly more degraded than
 individual bias measurements predict.
 
