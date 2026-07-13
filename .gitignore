@@ -1,3 +1,5 @@
-__pycache__/
-.env
 *.pyc
+.env
+__pycache__/
+results/bias_interaction_synthetic_v2.csv
+results/corrected_*.csv

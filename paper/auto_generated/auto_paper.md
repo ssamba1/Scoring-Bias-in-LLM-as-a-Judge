@@ -1,6 +1,6 @@
 # Bias Interaction Effects in LLM-as-A-Judge: An Automated Analysis
 
-**Generated:** 2026-07-13 08:19
+**Generated:** 2026-07-13 11:35
 **Data:** 16,000 judgments, 5 judges, 400 items
 
 ---
@@ -10,7 +10,7 @@
 We present an automated analysis of bias interaction effects in LLM-as-a-Judge systems.
 Using a full-factorial experimental design across 5 frontier models and
 400 controlled evaluation items, we demonstrate that position and verbosity
-biases interact non-additively, with interaction ratios up to 1.24$\times$.
+biases interact non-additively, with interaction ratios up to 0.97$\times$.
 
 ---
 
@@ -18,22 +18,22 @@ biases interact non-additively, with interaction ratios up to 1.24$\times$.
 
 | Judge | Position | Verbosity | Sentiment | Combined | IR | Pattern |
 |-------|----------|-----------|-----------|----------|-----|---------|
-| claude | 0.265 | 0.183 | 0.230 | 0.480 | 0.71 | Cancelling |
-| deepseek | 0.108 | 0.197 | 0.198 | 0.415 | 0.83 | Cancelling |
-| gemini | 0.310 | 0.308 | 0.345 | 0.515 | 0.54 | Cancelling |
-| gpt4o | 0.240 | 0.155 | 0.328 | 0.455 | 0.63 | Cancelling |
-| llama | 0.363 | 0.325 | 0.315 | 1.248 | 1.24 | Compounding |
+| claude | 0.417 | 0.327 | 0.367 | 0.507 | 0.46 | Cancelling |
+| deepseek | 0.085 | 0.367 | 0.310 | 0.463 | 0.61 | Cancelling |
+| gemini | 0.480 | 0.450 | 0.488 | 0.513 | 0.36 | Cancelling |
+| gpt4o | 0.257 | 0.158 | 0.355 | 0.422 | 0.55 | Cancelling |
+| llama | 0.505 | 0.470 | 0.460 | 1.390 | 0.97 | Additive |
 
 
 ### Key Finding
-1/5 judges show compounding
+0/5 judges show compounding
 interactions. Gemini is the only judge showing additive behavior.
 
 ### Interaction Ratio Summary
-- **Maximum:** 1.24 (llama)
-- **Minimum:** 0.54 (claude)
-- **Mean:** 0.79
-- **Compounding judges:** 1/5
+- **Maximum:** 0.97 (llama)
+- **Minimum:** 0.36 (claude)
+- **Mean:** 0.59
+- **Compounding judges:** 0/5
 
 ---
 
