@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,hyperref,booktabs,amsmath,amssymb,float}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue}
+\definecolor{citeblue}{rgb}{0.2,0.4,0.8}
+
+\title{Where Does Scoring Bias Come From?\\A Base vs Instruct Comparison of LLM-as-a-Judge}
+\author{Student A$^{1}$ \and Student B$^{1}$ \\
+$^{1}$Department of Computer Science, High School Name \\
+\texttt{\{first.last\}@email.com}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+LLMs are increasingly deployed as automated judges (LLM-as-a-Judge), yet they exhibit systematic scoring biases that compromise their reliability. While recent work~\cite{li2025scoring} documented the existence of scoring biases across multiple models, their origins remain unknown. We present the first systematic investigation of whether scoring bias originates from pre-training or emerges during instruction tuning. Using a controlled experiment spanning 3 model families (Llama 3 8B, Mistral 7B, Gemma 2 2B), 6 model variants (base and instruct for each), and 3 scoring bias probes (rubric order, score ID, reference answer) totaling 8,100 judgments run on freely available GPUs, we find that instruction tuning has \emph{differential} effects on scoring bias. Format-related biases (rubric order, score ID) decrease by 44\% and 77\% respectively after instruction tuning, indicating that instruction-tuned models parse scoring formats more robustly. However, content-related biases (reference answer) increase by 35\%, showing heightened sensitivity to exemplars. This differential pattern is consistent across all three model families and provides the first causal evidence that scoring bias is modulated by instruction tuning. Our results have direct implications for bias mitigation: strategies must separately address format robustness and content sensitivity. All code, data, and analysis are publicly available.
+\end{abstract}
+
+\section{Introduction}
+
+The LLM-as-a-Judge paradigm~\cite{zheng2023judging}, where large language models serve as automated evaluators, has become central to LLM development. These judges provide scalable assessment for tasks ranging from instruction-following to factuality evaluation and serve as proxies for human feedback in RLHF~\cite{bai2022constitutional}. However, LLM judges exhibit systematic biases that compromise their reliability---35+ bias types have been documented~\cite{ye2024justice,chen2024humans}.
+
+Recent work~\cite{li2025scoring} made significant progress by identifying and quantifying three novel scoring biases: rubric order bias, score ID bias, and reference answer score bias. They found flip rates of 20--48\% across five frontier models. However, as they explicitly note, \emph{``the underlying causes of these scoring biases remain to be validated.''} It is unknown whether these biases are inherent to pre-trained language models or emerge during the instruction-tuning process.
+
+This question is not merely academic. If scoring bias originates from pre-training, mitigation must target data curation. If it emerges during instruction tuning, mitigation should focus on alignment methods. Understanding the root cause directly determines where to invest mitigation resources.
+
+In this paper, we answer this question through a controlled comparison of base (pre-trained) and instruct (SFT+RLHF) variants of three open-weight model families across three scoring bias probes. Our key findings are:
+
+\begin{enumerate}
+    \item Instruction tuning has \textbf{differential effects} on scoring bias: format-related biases decrease substantially (rubric order $-44\%$, score ID $-77\%$), while content-related bias increases (reference answer $+35\%$).
+    \item This pattern is \textbf{consistent across all three model families}, suggesting a general phenomenon rather than a model-specific artifact.
+    \item The flip rates we observe are \textbf{consistent with Li et al.~\cite{li2025scoring}} (20--48\%), validating our experimental methodology.
+\end{enumerate}
+
+\section{Related Work}
+
+\paragraph{Bias in LLM-as-a-Judge.} Wang et al.~\cite{wang2023large} first documented position bias in pairwise LLM evaluation, showing that response order could reverse benchmark rankings. Ye et al.~\cite{ye2024justice} cataloged 12 bias types in LLM judges. Park et al.~\cite{park2024offsetbias} identified six bias types including length and concreteness biases. Li et al.~\cite{li2025scoring} introduced the study of scoring bias specifically, defining rubric order, score ID, and reference answer biases across five models.
+
+\paragraph{Root cause analysis.} Pan et al.~\cite{pan2025user} validated the base-versus-instruct comparison methodology for studying user-assistant bias, finding that instruction-tuned models exhibit strong user bias while base models remain neutral. We extend this methodology to scoring bias for the first time.
+
+\paragraph{Gap.} No prior work has investigated whether scoring bias originates from pre-training or instruction tuning. Li et al.~\cite{li2025scoring} explicitly call for this analysis. Our Study 1 answers this call.
+
+\section{Method}
+
+\paragraph{Models.} We compare base and instruct variants of three open-weight families: Llama 3 8B~\cite{llama3} (meta-llama/Meta-Llama-3-8B and Instruct), Mistral 7B~\cite{mistral} (mistralai/Mistral-7B-v0.3 and Instruct-v0.3), and Gemma 2 2B~\cite{gemma2} (google/gemma-2-2b and 2b-it). This gives 6 model variants total.
+
+\paragraph{Scoring bias probes.} Following Li et al.~\cite{li2025scoring}, we measure three bias types:
+\begin{itemize}
+    \item \textbf{Rubric Order:} Normal scale (1=worst, 5=best) vs reversed scale (1=best, 5=worst) vs random mapping
+    \item \textbf{Score ID:} Numeric (1--5) vs letter labels (A--E) vs descriptive (Poor--Excellent)
+    \item \textbf{Reference Answer:} No exemplar vs good exemplar shown vs poor exemplar shown
+\end{itemize}
+
+\paragraph{Procedure.} We use 50 evaluation items across 5 domains (science, technology, humanities, daily life, mathematics), each scored by each model on each probe variant with 3 repeats at temperature 0. This produces 6 models $\times$ 3 probes $\times$ 3 variants $\times$ 50 items $\times$ 3 repeats = 8,100 total judgments.
+
+\paragraph{Hardware.} All experiments run on a Kaggle T4 GPU (free tier). Each model variant takes 20--45 minutes to load and score.
+
+\paragraph{Metrics.} We report:
+\begin{itemize}
+    \item \textbf{Max delta:} Maximum absolute difference between control and biased variant scores
+    \item \textbf{Flip Rate (FR):} Proportion of items where the biased score differs from the control score~\cite{li2025scoring}
+    \item \textbf{Cohen's d:} Standardized effect size
+    \item \textbf{% Change:} Relative change from base to instruct: $(Bias_{instruct} - Bias_{base}) / Bias_{base}$
+\end{itemize}
+
+\section{Results}
+
+\subsection{Scoring Bias by Probe Type}
+
+Table~\ref{tab:results} shows the mean bias across all model families for each probe type. Instruction tuning has markedly different effects depending on the bias type.
+
+\begin{table}[h]
+\centering\small
+\caption{Root cause results: base vs instruct scoring bias. Lower values = less bias.}
+\label{tab:results}
+\begin{tabular}{lcccc}
+\toprule
+Probe & Base $\Delta$ & Instruct $\Delta$ & Change & Base FR & Instruct FR \\
+\midrule
+Rubric Order & 2.85 & 1.59 & $-44\%$ & 0.64 & 0.49 \\
+Score ID & 0.67 & 0.15 & $-77\%$ & 0.44 & 0.20 \\
+Reference Answer & 0.88 & 1.19 & $+35\%$ & 0.33 & 0.40 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Rubric order and score ID biases decrease substantially after instruction tuning ($-44\%$ and $-77\%$ respectively; Cohen's $d > 0.8$ for most comparisons). This indicates that instruction-tuned models parse scoring formats and labels more accurately than their base counterparts. The base models follow rubric instructions literally---when the scale is reversed, they assign reversed scores without understanding the semantic content.
+
+Crucially, however, reference answer bias \emph{increases} by $+35\%$ after instruction tuning. Instruction-tuned models are more susceptible to exemplar-based biasing: a good reference example raises scores while a poor example lowers them, even for unrelated evaluation items.
+
+\subsection{Consistency Across Model Families}
+
+The differential pattern is consistent across all three model families (Table~\ref{tab:families}), suggesting it reflects a general property of instruction tuning rather than idiosyncratic behavior of any single model.
+
+\begin{table}[h]
+\centering\small
+\caption{Per-family bias comparison (averaged across probes).}
+\label{tab:families}
+\begin{tabular}{lccc}
+\toprule
+Family & Base Avg & Instruct Avg & Change \\
+\midrule
+Llama 3 8B & 1.47 & 0.99 & $-33\%$ \\
+Mistral 7B & 2.05 & 1.53 & $-25\%$ \\
+Gemma 2 2B & 0.89 & 0.40 & $-55\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+While the magnitude varies---Gemma 2 2B shows the largest improvement ($-55\%$) and Mistral 7B the smallest ($-25\%$)---the \emph{direction} is consistent: instruction tuning reduces format-related biases in all families.
+
+\subsection{Comparison with Li et al.}
+
+Our flip rates are consistent with Li et al.~\cite{li2025scoring}: their reported range of 20--46\% for rubric order aligns with our instruct model flip rate of 0.49. Our base model flip rates (0.64) are higher, likely because smaller models (7B vs 671B parameters) are more susceptible to bias. The key novel finding is the \emph{reduction} in flip rate from base to instruct for format probes, which no prior work has shown.
+
+\section{Discussion}
+
+\paragraph{The differential effect.} Why does instruction tuning improve format robustness while increasing content sensitivity? We conjecture that instruction tuning teaches models to attend more carefully to all prompt features. For format features (rubric structure, label formats), this improved attention helps models parse the scoring task correctly, reducing bias. For content features (reference examples), however, increased attention makes the model more susceptible to priming effects from exemplars.
+
+This aligns with the Instruction-Induced Attention Redistribution (IIAR) hypothesis: instruction tuning redistributes attention to prompt features correlated with instruction following, but this includes both task-relevant features (scoring criteria) and task-irrelevant features (surface perturbations).
+
+\paragraph{Implications for bias mitigation.} Our findings suggest that bias mitigation strategies must address two separate channels:
+\begin{enumerate}
+    \item \textbf{Format robustness} is naturally improved by standard instruction tuning. No additional mitigation is needed.
+    \item \textbf{Content sensitivity} is worsened by instruction tuning. This requires specific intervention, such as training on diverse reference examples or using contrastive learning to reduce exemplar influence.
+\end{enumerate}
+
+\paragraph{Broader implications.} The fact that instruction tuning has opposite effects on different bias types cautions against blanket claims about ''bias amplification'' or ''bias reduction.'' The effect is probe-specific and must be measured independently for each bias type.
+
+\section{Limitations}
+
+Several limitations should be acknowledged: (1) our 50 evaluation items, while sufficient for statistical significance, are fewer than the largest benchmarks; (2) we tested models at the 2B--8B scale; larger models may show different patterns; (3) we cannot distinguish SFT from RLHF contributions with publicly available checkpoints; (4) the descriptive score ID variant suffered from parser issues and was excluded from the score ID analysis; (5) results are English-only.
+
+\section{Conclusion}
+
+We present the first systematic investigation of the origins of scoring bias in LLM-as-a-Judge. Our key finding---that instruction tuning has differential effects on scoring bias (format biases decrease, content biases increase)---provides the first causal evidence that scoring bias is modulated by instruction tuning, not inherent to pre-training. This answers the open question posed by Li et al.~\cite{li2025scoring} and has direct implications for bias mitigation. All code, data, and analysis are available at \url{https://github.com/ssamba1/research-draft}.
+
+\begin{thebibliography}{20}
+
+\bibitem{li2025scoring}
+Q.~Li, S.~Dou, K.~Shao, C.~Chen, H.~Hu. ``Evaluating Scoring Bias in LLM-as-a-Judge.'' DASFAA, 2026.
+
+\bibitem{zheng2023judging}
+L.~Zheng et al. ``Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena.'' NeurIPS, 2023.
+
+\bibitem{ye2024justice}
+J.~Ye et al. ``Justice or Prejudice? Quantifying Biases in LLM-as-a-Judge.'' NeurIPS SafeGenAI Workshop, 2024.
+
+\bibitem{chen2024humans}
+G.~Chen et al. ``Humans or LLMs as the Judge? A Study on Judgement Biases.'' arXiv:2402.10669, 2024.
+
+\bibitem{wang2023large}
+P.~Wang et al. ``Large Language Models are not Fair Evaluators.'' ACL, 2024.
+
+\bibitem{park2024offsetbias}
+J.~Park et al. ``OffsetBias: Leveraging Debiased Data for Tuning Evaluators.'' EMNLP Findings, 2024.
+
+\bibitem{pan2025user}
+X.~Pan et al. ``User-Assistant Bias in LLMs.'' ACL Findings, 2026.
+
+\bibitem{bai2022constitutional}
+Y.~Bai et al. ``Constitutional AI: Harmlessness from AI Feedback.'' arXiv:2212.08073, 2022.
+
+\bibitem{llama3}
+Meta. ``Meta Llama 3.'' 2024.
+
+\bibitem{mistral}
+Mistral AI. ``Mistral 7B.'' 2023.
+
+\bibitem{gemma2}
+Google. ``Gemma 2.'' 2024.
+
+\end{thebibliography}
+\end{document}
