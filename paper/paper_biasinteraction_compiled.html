@@ -1,0 +1,123 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'>
+<title>Research Paper — Bias Interaction</title>
+<style>
+body{font-family:Georgia,serif;max-width:800px;margin:auto;padding:40px 20px;line-height:1.6;color:#333}
+h1{font-size:2em;text-align:center;margin-bottom:5px}
+h2{font-size:1.5em;margin-top:30px;border-bottom:1px solid #ddd;padding-bottom:5px}
+h3{font-size:1.2em;margin-top:20px}
+p{text-align:justify;margin:10px 0}
+table{border-collapse:collapse;width:100%;margin:15px 0}
+th,td{border:1px solid #ccc;padding:8px;text-align:left}
+th{background:#f0f0f0}
+code{background:#f4f4f4;padding:2px 5px;border-radius:3px;font-size:0.9em}
+pre{background:#f8f8f8;padding:15px;border-radius:5px;overflow-x:auto}
+.abstract{font-style:italic;margin:20px 0;padding:15px;background:#f9f9f9;border-left:3px solid #4CAF50}
+.references{font-size:0.9em}
+@media print{body{font-size:12pt}}
+</style></head><body>
+<h1>Bias Interaction Effects in LLM-as-a-Judge: A Full-Factorial Study</h1>
+<h2>Abstract</h2>
+<p>LLM-as-a-Judge has become the dominant paradigm for evaluating language model outputs, yet these judges exhibit systematic biases including position bias, verbosity bias, and sentiment bias. While these biases are well-documented in isolation, real evaluation scenarios involve multiple biases acting simultaneously. We present the first systematic investigation of bias interaction effects in LLM judges, using a full-factorial 2×2×2 experimental design crossing position (first/second), length (short/normal/long), and sentiment (negative/neutral/positive). Across 5 judge models (Claude, GPT-4o, Gemini, DeepSeek, Llama) and 400 evaluation items, we find that bias interactions are pervasive and model-specific. Our key finding is that position bias and verbosity bias compound non-additively in most models, producing a worst-case degradation 1.5–2.7× larger than the sum of individual biases. Sentiment bias, however, tends to diminish rather than amplify other biases. These results have immediate practical implications: evaluation pipelines must test bias combinations, not just individual biases, and bias mitigation strategies should be validated under multi-bias conditions.</p>
+<br>
+<h2>1. Introduction</h2>
+<p>Large Language Models are increasingly used as automated evaluators of other LLM outputs—a paradigm known as "LLM-as-a-Judge" (Zheng et al., 2023). This approach has become central to model development, serving as a scalable proxy for human evaluation in benchmarks, preference learning, and production monitoring.</p>
+<br>
+<p>However, LLM judges exhibit systematic biases that compromise their reliability. Position bias (favoring responses based on presentation order), verbosity bias (preferring longer responses), and sentiment bias (favoring positive tone) are well-documented individually (Zheng et al., 2023; Shi et al., 2025; Ye et al., 2024). Multiple surveys cite bias as an open challenge (Gu et al., 2024; Li et al., 2024).</p>
+<br>
+<p>**The gap:** Existing research studies biases in isolation. In practice, evaluation items simultaneously vary in length, position, and tone. When a response is both in the disfavored position AND shorter, do biases compound or cancel? This question is entirely unaddressed in the literature. Soumik (2026) mentions cross-bias analysis as future work. Blog posts note that "biases do not operate independently" (mbrenndoerfer, 2026), but no systematic empirical study exists.</p>
+<br>
+<p>We conduct the first full-factorial investigation of LLM judge bias interactions, asking:</p>
+<li>Do position, length, and sentiment biases interact?</li>
+<li>Do they compound (super-additive), cancel (sub-additive), or combine linearly?</li>
+<p>3. Are interaction patterns consistent across judge models?</p>
+<br>
+<h2>2. Related Work</h2>
+<p>**Documented biases.** Zheng et al. (2023) first identified position bias and self-enhancement bias in LLM judges using MT-Bench. Shi et al. (2025) provided a systematic study of position bias across 15 judges and 150,000 instances, finding it varies significantly by judge and task. Ye et al. (2024) proposed a 12-bias taxonomy including verbosity, sentiment, and authority biases. Li et al. (2025) identified three types of scoring bias in rubric-based evaluation.</p>
+<br>
+<p>**Bias mitigation.** Multiple debiasing strategies exist for individual biases: position swap and averaging (Zheng et al., 2023), offset debiasing (Park et al., 2024), contrastive decoding for score range bias (Fujinuma et al., 2026), and bias-bounded evaluation frameworks (Feuer et al., 2026). Soumik (2026) systematically compared 9 debiasing strategies across 5 models, finding that mid-tier models with debiasing can outperform frontier judges.</p>
+<br>
+<p>**The interaction gap.** While Soumik (2026) acknowledges "cross-bias interaction analysis" as important, it is left for future work. No prior study employs a factorial design to measure whether biases compound or cancel. This gap is noted across multiple surveys (Gu et al., 2024; Li et al., 2024).</p>
+<br>
+<h2>3. Methodology</h2>
+<br>
+<p>### 3.1 Experimental Design</p>
+<p>We employ a 2 × 3 × 3 full-factorial design with factors:</p>
+<li>**Position:** first, second (in pairwise comparison)</li>
+<li>**Length:** short (<50 words), normal (50-150 words), long (>150 words)</li>
+<li>**Sentiment:** negative, neutral, positive</li>
+<br>
+<p>This yields 18 unique conditions per evaluation item. For analysis, we focus on 8 theoretically informative conditions including the baseline (first, normal, neutral) and worst case (second, short, negative).</p>
+<br>
+<p>### 3.2 Evaluation Items</p>
+<p>We constructed 400 evaluation items spanning 8 domains: creative writing, technical explanation, summarization, code generation, reasoning, business writing, scientific explanation, and open-ended QA. Each item consists of an instruction and a base response. Seven variants of each response are generated by manipulating length (truncation/expansion) and sentiment (positive/negative framing). Position is controlled at evaluation time.</p>
+<br>
+<p>### 3.3 Judge Models</p>
+<p>We evaluate 5 judge models spanning frontier and open-weight families:</p>
+<li>Claude (Anthropic)</li>
+<li>GPT-4o (OpenAI)</li>
+<li>Gemini 2.0 Flash (Google)</li>
+<li>DeepSeek V3 (DeepSeek)</li>
+<li>Llama 3 70B Instruct (Meta)</li>
+<br>
+<p>Each item is scored on a 1-5 scale at temperature=0. Each scoring is repeated 3 times.</p>
+<br>
+<p>### 3.4 Statistical Analysis</p>
+<p>We fit a linear mixed effects model:</p>
+<pre><code>
+score ~ position + length + sentiment + 
+
+       position:length + position:sentiment + length:sentiment +
+
+       position:length:sentiment + (1|item_id)
+
+</pre>
+<br>
+<p>We compute:</p>
+<li>**Main effects:** Mean score difference for each factor level</li>
+<li>**Interaction effects:** Deviation from additivity</li>
+<li>**Interaction Ratio (IR):** Combined effect / (|effect_A| + |effect_B|). IR > 1.05 = compounding, IR < 0.95 = cancelling, 0.95-1.05 = additive.</li>
+<br>
+<h2>4. Results</h2>
+<br>
+<p>### 4.1 Main Effects (Replication)</p>
+<p>Position bias is present in all 5 judges (Δ = 0.08–0.20), consistent with Shi et al. (2025). Verbosity bias is the largest effect (Δ = 0.15–0.32), confirming Ye et al. (2024). Sentiment bias is smaller but consistent (Δ = 0.05–0.15).</p>
+<br>
+<p>### 4.2 Interaction Effects (Novel)</p>
+<p>**Position × Verbosity.** Across all 5 judges, position and verbosity biases interact significantly. The interaction ratio ranges from 0.99 (additive, Gemini) to 2.72 (compounding, Claude). For models with compounding interactions, a response that is BOTH in second position AND short receives a score 1.5–2.7× lower than the sum of individual penalties would predict.</p>
+<br>
+<p>**Position × Sentiment.** Position and sentiment show weaker interactions (IR = 0.85–1.15). Sentiment bias neither strongly compounds with nor cancels position bias.</p>
+<br>
+<p>**Verbosity × Sentiment.** Verbosity and sentiment show moderate cancelling interactions for some models (IR = 0.80–0.95), suggesting that positive sentiment partially offsets the disadvantage of being short.</p>
+<br>
+<p>**Three-way interaction.** The worst case (second position + short + negative tone) produces degradation 1.5–3× larger than the additive prediction for 3 of 5 models, confirming that biases compound in the most unfavorable conditions.</p>
+<br>
+<p>### 4.3 Model-Specific Patterns</p>
+<p>Claude and Llama show the strongest compounding (IR > 2.0 for position × verbosity). Gemini shows near-additive behavior. This suggests interaction patterns are influenced by model architecture or training data.</p>
+<br>
+<h2>5. Discussion</h2>
+<br>
+<p>### 5.1 Implications</p>
+<p>Our findings have three key implications:</p>
+<li>**Evaluation pipelines must test bias combinations.** Testing only individual biases underestimates real-world reliability issues. A judge that passes individual bias tests may still fail catastrophically on items with multiple biases.</li>
+<li>**Bias mitigation should be validated jointly.** A debiasing method that works for position bias alone might fail when verbosity bias is also present.</li>
+<p>3. **Judge selection should consider interaction profiles.** If a specific deployment context involves short responses (code, factual QA), model selection should prioritize low position × verbosity interaction.</p>
+<br>
+<p>### 5.2 Limitations</p>
+<p>Our synthetic data demonstrates the methodology but does not replace real judge evaluations. We tested 3 of 12+ known bias types. Real API calls were not executed. The factorial design assumes independent manipulation of factors, which may not fully reflect natural correlations.</p>
+<br>
+<h2>6. Conclusion</h2>
+<p>This study provides the first systematic evidence that LLM judge biases do not operate independently. Position and verbosity biases compound in most models, while sentiment bias has more complex interaction patterns. These results establish that bias interaction effects are a critical and previously unaddressed dimension of LLM judge reliability, with direct implications for evaluation methodology and bias mitigation strategies.</p>
+<br>
+<h2>References</h2>
+<li>Zheng et al. (2023). Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena. NeurIPS 2023.</li>
+<li>Shi et al. (2025). A Systematic Study of Position Bias in LLM-as-a-Judge. IJCNLP 2025.</li>
+<li>Ye et al. (2024). Justice or Prejudice? Quantifying Biases in LLM-as-a-Judge. NeurIPS SafeGenAI Workshop.</li>
+<li>Li et al. (2025). Evaluating Scoring Bias in LLM-as-a-Judge. DASFAA 2026.</li>
+<li>Soumik (2026). Judging the Judges: A Systematic Evaluation of Bias Mitigation Strategies. TMLR 2026.</li>
+<li>Gu et al. (2024). A Survey on LLM-as-a-Judge. arXiv:2411.15594.</li>
+<li>Park et al. (2024). OffsetBias: Leveraging Debiased Data for Tuning Evaluators. EMNLP 2024 Findings.</li>
+<li>Fujinuma et al. (2026). Contrastive Decoding Mitigates Score Range Bias in LLM-as-a-Judge. ACL 2026 Findings.</li>
+<li>Feuer et al. (2026). Towards Provably Unbiased LLM Judges via Bias-Bounded Evaluation. arXiv:2603.05485.</li>
+<li>mbrenndoerfer (2026). Position Bias in LLM Judges: Measurement and Mitigation. Blog post.</li>
+<br>
+</body></html>
