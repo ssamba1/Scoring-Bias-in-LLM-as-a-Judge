@@ -1,0 +1,74 @@
+# Configuration file for Bias Interaction Experiment
+# Edit this file to set your API keys and experiment parameters
+
+experiment:
+  name: "Bias Interaction Effects"
+  description: "Full-factorial 2×3×3 study of LLM judge bias interactions"
+  version: "1.0.0"
+
+data:
+  items_file: "../data/items_all_conditions.csv"
+  n_items: 400
+  n_repeats: 3
+  random_seed: 42
+
+judges:
+  claude:
+    enabled: true
+    model: "claude-sonnet-4-20250514"
+    provider: "anthropic"
+    api_key_env: "ANTHROPIC_API_KEY"
+    temperature: 0
+    max_tokens: 10
+    cost_per_1k: 0.015  # USD per 1k calls
+
+  gpt4o:
+    enabled: true
+    model: "gpt-4o"
+    provider: "openai"
+    api_key_env: "OPENAI_API_KEY"
+    temperature: 0
+    max_tokens: 10
+    cost_per_1k: 0.01
+
+  gemini:
+    enabled: true
+    model: "gemini-2.0-flash"
+    provider: "google"
+    api_key_env: "GEMINI_API_KEY"
+    temperature: 0
+    max_tokens: 10
+    cost_per_1k: 0.0005
+
+  deepseek:
+    enabled: true
+    model: "deepseek-chat"
+    provider: "deepseek"
+    api_key_env: "DEEPSEEK_API_KEY"
+    temperature: 0
+    max_tokens: 10
+    cost_per_1k: 0.001
+
+  llama:
+    enabled: true
+    model: "meta-llama/Meta-Llama-3-70B-Instruct"
+    provider: "together"
+    api_key_env: "TOGETHER_API_KEY"
+    temperature: 0
+    max_tokens: 10
+    cost_per_1k: 0.001
+
+analysis:
+  significance_level: 0.05
+  correction_method: "holm-bonferroni"
+  interaction_ratio_thresholds:
+    compounding: 1.05
+    additive_lower: 0.95
+    additive_upper: 1.05
+    cancelling: 0.95
+
+output:
+  results_dir: "../results"
+  figures_dir: "../paper/figures"
+  log_file: "../experiment.log"
+  save_raw_scores: true
