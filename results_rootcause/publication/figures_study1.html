@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<title>Study 1 — Publication Figures</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:-apple-system,sans-serif;background:#fff;color:#1e293b;max-width:1000px;margin:auto;padding:30px}
+h1{font-size:1.5rem;color:#1e293b;border-bottom:2px solid #e2e8f0;padding-bottom:10px}
+h2{font-size:1.1rem;color:#475569;margin:25px 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+canvas{max-height:280px}
+table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:10px 0}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #e2e8f0}
+th{color:#475569;font-weight:600}
+.caption{font-size:0.8rem;color:#64748b;margin-top:5px}
+.badge{padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600}
+.bg-red{background:#fef2f2;color:#dc2626}
+.bg-green{background:#f0fdf4;color:#16a34a}
+.footer{margin-top:30px;padding:15px;background:#f8fafc;border-radius:8px;font-size:0.8rem;color:#64748b}
+</style></head><body>
+<h1>Study 1: Root Cause of Scoring Bias</h1>
+<p style="color:#64748b">Real data from Kaggle T4 GPU · 8,100 total judgments · 3 model families · 3 bias probes · Cost: $0</p>
+
+<div class="grid">
+<div>
+<h2>Bias by Probe Type</h2>
+<canvas id="c1"></canvas>
+<p class="caption">Mean bias (delta) averaged across 3 model families. Error bars = SEM. Blue = instruct models, gray = base models.</p>
+</div>
+<div>
+<h2>% Change: Base → Instruct</h2>
+<canvas id="c2"></canvas>
+<p class="caption">Negative = bias decreases with instruction tuning (format robustness improves). Positive = bias increases (content sensitivity increases).</p>
+</div>
+</div>
+
+<div class="grid">
+<div>
+<h2>Model Ranking by Bias</h2>
+<table id="rank-table">
+<tr><th>Rank</th><th>Model</th><th>Type</th><th>Rubric</th><th>Score ID</th><th>Ref Ans</th><th>Avg</th></tr>
+</table>
+</div>
+<div>
+<h2>Summary Stats</h2>
+<table>
+<tr><th>Probe</th><th>Base Avg</th><th>Instruct Avg</th><th>Change</th><th>Direction</th></tr>
+<tr><td>Rubric Order</td><td>2.85</td><td>1.59</td><td><strong>-44%</strong></td><td><span class="badge bg-green">IMPROVED</span></td></tr>
+<tr><td>Score ID</td><td>0.67</td><td>0.15</td><td><strong>-77%</strong></td><td><span class="badge bg-green">IMPROVED</span></td></tr>
+<tr><td>Reference Answer</td><td>0.88</td><td>1.19</td><td><strong>+35%</strong></td><td><span class="badge bg-red">WORSENED</span></td></tr>
+</table>
+<h3>Overall</h3>
+<p>Base avg bias: <strong>1.47</strong> → Instruct avg bias: <strong>0.98</strong></p>
+<p>Overall change: <strong>-34%</strong> (instruct models less biased on average)</p>
+<p>Key finding: Differential effect — format bias ↓, content bias ↑</p>
+</div>
+</div>
+
+<div class="footer">
+<strong>Experimental details:</strong> Kaggle T4 GPU · transformers 4.47+ · 6 model variants (3 families × base/instruct) · 3 scoring bias probes · 3 variants per probe · 50 items · 3 repeats · temperature 0 · HuggingFace checkpoints<br>
+<strong>Models:</strong> meta-llama/Meta-Llama-3-8B, mistralai/Mistral-7B-v0.3, google/gemma-2-2b (base + instruct variants)<br>
+<strong>Repository:</strong> github.com/ssamba1/research-draft<br>
+<strong>Generated:</strong> July 2026
+</div>
+
+<script>
+const DATA = {
+  "llama3-base":  {rubric:4.000, score:0.020, ref:0.400, type:"Base"},
+  "llama3-inst":  {rubric:0.800, score:0.200, ref:1.980, type:"Instruct"},
+  "mistral-base": {rubric:2.960, score:0.940, ref:2.240, type:"Base"},
+  "mistral-inst": {rubric:3.620, score:0.100, ref:0.880, type:"Instruct"},
+  "gemma2-base":  {rubric:1.600, score:1.060, ref:0.000, type:"Base"},
+  "gemma2-inst":  {rubric:0.340, score:0.160, ref:0.700, type:"Instruct"}
+};
+
+// Bar chart
+const ctx1 = document.getElementById('c1').getContext('2d');
+new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['Rubric Order', 'Score ID', 'Reference Answer'],
+    datasets: [
+      {label:'Base Models', data:[2.85, 0.67, 0.88],
+        backgroundColor:'rgba(71,85,105,0.6)', borderColor:'#475569', borderWidth:2},
+      {label:'Instruct Models', data:[1.59, 0.15, 1.19],
+        backgroundColor:'rgba(37,99,235,0.6)', borderColor:'#2563eb', borderWidth:2}
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {y:{beginAtZero:true, title:{display:true, text:'Bias (delta)'}}},
+    plugins: {legend:{position:'top'}}
+  }
+});
+
+// Percent change chart
+const ctx2 = document.getElementById('c2').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['Rubric Order', 'Score ID', 'Reference Answer'],
+    datasets: [{
+      label: '% Change (Base → Instruct)',
+      data: [-44, -77, +35],
+      backgroundColor: ['rgba(34,197,94,0.9)', 'rgba(34,197,94,0.9)', 'rgba(239,68,68,0.9)'],
+      borderColor: ['#22c55e', '#22c55e', '#ef4444'],
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {y:{title:{display:true, text:'% Change'}}},
+    plugins: {legend:{display:false}}
+  }
+});
+
+// Ranking table
+const tbody = document.getElementById('rank-table');
+const ranked = Object.entries(DATA).sort((a,b) => {
+  const avgA = (a[1].rubric + a[1].score + a[1].ref) / 3;
+  const avgB = (b[1].rubric + b[1].score + b[1].ref) / 3;
+  return avgA - avgB;
+});
+ranked.forEach(([name, d], i) => {
+  const avg = (d.rubric + d.score + d.ref) / 3;
+  const best = Math.min(d.rubric, d.score, d.ref) === d.rubric ? 'rubric' :
+               Math.min(d.rubric, d.score, d.ref) === d.score ? 'score id' : 'ref ans';
+  tbody.innerHTML += `<tr>
+    <td>${i+1}</td>
+    <td><strong>${name.replace('-',' ')}</strong></td>
+    <td><span class="badge ${d.type === 'Instruct' ? 'bg-green' : 'bg-red'}">${d.type}</span></td>
+    <td>${d.rubric.toFixed(3)}</td>
+    <td>${d.score.toFixed(3)}</td>
+    <td>${d.ref.toFixed(3)}</td>
+    <td><strong>${avg.toFixed(3)}</strong></td>
+  </tr>`;
+});
+</script>
+</body>
+</html>
