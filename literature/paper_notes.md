@@ -97,8 +97,46 @@
 - Mitigation only helps models with strong bias
 - **Relevance to our work:** Confirms that rubric structure matters, but does NOT address rubric order bias as defined by Li et al.
 
-## Paper 8: Hong et al. 2026 (RULERS) — "From Rubrics to Reliable Scores"
-**arXiv:2601.08654 · Jan 2026**
+## Paper 9: Feuer et al. 2026 — "Towards Provably Unbiased LLM Judges via Bias-Bounded Evaluation"
+**arXiv:2603.05485 · Mar 2026**
+
+### Key Details
+- Proposes average bias-boundedness (A-BB), an algorithmic framework
+- Achieves (tau=0.5, delta=0.01) bias-bounded guarantees
+- Retains 61-99% correlation with original rankings
+- Evaluated on Arena-Hard-Auto with 4 LLM judges
+- **Key distinction:** Theoretical framework for bias guarantees, NOT specific to scoring bias
+- **Relevance:** General approach, doesn't address our specific gap
+
+## Paper 10: Dev et al. 2026 — "Judge Reliability Harness" (RAND Corporation)
+**arXiv:2603.05399 · ICLR 2026 Workshop · Mar 2026**
+
+### Key Details
+- Open-source library for stress-testing LLM judge reliability
+- Evaluated 4 judges across 4 benchmarks (safety, persuasion, misuse, agentic)
+- **Key finding:** "No judge that we evaluated is uniformly reliable across benchmarks"
+- Simple formatting changes disrupt consistency
+- **Key quote:** "No judge we evaluated is uniformly reliable across benchmarks"
+- **Relevance:** Confirms the unreliability problem we're addressing
+
+## Paper 11: Doğruöz et al. 2026 — "LLMs-as-a-Judge in Multilingual Settings"
+**arXiv:2607.02235 · Jul 2026**
+
+### Key Details
+- Out of 650 papers mentioning LLM-as-a-judge, only 33 focus on multilingual
+- "Inconsistent evaluation outcomes, a tendency to overtrust LLM judgments in multilingual settings"
+- Widespread reliance on a single judge model per study
+- **Relevance:** Documents cross-cultural bias gap — underexplored area
+
+## Paper 12: Yang et al. 2025 — "Any Large Language Model Can Be a Reliable Judge"
+**NeurIPS 2025**
+
+### Key Details
+- Verbosity bias: 31.3% of examples affected (largest effect)
+- Sentiment bias: 15.0% of examples affected
+- Position bias: 12.9% of examples affected
+- **Key numbers:** Used in our synthetic data parameterization
+- **Relevance:** Provides the effect sizes we use for our experiment design
 
 ### Key Details
 - Three-stage framework: locked task specification → structured execution → post-hoc calibration
