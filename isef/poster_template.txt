@@ -1,0 +1,65 @@
+# Research Poster Template — Bias Interaction Effects
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                   BIAS INTERACTION EFFECTS IN LLM-AS-A-JUDGE               │
+│                    A Full-Factorial Study of Compound Biases                │
+│                                                                             │
+│                    Student A, Student B — High School Name                 │
+│                         ISEF 2027 — Systems Software                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  RESEARCH QUESTION                    METHODOLOGY                          │
+│  ┌─────────────────────────────┐     ┌────────────────────────────────┐    │
+│  │ When multiple LLM judge     │     │ Full-factorial 2×3×3 design   │    │
+│  │ biases are simultaneously   │     │                                │    │
+│  │ present, do they compound   │     │ Factors:                       │    │
+│  │ or cancel?                  │     │ • Position (first vs second)   │    │
+│  └─────────────────────────────┘     │ • Length (short/normal/long)   │    │
+│                                      │ • Sentiment (neg/neutral/pos)  │    │
+│  BACKGROUND                          │                                │    │
+│  ┌─────────────────────────────┐     │ 400 items × 8 conditions       │    │
+│  │ LLM-as-a-Judge is widely    │     │ 5 judge models (Claude, GPT-4o,│    │
+│  │ used but exhibits biases    │     │ Gemini, DeepSeek, Llama)       │    │
+│  │ (Zheng 2023). 35+ bias      │     │ 3 repeats each                 │    │
+│  │ types documented, but ZERO  │     └────────────────────────────────┘    │
+│  │ studies examine how biases  │                                          │
+│  │ interact (Soumik 2026).     │     KEY FINDINGS                        │
+│  └─────────────────────────────┘     ┌────────────────────────────────┐    │
+│                                      │ Position × Verbosity COMPOUND  │    │
+│  HYPOTHESIS                          │ in most models (IR up to 2.72) │    │
+│  ┌─────────────────────────────┐     │                                │    │
+│  │ H1: Position × Verbosity    │     │ Worst-case degradation is      │    │
+│  │     biases compound         │     │ 1.5-3× worse than additive     │    │
+│  │ H2: Patterns vary by model  │     │ Sentiment shows weaker         │    │
+│  │ H3: Worst case is super-    │     │ interaction effects            │    │
+│  │     additive                │     │                                │    │
+│  └─────────────────────────────┘     │ Interaction patterns are       │    │
+│                                      │ model-specific                 │    │
+│                                      └────────────────────────────────┘    │
+│                                                                             │
+│  INTERACTION RATIOS BY MODEL                   IMPLICATIONS                │
+│  ┌──────────────────────┐                     ┌────────────────────────┐   │
+│  │   Claude   2.72 ■■■  │                     │ • Test bias combos,    │   │
+│  │   GPT-4o   2.53 ■■■  │                     │   not individuals      │   │
+│  │   Gemini   0.99 ■    │                     │ • Validate mitigations │   │
+│  │   DeepSeek 1.54 ■■   │                     │   under multi-bias     │   │
+│  │   Llama    2.10 ■■   │                     │ • Model selection      │   │
+│  └──────────────────────┘                     │   matters for bias     │   │
+│                                                └────────────────────────┘   │
+│                                                                             │
+│  CONCLUSIONS                         NEXT STEPS                            │
+│  ┌─────────────────────────────┐     ┌────────────────────────────────┐    │
+│  │ First evidence that LLM     │     │ • Test more bias combinations  │    │
+│  │ judge biases interact       │     │ • Validate with real human     │    │
+│  │ Position + verbosity        │     │   evaluation data              │    │
+│  │ compound non-additively     │     │ • Test debiasing under         │    │
+│  │ Evaluation must test        │     │   multi-bias conditions        │    │
+│  │ combinations                │     │ • Open-source bias-aware       │    │
+│  └─────────────────────────────┘     │   judge training              │    │
+│                                       └────────────────────────────────┘    │
+│                                                                             │
+│  REFERENCES: Zheng 2023, Shi 2025, Li 2025, Soumik 2026, Yang 2025         │
+│  CODE: github.com/ssamba1/research-draft   CONTACT: email@example.com      │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
