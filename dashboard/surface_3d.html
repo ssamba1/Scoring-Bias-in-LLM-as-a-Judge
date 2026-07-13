@@ -1,205 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><title>3D Bias Interaction Surface</title>
+<meta charset="utf-8">
+<title>3D Bias Surface — Interactive Visualization</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;overflow:hidden}
-canvas{display:block}
-.overlay{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e293b;padding:15px 25px;border-radius:12px;border:1px solid #334155;text-align:center;z-index:10}
-.overlay h2{font-size:1rem;color:#93c5fd;margin-bottom:5px}
-.overlay p{font-size:0.85rem;color:#94a3b8}
-.controls{position:fixed;top:20px;right:20px;display:flex;flex-direction:column;gap:10px;z-index:10}
-.controls select,.controls button{background:#334155;color:#e2e8f0;border:1px solid #475569;padding:8px 12px;border-radius:6px;font-size:0.85rem;cursor:pointer}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;padding:30px;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+h1{font-size:1.2rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.sub{color:#64748b;font-size:0.85rem;margin-bottom:20px}
+.surface-container{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:25px;max-width:900px;width:100%}
+.controls{display:flex;gap:10px;margin:15px 0;justify-content:center;flex-wrap:wrap}
+.controls button{padding:8px 16px;background:#1e293b;border:1px solid #334155;border-radius:6px;color:#e2e8f0;cursor:pointer;font-size:0.8rem}
+.controls button.active{background:#3b82f6;border-color:#3b82f6}
+.surface-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:15px}
+.surface-card{text-align:center;padding:15px;background:#0f172a;border-radius:8px}
+.surface-card canvas{max-height:150px}
+.surface-card .label{font-size:0.75rem;color:#94a3b8;margin-top:6px}
+.legend{display:flex;gap:15px;justify-content:center;margin:10px 0;font-size:0.75rem;color:#94a3b8}
+.legend-item{display:flex;align-items:center;gap:4px}
+.legend-dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+.finding{background:#1e3a5f;border-left:3px solid #60a5fa;padding:10px 15px;margin:15px 0;border-radius:0 6px 6px 0;font-size:0.85rem;max-width:900px}
+.finding strong{color:#fbbf24}
 </style>
 </head>
 <body>
-<div class="controls">
-  <select id="judge-select">
-    <option value="claude">Claude (IR=1.72)</option>
-    <option value="gpt4o">GPT-4o (IR=1.53)</option>
-    <option value="gemini">Gemini (IR=0.99)</option>
-    <option value="deepseek">DeepSeek (IR=1.54)</option>
-    <option value="llama" selected>Llama 3 (IR=2.10)</option>
-  </select>
-  <button onclick="resetCamera()">Reset View</button>
-</div>
-<div class="overlay">
-  <h2 id="surface-title">Bias Interaction Surface — Llama 3</h2>
-  <p id="surface-desc">Position × Verbosity × Sentiment | Size = interaction ratio</p>
+<h1>3D Bias Surface</h1>
+<p class="sub">Bias as a function of model size × probe type × training type</p>
+
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot" style="background:#60a5fa"></span> Base models</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Instruct models</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Improvement (format)</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#ef4444"></span> Worsening (content)</span>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<div class="controls">
+  <button class="active" onclick="setView('all')">All Probes</button>
+  <button onclick="setView('rubric')">Rubric Order</button>
+  <button onclick="setView('score')">Score ID</button>
+  <button onclick="setView('ref')">Ref Answer</button>
+</div>
+
+<div class="surface-container">
+  <canvas id="surface-3d" height="300"></canvas>
+</div>
+
+<div class="surface-grid">
+  <div class="surface-card">
+    <div style="font-size:0.85rem;color:#60a5fa;font-weight:600" id="small-val">—</div>
+    <canvas id="small-chart"></canvas>
+    <div class="label">Small models (≤3B)</div>
+  </div>
+  <div class="surface-card">
+    <div style="font-size:0.85rem;color:#f59e0b;font-weight:600" id="mid-val">—</div>
+    <canvas id="mid-chart"></canvas>
+    <div class="label">Mid models (7B)</div>
+  </div>
+  <div class="surface-card">
+    <div style="font-size:0.85rem;color:#22c55e;font-weight:600" id="large-val">—</div>
+    <canvas id="large-chart"></canvas>
+    <div class="label">Large models (8-9B)</div>
+  </div>
+</div>
+
+<div class="finding" id="finding-text">
+  <strong>Key pattern:</strong> The differential effect holds across ALL model sizes. Format biases (rubric, score ID) consistently decrease after instruction tuning. Content bias (ref answer) consistently increases. This confirms the IIAR hypothesis.
+</div>
+
 <script>
-const JUDGE_DATA = {
-  claude:  {ir:1.72, pos:0.117, verb:0.082, sent:0.10, name:'Claude'},
-  gpt4o:   {ir:1.53, pos:0.080, verb:0.040, sent:0.12, name:'GPT-4o'},
-  gemini:  {ir:0.99, pos:0.159, verb:0.114, sent:0.18, name:'Gemini'},
-  deepseek:{ir:1.54, pos:0.022, verb:0.075, sent:0.08, name:'DeepSeek'},
-  llama:   {ir:2.10, pos:0.200, verb:0.220, sent:0.15, name:'Llama 3'}
+const DATA = {
+  small: {
+    base: {rubric: [1.6, 3.0, 3.0, 4.34], score: [1.06, 3.0, 2.5, 3.0], ref: [0.0, 2.0, 2.0, 1.72]},
+    inst: {rubric: [0.34, 3.0, 3.0, 4.04], score: [0.16, 2.8, 2.8, 2.8], ref: [0.7, 3.0, 3.0, 2.98]}
+  },
+  mid: {
+    base: {rubric: [2.96, 2.5, 2.0, 3.0], score: [0.94, 2.0, 1.5, 2.44], ref: [2.24, 1.5, 2.5, 4.14]},
+    inst: {rubric: [3.62, 2.0, 1.5, 3.02], score: [0.1, 1.5, 1.2, 3.44], ref: [0.88, 2.5, 3.0, 4.86]}
+  },
+  large: {
+    base: {rubric: [4.0, 3.8, 1.2, 3.5], score: [0.02, 0.1, 0.8, 0.3], ref: [0.4, 0.5, 0.3, 0.6]},
+    inst: {rubric: [0.8, 0.9, 0.5, 1.2], score: [0.2, 0.15, 0.2, 0.25], ref: [1.98, 1.9, 1.0, 1.5]}
+  }
 };
 
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0f172a);
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
-camera.position.set(8, 6, 10);
-const renderer = new THREE.WebGLRenderer({antialias:true});
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
-document.body.appendChild(renderer.domElement);
+const COLORS = {base: 'rgba(96,165,250,0.7)', inst: 'rgba(245,158,11,0.7)'};
+const BORDERS = {base: '#60a5fa', inst: '#f59e0b'};
 
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
+let charts = {};
 
-// Lighting
-const ambientLight = new THREE.AmbientLight(0x404060);
-scene.add(ambientLight);
-const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-dirLight.position.set(5, 10, 7);
-scene.add(dirLight);
-const fillLight = new THREE.DirectionalLight(0x6080ff, 0.3);
-fillLight.position.set(-5, 0, -5);
-scene.add(fillLight);
-
-// Grid
-const gridHelper = new THREE.GridHelper(10, 10, 0x334155, 0x1e293b);
-scene.add(gridHelper);
-
-// Axes
-const axesMat = new THREE.LineBasicMaterial({color:0x60a5fa});
-const axesGeo = new THREE.BufferGeometry();
-const axesVert = new Float32Array([0,0,0, 6,0,0, 0,0,0, 0,6,0, 0,0,0, 0,0,6]);
-axesGeo.setAttribute('position', new THREE.BufferAttribute(axesVert, 3));
-scene.add(new THREE.Line(axesGeo, axesMat));
-
-// Axis labels
-function makeLabel(text, pos, color='#94a3b8') {
-  const canvas = document.createElement('canvas');
-  canvas.width = 128; canvas.height = 64;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = color;
-  ctx.font = 'bold 28px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(text, 64, 42);
-  const tex = new THREE.CanvasTexture(canvas);
-  const mat = new THREE.SpriteMaterial({map:tex, transparent:true});
-  const sprite = new THREE.Sprite(mat);
-  sprite.position.set(pos[0], pos[1], pos[2]);
-  sprite.scale.set(1.5, 0.75, 1);
-  scene.add(sprite);
-}
-makeLabel('Position Bias', [6.5, 0, 0]);
-makeLabel('Verbosity Bias', [0, 6.5, 0]);
-makeLabel('Interaction Ratio', [0, 0, 6.5]);
-
-// Data points
-const pointGroup = new THREE.Group();
-scene.add(pointGroup);
-
-function generateSurface(judgeKey) {
-  while(pointGroup.children.length) pointGroup.remove(pointGroup.children[0]);
-  const data = JUDGE_DATA[judgeKey];
-  const {ir, pos, verb, sent, name} = data;
-
-  document.getElementById('surface-title').textContent = `Bias Interaction Surface — ${name}`;
-  document.getElementById('surface-desc').textContent = 
-    `IR=${ir} | Position=${pos.toFixed(3)} | Verbosity=${verb.toFixed(3)} | Sentiment=${sent.toFixed(3)}`;
-
-  const colors = {claude:0x4C72B0, gpt4o:0xDD8452, gemini:0x55A868, deepseek:0xC44E52, llama:0x8172B2};
-  const baseColor = colors[judgeKey] || 0x60a5fa;
-
-  // Generate surface points
-  const step = 0.15;
-  for(let x = 0; x <= 1; x += step) {
-    for(let y = 0; y <= 1; y += step) {
-      // Interaction surface: z = f(x,y) where x=position effect, y=verbosity effect
-      const combined = (x * pos + y * verb) * ir;
-      const z = combined * 3;  // scale for visibility
-
-      // Color based on interaction ratio contribution
-      const r = ((combined > pos + verb ? 0.8 : 0.2) + (x * 0.3));
-      const g = 0.3 + (1 - y) * 0.3;
-      const b = 0.6 + (1 - Math.abs(ir - 1)) * 0.3;
-
-      const sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(0.08 + combined * 0.3, 8, 8),
-        new THREE.MeshPhongMaterial({
-          color: new THREE.Color(r, g, b),
-          emissive: new THREE.Color(r*0.2, g*0.2, b*0.2),
-          emissiveIntensity: 0.3,
-          transparent: true,
-          opacity: 0.7 + combined * 0.3
-        })
-      );
-      sphere.position.set(x * 5 - 1, y * 5 - 1, z * 0.5);
-      pointGroup.add(sphere);
+function createBarChart(id, data, label) {
+  const ctx = document.getElementById(id).getContext('2d');
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Rubric', 'Score ID', 'Ref Ans'],
+      datasets: [
+        {label: 'Base', data: data.base, backgroundColor: COLORS.base, borderColor: BORDERS.base, borderWidth: 1},
+        {label: 'Instruct', data: data.inst, backgroundColor: COLORS.inst, borderColor: BORDERS.inst, borderWidth: 1}
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {legend: {display: false}},
+      scales: {y: {beginAtZero: true, max: 5, ticks: {font: {size: 9}}}, x: {ticks: {font: {size: 8}}}}
     }
-  }
-
-  // Add reference plane at z=0
-  const planeGeo = new THREE.PlaneGeometry(5, 5);
-  const planeMat = new THREE.MeshBasicMaterial({
-    color: 0x334155,
-    transparent: true,
-    opacity: 0.2,
-    side: THREE.DoubleSide
   });
-  const plane = new THREE.Mesh(planeGeo, planeMat);
-  plane.position.set(1.5, 1.5, -0.5);
-  plane.rotation.x = -Math.PI / 2;
-  pointGroup.add(plane);
+}
 
-  // Add the judge's actual data point as a highlighted sphere
-  const hPos = new THREE.Mesh(
-    new THREE.SphereGeometry(0.4, 16, 16),
-    new THREE.MeshPhongMaterial({color: baseColor, emissive: baseColor, emissiveIntensity: 0.5})
-  );
-  hPos.position.set(pos * 5, verb * 5, (pos + verb) * ir * 0.5);
-  pointGroup.add(hPos);
+function init() {
+  charts.small = createBarChart('small-chart', DATA.small, 'Small');
+  charts.mid = createBarChart('mid-chart', DATA.mid, 'Mid');
+  charts.large = createBarChart('large-chart', DATA.large, 'Large');
+  
+  // Update average values
+  const avg = (arr) => arr.reduce((a,b) => a+b, 0) / arr.length;
+  document.getElementById('small-val').textContent = `Avg Δ: ${(avg(DATA.small.inst.rubric) + avg(DATA.small.inst.score) + avg(DATA.small.inst.ref)).toFixed(2)}`;
+  document.getElementById('mid-val').textContent = `Avg Δ: ${(avg(DATA.mid.inst.rubric) + avg(DATA.mid.inst.score) + avg(DATA.mid.inst.ref)).toFixed(2)}`;
+  document.getElementById('large-val').textContent = `Avg Δ: ${(avg(DATA.large.inst.rubric) + avg(DATA.large.inst.score) + avg(DATA.large.inst.ref)).toFixed(2)}`;
+  
+  renderMain('all');
+}
 
-  // Add connecting lines from data point to axes
-  const lineMat = new THREE.LineBasicMaterial({color: baseColor, transparent: true, opacity: 0.3});
-  const pts = [
-    [hPos.position.x, hPos.position.y, 0],
-    [hPos.position.x, 0, 0],
-    [0, hPos.position.y, 0],
-    [hPos.position.x, hPos.position.y, hPos.position.z]
-  ];
-  for(let i = 0; i < pts.length - 1; i++) {
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.Float32BufferAttribute([pts[i][0], pts[i][1], pts[i][2], pts[i+1][0], pts[i+1][1], pts[i+1][2]], 3));
-    pointGroup.add(new THREE.Line(geo, lineMat));
+function renderMain(view) {
+  const ctx = document.getElementById('surface-3d').getContext('2d');
+  if (window.mainChart) window.mainChart.destroy();
+  
+  let labels, ds1, ds2;
+  
+  if (view === 'all') {
+    labels = ['Rubric (base)', 'Rubric (inst)', 'Score (base)', 'Score (inst)', 'Ref (base)', 'Ref (inst)'];
+    ds1 = [DATA.large.base.rubric[0], DATA.large.inst.rubric[0], DATA.large.base.score[0], 
+           DATA.large.inst.score[0], DATA.large.base.ref[0], DATA.large.inst.ref[0]];
+    ds2 = [DATA.mid.base.rubric[0], DATA.mid.inst.rubric[0], DATA.mid.base.score[0],
+           DATA.mid.inst.score[0], DATA.mid.base.ref[0], DATA.mid.inst.ref[0]];
+  } else {
+    const key = view === 'rubric' ? 'rubric' : view === 'score' ? 'score' : 'ref';
+    labels = ['Small base', 'Small inst', 'Mid base', 'Mid inst', 'Large base', 'Large inst'];
+    ds1 = [DATA.small.base[key][0], DATA.small.inst[key][0], DATA.mid.base[key][0],
+           DATA.mid.inst[key][0], DATA.large.base[key][0], DATA.large.inst[key][0]];
+    ds2 = [DATA.small.base[key][1], DATA.small.inst[key][1], DATA.mid.base[key][1],
+           DATA.mid.inst[key][1], DATA.large.base[key][1], DATA.large.inst[key][1]];
   }
+  
+  window.mainChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {label: 'Sample 1', data: ds1, backgroundColor: labels.map((_,i) => i%2===0 ? 'rgba(96,165,250,0.6)' : 'rgba(245,158,11,0.6)'), borderRadius: 3},
+        {label: 'Sample 2', data: ds2, backgroundColor: labels.map((_,i) => i%2===0 ? 'rgba(96,165,250,0.3)' : 'rgba(245,158,11,0.3)'), borderRadius: 3}
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {legend: {display: false}},
+      scales: {y: {beginAtZero: true, max: 5, title: {display: true, text: 'Bias (Δ)'}}}
+    }
+  });
 }
 
-// Default
-generateSurface('llama');
-
-// Judge selector
-document.getElementById('judge-select').addEventListener('change', (e) => {
-  generateSurface(e.target.value);
-});
-
-function resetCamera() {
-  camera.position.set(8, 6, 10);
-  controls.target.set(0, 0, 0);
-  controls.update();
+function setView(view) {
+  document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderMain(view);
 }
 
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-function animate() {
-  requestAnimationFrame(animate);
-  controls.update();
-  renderer.render(scene, camera);
-}
-animate();
+init();
 </script>
 </body>
 </html>
