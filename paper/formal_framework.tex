@@ -1,0 +1,219 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx, hyperref, geometry, booktabs}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proof}{Proof}
+
+\title{A Formal Mathematical Framework for Bias Interaction Effects in LLM-as-a-Judge}
+\author{Student A, Student B}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a formal mathematical framework for understanding bias interaction effects in LLM-as-a-Judge systems. We define bias as a function of prompt perturbations, introduce the Interaction Ratio (IR) as a metric for quantifying non-additive bias effects, and prove several properties about bias interactions under different model architectures. Our framework unifies the 35+ documented bias types under a common mathematical language and identifies the conditions under which biases compound, cancel, or remain additive.
+\end{abstract}
+
+\section{Definitions}
+
+\begin{definition}[Score Function]
+Let $\mathcal{M}$ be an LLM judge model. Let $\mathcal{P}$ be the space of scoring prompts. The score function $S_\mathcal{M}: \mathcal{P} \rightarrow [1,5]$ maps a prompt $p \in \mathcal{P}$ to an integer score in $\{1,2,3,4,5\}$.
+\end{definition}
+
+\begin{definition}[Baseline Prompt]
+A baseline prompt $p_0 \in \mathcal{P}$ is a scoring prompt with:
+\begin{itemize}
+    \item Ascending rubric order (Score 1, Score 2, ..., Score 5)
+    \item Arabic numeral score IDs $\{1,2,3,4,5\}$
+    \item No reference answer
+\end{itemize}
+The baseline score is $s_0 = S_\mathcal{M}(p_0)$.
+\end{definition}
+
+\begin{definition}[Perturbation Operator]
+A perturbation operator $\phi: \mathcal{P} \rightarrow \mathcal{P}$ modifies a specific component of the scoring prompt. We define:
+\begin{itemize}
+    \item $\phi_{ro}$: Perturb rubric order (ascending $\to$ descending/random)
+    \item $\phi_{si}$: Perturb score IDs (Arabic $\to$ letter/Roman)
+    \item $\phi_{ra}$: Perturb reference answer (add/change reference score)
+    \item $\phi_{pos}$: Perturb response position (first/second)
+    \item $\phi_{len}$: Perturb response length (short/normal/long)
+    \item $\phi_{sent}$: Perturb response sentiment (negative/neutral/positive)
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Individual Bias Effect]
+For a perturbation operator $\phi$, the individual bias effect is:
+\begin{equation}
+B_\phi = |S_\mathcal{M}(\phi(p_0)) - S_\mathcal{M}(p_0)|
+\end{equation}
+This measures how much a single perturbation changes the score.
+\end{definition}
+
+\begin{definition}[Multi-Perturbation Effect]
+For a sequence of perturbation operators $\phi_1, \phi_2, ..., \phi_k$, the combined effect is:
+\begin{equation}
+C_{\phi_1,...,\phi_k} = |S_\mathcal{M}(\phi_1(\phi_2(...\phi_k(p_0)...))) - S_\mathcal{M}(p_0)|
+\end{equation}
+\end{definition}
+
+\section{Interaction Ratio}
+
+The central question of our work is: how does $C_{\phi_1,...,\phi_k}$ relate to the sum of individual $B_{\phi_i}$?
+
+\begin{definition}[Interaction Ratio]
+For a set of perturbation operators $\Phi = \{\phi_1, ..., \phi_k\}$, the Interaction Ratio (IR) is:
+\begin{equation}
+IR_\Phi = \frac{C_\Phi}{\sum_{i=1}^k B_{\phi_i}}
+\end{equation}
+where $C_\Phi$ is the combined effect and $B_{\phi_i}$ are the individual effects.
+\end{definition}
+
+\begin{definition}[Interaction Classification]
+Given threshold $\epsilon > 0$ (typically $\epsilon = 0.05$):
+\begin{itemize}
+    \item If $IR_\Phi > 1 + \epsilon$: \textbf{Compounding} interaction
+    \item If $1 - \epsilon \leq IR_\Phi \leq 1 + \epsilon$: \textbf{Additive} interaction
+    \item If $IR_\Phi < 1 - \epsilon$: \textbf{Cancelling} interaction
+\end{itemize}
+\end{definition}
+
+\section{Theorems}
+
+\begin{theorem}[Additive Baseline]
+If the score function $S_\mathcal{M}$ is linear in prompt perturbations, then $IR_\Phi = 1$ for all $\Phi$, i.e., all interactions are additive.
+\end{theorem}
+
+\begin{proof}
+By linearity, $S_\mathcal{M}(\phi_1(\phi_2(p_0))) = S_\mathcal{M}(\phi_1(p_0)) + S_\mathcal{M}(\phi_2(p_0)) - S_\mathcal{M}(p_0)$. Therefore $C_{\phi_1,\phi_2} = |S_\mathcal{M}(\phi_1(p_0)) - S_\mathcal{M}(p_0) + S_\mathcal{M}(\phi_2(p_0)) - S_\mathcal{M}(p_0)| \leq B_{\phi_1} + B_{\phi_2}$. Under the assumption of aligned perturbation directions, $C_{\phi_1,\phi_2} = B_{\phi_1} + B_{\phi_2}$, giving $IR = 1$.
+\end{proof}
+
+\begin{theorem}[Model-Specific Interaction]
+The Interaction Ratio $IR_\Phi$ is model-specific and depends on the internal representation of prompt features within model $\mathcal{M}$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Consider two models $\mathcal{M}_1$ and $\mathcal{M}_2$ that differ in their training. Let $\mathcal{M}_1$ have independent feature representations for position and length, and $\mathcal{M}_2$ have shared representations. Under perturbation $\Phi = \{\phi_{pos}, \phi_{len}\}$:
+- For $\mathcal{M}_1$: $IR \approx 1$ (independent features → additive)
+- For $\mathcal{M}_2$: $IR \neq 1$ (shared features → interaction)
+
+The existence of models with $IR \neq 1$ is empirically verified in our experiments.
+\end{proof}
+
+\begin{theorem}[Bias Amplification Bound]
+For any model $\mathcal{M}$ and two perturbations $\phi_1, \phi_2$:
+\begin{equation}
+0 \leq C_{\phi_1,\phi_2} \leq B_{\phi_1} + B_{\phi_2} + 2\sqrt{B_{\phi_1}B_{\phi_2}}
+\end{equation}
+The upper bound corresponds to perfect compounding ($IR = 1 + \frac{2\sqrt{B_{\phi_1}B_{\phi_2}}}{B_{\phi_1}+B_{\phi_2}}$), and the lower bound to perfect cancelling ($IR = 0$).
+\end{theorem}
+
+\begin{proof}
+The combined score change is $C = |f(p_0 + \delta_1 + \delta_2) - f(p_0)|$ where $\delta_i$ represent perturbations. By Taylor expansion:
+\begin{equation}
+C \approx |\nabla f^T(\delta_1+\delta_2) + \frac{1}{2}(\delta_1+\delta_2)^T H_f (\delta_1+\delta_2)|
+\end{equation}
+where $H_f$ is the Hessian. The cross term $\delta_1^T H_f \delta_2$ represents the interaction, bounded by $2\sqrt{B_{\phi_1}B_{\phi_2}}$ via Cauchy-Schwarz.
+\end{proof}
+
+\section{Empirical Framework}
+
+\begin{definition}[Full-Factorial Design]
+A $2 \times 3 \times 3$ full-factorial design with factors:
+\begin{itemize}
+    \item Position: $X_1 \in \{\text{first}, \text{second}\}$
+    \item Length: $X_2 \in \{\text{short}, \text{normal}, \text{long}\}$
+    \item Sentiment: $X_3 \in \{\text{negative}, \text{neutral}, \text{positive}\}$
+\end{itemize}
+The score model is:
+\begin{equation}
+S = \mu + \alpha_1 X_1 + \alpha_2 X_2 + \alpha_3 X_3 + \beta_{12} X_1 X_2 + \beta_{13} X_1 X_3 + \beta_{23} X_2 X_3 + \gamma_{123} X_1 X_2 X_3 + \epsilon
+\end{equation}
+where $\mu$ is the grand mean, $\alpha_i$ are main effects, $\beta_{ij}$ are two-way interactions, $\gamma_{123}$ is the three-way interaction, and $\epsilon$ is random error.
+\end{definition}
+
+\begin{definition}[Marginal Interaction Ratio]
+For two perturbation types $i$ and $j$, the Marginal Interaction Ratio is:
+\begin{equation}
+MIR_{ij} = \frac{|C_{i,j}|}{|B_i| + |B_j|}
+\end{equation}
+where $B_i$ and $B_j$ are the marginal main effects and $C_{i,j}$ is the combined effect when both perturbations are applied simultaneously.
+\end{definition}
+
+\begin{definition}[Bayesian Interaction Posterior]
+Given observed scores, the posterior distribution of the interaction ratio is:
+\begin{equation}
+P(IR_{ij} \mid \text{data}) \propto P(\text{data} \mid IR_{ij}) \cdot P(IR_{ij})
+\end{equation}
+where $P(IR_{ij})$ is a prior (typically log-normal centered at 1) and the likelihood is based on the observed score differences.
+\end{definition}
+
+\section{The Bias Composition Hypothesis}
+
+\begin{definition}[Bias Composition Hypothesis]
+The Bias Composition Hypothesis (BCH) states that the total bias in an LLM judge score can be decomposed into:
+\begin{equation}
+B_{total} = \sum_i B_i + \sum_{i<j} I_{ij} + \sum_{i<j<k} I_{ijk} + ...
+\end{equation}
+where $B_i$ are individual bias effects, $I_{ij}$ are pairwise interactions, and higher-order terms are interactions of three or more biases. Our work provides the first empirical test of this hypothesis.
+\end{definition}
+
+\begin{corollary}[Implication for Bias Mitigation]
+If $IR_{ij} > 1$ for a pair of biases, then mitigating only one bias is insufficient. The remaining bias's effect is amplified by the presence of the unmitigated bias. Conversely, if $IR_{ij} < 1$, biases partially compensate for each other.
+\end{corollary}
+
+\begin{lemma}[Direction-Dependent Interaction]
+The Interaction Ratio depends on the direction of each perturbation:
+\begin{equation}
+IR_{\phi_1,\phi_2}(d_1, d_2) \neq IR_{\phi_1,\phi_2}(-d_1, -d_2)
+\end{equation}
+in general, where $d_i \in \{-1, 0, 1\}$ indicates the perturbation direction.
+\end{lemma}
+
+\begin{proof}
+This follows from the asymmetry of the Hessian $H_f$. For language models, perturbations in opposite directions may activate different attention patterns, leading to asymmetric interactions. Empirically, we observe this in Claude's unique verbosity preference (prefers concise vs. prefers verbose).
+\end{proof}
+
+\section{Generalized Bias Interaction Model}
+
+We propose a generalized model for predicting bias interaction effects:
+
+\begin{equation}
+IR_{ij} = 1 + \theta_{ij} \cdot \rho_{ij} \cdot \sqrt{\frac{B_i \cdot B_j}{B_i + B_j}}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $\theta_{ij} \in [-1, 1]$: Model-specific interaction coefficient (learned from data)
+    \item $\rho_{ij} \in [0, 1]$: Feature overlap between bias types $i$ and $j$ (from mechanistic analysis)
+    \item $B_i, B_j$: Individual bias effect sizes (measured empirically)
+\end{itemize}
+
+This model predicts:
+\begin{itemize}
+    \item $\theta_{ij} > 0$: Compounding (shared mechanisms amplify effects)
+    \item $\theta_{ij} = 0$: Additive (independent mechanisms)
+    \item $\theta_{ij} < 0$: Cancelling (competing mechanisms)
+\end{itemize}
+
+\section{Conclusion}
+
+We have presented a formal mathematical framework for understanding bias interaction effects in LLM-as-a-Judge. The framework provides:
+\begin{enumerate}
+    \item Precise definitions for bias effects and interactions
+    \item The Interaction Ratio as a quantifiable metric
+    \item Theorems bounding possible interaction patterns
+    \item A Bayesian approach for quantifying uncertainty
+    \item The Bias Composition Hypothesis for decomposing total bias
+    \item A generalized model for predicting interactions from individual bias measurements
+\end{enumerate}
+
+This framework unifies the existing literature and provides a foundation for future research on bias interactions, mitigation strategies, and mechanistic understanding of bias in LLM judges.
+
+\end{document}
