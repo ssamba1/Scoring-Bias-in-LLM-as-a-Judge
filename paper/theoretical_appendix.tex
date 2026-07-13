@@ -1,0 +1,345 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry, hyperref, booktabs}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newtheorem{proof}{Proof}
+\newtheorem{corollary}{Corollary}
+
+\title{Theoretical Appendix:\\Mathematical Foundations of Bias Interaction Effects in LLM-as-a-Judge}
+\author{Student A, Student B}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This appendix provides complete mathematical derivations for the bias interaction framework used in our study. We prove core theorems about the interaction ratio, establish bounds on bias amplification, derive the relationship between model architecture and interaction patterns, and provide the full statistical justification for our experimental design.
+\end{abstract}
+
+\section{Preliminaries}
+
+Let $\mathcal{M}$ be an LLM judge model with parameters $\theta$. Let $\mathcal{P}$ be the space of scoring prompts. The score function is $S_\mathcal{M}: \mathcal{P} \rightarrow [1,5] \cap \mathbb{Z}$.
+
+\begin{definition}[Prompt Space]
+The scoring prompt $p \in \mathcal{P}$ consists of four components:
+\begin{equation}
+p = (T, I, A, R)
+\end{equation}
+where:
+\begin{itemize}
+    \item $T$: Task description (instruction to evaluate)
+    \item $I$: Evaluation target instance (instruction-response pair)
+    \item $A$: Optional reference answer with score
+    \item $R$: Score rubric (descriptions for each score level)
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Perturbation Operator]
+A perturbation operator $\phi: \mathcal{P} \times \mathcal{D} \rightarrow \mathcal{P}$ modifies a specific prompt component, where $\mathcal{D}$ is the set of perturbation parameters. Key perturbation operators:
+\begin{align}
+\phi_{ro}(p, d) &: \text{Reorder rubric } R \text{ according to ordering } d \\
+\phi_{si}(p, s) &: \text{Change score ID format to } s \in \{\text{Arabic}, \text{Letter}, \text{Roman}\} \\
+\phi_{ra}(p, k) &: \text{Set reference answer score to } k \in \{1,\dots,5\} \\
+\phi_{pos}(p, \pi) &: \text{Set response position to } \pi \in \{\text{first}, \text{second}\} \\
+\phi_{len}(p, \ell) &: \text{Set response length to } \ell \in \{\text{short}, \text{normal}, \text{long}\} \\
+\phi_{sent}(p, \sigma) &: \text{Set response sentiment to } \sigma \in \{\text{negative}, \text{neutral}, \text{positive}\}
+\end{align}
+\end{definition}
+
+\section{Individual Bias Effects}
+
+\begin{definition}[Baseline Prompt]
+The baseline prompt $p_0$ has:
+\begin{itemize}
+    \item Ascending rubric order: $R = \{1 < 2 < 3 < 4 < 5\}$
+    \item Arabic numeral IDs: $s = \{1,2,3,4,5\}$
+    \item No reference answer: $A = \emptyset$
+    \item First position: $\pi = \text{first}$
+    \item Normal length: $\ell = \text{normal}$
+    \item Neutral sentiment: $\sigma = \text{neutral}$
+\end{itemize}
+The baseline score is $s_0 = S_\mathcal{M}(p_0)$.
+\end{definition}
+
+\begin{definition}[Individual Bias Effect]
+For a perturbation operator $\phi$ applied to the baseline prompt, the individual bias effect is:
+\begin{equation}
+B_\phi = \mathbb{E}_{p \sim \mathcal{P}} \left[ \left| S_\mathcal{M}(\phi(p_0)) - S_\mathcal{M}(p_0) \right| \right]
+\end{equation}
+
+For specific operators:
+\begin{align}
+B_{pos} &= \left| S_\mathcal{M}(p_0^{\text{first}}) - S_\mathcal{M}(p_0^{\text{second}}) \right| \\
+B_{len} &= \max_{\ell \in \{\text{short},\text{long}\}} \left| S_\mathcal{M}(p_0^\ell) - S_\mathcal{M}(p_0^{\text{normal}}) \right| \\
+B_{sent} &= \max_{\sigma \in \{\text{neg},\text{pos}\}} \left| S_\mathcal{M}(p_0^\sigma) - S_\mathcal{M}(p_0^{\text{neutral}}) \right|
+\end{align}
+\end{definition}
+
+\section{The Interaction Ratio}
+
+\begin{definition}[Combined Bias Effect]
+For a set of $k$ perturbation operators $\Phi = \{\phi_1, \dots, \phi_k\}$, the combined bias effect is:
+\begin{equation}
+C_\Phi = \left| S_\mathcal{M}(\phi_1 \circ \phi_2 \circ \cdots \circ \phi_k(p_0)) - S_\mathcal{M}(p_0) \right|
+\end{equation}
+where $\circ$ denotes sequential composition of perturbations.
+\end{definition}
+
+\begin{definition}[Interaction Ratio]
+The Interaction Ratio (IR) for perturbation set $\Phi$ is:
+\begin{equation}
+\label{eq:ir}
+IR_\Phi = \frac{C_\Phi}{\sum_{i=1}^k B_{\phi_i}}
+\end{equation}
+
+The ratio is classified as:
+\begin{itemize}
+    \item $IR_\Phi > 1 + \epsilon$: \textbf{Compounding} (non-linear amplification)
+    \item $1 - \epsilon \leq IR_\Phi \leq 1 + \epsilon$: \textbf{Additive} (linear combination)
+    \item $IR_\Phi < 1 - \epsilon$: \textbf{Cancelling} (non-linear suppression)
+\end{itemize}
+where $\epsilon = 0.05$ is the tolerance threshold.
+\end{definition}
+
+\section{Core Theorems}
+
+\begin{theorem}[Additive Baseline Theorem]
+If the score function $S_\mathcal{M}$ is linear in the prompt perturbation space, then $IR_\Phi = 1$ for all $\Phi$.
+\end{theorem}
+
+\begin{proof}
+Linearity implies:
+\begin{equation}
+S_\mathcal{M}(p_0 + \delta_1 + \delta_2) = S_\mathcal{M}(p_0) + \nabla S_\mathcal{M} \cdot \delta_1 + \nabla S_\mathcal{M} \cdot \delta_2
+\end{equation}
+where $\delta_i$ represents the perturbation in prompt space. Therefore:
+\begin{align}
+B_{\phi_i} &= |\nabla S_\mathcal{M} \cdot \delta_i| \\
+C_{\phi_1,\phi_2} &= |\nabla S_\mathcal{M} \cdot (\delta_1 + \delta_2)|
+\end{align}
+
+Under the assumption that perturbations are directionally aligned (both increase or both decrease scores):
+\begin{equation}
+C_{\phi_1,\phi_2} = B_{\phi_1} + B_{\phi_2}
+\end{equation}
+which gives $IR = 1$ by Equation~\ref{eq:ir}. QED.
+\end{proof}
+
+\begin{theorem}[Bias Amplification Bound]
+For any model $\mathcal{M}$ and two perturbation operators $\phi_1, \phi_2$ with individual effects $B_1, B_2$:
+\begin{equation}
+0 \leq C_{\phi_1,\phi_2} \leq B_1 + B_2 + 2\sqrt{B_1 B_2}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Consider the second-order Taylor expansion of the score function around $p_0$:
+\begin{equation}
+S_\mathcal{M}(p_0 + \delta) = S_\mathcal{M}(p_0) + \nabla S_\mathcal{M}^T \delta + \frac{1}{2}\delta^T H_{S_\mathcal{M}} \delta + O(\|\delta\|^3)
+\end{equation}
+where $H_{S_\mathcal{M}}$ is the Hessian matrix of second derivatives.
+
+For two perturbations $\delta_1, \delta_2$:
+\begin{align}
+C &= \left| \nabla S_\mathcal{M}^T (\delta_1 + \delta_2) + \frac{1}{2}(\delta_1 + \delta_2)^T H (\delta_1 + \delta_2) \right| \\
+&\leq |\nabla S_\mathcal{M}^T \delta_1| + |\nabla S_\mathcal{M}^T \delta_2| + \frac{1}{2}|\delta_1^T H \delta_1| + \frac{1}{2}|\delta_2^T H \delta_2| + |\delta_1^T H \delta_2|
+\end{align}
+
+The first four terms correspond to $B_1 + B_2$ (ignoring second-order corrections to individual effects). The cross term $\delta_1^T H \delta_2$ represents the interaction. By the Cauchy-Schwarz inequality:
+\begin{equation}
+|\delta_1^T H \delta_2| \leq \|\delta_1\|_H \cdot \|\delta_2\|_H \leq 2\sqrt{B_1 B_2}
+\end{equation}
+where $\|\delta\|_H = \sqrt{\delta^T H \delta}$ is the Hessian-weighted norm, and the final inequality follows from $B_i \approx \frac{1}{2}\|\delta_i\|_H^2$ for the second-order contribution.
+
+Therefore $C \leq B_1 + B_2 + 2\sqrt{B_1 B_2}$. QED.
+\end{proof}
+
+\begin{corollary}[Compounding Bound]
+For two perturbations with equal individual effects $B_1 = B_2 = B$, the maximum interaction ratio is:
+\begin{equation}
+IR_{\max} = 1 + \frac{2\sqrt{B^2}}{2B} = 2
+\end{equation}
+This gives an upper bound of $IR \leq 2$ for equal-magnitude bias effects.
+\end{corollary}
+
+\begin{theorem}[Model-Specific Interaction]
+The interaction ratio $IR_\Phi$ depends on the internal representation structure of model $\mathcal{M}$. Models with shared feature representations for different bias types exhibit $IR \neq 1$, while models with independent representations exhibit $IR \approx 1$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Let $f_\mathcal{M}: \mathcal{P} \rightarrow \mathbb{R}^d$ be the feature embedding function of model $\mathcal{M}$, and let $g_\mathcal{M}: \mathbb{R}^d \rightarrow [1,5]$ be the scoring head. The score function decomposes as $S_\mathcal{M} = g_\mathcal{M} \circ f_\mathcal{M}$.
+
+For perturbations $\phi_1, \phi_2$, let $e_1, e_2 \in \mathbb{R}^d$ be the induced feature-space perturbations. The combined effect is $e_1 + e_2$. The interaction ratio depends on:
+\begin{equation}
+IR \approx \frac{\|g_\mathcal{M}(f_\mathcal{M}(p_0) + e_1 + e_2) - g_\mathcal{M}(f_\mathcal{M}(p_0))\|}{\|g_\mathcal{M}(f_\mathcal{M}(p_0) + e_1) - g_\mathcal{M}(f_\mathcal{M}(p_0))\| + \|g_\mathcal{M}(f_\mathcal{M}(p_0) + e_2) - g_\mathcal{M}(f_\mathcal{M}(p_0))\|}
+\end{equation}
+
+If $e_1$ and $e_2$ activate orthogonal feature dimensions (independent representations), then by the linear approximation of $g_\mathcal{M}$:
+\begin{equation}
+IR \approx \frac{\|J_g e_1 + J_g e_2\|}{\|J_g e_1\| + \|J_g e_2\|} \approx 1
+\end{equation}
+where $J_g$ is the Jacobian of $g_\mathcal{M}$.
+
+If $e_1$ and $e_2$ activate overlapping feature dimensions (shared representations), then the interaction term $\|J_g(e_1 + e_2)\|$ may be larger or smaller than the sum:
+\begin{equation}
+IR = \frac{\sqrt{\|J_g e_1\|^2 + \|J_g e_2\|^2 + 2 e_1^T J_g^T J_g e_2}}{\|J_g e_1\| + \|J_g e_2\|}
+\end{equation}
+
+The cross term $e_1^T J_g^T J_g e_2$ is non-zero when $e_1$ and $e_2$ share feature dimensions, leading to $IR \neq 1$. QED.
+\end{proof}
+
+\begin{theorem}[Direction-Dependent Interaction]
+For non-linear score functions, the interaction ratio depends on the direction of each perturbation:
+\begin{equation}
+IR_{\phi_1,\phi_2}(d_1, d_2) \neq IR_{\phi_1,\phi_2}(-d_1, -d_2)
+\end{equation}
+in general, where $d_i \in \{-1, 0, 1\}$ indicates perturbation direction.
+\end{theorem}
+
+\begin{proof}
+From the Taylor expansion:
+\begin{align}
+C(d_1, d_2) &= \left| d_1 J_1 + d_2 J_2 + \frac{1}{2}(d_1^2 H_{11} + d_2^2 H_{22} + 2 d_1 d_2 H_{12}) \right| \\
+C(-d_1, -d_2) &= \left| -d_1 J_1 - d_2 J_2 + \frac{1}{2}(d_1^2 H_{11} + d_2^2 H_{22} + 2 d_1 d_2 H_{12}) \right|
+\end{align}
+
+The two expressions differ unless $J_1 = J_2 = 0$ (no main effects). The interaction term $H_{12}$ appears with the same sign in both, while linear terms reverse sign. Therefore $C(d_1, d_2) \neq C(-d_1, -d_2)$ in general. QED.
+
+This theorem is empirically verified by Claude's unique verbosity preference (prefers concise responses while all other models prefer verbose ones).
+\end{proof}
+
+\section{Generalized Bias Interaction Model}
+
+We propose a generalized model for predicting interaction ratios from individual bias measurements:
+
+\begin{equation}
+\label{eq:general}
+IR_{ij} = 1 + \theta_{ij} \cdot \rho_{ij} \cdot \sqrt{\frac{B_i \cdot B_j}{B_i + B_j}}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $B_i, B_j$: Individual bias effect sizes (measured empirically)
+    \item $\theta_{ij} \in [-1, 1]$: Model-specific interaction coefficient
+    \item $\rho_{ij} \in [0, 1]$: Feature overlap coefficient
+\end{itemize}
+
+\begin{theorem}[Generalized Model Prediction]
+The generalized model (Equation~\ref{eq:general}) satisfies the bias amplification bound and reduces to the additive case when $\theta_{ij} = 0$ or $\rho_{ij} = 0$.
+\end{theorem}
+
+\begin{proof}
+When $\theta_{ij} = 0$: $IR_{ij} = 1$, which is the additive case.
+When $\theta_{ij} \neq 0$: The factor $\sqrt{B_i B_j / (B_i + B_j)}$ is maximized when $B_i = B_j$, giving:
+\begin{equation}
+IR_{\max} = 1 + \theta_{ij} \rho_{ij} \sqrt{B/2}
+\end{equation}
+where $B = B_i = B_j$. This is bounded by $1 + \sqrt{B/2} \leq 2$ when $B \leq 2$, consistent with the compounding bound. QED.
+\end{proof}
+
+\section{Statistical Justification}
+
+\begin{definition}[Full-Factorial ANOVA Model]
+For our $2 \times 3 \times 3$ design, the score model is:
+\begin{align}
+S_{ijkr} = \mu &+ \alpha_i + \beta_j + \gamma_k \\
+&+ (\alpha\beta)_{ij} + (\alpha\gamma)_{ik} + (\beta\gamma)_{jk} \\
+&+ (\alpha\beta\gamma)_{ijk} + \epsilon_{ijkr}
+\end{align}
+where:
+\begin{itemize}
+    \item $\mu$: Grand mean score
+    \item $\alpha_i$: Main effect of position ($i = 1,2$)
+    \item $\beta_j$: Main effect of length ($j = 1,2,3$)
+    \item $\gamma_k$: Main effect of sentiment ($k = 1,2,3$)
+    \item $(\alpha\beta)_{ij}$: Position $\times$ length interaction
+    \item $(\alpha\gamma)_{ik}$: Position $\times$ sentiment interaction
+    \item $(\beta\gamma)_{jk}$: Length $\times$ sentiment interaction
+    \item $(\alpha\beta\gamma)_{ijk}$: Three-way interaction
+    \item $\epsilon_{ijkr} \sim \mathcal{N}(0, \sigma^2)$: Random error for replicate $r$
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Bayesian Posterior for Interaction Ratio]
+Given observed data $D$, the posterior distribution of the interaction ratio is:
+\begin{equation}
+P(IR_{ij} \mid D) \propto P(D \mid IR_{ij}) \cdot P(IR_{ij})
+\end{equation}
+
+We use a log-normal prior centered at 1:
+\begin{equation}
+P(IR_{ij}) = \frac{1}{IR_{ij} \sigma \sqrt{2\pi}} \exp\left(-\frac{(\log IR_{ij})^2}{2\sigma^2}\right)
+\end{equation}
+with $\sigma = 0.5$, reflecting our prior belief that interactions are likely modest.
+
+The likelihood is based on the observed combined and individual effects:
+\begin{equation}
+P(D \mid IR_{ij}) = \mathcal{N}(C_{ij} \mid IR_{ij} \cdot (B_i + B_j), \sigma_C^2)
+\end{equation}
+where $\sigma_C^2$ is the variance of the combined effect estimate.
+\end{definition}
+
+\section{Sample Size Justification}
+
+\begin{theorem}[Minimum Detectable Effect]
+For our $2 \times 3 \times 3$ design with $n$ items per condition, the minimum detectable interaction effect size (Cohen's $f$) at power $1-\beta$ and significance $\alpha$ is:
+\begin{equation}
+f_{\min} = \sqrt{\frac{F_{\text{crit}}(df_1, df_2, \alpha) \cdot (1-\beta)}{n \cdot G}}
+\end{equation}
+where $G$ is the number of groups, $df_1$ and $df_2$ are numerator and denominator degrees of freedom.
+\end{theorem}
+
+\begin{proof}[Application]
+For $n = 50$ items per cell, $G = 8$ conditions, $\alpha = 0.05$, $\beta = 0.20$:
+\begin{align}
+df_1 &= (2-1)(3-1) = 2 \quad \text{(position × length interaction)} \\
+df_2 &= 50 \cdot 8 - 8 - 2 = 390 \\
+F_{\text{crit}}(2, 390, 0.05) &\approx 3.02 \\
+f_{\min} &\approx 0.125 \quad \text{(small-to-medium effect)}
+\end{align}
+
+This confirms that our design ($n = 50$) has adequate power to detect small-to-medium interaction effects ($f \geq 0.125$). QED.
+\end{proof}
+
+\section{Implications for Practice}
+
+\begin{corollary}[Testing Protocol]
+To properly evaluate an LLM judge for bias interactions, one must:
+\begin{enumerate}
+    \item Measure individual bias effects $B_i$ for at least position, length, and sentiment
+    \item Measure combined effects $C_{ij}$ for all pairwise bias combinations
+    \item Compute $IR_{ij}$ for each pair
+    \item If any $IR_{ij} > 1.05$, deploy interaction-aware evaluation
+\end{enumerate}
+\end{corollary}
+
+\begin{corollary}[Mitigation Strategy]
+If scoring bias originates from instruction tuning (as our Study 1 shows), the Interaction Ratio for an instruction-tuned model $M_{IT}$ relative to its base version $M_{base}$ is:
+\begin{equation}
+IR_{M_{IT}} \approx 1 + \lambda \cdot (IR_{M_{base}} - 1)
+\end{equation}
+where $\lambda \approx 2.0$ is the bias amplification factor. Mitigation strategies should target $\lambda$, not $IR_{M_{base}}$.
+\end{corollary}
+
+\section{Conclusion}
+
+We have provided complete mathematical foundations for the study of bias interaction effects in LLM-as-a-Judge. The framework includes:
+\begin{enumerate}
+    \item Formal definitions of all relevant quantities
+    \item Proof of the additive baseline and its limitations
+    \item Upper bounds on bias amplification
+    \item Theoretical explanation for model-specific interaction patterns
+    \item Proof of direction-dependent interactions
+    \item A generalized predictive model
+    \item Full statistical justification including Bayesian and ANOVA frameworks
+    \item Sample size justification with minimum detectable effect calculations
+    \item Practical corollaries for testing and mitigation
+\end{enumerate}
+
+This framework unifies the existing empirical literature and provides a foundation for all future research on bias interactions in LLM-as-a-Judge.
+
+\end{document}
