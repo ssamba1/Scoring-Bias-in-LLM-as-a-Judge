@@ -1,0 +1,32 @@
+{
+  "llama3-base": {
+    "rubric_order": {"control":5.000,"b1":1.000,"b2":4.720,"max_delta":4.000},
+    "score_id": {"control":5.000,"b1":4.980,"b2":3.000,"max_delta":2.000},
+    "reference_answer": {"control":5.000,"b1":4.600,"b2":4.600,"max_delta":0.400}
+  },
+  "llama3-inst": {
+    "rubric_order": {"control":3.280,"b1":2.960,"b2":4.080,"max_delta":0.800},
+    "score_id": {"control":4.680,"b1":4.480,"b2":4.220,"max_delta":0.460},
+    "reference_answer": {"control":2.680,"b1":3.880,"b2":4.660,"max_delta":1.980}
+  },
+  "mistral-base": {
+    "rubric_order": {"control":4.040,"b1":1.080,"b2":3.000,"max_delta":2.960},
+    "score_id": {"control":3.960,"b1":4.900,"b2":2.440,"max_delta":1.520},
+    "reference_answer": {"control":4.060,"b1":2.260,"b2":4.500,"max_delta":1.800}
+  },
+  "mistral-inst": {
+    "rubric_order": {"control":4.780,"b1":1.160,"b2":3.020,"max_delta":3.620},
+    "score_id": {"control":4.900,"b1":5.000,"b2":3.640,"max_delta":1.260},
+    "reference_answer": {"control":4.460,"b1":4.080,"b2":4.960,"max_delta":0.500}
+  },
+  "gemma2-base": {
+    "rubric_order": {"control":1.400,"b1":1.440,"b2":3.000,"max_delta":1.600},
+    "score_id": {"control":3.940,"b1":5.000,"b2":2.020,"max_delta":1.920},
+    "reference_answer": {"control":1.000,"b1":1.000,"b2":1.000,"max_delta":0.000}
+  },
+  "gemma2-inst": {
+    "rubric_order": {"control":3.740,"b1":3.800,"b2":3.400,"max_delta":0.340},
+    "score_id": {"control":3.880,"b1":4.040,"b2":3.320,"max_delta":0.560},
+    "reference_answer": {"control":3.860,"b1":3.160,"b2":3.700,"max_delta":0.700}
+  }
+}

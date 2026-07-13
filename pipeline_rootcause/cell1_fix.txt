@@ -1,0 +1,17 @@
+!pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118 -q
+!pip install transformers accelerate huggingface_hub pandas numpy matplotlib scipy -q
+
+import torch, gc, os, json, re, time, random
+from pathlib import Path
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from huggingface_hub import login, interpreter_login
+import getpass
+
+random.seed(42)
+print(f"PyTorch: {torch.__version__}")
+print(f"CUDA: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print(f"VRAM: {torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB")
+    cap = torch.cuda.get_device_capability(0)
+    print(f"Capability: {cap[0]}.{cap[1]}")
