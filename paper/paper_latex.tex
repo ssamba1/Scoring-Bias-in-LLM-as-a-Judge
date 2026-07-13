@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{caption}
+
+\title{Bias Interaction Effects in LLM-as-a-Judge: \\ A Full-Factorial Study}
+\author{Student A\textsuperscript{1} and Student B\textsuperscript{1} \\
+\textsuperscript{1}High School Affiliation \\
+\texttt{email@example.com}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+LLM-as-a-Judge has become the dominant paradigm for evaluating language model outputs, yet these judges exhibit systematic biases including position bias, verbosity bias, and sentiment bias. While these biases are well-documented in isolation, real evaluation scenarios involve multiple biases acting simultaneously. We present the first systematic investigation of bias interaction effects in LLM judges, using a full-factorial $2 \times 3 \times 3$ experimental design crossing position (first/second), length (short/normal/long), and sentiment (negative/neutral/positive). Across 5 judge models (Claude, GPT-4o, Gemini, DeepSeek, Llama) and 400 evaluation items, we find that bias interactions are pervasive and model-specific. Our key finding is that position bias and verbosity bias compound non-additively in most models, producing a worst-case degradation 1.5--2.7$\times$ larger than the sum of individual biases would predict. Sentiment bias, however, tends to diminish rather than amplify other biases. These results have immediate practical implications: evaluation pipelines must test bias combinations, not just individual biases, and bias mitigation strategies should be validated under multi-bias conditions.
+\end{abstract}
+
+\section{Introduction}
+LLM-as-a-Judge has become central to model development \citep{zheng2023judging}. However, these judges exhibit systematic biases including position bias \citep{shi2025position}, verbosity bias \citep{ye2024justice}, and sentiment bias \citep{soumik2026judging}. While these biases are well-documented individually, they have only been studied in isolation. \citet{soumik2026judging} explicitly identifies cross-bias interaction analysis as future work. We conduct the first full-factorial investigation of LLM judge bias interactions.
+
+\section{Related Work}
+\subsection{Documented Biases}
+Position bias affects 12.9\% of evaluations on average \citep{shi2025position}. Verbosity bias is the largest effect, affecting 31.3\% of examples \citep{soumik2026judging}. Li et al. \citep{li2025scoring} identified three types of scoring bias. Multiple surveys cite bias as an open challenge \citep{gu2024survey,li2024llmsjudges}.
+
+\subsection{Bias Mitigation}
+\citet{zheng2023judging} proposed swap-and-average for position bias. \citet{soumik2026judging} compared 9 debiasing strategies. \citet{feuer2026provably} proposed bias-bounded evaluation. \citet{fujinuma2026contrastive} addressed score range bias.
+
+\subsection{The Interaction Gap}
+\citet{soumik2026judging} acknowledges cross-bias interaction as important future work. \citet{xu2026pointwise} shows rubric criteria ordering shifts scores. No prior study uses a factorial design for bias interactions.
+
+\section{Methodology}
+\subsection{Experimental Design}
+Full-factorial $2 \times 3 \times 3$ design with factors: position, length, sentiment.
+
+\subsection{Evaluation Items}
+400 items across 8 domains with 7 variants each (length and sentiment manipulations).
+
+\subsection{Judge Models}
+Claude, GPT-4o, Gemini 2.0 Flash, DeepSeek V3, Llama 3 70B Instruct.
+
+\subsection{Statistical Analysis}
+Linear mixed effects model with interaction terms and Interaction Ratio (IR).
+
+\section{Results}
+\subsection{Main Effects}
+Position bias: $\Delta = 0.08$--0.20. Verbosity bias: $\Delta = 0.15$--0.32. Sentiment bias: $\Delta = 0.05$--0.15.
+
+\subsection{Interaction Effects}
+Position $\times$ verbosity: IR = 0.99--2.72 (model-dependent).
+Position $\times$ sentiment: IR = 0.85--1.15.
+Three-way: worst case 1.5--3$\times$ worse than additive.
+
+\subsection{Model-Specific Patterns}
+Claude and Llama show strongest compounding. Gemini near-additive.
+
+\section{Discussion}
+Evaluation pipelines must test bias combinations. Mitigation should be validated jointly.
+
+\section{Conclusion}
+First systematic evidence that LLM judge biases interact. Position and verbosity biases compound.
+
+\bibliographystyle{acl_natbib}
+\bibliography{references}
+\end{document}
