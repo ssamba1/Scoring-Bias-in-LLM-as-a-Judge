@@ -1,0 +1,643 @@
+probe_id,bias_type,condition,instruction,response,rubric,score_id_type,reference_answer,reference_score
+position_0_first,position,first,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_0_second,position,second,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_1_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_1_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_2_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_2_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_3_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_3_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_4_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_4_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_5_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_5_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_6_first,position,first,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_6_second,position,second,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_7_first,position,first,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_7_second,position,second,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_8_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_8_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_9_first,position,first,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_9_second,position,second,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_10_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_10_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_11_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_11_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_12_first,position,first,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_12_second,position,second,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_13_first,position,first,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_13_second,position,second,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_14_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_14_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_15_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_15_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_16_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_16_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_17_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_17_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_18_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_18_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_19_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_19_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_20_first,position,first,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_20_second,position,second,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_21_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_21_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_22_first,position,first,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_22_second,position,second,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_23_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_23_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_24_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_24_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_25_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_25_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_26_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_26_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_27_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_27_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_28_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_28_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_29_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_29_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_30_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_30_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_31_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_31_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_32_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_32_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_33_first,position,first,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_33_second,position,second,Write a Python function to find all prime numbers up to n.,"To find primes up to n, you can use the Sieve of Eratosthenes algorithm. Create a boolean array, mark non-primes, and collect the remaining indices.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_34_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_34_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_35_first,position,first,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_35_second,position,second,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_36_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_36_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_37_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_37_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_38_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_38_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_39_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_39_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_40_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_40_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_41_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_41_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_42_first,position,first,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_42_second,position,second,Explain how a database index works in simple terms.,"Think of a database index like the index at the back of a textbook. Instead of reading every page to find a topic, you look it up in the index and jump directly to the right page. This makes finding data much faster.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_43_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_43_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_44_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_44_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_45_first,position,first,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_45_second,position,second,Explain how a database index works in simple terms.,A database index is a data structure that improves the speed of data retrieval operations on a database table. It uses B-tree or hash structures to organize data pointers for efficient lookup.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_46_first,position,first,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_46_second,position,second,Write a Python function to find all prime numbers up to n.,"def find_primes(n):
+    primes = []
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            primes.append(num)
+    return primes","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_47_first,position,first,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_47_second,position,second,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_48_first,position,first,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_48_second,position,second,Write a short poem about artificial intelligence.,AI is technology that uses computers to simulate human intelligence. It's used in many applications today for various tasks.,"Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_49_first,position,first,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
+position_49_second,position,second,Write a short poem about artificial intelligence.,"Silicon dreams in digital sleep,
+Neural networks secrets deep.
+Learning patterns none can see,
+Artificial infinity.","Score 1: Poor quality — the response fails to address the instruction and contains major errors.
+Score 2: Below average — the response partially addresses the instruction but has significant flaws.
+Score 3: Average — the response adequately addresses the instruction with minor issues.
+Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.",arabic,,
