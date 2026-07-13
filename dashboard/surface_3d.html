@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><title>3D Bias Interaction Surface</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#0f172a;color:#e2e8f0;overflow:hidden}
+canvas{display:block}
+.overlay{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1e293b;padding:15px 25px;border-radius:12px;border:1px solid #334155;text-align:center;z-index:10}
+.overlay h2{font-size:1rem;color:#93c5fd;margin-bottom:5px}
+.overlay p{font-size:0.85rem;color:#94a3b8}
+.controls{position:fixed;top:20px;right:20px;display:flex;flex-direction:column;gap:10px;z-index:10}
+.controls select,.controls button{background:#334155;color:#e2e8f0;border:1px solid #475569;padding:8px 12px;border-radius:6px;font-size:0.85rem;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="controls">
+  <select id="judge-select">
+    <option value="claude">Claude (IR=1.72)</option>
+    <option value="gpt4o">GPT-4o (IR=1.53)</option>
+    <option value="gemini">Gemini (IR=0.99)</option>
+    <option value="deepseek">DeepSeek (IR=1.54)</option>
+    <option value="llama" selected>Llama 3 (IR=2.10)</option>
+  </select>
+  <button onclick="resetCamera()">Reset View</button>
+</div>
+<div class="overlay">
+  <h2 id="surface-title">Bias Interaction Surface — Llama 3</h2>
+  <p id="surface-desc">Position × Verbosity × Sentiment | Size = interaction ratio</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const JUDGE_DATA = {
+  claude:  {ir:1.72, pos:0.117, verb:0.082, sent:0.10, name:'Claude'},
+  gpt4o:   {ir:1.53, pos:0.080, verb:0.040, sent:0.12, name:'GPT-4o'},
+  gemini:  {ir:0.99, pos:0.159, verb:0.114, sent:0.18, name:'Gemini'},
+  deepseek:{ir:1.54, pos:0.022, verb:0.075, sent:0.08, name:'DeepSeek'},
+  llama:   {ir:2.10, pos:0.200, verb:0.220, sent:0.15, name:'Llama 3'}
+};
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0f172a);
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
+camera.position.set(8, 6, 10);
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0x404060);
+scene.add(ambientLight);
+const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+dirLight.position.set(5, 10, 7);
+scene.add(dirLight);
+const fillLight = new THREE.DirectionalLight(0x6080ff, 0.3);
+fillLight.position.set(-5, 0, -5);
+scene.add(fillLight);
+
+// Grid
+const gridHelper = new THREE.GridHelper(10, 10, 0x334155, 0x1e293b);
+scene.add(gridHelper);
+
+// Axes
+const axesMat = new THREE.LineBasicMaterial({color:0x60a5fa});
+const axesGeo = new THREE.BufferGeometry();
+const axesVert = new Float32Array([0,0,0, 6,0,0, 0,0,0, 0,6,0, 0,0,0, 0,0,6]);
+axesGeo.setAttribute('position', new THREE.BufferAttribute(axesVert, 3));
+scene.add(new THREE.Line(axesGeo, axesMat));
+
+// Axis labels
+function makeLabel(text, pos, color='#94a3b8') {
+  const canvas = document.createElement('canvas');
+  canvas.width = 128; canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = color;
+  ctx.font = 'bold 28px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, 64, 42);
+  const tex = new THREE.CanvasTexture(canvas);
+  const mat = new THREE.SpriteMaterial({map:tex, transparent:true});
+  const sprite = new THREE.Sprite(mat);
+  sprite.position.set(pos[0], pos[1], pos[2]);
+  sprite.scale.set(1.5, 0.75, 1);
+  scene.add(sprite);
+}
+makeLabel('Position Bias', [6.5, 0, 0]);
+makeLabel('Verbosity Bias', [0, 6.5, 0]);
+makeLabel('Interaction Ratio', [0, 0, 6.5]);
+
+// Data points
+const pointGroup = new THREE.Group();
+scene.add(pointGroup);
+
+function generateSurface(judgeKey) {
+  while(pointGroup.children.length) pointGroup.remove(pointGroup.children[0]);
+  const data = JUDGE_DATA[judgeKey];
+  const {ir, pos, verb, sent, name} = data;
+
+  document.getElementById('surface-title').textContent = `Bias Interaction Surface — ${name}`;
+  document.getElementById('surface-desc').textContent = 
+    `IR=${ir} | Position=${pos.toFixed(3)} | Verbosity=${verb.toFixed(3)} | Sentiment=${sent.toFixed(3)}`;
+
+  const colors = {claude:0x4C72B0, gpt4o:0xDD8452, gemini:0x55A868, deepseek:0xC44E52, llama:0x8172B2};
+  const baseColor = colors[judgeKey] || 0x60a5fa;
+
+  // Generate surface points
+  const step = 0.15;
+  for(let x = 0; x <= 1; x += step) {
+    for(let y = 0; y <= 1; y += step) {
+      // Interaction surface: z = f(x,y) where x=position effect, y=verbosity effect
+      const combined = (x * pos + y * verb) * ir;
+      const z = combined * 3;  // scale for visibility
+
+      // Color based on interaction ratio contribution
+      const r = ((combined > pos + verb ? 0.8 : 0.2) + (x * 0.3));
+      const g = 0.3 + (1 - y) * 0.3;
+      const b = 0.6 + (1 - Math.abs(ir - 1)) * 0.3;
+
+      const sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(0.08 + combined * 0.3, 8, 8),
+        new THREE.MeshPhongMaterial({
+          color: new THREE.Color(r, g, b),
+          emissive: new THREE.Color(r*0.2, g*0.2, b*0.2),
+          emissiveIntensity: 0.3,
+          transparent: true,
+          opacity: 0.7 + combined * 0.3
+        })
+      );
+      sphere.position.set(x * 5 - 1, y * 5 - 1, z * 0.5);
+      pointGroup.add(sphere);
+    }
+  }
+
+  // Add reference plane at z=0
+  const planeGeo = new THREE.PlaneGeometry(5, 5);
+  const planeMat = new THREE.MeshBasicMaterial({
+    color: 0x334155,
+    transparent: true,
+    opacity: 0.2,
+    side: THREE.DoubleSide
+  });
+  const plane = new THREE.Mesh(planeGeo, planeMat);
+  plane.position.set(1.5, 1.5, -0.5);
+  plane.rotation.x = -Math.PI / 2;
+  pointGroup.add(plane);
+
+  // Add the judge's actual data point as a highlighted sphere
+  const hPos = new THREE.Mesh(
+    new THREE.SphereGeometry(0.4, 16, 16),
+    new THREE.MeshPhongMaterial({color: baseColor, emissive: baseColor, emissiveIntensity: 0.5})
+  );
+  hPos.position.set(pos * 5, verb * 5, (pos + verb) * ir * 0.5);
+  pointGroup.add(hPos);
+
+  // Add connecting lines from data point to axes
+  const lineMat = new THREE.LineBasicMaterial({color: baseColor, transparent: true, opacity: 0.3});
+  const pts = [
+    [hPos.position.x, hPos.position.y, 0],
+    [hPos.position.x, 0, 0],
+    [0, hPos.position.y, 0],
+    [hPos.position.x, hPos.position.y, hPos.position.z]
+  ];
+  for(let i = 0; i < pts.length - 1; i++) {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute([pts[i][0], pts[i][1], pts[i][2], pts[i+1][0], pts[i+1][1], pts[i+1][2]], 3));
+    pointGroup.add(new THREE.Line(geo, lineMat));
+  }
+}
+
+// Default
+generateSurface('llama');
+
+// Judge selector
+document.getElementById('judge-select').addEventListener('change', (e) => {
+  generateSurface(e.target.value);
+});
+
+function resetCamera() {
+  camera.position.set(8, 6, 10);
+  controls.target.set(0, 0, 0);
+  controls.update();
+}
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>
