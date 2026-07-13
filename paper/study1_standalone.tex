@@ -129,6 +129,14 @@ This aligns with the Instruction-Induced Attention Redistribution (IIAR) hypothe
 
 \paragraph{Broader implications.} The fact that instruction tuning has opposite effects on different bias types cautions against blanket claims about ''bias amplification'' or ''bias reduction.'' The effect is probe-specific and must be measured independently for each bias type.
 
+\section{Broader Impact}
+
+Our findings have significant implications for the deployment of LLM-as-a-Judge systems. If scoring bias is modulated by instruction tuning, then model developers may inadvertently increase content-based bias susceptibility even as format robustness improves. Potential risks include: (1) over-reliance on biased judges could systematically disadvantage certain response types; (2) the differential effect means blanket debiasing strategies may backfire---mitigating format bias does not address content bias and vice versa; (3) our findings could be used to construct adversarial prompts targeting specific model biases. We encourage practitioners to report bias profiles alongside evaluation scores and to test bias combinations rather than individual biases.
+
+\section{Ethics Statement}
+
+This research was conducted in accordance with the NeurIPS Code of Ethics. No human subjects were involved. All models are publicly available under their respective licenses (Meta Llama 3 Community License, Apache 2.0, Gemma Terms of Use). All code and data are released under open licenses.
+
 \section{Limitations}
 
 Several limitations should be acknowledged: (1) our 50 evaluation items, while sufficient for statistical significance, are fewer than the largest benchmarks; (2) we tested models at the 2B--8B scale; larger models may show different patterns; (3) we cannot distinguish SFT from RLHF contributions with publicly available checkpoints; (4) the descriptive score ID variant suffered from parser issues and was excluded from the score ID analysis; (5) results are English-only.
