@@ -10,7 +10,7 @@ Loads models from HuggingFace, runs inference locally.
 Run time: ~30-90 min depending on auth+gated success
 """
 # === Cell 1: Install (run once) ===
-# !pip install -q bitsandbytes accelerate  # for 4-bit loading (optional)
+# !pip install -q --upgrade transformers bitsandbytes accelerate  # needed for 4-bit loading
 
 import json, os, time, re, gc, sys
 import torch
@@ -197,26 +197,34 @@ for entry in MODELS:
     t0 = time.time()
     
     try:
+        # Load tokenizer
         tok_kwargs = {"token": HF_TOKEN} if (gated and HF_TOKEN) else {}
         tokenizer = AutoTokenizer.from_pretrained(mid, **tok_kwargs)
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
+            tokenizer.pad_token_id = tokenizer.eos_token_id
+        
+        # Fix StableLM issue: set pad_token_id on config before loading
+        from transformers import AutoConfig
+        config = AutoConfig.from_pretrained(mid, **({"token": HF_TOKEN} if gated and HF_TOKEN else {}))
+        if not hasattr(config, 'pad_token_id') or config.pad_token_id is None:
+            config.pad_token_id = tokenizer.eos_token_id
         
         # Load with 4-bit for large models, fp16 otherwise
         auth_kw = {"token": HF_TOKEN} if gated and HF_TOKEN else {}
         if mode == "4bit":
             model = AutoModelForCausalLM.from_pretrained(
-                mid, load_in_4bit=True, device_map="auto", **auth_kw
+                mid, load_in_4bit=True, device_map="auto", config=config, **auth_kw
             )
         else:
             try:
                 model = AutoModelForCausalLM.from_pretrained(
-                    mid, torch_dtype=torch.float16, device_map="auto", **auth_kw
+                    mid, torch_dtype=torch.float16, device_map="auto", config=config, **auth_kw
                 )
             except torch.cuda.OutOfMemoryError:
                 print("OOM in fp16, trying 4-bit...")
                 model = AutoModelForCausalLM.from_pretrained(
-                    mid, load_in_4bit=True, device_map="auto", **auth_kw
+                    mid, load_in_4bit=True, device_map="auto", config=config, **auth_kw
                 )
         
         model.eval()
