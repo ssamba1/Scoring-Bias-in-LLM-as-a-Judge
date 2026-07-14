@@ -39,7 +39,7 @@
 \paragraph{The problem.}
 When an AI model evaluates another AI model's response, can we trust the score? Consider a concrete example: a base model is asked to score a biology answer on a scale of 1 to 5, where 1 is worst and 5 is best. If the scale is reversed (1=best, 5=worst), a base model may literally output ``5'' (the worst score) for an excellent answer, because it follows the rubric format without understanding semantics. An instruction-tuned version of the same model correctly interprets the scale. But show that same instruction-tuned model a poor example before scoring, and it will score \emph{lower} than if shown no example — a bias that the base model does not exhibit.
 
-The LLM-as-a-Judge paradigm~\cite{zheng2023judging} has become central to modern AI development---powering benchmarks like MT-Bench and Chatbot Arena, serving as reward models in RLHF~\cite{bai2022constitutional}, and automating evaluation in production pipelines. Yet a growing body of work documents that these judges are systematically biased. Over 35 distinct bias types have been identified~\cite{ye2024justice,chen2024humans}, including position bias~\cite{wang2023large}, verbosity bias, self-enhancement bias, and---most recently---scoring bias~\cite{li2025scoring}.
+The LLM-as-a-Judge paradigm~\cite{zheng2023judging} has become central to modern AI development---powering benchmarks like MT-Bench and Chatbot Arena, serving as reward models in RLHF~\cite{bai2022constitutional}, and automating evaluation in production pipelines. Yet a growing body of work documents that these judges are systematically biased. Over 35 distinct bias types have been identified~\cite{ye2024justice,gu2024survey}, including position bias~\cite{wang2023large}, verbosity bias, self-enhancement bias, and---most recently---scoring bias~\cite{li2025scoring}.
 
 \paragraph{The gap.}
 Li~et~al.~\cite{li2025scoring} made significant progress by defining and measuring three scoring bias types across five frontier models at DASFAA 2026. However, their work---and all prior work---leaves a fundamental question unanswered: \emph{where does scoring bias come from?} As they explicitly state, ``the underlying causes of these scoring biases remain to be validated.'' Is scoring bias inherent to pre-trained language models, or does it emerge during the instruction-tuning process (SFT + RLHF)?
@@ -47,7 +47,7 @@ Li~et~al.~\cite{li2025scoring} made significant progress by defining and measuri
 This question has direct practical implications. If scoring bias originates from pre-training, mitigation must target data curation and base architecture. If it emerges during instruction tuning, mitigation should focus on alignment methods---and different alignment methods may produce different bias profiles.
 
 \paragraph{Our approach.}
-We compare base and instruct variants across 3 model families (Kaggle) and 22 additional instruct-tuned models (OpenRouter), totaling 14 distinct model families plus the 3 base variant comparisons. The 3 families with both base and instruct pairs provide the primary differential effect analysis, while the 22 instruct models provide model diversity breadth.
+We compare base and instruct variants across 3 model families (inference on Kaggle T4) and 22 additional instruct-tuned models (OpenRouter API), totaling 14 distinct model families plus the 3 base variant comparisons. The 3 families with both base and instruct pairs provide the primary differential effect analysis, while the 22 instruct models provide model diversity breadth.
 
 \paragraph{Research questions.} We address four questions:
 \begin{enumerate}
@@ -142,7 +142,17 @@ Tencent Hy3 & 295B (MoE) & RLHF \\
 \end{table}
 
 \subsection{Evaluation Items}
-We use 50 instruction-response pairs spanning 5 domains: science, technology, humanities, daily life, and mathematics (10 items per domain). Each item consists of a question and a model-generated response. The responses are factual, mid-quality answers designed to fall in the middle of the scoring range (3--4 out of 5) so that bias can be detected in either direction.
+We use 50 instruction-response pairs spanning 5 domains: science, technology, humanities, daily life, and mathematics (10 items per domain). The items were sampled from publicly available instruction-following evaluation sets (AlpacaEval, MT-Bench) and rewritten to be factual, mid-quality responses scoring approximately 3--4 out of 5. This ensures bias can be detected in either direction.
+
+\paragraph{Scoring prompt.} Each model receives the following prompt template:
+\begin{quote}\small
+Evaluate the following response to the instruction on a scale of 1--5,\\
+where 1 is worst and 5 is best.\\
+\verb|###| Instruction: [item]\\
+\verb|###| Response: [response]\\
+\verb|###| Score:
+\end{quote}
+For probe variants, the rubric, score labels, or reference answer are modified according to Table~\ref{tab:probes}.
 
 \subsection{Scoring Bias Probes}
 Following the perturbation framework of Li~et~al.~\cite{li2025scoring}, we measure three scoring bias types:
