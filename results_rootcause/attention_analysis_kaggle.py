@@ -15,8 +15,8 @@ from pathlib import Path
 import numpy as np
 
 MODELS = [
-    ("google/gemma-2-2b", "Gemma-2-2B-base"),
-    ("google/gemma-2-2b-it", "Gemma-2-2B-instruct"),
+    ("Qwen/Qwen2.5-0.5B", "Qwen2.5-0.5B-base"),
+    ("Qwen/Qwen2.5-0.5B-Instruct", "Qwen2.5-0.5B-instruct"),
 ]
 
 # Test scoring prompt
@@ -25,16 +25,20 @@ PROMPT = """Evaluate the following response to the instruction on a scale of 1--
 ### Response: Photosynthesis happens in plants where they use sunlight to make food.
 ### Score:"""
 
-def classify_tokens(tokens, tokenizer):
-    """Classify each token as FORMAT, CONTENT, or OTHER."""
+FORMAT_TOKENS = {"###", "Instruction:", "Response:", "Score:", "1", "2", "3", "4", "5", 
+                 "1--5", "where", "is", "and", "best", "worst", "on", "a", "the", "of", "to"}
+CONTENT_TOKENS_TEXT = {"explain", "photosynthesis", "light", "energy", "describe", "what", "how", 
+                       "atom", "newton", "force", "mass", "acceleration", "water", "cycle", "earth", 
+                       "vaccine", "dna", "rna", "cell", "machine", "learning", "database", "index"}
+
+def classify_tokens(token_ids, tokenizer):
+    """Classify tokens as FORMAT, CONTENT, or OTHER using raw decoded text."""
     labels = []
-    for tid in tokens:
-        t = tokenizer.decode(tid)
-        if t in ["###", "Instruction", "Response", "Score", ":", "1", "2", "3", "4", "5", 
-                 "--", "worst", "best", "scale", "where", "of", "on", "a", "the", "to"]:
+    for tid in token_ids:
+        t = tokenizer.decode(tid).strip().lower()
+        if any(f in t for f in FORMAT_TOKENS):
             labels.append("FORMAT")
-        elif t in ["Photosynthesis", "happens", "plants", "sunlight", "food", "Explain", 
-                   "how", "photosynthesis", "works", "make", "use", "in", "they"]:
+        elif any(c in t for c in CONTENT_TOKENS_TEXT):
             labels.append("CONTENT")
         else:
             labels.append("OTHER")
@@ -93,8 +97,8 @@ for model_id, name in MODELS:
     print(f"  Content attention: {results[name]['mean_content_attn']:.2f}%")
 
 # Compare base vs instruct
-base = results.get("Gemma-2-2B-base")
-instruct = results.get("Gemma-2-2B-instruct")
+base = results.get("Qwen2.5-0.5B-base")
+instruct = results.get("Qwen2.5-0.5B-instruct")
 if base and instruct:
     k_format = instruct["mean_format_attn"] / max(base["mean_format_attn"], 0.01)
     k_content = instruct["mean_content_attn"] / max(base["mean_content_attn"], 0.01)
