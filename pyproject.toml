@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "scoring-bias-llm-as-judge"
+version = "1.0.0"
+description = "Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge"
+readme = "README.md"
+requires-python = ">=3.11"

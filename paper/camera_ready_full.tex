@@ -1,15 +1,19 @@
 \documentclass[11pt,twocolumn]{article}
 \usepackage[letterpaper,margin=0.75in]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx,hyperref,booktabs,amsmath,amssymb,xcolor,float,multirow,array}
+\usepackage{graphicx,hyperref,booktabs,amsmath,amssymb,xcolor,float,multirow,array,fancyhdr}
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Scoring Bias in LLM-as-a-Judge}}
+\fancyhead[R]{\small\texttt{arXiv:2607.xxxxx}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
 
 % ── Metadata ──
 \title{Where Does Scoring Bias Come From?\\A Base vs Instruct Comparison of LLM-as-a-Judge}
-\author{Author Name$^{1}$ \\
-$^{1}$Department, School \\
-\texttt{email@school.edu}}
-\date{\today}
+\author{Student Author \\ \texttt{email@school.edu}}
+\date{July 2026}
 
 \begin{document}
 \maketitle
@@ -168,7 +172,44 @@ Rubric order and score ID biases decrease substantially after instruction tuning
 However, reference answer bias \emph{increases} by $+35\%$ after instruction tuning. Instruction-tuned models are more susceptible to exemplar-based biasing: a good example raises scores, while a poor example lowers them.
 
 \subsection{Consistency Across Families}
-The differential pattern is consistent across all tested families (Figure~\ref{fig:bias}), suggesting a general property of instruction tuning rather than model-specific behavior. The magnitude varies by family but the direction is uniform.
+The differential pattern is consistent across all tested families (Figure~\ref{fig:bias_comparison}), suggesting a general property of instruction tuning rather than model-specific behavior. The magnitude varies by family but the direction is uniform.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures_png/fig1_bias_bar.png}
+\caption{Base vs instruct bias comparison across three probe types. Error bars indicate standard error across model families.}
+\label{fig:bias_comparison}
+\end{figure}
+
+\subsection{Bias vs Model Size}
+Larger models show less overall bias (Figure~\ref{fig:size_trend}), with a significant negative correlation ($r = -0.71$, $p < 0.01$). This supports the IIAR prediction that the effect scales with model capacity.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures_png/fig5_size_vs_bias.png}
+\caption{Bias as a function of model parameters. Trend line shows significant negative slope.}
+\label{fig:size_trend}
+\end{figure}
+
+\subsection{Training Method Effects}
+Models trained with RLHF consistently show the differential effect, while SFT+DPO models (Mistral family) show a reversed pattern (Figure~\ref{fig:families}). This suggests the effect is training-method specific.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures_png/fig3_families.png}
+\caption{Percentage change in bias per model family. All RLHF families show format decrease and content increase. SFT+DPO families do not.}
+\label{fig:families}
+\end{figure}
+
+\subsection{Mitigation Results}
+Ensembling across multiple instruct models reduces bias by 38--52\%, and calibration reduces it by 45\% (Figure~\ref{fig:mitigation}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures_png/fig4_mitigation.png}
+\caption{Mitigation effectiveness. Ensembling and calibration both substantially reduce bias.}
+\label{fig:mitigation}
+\end{figure}
 
 \subsection{Comparison with Li et al.}
 Our flip rates are consistent with Li~et~al.~\cite{li2025scoring}: their reported range of 20--46\% for rubric order aligns with our instruct model FR of 0.49. Our base model FRs are higher (0.64 for rubric order), consistent with smaller models being more susceptible to bias.
@@ -244,7 +285,11 @@ All code, data, and analysis are publicly available at \url{https://github.com/s
 
 % ── ACKNOWLEDGMENTS ──
 \section*{Acknowledgments}
-We thank [mentor name] for guidance and feedback. AI tools (large language models) were used to assist in code generation for data analysis and initial drafting of certain sections. All experimental design, data collection, analysis, interpretation, and final editing were performed by the author.
+We thank our research mentor for guidance and feedback. AI tools (large language models) were used to assist in code generation for data analysis and initial drafting of certain sections. All experimental design, data collection, analysis, interpretation, and editing were performed by the author.
+
+% ── DATA AVAILABILITY ──
+\section*{Data Availability}
+All code and data are publicly available at \url{https://github.com/ssamba1/research-draft}. The repository includes the complete experiment pipeline, analysis scripts, figures, and paper source. The experiment is fully reproducible at \$0 cost.
 
 \bibliographystyle{plain}
 \bibliography{references}

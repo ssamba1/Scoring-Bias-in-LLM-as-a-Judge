@@ -1,10 +1,22 @@
+# Core
 transformers>=4.47.0
 torch>=2.0.0
 accelerate>=0.20.0
 huggingface_hub>=0.20.0
+
+# Data & analysis
 numpy>=1.24.0
 scipy>=1.10.0
 pandas>=2.0.0
+
+# Figures
 matplotlib>=3.7.0
 seaborn>=0.12.0
-sentence-transformers>=3.0.0
+
+# API
+openai>=1.0.0
+requests>=2.31.0
+
+# Development
+flake8>=6.0.0
+black>=23.0.0

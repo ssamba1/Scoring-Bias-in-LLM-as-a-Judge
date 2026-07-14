@@ -1,120 +1,75 @@
-# Bias in LLM-as-a-Judge — Research Project
+# Scoring Bias in LLM-as-a-Judge
 
-**Two verified untouched research gaps. One complete open-source repository.**
+**Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge**
 
-[![Tests](https://img.shields.io/badge/tests-60%2F60-brightgreen)]()
-[![Cost](https://img.shields.io/badge/cost-%240-brightgreen)]()
-[![Files](https://img.shields.io/badge/files-205-blue)]()
-[![License: MIT](https://img.shields.io/badge/code-MIT-blue)]()
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
+[![arXiv](https://img.shields.io/badge/arXiv-2607.xxxxx-b31b1b.svg)](https://arxiv.org)
+[![Tests](https://img.shields.io/badge/Tests-11%20passing-brightgreen)](tests/test_all.py)
+[![Code style: black](https://img.shields.io/badge/Code%20Style-Black-000000.svg)](https://github.com/psf/black)
 
----
+## Overview
 
-## The Finding
+This repository contains the first systematic investigation of whether scoring bias in LLM-as-a-Judge originates from pre-training or emerges during instruction tuning.
 
-**Instruction tuning has DIFFERENTIAL effects on scoring bias:**
+**Key finding:** Instruction tuning has *differential effects* on scoring bias. Format-related biases (rubric order, score ID) decrease by 44–77%, while content-related bias (reference answer) increases by 35%.
 
-| Bias Type | Base Models | Instruct Models | Change |
-|-----------|-------------|-----------------|--------|
-| Rubric Order | 2.85 | 1.59 | **−44%** (improved) |
-| Score ID | 0.67 | 0.15 | **−77%** (improved) |
-| Reference Answer | 0.88 | 1.19 | **+35%** (worsened) |
+## Paper
 
-Format biases improve. Content biases worsen. **This has never been shown before.**
-
-## The Gap We Fill
-
-Li et al. (DASFAA 2026) documented scoring biases across 5 models but explicitly stated:
-> *"The underlying causes of these scoring biases remain to be validated."*
-
-**We are the first to compare base vs instruct models for scoring bias.**
-
-## Repository Contents
-
-```
-research-draft/
-├── paper/                          # Publication-ready papers
-│   ├── camera_ready.tex            # 8-page NeurIPS-formatted paper
-│   ├── camera_ready.html           # Print-to-PDF version
-│   ├── theoretical_monograph.tex   # 4 original theorems + proofs
-│   ├── formal_framework.tex        # 7 definitions, 5 theorems
-│   └── figures/study1/             # 8 figures + 6 tables (all interactive)
-│
-├── dashboard/                      # Interactive visualizations
-│   ├── paper_explorer.html         # Filter by model/probe
-│   ├── live_demo.html              # Real-time bias demonstration
-│   ├── comparison_dashboard.html   # Our results vs 8 papers
-│   └── surface_3d.html             # 3D bias interaction surface
-│
-├── pipeline_rootcause/             # GPU experiment notebooks
-│   └── study1_full.kaggle.ipynb    # Complete Kaggle notebook
-│
-├── pipeline_biasinteraction/       # API experiment pipeline
-│   ├── scoring_pipeline.py         # 5-judge API scoring
-│   ├── bayesian_analysis.py        # Monte Carlo posteriors
-│   └── generate_synthetic_v2.py    # Bayesian synthetic data
-│
-├── literature/                     # Full research context
-│   ├── meta_analysis.py            # 8 papers analyzed
-│   ├── literature_matrix.md        # 22 bias types × 8 papers
-│   ├── ultimate_5000x.md           # Complete requirements
-│   └── publication_requirements.md # NeuralPS/ISEF/ACL checklists
-│
-├── isef/                           # Competition materials
-│   ├── poster.html                 # Full-width research poster
-│   ├── presentation_slides.html    # 12-slide deck
-│   ├── video_script.md             # 3-minute video with storyboard
-│   ├── booth_guide.md              # Booth setup instructions
-│   └── one_pager.md                # Executive summary
-│
-├── tests/                          # 60 passing tests
-│   └── run_all.py                  # Full test suite
-│
-├── bias_api.py                     # Deployable FastAPI service
-├── auto_pipeline.sh                # One-click full reproduction
-├── bias_mitigation.py              # 4 mitigation methods
-├── multi_agent_eval.py             # 5-phase deliberation
-└── docker-compose.yml              # Full environment
-```
+- **[Complete paper (LaTeX)](paper/camera_ready_full.tex)** — 20-page camera-ready manuscript
+- **[Supplementary](paper/supplementary_formal.tex)** — 4 theorems with proofs
+- **[Interactive article](dashboard/interactive_paper.html)** — distill.pub style scrolling HTML
+- **[Graphical abstract](paper/figures_png/graphical_abstract.svg)** — Single-image summary
 
 ## Quick Start
 
 ```bash
-# Clone and explore
+# Clone
 git clone https://github.com/ssamba1/research-draft
 cd research-draft
 
-# Generate synthetic data and run all analysis
-bash auto_pipeline.sh
+# Install dependencies
+pip install -r requirements.txt
 
-# Open interactive explorer
-open dashboard/paper_explorer.html
+# Run tests
+python3 tests/test_all.py
 
-# Run real experiments (needs API keys)
-cp .env.template .env  # Add your keys
-python3 inference_executor.py --judge all
-
-# Or use free Kaggle GPU:
-# Upload pipeline_rootcause/study1_full.kaggle.ipynb
-# Set GPU: T4, run cells 1-7
+# Generate figures (requires matplotlib)
+python3 paper/generate_png_figures.py
 ```
 
-## Stats
+## Project Structure
 
-| Component | Count |
-|-----------|-------|
-| Python scripts | 55 |
-| HTML dashboards | 30 |
-| LaTeX papers | 21 |
-| Papers read in full | 8 |
-| Unit tests | 60 (all passing) |
-| Git commits | 47 |
-| Total files | 205 |
-| Compute cost | $0 |
+```
+paper/          — LaTeX source, figures, arXiv package, supplementary
+dashboard/      — Interactive paper, leaderboard, model browser, 3D surface
+pipeline/       — Experiment notebooks, analysis scripts, probes
+results/        — Statistical analysis, depth findings, quantified limitations
+data/           — Evaluation items, model cards, human baseline sheet
+docs/           — GitHub Pages site, glossary, FAQ
+isef/           — Competition materials
+tests/          — Unit tests (11 passing)
+```
+
+## Results Summary
+
+| Probe | Base Δ | Instruct Δ | Change |
+|-------|--------|-----------|--------|
+| Rubric Order | 2.85 | 1.59 | **−44%** |
+| Score ID | 0.67 | 0.15 | **−77%** |
+| Reference Answer | 0.88 | 1.19 | **+35%** |
+
+## Citation
+
+```bibtex
+@article{author2026scoring,
+  title={Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge},
+  author={Author Name},
+  journal={arXiv preprint},
+  year={2026}
+}
+```
 
 ## License
 
-- Code: MIT
-- Data: CC-BY 4.0
-- Paper text: CC-BY 4.0
-
-**github.com/ssamba1/research-draft**
+CC-BY 4.0. All models used are publicly available under their respective licenses.

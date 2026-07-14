@@ -1,5 +1,27 @@
+# Python
 *.pyc
-.env
 __pycache__/
+.env
+*.egg-info/
+dist/
+build/
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Data
 results/bias_interaction_synthetic_v2.csv
 results/corrected_*.csv
+checkpoint.json
+ckpt.json
+
+# OS
+.DS_Store
+Thumbs.db

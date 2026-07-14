@@ -1,0 +1,21 @@
+* text=auto eol=lf
+
+*.py text diff=python
+*.tex text diff=latex
+*.md text
+*.json text
+*.ipynb text
+*.sh text
+*.yml text
+*.yaml text
+*.html text
+*.svg text
+*.css text
+*.js text
+*.bib text
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.tar.gz binary
+*.whl binary
