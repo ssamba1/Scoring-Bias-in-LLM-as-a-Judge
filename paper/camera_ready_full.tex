@@ -57,12 +57,14 @@ We compare base and instruct variants across 3 model families (Kaggle) and 22 ad
     \item \textbf{RQ4:} Do training methods (SFT, DPO, RLHF) modulate the effect?
 \end{enumerate}
 
+\paragraph{Novelty.} The key question — whether scoring bias originates from pre-training or instruction tuning — was posed by Li et al. (DASFAA 2026) as an open problem. Our work provides the first experimental evidence toward an answer.
+
 \paragraph{Our contributions:}
 \begin{enumerate}
-    \item \textbf{Differential effect discovered:} Instruction tuning decreases format biases but increases content bias. The pattern is consistent across RLHF-trained families.
-    \item \textbf{Alternative explanations ruled out:} We test and reject four competing hypotheses using the available data.
-    \item \textbf{IIAR hypothesis proposed:} The Instruction-Induced Attention Redistribution framework explains the observed pattern with five testable predictions.
-    \item \textbf{Open infrastructure:} Complete reproducible pipeline at \$0 cost, including code, data, and interactive analysis tools.
+    \item \textbf{Empirical finding:} Instruction tuning decreases format-related scoring bias but increases content-related scoring bias across 2 RLHF families tested. A single SFT+DPO family shows a different pattern.
+    \item \textbf{Alternative explanations:} We test and find evidence against four competing hypotheses using qualitative analysis of the observed patterns.
+    \item \textbf{IIAR hypothesis:} We propose a mechanistic framework (Instruction-Induced Attention Redistribution) with five testable predictions to organize and explain the observations.
+    \item \textbf{Open infrastructure:} Complete code, data, and reproduction pipeline at \$0 cost.
 \end{enumerate}
 
 \paragraph{Limitations of scope.} This study is exploratory with N=3 base-instruct family pairs. Results are directional and require larger-sample replication. We err on the side of transparency throughout.
@@ -102,7 +104,7 @@ Pan et al. \cite{pan2025user} & ACL Findings 2026 & 52 & No & Yes \\
 Thakur et al. \cite{thakur2024judging} & arXiv 2024 & 9 & No & Partial \\
 Xu et al. \cite{xu2026position} & arXiv 2026 & 6 & No & No \\
 \midrule
-\textbf{This work} & \textbf{---} & \textbf{3(+22)} & \textbf{Yes} & \textbf{Yes} \\
+\textbf{This work} & \textbf{---} & \textbf{25} & \textbf{Yes} & \textbf{Yes} \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -179,22 +181,22 @@ Table~\ref{tab:main} shows the aggregate results across all model families. Inst
 
 \begin{table}[h]
 \centering\small
-\caption{Aggregate results across all model families. Lower $\Delta$ = less bias.}
+\caption{Aggregate results across 3 base-instruct family pairs. Values are approximate pending full data processing. Lower $\Delta$ = less bias.}
 \label{tab:main}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Probe} & \textbf{Base $\Delta$} & \textbf{Instruct $\Delta$} & \textbf{Change} \\
+\textbf{Probe} & \textbf{Base $\Delta$} & \textbf{Instruct $\Delta$} & \textbf{Trend} \\
 \midrule
-Rubric Order & 2.85 & 1.59 & $-44\%$ \\
-Score ID & 0.67 & 0.15 & $-77\%$ \\
-Reference Answer & 0.88 & 1.19 & $+35\%$ \\
+Rubric Order & 2.9 & 1.6 & $\downarrow$ \\
+Score ID & 0.7 & 0.2 & $\downarrow$ \\
+Reference Answer & 0.9 & 1.2 & $\uparrow$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Rubric order and score ID biases decrease substantially after instruction tuning ($-44\%$ and $-77\%$ respectively). Base models follow rubric instructions literally---when the scale is reversed, they assign reversed scores without understanding semantic content. Instruction-tuned models parse the format correctly and are less influenced by scale direction.
+Rubric order and score ID biases decrease after instruction tuning (Table~\ref{tab:main}). Base models follow rubric instructions literally---when the scale is reversed, they assign reversed scores without understanding semantic content. Instruction-tuned models parse the format correctly and are less influenced by scale direction.\bigskip
 
-However, reference answer bias \emph{increases} by $+35\%$ after instruction tuning. Instruction-tuned models are more susceptible to exemplar-based biasing: a good example raises scores, while a poor example lowers them.
+However, reference answer bias \emph{increases} after instruction tuning. Instruction-tuned models are more susceptible to exemplar-based biasing: a good example raises scores, while a poor example lowers them.
 
 \subsection{Consistency Across Families}
 The differential pattern is consistent across the 3 families with both base and instruct variants (Figure~\ref{fig:bias_comparison}), and the variance across 22 additional instruct models provides supporting evidence. The magnitude varies by family but the direction is uniform for RLHF-trained models.
@@ -237,17 +239,17 @@ The differential effect suggests that bias mitigation must address two separate 
 \end{figure}
 
 \subsection{Comparison with Li et al.}
-Our flip rates are consistent with Li~et~al.~\cite{li2025scoring}: their reported range of 20--46\% for rubric order aligns with our instruct model FR of 0.49. Our base model FRs are higher (0.64 for rubric order), consistent with smaller models being more susceptible to bias.
+Our flip rate observations are directionally consistent with Li~et~al.~\cite{li2025scoring}: their reported rubric order flip rate range of 20--46\% for GPT-4 and similar models is in the same range as what we observe for instruct models. Our base models show higher flip rates, consistent with the interpretation that smaller open-weight models are more susceptible to bias than larger commercial models. Direct numerical comparison is limited by model and item differences.
 
-\subsection{Alternative Explanations Ruled Out}
-We test four alternative hypotheses:
+\subsection{Alternative Explanations Examined}
+We examine four alternative explanations for the observed pattern:
 \begin{enumerate}
     \item \textbf{Global scoring shift:} If base models simply score everything higher or lower, all probes would move in the same direction. They do not.
     \item \textbf{Single-family dominance:} If one model family drove the effect, removing it would change the pattern. It does not.
     \item \textbf{Probe ordering:} Control and biased variants differ only in the bias manipulation---ordering is identical.
     \item \textbf{Parser artifacts:} The descriptive score ID parser was unreliable, but numeric and letter variants independently show the same pattern.
 \end{enumerate}
-All four are rejected. The differential effect is robust.
+All four are inconsistent with the observed pattern in the available data.
 
 \subsection{Statistical Significance}
 With 3 model families (df = 2), our paired $t$-tests show large effect sizes: Cohen's $d$ ranges from 1.20 (reference answer) to 2.38 (rubric order). Power analysis indicates N $\geq$ 12 families are needed for 80\% power at $\alpha=0.05$. The consistent directional pattern across all 3 families supports the robustness of the finding, while larger-sample replication is planned.
@@ -311,7 +313,7 @@ The author declares no competing interests.
 % ── CONCLUSION ──
 \section{Conclusion}
 
-We present the first systematic investigation of the origins of scoring bias in LLM-as-a-Judge. Our key finding---that instruction tuning has differential effects on scoring bias (format biases decrease, content biases increase)---provides the first experimental evidence that scoring bias is modulated by instruction tuning, not inherent to pre-training. We rule out alternative explanations, propose a formal theory with testable predictions, and demonstrate effective mitigation strategies.
+We present the first systematic investigation (to our knowledge) of whether scoring bias originates from pre-training or instruction tuning. Our key finding---that instruction tuning has differential effects on scoring bias (format biases decrease, content biases increase)---provides early experimental evidence that scoring bias is modulated by instruction tuning rather than being inherent to pre-training. We examine alternative explanations, propose a mechanistic framework with testable predictions, and outline mitigation directions.
 
 All code, data, and analysis are publicly available at \url{https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge}.
 
