@@ -1,0 +1,21 @@
+{
+  "rubric_order": {
+    "mean": 0.54,
+    "stdev": 0.39,
+    "min": 0.1,
+    "max": 1.3
+  },
+  "score_id": {
+    "mean": 0.57,
+    "stdev": 0.45,
+    "min": 0.0,
+    "max": 1.8
+  },
+  "reference_answer": {
+    "mean": 0.4,
+    "stdev": 0.31,
+    "min": 0.0,
+    "max": 1.0
+  },
+  "model_count": 22
+}
