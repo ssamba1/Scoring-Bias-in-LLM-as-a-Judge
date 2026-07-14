@@ -30,7 +30,7 @@
 
 % ── ABSTRACT ──
 \begin{abstract}
-\textbf{Background:} LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. \textbf{Methods:} We compare base and instruct variants across 3 model families (primary analysis) and 22 additional instruct-tuned models (supporting breadth) using 3 scoring bias probes (8,100 primary + 29,700 supplementary judgments). \textbf{Findings:} Format-related biases decrease after instruction tuning, while content-related bias increases. The pattern holds for the 2 RLHF families tested. The single SFT+DPO family shows a different pattern. Four alternative explanations are ruled out. \textbf{Conclusions:} Scoring bias is modulated by instruction tuning, not inherent to pre-training. Results are directional pending larger-sample replication.
+\textbf{Background:} LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. \textbf{Methods:} We measure scoring bias across 22 instruct-tuned models (29,700 judgments) and compare base vs instruct variants across 3 families (8,100 judgments) using 3 perturbation probes. \textbf{Findings:} Score ID bias has the largest average effect ($\Delta=0.68$) across instruct models. Instruction tuning reduces format bias but may increase content bias for RLHF families. The single SFT+DPO family shows a different pattern. Four alternative explanations are examined. \textbf{Conclusions:} Scoring bias is modulated by instruction tuning, not inherent to pre-training.
 \end{abstract}
 
 % ── INTRODUCTION ──
@@ -177,26 +177,27 @@ We report four metrics following Li~et~al.~\cite{li2025scoring}:
 \section{Results}
 
 \subsection{Main Finding: The Differential Effect}
-Table~\ref{tab:main} shows the aggregate results across all model families. Instruction tuning has markedly different effects depending on the bias type.
+
+Table~\ref{tab:main} presents the main finding. Across 22 instruct-tuned models (this study, OpenRouter), we measure per-probe bias using Li et al.'s perturbation framework. The bias landscape shows that score ID (label format) has the largest average effect ($\Delta = 0.68$), while reference answer susceptibility is lowest ($\Delta = 0.41$).
 
 \begin{table}[h]
 \centering\small
-\caption{Aggregate results across 3 base-instruct family pairs. Values are approximate pending full data processing. Lower $\Delta$ = less bias.}
+\caption{Bias landscape across 22 instruct models (OpenRouter). $\Delta$ = max inter-variant mean difference. Lower = less biased.}
 \label{tab:main}
 \begin{tabular}{lccc}
 \toprule
-\textbf{Probe} & \textbf{Base $\Delta$} & \textbf{Instruct $\Delta$} & \textbf{Trend} \\
+\textbf{Probe} & \textbf{Mean $\Delta$} & \textbf{Std Dev} & \textbf{Range} \\
 \midrule
-Rubric Order & 2.9 & 1.6 & $\downarrow$ \\
-Score ID & 0.7 & 0.2 & $\downarrow$ \\
-Reference Answer & 0.9 & 1.2 & $\uparrow$ \\
+Rubric Order & 0.56 & 0.41 & 0.10--1.50 \\
+Score ID & 0.68 & 0.49 & 0.00--1.80 \\
+Reference Answer & 0.41 & 0.31 & 0.00--1.00 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Rubric order and score ID biases decrease after instruction tuning (Table~\ref{tab:main}). Base models follow rubric instructions literally---when the scale is reversed, they assign reversed scores without understanding semantic content. Instruction-tuned models parse the format correctly and are less influenced by scale direction.\bigskip
+\paragraph{Base vs instruct comparison.} For the 3 families with both base and instruct variants (Kaggle: Llama 3.1, Mistral 7B, Gemma 2), we compare bias before and after instruction tuning. Rubric order bias decreases in 2 of 3 families (mean $\Delta$: base $\approx$ 2.3, instruct $\approx$ 1.3), while reference answer bias increases in 2 of 3 families. The pattern is consistent in direction for RLHF-trained families (Llama 3.1, Gemma 2). The single SFT+DPO family (Mistral 7B) shows a different pattern.
 
-However, reference answer bias \emph{increases} after instruction tuning. Instruction-tuned models are more susceptible to exemplar-based biasing: a good example raises scores, while a poor example lowers them.
+\paragraph{Summary.} Instruction tuning reduces format-related bias (rubric order, score ID) but may increase content-related bias (reference answer). This differential effect is the central finding.
 
 \subsection{Consistency Across Families}
 The differential pattern is consistent across the 3 families with both base and instruct variants (Figure~\ref{fig:bias_comparison}), and the variance across 22 additional instruct models provides supporting evidence. The magnitude varies by family but the direction is uniform for RLHF-trained models.
