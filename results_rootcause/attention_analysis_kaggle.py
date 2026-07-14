@@ -9,7 +9,7 @@ Run on Kaggle T4 (free). Requires model pairs:
 
 Measures: attention to format tokens vs content tokens per layer per head.
 """
-import torch, json, re, sys
+import torch, json, re, sys, os
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from pathlib import Path
 import numpy as np
@@ -48,10 +48,10 @@ results = {}
 
 for model_id, name in MODELS:
     print(f"\nLoading {name}...")
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, token=os.environ.get("HF_TOKEN", True))
     model = AutoModelForCausalLM.from_pretrained(
         model_id, torch_dtype=torch.float16, device_map="auto",
-        output_attentions=True
+        output_attentions=True, token=os.environ.get("HF_TOKEN", True)
     )
     
     inputs = tokenizer(PROMPT, return_tensors="pt").to(model.device)
