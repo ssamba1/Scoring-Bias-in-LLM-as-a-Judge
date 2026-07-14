@@ -210,22 +210,40 @@ for entry in MODELS:
         if not hasattr(config, 'pad_token_id') or config.pad_token_id is None:
             config.pad_token_id = tokenizer.eos_token_id
         
-        # Load with 4-bit for large models, fp16 otherwise
+        # Load with 4-bit ONLY for models that need it
         auth_kw = {"token": HF_TOKEN} if gated and HF_TOKEN else {}
         if mode == "4bit":
-            model = AutoModelForCausalLM.from_pretrained(
-                mid, load_in_4bit=True, device_map="auto", config=config, **auth_kw
-            )
-        else:
+            # Try fp16 first (7B models barely fit T4 in fp16)
             try:
                 model = AutoModelForCausalLM.from_pretrained(
-                    mid, torch_dtype=torch.float16, device_map="auto", config=config, **auth_kw
+                    mid, torch_dtype=torch.float16, device_map="auto",
+                    **auth_kw
                 )
-            except torch.cuda.OutOfMemoryError:
-                print("OOM in fp16, trying 4-bit...")
-                model = AutoModelForCausalLM.from_pretrained(
-                    mid, load_in_4bit=True, device_map="auto", config=config, **auth_kw
-                )
+                print("  (loaded in fp16)")
+            except Exception as e:
+                print(f"  fp16 failed: {str(e)[:60]}")
+                print("  Trying 4-bit via BitsAndBytesConfig...")
+                try:
+                    from transformers import BitsAndBytesConfig
+                    bnb_config = BitsAndBytesConfig(load_in_4bit=True)
+                    model = AutoModelForCausalLM.from_pretrained(
+                        mid, quantization_config=bnb_config, device_map="auto",
+                        **auth_kw
+                    )
+                    print("  (loaded in 4-bit via BitsAndBytesConfig)")
+                except Exception as e2:
+                    print(f"  4-bit also failed: {str(e2)[:60]}")
+                    # Last resort: load without quantization, let device_map handle it
+                    model = AutoModelForCausalLM.from_pretrained(
+                        mid, torch_dtype=torch.float16, device_map="sequential",
+                        **auth_kw
+                    )
+                    print("  (loaded in fp16 with sequential device_map)")
+        else:
+            model = AutoModelForCausalLM.from_pretrained(
+                mid, torch_dtype=torch.float16, device_map="auto",
+                **auth_kw
+            )
         
         model.eval()
         print(f"Loaded ({time.time()-t0:.0f}s)")
