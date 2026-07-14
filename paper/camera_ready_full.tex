@@ -30,7 +30,7 @@
 
 % ── ABSTRACT ──
 \begin{abstract}
-\textbf{Background:} LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. \textbf{Methods:} We compare base and instruct variants across 3 model families and 22 additional models using 3 scoring bias probes. Format-related biases decrease by 44--77\%, but content-related bias increases by 35\%. The pattern holds across all RLHF families. Four alternative explanations are ruled out. \textbf{Conclusions:} Scoring bias is modulated by instruction tuning, not inherent to pre-training. Mitigation must address format and content channels separately.
+\textbf{Background:} LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. \textbf{Methods:} We compare base and instruct variants across 3 model families (primary analysis) and 22 additional instruct-tuned models (supporting breadth) using 3 scoring bias probes (8,100 primary + 29,700 supplementary judgments). \textbf{Findings:} Format-related biases decrease after instruction tuning, while content-related bias increases. The pattern holds for the 2 RLHF families tested. The single SFT+DPO family shows a different pattern. Four alternative explanations are ruled out. \textbf{Conclusions:} Scoring bias is modulated by instruction tuning, not inherent to pre-training. Results are directional pending larger-sample replication.
 \end{abstract}
 
 % ── INTRODUCTION ──
@@ -59,12 +59,13 @@ We compare base and instruct variants across 3 model families (Kaggle) and 22 ad
 
 \paragraph{Our contributions:}
 \begin{enumerate}
-    \item \textbf{Differential effect discovered:} Instruction tuning decreases format biases (rubric order --44\%, score ID --77\%) but increases content bias (reference answer +35\%). This pattern is consistent across all model families.
-    \item \textbf{Alternative explanations ruled out:} We test and reject four competing hypotheses (global scoring shift, single-family dominance, probe ordering artifacts, parser errors).
-    \item \textbf{Formal theory proposed:} The IIAR hypothesis explains the differential effect through increased attention to all prompt features---helpful for format, harmful for content.
-    \item \textbf{Mitigation implemented:} We show that multi-model ensembling reduces bias by 30--50\% and that calibration effectively aligns instruct distributions.
-    \item \textbf{Complete reproducibility:} All code, data, and analysis are open source. The entire experiment is reproducible at \$0 cost.
+    \item \textbf{Differential effect discovered:} Instruction tuning decreases format biases but increases content bias. The pattern is consistent across RLHF-trained families.
+    \item \textbf{Alternative explanations ruled out:} We test and reject four competing hypotheses using the available data.
+    \item \textbf{IIAR hypothesis proposed:} The Instruction-Induced Attention Redistribution framework explains the observed pattern with five testable predictions.
+    \item \textbf{Open infrastructure:} Complete reproducible pipeline at \$0 cost, including code, data, and interactive analysis tools.
 \end{enumerate}
+
+\paragraph{Limitations of scope.} This study is exploratory with N=3 base-instruct family pairs. Results are directional and require larger-sample replication. We err on the side of transparency throughout.
 
 % ── RELATED WORK ──
 \section{Related Work}
@@ -158,6 +159,9 @@ An additional 22 instruct-only models provide model diversity breadth (29,700 ad
 \subsection{Inference}
 For local models, we use greedy decoding (temperature 0) with manual token-by-token generation to prevent hanging. For API-based models (OpenRouter), we use the chat completions endpoint with temperature 0, max 5 tokens, and a 15-second timeout per call. We use both free and paid API models, with total API cost under \$3.
 
+\subsection{Experimental Setup}
+Experiments were conducted on local CPU (analysis), Kaggle T4 GPU (primary model inference), and OpenRouter API (supplementary models). All random operations use seed 42. Key software: Python 3.11, PyTorch 2.0+, Transformers 4.47+, OpenAI Python SDK for API calls. Greedy decoding (temperature = 0) ensures deterministic generation for local models.
+
 \subsection{Metrics}
 We report four metrics following Li~et~al.~\cite{li2025scoring}:
 \begin{itemize}
@@ -203,7 +207,7 @@ The differential pattern is consistent across the 3 families with both base and 
 \end{figure}
 
 \subsection{Bias vs Model Size}
-Larger models show less overall bias (Figure~\ref{fig:size_trend}), with a significant negative correlation ($r = -0.71$, $p < 0.01$). This supports the IIAR prediction that the effect scales with model capacity.
+Among the 3 families with base+instruct pairs, we note a visual trend toward larger models showing less bias. This is consistent with the IIAR intuition that more parameters allow greater attention redistribution. Formal correlation analysis requires N $\gg$ 3 and is left for larger-scale replication.
 
 \begin{figure}[h]
 \centering
@@ -213,7 +217,7 @@ Larger models show less overall bias (Figure~\ref{fig:size_trend}), with a signi
 \end{figure}
 
 \subsection{Training Method Effects}
-Models trained with RLHF consistently show the differential effect, while SFT+DPO models (Mistral family) show a reversed pattern (Figure~\ref{fig:families}). This suggests the effect is training-method specific.
+Of the 3 families with base+instruct pairs, the two RLHF-trained families (Llama 3.1, Gemma 2) show the differential effect (format decrease, content increase). The single SFT+DPO family (Mistral 7B) shows a different pattern, with rubric bias increasing after instruction tuning. This divergence suggests training method may modulate the effect, but a definitive claim requires more SFT+DPO families.
 
 \begin{figure}[h]
 \centering
@@ -222,8 +226,8 @@ Models trained with RLHF consistently show the differential effect, while SFT+DP
 \label{fig:families}
 \end{figure}
 
-\subsection{Mitigation Results}
-Ensembling across multiple instruct models reduces bias by 38--52\%, and calibration reduces it by 45\% (Figure~\ref{fig:mitigation}).
+\subsection{Mitigation Framework}
+The differential effect suggests that bias mitigation must address two separate channels: format robustness (naturally improved by instruction tuning) and content sensitivity (worsened by instruction tuning). We propose two approaches: (1) multi-model ensembling, which averages scores across instruct models and is projected to reduce bias by 30--50\%, and (2) calibration, which aligns instruct score distributions to base distributions. These approaches require implementation on real data to validate projections.
 
 \begin{figure}[h]
 \centering
@@ -270,7 +274,7 @@ The IIAR hypothesis makes five testable predictions:
 These predictions can be tested in future work.
 
 \paragraph{Implications for mitigation.}
-Our findings suggest that bias mitigation must address two separate channels: (1) format robustness, which is naturally improved by instruction tuning, and (2) content sensitivity, which is worsened and requires specific intervention. Ensemble methods (averaging across multiple instruct models) reduce bias by 30--50\%. Calibration (aligning instruct score distributions to base distributions) is also effective.
+Our findings suggest that bias mitigation must address two separate channels: (1) format robustness, which is naturally improved by instruction tuning, and (2) content sensitivity, which is worsened and requires specific intervention. A promising direction is multi-model ensembling, where averaging across instruct models could reduce bias while preserving scoring accuracy. Calibration approaches that align instruct score distributions to base distributions are also worth exploring.
 
 % ── LIMITATIONS ──
 \section{Limitations}
