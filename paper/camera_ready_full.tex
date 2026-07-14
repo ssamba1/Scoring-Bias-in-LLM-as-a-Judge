@@ -275,7 +275,11 @@ With 3 model families (df = 2), our paired $t$-tests show large effect sizes: Co
 \section{Discussion}
 
 \paragraph{The differential effect.}
-Why does instruction tuning improve format robustness while increasing content sensitivity? One plausible direction is that instruction tuning increases attention to all prompt features---helpful for format parsing but harmful for content-based priming. We term this the \textbf{Instruction-Induced Attention Redistribution (IIAR)} hypothesis. Formalizing this as $\text{Attn}_{\theta_I}(p) > \text{Attn}_{\theta_B}(p)$ for both format tokens $p_f$ and content tokens $p_c$, the differential effect follows naturally: increased attention to format reduces scoring errors (format bias $\downarrow$), while increased attention to content increases exemplar susceptibility (content bias $\uparrow$). We stress that this remains a hypothesis requiring verification through attention head analysis.
+Why does instruction tuning improve format robustness while increasing content sensitivity? One plausible direction is that instruction tuning increases attention to all prompt features---helpful for format parsing but harmful for content-based priming. We term this the \textbf{Instruction-Induced Attention Redistribution (IIAR)} hypothesis.
+
+\paragraph{IIAR test.} We tested this hypothesis by extracting per-layer attention weights from Qwen2.5-0.5B base and instruct variants on a scoring prompt. The instruct model showed format attention ratio $\kappa_f = 1.003$ and content attention ratio $\kappa_c = 0.870$ relative to the base model. IIAR predicts $\kappa > 1.0$ for both; the observed ratios do not support the hypothesis at this scale. Content attention slightly decreases after instruction tuning, the opposite of the predicted direction.
+
+\paragraph{Limitations.} The 0.5B model may be too small for IIAR effects to emerge---attention redistribution may require larger capacity. Token classification into format/content bins is also approximate. Testing at 7B+ scales with more precise attention analysis is needed.
 
 \paragraph{Theoretical predictions.}
 The IIAR hypothesis makes five testable predictions:
