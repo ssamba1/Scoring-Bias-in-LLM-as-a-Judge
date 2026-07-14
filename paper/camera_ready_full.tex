@@ -148,11 +148,11 @@ We use 50 instruction-response pairs spanning 5 domains: science, technology, hu
 \begin{quote}\small
 Evaluate the following response to the instruction on a scale of 1--5,\\
 where 1 is worst and 5 is best.\\
-\verb|###| Instruction: [item]\\
-\verb|###| Response: [response]\\
-\verb|###| Score:
+{\ttfamily ###} Instruction: [item]\\
+{\ttfamily ###} Response: [response]\\
+{\ttfamily ###} Score:
 \end{quote}
-For probe variants, the rubric, score labels, or reference answer are modified according to Table~\ref{tab:probes}.
+Probe variants modify the rubric labels, score identifiers, or reference answer as described in the following subsections.
 
 \subsection{Scoring Bias Probes}
 Following the perturbation framework of Li~et~al.~\cite{li2025scoring}, we measure three scoring bias types:
@@ -161,11 +161,11 @@ Following the perturbation framework of Li~et~al.~\cite{li2025scoring}, we measu
     \item \textbf{Score ID:} Numeric (1--5), letter grades (A--E), and descriptive labels (Poor--Excellent). Tests whether score label format affects scores.
     \item \textbf{Reference Answer:} No exemplar, good exemplar, and poor exemplar shown before scoring. Tests whether exposure to an example biases subsequent scores.
 \end{itemize}
-Each item is scored by each model on each probe variant with 3 repeats. For the 3 families with both base and instruct variants, this produces:
+Each item is scored by each model on each probe variant with 3 repeats. Because all inference uses temperature 0 (greedy decoding), these repeats are deterministic and serve as a robustness check rather than providing variance estimates. For the 3 families with both base and instruct variants, this produces:
 \[
 3~\text{families} \times 2~\text{variants} \times 3~\text{probes} \times 3~\text{variants} \times 50~\text{items} \times 3~\text{repeats} = 8,100~\text{judgments}.
 \]
-An additional 22 instruct-only models provide model diversity breadth (29,700 additional judgments).
+An additional 22 instruct-only models provide model diversity breadth (29,700 additional judgments). Five models from the original OpenRouter list were excluded due to stop-token truncation producing uniform scores across all variants (Gemini-2.5-Pro, Inflection-3, Nemotron-Nano-30B, Command-R7B, Mistral-Small-24B).
 
 \subsection{Inference}
 For local models, we use greedy decoding (temperature 0) with manual token-by-token generation to prevent hanging. For API-based models (OpenRouter), we use the chat completions endpoint with temperature 0, max 5 tokens, and a 15-second timeout per call. We use both free and paid API models, with total API cost under \$3.
