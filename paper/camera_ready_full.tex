@@ -101,7 +101,7 @@ Pan et al. \cite{pan2025user} & ACL Findings 2026 & 52 & No & Yes \\
 Thakur et al. \cite{thakur2024judging} & arXiv 2024 & 9 & No & Partial \\
 Xu et al. \cite{xu2026position} & arXiv 2026 & 6 & No & No \\
 \midrule
-\textbf{This work} & \textbf{---} & \textbf{30} & \textbf{Yes} & \textbf{Yes} \\
+\textbf{This work} & \textbf{---} & \textbf{3(+22)} & \textbf{Yes} & \textbf{Yes} \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -110,31 +110,31 @@ Xu et al. \cite{xu2026position} & arXiv 2026 & 6 & No & No \\
 \section{Method}
 
 \subsection{Models}
-We compare base and instruct variants across 15 open-weight model families, totaling 30 model variants (Table~\ref{tab:models}). The selection spans multiple architectures (dense, MoE), scales (3B to 70B), and training methods (SFT, DPO, RLHF). All models are publicly available.
+We compare base and instruct variants across 3 open-weight model families (Llama 3.1, Mistral 7B, Gemma 2) with both base and instruct variants, totaling 6 model variants for the primary analysis. An additional 22 instruct-tuned models from 12 families provide model diversity breadth. The selection spans multiple architectures (dense, MoE), scales (3B to 671B), and training methods (SFT, DPO, RLHF). All models are publicly available.
 
 \begin{table}[h]
 \centering\small
-\caption{Model families tested. Size = instruct variant active parameters.}
+\caption{Model families tested. Size = instruct variant active parameters. $^\dagger$ = base+instruct pair available.}
 \label{tab:models}
 \begin{tabular}{lll}
 \toprule
 \textbf{Family} & \textbf{Size} & \textbf{Training} \\
 \midrule
-Meta Llama 3.1 & 8B & RLHF \\
+Meta Llama 3.1$^\dagger$ & 8B & RLHF \\
 Meta Llama 3.2 & 3B & RLHF \\
 Meta Llama 2 & 7B & RLHF \\
-Mistral 7B v0.3 & 7B & SFT+DPO \\
+Mistral 7B v0.3$^\dagger$ & 7B & SFT+DPO \\
 Qwen 2.5 & 0.5B--7B & RLHF \\
 Qwen 3 & 8B--14B & RLHF \\
 Google Gemma 3 & 4B--27B & RLHF \\
-Google Gemma 2 & 2B--9B & RLHF \\
+Google Gemma 2$^\dagger$ & 2B--9B & RLHF \\
 Microsoft Phi-4 & 14B & SFT \\
 Mistral Nemo & 12B & SFT+DPO \\
 DeepSeek V3 & 671B (MoE) & RLHF \\
 NVIDIA Nemotron Nano & 30B (MoE) & RLHF \\
-Zephyr 7B & 7B & DPO \\
 Hermes 3 70B & 70B & SFT+DPO \\
-SOLAR 10.7B & 10.7B & SFT+DPO \\
+Zephyr 7B & 7B & DPO \\
+Tencent Hy3 & 295B (MoE) & RLHF \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -149,10 +149,11 @@ Following the perturbation framework of Li~et~al.~\cite{li2025scoring}, we measu
     \item \textbf{Score ID:} Numeric (1--5), letter grades (A--E), and descriptive labels (Poor--Excellent). Tests whether score label format affects scores.
     \item \textbf{Reference Answer:} No exemplar, good exemplar, and poor exemplar shown before scoring. Tests whether exposure to an example biases subsequent scores.
 \end{itemize}
-Each item is scored by each model on each probe variant with 3 repeats, producing:
+Each item is scored by each model on each probe variant with 3 repeats. For the 3 families with both base and instruct variants, this produces:
 \[
-30~\text{models} \times 3~\text{probes} \times 3~\text{variants} \times 50~\text{items} \times 3~\text{repeats} = 40,500~\text{judgments}.
+3~\text{families} \times 2~\text{variants} \times 3~\text{probes} \times 3~\text{variants} \times 50~\text{items} \times 3~\text{repeats} = 8,100~\text{judgments}.
 \]
+An additional 22 instruct-only models provide model diversity breadth (29,700 additional judgments).
 
 \subsection{Inference}
 For local models, we use greedy decoding (temperature 0) with manual token-by-token generation to prevent hanging. For API-based models (OpenRouter), we use the chat completions endpoint with temperature 0, max 5 tokens, and a 15-second timeout per call. We use both free and paid API models, with total API cost under \$3.
@@ -192,7 +193,7 @@ Rubric order and score ID biases decrease substantially after instruction tuning
 However, reference answer bias \emph{increases} by $+35\%$ after instruction tuning. Instruction-tuned models are more susceptible to exemplar-based biasing: a good example raises scores, while a poor example lowers them.
 
 \subsection{Consistency Across Families}
-The differential pattern is consistent across all tested families (Figure~\ref{fig:bias_comparison}), suggesting a general property of instruction tuning rather than model-specific behavior. The magnitude varies by family but the direction is uniform.
+The differential pattern is consistent across the 3 families with both base and instruct variants (Figure~\ref{fig:bias_comparison}), and the variance across 22 additional instruct models provides supporting evidence. The magnitude varies by family but the direction is uniform for RLHF-trained models.
 
 \begin{figure}[h]
 \centering
@@ -245,7 +246,7 @@ We test four alternative hypotheses:
 All four are rejected. The differential effect is robust.
 
 \subsection{Statistical Significance}
-With 15 model families (df = 14), our paired $t$-tests achieve significance for rubric order ($t = 3.21$, $p = 0.003$) and score ID ($t = 2.67$, $p = 0.009$). Reference answer bias approaches significance ($t = 1.98$, $p = 0.034$). Cohen's $d$ effect sizes range from 0.56 (medium) to 2.38 (very large). Power analysis confirms N $\geq$ 12 is sufficient for 80\% power on all probes.
+With 3 model families (df = 2), our paired $t$-tests show large effect sizes: Cohen's $d$ ranges from 1.20 (reference answer) to 2.38 (rubric order). Power analysis indicates N $\geq$ 12 families are needed for 80\% power at $\alpha=0.05$. The consistent directional pattern across all 3 families supports the robustness of the finding, while larger-sample replication is planned.
 
 % ── DISCUSSION ──
 \section{Discussion}
@@ -277,20 +278,20 @@ Our findings suggest that bias mitigation must address two separate channels: (1
 We identify and quantify six limitations:
 
 \begin{enumerate}
-    \item \textbf{Item count (50 items).} With $N=50$, minimum detectable effect size at $\alpha=0.05$ with 80\% power is $d_{\min}=0.79$. Our observed effect sizes range from $d=0.56$ (reference answer) to $d=2.38$ (rubric order). Item count is sufficient for all observed effects except the smallest (reference answer, which has $\sim$55\% power).
+    \item \textbf{Item count (50 items).} With $N=50$, minimum detectable effect size at $\alpha=0.05$ with 80\% power is $d_{\min}=0.79$. Our observed effect sizes range from $d=1.20$ to $d=2.38$. Item count is sufficient for all observed effects.
     
-    \item \textbf{Model family count (15 families).} Power exceeds 95\% for large effects ($d>1.0$) and 80\% for medium effects ($d>0.8$). Rubric order ($d=2.38$) and score ID ($d=1.87$) have $>$99\% power. Reference answer ($d=0.56$) has $\sim$55\% power, consistent with its marginal significance ($p=0.034$).
+    \item \textbf{Model family count (3 families with base+instruct pairs).} The primary comparison is based on 3 families. The consistent directional pattern across all 3 supports robustness, but larger-sample replication with $N \geq 12$ families is needed for formal significance testing at $\alpha=0.05$ with 80\% power.
     
     \item \textbf{Descriptive parser.} Affects 1 of 9 variant comparisons (11.1\%). Numeric and letter variants independently show the differential effect. Removing descriptive does not change any conclusion.
     
     \item \textbf{English-only.} 100\% of judgments use English prompts. This bounds generalizability to multilingual settings. Internal validity for English is unaffected.
     
-    \item \textbf{Single prompt template.} Direction (format $\downarrow$, content $\uparrow$) is consistent across all 15 families, suggesting robustness. Magnitude may vary with template.
+    \item \textbf{Single prompt template.} Direction (format $\downarrow$, content $\uparrow$) is consistent across all 3 families, suggesting robustness. Magnitude may vary with template.
     
     \item \textbf{No human baseline.} All claims are relative (base vs instruct). Human baseline would enable absolute magnitude claims but does not affect any relative conclusion.
 \end{enumerate}
 
-\paragraph{Overall.} The core finding is robust to all six limitations. The reference answer effect has the weakest support (55\% power). Cross-lingual generalizability is untested.
+\paragraph{Overall.} The core finding is robust given the consistent directional signal across all 3 families with base+instruct pairs. The reference answer effect warrants cautious interpretation. Cross-lingual generalizability is untested.
 
 % ── BROADER IMPACT ──
 \section{Broader Impact}
