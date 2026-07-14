@@ -24,7 +24,7 @@ echo "[1/4] Python version: $($PY --version)"
 # Clone if not already
 if [ ! -f "README.md" ]; then
     echo "[2/4] Cloning repository..."
-    git clone https://github.com/ssamba1/research-draft.git
+    git clone https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge.git
     cd research-draft
 else
     echo "[2/4] Already in repository"

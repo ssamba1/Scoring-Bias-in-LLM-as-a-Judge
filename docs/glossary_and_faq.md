@@ -37,7 +37,7 @@ A: 44 model families with both base and instruct variants = 88 total model varia
 A: $0. Everything ran on Kaggle's free GPU tier.
 
 **Q: Can I reproduce your results?**
-A: Yes. Everything is open source: github.com/ssamba1/research-draft. Run the Kaggle notebook with a HuggingFace token.
+A: Yes. Everything is open source: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge. Run the Kaggle notebook with a HuggingFace token.
 
 **Q: What's next?**
 A: Testing 12 bias probes instead of 3, adding 5 languages, and developing targeted mitigation strategies.

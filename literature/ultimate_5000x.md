@@ -247,4 +247,4 @@ After researching ISEF 2024/2025 winning projects (computer science category):
 
 The science is solid. The differential effect is real and novel. The infrastructure is complete. The remaining work is execution, not invention.
 
-**github.com/ssamba1/research-draft** — ready for submission.
+**github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge** — ready for submission.

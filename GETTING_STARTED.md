@@ -9,7 +9,7 @@
 
 ### 1. Clone and explore
 ```bash
-git clone https://github.com/ssamba1/research-draft.git
+git clone https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge.git
 cd research-draft
 # View the proposals
 less proposals/01_rootcause_scoring_bias.md

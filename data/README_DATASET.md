@@ -80,6 +80,6 @@ CC-BY 4.0 — Free to use, share, and adapt with attribution.
   title={Where Does Scoring Bias Come From?},
   author={Student A and Student B},
   year={2026},
-  howpublished={GitHub: github.com/ssamba1/research-draft}
+  howpublished={GitHub: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge}
 }
 ```

@@ -27,7 +27,7 @@
 **Answer:** Option 1 (root cause): ~$15 for GPU compute. Option 2 (bias interaction): ~$26 for API calls. Total project: under $50. We also built a free synthetic data generator so anyone can verify our methodology.
 
 ### Q9: "Is your code available?"
-**Answer:** Yes — everything is open source at github.com/ssamba1/research-draft. 129 files including Docker setup, FastAPI service, multi-agent evaluation system, and automated paper generation.
+**Answer:** Yes — everything is open source at github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge. 129 files including Docker setup, FastAPI service, multi-agent evaluation system, and automated paper generation.
 
 ### Q10: "Why should we believe your results if they're based on synthetic data?"
 **Answer:** Our synthetic data generator is calibrated to real-world bias profiles from the literature. The ground-truth interaction ratios are built into the data generation process and verified through Bayesian analysis. The real experiment (requiring API keys) would replace synthetic data with actual LLM judgments.

@@ -4,7 +4,7 @@
 - **Project**: Two studies on bias in AI evaluation systems
 - **Researchers**: Student A, Student B (High School Name)
 - **Status**: Pre-publication, preparing for ISEF 2027
-- **Repository**: github.com/ssamba1/research-draft (122 files, open source)
+- **Repository**: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge (122 files, open source)
 
 ## Key Findings
 

@@ -38,7 +38,7 @@ This research does NOT involve human subjects. All evaluation items are syntheti
 - We believe the benefits of transparent bias research outweigh potential misuse risks
 
 ### Reproducibility
-- All code is openly available at github.com/ssamba1/research-draft
+- All code is openly available at github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 - Synthetic data generation is fully deterministic (seed=42)
 - Experimental protocols are documented in the runbook
 - Temperature=0 ensures deterministic judge responses

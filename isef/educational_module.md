@@ -110,7 +110,7 @@ Design your own experiment to measure bias in an AI judge. We've provided all th
 4. How will you measure bias? (interaction ratio, flip rate, score difference?)
 
 ### Resources
-- **Our code**: github.com/ssamba1/research-draft
+- **Our code**: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 - **Interactive demo**: Open `dashboard/live_demo.html` in your browser
 - **Full paper**: `paper/camera_ready_paper.tex`
 - **Test suite**: `python3 tests/run_all.py`
@@ -140,7 +140,7 @@ Design your own experiment to measure bias in an AI judge. We've provided all th
 - **Paper**: Yang et al. (2025) — "Any Large Language Model Can Be a Reliable Judge"
 - **Paper**: Pan et al. (2025) — "User-Assistant Bias in LLMs"
 - **Interactive**: Open `dashboard/live_demo.html` to explore bias yourself
-- **Code**: github.com/ssamba1/research-draft — all our code and data
+- **Code**: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge — all our code and data
 
 ---
 

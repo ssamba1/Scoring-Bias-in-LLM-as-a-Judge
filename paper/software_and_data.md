@@ -20,7 +20,7 @@
 
 ## Code Citation
 
-> Author (2026). "research-draft: Scoring Bias in LLM-as-a-Judge." GitHub. https://github.com/ssamba1/research-draft
+> Author (2026). "research-draft: Scoring Bias in LLM-as-a-Judge." GitHub. https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 ## Hardware
 

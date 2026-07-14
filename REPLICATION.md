@@ -1,6 +1,6 @@
 # Replication Package — Bias in LLM-as-a-Judge
 
-## Repository: github.com/ssamba1/research-draft
+## Repository: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 This package contains everything needed to reproduce our experiments and analyses.
 

@@ -3,7 +3,7 @@
 ## Development
 
 ```bash
-git clone https://github.com/ssamba1/research-draft
+git clone https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 cd research-draft
 pip install -r requirements.txt
 make test

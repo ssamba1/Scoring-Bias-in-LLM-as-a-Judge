@@ -95,7 +95,7 @@ We're open-sourcing everything we built:
 - **Bayesian analysis tools**
 - **Paper drafts** in LaTeX and Markdown
 
-All at: **[github.com/ssamba1/research-draft](https://github.com/ssamba1/research-draft)**
+All at: **[github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge](https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge)**
 
 We're also preparing submissions for ISEF and the NeurIPS High School Projects track.
 

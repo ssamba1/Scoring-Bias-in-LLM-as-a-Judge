@@ -32,7 +32,7 @@
 
 ### [2:30-3:00] Call to Action
 **Visual:** Repository page, paper landing page
-**Narrator:** "Every model, every analysis, every figure is open source at github.com/ssamba1/research-draft. If you're building with LLM judges — report your bias profile alongside your scores. The finding changes how we think about evaluation."
+**Narrator:** "Every model, every analysis, every figure is open source at github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge. If you're building with LLM judges — report your bias profile alongside your scores. The finding changes how we think about evaluation."
 **Visual:** Fade to title card with citation
 **Narrator:** "Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge."
 

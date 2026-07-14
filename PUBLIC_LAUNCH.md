@@ -20,7 +20,7 @@
 >
 > **3. 4/5 frontier judges show compounding.** Only Gemini is additive.
 >
-> All code, data, papers: github.com/ssamba1/research-draft
+> All code, data, papers: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 >
 > 160+ files · 31 commits · Everything open source
 >
@@ -38,7 +38,7 @@
 >
 > Complete infrastructure: Docker, FastAPI, multi-agent evaluation, 3D visualization, bias mitigation toolkit, automated paper generator.
 >
-> github.com/ssamba1/research-draft
+> github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 ---
 

@@ -47,7 +47,7 @@ The differential effect is real.
 🥇 Gemma-4-31B (avg bias Δ=0.33)
 🥈 Nemotron-Nano-30B (0.47)
 🥉 Qwen3-14B (0.43)
-Full leaderboard: github.com/ssamba1/research-draft
+Full leaderboard: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 7/8 We tested 4 training methods:
 RLHF → strong differential effect (100% consistency)
@@ -57,7 +57,7 @@ SFT → moderate effects
 Training method matters for bias!
 
 8/8 Read the paper: [arXiv link]
-Code & data: github.com/ssamba1/research-draft
+Code & data: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 Interactive: [project page]
 #LLM #AI #Bias #LLMasJudge #Research
 ```
@@ -79,7 +79,7 @@ For practitioners:
 ✅ Ensemble multiple judges — reduces bias by 52%
 ⚠️ Watch out for exemplar sensitivity in instruct models
 
-Full paper, code, interactive article, and leaderboard at github.com/ssamba1/research-draft
+Full paper, code, interactive article, and leaderboard at github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 ---
 
@@ -100,7 +100,7 @@ We also found:
 - Model size correlates negatively with bias (ρ=-0.75)
 
 Paper + code + interactive leaderboard:
-github.com/ssamba1/research-draft
+github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 Happy to answer questions!
 

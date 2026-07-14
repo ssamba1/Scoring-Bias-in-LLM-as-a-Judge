@@ -13,7 +13,7 @@
 | 2 | **Limitations**: Separate limitations section? | ✅ Yes | In study1_standalone.tex (section 6) |
 | 3 | **Theory/Proofs**: Assumptions stated? | ⚠️ Partial | We have informal IIAR hypothesis, no formal theorem (like monograph.tex) |
 | 4 | **Reproducibility**: Steps to reproduce? | ✅ Yes | Complete Docker, Kaggle notebook, seed fixed, temperature 0 |
-| 5 | **Open data/code**: URL or supplement? | ✅ Yes | github.com/ssamba1/research-draft |
+| 5 | **Open data/code**: URL or supplement? | ✅ Yes | github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge |
 | 6 | **Experimental details**: Hyperparameters, splits? | ✅ Yes | Temperature 0, 3 repeats, 50 items, 3 variants per probe |
 | 7 | **Statistical significance**: Error bars, CIs, tests? | ⚠️ Partial | Bootstrap CIs, Cohen's d. Need: paired t-tests, Standard Error bars on ALL figures |
 | 8 | **Compute resources**: GPU type, hours, memory? | ✅ Yes | T4 GPU, ~6 hours total, 17GB VRAM |

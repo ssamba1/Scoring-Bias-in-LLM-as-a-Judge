@@ -28,7 +28,7 @@ AI models are used to evaluate other AI models (LLM-as-a-Judge). These judges ha
 - 5 frontier judge models (Claude, GPT-4o, Gemini, DeepSeek, Llama 3)
 - 3 model families for root cause (Llama 3, Mistral, Gemma 2)
 - Bayesian MCMC, ANOVA, Cohen's d, Interaction Ratio
-- All code: github.com/ssamba1/research-draft
+- All code: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 ### Impact
 - **AI Safety**: Worst-case biases 2× worse than measured
@@ -43,4 +43,4 @@ AI models are used to evaluate other AI models (LLM-as-a-Judge). These judges ha
 
 ### Contact
 Student A, Student B · High School Name
-github.com/ssamba1/research-draft
+github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge

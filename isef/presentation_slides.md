@@ -119,5 +119,5 @@ This is a completely untouched research area.
 ## Slide 12: Thank You
 **Key takeaway:** When you test LLM judges, don't test biases one at a time — they interact.
 
-Research repository: github.com/ssamba1/research-draft
+Research repository: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 Questions?

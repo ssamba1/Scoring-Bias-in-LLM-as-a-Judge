@@ -6,7 +6,7 @@
 
 **Date:** July 2026
 **Contact:** Student A, Student B — email@school.edu
-**Repository:** github.com/ssamba1/research-draft
+**Repository:** github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 
 ---
 
@@ -46,7 +46,7 @@ Format biases IMPROVE. Content biases WORSEN.
 We answered their open question.
 
 5/5 Complete open source code, data, and analysis:
-github.com/ssamba1/research-draft
+github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 204+ files, 47 commits, 60 tests.
 Docker, API, CI/CD, interactive dashboards.
 All free.
@@ -66,7 +66,7 @@ All free.
 
 ### Media Assets
 
-Available at github.com/ssamba1/research-draft:
+Available at github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge:
 - Camera-ready paper: `paper/camera_ready.tex` (also HTML at `paper/camera_ready.html`)
 - Publication figures: `paper/figures/study1/fig1-8*.html`
 - Research website: `docs/research_website.html`

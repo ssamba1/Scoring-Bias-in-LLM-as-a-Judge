@@ -1,75 +1,72 @@
-# Scoring Bias in LLM-as-a-Judge
+<p align="center">
+  <img src="paper/figures_png/graphical_abstract.svg" width="600" alt="Graphical Abstract">
+</p>
 
-**Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge**
+<h1 align="center">Where Does Scoring Bias Come From?</h1>
+<p align="center"><b>A Base vs Instruct Comparison of LLM-as-a-Judge</b></p>
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://python.org)
-[![arXiv](https://img.shields.io/badge/arXiv-2607.xxxxx-b31b1b.svg)](https://arxiv.org)
-[![Tests](https://img.shields.io/badge/Tests-11%20passing-brightgreen)](tests/test_all.py)
-[![Code style: black](https://img.shields.io/badge/Code%20Style-Black-000000.svg)](https://github.com/psf/black)
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC_BY_4.0-1a1a2e?style=flat-square" alt="License"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.11+-2b6cb0?style=flat-square" alt="Python"></a>
+  <a href="https://arxiv.org"><img src="https://img.shields.io/badge/arXiv-2607.xxxxx-b31b1b?style=flat-square" alt="arXiv"></a>
+  <a href="tests/test_all.py"><img src="https://img.shields.io/badge/Tests-11_passing-38a169?style=flat-square" alt="Tests"></a>
+  <a href="https://zenodo.org"><img src="https://img.shields.io/badge/DOI-10.5281/zenodo.XXXXX-1867db?style=flat-square" alt="DOI"></a>
+  <img src="https://img.shields.io/badge/Models-30_variants-4a5568?style=flat-square" alt="Models">
+  <img src="https://img.shields.io/badge/Cost-\$0_total-276749?style=flat-square" alt="Cost">
+</p>
 
-## Overview
+---
 
-This repository contains the first systematic investigation of whether scoring bias in LLM-as-a-Judge originates from pre-training or emerges during instruction tuning.
+**LLMs deployed as automated judges exhibit systematic scoring biases — but do these biases come from pre-training or instruction tuning?**
 
-**Key finding:** Instruction tuning has *differential effects* on scoring bias. Format-related biases (rubric order, score ID) decrease by 44–77%, while content-related bias (reference answer) increases by 35%.
+We compare base and instruct variants of **30 models across 15 families** using 3 scoring bias probes (40,500 judgments). The answer: **instruction tuning has opposite effects depending on bias type.**
 
-## Paper
+| Bias Type | Δ Before | Δ After | Change |
+|-----------|----------|---------|--------|
+| 🔢 Rubric Order | 2.85 | 1.59 | **−44%** |
+| 🏷️ Score ID | 0.67 | 0.15 | **−77%** |
+| 📋 Reference Answer | 0.88 | 1.19 | **+35%** |
 
-- **[Complete paper (LaTeX)](paper/camera_ready_full.tex)** — 20-page camera-ready manuscript
-- **[Supplementary](paper/supplementary_formal.tex)** — 4 theorems with proofs
-- **[Interactive article](dashboard/interactive_paper.html)** — distill.pub style scrolling HTML
-- **[Graphical abstract](paper/figures_png/graphical_abstract.svg)** — Single-image summary
+## Links
+
+| What | Where |
+|------|-------|
+| 📄 **Full paper** | [`paper/camera_ready_full.tex`](paper/camera_ready_full.tex) |
+| ✨ **Interactive article** | [`dashboard/interactive_paper.html`](dashboard/interactive_paper.html) |
+| 🏆 **Model leaderboard** | [`dashboard/leaderboard.html`](dashboard/leaderboard.html) |
+| 📊 **Figure gallery** | [`paper/figures_png/figure_gallery.html`](paper/figures_png/figure_gallery.html) |
+| 🐳 **Docker image** | [`Dockerfile`](Dockerfile) |
+| 📦 **arXiv package** | [`paper/arxiv_submission/`](paper/arxiv_submission/) |
 
 ## Quick Start
 
 ```bash
-# Clone
-git clone https://github.com/ssamba1/research-draft
-cd research-draft
-
-# Install dependencies
+git clone https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
+cd Scoring-Bias-in-LLM-as-a-Judge
 pip install -r requirements.txt
-
-# Run tests
 python3 tests/test_all.py
-
-# Generate figures (requires matplotlib)
-python3 paper/generate_png_figures.py
 ```
 
-## Project Structure
+## Key Findings
 
-```
-paper/          — LaTeX source, figures, arXiv package, supplementary
-dashboard/      — Interactive paper, leaderboard, model browser, 3D surface
-pipeline/       — Experiment notebooks, analysis scripts, probes
-results/        — Statistical analysis, depth findings, quantified limitations
-data/           — Evaluation items, model cards, human baseline sheet
-docs/           — GitHub Pages site, glossary, FAQ
-isef/           — Competition materials
-tests/          — Unit tests (11 passing)
-```
-
-## Results Summary
-
-| Probe | Base Δ | Instruct Δ | Change |
-|-------|--------|-----------|--------|
-| Rubric Order | 2.85 | 1.59 | **−44%** |
-| Score ID | 0.67 | 0.15 | **−77%** |
-| Reference Answer | 0.88 | 1.19 | **+35%** |
+1. **Format biases decrease** after instruction tuning (rubric order −44%, score ID −77%)
+2. **Content bias increases** after instruction tuning (reference answer +35%)
+3. **RLHF models** show the effect consistently (8/8 families); **SFT+DPO** models do not
+4. **Larger models** are less biased (Spearman ρ = −0.75)
+5. **Ensemble mitigation** reduces bias by 38–52%
 
 ## Citation
 
 ```bibtex
-@article{author2026scoring,
+@article{samba2026scoring,
   title={Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge},
-  author={Author Name},
+  author={Samba, Sricharan},
   journal={arXiv preprint},
-  year={2026}
+  year={2026},
+  doi={10.5281/zenodo.XXXXX}
 }
 ```
 
 ## License
 
-CC-BY 4.0. All models used are publicly available under their respective licenses.
+CC-BY 4.0. See [`LICENSE`](LICENSE).
