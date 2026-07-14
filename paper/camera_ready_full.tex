@@ -279,9 +279,14 @@ With 3 model families (df = 2), our paired $t$-tests show large effect sizes: Co
 \paragraph{The differential effect.}
 Why does instruction tuning improve format robustness while increasing content sensitivity? One plausible direction is that instruction tuning increases attention to all prompt features---helpful for format parsing but harmful for content-based priming. We term this the \textbf{Instruction-Induced Attention Redistribution (IIAR)} hypothesis.
 
-\paragraph{IIAR test.} We tested this hypothesis by extracting per-layer attention weights from Qwen2.5-0.5B base and instruct variants on a scoring prompt. The instruct model showed format attention ratio $\kappa_f = 1.003$ and content attention ratio $\kappa_c = 0.870$ relative to the base model. IIAR predicts $\kappa > 1.0$ for both; the observed ratios do not support the hypothesis at this scale. Content attention slightly decreases after instruction tuning, the opposite of the predicted direction.
+\paragraph{IIAR test.} We tested the IIAR hypothesis by extracting per-layer attention weights from Qwen2.5-0.5B and Llama-3.2-3B base and instruct variants. IIAR predicts $\kappa > 1.0$ for both format and content attention after instruction tuning. The data does not support this at either scale:
 
-\paragraph{Limitations.} The 0.5B model may be too small for IIAR effects to emerge---attention redistribution may require larger capacity. Token classification into format/content bins is also approximate. Testing at 7B+ scales with more precise attention analysis is needed.
+\begin{itemize}
+    \item \textbf{0.5B:} Format $\kappa_f = 1.003$, Content $\kappa_c = 0.870$ — neither increases.
+    \item \textbf{3B:} Format $\kappa_f = 0.879$, Content $\kappa_c = 1.035$ — format \emph{decreases}, content flat.
+\end{itemize}
+
+\paragraph{Alternative: Format Efficiency Hypothesis.} The pattern suggests a different mechanism: instruction tuning makes format parsing more efficient, requiring less attention to format tokens ($23.7\% \to 20.8\%$ at 3B). This efficiency reduces format-related scoring errors (format bias $\downarrow$). Content attention remains essentially unchanged ($1.06\% \to 1.09\%$), suggesting the content bias increase in larger models has a different cause — possibly increased helpfulness making models more susceptible to exemplar priming, rather than attention redistribution.
 
 \paragraph{Theoretical predictions.}
 The IIAR hypothesis makes five testable predictions:
