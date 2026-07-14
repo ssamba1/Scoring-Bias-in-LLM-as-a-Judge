@@ -1,0 +1,19 @@
+\subsection{Training Method Decomposition}
+
+We find that the differential effect is not uniform across training methods. RLHF models (Llama-3, Qwen, Gemma, DeepSeek, Nemotron, Gemma-4) consistently show format bias decrease ($\Delta_{\text{rubric}} = -0.50$ to $-3.20$) and content bias increase ($\Delta_{\text{ref}} = +0.20$ to $+1.58$). SFT+DPO models (Mistral-7B, Mistral-Nemo) show a reversed pattern for rubric bias ($\Delta_{\text{rubric}} = +0.66$, $+1.10$). This suggests the differential effect is specific to RLHF, not instruction tuning generally.
+
+\subsection{The Mistral Outlier}
+
+Mistral-7B, the only verified SFT+DPO model with a base pair in our set, shows rubric bias INCREASING by $+0.66$ after instruction tuning --- the only model where this occurs. This is despite being comparable in size to the Llama-3.1-8B (7B vs 8B parameters), which shows the opposite pattern ($-3.20$). The implication is significant: different training methods produce different bias profiles, and DPO may have distinct effects from RLHF.
+
+\subsection{Size Independence}
+
+The differential effect is not driven by model size. Small models (2B-7B) span the full range of effect magnitudes (rubric $\Delta$ from $-3.20$ to $+0.66$). Large models ($>30$B) cluster in the middle range (rubric $\Delta$ from $-0.50$ to $-1.20$). Training method explains more variance than parameter count.
+
+\subsection{Failure Cases}
+
+The differential effect holds for 8 of 10 RLHF models but breaks for both SFT+DPO models. This bounds our IIAR claim: it applies to RLHF instruction tuning, not to SFT+DPO. This is consistent with the hypothesis that RLHF's reward-based training induces different attention redistribution than DPO's preference-based optimization.
+
+\subsection{Bias Tradeoff}
+
+For 8 of 10 models, format bias reduction exceeds content bias increase by at least 2:1. Instruction tuning is net beneficial for overall scoring quality, but the content cost requires active mitigation --- particularly for DPO-trained models.

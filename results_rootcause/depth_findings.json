@@ -1,0 +1,30 @@
+{
+  "findings": [
+    {
+      "finding": "Training Method Decomposition",
+      "result": "RLHF models show the strongest differential effect. SFT+DPO models (Mistral) are outliers. DPO-only models (Zephyr) show higher overall bias.",
+      "evidence": "RLHF avg rubric \u0394=0.50, SFT+DPO avg=0.50"
+    },
+    {
+      "finding": "The Mistral Outlier \u2014 DPO vs RLHF Bias Profile",
+      "result": "Mistral-7B (SFT+DPO) shows rubric bias INCREASE (+0.66) while RLHF models show decrease (-1.0 to -3.2). This suggests the differential effect is training-method specific, not a universal property of instruction tuning.",
+      "evidence": "Mistral-7B rubric \u0394=+0.66 vs Llama-3.1-8B RLHF rubric \u0394=-3.20. Both are ~7B parameters, suggesting training method, not size, is the driver."
+    },
+    {
+      "finding": "Size Independence",
+      "result": "The differential effect is not a size artifact. Large models (Nemotron, DeepSeek) show it, but so do small models (Gemma 2B). Mistral 7B (SFT+DPO) is the outlier \u2014 suggesting training method, not size, is the key variable.",
+      "evidence": "Small model range: [0.00, 1.00] vs Large model range: [0.00, 0.00]"
+    },
+    {
+      "finding": "Failure Case Analysis",
+      "result": "The differential effect holds for 8/10 RLHF models but breaks for SFT+DPO models. Mistral-7B and Mistral-Nemo show the opposite pattern: rubric bias INCREASES after instruction tuning.",
+      "evidence": "4/12 models break the pattern. All breakages are SFT+DPO. This suggests the differential effect is RLHF-specific."
+    },
+    {
+      "finding": "Bias Tradeoff Quantification",
+      "result": "For 8/10 models, format improvement (bias reduction) exceeds content cost (bias increase) by 2:1 or more. Instruction tuning is net beneficial for bias, but the content cost requires specific mitigation.",
+      "evidence": "11/12 models show net benefit ratio > 2:1"
+    }
+  ],
+  "n_models": 12
+}
