@@ -1,0 +1,29 @@
+{
+  "tests": [
+    {
+      "hypothesis": "Global scoring level shift",
+      "result": "REJECTED",
+      "reason": "Opposite directions across probes"
+    },
+    {
+      "hypothesis": "Single family drives effect",
+      "result": "REJECTED",
+      "reason": "Pattern holds across all 3 families"
+    },
+    {
+      "hypothesis": "Probe ordering causes effect",
+      "result": "REJECTED",
+      "reason": "Control and biased differ only in the bias variable"
+    },
+    {
+      "hypothesis": "Broken parser drives score ID result",
+      "result": "REJECTED",
+      "reason": "Numeric + letter variants alone show the effect"
+    }
+  ],
+  "conclusions": [
+    "All 4 alternative hypotheses ruled out using existing data",
+    "The differential effect is robust to global scoring differences, single-model biases, ordering effects, and parser artifacts",
+    "This strengthens the case for IIAR as the explanatory mechanism"
+  ]
+}
