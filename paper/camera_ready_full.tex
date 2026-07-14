@@ -30,7 +30,7 @@
 
 % ── ABSTRACT ──
 \begin{abstract}
-\textbf{Background:} LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. \textbf{Methods:} We compare base and instruct variants of 30 models across 15 families using 3 scoring bias probes (40,500 judgments). \textbf{Findings:} Format-related biases decrease by 44--77\%, but content-related bias increases by 35\%. The pattern survives Bonferroni correction ($p < 0.017$) for format probes and holds across all RLHF families. The reference answer effect is marginal ($p = 0.034$). Four alternative explanations are ruled out. \textbf{Conclusions:} Scoring bias is modulated by instruction tuning, not inherent to pre-training. Mitigation must address format and content channels separately.
+\textbf{Background:} LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. \textbf{Methods:} We compare base and instruct variants across 3 model families and 22 additional models using 3 scoring bias probes. Format-related biases decrease by 44--77\%, but content-related bias increases by 35\%. The pattern holds across all RLHF families. Four alternative explanations are ruled out. \textbf{Conclusions:} Scoring bias is modulated by instruction tuning, not inherent to pre-training. Mitigation must address format and content channels separately.
 \end{abstract}
 
 % ── INTRODUCTION ──
@@ -47,7 +47,7 @@ Li~et~al.~\cite{li2025scoring} made significant progress by defining and measuri
 This question has direct practical implications. If scoring bias originates from pre-training, mitigation must target data curation and base architecture. If it emerges during instruction tuning, mitigation should focus on alignment methods---and different alignment methods may produce different bias profiles.
 
 \paragraph{Our approach.}
-We compare base (pre-trained) and instruct (SFT + RLHF) variants of the same model families. By holding architecture, data, and scale constant while varying only the training stage, we isolate where bias originates. We test 30 model variants across 15 families and 3 model scales (3B--70B), covering all major open-weight architectures.
+We compare base and instruct variants across 3 model families (Kaggle) and 22 additional instruct-tuned models (OpenRouter), totaling 25 model variants across 15 families. The 3 families with both base and instruct pairs provide the primary differential effect analysis, while the 22 instruct models provide model diversity breadth.
 
 \paragraph{Research questions.} We address four questions:
 \begin{enumerate}
