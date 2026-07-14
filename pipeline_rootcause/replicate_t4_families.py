@@ -239,7 +239,7 @@ for entry in MODELS:
         rs[pt] = {}
         for vn in pv:
             scores = []
-            for inst, resp in ITEMS:
+            for iid, inst, resp in ITEMS:
                 rubric = NUMERIC
                 if pt == "rubric_order" and vn == "reversed": rubric = REVERSED
                 if pt == "score_id":
