@@ -1,22 +1,11 @@
 cff-version: 1.2.0
-message: "Please cite this software if you use it in your research."
+message: "If you use this software, please cite it."
 title: "Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge"
 authors:
-  - family-names: "Author"
-    given-names: "Author Name"
-    orcid: ""
-  - family-names: "Author"
-    given-names: "Author Name"
-    orcid: ""
-date-released: 2026-07
-url: "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
+  - family-names: "Samba"
+    given-names: "Sricharan"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21361920"
 repository-code: "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
-license: "MIT"
-type: "software"
-keywords:
-  - "LLM-as-a-Judge"
-  - "scoring bias"
-  - "instruction tuning"
-  - "evaluation"
-  - "AI safety"
-abstract: "Code and data for the first base-vs-instruct comparison of scoring bias in LLM-as-a-Judge. Tests 44 model families (88 variants) across 3 scoring bias probes totaling 118,800 judgments. Finds that instruction tuning has differential effects: format biases decrease by 44-77% while content bias increases by 35%."
+license: "CC-BY-4.0"
