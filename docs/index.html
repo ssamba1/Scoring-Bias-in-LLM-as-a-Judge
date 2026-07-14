@@ -1,119 +1,99 @@
----
-layout: default
-title: Bias in LLM-as-a-Judge
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bias in LLM-as-a-Judge — Research Project</title>
+<title>Where Does Scoring Bias Come From? — Research Project</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.6}
-.hero{background:linear-gradient(135deg,#1e3a5f 0%,#0f172a 100%);padding:100px 20px 80px;text-align:center}
-.hero h1{font-size:clamp(1.5rem,4vw,2.5rem);background:linear-gradient(135deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
-.hero p{color:#94a3b8;max-width:650px;margin:0 auto 25px;font-size:1.05rem}
-.hero .stats{display:flex;gap:15px;justify-content:center;flex-wrap:wrap}
-.hero .stat{background:#1e293b80;border:1px solid #334155;padding:8px 18px;border-radius:20px;font-size:0.85rem;backdrop-filter:blur(4px)}
-.hero .stat span{color:#60a5fa;font-weight:700}
-.btn{display:inline-block;background:#3b82f6;color:#fff;padding:12px 28px;border-radius:8px;font-weight:600;text-decoration:none;margin:15px 5px 0;font-size:0.9rem}
-.btn:hover{background:#2563eb}
-.container{max-width:900px;margin:0 auto;padding:50px 20px}
-h2{font-size:1.3rem;color:#93c5fd;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid #1e293b}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
-.card{background:#1e293b;border:1px solid #334155;border-radius:10px;padding:20px;transition:border-color 0.2s}
-.card:hover{border-color:#475569}
-.card h3{color:#60a5fa;margin-bottom:6px;font-size:1rem}
-.card p{color:#94a3b8;font-size:0.85rem}
-.card .num{font-size:1.5rem;font-weight:700;color:#fbbf24;display:block}
-.card a{color:#60a5fa;text-decoration:none;font-size:0.85rem}
-.card a:hover{text-decoration:underline}
-table{width:100%;border-collapse:collapse;font-size:0.85rem;margin:10px 0}
-th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #0f172a}
-th{color:#93c5fd}
-.highlight{color:#fbbf24}
-.featured{border:1px solid #3b82f640;background:linear-gradient(135deg,#1e3a5f20,#1e293b)}
-.footer{text-align:center;padding:30px;color:#475569;font-size:0.8rem;border-top:1px solid #1e293b}
-@media(max-width:600px){.grid,.grid-3{grid-template-columns:1fr}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+body{background:#fff;color:#1a202c}
+.hero{background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:80px 20px;text-align:center}
+.hero h1{font-size:2.5em;font-weight:700;max-width:800px;margin:0 auto 15px}
+.hero .tagline{font-size:1.1em;color:#94a3b8;max-width:600px;margin:0 auto 25px}
+.hero .badge{display:inline-block;background:#1e40af;color:#93c5fd;padding:6px 16px;border-radius:20px;font-size:0.85em;margin:4px}
+.container{max-width:900px;margin:0 auto;padding:40px 20px}
+h2{font-size:1.5em;margin:40px 0 15px;padding-bottom:8px;border-bottom:2px solid #e2e8f0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:20px 0}
+.card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:20px}
+.card h3{margin-bottom:8px;font-size:1.05em}
+.card p{color:#64748b;font-size:0.95em;line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin:20px 0}
+.stat{text-align:center;padding:20px;background:#f8fafc;border-radius:10px}
+.stat h3{font-size:1.8em;color:#2563eb;margin:0}
+.stat p{color:#64748b;font-size:0.85em;margin-top:5px}
+.links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:25px 0}
+.links a{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#1e293b;color:#fff;border-radius:8px;text-decoration:none;font-size:0.95em;transition:background 0.2s}
+.links a:hover{background:#334155}
+.links a.secondary{background:#e2e8f0;color:#1a202c}
+.links a.secondary:hover{background:#cbd5e1}
+footer{background:#0f172a;color:#64748b;text-align:center;padding:40px 20px;margin-top:60px}
+footer a{color:#93c5fd}
 </style>
 </head>
 <body>
-
 <div class="hero">
-  <h1>Where Does Scoring Bias Come From?</h1>
-  <p>A base vs instruct comparison revealing that LLM instruction tuning <span class="highlight">improves format robustness</span> but <span style="color:#f87171">increases content sensitivity</span></p>
-  <div class="stats">
-    <div class="stat"><span>253</span> Files</div>
-    <div class="stat"><span>60</span> Commits</div>
-    <div class="stat"><span>44</span> Families</div>
-    <div class="stat"><span>118,800</span> Judgments</div>
-    <div class="stat"><span>$0</span> Cost</div>
-  </div>
-  <div>
-    <a class="btn" href="https://github.com/ssamba1/research-draft">View on GitHub</a>
-    <a class="btn" href="dashboard/paper_explorer.html">Interactive Explorer</a>
-  </div>
+<h1>Where Does Scoring Bias Come From?</h1>
+<p class="tagline">A Base vs Instruct Comparison of LLM-as-a-Judge — the first systematic investigation of whether scoring bias originates from pre-training or emerges during instruction tuning.</p>
+<div class="links">
+<a href="paper/camera_ready_publishable.html">📄 Read the Paper</a>
+<a href="dashboard/interactive_paper.html" class="secondary">✨ Interactive Article</a>
+<a href="dashboard/leaderboard.html" class="secondary">🏆 Model Leaderboard</a>
+<a href="https://github.com/ssamba1/research-draft" class="secondary">💻 GitHub</a>
+<a href="arxiv_submission.tar.gz" class="secondary">📦 arXiv Package</a>
+</div>
 </div>
 
 <div class="container">
-  <h2>Key Finding</h2>
-  <div class="grid">
-    <div class="card featured">
-      <span class="num">−44%</span>
-      <h3>Rubric Order Bias Decreases</h3>
-      <p>Instruction-tuned models are 44% less susceptible to rubric ordering. Format processing improves.</p>
-    </div>
-    <div class="card featured">
-      <span class="num">−77%</span>
-      <h3>Score ID Bias Decreases</h3>
-      <p>Score label manipulation affects instruct models 77% less. Label parsing improves.</p>
-    </div>
-    <div class="card featured">
-      <span class="num">+35%</span>
-      <h3>Reference Answer Bias Increases</h3>
-      <p>Content-based bias worsens by 35%. Exemplar sensitivity increases — previously unknown.</p>
-    </div>
-    <div class="card featured">
-      <span class="num">3/3</span>
-      <h3>Pattern Holds Across ALL Families</h3>
-      <p>The differential effect is consistent across 44 model families — from 410M to 13B parameters.</p>
-    </div>
-  </div>
-
-  <h2>Interactive Tools</h2>
-  <div class="grid-3">
-    <div class="card"><h3>Paper Explorer</h3><p>Filter by model, probe, variant. Real-time charts.</p><a href="dashboard/paper_explorer.html">Launch →</a></div>
-    <div class="card"><h3>Live Demo</h3><p>See bias in real-time. Change models and probes.</p><a href="dashboard/live_demo.html">Launch →</a></div>
-    <div class="card"><h3>3D Surface</h3><p>Bias as function of size × probe × training.</p><a href="dashboard/surface_3d.html">Launch →</a></div>
-    <div class="card"><h3>Model Browser</h3><p>Explore all 44 families interactively.</p><a href="dashboard/model_browser.html">Launch →</a></div>
-    <div class="card"><h3>Paper Comparison</h3><p>Our work vs Li et al. head-to-head.</p><a href="dashboard/paper_comparison.html">Launch →</a></div>
-    <div class="card"><h3>Literature Dashboard</h3><p>Compare against 8 published papers.</p><a href="dashboard/comparison_dashboard.html">Launch →</a></div>
-  </div>
-
-  <h2>Research Components</h2>
-  <div class="grid">
-    <div class="card"><h3>📄 Camera-Ready Paper</h3><p>NeurIPS-formatted paper. Open in browser, Ctrl+P → PDF.</p><a href="paper/camera_ready_publishable.html">paper/camera_ready_publishable.html</a></div>
-    <div class="card"><h3>📊 11 Figures</h3><p>Interactive publication figures. Chart.js + HTML.</p><a href="paper/figures/study1/">paper/figures/study1/</a></div>
-    <div class="card"><h3>🎯 ISEF Package</h3><p>Poster, slides, video script, booth guide.</p><a href="isef/poster.html">isef/poster.html</a></div>
-    <div class="card"><h3>📚 8 Papers Analyzed</h3><p>Full meta-analysis of the literature.</p><a href="literature/literature_matrix.md">literature/literature_matrix.md</a></div>
-  </div>
-
-  <h2>Quick Start</h2>
-  <div class="card" style="background:#0f172a">
-    <pre style="font-size:0.85rem;color:#94a3b8;overflow-x:auto">
-git clone https://github.com/ssamba1/research-draft
-cd research-draft
-bash auto_pipeline.sh                  # Full pipeline
-open dashboard/paper_explorer.html      # Interactive tools
-</pre>
-  </div>
-
-  <div class="footer">
-    github.com/ssamba1/research-draft · 253 files · 60 commits · $0 cost<br>
-    Code: MIT · Data: CC-BY 4.0 · Paper: CC-BY 4.0
-  </div>
+<div class="stats">
+<div class="stat"><h3>30</h3><p>Model Variants</p></div>
+<div class="stat"><h3>15</h3><p>Model Families</p></div>
+<div class="stat"><h3>40K+</h3><p>Judgments</p></div>
+<div class="stat"><h3>3</h3><p>Bias Probes</p></div>
+<div class="stat"><h3>$0</h3><p>Total Cost</p></div>
 </div>
+
+<h2>Key Findings</h2>
+<div class="grid">
+<div class="card">
+<h3>📉 −44% Format Bias (Rubric Order)</h3>
+<p>Instruction tuning reduces sensitivity to rubric scale direction. Instruct models parse scoring instructions more robustly than base models.</p>
+</div>
+<div class="card">
+<h3>📉 −77% Format Bias (Score ID)</h3>
+<p>The strongest format improvement. Score label format (numeric, letter, descriptive) matters far less for instruct models.</p>
+</div>
+<div class="card">
+<h3>📈 +35% Content Bias (Reference Answer)</h3>
+<p>Content bias increases with instruction tuning. Instruct models are more susceptible to exemplar-based biasing.</p>
+</div>
+<div class="card">
+<h3>🔬 IIAR Hypothesis</h3>
+<p>Instruction-Induced Attention Redistribution explains the differential effect: more attention to all prompt features helps format parsing but hurts content robustness. 5 testable predictions.</p>
+</div>
+</div>
+
+<h2>Project Structure</h2>
+<div class="grid">
+<div class="card"><h3>📄 Paper</h3><p>LaTeX source, camera-ready HTML, supplementary material, references, figures</p></div>
+<div class="card"><h3>📊 Dashboards</h3><p>Interactive paper, model browser, bias comparison, 3D surface, leaderboard</p></div>
+<div class="card"><h3>🧪 Analysis</h3><p>Post-processing, statistics, mixed-effects, IRT, clustering, causal analysis</p></div>
+<div class="card"><h3>🏆 Competitions</h3><p>ISEF poster, slides, booth guide, application text, video script</p></div>
+</div>
+
+<h2>Reproducibility</h2>
+<p>Every result is reproducible at <strong>$0 cost</strong>. Run the Colab notebook, Kaggle notebook, or local Docker container. All code, models, and data are open source.</p>
+<div class="links" style="margin-top:15px">
+<a href="notebooks/reproduce_colab.ipynb">▶️ Open in Colab</a>
+<a href="pipeline_rootcause/study1_max_scale.kaggle.ipynb" class="secondary">🚀 Kaggle Notebook</a>
+<a href="Dockerfile" class="secondary">🐳 Docker</a>
+</div>
+</div>
+
+<footer>
+<p>Code and data: <a href="https://github.com/ssamba1/research-draft">github.com/ssamba1/research-draft</a></p>
+<p>Cite as: Author et al. (2026). Where Does Scoring Bias Come From?</p>
+<p>This research was conducted independently. AI tools assisted with code generation and drafting, disclosed in acknowledgments.</p>
+</footer>
 </body>
 </html>

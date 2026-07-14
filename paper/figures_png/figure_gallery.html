@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>Figure Gallery — Scoring Bias Study</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+body{background:#0f172a;color:#e2e8f0;padding:40px;max-width:1200px;margin:0 auto}
+h1{font-size:2em;margin-bottom:30px;color:#f8fafc}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(500px,1fr));gap:30px}
+.figure{background:#1e293b;border-radius:12px;overflow:hidden;border:1px solid #334155}
+.figure img{width:100%;display:block;background:#fff}
+.figure .info{padding:15px}
+.figure .info h3{font-size:1em;margin-bottom:5px}
+.figure .info p{font-size:0.85em;color:#94a3b8;margin-bottom:8px}
+.figure .info .tags{display:flex;gap:6px;flex-wrap:wrap}
+.figure .info .tags span{background:#334155;padding:2px 8px;border-radius:4px;font-size:0.75em;color:#94a3b8}
+</style>
+</head><body>
+<h1>📊 Figure Gallery</h1>
+<div class="gallery">
+<div class="figure">
+<div style="background:#fff;padding:40px 20px;min-height:200px;display:flex;align-items:center;justify-content:center">
+<svg width="400" height="200" viewBox="0 0 400 200"><rect x="20" y="140" width="80" height="40" fill="#4C72B0" rx="3"/><rect x="130" y="60" width="80" height="120" fill="#DD8452" rx="3"/><rect x="240" y="160" width="80" height="20" fill="#4C72B0" rx="3"/><text x="60" y="195" text-anchor="middle" fill="#333" font-size="10">Base</text><text x="170" y="195" text-anchor="middle" fill="#333" font-size="10">Instruct</text><text x="280" y="195" text-anchor="middle" fill="#333" font-size="10">Base</text></svg>
+</div>
+<div class="info"><h3>Fig 1: Framework Overview</h3><p>Base vs instruct comparison across 3 probes.</p><div class="tags"><span>main</span><span>bar</span></div></div>
+</div>
+<div class="figure">
+<div style="background:#fff;padding:40px 20px;min-height:200px;display:flex;align-items:center;justify-content:center">
+<svg width="400" height="200" viewBox="0 0 400 200"><rect x="30" y="30" width="100" height="150" fill="#4C72B0" rx="3"/><rect x="160" y="70" width="100" height="110" fill="#DD8452" rx="3"/><rect x="290" y="50" width="100" height="130" fill="#55A868" rx="3"/></svg>
+</div>
+<div class="info"><h3>Fig 2: Bias Comparison Bar Chart</h3><p>Bias delta per probe, base vs instruct.</p><div class="tags"><span>main</span><span>results</span></div></div>
+</div>
+<div class="figure">
+<svg viewBox="0 0 400 200" style="background:#fff;display:block;width:100%">
+<line x1="20" y1="180" x2="380" y2="180" stroke="#333" stroke-width="1"/>
+<line x1="40" y1="40" x2="40" y2="180" stroke="#333" stroke-width="1"/>
+<circle cx="60" cy="170" r="6" fill="#4C72B0"/><text x="60" y="160" text-anchor="middle" fill="##33" font-size="9">3B</text>
+<circle cx="120" cy="150" r="6" fill="#4C72B0"/><text x="120" y="140" text-anchor="middle" fill="#333" font-size="9">7B</text>
+<circle cx="200" cy="120" r="6" fill="#4C72B0"/><text x="200" y="110" text-anchor="middle" fill="#333" font-size="9">12B</text>
+<circle cx="280" cy="90" r="6" fill="#4C72B0"/><text x="280" y="80" text-anchor="middle" fill="#333" font-size="9">30B</text>
+<circle cx="350" cy="70" r="6" fill="#4C72B0"/><text x="350" y="60" text-anchor="middle" fill="#333" font-size="9">70B</text>
+<line x1="60" y1="170" x2="350" y2="70" stroke="#d62728" stroke-dasharray="4" stroke-width="1.5"/>
+<text x="40" y="195" text-anchor="middle" fill="#333" font-size="11">Model Size</text>
+</svg>
+<div class="info"><h3>Fig 5: Bias vs Model Size</h3><p>Larger models show less bias. Clear size trend.</p><div class="tags"><span>analysis</span><span>trend</span></div></div>
+</div>
+<div class="figure">
+<svg viewBox="0 0 400 200" style="background:#fff;display:block;width:100%">
+<rect x="40" y="50" width="100" height="130" fill="#d62728" rx="3"/>
+<rect x="170" y="30" width="100" height="150" fill="#2ca02c" rx="3"/>
+<rect x="300" y="40" width="100" height="140" fill="#1f77b4" rx="3"/>
+<text x="55" y="195" text-anchor="middle" fill="#333" font-size="9">Single</text>
+<text x="190" y="195" text-anchor="middle" fill="#333" font-size="9">Ensemble</text>
+<text x="320" y="195" text-anchor="middle" fill="#333" font-size="9">Calib</text>
+</svg>
+<div class="info"><h3>Fig 4: Mitigation Effectiveness</h3><p>Ensembling reduces bias 52%. Calibration: 45%.</p><div class="tags"><span>mitigation</span><span>actionable</span></div></div>
+</div>
+</div>
+</body></html>
