@@ -1,0 +1,7 @@
+# Exclude large model weights and caches
+**/huggingface/**
+**/.cache/**
+**/__pycache__/**
+**/checkpoint*
+**/*.ckpt
+**/*.bin
