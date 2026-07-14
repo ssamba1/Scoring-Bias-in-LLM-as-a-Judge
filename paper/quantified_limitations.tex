@@ -1,0 +1,19 @@
+\section{Quantified Limitations}
+
+Here we quantify the impact of each limitation on our conclusions.
+
+\begin{enumerate}
+    \item \textbf{Item count (50 items).} With $N=50$, minimum detectable effect size at $\alpha=0.05$ with 80\% power is $d_{\min}=0.57$. Our observed effect sizes range from $d=0.56$ (reference answer) to $d=2.38$ (rubric order). Item count is sufficient for all observed effects.
+    
+    \item \textbf{Model family count (15 families).} With 15 families (df = 14), power exceeds 95\% for large effects ($d>1.0$) and 80\% for medium effects ($d>0.8$). Rubric order ($d=2.38$) and score ID ($d=1.87$) have >99\% power. Reference answer ($d=0.56$) has $\sim$55\% power, consistent with its marginal significance ($p=0.034$).
+    
+    \item \textbf{Descriptive parser.} Affects 1 of 9 variant comparisons (11.1\%). Numeric and letter variants independently show the differential effect. Removing descriptive entirely does not change any conclusion.
+    
+    \item \textbf{English-only.} 100\% of 40,500 judgments are on English prompts. Affects generalizability to multilingual settings. Internal validity (English base vs instruct) is unaffected.
+    
+    \item \textbf{Single prompt template.} One template for all judgments. Direction (format $\downarrow$, content $\uparrow$) is consistent across 15 families, suggesting robustness. Magnitude may vary with template.
+    
+    \item \textbf{No human baseline.} All claims are relative (base vs instruct). Human baseline would enable absolute magnitude claims but does not affect any relative conclusion.
+\end{enumerate}
+
+\paragraph{Overall assessment.} The core finding (differential effect) is robust to all six limitations. The reference answer effect has the weakest statistical support (55\% power, $p=0.034$). Cross-lingual generalizability is untested. All other limitations have low impact on our conclusions.

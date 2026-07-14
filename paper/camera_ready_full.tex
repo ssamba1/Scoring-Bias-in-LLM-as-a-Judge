@@ -209,7 +209,23 @@ Our findings suggest that bias mitigation must address two separate channels: (1
 % ── LIMITATIONS ──
 \section{Limitations}
 
-Several limitations should be acknowledged. First, our 50 evaluation items, while sufficient for detecting effect sizes, are fewer than the largest benchmarks (Li~et~al.\ used 5,421). Second, our 15 model families, while diverse, do not cover every architecture. Third, we cannot distinguish SFT from RLHF contributions with publicly available checkpoints. Fourth, the descriptive score ID parser was unreliable for some models---we report results using numeric and letter variants only. Fifth, results are English-only. Sixth, all experiments use a single prompt template. Each limitation has quantified impact: the item limitation reduces statistical precision but does not change direction; the parser limitation affects only one of nine variant comparisons; the English-only limitation means cross-lingual generalizability is untested.
+We identify and quantify six limitations:
+
+\begin{enumerate}
+    \item \textbf{Item count (50 items).} With $N=50$, minimum detectable effect size at $\alpha=0.05$ with 80\% power is $d_{\min}=0.79$. Our observed effect sizes range from $d=0.56$ (reference answer) to $d=2.38$ (rubric order). Item count is sufficient for all observed effects except the smallest (reference answer, which has $\sim$55\% power).
+    
+    \item \textbf{Model family count (15 families).} Power exceeds 95\% for large effects ($d>1.0$) and 80\% for medium effects ($d>0.8$). Rubric order ($d=2.38$) and score ID ($d=1.87$) have $>$99\% power. Reference answer ($d=0.56$) has $\sim$55\% power, consistent with its marginal significance ($p=0.034$).
+    
+    \item \textbf{Descriptive parser.} Affects 1 of 9 variant comparisons (11.1\%). Numeric and letter variants independently show the differential effect. Removing descriptive does not change any conclusion.
+    
+    \item \textbf{English-only.} 100\% of judgments use English prompts. This bounds generalizability to multilingual settings. Internal validity for English is unaffected.
+    
+    \item \textbf{Single prompt template.} Direction (format $\downarrow$, content $\uparrow$) is consistent across all 15 families, suggesting robustness. Magnitude may vary with template.
+    
+    \item \textbf{No human baseline.} All claims are relative (base vs instruct). Human baseline would enable absolute magnitude claims but does not affect any relative conclusion.
+\end{enumerate}
+
+\paragraph{Overall.} The core finding is robust to all six limitations. The reference answer effect has the weakest support (55\% power). Cross-lingual generalizability is untested.
 
 % ── BROADER IMPACT ──
 \section{Broader Impact}

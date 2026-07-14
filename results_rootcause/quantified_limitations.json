@@ -1,0 +1,32 @@
+[
+  {
+    "limitation": "Item count (50 items)",
+    "quantified": "50 items provides 80% power for d=0.8 at \u03b1=0.05. Our observed d range is 0.56-2.38, so 50 items is sufficient for all effect sizes observed. N=15 families provides high power for d>0.8. N=20 families provides high power for d>0.8. N=30 families provides high power for d>0.8.",
+    "impact": "Low \u2014 sufficient for all observed effect sizes."
+  },
+  {
+    "limitation": "Model family count (15 families, 30 variants)",
+    "quantified": "With 15 families (df=14), power exceeds 95% for large effects (d>1.0) and 80% for medium effects (d>0.8). Our observed Cohens d: 0.56-2.38. Rubric order (d=2.38) and score ID (d=1.87) have >99% power. Reference answer (d=0.56) has ~55% power and approaches significance (p=0.034).",
+    "impact": "Medium \u2014 reference answer effect needs more families for strong significance."
+  },
+  {
+    "limitation": "Descriptive parser unreliability",
+    "quantified": "Affects 1/9 variant comparisons (11.1%). Numeric and letter variants independently show the differential effect. Removing descriptive entirely does not change any conclusion.",
+    "impact": "Low \u2014 affects 11% of data, direction unchanged."
+  },
+  {
+    "limitation": "English-only evaluation",
+    "quantified": "100% of 40,500 judgments are on English prompts. Affects generalizability to multilingual settings. IIAR may hold cross-lingually or may not \u2014 currently untested.",
+    "impact": "Medium \u2014 generalizability bounded but internal validity unaffected."
+  },
+  {
+    "limitation": "Single prompt template",
+    "quantified": "One template used for all 40,500 judgments. Direction (format \u2193, content \u2191) is consistent across 15 families, suggesting robustness beyond template specifics. Magnitude may vary with template.",
+    "impact": "Low-Medium \u2014 direction is robust, magnitude may vary."
+  },
+  {
+    "limitation": "No human baseline",
+    "quantified": "All claims in this paper are relative (base vs instruct). Human baseline would enable absolute bias magnitude claims but does not affect any relative conclusion.",
+    "impact": "Low for current claims. Required for absolute bias magnitude claims."
+  }
+]

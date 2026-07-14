@@ -1,0 +1,25 @@
+{
+  "format_format_correlation": {
+    "direction": false,
+    "families": [
+      "Llama-3-8B",
+      "Mistral-7B",
+      "Gemma-2-2B"
+    ]
+  },
+  "format_content_direction": {
+    "opposite": false
+  },
+  "iiaar_bound": {
+    "holds": true
+  },
+  "domain_analysis": {
+    "best": "Math",
+    "worst": "DailyLife",
+    "range": 1.0999999999999999
+  },
+  "consensus": {
+    "format_bias_decreased": "2/3",
+    "content_bias_increased": "2/3"
+  }
+}
