@@ -155,6 +155,12 @@ MODELS = [
     ("Qwen/Qwen2.5-0.5B-Instruct", "Qwen2.5-0.5B-IT", False),
     ("Qwen/Qwen2.5-1.5B", "Qwen2.5-1.5B", False),
     ("Qwen/Qwen2.5-1.5B-Instruct", "Qwen2.5-1.5B-IT", False),
+    # Open 7B (fp16 borderlines T4 — uses 4-bit for safety)
+    ("Qwen/Qwen2.5-7B", "Qwen2.5-7B", False, "4bit"),
+    ("Qwen/Qwen2.5-7B-Instruct", "Qwen2.5-7B-IT", False, "4bit"),
+    # Open 1.6B (fits easily)
+    ("stabilityai/stablelm-2-1_6b", "StableLM-2-1.6B", False),
+    ("stabilityai/stablelm-2-1_6b-chat", "StableLM-2-1.6B-IT", False),
     # BONUS — need HF_TOKEN, skip gracefully if fails
     ("meta-llama/Llama-3.2-1B", "Llama-3.2-1B", True),
     ("meta-llama/Llama-3.2-1B-Instruct", "Llama-3.2-1B-IT", True),
@@ -162,6 +168,8 @@ MODELS = [
     ("meta-llama/Llama-3.2-3B-Instruct", "Llama-3.2-3B-IT", True),
     ("google/gemma-2-2b", "Gemma-2-2B", True),
     ("google/gemma-2-2b-it", "Gemma-2-2B-IT", True),
+    ("mistralai/Mistral-7B-v0.3", "Mistral-7B", True, "4bit"),
+    ("mistralai/Mistral-7B-Instruct-v0.3", "Mistral-7B-IT", True, "4bit"),
 ]
 
 CK = "/kaggle/working/t4fam_ck.json"
@@ -175,13 +183,17 @@ if os.path.exists(CK):
     all_r = cp.get("r", {}); done = set(cp.get("d", []))
     print(f"Resumed: {len(done)} models done")
 
-for mid, nm, gated in MODELS:
+for entry in MODELS:
+    mid, nm = entry[0], entry[1]
+    gated = entry[2] if len(entry) > 2 else False
+    mode = entry[3] if len(entry) > 3 else "fp16"
+    
     if nm in done:
         print(f"SKIP {nm} (checkpointed)"); continue
     if gated and not HF_TOKEN:
         print(f"SKIP {nm} (gated, no HF_TOKEN set)"); continue
     
-    print(f"\n=== {nm} ===")
+    print(f"\n=== {nm} ({mid}) ===")
     t0 = time.time()
     
     try:
@@ -190,30 +202,35 @@ for mid, nm, gated in MODELS:
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
         
-        # Try fp16 first, fall back to 4-bit if needed
-        try:
-            model_kwargs = {
-                "torch_dtype": torch.float16,
-                "device_map": "auto",
-            }
-            if gated and HF_TOKEN:
-                model_kwargs["token"] = HF_TOKEN
-            model = AutoModelForCausalLM.from_pretrained(mid, **model_kwargs)
-        except torch.cuda.OutOfMemoryError:
-            print("OOM in fp16, trying 4-bit...")
+        # Load with 4-bit for large models, fp16 otherwise
+        auth_kw = {"token": HF_TOKEN} if gated and HF_TOKEN else {}
+        if mode == "4bit":
             model = AutoModelForCausalLM.from_pretrained(
-                mid, load_in_4bit=True, device_map="auto",
-                **({"token": HF_TOKEN} if gated and HF_TOKEN else {})
+                mid, load_in_4bit=True, device_map="auto", **auth_kw
             )
+        else:
+            try:
+                model = AutoModelForCausalLM.from_pretrained(
+                    mid, torch_dtype=torch.float16, device_map="auto", **auth_kw
+                )
+            except torch.cuda.OutOfMemoryError:
+                print("OOM in fp16, trying 4-bit...")
+                model = AutoModelForCausalLM.from_pretrained(
+                    mid, load_in_4bit=True, device_map="auto", **auth_kw
+                )
         
         model.eval()
         print(f"Loaded ({time.time()-t0:.0f}s)")
     except Exception as e:
         print(f"FAILED: {e}")
-        if nm in ["Llama-3.2-1B","Llama-3.2-1B-IT","Llama-3.2-3B","Llama-3.2-3B-IT"]:
+        if "Llama-3.2" in nm:
             print("  → Accept Meta's terms at huggingface.co/meta-llama/Llama-3.2-3B")
-        if nm in ["Gemma-2-2B","Gemma-2-2B-IT"]:
+        if "Gemma" in nm:
             print("  → Accept Google's terms at huggingface.co/google/gemma-2-2b")
+        if "Mistral" in nm:
+            print("  → Accept Mistral's terms at huggingface.co/mistralai/Mistral-7B-v0.3")
+        if "stablelm" in mid.lower() or "stabilityai" in mid:
+            print("  → Try: pip install --upgrade transformers")
         continue
     
     # Run probes
