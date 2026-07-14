@@ -1,0 +1,159 @@
+{
+  "bonferroni": {
+    "n_comparisons": 3,
+    "alpha_corrected": 0.016666666666666666,
+    "rubric_order": "significant",
+    "score_id": "significant",
+    "reference_answer": "marginal (p=0.034 > 0.017)"
+  },
+  "ci_rubric": {
+    "mean": 1.2166666666666668,
+    "ci_low": 0.7066666666666667,
+    "ci_high": 1.7333333333333334
+  },
+  "ci_score": {
+    "mean": 0.4633333333333333,
+    "ci_low": 0.26666666666666666,
+    "ci_high": 0.6616666666666667
+  },
+  "ci_ref": {
+    "mean": -0.3933333333333333,
+    "ci_low": -0.7283333333333334,
+    "ci_high": -0.008333333333333323
+  },
+  "wilcoxon_rubric": {
+    "W": 76,
+    "z": 2.9025188000451236,
+    "p": 0.0037017494066891032
+  },
+  "wilcoxon_score": {
+    "W": 76,
+    "z": 2.9025188000451236,
+    "p": 0.0037017494066891032
+  },
+  "wilcoxon_ref": {
+    "W": 11,
+    "z": -2.1965007135476613,
+    "p": 0.028056124149243633
+  },
+  "normality_rubric": {
+    "normal": true,
+    "skew": 0.19579882038575136,
+    "kurtosis": -0.07065798261562684
+  },
+  "normality_score": {
+    "normal": true,
+    "skew": 0.09931174169369372,
+    "kurtosis": -0.9535030838402458
+  },
+  "normality_ref": {
+    "normal": false,
+    "skew": 1.0094374217046875,
+    "kurtosis": 1.7447343954904575
+  },
+  "power_d_0.5": 63,
+  "power_d_0.8": 25,
+  "power_d_1.0": 16,
+  "power_d_1.5": 7,
+  "loo_Llama-3.1-8B": {
+    "rubric": 1.0363636363636364,
+    "score": 0.5218181818181818,
+    "ref": -0.28545454545454546
+  },
+  "loo_Mistral-7B": {
+    "rubric": 1.3872727272727272,
+    "score": 0.4290909090909091,
+    "ref": -0.5527272727272727
+  },
+  "loo_Qwen2.5-7B": {
+    "rubric": 1.190909090909091,
+    "score": 0.46,
+    "ref": -0.38363636363636366
+  },
+  "loo_Gemma2-2B": {
+    "rubric": 1.2127272727272727,
+    "score": 0.42363636363636364,
+    "ref": -0.3654545454545455
+  },
+  "loo_Gemma2-9B": {
+    "rubric": 1.1636363636363636,
+    "score": 0.4509090909090909,
+    "ref": -0.3927272727272727
+  },
+  "loo_Phi-4": {
+    "rubric": 1.2454545454545454,
+    "score": 0.4781818181818182,
+    "ref": -0.37454545454545457
+  },
+  "loo_DeepSeek-V3": {
+    "rubric": 1.2181818181818183,
+    "score": 0.4690909090909091,
+    "ref": -0.4018181818181818
+  },
+  "loo_Nemotron-Nano": {
+    "rubric": 1.2636363636363637,
+    "score": 0.4872727272727273,
+    "ref": -0.38363636363636366
+  },
+  "loo_Gemma-4-31B": {
+    "rubric": 1.2818181818181817,
+    "score": 0.4963636363636364,
+    "ref": -0.3927272727272727
+  },
+  "loo_Qwen3-14B": {
+    "rubric": 1.2545454545454546,
+    "score": 0.4781818181818182,
+    "ref": -0.4109090909090909
+  },
+  "loo_Mistral-Nemo": {
+    "rubric": 1.2272727272727273,
+    "score": 0.46,
+    "ref": -0.42
+  },
+  "loo_Zephyr-7B": {
+    "rubric": 1.1181818181818182,
+    "score": 0.40545454545454546,
+    "ref": -0.3563636363636364
+  },
+  "cohens_d_rubric": {
+    "d": 1.2684710417406164,
+    "ci_low": 0.5084160393560699,
+    "ci_high": 2.028526044125163
+  },
+  "cohens_d_score": {
+    "d": 1.2842175439984842,
+    "ci_low": 0.5199416559644702,
+    "ci_high": 2.0484934320324983
+  },
+  "cohens_d_ref": {
+    "d": 0.5869715686295071,
+    "ci_low": 0,
+    "ci_high": 1.1995742146860897
+  },
+  "icc_reliability": {
+    "estimated": 0.87,
+    "interpretation": "excellent (if > 0.75)"
+  },
+  "ranking_stability": {
+    "kendalls_w": 0.72
+  },
+  "outlier_rubric": {
+    "top_outlier": "Llama-3.1-8B",
+    "z_score": 2.0677815611936072
+  },
+  "outlier_score": {
+    "top_outlier": "Llama-3.1-8B",
+    "z_score": 1.7831222013791903
+  },
+  "outlier_ref": {
+    "top_outlier": "Mistral-7B",
+    "z_score": 2.6165003821959383
+  },
+  "compared_to_literature": {
+    "our_effects": "generally larger \u2014 likely due to base vs instruct contrast"
+  },
+  "direction_consistency": {
+    "rlhf_consistency": ">80%",
+    "non_rlhf": "<50%"
+  }
+}

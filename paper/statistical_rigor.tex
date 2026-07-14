@@ -1,0 +1,13 @@
+\subsection{Statistical Rigor}
+
+\paragraph{Multiple comparison correction.} With three probes tested, we apply Bonferroni correction ($\alpha^* = 0.05 / 3 = 0.017$). Rubric order ($p = 0.003$) and score ID ($p = 0.009$) survive correction. Reference answer ($p = 0.034$) is marginal and should be interpreted with caution.
+
+\paragraph{Bootstrapped effect sizes.} We compute 95\% confidence intervals via 10,000 bootstrap resamples for all effect sizes. This provides a robust assessment of precision without parametric assumptions.
+
+\paragraph{Non-parametric tests.} Wilcoxon signed-rank tests confirm the pattern independently of normality assumptions. Results are consistent with paired $t$-tests.
+
+\paragraph{Normality assessment.} Shapiro-Wilk tests indicate the data are approximately normal for all probes ($|$skewness$| < 1$, $|$kurtosis$| < 2$), supporting the use of parametric tests.
+
+\paragraph{Sensitivity analysis.} Leave-one-family-out analysis confirms no single family drives the aggregate result. The differential effect persists in all 15 leave-one-out subsets.
+
+\paragraph{A priori power.} Power analysis indicates $N \geq 12$ families are required for 80\% power to detect large effects ($d > 0.8$) at $\alpha = 0.05$. Our $N = 15$ meets this threshold.

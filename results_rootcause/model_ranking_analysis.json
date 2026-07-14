@@ -1,0 +1,26 @@
+{
+  "best_model": "Gemma-4-31B",
+  "worst_model": "Llama-3.1-8B",
+  "size_correlation": -0.7482517482517483,
+  "top3_overlap": [],
+  "peerreview_checks": {
+    "Bonferroni correction applied": true,
+    "Bootstrapped CIs reported": true,
+    "Non-parametric tests confirm results": true,
+    "Normality assumption checked": true,
+    "A priori power analysis conducted": true,
+    "Leave-one-family-out sensitivity": true,
+    "Effect size CIs reported": true,
+    "ICC reliability estimated": true,
+    "Model ranking stability assessed": true,
+    "Outliers detected and discussed": true,
+    "Comparison with literature effect sizes": true,
+    "Direction consistency analyzed": true,
+    "Color-blind palette used": null,
+    "References include DOIs": null,
+    "Author contributions stated": true,
+    "Conflict of interest disclosed": false,
+    "Data availability URL provided": true,
+    "Code repository linked": true
+  }
+}
