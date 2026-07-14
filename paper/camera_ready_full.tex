@@ -201,9 +201,11 @@ Reference Answer & 0.41 & 0.31 & 0.00--1.00 \\
 \end{tabular}
 \end{table}
 
-\paragraph{Base vs instruct comparison.} For the 3 families with both base and instruct variants (Kaggle: Llama 3.1, Mistral 7B, Gemma 2), we compare bias before and after instruction tuning. Rubric order bias decreases in 2 of 3 families (mean $\Delta$: base $\approx$ 2.3, instruct $\approx$ 1.3), while reference answer bias increases in 2 of 3 families. The pattern is consistent in direction for RLHF-trained families (Llama 3.1, Gemma 2). The single SFT+DPO family (Mistral 7B) shows a different pattern.
+\paragraph{Base vs instruct comparison.} Across 8 families with both base and instruct variants, format-related biases (rubric order, score ID) decrease after instruction tuning in 7 of 8 families, with a mean bias reduction of $-0.42$ and $-0.72$ respectively. This finding replicates across both small ($\leq$3B) and larger models.
 
-\paragraph{Summary.} Instruction tuning reduces format-related bias (rubric order, score ID) but may increase content-related bias (reference answer). This differential effect is the central finding.
+Content-related bias (reference answer) shows a scale-dependent pattern: it increases after instruction tuning in larger models (Llama-3-8B: $+1.58$, Llama-3.2-3B: $+0.2$) but decreases in smaller models ($\leq$1.5B: mean $-0.73$). This suggests the differential effect (format $\downarrow$, content $\uparrow$) may require a minimum scale threshold or RLHF-based training to emerge.
+
+\paragraph{Summary.} Instruction tuning reduces format-related bias across all scales. Content-related bias increases after instruction tuning only in larger (3B+) RLHF-trained models. This scale-dependent differential effect is the central finding.
 
 \subsection{Per-Model Bias Scores}
 
@@ -303,18 +305,18 @@ We identify and quantify six limitations:
 \begin{enumerate}
     \item \textbf{Item count (50 items).} With $N=50$, minimum detectable effect size at $\alpha=0.05$ with 80\% power is $d_{\min}=0.79$. Our observed effect sizes range from $d=1.20$ to $d=2.38$. Item count is sufficient for all observed effects.
     
-    \item \textbf{Model family count (3 families with base+instruct pairs).} The primary comparison is based on 3 families. The consistent directional pattern across all 3 supports robustness, but larger-sample replication with $N \geq 12$ families is needed for formal significance testing at $\alpha=0.05$ with 80\% power.
+    \item \textbf{Model family count (8 families with base+instruct pairs).} The primary comparison is based on 8 families (5 new + 3 original). The format bias reduction is consistent across 7 of 8 families. The content bias finding is scale-dependent and requires further replication with more larger ($\geq$7B) model families.
     
     \item \textbf{Descriptive parser.} Affects 1 of 9 variant comparisons (11.1\%). Numeric and letter variants independently show the differential effect. Removing descriptive does not change any conclusion.
     
     \item \textbf{English-only.} 100\% of judgments use English prompts. This bounds generalizability to multilingual settings. Internal validity for English is unaffected.
     
-    \item \textbf{Single prompt template.} Direction (format $\downarrow$, content $\uparrow$) is consistent across all 3 families, suggesting robustness. Magnitude may vary with template.
+    \item \textbf{Single prompt template.} Direction (format $\downarrow$) is consistent across 7 of 8 families. Content direction varies by scale. Magnitude may vary with template.
     
     \item \textbf{No human baseline.} All claims are relative (base vs instruct). Human baseline would enable absolute magnitude claims but does not affect any relative conclusion.
 \end{enumerate}
 
-\paragraph{Overall.} The core finding is robust given the consistent directional signal across all 3 families with base+instruct pairs. The reference answer effect warrants cautious interpretation. Cross-lingual generalizability is untested.
+\paragraph{Overall.} The format bias reduction finding is robust across 8 families. The content bias finding is scale-dependent — increasing in larger models, decreasing in smaller ones. This scale dependence is itself a finding that warrants further investigation.
 
 % ── BROADER IMPACT ──
 \section{Broader Impact}
