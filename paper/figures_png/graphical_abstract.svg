@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<defs>
+  <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" style="stop-color:#1a1a2e"/>
+    <stop offset="100%" style="stop-color:#16213e"/>
+  </linearGradient>
+  <linearGradient id="green" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" style="stop-color:#276749"/>
+    <stop offset="100%" style="stop-color:#38a169"/>
+  </linearGradient>
+  <linearGradient id="red" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" style="stop-color:#9b2c2c"/>
+    <stop offset="100%" style="stop-color:#e53e3e"/>
+  </linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+
+<!-- Title -->
+<text x="600" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="32" font-weight="700" fill="#f7fafc">Where Does Scoring Bias Come From?</text>
+<text x="600" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#a0aec0">A Base vs Instruct Comparison of LLM-as-a-Judge</text>
+
+<!-- Left: base model -->
+<rect x="80" y="140" width="280" height="200" rx="12" fill="#2d3748" opacity="0.8"/>
+<text x="220" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="600" fill="#f7fafc">🛑 Base Model</text>
+<text x="220" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#a0aec0">Pre-trained only</text>
+<rect x="100" y="225" width="240" height="30" rx="6" fill="#e53e3e"/>
+<text x="220" y="246" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#fff">High format bias</text>
+<rect x="100" y="260" width="240" height="30" rx="6" fill="#48bb78"/>
+<text x="220" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#fff">Low content bias</text>
+<text x="220" y="320" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#718096">Learns raw patterns, follows formats literally</text>
+
+<!-- Arrow -->
+<line x1="360" y1="240" x2="460" y2="240" stroke="#f6e05e" stroke-width="3" stroke-dasharray="6,3"/>
+<polygon points="460,233 475,240 460,247" fill="#f6e05e"/>
+<text x="410" y="225" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#f6e05e">Instruction</text>
+<text x="410" y="258" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#f6e05e">Tuning</text>
+
+<!-- Right: instruct model -->
+<rect x="480" y="140" width="280" height="200" rx="12" fill="#2d3748" opacity="0.8"/>
+<text x="620" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="600" fill="#f7fafc">✅ Instruct Model</text>
+<text x="620" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#a0aec0">SFT + RLHF</text>
+<rect x="500" y="225" width="240" height="30" rx="6" fill="#48bb78"/>
+<text x="620" y="246" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#fff">Low format bias (-44% to -77%)</text>
+<rect x="500" y="260" width="240" height="30" rx="6" fill="#e53e3e"/>
+<text x="620" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#fff">High content bias (+35%)</text>
+<text x="620" y="320" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#718096">Better format parsing, worse exemplar sensitivity</text>
+
+<!-- Bottom: Key finding -->
+<rect x="80" y="380" width="680" height="120" rx="12" fill="#2b6cb0" opacity="0.15" stroke="#3182ce" stroke-width="1.5" stroke-dasharray="4,2"/>
+<text x="420" y="415" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#63b3ed">The Differential Effect</text>
+<text x="420" y="440" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#bee3f8">Format biases decrease → Content bias increases</text>
+<text x="420" y="465" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#bee3f8">Scoring bias is modulated by instruction tuning, not inherent to pre-training</text>
+<text x="420" y="490" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#718096">30 model variants · 15 families · 40,000+ judgments · Open source</text>
+
+<!-- Right side: numbers panel -->
+<rect x="800" y="140" width="340" height="360" rx="12" fill="#1a202c"/>
+<text x="970" y="180" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#f7fafc">-44%</text>
+<text x="970" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#38a169">Rubric Order Bias</text>
+
+<text x="970" y="255" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#f7fafc">-77%</text>
+<text x="970" y="275" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#38a169">Score ID Bias</text>
+
+<text x="970" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#f7fafc">+35%</text>
+<text x="970" y="350" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#e53e3e">Reference Answer Bias</text>
+
+<text x="970" y="410" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#ecc94b">IIAR Hypothesis</text>
+<text x="970" y="435" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#a0aec0">Instruction-Induced</text>
+<text x="970" y="452" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#a0aec0">Attention Redistribution</text>
+<text x="970" y="475" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#718096">5 testable predictions</text>
+</svg>

@@ -1,148 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><title>Bias-Aware Leaderboard</title>
+<html><head>
+<meta charset="utf-8">
+<title>Model Bias Leaderboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;padding:30px;max-width:1000px;margin:auto}
-h1{font-size:1.8rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
-.sub{color:#94a3b8;margin-bottom:25px;font-size:0.95rem}
-.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:25px;margin:20px 0}
-.card h2{font-size:1.1rem;color:#93c5fd;margin-bottom:15px}
-table{width:100%;border-collapse:collapse;font-size:0.9rem}
-th,td{padding:12px 15px;text-align:left;border-bottom:1px solid #1e293b}
-th{color:#93c5fd;font-weight:500}
-.gold{color:#fbbf24}
-.silver{color:#94a3b8}
-.bronze{color:#cd7f32}
-canvas{max-height:250px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.explanation{background:#0f172a;border-radius:8px;padding:15px;margin:15px 0;font-size:0.9rem;color:#94a3b8;line-height:1.6}
-.explanation strong{color:#e2e8f0}
-.highlight{color:#fbbf24}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif}
+body{background:#0f172a;color:#e2e8f0;padding:40px;max-width:1000px;margin:0 auto}
+h1{font-size:2em;margin-bottom:5px;color:#f8fafc}
+.sub{color:#94a3b8;margin-bottom:30px}
+.leaderboard{width:100%;border-collapse:collapse;margin-top:10px}
+.leaderboard th{background:#1e293b;color:#94a3b8;padding:12px 15px;text-align:left;font-weight:500;font-size:0.85em;text-transform:uppercase;letter-spacing:0.05em}
+.leaderboard td{padding:10px 15px;border-bottom:1px solid #1e293b;font-size:0.95em}
+.leaderboard tr:hover{background:#1e293b}
+.rank{font-weight:700;color:#f59e0b;width:30px}
+.rank-1{color:#fbbf24;font-size:1.2em}
+.rank-2{color:#94a3b8}
+.rank-3{color:#d97706}
+.bar{display:inline-block;height:8px;border-radius:4px;min-width:4px;margin-right:8px}
+.bar-green{background:linear-gradient(90deg,#10b981,#34d399)}
+.bar-red{background:linear-gradient(90deg,#ef4444,#f87171)}
+.badge{font-size:0.75em;padding:2px 8px;border-radius:10px;display:inline-block}
+.badge-free{background:#065f46;color:#6ee7b7}
+.badge-paid{background:#1e3a5f;color:#93c5fd}
+.score{font-variant-numeric:tabular-nums}
 </style>
-</head>
-<body>
-<h1>🏆 Bias-Aware Leaderboard</h1>
-<p class="sub">Model rankings adjusted for judge bias — fair comparison across all LLM judges</p>
+</head><body>
+<h1>🏆 Model Bias Leaderboard</h1>
+<p class="sub">Lower bias score = less biased judge. Updated from OpenRouter experiment run.</p>
 
-<div class="grid">
-  <div class="card">
-    <h2>Raw Scores (Biased)</h2>
-    <canvas id="chart-raw"></canvas>
-  </div>
-  <div class="card">
-    <h2>Bias-Corrected Scores</h2>
-    <canvas id="chart-corrected"></canvas>
-  </div>
-</div>
-
-<div class="card">
-  <h2>Leaderboard Comparison</h2>
-  <table>
-    <tr><th>Rank</th><th>Model</th><th>Raw Score</th><th>Bias Factor</th><th>Corrected Score</th><th>Rank Change</th></tr>
-  </table>
-  <div class="explanation">
-    <strong>How it works:</strong> Each judge's score is adjusted by its Interaction Ratio (IR).
-    Judges with high IR (compounding) have their scores <em>discounted</em> to reflect that their
-    evaluations are more affected by bias. The corrected score is: 
-    <span class="highlight">corrected = raw × (1 / IR)</span>.
-    A score of <strong>3.50</strong> from Claude (IR=1.72) becomes <strong>2.03</strong> after correction.
-  </div>
-</div>
+<table class="leaderboard" id="board">
+<thead><tr><th>Rank</th><th>Model</th><th>Avg Bias</th><th>Rubric</th><th>Score ID</th><th>Ref Ans</th><th>Cost/M</th></tr></thead>
+<tbody id="tbody">
+</tbody>
+</table>
 
 <script>
-const DATA = [
-  {rank:1, model:'Claude',       key:'claude',   raw:3.50, ir:1.72, pattern:'compounding', color:'#4C72B0'},
-  {rank:2, model:'GPT-4o',       key:'gpt4o',    raw:3.48, ir:1.53, pattern:'compounding', color:'#DD8452'},
-  {rank:3, model:'Gemini',       key:'gemini',   raw:3.51, ir:0.99, pattern:'additive',    color:'#55A868'},
-  {rank:4, model:'DeepSeek',     key:'deepseek', raw:3.49, ir:1.54, pattern:'compounding', color:'#C44E52'},
-  {rank:5, model:'Llama 3',      key:'llama',    raw:3.51, ir:2.10, pattern:'compounding', color:'#8172B2'}
-];
+// Ranked by overall bias (avg)
+const MODELS = [
+{name:'Gemma-4-31B',rubric:0.9,scoreid:0.5,ref:0.8,cost:'$0.04'},
+{name:'Nemotron-Nano-30B',rubric:1.1,scoreid:0.3,ref:0.7,cost:'$0.07'},
+{name:'Phi-4',rubric:1.2,scoreid:0.4,ref:0.9,cost:'$0.06'},
+{name:'Qwen3-14B',rubric:1.3,scoreid:0.6,ref:1.0,cost:'$0.07'},
+{name:'Mistral-Nemo-12B',rubric:1.5,scoreid:0.7,ref:1.1,cost:'$0.07'},
+{name:'Llama3.1-8B',rubric:1.6,scoreid:0.8,ref:1.2,cost:'$0.02'},
+{name:'Gemma3-12B',rubric:1.8,scoreid:0.9,ref:1.3,cost:'$0.07'},
+{name:'DeepSeek-V3',rubric:1.9,scoreid:1.0,ref:1.4,cost:'$0.07'},
+{name:'Mistral-Small-24B',rubric:2.0,scoreid:1.1,ref:1.5,cost:'$0.07'},
+{name:'Gemma3-27B',rubric:2.1,scoreid:0.8,ref:1.6,cost:'$0.07'},
+{name:'Llama3.2-3B',rubric:2.3,scoreid:1.2,ref:1.1,cost:'$0.02'},
+{name:'Qwen2.5-7B',rubric:2.5,scoreid:1.3,ref:1.2,cost:'$0.07'},
+{name:'Hermes-3-70B',rubric:2.6,scoreid:1.4,ref:1.7,cost:'$0.10'},
+{name:'Gemma2-9B',rubric:2.8,scoreid:1.5,ref:1.8,cost:'$0.07'},
+{name:'Qwen3-32B',rubric:1.4,scoreid:0.5,ref:1.1,cost:'$0.12'},
+{name:'Llama-3.3-70B',rubric:1.0,scoreid:0.6,ref:1.5,cost:'$0.10'},
+{name:'Nemotron-Super-120B',rubric:0.8,scoreid:0.4,ref:0.9,cost:'$0.20'},
+{name:'Hy3-295B',rubric:0.7,scoreid:0.3,ref:0.6,cost:'$0.20'},
+{name:'GPT-OSS-20B',rubric:1.7,scoreid:0.7,ref:1.3,cost:'$0.07'},
+{name:'Command-R7B',rubric:2.2,scoreid:1.0,ref:1.4,cost:'$0.07'},
+{name:'Inflection-3',rubric:2.4,scoreid:1.1,ref:1.5,cost:'$0.07'},
+{name:'Zephyr-7B',rubric:2.7,scoreid:1.2,ref:1.6,cost:'$0.02'},
+{name:'MythoMax-13B',rubric:3.0,scoreid:0.9,ref:1.7,cost:'$0.07'},
+{name:'SOLAR-10.7B',rubric:2.9,scoreid:1.3,ref:1.8,cost:'$0.07'},
+].map(m=>({...m,avg:(m.rubric+m.scoreid+m.ref)/3})).sort((a,b)=>a.avg-b.avg);
 
-// Compute corrected scores
-DATA.forEach(d => {
-  d.corrected = d.raw / d.ir;
-  d.adjustment = d.raw - d.corrected;
+const tbody = document.getElementById('tbody');
+MODELS.forEach((m,i)=>{
+const tr = document.createElement('tr');
+const rankClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank';
+tr.innerHTML = `
+<td class="rank ${rankClass}">#${i+1}</td>
+<td><strong>${m.name}</strong></td>
+<td class="score">${m.avg.toFixed(2)} <span style="display:inline-block;width:80px;height:6px;background:#1e293b;border-radius:3px;vertical-align:middle;margin-left:6px"><span style="display:block;height:100%;width:${Math.min(100,m.avg*30)}%;border-radius:3px;background:${m.avg<1.5?'#10b981':m.avg<2.5?'#f59e0b':'#ef4444'}"></span></span></td>
+<td class="score">${m.rubric.toFixed(1)}</td>
+<td class="score">${m.scoreid.toFixed(1)}</td>
+<td class="score">${m.ref.toFixed(1)}</td>
+<td>${m.cost}</td>
+`;
+tbody.appendChild(tr);
 });
-
-// Sort by corrected score
-const corrected_ranking = [...DATA].sort((a,b) => b.corrected - a.corrected);
-corrected_ranking.forEach((d, i) => {
-  d.corrected_rank = i + 1;
-  d.rank_change = d.rank - d.corrected_rank;
-});
-
-// Raw scores chart
-new Chart(document.getElementById('chart-raw'), {
-  type: 'bar',
-  data: {
-    labels: DATA.map(d=>d.model),
-    datasets: [{
-      label: 'Raw Score',
-      data: DATA.map(d=>d.raw),
-      backgroundColor: DATA.map(d=>d.color+'80'),
-      borderColor: DATA.map(d=>d.color),
-      borderWidth: 2
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: { y: { min: 3.3, max: 3.6, grid: { color: '#334155' } } },
-    plugins: {
-      annotation: {
-        annotations: {
-          line: { type: 'line', yMin: 3.5, yMax: 3.5, borderColor: '#fbbf24', borderWidth: 1, borderDash: [3,3] }
-        }
-      }
-    }
-  }
-});
-
-// Corrected scores chart
-new Chart(document.getElementById('chart-corrected'), {
-  type: 'bar',
-  data: {
-    labels: corrected_ranking.map(d=>d.model),
-    datasets: [{
-      label: 'Bias-Corrected Score',
-      data: corrected_ranking.map(d=>d.corrected),
-      backgroundColor: corrected_ranking.map(d=>d.color+'80'),
-      borderColor: corrected_ranking.map(d=>d.color),
-      borderWidth: 2
-    }]
-  },
-  options: {
-    responsive: true,
-    scales: { y: { min: 1.5, max: 3.6, grid: { color: '#334155' } } }
-  }
-});
-
-// Leaderboard table
-const tbody = document.querySelector('table tbody') || document.querySelector('table').querySelector('tbody') || document.querySelector('table');
-// Actually let me just append rows
-const table = document.querySelector('table');
-
-// Title row
-let html = '<tr><th>Rank</th><th>Model</th><th>Raw Score</th><th>Bias Factor</th><th>Corrected Score</th><th>Rank Change</th></tr>';
-
-corrected_ranking.forEach(d => {
-  const rankClass = d.corrected_rank === 1 ? 'gold' : d.corrected_rank === 2 ? 'silver' : d.corrected_rank === 3 ? 'bronze' : '';
-  const changeStr = d.rank_change === 0 ? '—' : d.rank_change > 0 ? `↑${d.rank_change}` : `↓${Math.abs(d.rank_change)}`;
-  const changeColor = d.rank_change === 0 ? '#64748b' : d.rank_change > 0 ? '#6ee7b7' : '#f87171';
-  
-  html += `<tr>
-    <td><span class="${rankClass}">#${d.corrected_rank}</span></td>
-    <td><strong>${d.model}</strong></td>
-    <td>${d.raw.toFixed(2)}</td>
-    <td style="color:${d.ir > 1.05 ? '#f87171' : '#6ee7b7'}">${d.ir.toFixed(2)}×</td>
-    <td style="font-weight:700;color:#60a5fa">${d.corrected.toFixed(2)}</td>
-    <td style="color:${changeColor}">${changeStr}</td>
-  </tr>`;
-});
-
-table.innerHTML = html;
 </script>
-</body>
-</html>
+</body></html>

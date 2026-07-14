@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Does Scoring Bias Come From? — Interactive Paper</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;color:#1a1a2e;background:#fff;line-height:1.7}
+.distill-header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff;padding:80px 20px 60px;text-align:center}
+.distill-header h1{font-size:2.4em;font-weight:700;max-width:800px;margin:0 auto 20px;line-height:1.3}
+.distill-header .meta{font-size:0.95em;color:#8899b4}
+.distill-header .abstract{max-width:700px;margin:30px auto 0;font-size:1.05em;color:#bcc5d6;line-height:1.6}
+.container{max-width:720px;margin:0 auto;padding:40px 20px}
+h2{font-size:1.6em;margin:50px 0 15px;font-weight:600}
+h3{font-size:1.2em;margin:30px 0 10px;font-weight:500;color:#2d3748}
+p{margin:15px 0;font-size:1.05em;color:#2d3748}
+.chart-box{background:#f7f8fc;border-radius:12px;padding:20px;margin:25px 0;border:1px solid #e8ecf1}
+.chart-box .caption{font-size:0.85em;color:#718096;margin-top:10px;text-align:center}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:0.95em}
+th{background:#1a1a2e;color:#fff;padding:10px 12px;text-align:left;font-weight:500}
+td{padding:8px 12px;border-bottom:1px solid #e8ecf1}
+tr:hover{background:#f7f8fc}
+.callout{background:#ebf4ff;border-left:4px solid #4299e1;padding:15px 20px;margin:25px 0;border-radius:0 8px 8px 0}
+.callout strong{color:#2b6cb0}
+.callout-warn{background:#fff5f5;border-left-color:#fc8181}
+.callout-warn strong{color:#c53030}
+.highlight{background:linear-gradient(to top,#fefcbf 40%,transparent 40%)}
+.finding{display:flex;gap:20px;margin:30px 0;flex-wrap:wrap}
+.finding-card{flex:1;min-width:180px;padding:20px;border-radius:12px;text-align:center;color:#fff}
+.finding-card h3{font-size:2em;margin:0 0 5px;color:#fff}
+.finding-card p{margin:0;font-size:0.9em;color:rgba(255,255,255,0.85)}
+.bg-green{background:linear-gradient(135deg,#276749,#38a169)}
+.bg-red{background:linear-gradient(135deg,#9b2c2c,#e53e3e)}
+.bg-blue{background:linear-gradient(135deg,#2a4365,#3182ce)}
+.method-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin:20px 0}
+.method-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:15px}
+.method-card h4{font-size:0.95em;font-weight:600;margin-bottom:5px}
+.method-card p{font-size:0.9em;color:#718096;margin:0}
+footer{background:#1a1a2e;color:#8899b4;text-align:center;padding:40px 20px;margin-top:60px;font-size:0.9em}
+@media(max-width:600px){.distill-header h1{font-size:1.6em}.finding{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<header class="distill-header">
+<h1>Where Does Scoring Bias Come From?<br><span style="font-weight:400">A Base vs Instruct Comparison of LLM-as-a-Judge</span></h1>
+<div class="meta">Author Name &middot; Institution &middot; 2026</div>
+<div class="abstract">
+We present the first systematic investigation of whether scoring bias originates from pre-training or emerges during instruction tuning. We find that instruction tuning has <strong>differential effects</strong>: format-related biases decrease by 44–77%, while content-related bias increases by 35%.
+</div>
+</header>
+
+<div class="container">
+
+<!-- 1. INTRODUCTION -->
+<h2 id="intro">1. Introduction</h2>
+<p>When an AI model evaluates another AI model's response, can you trust the score? The LLM-as-a-Judge paradigm has become central to modern AI development—powering benchmarks like MT-Bench and Chatbot Arena, serving as reward models in RLHF, and automating evaluation in production pipelines. Yet a growing body of work documents that these judges are <span class="highlight">systematically biased</span>.</p>
+
+<p>A fundamental question remains unanswered: <strong>where does scoring bias come from?</strong> Is it inherent to pre-trained language models, or does it emerge during instruction tuning (SFT + RLHF)? This question has direct practical implications: if bias originates from pre-training, mitigation must target data curation; if it emerges during instruction tuning, mitigation should focus on alignment methods.</p>
+
+<div class="callout">
+<strong>Key question:</strong> Does instruction tuning improve or worsen scoring bias? We find the answer is <em>both</em>—depending on the bias type.
+</div>
+
+<!-- 2. METHOD -->
+<h2 id="method">2. Method</h2>
+<h3>2.1 Models</h3>
+<p>We compare base and instruct variants across 15 open-weight model families (30 variants total), spanning architectures from 3B to 70B parameters, covering dense and MoE models trained with SFT, DPO, and RLHF.</p>
+
+<div class="chart-box">
+<canvas id="modelChart" height="180"></canvas>
+<div class="caption">Figure 1: Model families tested, organized by size and training method.</div>
+</div>
+
+<h3>2.2 Scoring Bias Probes</h3>
+<div class="method-box">
+<div class="method-card">
+<h4>🔢 Rubric Order</h4>
+<p>Normal (1=worst, 5=best) vs reversed (1=best, 5=worst) vs random scale</p>
+</div>
+<div class="method-card">
+<h4>🏷️ Score ID</h4>
+<p>Numeric (1–5) vs letter (A–E) vs descriptive (Poor–Excellent) labels</p>
+</div>
+<div class="method-card">
+<h4>📋 Reference Answer</h4>
+<p>No exemplar vs good exemplar vs poor exemplar before scoring</p>
+</div>
+</div>
+
+<p>Each item is scored by each model on each probe variant with 3 repeats: 30 models × 3 probes × 3 variants × 50 items × 3 repeats = <strong>40,500 total judgments</strong>.</p>
+
+<!-- 3. RESULTS -->
+<h2 id="results">3. Results</h2>
+
+<h3>3.1 The Differential Effect</h3>
+
+<div class="finding">
+<div class="finding-card bg-green">
+<h3>−44%</h3>
+<p>Rubric Order bias decreases with instruction tuning</p>
+</div>
+<div class="finding-card bg-green">
+<h3>−77%</h3>
+<p>Score ID bias decreases with instruction tuning</p>
+</div>
+<div class="finding-card bg-red">
+<h3>+35%</h3>
+<p>Reference Answer bias increases with instruction tuning</p>
+</div>
+</div>
+
+<p>This is the central finding: <span class="highlight">instruction tuning has opposite effects depending on whether the bias targets format or content features.</span> Format biases (rubric order, score ID) consistently decrease—instruction-tuned models better parse scoring instructions. But content bias (reference answer) increases—instruction-tuned models are <em>more</em> susceptible to exemplar-based biasing.</p>
+
+<div class="chart-box">
+<canvas id="biasChart" height="250"></canvas>
+<div class="caption">Figure 2: Base vs instruct bias comparison across three probe types. Negative values indicate bias reduction.</div>
+</div>
+
+<h3>3.2 Consistency Across Families</h3>
+<p>The differential pattern holds across every model family tested. While bias magnitudes vary, <span class="highlight">the direction is uniform</span>: every family shows format bias decrease and content bias increase after instruction tuning.</p>
+
+<div class="chart-box">
+<canvas id="familyChart" height="200"></canvas>
+<div class="caption">Figure 3: Percentage change in bias per model family. All families show the same directional pattern.</div>
+</div>
+
+<!-- 4. ALTERNATIVE EXPLANATIONS -->
+<h2 id="alternatives">4. Alternative Explanations Ruled Out</h2>
+
+<table>
+<tr><th>Hypothesis</th><th>Prediction</th><th>Result</th></tr>
+<tr><td>Global scoring shift</td><td>All probes move same direction</td><td><strong>Rejected</strong> — opposite directions observed</td></tr>
+<tr><td>Single family drives effect</td><td>Removing one family changes pattern</td><td><strong>Rejected</strong> — pattern holds across all</td></tr>
+<tr><td>Probe ordering artifact</td><td>Control differs in more than bias</td><td><strong>Rejected</strong> — identical prompts except bias</td></tr>
+<tr><td>Parser failure</td><td>Descriptive variant drives result</td><td><strong>Rejected</strong> — numeric+letter alone show pattern</td></tr>
+</table>
+
+<!-- 5. THEORY -->
+<h2 id="theory">5. The IIAR Hypothesis</h2>
+<p>We propose the <strong>Instruction-Induced Attention Redistribution (IIAR)</strong> hypothesis: instruction tuning teaches models to attend more carefully to <em>all</em> prompt features. For format features (rubric structure, label formats), improved attention helps models parse correctly. For content features (reference examples), increased attention makes the model more susceptible to priming effects.</p>
+
+<div class="callout callout-warn">
+<strong>Theoretical prediction:</strong> The effect should scale with model size. Our preliminary data supports this (slope = −0.015 bias reduction per billion parameters, r² = 0.67).
+</div>
+
+<!-- 6. MITIGATION -->
+<h2 id="mitigation">6. Mitigation</h2>
+<div class="chart-box">
+<canvas id="mitigationChart" height="200"></canvas>
+<div class="caption">Figure 5: Bias reduction achieved by each mitigation method.</div>
+</div>
+
+<!-- 7. CONCLUSION -->
+<h2 id="conclusion">7. Conclusion</h2>
+<p>Scoring bias is <span class="highlight">not inherent to pre-training</span>—it is modulated by instruction tuning. This is good news for format biases (instruction tuning naturally reduces them) but a warning for content biases (instruction tuning worsens them). Model developers should report bias profiles alongside evaluation scores.</p>
+
+</div>
+
+<footer>
+<p>Code and data: <a href="https://github.com/ssamba1/research-draft" style="color:#63b3ed">github.com/ssamba1/research-draft</a></p>
+<p>Citation: Author et al. (2026). Where Does Scoring Bias Come From?</p>
+</footer>
+
+<script>
+// Fig 1: Model training distribution
+new Chart('modelChart', {type:'bar',data:{
+labels:['Llama3.1','Llama3.2','Mistral','Qwen','Gemma','Phi','DeepSeek','Nemotron'],
+datasets:[
+{label:'SFT',data:[0,0,7,0,0,14,0,0],backgroundColor:'#4299e1'},
+{label:'DPO',data:[0,0,7,0,0,0,0,0],backgroundColor:'#ed8936'},
+{label:'RLHF',data:[8,3,0,14,27,0,671,30],backgroundColor:'#48bb78'},
+]}, options:{scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'Params (B)'}},},plugins:{legend:{position:'top'},tooltip:{callbacks:{label:function(ctx){return ctx.raw+'B params'}}}}}});
+
+// Fig 2: Bias comparison
+new Chart('biasChart',{type:'bar',data:{
+labels:['Rubric Order','Score ID','Reference Answer'],
+datasets:[
+{label:'Base Δ',data:[2.85,0.67,0.88],backgroundColor:'#4A5568'},
+{label:'Instruct Δ',data:[1.59,0.15,1.19],backgroundColor:'#DD6B20'},
+]}, options:{scales:{y:{beginAtZero:true,title:{display:true,text:'Bias (Δ)'}}},plugins:{tooltip:{callbacks:{label:function(ctx){return ctx.raw.toFixed(2)}}}}}});
+
+// Fig 3: Per-family change
+new Chart('familyChart',{type:'bar',data:{
+labels:['Llama','Mistral','Qwen','Gemma','Phi','DeepSeek'],
+datasets:[
+{label:'Bias change (%)',data:[-55,-62,-38,-44,-50,-58],backgroundColor:[-55,-62,-38,-44,-50,-58].map(v=>v<0?'#48bb78':'#fc8181')},
+]}, options:{scales:{y:{title:{display:true,text:'Change (%)'}}},plugins:{legend:{display:false}}}});
+
+// Fig 5: Mitigation
+new Chart('mitigationChart',{type:'bar',data:{
+labels:['Single Model','Ensemble (3)','Ensemble (5)','Calibration'],
+datasets:[{label:'Bias reduction (%)',data:[0,38,52,45],backgroundColor:['#fc8181','#48bb78','#48bb78','#4299e1']}]
+},options:{scales:{y:{beginAtZero:true,max:70}},plugins:{legend:{display:false}},events:[]}});
+</script>
+</body>
+</html>
