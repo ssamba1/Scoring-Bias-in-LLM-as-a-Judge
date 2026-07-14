@@ -1,79 +1,68 @@
-#!/bin/bash
-# Master Execution Script — produces all results from one command
-# Usage: bash run_all.sh [--api] [--gpu]
-# 
-# Without flags: runs all analysis on corrected synthetic data
-# With --api: runs real API experiments (needs .env keys)
-# With --gpu: runs GPU experiments (needs CUDA)
+#!/usr/bin/env bash
+# Complete end-to-end reproduction pipeline
+# Usage: bash run_all.sh
+set -euo pipefail
+cd "$(dirname "$0")"
 
-set -e
-START_TIME=$(date +%s)
+echo "=== Scoring Bias: Full Reproduction Pipeline ==="
+echo "Started: $(date)"
+echo ""
 
-echo "========================================="
-echo "  Bias Research — Master Execution"
-echo "  $(date)"
-echo "========================================="
+# 1. Install dependencies
+echo "[1/6] Installing dependencies..."
+pip install -r requirements.txt -q
+echo "  Done."
 
-# 1. Generate corrected synthetic data
-echo ""
-echo "[1/8] Generating corrected synthetic data..."
-python3 data/generate_corrected_data.py 2>&1 | tail -3
+# 2. Run tests
+echo "[2/6] Running unit tests..."
+python3 tests/test_all.py
+echo "  Done."
 
-# 2. Run statistical analysis
-echo ""
-echo "[2/8] Running statistical analysis..."
-python3 pipeline_biasinteraction/statistical_analysis.py \
-  --data results/bias_interaction_synthetic.csv \
-  --anova --report 2>&1 | tail -10
+# 3. Generate figures (requires matplotlib)
+echo "[3/6] Generating figures..."
+if python3 -c "import matplotlib" 2>/dev/null; then
+    python3 paper/generate_png_figures.py
+    python3 paper/figures_advanced/generate_advanced_figures.py
+    echo "  Done."
+else
+    echo "  Skipped (matplotlib not installed). Run: pip install matplotlib"
+fi
 
-# 3. Run bias audit
-echo ""
-echo "[3/8] Running bias audit..."
-python3 bias_audit.py --input results/bias_interaction_synthetic.csv 2>&1 | head -15
+# 4. Run all analyses
+echo "[4/6] Running analysis pipeline..."
+echo "  Depth analysis..."
+python3 results_rootcause/depth_analysis.py 2>&1 | tail -3
+echo "  Cross-probe analysis..."
+python3 results_rootcause/cross_probe_analysis.py 2>&1 | tail -3
+echo "  Peer review defense..."
+python3 results_rootcause/peer_review_defense.py 2>&1 | tail -3
+echo "  Model ranking..."
+python3 results_rootcause/model_ranking_analysis.py 2>&1 | tail -3
+echo "  Variance decomposition..."
+python3 results_rootcause/variance_decomposition.py 2>&1 | tail -3
+echo "  Done."
 
-# 4. Run Bayesian analysis
-echo ""
-echo "[4/8] Running Bayesian analysis..."
-python3 pipeline_biasinteraction/bayesian_analysis.py 2>&1 | tail -15
+# 5. Compile paper if pdflatex available
+echo "[5/6] Compiling paper..."
+if command -v pdflatex &> /dev/null; then
+    cd paper
+    pdflatex camera_ready_full.tex -interaction=nonstopmode 2>&1 | tail -1
+    pdflatex camera_ready_full.tex -interaction=nonstopmode 2>&1 | tail -1
+    cd ..
+    echo "  Done."
+else
+    echo "  Skipped (pdflatex not installed)."
+fi
 
-# 5. Generate figures
-echo ""
-echo "[5/8] Generating figures..."
-python3 pipeline_biasinteraction/generate_figures.py 2>&1 || echo "  (figures need matplotlib)"
+# 6. Build arXiv package
+echo "[6/6] Building arXiv submission package..."
+python3 paper/arxiv_package.py 2>&1 | tail -3
+echo "  Done."
 
-# 6. Generate auto-paper
 echo ""
-echo "[6/8] Generating auto-paper..."
-python3 paper_generator.py --data results/bias_interaction_synthetic.csv --format both 2>&1 | tail -3
-
-# 7. Run full tests
-echo ""
-echo "[7/8] Running tests..."
-python3 tests/run_all.py 2>&1 | tail -5
-python3 tests/run_tests.py 2>&1 | tail -5
-
-# 8. Print summary
-echo ""
-echo "[8/8] Execution complete!"
-DURATION=$(( $(date +%s) - START_TIME ))
-echo ""
-echo "========================================="
-echo "  EXECUTION SUMMARY"
-echo "  Duration: ${DURATION}s"
-echo "========================================="
-echo ""
-echo "Output files:"
-echo "  Results:       results/bias_interaction_synthetic.csv"
-echo "  Analysis:      results/statistical_report.md"
-echo "  Auto-paper:    results/auto_paper.md"
-echo "  Auto-LaTeX:    results/auto_paper.tex"
-echo "  Bayesian:      results/bayesian_analysis.json"
-echo "  Metadata:      results/synthetic_v3_metadata.json"
-echo ""
-echo "To run with real APIs:"
-echo "  cp .env.template .env"
-echo "  # Add API keys to .env"
-echo "  python3 inference_executor.py --judge all"
-echo ""
-echo "To run with GPU:"
-echo "  python3 pipeline_rootcause/rootcause_pipeline_v2.py --model all"
+echo "=== Pipeline complete. ==="
+echo "Results: results_rootcause/*.json"
+echo "Figures: paper/figures_png/*.png, paper/figures_advanced/*.png"
+echo "Paper:   paper/camera_ready_full.pdf"
+echo "Archive: arxiv_submission.tar.gz"
+echo "Finished: $(date)"

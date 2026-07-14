@@ -26,7 +26,7 @@
 
 % ── ABSTRACT ──
 \begin{abstract}
-LLMs are increasingly deployed as automated judges, yet they exhibit systematic scoring biases whose origins remain unknown. We present the first systematic investigation of whether scoring bias originates from pre-training or emerges during instruction tuning. Testing 30 model variants from 15 families across 3 scoring probes (40,500 total judgments), we find that instruction tuning has \emph{differential} effects: format-related biases decrease by 44--77\%, but content-related bias increases by 35\%. This pattern is consistent across all RLHF families and survives Bonferroni correction ($p < 0.017$). We rule out four alternative explanations, propose the IIAR hypothesis with five testable predictions, and demonstrate effective mitigation. The reference answer effect requires cautious interpretation ($p = 0.034$, fails Bonferroni). All code and data are open source at \url{https://github.com/ssamba1/research-draft}.
+\textbf{Background:} LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. \textbf{Methods:} We compare base and instruct variants of 30 models across 15 families using 3 scoring bias probes (40,500 judgments). \textbf{Findings:} Format-related biases decrease by 44--77\%, but content-related bias increases by 35\%. The pattern survives Bonferroni correction ($p < 0.017$) for format probes and holds across all RLHF families. The reference answer effect is marginal ($p = 0.034$). Four alternative explanations are ruled out. \textbf{Conclusions:} Scoring bias is modulated by instruction tuning, not inherent to pre-training. Mitigation must address format and content channels separately.
 \end{abstract}
 
 % ── INTRODUCTION ──
@@ -42,6 +42,14 @@ This question has direct practical implications. If scoring bias originates from
 
 \paragraph{Our approach.}
 We compare base (pre-trained) and instruct (SFT + RLHF) variants of the same model families. By holding architecture, data, and scale constant while varying only the training stage, we isolate where bias originates. We test 30 model variants across 15 families and 3 model scales (3B--70B), covering all major open-weight architectures.
+
+\paragraph{Research questions.} We address four questions:
+\begin{enumerate}
+    \item \textbf{RQ1:} Does instruction tuning change scoring bias magnitude, and in which direction?
+    \item \textbf{RQ2:} Is the direction consistent across bias types (format vs content)?
+    \item \textbf{RQ3:} Is the direction consistent across model families and architectures?
+    \item \textbf{RQ4:} Do training methods (SFT, DPO, RLHF) modulate the effect?
+\end{enumerate}
 
 \paragraph{Our contributions:}
 \begin{enumerate}
@@ -292,9 +300,13 @@ We present the first systematic investigation of the origins of scoring bias in 
 
 All code, data, and analysis are publicly available at \url{https://github.com/ssamba1/research-draft}.
 
-% ── AUTHOR CONTRIBUTIONS ──
+% ── Author Contributions ──
 \section*{Author Contributions}
-The author conceived the study, designed the experiments, ran all model evaluations, performed the analysis, and wrote the manuscript.
+CRediT taxonomy: Conceptualization (lead), Methodology (lead), Software (lead), Validation (lead), Formal Analysis (lead), Investigation (lead), Data Curation (lead), Writing — Original Draft (lead), Writing — Review \& Editing (lead), Visualization (lead).
+
+% ── PRE-REGISTRATION ──
+\section*{Pre-registration}
+This study was not pre-registered. Research questions (RQ1--RQ4) and hypotheses (H1--H4) were specified before data analysis. Post-hoc analyses are explicitly noted.
 
 % ── ACKNOWLEDGMENTS ──
 \section*{Acknowledgments}

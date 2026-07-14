@@ -16,12 +16,9 @@ COPY . .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir \
-    pandas numpy scipy matplotlib seaborn statsmodels pyyaml \
-    fastapi uvicorn pydantic python-multipart \
-    anthropic openai google-generativeai \
-    torch --extra-index-url https://download.pytorch.org/whl/cpu \
-    2>/dev/null || true
+pip install --no-cache-dir \
+    -r requirements.txt \
+    torch --extra-index-url https://download.pytorch.org/whl/cpu
 
 # Make scripts executable
 RUN chmod +x *.sh
