@@ -113,30 +113,27 @@ Xu et al. \cite{xu2026position} & arXiv 2026 & 6 & No & No \\
 \section{Method}
 
 \subsection{Models}
-We compare base and instruct variants across 3 open-weight model families (Llama 3.1, Mistral 7B, Gemma 2) with both base and instruct variants, totaling 6 model variants for the primary analysis. An additional 22 instruct-tuned models from 12 families provide model diversity breadth. The selection spans multiple architectures (dense, MoE), scales (3B to 671B), and training methods (SFT, DPO, RLHF). All models are publicly available.
+We compare base and instruct variants across 3 open-weight model families (Llama 3.1, Mistral 7B, Gemma 2) with both base and instruct variants, totaling 6 model variants for the primary analysis. An additional 22 instruct-tuned models provide model diversity breadth. The selection spans multiple architectures (dense, MoE), scales (3B to 671B), and training methods (SFT, DPO, RLHF). All models are publicly available. Each model's results appear in Table~\ref{tab:per_model}.
 
 \begin{table}[h]
 \centering\small
-\caption{Model families tested. Size = instruct variant active parameters. $^\dagger$ = base+instruct pair available.}
+\caption{Model families tested (representative list). $^\dagger$ = base+instruct pair available.}
 \label{tab:models}
 \begin{tabular}{lll}
 \toprule
 \textbf{Family} & \textbf{Size} & \textbf{Training} \\
 \midrule
-Meta Llama 3.1$^\dagger$ & 8B & RLHF \\
-Meta Llama 3.2 & 3B & RLHF \\
-Meta Llama 2 & 7B & RLHF \\
-Mistral 7B v0.3$^\dagger$ & 7B & SFT+DPO \\
-Qwen 2.5 & 0.5B--7B & RLHF \\
-Qwen 3 & 8B--14B & RLHF \\
-Google Gemma 3 & 4B--27B & RLHF \\
-Google Gemma 2$^\dagger$ & 2B--9B & RLHF \\
+Meta Llama (3.1, 3.2)$^\dagger$, Llama 2 & 3B--8B & RLHF \\
+Mistral (7B v0.3$^\dagger$, Nemo, 3.2) & 7B--24B & SFT+DPO / SFT \\
+Qwen (2.5, 3) & 0.5B--72B & RLHF \\
+Google Gemma (2$^\dagger$, 3) & 2B--27B & RLHF \\
 Microsoft Phi-4 & 14B & SFT \\
-Mistral Nemo & 12B & SFT+DPO \\
-DeepSeek V3 & 671B (MoE) & RLHF \\
-NVIDIA Nemotron Nano & 30B (MoE) & RLHF \\
-Hermes 3 70B & 70B & SFT+DPO \\
+DeepSeek (V3, V4-Flash) & 671B (MoE) & RLHF \\
+Cohere Command-R & 35B & RLHF \\
+Zhipu GLM-4.7 & 9B & RLHF \\
+Google Gemini 2.5-Flash & — & RLHF \\
 Tencent Hy3 & 295B (MoE) & RLHF \\
+NVIDIA Nemotron Nano & 30B (MoE) & RLHF \\
 \bottomrule
 \end{tabular}
 \end{table}
