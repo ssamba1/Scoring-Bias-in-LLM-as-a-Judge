@@ -210,24 +210,33 @@ if os.path.exists(CK):
     done = set(cp.get("d", []))
     print(f"Resumed: {len(done)} models done")
 
-def call_model(mid, prompt):
+def call_model(mid, prompt, retries=3):
     global total_cost
-    try:
-        r = client.chat.completions.create(
-            model=mid,
-            messages=[{"role":"user","content":prompt}],
-            max_tokens=5,
-            temperature=0.0,
-            timeout=15,
-            stop=["\n", "###"]
-        )
-        out = r.choices[0].message.content.strip()
-        # Track cost
-        if hasattr(r, 'usage') and r.usage:
-            total_cost += (r.usage.prompt_tokens * 0.90e-6 + r.usage.completion_tokens * 0.90e-6)
-        return out
-    except Exception as e:
-        return None
+    for attempt in range(retries):
+        try:
+            r = client.chat.completions.create(
+                model=mid,
+                messages=[{"role":"user","content":prompt}],
+                max_tokens=5,
+                temperature=0.0,
+                timeout=30,
+                stop=["\n", "###"]
+            )
+            out = r.choices[0].message.content.strip()
+            if hasattr(r, 'usage') and r.usage:
+                total_cost += (r.usage.prompt_tokens * 0.90e-6 + r.usage.completion_tokens * 0.90e-6)
+            return out
+        except Exception as e:
+            err = str(e)
+            if "429" in err or "rate" in err.lower():
+                wait = min(2 ** attempt * 5, 60)  # 5, 10, 20, 40... max 60s
+                print(f"(R{attempt+1} sleep {wait}s)", end="", flush=True)
+                time.sleep(wait)
+            else:
+                if attempt < retries - 1:
+                    time.sleep(1)
+                else:
+                    return None
 
 for idx in range(0, len(MODELS), 2):
     base_name = MODELS[idx][1]
@@ -263,6 +272,7 @@ for idx in range(0, len(MODELS), 2):
                     text = call_model(mid, prompt)
                     score = extract_score(text or "3", vn)
                     scores.append(score)
+                    time.sleep(2)  # Stay under 20 RPM rate limit
                     if len(scores) % 10 == 0:
                         print(".", end="", flush=True)
                 rs[pt][vn] = scores
