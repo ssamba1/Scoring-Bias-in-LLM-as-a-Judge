@@ -57,7 +57,7 @@ We compare base and instruct variants across 3 model families (inference on Kagg
     \item \textbf{RQ4:} Do training methods (SFT, DPO, RLHF) modulate the effect?
 \end{enumerate}
 
-\paragraph{Novelty.} The question — whether scoring bias originates from pre-training or instruction tuning — was posed by Li et al. (DASFAA 2026) as an open problem. Our work provides initial experimental evidence toward an answer, and presents the largest open comparison of scoring bias across instructive models to date.
+\paragraph{Novelty.} The question — whether scoring bias originates from pre-training or instruction tuning — was posed by Li et al. (DASFAA 2026) as an open problem. Our work provides initial experimental evidence toward an answer, and presents the largest open comparison of scoring bias across instruct-tuned models to date.
 
 \paragraph{Our contributions:}
 \begin{enumerate}
@@ -139,7 +139,7 @@ NVIDIA Nemotron Nano & 30B (MoE) & RLHF \\
 \end{table}
 
 \subsection{Evaluation Items}
-We use 50 instruction-response pairs spanning 5 domains: science, technology, humanities, daily life, and mathematics (10 items per domain). The items were sampled from publicly available instruction-following evaluation sets (AlpacaEval, MT-Bench) and rewritten to be factual, mid-quality responses scoring approximately 3--4 out of 5. This ensures bias can be detected in either direction.
+We use 50 instruction-response pairs spanning 5 domains: science, technology, humanities, daily life, and mathematics (10 items per domain). The items were sampled from publicly available instruction-following evaluation sets~\cite{alpacaeval,zheng2023judging} and rewritten to be factual, mid-quality responses scoring approximately 3--4 out of 5. This ensures bias can be detected in either direction.
 
 \paragraph{Scoring prompt.} Each model receives the following prompt template:
 \begin{quote}\small
