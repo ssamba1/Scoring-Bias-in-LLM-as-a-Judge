@@ -15,8 +15,8 @@ from pathlib import Path
 import numpy as np
 
 MODELS = [
-    ("meta-llama/Llama-3.2-3B", "Llama-3.2-3B-base"),
-    ("meta-llama/Llama-3.2-3B-Instruct", "Llama-3.2-3B-instruct"),
+    ("google/gemma-2-2b", "Gemma-2-2B-base"),
+    ("google/gemma-2-2b-it", "Gemma-2-2B-instruct"),
 ]
 
 # Test scoring prompt
@@ -93,8 +93,8 @@ for model_id, name in MODELS:
     print(f"  Content attention: {results[name]['mean_content_attn']:.2f}%")
 
 # Compare base vs instruct
-base = results.get("Llama-3.2-3B-base")
-instruct = results.get("Llama-3.2-3B-instruct")
+base = results.get("Gemma-2-2B-base")
+instruct = results.get("Gemma-2-2B-instruct")
 if base and instruct:
     k_format = instruct["mean_format_attn"] / max(base["mean_format_attn"], 0.01)
     k_content = instruct["mean_content_attn"] / max(base["mean_content_attn"], 0.01)
