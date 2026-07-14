@@ -136,7 +136,6 @@ Mistral Nemo & 12B & SFT+DPO \\
 DeepSeek V3 & 671B (MoE) & RLHF \\
 NVIDIA Nemotron Nano & 30B (MoE) & RLHF \\
 Hermes 3 70B & 70B & SFT+DPO \\
-Zephyr 7B & 7B & DPO \\
 Tencent Hy3 & 295B (MoE) & RLHF \\
 \bottomrule
 \end{tabular}
@@ -178,7 +177,7 @@ We report four metrics following Li~et~al.~\cite{li2025scoring}:
 
 \subsection{Bias Landscape Across 22 Models}
 
-Table~\ref{tab:main} presents the main finding. Across 22 instruct-tuned models (this study, OpenRouter), we measure per-probe bias using Li et al.'s perturbation framework. The bias landscape shows that score ID (label format) has the largest average effect ($\Delta = 0.68$), while reference answer susceptibility is lowest ($\Delta = 0.41$).
+Table~\ref{tab:main} presents the bias landscape across 22 instruct-tuned models (this study, OpenRouter), measured using Li et al.'s perturbation framework. Score ID (label format) shows the largest average effect ($\Delta = 0.68$), while reference answer susceptibility is lowest ($\Delta = 0.41$).
 
 \begin{table}[h]
 \centering\small
