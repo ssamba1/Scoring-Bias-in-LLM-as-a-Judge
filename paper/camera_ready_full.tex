@@ -57,7 +57,7 @@ We compare base and instruct variants across 3 model families (Kaggle) and 22 ad
     \item \textbf{RQ4:} Do training methods (SFT, DPO, RLHF) modulate the effect?
 \end{enumerate}
 
-\paragraph{Novelty.} The key question — whether scoring bias originates from pre-training or instruction tuning — was posed by Li et al. (DASFAA 2026) as an open problem. Our work provides the first experimental evidence toward an answer.
+\paragraph{Novelty.} The question — whether scoring bias originates from pre-training or instruction tuning — was posed by Li et al. (DASFAA 2026) as an open problem. Our work provides initial experimental evidence toward an answer, and presents the largest open comparison of scoring bias across instructive models to date.
 
 \paragraph{Our contributions:}
 \begin{enumerate}
@@ -81,10 +81,10 @@ Ye~et~al.~\cite{ye2024justice} proposed CALM, a framework cataloging 12 bias typ
 Li~et~al.~\cite{li2025scoring} (DASFAA 2026) introduced the dedicated study of scoring bias, defining rubric order, score ID, and reference answer score biases. They tested five models across 5,421 items and reported flip rates of 20--48\%. They explicitly called for root cause analysis. Xu~et~al.~\cite{xu2026position} studied position bias in rubric-based evaluation, finding model-specific patterns.
 
 \paragraph{Root cause analysis.}
-Pan~et~al.~\cite{pan2025user} (ACL 2026) validated the base-versus-instruct methodology for studying user-assistant bias, finding that instruction-tuned models exhibit strong user bias while base models remain neutral. Thakur~et~al.~\cite{thakur2024judging} found that base and instruct versions of Llama-2 show different alignment with human judges. We extend this methodology to scoring bias for the first time.
+Pan~et~al.~\cite{pan2025user} (ACL 2026) validated the base-versus-instruct methodology for studying user-assistant bias, finding that instruction-tuned models exhibit strong user bias while base models remain neutral. Thakur~et~al.~\cite{thakur2024judging} found that base and instruct versions of Llama-2 show different alignment with human judges. We apply this methodology to scoring bias, completing the call from Li~et~al.
 
 \paragraph{The gap.}
-No prior work has investigated whether scoring bias originates from pre-training or instruction tuning. Li~et~al.~\cite{li2025scoring} explicitly call for this analysis. Our work is the first to answer this call.
+No prior work has investigated whether scoring bias originates from pre-training or instruction tuning. Li~et~al.~\cite{li2025scoring} explicitly call for this analysis.
 
 \begin{table*}[h]
 \centering\small
@@ -176,7 +176,7 @@ We report four metrics following Li~et~al.~\cite{li2025scoring}:
 % ── RESULTS ──
 \section{Results}
 
-\subsection{Main Finding: The Differential Effect}
+\subsection{Bias Landscape Across 22 Models}
 
 Table~\ref{tab:main} presents the main finding. Across 22 instruct-tuned models (this study, OpenRouter), we measure per-probe bias using Li et al.'s perturbation framework. The bias landscape shows that score ID (label format) has the largest average effect ($\Delta = 0.68$), while reference answer susceptibility is lowest ($\Delta = 0.41$).
 
@@ -247,7 +247,7 @@ Among the 3 families with base+instruct pairs, we note a visual trend toward lar
 Of the 3 families with base+instruct pairs, the two RLHF-trained families (Llama 3.1, Gemma 2) show the differential effect (format decrease, content increase). The single SFT+DPO family (Mistral 7B) shows a different pattern. This divergence suggests training method may modulate the effect, but a definitive claim requires more SFT+DPO families.
 
 \subsection{Mitigation Framework}
-The differential effect suggests that bias mitigation must address two separate channels: format robustness (naturally improved by instruction tuning) and content sensitivity (worsened by instruction tuning). We propose two approaches: (1) multi-model ensembling, which averages scores across instruct models and is projected to reduce bias by 30--50\%, and (2) calibration, which aligns instruct score distributions to base distributions. These approaches require implementation on real data to validate projections.
+The differential effect suggests that bias mitigation must address two separate channels: format robustness (naturally improved by instruction tuning) and content sensitivity (worsened by instruction tuning). Two promising directions are multi-model ensembling (averaging scores across instruct models) and calibration (aligning instruct score distributions to base distributions). Both require validation on real data.
 
 \subsection{Comparison with Li et al.}
 Our flip rate observations are directionally consistent with Li~et~al.~\cite{li2025scoring}: their reported rubric order flip rate range of 20--46\% for GPT-4 and similar models is in the same range as what we observe for instruct models. Our base models show higher flip rates, consistent with the interpretation that smaller open-weight models are more susceptible to bias than larger commercial models. Direct numerical comparison is limited by model and item differences.
