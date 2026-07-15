@@ -130,3 +130,5 @@ print(missing[missing > 0] if missing.any() else "  No missing values found.")
 
 # %%
 print("Data overview complete.")
+
+# Quick start: run this notebook to explore the dataset
