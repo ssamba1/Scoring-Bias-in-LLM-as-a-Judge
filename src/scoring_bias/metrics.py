@@ -1,5 +1,5 @@
 """
-Statistical metrics for scoring-bias analysis.
+Statistical metrics for scoring bias analysis.
 
 Provides Cohen's d, pooled standard deviation, mean absolute deviation,
 and effect size interpretation utilities.
