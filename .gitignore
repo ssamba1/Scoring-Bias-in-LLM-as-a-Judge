@@ -1,92 +1,89 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.egg-info/
-*.egg
-dist/
-build/
-.eggs/
-*.so
-.pytest_cache/
 
-# Temporary helper / check scripts
-_check_syntax.py
-_validate.py
-check_braces.py
-.env
-.venv
-venv/
-env/
-
+# Cache & large model weights
+# Data artifacts
+# IDE
+# Jupyter
+# Jupyter
 # LaTeX
-*.aux
-*.log
-*.out
-*.toc
-*.bbl
-*.blg
-*.lof
-*.lot
-*.synctex.gz
-*.fls
-*.fdb_latexmk
-*.nav
-*.snm
-*.vrb
-*.run.xml
-*-blx.bib
-*.bcf
+# OS
+# Python
+# Temporary helper / check scripts
+*$py.class
+**/.cache/** 
+**/huggingface/**
 *.acn
 *.acr
 *.alg
+*.aux
+*.bbl
+*.bcf
+*.bin
+*.blg
+*.ckpt
+*.egg
+*.egg-info/
+*.fdb_latexmk
+*.fls
 *.glg
 *.glo
 *.gls
+*.ipynb_*
 *.ist
+*.lof
+*.log
+*.lot
 *.maf
 *.mtc
 *.mtc0
-*.slg
-*.syg
-*.syf
-*.synctex(busy)
+*.nav
+*.out
 *.pdfsync
-
-# OS
+*.pth
+*.py[cod]
+*.run.xml
+*.safetensors
+*.slg
+*.snm
+*.so
+*.swo
+*.swp
+*.syf
+*.syg
+*.synctex(busy)
+*.synctex.gz
+*.toc
+*.vrb
+*~
+*-blx.bib
+.DS_Store
 .DS_Store
 .DS_Store?
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-Desktop.ini
-
-# IDE
-.vscode/
+.eggs/
+.env
 .idea/
-*.swp
-*.swo
-*~
+.ipynb_checkpoints/
 .project
 .pydevproject
+.pytest_cache/
 .settings/
-
-# Data artifacts
+.Spotlight-V100
+.Trashes
+.venv
+.vscode/
+__pycache__/
+__pycache__/
+_check_syntax.py
+_validate.py
+build/
+check_braces.py
+checkpoint.json
+ckpt.json
+Desktop.ini
+dist/
+ehthumbs.db
+env/
 results/bias_interaction_synthetic_v2.csv
 results/corrected_*.csv
 results_rootcause/*.csv
-checkpoint.json
-ckpt.json
-*.ckpt
-*.bin
-*.pth
-
-# Cache & large model weights
-**/.cache/** 
-**/huggingface/**
-*.safetensors
-
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb_*
+Thumbs.db
+venv/
