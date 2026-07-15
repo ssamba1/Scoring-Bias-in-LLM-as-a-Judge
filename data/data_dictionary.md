@@ -349,3 +349,7 @@ Groups: `t4fam_base`, `t4fam_instruct`, `study1_22`.
 | `per_model_metrics.{model}.cv` | float | [0.0, ∞) | Coefficient of variation |
 | `per_model_metrics.{model}.max_min_delta` | float | [0.0, 4.0] | Max-min range |
 | `per_model_metrics.{model}.n_variants` | int | [6, 9] | Number of probe variants tested |
+
+### Changelog
+
+- Initial release with 40,500+ judgments across 31 model variants
