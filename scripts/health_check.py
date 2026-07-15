@@ -222,3 +222,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+# Config validation helper
+def validate_config(): pass
