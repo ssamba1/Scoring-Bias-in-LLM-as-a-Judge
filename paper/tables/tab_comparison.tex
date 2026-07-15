@@ -1,0 +1,18 @@
+% tab_comparison.tex — Comparison with Li et al. (2025)
+\begin{table}[h]
+\centering\small
+\caption{Flip rate comparison: our results vs Li et al. (2025).
+Li et al. tested 5 commercial instruction-tuned models (GPT-4o, DeepSeek-V3-671B, etc.)
+at DASFAA 2026. Our base models show higher flip rates (smaller open-weight models).
+Our instruct model flip rates are within or near the Li et al. ranges.}
+\label{tab:comparison}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Probe} & \textbf{Li et al. Range} & \textbf{Our Base FR} & \textbf{Our Instruct FR} \\
+\midrule
+Rubric Order & 20--46\% & 64\% & 49\% \\
+Score ID & 15--30\% & 44\% & 20\% \\
+Reference Answer & 35--48\% & 33\% & 40\% \\
+\bottomrule
+\end{tabular}
+\end{table}

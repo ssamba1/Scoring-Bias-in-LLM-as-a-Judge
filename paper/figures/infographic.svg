@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 2000" width="800" height="2000">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a18"/>
+      <stop offset="50%" style="stop-color:#12122a"/>
+      <stop offset="100%" style="stop-color:#0a0a18"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" style="stop-color:#3182ce"/>
+      <stop offset="100%" style="stop-color:#805ad5"/>
+    </linearGradient>
+    <linearGradient id="green-bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#48bb78"/>
+      <stop offset="100%" style="stop-color:#276749"/>
+    </linearGradient>
+    <linearGradient id="red-bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#fc8181"/>
+      <stop offset="100%" style="stop-color:#9b2c2c"/>
+    </linearGradient>
+    <linearGradient id="blue-bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#63b3ed"/>
+      <stop offset="100%" style="stop-color:#3182ce"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="2000" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.02">
+    <line x1="0" y1="200" x2="800" y2="200" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="800" y2="400" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="600" x2="800" y2="600" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="800" x2="800" y2="800" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="1000" x2="800" y2="1000" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="1200" x2="800" y2="1200" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="1400" x2="800" y2="1400" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="1600" x2="800" y2="1600" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="1800" x2="800" y2="1800" stroke="#fff" stroke-width="0.5"/>
+  </g>
+
+  <!-- ════════════ TOP SECTION: HEADER ════════════ -->
+  <rect x="50" y="40" width="700" height="200" rx="16" fill="url(#accent)" opacity="0.1" filter="url(#shadow)"/>
+  <rect x="50" y="40" width="6" height="200" rx="3" fill="url(#accent)"/>
+
+  <text x="400" y="95" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="700" fill="#e2e8f0">Scoring Bias in</text>
+  <text x="400" y="130" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="700" fill="#e2e8f0">LLM-as-a-Judge Models</text>
+  <text x="400" y="165" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" fill="#a0aec0">A Base vs Instruct Comparison · 31 Model Variants</text>
+  <text x="400" y="190" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="#718096">Sricharan Samba · arXiv 2026</text>
+
+  <!-- ════════════ STATS ROW ════════════ -->
+  <rect x="50" y="270" width="155" height="90" rx="10" fill="#2d3748" opacity="0.6" filter="url(#shadow)"/>
+  <text x="127" y="305" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="700" fill="#63b3ed">31</text>
+  <text x="127" y="328" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Model Variants</text>
+
+  <rect x="225" y="270" width="155" height="90" rx="10" fill="#2d3748" opacity="0.6" filter="url(#shadow)"/>
+  <text x="302" y="305" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="700" fill="#48bb78">54K</text>
+  <text x="302" y="328" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Total Judgments</text>
+
+  <rect x="400" y="270" width="155" height="90" rx="10" fill="#2d3748" opacity="0.6" filter="url(#shadow)"/>
+  <text x="477" y="305" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="700" fill="#f6ad55">15</text>
+  <text x="477" y="328" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Model Families</text>
+
+  <rect x="575" y="270" width="175" height="90" rx="10" fill="#2d3748" opacity="0.6" filter="url(#shadow)"/>
+  <text x="662" y="305" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="700" fill="#fc8181">3</text>
+  <text x="662" y="328" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Bias Probes</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="395" x2="700" y2="395" stroke="#3182ce" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ════════════ THREE PROBES ════════════ -->
+  <text x="400" y="435" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Three Scoring Bias Probes</text>
+  <text x="400" y="458" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#718096">Following the perturbation framework of Li et al. (DASFAA 2026)</text>
+
+  <!-- Probe 1 -->
+  <rect x="50" y="475" width="700" height="65" rx="8" fill="#22543d" opacity="0.15" stroke="#48bb78" stroke-width="1"/>
+  <circle cx="80" cy="507" r="14" fill="#48bb78"/>
+  <text x="80" y="512" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#fff">1</text>
+  <text x="110" y="500" font-family="system-ui,-apple-system,sans-serif" font-size="15" font-weight="600" fill="#68d391">Rubric Order</text>
+  <text x="110" y="520" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Control (1=worst, 5=best) → Reversed (1=best, 5=worst) → Random labels</text>
+  <text x="620" y="510" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#48bb78">Δ = 0.56</text>
+
+  <!-- Probe 2 -->
+  <rect x="50" y="550" width="700" height="65" rx="8" fill="#2b6cb0" opacity="0.15" stroke="#63b3ed" stroke-width="1"/>
+  <circle cx="80" cy="582" r="14" fill="#63b3ed"/>
+  <text x="80" y="587" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#fff">2</text>
+  <text x="110" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="15" font-weight="600" fill="#63b3ed">Score ID</text>
+  <text x="110" y="595" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Numeric (1–5) → Letter (A–E) → Descriptive (Poor–Excellent)</text>
+  <text x="620" y="585" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#63b3ed">Δ = 0.68</text>
+
+  <!-- Probe 3 -->
+  <rect x="50" y="625" width="700" height="65" rx="8" fill="#9b2c2c" opacity="0.15" stroke="#fc8181" stroke-width="1"/>
+  <circle cx="80" cy="657" r="14" fill="#fc8181"/>
+  <text x="80" y="662" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#fff">3</text>
+  <text x="110" y="650" font-family="system-ui,-apple-system,sans-serif" font-size="15" font-weight="600" fill="#fc8181">Reference Answer</text>
+  <text x="110" y="670" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">No exemplar → Good exemplar → Poor exemplar shown before scoring</text>
+  <text x="620" y="660" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#fc8181">Δ = 0.41</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="725" x2="700" y2="725" stroke="#3182ce" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ════════════ CORE FINDING ════════════ -->
+  <text x="400" y="770" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Core Finding: The Differential Effect</text>
+
+  <rect x="50" y="790" width="700" height="160" rx="12" fill="#2d3748" opacity="0.4" filter="url(#shadow)"/>
+
+  <!-- Format ↓ -->
+  <rect x="80" y="810" width="300" height="120" rx="8" fill="#22543d" opacity="0.3" stroke="#48bb78" stroke-width="1.5"/>
+  <text x="230" y="840" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="700" fill="#68d391">Format Bias ↓</text>
+  <text x="230" y="862" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Instruct < Base</text>
+  <line x1="110" y1="880" x2="350" y2="880" stroke="#48bb78" stroke-width="0.5" opacity="0.3"/>
+  <text x="230" y="898" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#9ae6b4">Rubric Order: −44% (Δ 0.69 → 0.29)</text>
+  <text x="230" y="916" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#9ae6b4">Score ID: −77% (Δ 2.41 → 1.44)</text>
+
+  <!-- Arrow -->
+  <line x1="390" y1="870" x2="410" y2="870" stroke="#a0aec0" stroke-width="2" stroke-dasharray="4,2"/>
+  <polygon points="415,865 425,870 415,875" fill="#a0aec0"/>
+
+  <!-- Content ↑ -->
+  <rect x="420" y="810" width="300" height="120" rx="8" fill="#9b2c2c" opacity="0.3" stroke="#fc8181" stroke-width="1.5"/>
+  <text x="570" y="840" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="700" fill="#fc8181">Content Bias ↑</text>
+  <text x="570" y="862" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Scale-dependent</text>
+  <line x1="450" y1="880" x2="690" y2="880" stroke="#fc8181" stroke-width="0.5" opacity="0.3"/>
+  <text x="570" y="898" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#fed7d7">≤1.5B models: −0.73 (decreases)</text>
+  <text x="570" y="916" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#fed7d7">3B+ RLHF models: +1.58 (increases)</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="985" x2="700" y2="985" stroke="#3182ce" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ════════════ SCALE DEPENDENCE ════════════ -->
+  <text x="400" y="1025" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Scale-Dependent Pattern</text>
+
+  <!-- ≤1.5B card -->
+  <rect x="50" y="1045" width="215" height="130" rx="10" fill="#2d3748" opacity="0.5" filter="url(#shadow)"/>
+  <rect x="50" y="1045" width="215" height="4" rx="2" fill="#48bb78"/>
+  <text x="157" y="1080" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="#48bb78">≤ 1.5B Parameters</text>
+  <text x="157" y="1100" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">StableLM-2, Llama-3.2-1B,</text>
+  <text x="157" y="1118" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Qwen2.5-0.5B, etc.</text>
+  <text x="157" y="1150" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#68d391">Format ↓ · Content ↓</text>
+
+  <!-- 2-7B card -->
+  <rect x="292" y="1045" width="215" height="130" rx="10" fill="#2d3748" opacity="0.5" filter="url(#shadow)"/>
+  <rect x="292" y="1045" width="215" height="4" rx="2" fill="#f6ad55"/>
+  <text x="400" y="1080" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="#f6ad55">2B – 7B Parameters</text>
+  <text x="400" y="1100" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Gemma-2, Mistral-7B,</text>
+  <text x="400" y="1118" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Qwen2.5-7B, etc.</text>
+  <text x="400" y="1150" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#f6ad55">Format ↓ · Content ↓</text>
+
+  <!-- 8B+ card -->
+  <rect x="535" y="1045" width="215" height="130" rx="10" fill="#2d3748" opacity="0.5" filter="url(#shadow)"/>
+  <rect x="535" y="1045" width="215" height="4" rx="2" fill="#fc8181"/>
+  <text x="642" y="1080" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="#fc8181">8B+ Parameters</text>
+  <text x="642" y="1100" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Llama-3.1-8B, DeepSeek-V3,</text>
+  <text x="642" y="1118" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Qwen2.5-72B, etc.</text>
+  <text x="642" y="1150" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#fc8181">Format ↓ · Content ↑</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="1210" x2="700" y2="1210" stroke="#3182ce" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ════════════ TRAINING MODULATION ════════════ -->
+  <text x="400" y="1250" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Training Method Modulation</text>
+
+  <rect x="50" y="1270" width="700" height="100" rx="10" fill="#2d3748" opacity="0.4" filter="url(#shadow)"/>
+
+  <rect x="75" y="1285" width="200" height="70" rx="6" fill="#2b6cb0" opacity="0.3" stroke="#63b3ed" stroke-width="1"/>
+  <text x="175" y="1310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#63b3ed">7 RLHF Families</text>
+  <text x="175" y="1330" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Llama, Qwen, Gemma,</text>
+  <text x="175" y="1346" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">DeepSeek, Cohere, etc.</text>
+
+  <rect x="300" y="1285" width="200" height="70" rx="6" fill="#9b2c2c" opacity="0.3" stroke="#fc8181" stroke-width="1"/>
+  <text x="400" y="1310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#fc8181">1 SFT+DPO Family</text>
+  <text x="400" y="1330" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Mistral 7B</text>
+  <text x="400" y="1346" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Different pattern</text>
+
+  <rect x="525" y="1285" width="200" height="70" rx="6" fill="#9b2c2c" opacity="0.3" stroke="#fc8181" stroke-width="1"/>
+  <text x="625" y="1310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#fc8181">1 SFT-only Family</text>
+  <text x="625" y="1330" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">StableLM 2</text>
+  <text x="625" y="1346" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Different pattern</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="1405" x2="700" y2="1405" stroke="#3182ce" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- ════════════ TOP MODELS ════════════ -->
+  <text x="400" y="1445" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Model Bias Landscape Highlights</text>
+
+  <rect x="50" y="1465" width="700" height="160" rx="10" fill="#2d3748" opacity="0.3" filter="url(#shadow)"/>
+
+  <!-- Lowest bias -->
+  <rect x="75" y="1480" width="320" height="60" rx="6" fill="#22543d" opacity="0.3" stroke="#48bb78" stroke-width="1"/>
+  <text x="235" y="1502" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#68d391">🏆 Lowest Overall Bias</text>
+  <text x="235" y="1522" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Qwen3-14B (Δ = 0.07) · GPT-OSS-20B (Δ = 0.10)</text>
+
+  <!-- Highest bias -->
+  <rect x="415" y="1480" width="310" height="60" rx="6" fill="#9b2c2c" opacity="0.3" stroke="#fc8181" stroke-width="1"/>
+  <text x="570" y="1502" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#fc8181">⚠️ Highest Bias</text>
+  <text x="570" y="1522" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Hermes-3-70B (Δ = 1.03) · MythoMax-13B</text>
+
+  <text x="400" y="1570" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#718096">Full per-model results available at github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge</text>
+
+  <!-- ════════════ STATISTICAL EVIDENCE ════════════ -->
+  <line x1="100" y1="1605" x2="700" y2="1605" stroke="#3182ce" stroke-width="0.5" opacity="0.3"/>
+  <text x="400" y="1645" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Statistical Evidence</text>
+
+  <rect x="50" y="1665" width="700" height="100" rx="10" fill="#2d3748" opacity="0.4" filter="url(#shadow)"/>
+
+  <rect x="75" y="1680" width="200" height="70" rx="6" fill="#2b6cb0" opacity="0.2" stroke="#63b3ed" stroke-width="1"/>
+  <text x="175" y="1705" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#63b3ed">BF₁₀ &gt; 10,000</text>
+  <text x="175" y="1725" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">22-model landscape</text>
+  <text x="175" y="1740" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">Overwhelming evidence</text>
+
+  <rect x="300" y="1680" width="200" height="70" rx="6" fill="#22543d" opacity="0.2" stroke="#48bb78" stroke-width="1"/>
+  <text x="400" y="1705" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#48bb78">Cohen's d: 1.20–2.38</text>
+  <text x="400" y="1725" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">Large effect sizes</text>
+  <text x="400" y="1740" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">Paired t-tests</text>
+
+  <rect x="525" y="1680" width="200" height="70" rx="6" fill="#9b2c2c" opacity="0.2" stroke="#fc8181" stroke-width="1"/>
+  <text x="625" y="1705" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="700" fill="#fc8181">N ≥ 12 needed</text>
+  <text x="625" y="1725" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">For 80% power at α=0.05</text>
+  <text x="625" y="1740" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">Current N=9 families</text>
+
+  <!-- ════════════ MECHANISTIC HYPOTHESES ════════════ -->
+  <line x1="100" y1="1800" x2="700" y2="1800" stroke="#3182ce" stroke-width="0.5" opacity="0.3"/>
+  <text x="400" y="1840" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="#e2e8f0">Mechanistic Hypotheses</text>
+
+  <rect x="50" y="1860" width="700" height="80" rx="10" fill="#2d3748" opacity="0.4" filter="url(#shadow)"/>
+  <rect x="75" y="1875" width="310" height="50" rx="6" fill="#2b6cb0" opacity="0.15" stroke="#63b3ed" stroke-width="1"/>
+  <text x="230" y="1897" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#63b3ed">IIAR Hypothesis (not supported)</text>
+  <text x="230" y="1915" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">Instruction-Induced Attention Redistribution</text>
+
+  <rect x="405" y="1875" width="320" height="50" rx="6" fill="#22543d" opacity="0.15" stroke="#48bb78" stroke-width="1"/>
+  <text x="565" y="1897" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#68d391">Format Efficiency Hypothesis ✓</text>
+  <text x="565" y="1915" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#a0aec0">Format attention: 23.7% → 20.8% after tuning</text>
+
+  <!-- Footer -->
+  <rect x="50" y="1960" width="700" height="30" rx="6" fill="#1a202c"/>
+  <text x="400" y="1979" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#718096">
+    github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge · arXiv:2607.xxxxx · CC-BY 4.0
+  </text>
+</svg>

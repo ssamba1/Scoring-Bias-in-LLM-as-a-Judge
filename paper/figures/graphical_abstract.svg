@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f1a"/>
+      <stop offset="100%" style="stop-color:#1a1a30"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#48bb78"/>
+      <stop offset="100%" style="stop-color:#38a169"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#4299e1"/>
+      <stop offset="100%" style="stop-color:#3182ce"/>
+    </linearGradient>
+    <linearGradient id="bar3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" style="stop-color:#f6ad55"/>
+      <stop offset="100%" style="stop-color:#ed8936"/>
+    </linearGradient>
+    <linearGradient id="arrow-green" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" style="stop-color:#48bb78"/>
+      <stop offset="100%" style="stop-color:#68d391"/>
+    </linearGradient>
+    <linearGradient id="arrow-red" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" style="stop-color:#fc8181"/>
+      <stop offset="100%" style="stop-color:#f56565"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Grid subtle pattern -->
+  <g opacity="0.03">
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="#fff" stroke-width="0.5"/>
+    <line x1="0" y1="500" x2="1200" y2="500" stroke="#fff" stroke-width="0.5"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="52" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="28" font-weight="700" fill="#e2e8f0">Where Does Scoring Bias Come From?</text>
+  <text x="600" y="78" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="15" fill="#718096">A Base vs Instruct Comparison Across 31 Model Variants</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="95" x2="1100" y2="95" stroke="#2d3748" stroke-width="1"/>
+
+  <!-- SECTION 1: Three Probes -->
+  <text x="600" y="122" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="#a0aec0" letter-spacing="3">THREE SCORING BIAS PROBES</text>
+
+  <!-- Probe 1: Rubric Order -->
+  <rect x="60" y="135" width="230" height="80" rx="8" fill="#2d3748" opacity="0.6" filter="url(#shadow)"/>
+  <circle cx="85" cy="160" r="10" fill="#48bb78" opacity="0.8"/>
+  <text x="85" y="164" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" fill="#fff">1</text>
+  <text x="105" y="164" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">Rubric Order</text>
+  <text x="75" y="185" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">Control vs reversed scale</text>
+  <text x="75" y="200" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">Mean Δ = 0.56</text>
+
+  <!-- Probe 2: Score ID -->
+  <rect x="310" y="135" width="230" height="80" rx="8" fill="#2d3748" opacity="0.6" filter="url(#shadow)"/>
+  <circle cx="335" cy="160" r="10" fill="#4299e1" opacity="0.8"/>
+  <text x="335" y="164" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" fill="#fff">2</text>
+  <text x="355" y="164" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">Score ID</text>
+  <text x="325" y="185" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">Numeric vs letter vs descriptive</text>
+  <text x="325" y="200" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">Mean Δ = 0.68 (largest)</text>
+
+  <!-- Probe 3: Reference Answer -->
+  <rect x="560" y="135" width="230" height="80" rx="8" fill="#2d3748" opacity="0.6" filter="url(#shadow)"/>
+  <circle cx="585" cy="160" r="10" fill="#f6ad55" opacity="0.8"/>
+  <text x="585" y="164" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" fill="#fff">3</text>
+  <text x="605" y="164" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">Reference Answer</text>
+  <text x="575" y="185" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">No exemplar vs good vs poor</text>
+  <text x="575" y="200" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">Mean Δ = 0.41</text>
+
+  <!-- Results label -->
+  <rect x="810" y="135" width="330" height="80" rx="8" fill="#2b6cb0" opacity="0.15" stroke="#3182ce" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="975" y="158" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#63b3ed">54,000+ total judgments</text>
+  <text x="975" y="176" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#63b3ed">9 base-instruct pairs · 22 instruct models</text>
+  <text x="975" y="194" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#63b3ed">15 model families · 50 items · 5 domains</text>
+
+  <!-- SECTION 2: Instruction Tuning Effect -->
+  <line x1="100" y1="240" x2="1100" y2="240" stroke="#2d3748" stroke-width="1"/>
+  <text x="600" y="265" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="#a0aec0" letter-spacing="3">INSTRUCTION TUNING EFFECT</text>
+
+  <!-- Left column: Format Bias ↓ -->
+  <rect x="100" y="280" width="440" height="150" rx="10" fill="#22543d" opacity="0.2" stroke="#48bb78" stroke-width="1.5"/>
+  <text x="320" y="310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="700" fill="#68d391">Format Bias ↓ Decreases</text>
+  <text x="320" y="330" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#9ae6b4">After instruction tuning</text>
+
+  <!-- Bar chart: format bias decrease -->
+  <rect x="140" y="348" width="100" height="18" rx="3" fill="#e53e3e" opacity="0.5"/>
+  <text x="145" y="362" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#fc8181">Base: Δ=0.69</text>
+  <rect x="250" y="348" width="60" height="18" rx="3" fill="#48bb78"/>
+  <text x="255" y="362" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#e2e8f0">Instruct: Δ=0.29</text>
+
+  <rect x="140" y="372" width="190" height="18" rx="3" fill="#e53e3e" opacity="0.5"/>
+  <text x="145" y="386" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#fc8181">Score ID: Base Δ=2.41</text>
+  <rect x="340" y="372" width="130" height="18" rx="3" fill="#48bb78"/>
+  <text x="345" y="386" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#e2e8f0">Instruct: Δ=1.44</text>
+
+  <text x="320" y="418" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#68d391">▼ Mean reduction: −0.42 to −0.72 across 7/9 families</text>
+
+  <!-- Right column: Content Bias ↑ -->
+  <rect x="600" y="280" width="500" height="150" rx="10" fill="#9b2c2c" opacity="0.15" stroke="#fc8181" stroke-width="1.5"/>
+  <text x="850" y="310" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="700" fill="#fc8181">Content Bias ↑ Scale-Dependent</text>
+  <text x="850" y="330" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#feb2b2">Increases only in larger models</text>
+
+  <!-- Two groups: ≤1.5B vs 3B+ -->
+  <rect x="630" y="348" width="200" height="18" rx="3" fill="#48bb78"/>
+  <text x="635" y="362" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#e2e8f0">≤1.5B: −0.73 (decreases)</text>
+
+  <rect x="630" y="372" width="200" height="18" rx="3" fill="#fc8181"/>
+  <text x="635" y="386" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#fff">3B+ RLHF: +1.58 (increases)</text>
+
+  <text x="850" y="418" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#feb2b2">Format ↓ consistent across scales; Content ↑ only in 3B+ RLHF models</text>
+
+  <!-- SECTION 3: Key Numbers -->
+  <line x1="100" y1="455" x2="1100" y2="455" stroke="#2d3748" stroke-width="1"/>
+  <text x="600" y="480" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="#a0aec0" letter-spacing="3">KEY FINDINGS</text>
+
+  <!-- Numbers row -->
+  <rect x="100" y="495" width="180" height="80" rx="8" fill="#2d3748" opacity="0.5"/>
+  <text x="190" y="525" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="24" font-weight="700" fill="#48bb78">-44%</text>
+  <text x="190" y="548" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Rubric Order Reduction</text>
+  <text x="190" y="565" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9" fill="#718096">after instruction tuning</text>
+
+  <rect x="310" y="495" width="180" height="80" rx="8" fill="#2d3748" opacity="0.5"/>
+  <text x="400" y="525" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="24" font-weight="700" fill="#48bb78">-77%</text>
+  <text x="400" y="548" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Score ID Reduction</text>
+  <text x="400" y="565" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9" fill="#718096">after instruction tuning</text>
+
+  <rect x="520" y="495" width="180" height="80" rx="8" fill="#2d3748" opacity="0.5"/>
+  <text x="610" y="525" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="24" font-weight="700" fill="#fc8181">+35%</text>
+  <text x="610" y="548" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#a0aec0">Content Bias Increase</text>
+  <text x="610" y="565" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9" fill="#718096">in 3B+ RLHF models only</text>
+
+  <rect x="730" y="495" width="370" height="80" rx="8" fill="#2b6cb0" opacity="0.1" stroke="#3182ce" stroke-width="1"/>
+  <text x="915" y="520" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#63b3ed">Conclusion: Scoring bias is modulated by</text>
+  <text x="915" y="538" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#63b3ed">instruction tuning — not inherent to pre-training</text>
+  <text x="915" y="558" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">Mitigation must target the alignment stage</text>
+</svg>

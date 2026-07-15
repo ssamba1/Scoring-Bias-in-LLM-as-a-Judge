@@ -1,0 +1,27 @@
+% tab_bootstrapped.tex — Bootstrapped confidence intervals
+\begin{table}[h]
+\centering\small
+\caption{95\% bootstrapped confidence intervals for mean $\Delta$.
+Percentile bootstrap with bias-corrected acceleration, 10,000 resamples.}
+\label{tab:bootstrapped}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Group} & \textbf{Probe} & \textbf{Mean $\Delta$} & \textbf{95\% CI Lower} & \textbf{95\% CI Upper} \\
+\midrule
+\multirow{3}{*}{T4 Base (n=7)}
+ & Rubric Order & 0.69 & 0.11 & 1.67 \\
+ & Score ID & 2.41 & 1.79 & 3.04 \\
+ & Reference Answer & 2.76 & 2.43 & 3.16 \\
+\midrule
+\multirow{3}{*}{T4 Instruct (n=7)}
+ & Rubric Order & 0.29 & 0.13 & 0.49 \\
+ & Score ID & 1.44 & 0.79 & 2.07 \\
+ & Reference Answer & 1.93 & 1.31 & 2.60 \\
+\midrule
+\multirow{3}{*}{Study 1 -- 22 Models}
+ & Rubric Order & 0.56 & 0.40 & 0.74 \\
+ & Score ID & 0.68 & 0.49 & 0.89 \\
+ & Reference Answer & 0.41 & 0.29 & 0.54 \\
+\bottomrule
+\end{tabular}
+\end{table}

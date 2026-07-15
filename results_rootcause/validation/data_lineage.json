@@ -1,0 +1,217 @@
+{
+  "report_type": "DATA LINEAGE REPORT",
+  "timestamp": "2026-07-14T23:45:24.308444",
+  "files_and_their_origins": {
+    "t4fam_results.json": {
+      "generated_by": "results_rootcause/archive/analyze_study1.py or similar from Kaggle/browser study",
+      "description": "Scoring bias scores for 7 model families (base + instruct) across 3 probes with conditions",
+      "models": "14 models from 7 families",
+      "dependent_files": [
+        "analysis_output/t4fam_deltas.json"
+      ]
+    },
+    "study1_results.json": {
+      "generated_by": "archive/build_results_from_print.py or analyze_study1.py",
+      "description": "Scoring bias scores for 21 models across 3 probes with conditions (including 'random' for rubric_order)",
+      "models": "21 models",
+      "dependent_files": [
+        "rootcause_analysis.json",
+        "full_metrics.json",
+        "analysis_output/*.json"
+      ]
+    },
+    "study1_max_scale.json": {
+      "identical_to": "study1_results.json",
+      "description": "Identical to study1_results.json (confirmed by validation)"
+    },
+    "rootcause_analysis.json": {
+      "generated_by": "comprehensive_analysis.py or dedicated script",
+      "description": "Summary bias metrics for 3 model families (base/instruct)"
+    },
+    "rootcause_results.json": {
+      "description": "Raw per-item scores (1-5 scale) for 3 model families"
+    },
+    "full_metrics.json": {
+      "generated_by": "archive/compute_metrics.py or comprehensive_analysis.py",
+      "description": "MAD, Cohen's d, flip rates comparing base vs instruct models"
+    }
+  },
+  "analysis_output_origins": {
+    "analysis_output/t4fam_deltas.json": {
+      "depends_on": "t4fam_results.json"
+    },
+    "analysis_output/size_correlation.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/score_distributions.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/probe_correlations.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/robustness_metrics.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/power_analysis.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/per_item_analysis.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/model_ranking.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/variance_decomposition.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/cohens_d.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/bootstrapped_cis.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/wilcoxon_results.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/training_method_analysis.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/finding_stability.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/bayesian_results.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/domain_analysis.json": {
+      "depends_on": "study1_results.json"
+    },
+    "analysis_output/consensus_analysis.json": {
+      "depends_on": "study1_results.json"
+    }
+  },
+  "available_scripts": {
+    "bayesian_no_pymc.py": "2026-07-14T23:40:02.351381",
+    "comprehensive_analysis.py": "2026-07-14T23:40:02.351381",
+    "cross_probe_analysis.py": "2026-07-14T23:40:02.352382",
+    "deep_analysis.py": "2026-07-14T23:40:02.353915",
+    "domain_analysis.py": "2026-07-14T23:40:02.354922",
+    "model_ranking_analysis.py": "2026-07-14T23:40:02.356921",
+    "variance_decomposition.py": "2026-07-14T23:40:02.365545",
+    "__init__.py": "2026-07-14T23:40:02.318463",
+    "archive\\add_flip_rate.py": "2026-07-14T23:40:02.334534",
+    "archive\\analyze_attention.py": "2026-07-14T23:40:02.336040",
+    "archive\\analyze_study1.py": "2026-07-14T23:40:02.336040",
+    "archive\\attention_analysis_3b.py": "2026-07-14T23:40:02.337048",
+    "archive\\attention_analysis_kaggle.py": "2026-07-14T23:40:02.337048",
+    "archive\\bayesian_analysis.py": "2026-07-14T23:40:02.338552",
+    "archive\\build_results_from_print.py": "2026-07-14T23:40:02.338552",
+    "archive\\build_t4fam_from_output.py": "2026-07-14T23:40:02.339558",
+    "archive\\causal_analysis.py": "2026-07-14T23:40:02.339558",
+    "archive\\ceiling_analyses.py": "2026-07-14T23:40:02.340656",
+    "archive\\compute_metrics.py": "2026-07-14T23:40:02.340656",
+    "archive\\depth_analysis.py": "2026-07-14T23:40:02.341656",
+    "archive\\depth_findings.py": "2026-07-14T23:40:02.341656",
+    "archive\\final_summary.py": "2026-07-14T23:40:02.342656",
+    "archive\\fix_study1.py": "2026-07-14T23:40:02.342656",
+    "archive\\human_baseline_analysis.py": "2026-07-14T23:40:02.344164",
+    "archive\\item_analysis_framework.py": "2026-07-14T23:40:02.344164",
+    "archive\\kaggle_analysis.py": "2026-07-14T23:40:02.345172",
+    "archive\\mixed_effects_template.py": "2026-07-14T23:40:02.346181",
+    "archive\\peer_review_defense.py": "2026-07-14T23:40:02.346181",
+    "archive\\postprocess_max_scale.py": "2026-07-14T23:40:02.347179",
+    "archive\\prompt_ablation.py": "2026-07-14T23:40:02.348180",
+    "archive\\quantify_limitations.py": "2026-07-14T23:40:02.348180",
+    "archive\\quick_analysis.py": "2026-07-14T23:40:02.349180",
+    "archive\\run_all_analyses.py": "2026-07-14T23:40:02.349180",
+    "validation\\run_all_validation.py": "2026-07-14T23:45:21.044330"
+  },
+  "pipeline_steps": [
+    "1. RAW DATA COLLECTION: Kaggle notebook / browser evaluation sessions -> per-model scores",
+    "2. PRIMARY DATA FILES: t4fam_results.json (family study), study1_results.json (main study)",
+    "3. DERIVED METRICS: t4fam_deltas.json, rootcause_analysis.json, full_metrics.json",
+    "4. DOWNSTREAM ANALYSES: 25+ analysis output files in analysis_output/",
+    "5. SUMMARY REPORTS: variance_decomposition.json, model_ranking_analysis.json, bayesian_analysis.json"
+  ],
+  "data_dependency_graph": {
+    "nodes": [
+      {
+        "id": "raw_scores",
+        "label": "Raw Model Scores (Kaggle/Browser)",
+        "type": "source"
+      },
+      {
+        "id": "t4fam",
+        "label": "t4fam_results.json",
+        "type": "primary"
+      },
+      {
+        "id": "study1",
+        "label": "study1_results.json",
+        "type": "primary"
+      },
+      {
+        "id": "deltas",
+        "label": "analysis_output/t4fam_deltas.json",
+        "type": "derived"
+      },
+      {
+        "id": "rootcause",
+        "label": "rootcause_analysis.json",
+        "type": "derived"
+      },
+      {
+        "id": "full_metrics",
+        "label": "full_metrics.json",
+        "type": "derived"
+      },
+      {
+        "id": "downstream",
+        "label": "analysis_output/*.json (25 files)",
+        "type": "downstream"
+      },
+      {
+        "id": "validation",
+        "label": "validation/ (this suite)",
+        "type": "validation"
+      }
+    ],
+    "edges": [
+      {
+        "from": "raw_scores",
+        "to": "t4fam"
+      },
+      {
+        "from": "raw_scores",
+        "to": "study1"
+      },
+      {
+        "from": "t4fam",
+        "to": "deltas"
+      },
+      {
+        "from": "study1",
+        "to": "rootcause"
+      },
+      {
+        "from": "study1",
+        "to": "full_metrics"
+      },
+      {
+        "from": "study1",
+        "to": "downstream"
+      },
+      {
+        "from": "deltas",
+        "to": "downstream"
+      },
+      {
+        "from": "t4fam",
+        "to": "validation"
+      },
+      {
+        "from": "study1",
+        "to": "validation"
+      }
+    ]
+  }
+}

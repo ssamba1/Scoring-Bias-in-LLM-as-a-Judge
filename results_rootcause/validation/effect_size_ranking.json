@@ -1,0 +1,771 @@
+{
+  "report_type": "EFFECT SIZE RANKING",
+  "timestamp": "2026-07-14T23:45:24.302407",
+  "rankings": {
+    "by_mean_delta": [
+      {
+        "rank": 1,
+        "model": "Llama-3.2-3B",
+        "mean_delta": 3.433
+      },
+      {
+        "rank": 2,
+        "model": "StableLM-2-1.6B",
+        "mean_delta": 2.367
+      },
+      {
+        "rank": 3,
+        "model": "StableLM-2-1.6B-IT",
+        "mean_delta": 2.067
+      },
+      {
+        "rank": 4,
+        "model": "Qwen2.5-1.5B",
+        "mean_delta": 1.933
+      },
+      {
+        "rank": 5,
+        "model": "Llama-3.2-3B-IT",
+        "mean_delta": 1.9
+      },
+      {
+        "rank": 6,
+        "model": "Llama-3.2-1B-IT",
+        "mean_delta": 1.6
+      },
+      {
+        "rank": 7,
+        "model": "Gemma-2-2B",
+        "mean_delta": 1.6
+      },
+      {
+        "rank": 8,
+        "model": "Qwen2.5-0.5B",
+        "mean_delta": 1.333
+      },
+      {
+        "rank": 9,
+        "model": "Qwen2.5-1.5B-IT",
+        "mean_delta": 1.333
+      },
+      {
+        "rank": 10,
+        "model": "Llama-3.2-1B",
+        "mean_delta": 1.167
+      },
+      {
+        "rank": 11,
+        "model": "Hermes-3-70B",
+        "mean_delta": 1.033
+      },
+      {
+        "rank": 12,
+        "model": "MythoMax-13B",
+        "mean_delta": 1.0
+      },
+      {
+        "rank": 13,
+        "model": "Hy3-295B",
+        "mean_delta": 0.933
+      },
+      {
+        "rank": 14,
+        "model": "Qwen2.5-7B",
+        "mean_delta": 0.833
+      },
+      {
+        "rank": 15,
+        "model": "Qwen2.5-72B",
+        "mean_delta": 0.8
+      },
+      {
+        "rank": 16,
+        "model": "Command-R",
+        "mean_delta": 0.767
+      },
+      {
+        "rank": 17,
+        "model": "Gemma3-12B",
+        "mean_delta": 0.7
+      },
+      {
+        "rank": 18,
+        "model": "Llama3.1-8B",
+        "mean_delta": 0.667
+      },
+      {
+        "rank": 19,
+        "model": "Qwen2.5-0.5B-IT",
+        "mean_delta": 0.6
+      },
+      {
+        "rank": 20,
+        "model": "Gemma-2-2B-IT",
+        "mean_delta": 0.6
+      },
+      {
+        "rank": 21,
+        "model": "Mistral-Nemo-12B",
+        "mean_delta": 0.6
+      },
+      {
+        "rank": 22,
+        "model": "Lunaris-8B",
+        "mean_delta": 0.6
+      },
+      {
+        "rank": 23,
+        "model": "Qwen3-8B",
+        "mean_delta": 0.567
+      },
+      {
+        "rank": 24,
+        "model": "Gemma3-27B",
+        "mean_delta": 0.5
+      },
+      {
+        "rank": 25,
+        "model": "Gemini-2.5-Flash",
+        "mean_delta": 0.5
+      },
+      {
+        "rank": 26,
+        "model": "Phi-4",
+        "mean_delta": 0.467
+      },
+      {
+        "rank": 27,
+        "model": "Qwen2.5-7B-IT",
+        "mean_delta": 0.433
+      },
+      {
+        "rank": 28,
+        "model": "DeepSeek-V3",
+        "mean_delta": 0.433
+      },
+      {
+        "rank": 29,
+        "model": "Llama3.2-3B",
+        "mean_delta": 0.4
+      },
+      {
+        "rank": 30,
+        "model": "DeepSeek-V4-Flash",
+        "mean_delta": 0.367
+      },
+      {
+        "rank": 31,
+        "model": "Mistral-3.2-24B",
+        "mean_delta": 0.333
+      },
+      {
+        "rank": 32,
+        "model": "Gemma3-4B",
+        "mean_delta": 0.267
+      },
+      {
+        "rank": 33,
+        "model": "GLM-4.7",
+        "mean_delta": 0.2
+      },
+      {
+        "rank": 34,
+        "model": "GPT-OSS-20B",
+        "mean_delta": 0.1
+      },
+      {
+        "rank": 35,
+        "model": "Qwen3-14B",
+        "mean_delta": 0.067
+      }
+    ],
+    "by_max_delta": [
+      {
+        "rank": 1,
+        "model": "StableLM-2-1.6B",
+        "max_delta": 3.8000000000000003
+      },
+      {
+        "rank": 2,
+        "model": "Llama-3.2-3B",
+        "max_delta": 3.7
+      },
+      {
+        "rank": 3,
+        "model": "StableLM-2-1.6B-IT",
+        "max_delta": 3.4000000000000004
+      },
+      {
+        "rank": 4,
+        "model": "Qwen2.5-1.5B",
+        "max_delta": 3.0999999999999996
+      },
+      {
+        "rank": 5,
+        "model": "Llama-3.2-1B-IT",
+        "max_delta": 2.6000000000000005
+      },
+      {
+        "rank": 6,
+        "model": "Qwen2.5-0.5B",
+        "max_delta": 2.6
+      },
+      {
+        "rank": 7,
+        "model": "Gemma-2-2B",
+        "max_delta": 2.5999999999999996
+      },
+      {
+        "rank": 8,
+        "model": "Llama-3.2-3B-IT",
+        "max_delta": 2.5
+      },
+      {
+        "rank": 9,
+        "model": "Llama-3.2-1B",
+        "max_delta": 2.1999999999999997
+      },
+      {
+        "rank": 10,
+        "model": "Hermes-3-70B",
+        "max_delta": 1.8
+      },
+      {
+        "rank": 11,
+        "model": "Qwen2.5-1.5B-IT",
+        "max_delta": 1.7999999999999998
+      },
+      {
+        "rank": 12,
+        "model": "Qwen2.5-7B",
+        "max_delta": 1.7
+      },
+      {
+        "rank": 13,
+        "model": "MythoMax-13B",
+        "max_delta": 1.5
+      },
+      {
+        "rank": 14,
+        "model": "Qwen2.5-72B",
+        "max_delta": 1.3000000000000003
+      },
+      {
+        "rank": 15,
+        "model": "Hy3-295B",
+        "max_delta": 1.2
+      },
+      {
+        "rank": 16,
+        "model": "Qwen2.5-0.5B-IT",
+        "max_delta": 1.1999999999999997
+      },
+      {
+        "rank": 17,
+        "model": "Qwen3-8B",
+        "max_delta": 1.1999999999999997
+      },
+      {
+        "rank": 18,
+        "model": "Gemma-2-2B-IT",
+        "max_delta": 1.1
+      },
+      {
+        "rank": 19,
+        "model": "Command-R",
+        "max_delta": 1.0999999999999996
+      },
+      {
+        "rank": 20,
+        "model": "Mistral-Nemo-12B",
+        "max_delta": 1.0
+      },
+      {
+        "rank": 21,
+        "model": "Lunaris-8B",
+        "max_delta": 1.0
+      },
+      {
+        "rank": 22,
+        "model": "Gemma3-12B",
+        "max_delta": 0.9000000000000004
+      },
+      {
+        "rank": 23,
+        "model": "Qwen2.5-7B-IT",
+        "max_delta": 0.8999999999999999
+      },
+      {
+        "rank": 24,
+        "model": "Gemini-2.5-Flash",
+        "max_delta": 0.8999999999999995
+      },
+      {
+        "rank": 25,
+        "model": "Llama3.1-8B",
+        "max_delta": 0.8000000000000003
+      },
+      {
+        "rank": 26,
+        "model": "Gemma3-27B",
+        "max_delta": 0.8000000000000003
+      },
+      {
+        "rank": 27,
+        "model": "DeepSeek-V3",
+        "max_delta": 0.8000000000000003
+      },
+      {
+        "rank": 28,
+        "model": "Phi-4",
+        "max_delta": 0.7000000000000002
+      },
+      {
+        "rank": 29,
+        "model": "Llama3.2-3B",
+        "max_delta": 0.5999999999999996
+      },
+      {
+        "rank": 30,
+        "model": "Gemma3-4B",
+        "max_delta": 0.5
+      },
+      {
+        "rank": 31,
+        "model": "DeepSeek-V4-Flash",
+        "max_delta": 0.5
+      },
+      {
+        "rank": 32,
+        "model": "Mistral-3.2-24B",
+        "max_delta": 0.3999999999999999
+      },
+      {
+        "rank": 33,
+        "model": "GLM-4.7",
+        "max_delta": 0.2999999999999998
+      },
+      {
+        "rank": 34,
+        "model": "Qwen3-14B",
+        "max_delta": 0.10000000000000009
+      },
+      {
+        "rank": 35,
+        "model": "GPT-OSS-20B",
+        "max_delta": 0.10000000000000009
+      }
+    ],
+    "by_mean_mad": [
+      {
+        "rank": 1,
+        "model": "Llama-3.2-3B",
+        "mean_mad": 1.443
+      },
+      {
+        "rank": 2,
+        "model": "StableLM-2-1.6B",
+        "mean_mad": 0.985
+      },
+      {
+        "rank": 3,
+        "model": "Llama-3.2-3B-IT",
+        "mean_mad": 0.8
+      },
+      {
+        "rank": 4,
+        "model": "StableLM-2-1.6B-IT",
+        "mean_mad": 0.798
+      },
+      {
+        "rank": 5,
+        "model": "Qwen2.5-1.5B",
+        "mean_mad": 0.78
+      },
+      {
+        "rank": 6,
+        "model": "Llama-3.2-1B-IT",
+        "mean_mad": 0.604
+      },
+      {
+        "rank": 7,
+        "model": "Gemma-2-2B",
+        "mean_mad": 0.594
+      },
+      {
+        "rank": 8,
+        "model": "Qwen2.5-1.5B-IT",
+        "mean_mad": 0.541
+      },
+      {
+        "rank": 9,
+        "model": "Qwen2.5-0.5B",
+        "mean_mad": 0.506
+      },
+      {
+        "rank": 10,
+        "model": "Llama-3.2-1B",
+        "mean_mad": 0.459
+      },
+      {
+        "rank": 11,
+        "model": "Hermes-3-70B",
+        "mean_mad": 0.43
+      },
+      {
+        "rank": 12,
+        "model": "MythoMax-13B",
+        "mean_mad": 0.385
+      },
+      {
+        "rank": 13,
+        "model": "Hy3-295B",
+        "mean_mad": 0.363
+      },
+      {
+        "rank": 14,
+        "model": "Qwen2.5-72B",
+        "mean_mad": 0.326
+      },
+      {
+        "rank": 15,
+        "model": "Qwen2.5-7B",
+        "mean_mad": 0.311
+      },
+      {
+        "rank": 16,
+        "model": "Command-R",
+        "mean_mad": 0.296
+      },
+      {
+        "rank": 17,
+        "model": "Gemma3-12B",
+        "mean_mad": 0.259
+      },
+      {
+        "rank": 18,
+        "model": "Gemma-2-2B-IT",
+        "mean_mad": 0.254
+      },
+      {
+        "rank": 19,
+        "model": "Llama3.1-8B",
+        "mean_mad": 0.252
+      },
+      {
+        "rank": 20,
+        "model": "Lunaris-8B",
+        "mean_mad": 0.237
+      },
+      {
+        "rank": 21,
+        "model": "Qwen2.5-0.5B-IT",
+        "mean_mad": 0.226
+      },
+      {
+        "rank": 22,
+        "model": "Mistral-Nemo-12B",
+        "mean_mad": 0.222
+      },
+      {
+        "rank": 23,
+        "model": "Gemini-2.5-Flash",
+        "mean_mad": 0.207
+      },
+      {
+        "rank": 24,
+        "model": "Qwen3-8B",
+        "mean_mad": 0.2
+      },
+      {
+        "rank": 25,
+        "model": "Gemma3-27B",
+        "mean_mad": 0.193
+      },
+      {
+        "rank": 26,
+        "model": "Phi-4",
+        "mean_mad": 0.193
+      },
+      {
+        "rank": 27,
+        "model": "Qwen2.5-7B-IT",
+        "mean_mad": 0.178
+      },
+      {
+        "rank": 28,
+        "model": "DeepSeek-V3",
+        "mean_mad": 0.17
+      },
+      {
+        "rank": 29,
+        "model": "DeepSeek-V4-Flash",
+        "mean_mad": 0.156
+      },
+      {
+        "rank": 30,
+        "model": "Llama3.2-3B",
+        "mean_mad": 0.141
+      },
+      {
+        "rank": 31,
+        "model": "Mistral-3.2-24B",
+        "mean_mad": 0.133
+      },
+      {
+        "rank": 32,
+        "model": "Gemma3-4B",
+        "mean_mad": 0.104
+      },
+      {
+        "rank": 33,
+        "model": "GLM-4.7",
+        "mean_mad": 0.081
+      },
+      {
+        "rank": 34,
+        "model": "GPT-OSS-20B",
+        "mean_mad": 0.044
+      },
+      {
+        "rank": 35,
+        "model": "Qwen3-14B",
+        "mean_mad": 0.03
+      }
+    ],
+    "by_total_delta": [
+      {
+        "rank": 1,
+        "model": "Llama-3.2-3B",
+        "total_delta": 10.3
+      },
+      {
+        "rank": 2,
+        "model": "StableLM-2-1.6B",
+        "total_delta": 7.1
+      },
+      {
+        "rank": 3,
+        "model": "StableLM-2-1.6B-IT",
+        "total_delta": 6.2
+      },
+      {
+        "rank": 4,
+        "model": "Qwen2.5-1.5B",
+        "total_delta": 5.8
+      },
+      {
+        "rank": 5,
+        "model": "Llama-3.2-3B-IT",
+        "total_delta": 5.7
+      },
+      {
+        "rank": 6,
+        "model": "Llama-3.2-1B-IT",
+        "total_delta": 4.8
+      },
+      {
+        "rank": 7,
+        "model": "Gemma-2-2B",
+        "total_delta": 4.8
+      },
+      {
+        "rank": 8,
+        "model": "Qwen2.5-0.5B",
+        "total_delta": 4.0
+      },
+      {
+        "rank": 9,
+        "model": "Qwen2.5-1.5B-IT",
+        "total_delta": 4.0
+      },
+      {
+        "rank": 10,
+        "model": "Llama-3.2-1B",
+        "total_delta": 3.5
+      },
+      {
+        "rank": 11,
+        "model": "Hermes-3-70B",
+        "total_delta": 3.1
+      },
+      {
+        "rank": 12,
+        "model": "MythoMax-13B",
+        "total_delta": 3.0
+      },
+      {
+        "rank": 13,
+        "model": "Hy3-295B",
+        "total_delta": 2.8
+      },
+      {
+        "rank": 14,
+        "model": "Qwen2.5-7B",
+        "total_delta": 2.5
+      },
+      {
+        "rank": 15,
+        "model": "Qwen2.5-72B",
+        "total_delta": 2.4
+      },
+      {
+        "rank": 16,
+        "model": "Command-R",
+        "total_delta": 2.3
+      },
+      {
+        "rank": 17,
+        "model": "Gemma3-12B",
+        "total_delta": 2.1
+      },
+      {
+        "rank": 18,
+        "model": "Llama3.1-8B",
+        "total_delta": 2.0
+      },
+      {
+        "rank": 19,
+        "model": "Qwen2.5-0.5B-IT",
+        "total_delta": 1.8
+      },
+      {
+        "rank": 20,
+        "model": "Gemma-2-2B-IT",
+        "total_delta": 1.8
+      },
+      {
+        "rank": 21,
+        "model": "Mistral-Nemo-12B",
+        "total_delta": 1.8
+      },
+      {
+        "rank": 22,
+        "model": "Lunaris-8B",
+        "total_delta": 1.8
+      },
+      {
+        "rank": 23,
+        "model": "Qwen3-8B",
+        "total_delta": 1.7
+      },
+      {
+        "rank": 24,
+        "model": "Gemma3-27B",
+        "total_delta": 1.5
+      },
+      {
+        "rank": 25,
+        "model": "Gemini-2.5-Flash",
+        "total_delta": 1.5
+      },
+      {
+        "rank": 26,
+        "model": "Phi-4",
+        "total_delta": 1.4
+      },
+      {
+        "rank": 27,
+        "model": "Qwen2.5-7B-IT",
+        "total_delta": 1.3
+      },
+      {
+        "rank": 28,
+        "model": "DeepSeek-V3",
+        "total_delta": 1.3
+      },
+      {
+        "rank": 29,
+        "model": "Llama3.2-3B",
+        "total_delta": 1.2
+      },
+      {
+        "rank": 30,
+        "model": "DeepSeek-V4-Flash",
+        "total_delta": 1.1
+      },
+      {
+        "rank": 31,
+        "model": "Mistral-3.2-24B",
+        "total_delta": 1.0
+      },
+      {
+        "rank": 32,
+        "model": "Gemma3-4B",
+        "total_delta": 0.8
+      },
+      {
+        "rank": 33,
+        "model": "GLM-4.7",
+        "total_delta": 0.6
+      },
+      {
+        "rank": 34,
+        "model": "GPT-OSS-20B",
+        "total_delta": 0.3
+      },
+      {
+        "rank": 35,
+        "model": "Qwen3-14B",
+        "total_delta": 0.2
+      }
+    ]
+  },
+  "top_3_most_biased": [
+    {
+      "rank": 1,
+      "model": "Llama-3.2-3B",
+      "mean_delta": 3.433
+    },
+    {
+      "rank": 2,
+      "model": "StableLM-2-1.6B",
+      "mean_delta": 2.367
+    },
+    {
+      "rank": 3,
+      "model": "StableLM-2-1.6B-IT",
+      "mean_delta": 2.067
+    }
+  ],
+  "top_3_least_biased": [
+    {
+      "rank": 33,
+      "model": "GLM-4.7",
+      "mean_delta": 0.2
+    },
+    {
+      "rank": 34,
+      "model": "GPT-OSS-20B",
+      "mean_delta": 0.1
+    },
+    {
+      "rank": 35,
+      "model": "Qwen3-14B",
+      "mean_delta": 0.067
+    }
+  ],
+  "consistency_analysis": {
+    "models_ever_in_top_3": [
+      "Llama-3.2-3B",
+      "Llama-3.2-3B-IT",
+      "StableLM-2-1.6B",
+      "StableLM-2-1.6B-IT"
+    ],
+    "models_ever_in_bottom_3": [
+      "GLM-4.7",
+      "GPT-OSS-20B",
+      "Qwen3-14B"
+    ],
+    "top_by_all_metrics": [
+      "Llama-3.2-3B",
+      "StableLM-2-1.6B"
+    ],
+    "bottom_by_all_metrics": [
+      "GLM-4.7",
+      "GPT-OSS-20B",
+      "Qwen3-14B"
+    ],
+    "total_model_variants": 35
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "metadata": {
+    "dataset_name": "Scoring Bias in LLM-as-a-Judge — Unified Dataset",
+    "version": "1.0.0",
+    "description": "Complete experimental dataset for scoring bias analysis in LLM-as-a-Judge models. Contains per-model per-probe scores, bias deltas, flip rates, and metadata for 31 model variants across 16 families.",
+    "total_judgments": 40500,
+    "total_models": 31,
+    "model_variants": {"base": 9, "instruct": 22},
+    "base_instruct_paired_families": 11,
+    "probe_types": ["rubric_order", "score_id", "reference_answer"],
+    "probe_variants_per_type": 3,
+    "score_scale": "1-5 (integer)",
+    "items": 80,
+    "domains": ["science", "technology", "humanities", "daily_life", "mathematics"],
+    "items_per_domain": {"primary": 10, "total_set": 80},
+    "repeats_per_condition": 3,
+    "decoding": "greedy (temperature=0)",
+    "total_api_cost_usd": 3.0,
+    "inference_platforms": ["Kaggle T4 GPU", "OpenRouter API", "Local CPU"],
+    "citation": "Samba, S. (2026). Scoring Bias in LLM-as-a-Judge Models. arXiv preprint. doi:10.5281/zenodo.21361920"
+  },
+  "models": {
+    "metadata": {
+      "description": "All 31 model variants with metadata including family, size, training method, access type, and parameter count.",
+      "fields": {
+        "name": "Model identifier used throughout the study",
+        "family": "Model family/architecture name",
+        "size": "Parameter count in billions (B)",
+        "is_base": "True = pre-trained (base) variant, False = instruction-tuned (instruct) variant",
+        "training_method": "Fine-tuning approach: RLHF, SFT, DPO, or pre-trained-only (base)",
+        "access": "How the model was accessed: 'kaggle_t4' (local inference on T4 GPU), 'openrouter_api' (API calls), 'local_cpu'",
+        "excluded": "If true, model was excluded from main analysis due to stop-token truncation issues",
+        "notes": "Additional notes about the model"
+      }
+    },
+    "entries": {
+      "Qwen2.5-0.5B": {"family": "Qwen2.5", "size": "0.5B", "is_base": true, "training_method": "base", "access": "kaggle_t4", "excluded": false, "notes": "T4 GPU inference, 6 conditions"},
+      "Qwen2.5-0.5B-IT": {"family": "Qwen2.5", "size": "0.5B", "is_base": false, "training_method": "SFT", "access": "kaggle_t4", "excluded": false, "notes": "Instruction-tuned variant"},
+      "Qwen2.5-1.5B": {"family": "Qwen2.5", "size": "1.5B", "is_base": true, "training_method": "base", "access": "kaggle_t4", "excluded": false, "notes": "T4 GPU inference"},
+      "Qwen2.5-1.5B-IT": {"family": "Qwen2.5", "size": "1.5B", "is_base": false, "training_method": "SFT", "access": "kaggle_t4", "excluded": false, "notes": "Instruction-tuned variant"},
+      "Llama-3.2-1B": {"family": "Llama-3.2", "size": "1B", "is_base": true, "training_method": "base", "access": "kaggle_t4", "excluded": false, "notes": "T4 GPU inference"},
+      "Llama-3.2-1B-IT": {"family": "Llama-3.2", "size": "1B", "is_base": false, "training_method": "RLHF", "access": "kaggle_t4", "excluded": false, "notes": "Instruction-tuned variant"},
+      "Llama-3.2-3B": {"family": "Llama-3.2", "size": "3B", "is_base": true, "training_method": "base", "access": "kaggle_t4", "excluded": false, "notes": "T4 GPU inference"},
+      "Llama-3.2-3B-IT": {"family": "Llama-3.2", "size": "3B", "is_base": false, "training_method": "RLHF", "access": "kaggle_t4", "excluded": false, "notes": "Instruction-tuned variant"},
+      "Gemma-2-2B": {"family": "Gemma-2", "size": "2B", "is_base": true, "training_method": "base", "access": "kaggle_t4", "excluded": false, "notes": "T4 GPU inference"},
+      "Gemma-2-2B-IT": {"family": "Gemma-2", "size": "2B", "is_base": false, "training_method": "RLHF", "access": "kaggle_t4", "excluded": false, "notes": "Instruction-tuned variant"},
+      "StableLM-2-1.6B": {"family": "StableLM-2", "size": "1.6B", "is_base": true, "training_method": "base", "access": "kaggle_t4", "excluded": false, "notes": "T4 GPU inference"},
+      "StableLM-2-1.6B-IT": {"family": "StableLM-2", "size": "1.6B", "is_base": false, "training_method": "SFT", "access": "kaggle_t4", "excluded": false, "notes": "Instruction-tuned variant"},
+      "Qwen2.5-7B": {"family": "Qwen2.5", "size": "7B", "is_base": true, "training_method": "base", "access": "kaggle_t4", "excluded": false, "notes": "T4 GPU inference"},
+      "Qwen2.5-7B-IT": {"family": "Qwen2.5", "size": "7B", "is_base": false, "training_method": "SFT", "access": "kaggle_t4", "excluded": false, "notes": "Instruction-tuned variant"},
+      "Llama3.1-8B": {"family": "Llama-3.1", "size": "8B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Qwen3-8B": {"family": "Qwen3", "size": "8B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Qwen3-14B": {"family": "Qwen3", "size": "14B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Qwen3-32B": {"family": "Qwen3", "size": "32B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Qwen2.5-72B": {"family": "Qwen2.5", "size": "72B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Gemma3-4B": {"family": "Gemma-3", "size": "4B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Gemma3-12B": {"family": "Gemma-3", "size": "12B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Gemma3-27B": {"family": "Gemma-3", "size": "27B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Instruct-only (OpenRouter)"},
+      "Phi-4": {"family": "Phi-4", "size": "14B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Microsoft Phi-4 instruct"},
+      "Mistral-Nemo-12B": {"family": "Mistral", "size": "12B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Mistral Nemo 12B instruct"},
+      "Mistral-3.2-24B": {"family": "Mistral", "size": "24B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Mistral Small 3.1 24B instruct"},
+      "DeepSeek-V3": {"family": "DeepSeek", "size": "671B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "DeepSeek-V3 (MoE, 671B total / 37B active)"},
+      "DeepSeek-V4-Flash": {"family": "DeepSeek", "size": "671B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "DeepSeek-V4-Flash (MoE)"},
+      "Hermes-3-70B": {"family": "Hermes", "size": "70B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "NousResearch Hermes-3 70B instruct"},
+      "MythoMax-13B": {"family": "MythoMax", "size": "13B", "is_base": false, "training_method": "DPO", "access": "openrouter_api", "excluded": false, "notes": "Gryphe MythoMax-L2-13b (DPO merge)"},
+      "Lunaris-8B": {"family": "Lunaris", "size": "8B", "is_base": false, "training_method": "unknown", "access": "openrouter_api", "excluded": false, "notes": "Lunaris-8B instruct"},
+      "Command-R": {"family": "Command-R", "size": "35B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Cohere Command-R 35B instruct"},
+      "GLM-4.7": {"family": "GLM", "size": "9B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Zhipu GLM-4-9B-Chat"},
+      "GPT-OSS-20B": {"family": "GPT-OSS", "size": "20B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Open-source GPT model 20B instruct"},
+      "Hy3-295B": {"family": "Hy3", "size": "295B", "is_base": false, "training_method": "DPO", "access": "openrouter_api", "excluded": false, "notes": "Tencent Hy3 295B (MoE) instruct"},
+      "Gemini-2.5-Flash": {"family": "Gemini", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Google Gemini 2.5 Flash (API only)"},
+      "Gemini-2.5-Pro": {"family": "Gemini", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
+      "Inflection-3-Pi": {"family": "Inflection", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
+      "Nemotron-Nano-30B": {"family": "Nemotron", "size": "30B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
+      "Command-R7B": {"family": "Command-R", "size": "7B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
+      "Mistral-Small-24B": {"family": "Mistral", "size": "24B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"}
+    }
+  },
+  "scores": {
+    "metadata": {
+      "description": "Per-model per-probe per-variant mean scores across 50 evaluation items (3 repeats each, greedily decoded). Score scale: 1-5.",
+      "source_files": ["results_rootcause/study1_results.json", "results_rootcause/t4fam_results.json"],
+      "probe_definitions": {
+        "rubric_order": {
+          "description": "Tests whether rubric label direction affects scores",
+          "control": "normal (1=worst, 5=best)",
+          "variants": {
+            "normal": "Standard rubric: 1=worst to 5=best",
+            "reversed": "Reversed rubric: 1=best to 5=worst",
+            "random": "Random label mapping"
+          }
+        },
+        "score_id": {
+          "description": "Tests whether score label format affects scores",
+          "control": "numeric (1-5)",
+          "variants": {
+            "numeric": "Numeric labels: 1-5",
+            "letter": "Letter grades: A-E (converted to 1-5)",
+            "descriptive": "Descriptive labels: Poor-Excellent (mapped to 1-5)"
+          }
+        },
+        "reference_answer": {
+          "description": "Tests whether exemplar responses bias subsequent scoring",
+          "control": "no_ref (no exemplar provided)",
+          "variants": {
+            "no_ref": "No reference answer provided (control)",
+            "good_ref": "High-quality exemplar shown before scoring",
+            "poor_ref": "Low-quality exemplar shown before scoring"
+          }
+        }
+      }
+    },
+    "models": {}
+  },
+  "bias_metrics": {
+    "metadata": {
+      "description": "Bias metrics computed from perturbation probes. Each metric captures a different aspect of scoring bias.",
+      "metrics_definitions": {
+        "max_delta": "Maximum absolute difference between any two variant means for a probe. Higher = more biased.",
+        "flip_rate": "Proportion of items where the biased condition score differs from the control condition score. Range [0, 1].",
+        "cohens_d": "Standardized effect size: (biased_mean - control_mean) / pooled_std. Standard interpretation: 0.2=small, 0.5=medium, 0.8=large.",
+        "mean_abs_bias": "Mean absolute deviation across all variants. Captures overall bias magnitude regardless of direction."
+      },
+      "source_files": [
+        "results_rootcause/analysis_output/t4fam_deltas.json",
+        "results_rootcause/analysis_output/cohens_d.json",
+        "results_rootcause/analysis_output/robustness_metrics.json"
+      ]
+    },
+    "t4fam_deltas": {
+      "description": "Per-model max delta per probe for the 7 T4-evaluated base-instruct families (14 models). Delta = max variant mean - min variant mean.",
+      "models": {}
+    },
+    "study1_deltas": {
+      "description": "Per-model max delta per probe for the 22 instruct-only models.",
+      "models": {}
+    },
+    "training_method_analysis": {
+      "RLHF": {"n_models": 12, "rubric_order_mean": 0.45, "score_id_mean": 0.67, "reference_answer_mean": 0.53, "overall_mean": 0.55},
+      "SFT": {"n_models": 7, "rubric_order_mean": 0.59, "score_id_mean": 0.57, "reference_answer_mean": 0.14, "overall_mean": 0.43},
+      "DPO": {"n_models": 2, "rubric_order_mean": 1.25, "score_id_mean": 1.25, "reference_answer_mean": 0.40, "overall_mean": 0.97}
+    }
+  },
+  "statistical_analysis": {
+    "metadata": {
+      "description": "Statistical analysis results comparing base vs instruct model bias across families.",
+      "source_files": [
+        "results_rootcause/analysis_output/wilcoxon_results.json",
+        "results_rootcause/analysis_output/bayesian_results.json",
+        "results_rootcause/analysis_output/bootstrapped_cis.json",
+        "results_rootcause/analysis_output/power_curve.json",
+        "results_rootcause/analysis_output/variance_decomposition.json",
+        "results_rootcause/analysis_output/probe_correlations.json"
+      ]
+    },
+    "wilcoxon_signed_rank": {
+      "description": "One-sample Wilcoxon signed-rank test for paired delta change (instruct_delta - base_delta) across 7 families. Tests if instruction tuning significantly changes bias.",
+      "rubric_order": {"mean_change": -0.40, "p_value": 0.600, "significant": false, "effect_size_r": 0.38},
+      "score_id": {"mean_change": -0.97, "p_value": 0.047, "significant": true, "effect_size_r": 0.77},
+      "reference_answer": {"mean_change": -0.83, "p_value": 0.031, "significant": true, "effect_size_r": 0.80}
+    },
+    "bayesian": {
+      "description": "Bayesian analysis using conjugate Normal-Inverse-Gamma priors (μ0=0, κ0=1, α0=2, β0=2). BF10 vs null hypothesis of zero effect.",
+      "t4fam_base": {
+        "rubric_order": {"posterior_mean": 0.60, "bf10_vs_null": 0.92, "p_positive": 0.91},
+        "score_id": {"posterior_mean": 2.11, "bf10_vs_null": 298.67, "p_positive": 1.00},
+        "reference_answer": {"posterior_mean": 2.41, "bf10_vs_null": 177.33, "p_positive": 1.00}
+      },
+      "t4fam_instruct": {
+        "rubric_order": {"posterior_mean": 0.25, "bf10_vs_null": 0.47, "p_positive": 0.84},
+        "score_id": {"posterior_mean": 1.26, "bf10_vs_null": 19.29, "p_positive": 0.99},
+        "reference_answer": {"posterior_mean": 1.69, "bf10_vs_null": 13.99, "p_positive": 0.99}
+      },
+      "study1": {
+        "rubric_order": {"posterior_mean": 0.54, "bf10_vs_null": 18753.0, "p_positive": 1.00},
+        "score_id": {"posterior_mean": 0.65, "bf10_vs_null": 19197.0, "p_positive": 1.00},
+        "reference_answer": {"posterior_mean": 0.40, "bf10_vs_null": 11472.0, "p_positive": 1.00}
+      }
+    },
+    "bootstrapped_cis": {
+      "description": "95% bootstrapped confidence intervals for mean delta. Percentile bootstrap with bias-corrected acceleration, 10000 resamples.",
+      "t4fam_base": {
+        "rubric_order": {"mean": 0.69, "ci_95": [0.11, 1.67]},
+        "score_id": {"mean": 2.41, "ci_95": [1.79, 3.04]},
+        "reference_answer": {"mean": 2.76, "ci_95": [2.43, 3.16]}
+      },
+      "t4fam_instruct": {
+        "rubric_order": {"mean": 0.29, "ci_95": [0.13, 0.49]},
+        "score_id": {"mean": 1.44, "ci_95": [0.79, 2.07]},
+        "reference_answer": {"mean": 1.93, "ci_95": [1.31, 2.60]}
+      },
+      "study1_22": {
+        "rubric_order": {"mean": 0.56, "ci_95": [0.40, 0.74]},
+        "score_id": {"mean": 0.68, "ci_95": [0.49, 0.89]},
+        "reference_answer": {"mean": 0.41, "ci_95": [0.29, 0.54]}
+      }
+    }
+  },
+  "items": {
+    "metadata": {
+      "description": "All 80 evaluation items used across the study. Items 0-49 are the primary set (50 items, 5 domains × 10 items). Items 50-79 are the secondary set.",
+      "domains": {
+        "science": "Items 0-9: Photosynthesis, relativity, water cycle, earthquakes, vaccines, DNA, solar system, entropy, batteries, black holes",
+        "technology": "Items 10-19: Machine learning, cloud computing, API, encryption, database index, Python, internet, blockchain, operating system, neural networks",
+        "humanities": "Items 20-29: WWI, democracy, Renaissance, Cold War, Shakespeare, Beethoven, Mona Lisa, Roman Empire, Buddhism, Greek mythology",
+        "daily_life": "Items 30-39: Cooking, exercise, sleep, first aid, recycling, budgeting, gardening, public speaking, time management, nutrition",
+        "mathematics": "Items 40-49: Calculus, probability, Bayes theorem, correlation, linear regression, differential equations, set theory, prime numbers, Fibonacci, geometry"
+      }
+    }
+  },
+  "base_instruct_comparison": {
+    "metadata": {
+      "description": "Per-family delta changes from base to instruct variants. Positive = bias increases with instruction tuning. 7 T4 families included.",
+      "families": ["Qwen2.5-0.5B", "Qwen2.5-1.5B", "Llama-3.2-1B", "Llama-3.2-3B", "Gemma-2-2B", "StableLM-2-1.6B", "Qwen2.5-7B"]
+    },
+    "summary": {
+      "rubric_order": {"mean_change": -0.40, "n_decrease": 5, "n_increase": 2},
+      "score_id": {"mean_change": -0.97, "n_decrease": 6, "n_increase": 1},
+      "reference_answer": {"mean_change": -0.83, "n_decrease": 5, "n_increase": 2}
+    },
+    "per_family": {}
+  },
+  "probe_correlations": {
+    "description": "Pearson correlation matrix between probe deltas across the 22 instruct models. Low correlations indicate probes capture independent bias dimensions.",
+    "rubric_order": {"rubric_order": 1.0, "score_id": -0.06, "reference_answer": 0.05},
+    "score_id": {"rubric_order": -0.06, "score_id": 1.0, "reference_answer": 0.14},
+    "reference_answer": {"rubric_order": 0.05, "score_id": 0.14, "reference_answer": 1.0}
+  }
+}

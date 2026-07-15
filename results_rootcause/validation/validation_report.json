@@ -1,0 +1,752 @@
+{
+  "report_type": "DATA VALIDATION REPORT",
+  "timestamp": "2026-07-14T23:45:24.272629",
+  "overall_status": "PASS",
+  "files_checked": {
+    "t4fam_results.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "Qwen2.5-0.5B",
+        "Qwen2.5-0.5B-IT",
+        "Qwen2.5-1.5B",
+        "Qwen2.5-1.5B-IT",
+        "Llama-3.2-1B",
+        "Llama-3.2-1B-IT",
+        "Llama-3.2-3B",
+        "Llama-3.2-3B-IT",
+        "Gemma-2-2B",
+        "Gemma-2-2B-IT",
+        "StableLM-2-1.6B",
+        "StableLM-2-1.6B-IT",
+        "Qwen2.5-7B",
+        "Qwen2.5-7B-IT"
+      ],
+      "num_top_keys": 14,
+      "numeric_stats": {
+        "count": 112,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 3.169642857142857
+      },
+      "issues": []
+    },
+    "study1_results.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "Llama3.1-8B",
+        "Llama3.2-3B",
+        "Qwen2.5-7B",
+        "Qwen3-8B",
+        "Qwen3-14B",
+        "Gemma3-4B",
+        "Gemma3-12B",
+        "Gemma3-27B",
+        "Phi-4",
+        "Mistral-Nemo-12B",
+        "Lunaris-8B",
+        "Hermes-3-70B",
+        "MythoMax-13B",
+        "DeepSeek-V3",
+        "DeepSeek-V4-Flash",
+        "Hy3-295B",
+        "Gemini-2.5-Flash",
+        "Command-R",
+        "GLM-4.7",
+        "GPT-OSS-20B"
+      ],
+      "num_top_keys": 22,
+      "numeric_stats": {
+        "count": 198,
+        "min": 1.2,
+        "max": 5.0,
+        "mean": 2.971212121212121
+      },
+      "issues": []
+    },
+    "study1_max_scale.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "Llama3.1-8B",
+        "Llama3.2-3B",
+        "Qwen2.5-7B",
+        "Qwen3-8B",
+        "Qwen3-14B",
+        "Gemma3-4B",
+        "Gemma3-12B",
+        "Gemma3-27B",
+        "Phi-4",
+        "Mistral-Nemo-12B",
+        "Lunaris-8B",
+        "Hermes-3-70B",
+        "MythoMax-13B",
+        "DeepSeek-V3",
+        "DeepSeek-V4-Flash",
+        "Hy3-295B",
+        "Gemini-2.5-Flash",
+        "Command-R",
+        "GLM-4.7",
+        "GPT-OSS-20B"
+      ],
+      "num_top_keys": 22,
+      "numeric_stats": {
+        "count": 198,
+        "min": 1.2,
+        "max": 5.0,
+        "mean": 2.971212121212121
+      },
+      "issues": []
+    },
+    "rootcause_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "llama3-8b-base",
+        "llama3-8b-instruct",
+        "mistral-7b-base",
+        "mistral-7b-instruct",
+        "gemma2-2b-base",
+        "gemma2-2b-instruct"
+      ],
+      "num_top_keys": 6,
+      "numeric_stats": {
+        "count": 48,
+        "min": -0.167,
+        "max": 43.3,
+        "mean": 2.9916875
+      },
+      "issues": [
+        {
+          "type": "out_of_range",
+          "count": 3,
+          "examples": [
+            [
+              "llama3-8b-instruct.rubric_order.pct_affected",
+              43.3
+            ],
+            [
+              "mistral-7b-instruct.rubric_order.pct_affected",
+              43.3
+            ],
+            [
+              "gemma2-2b-instruct.rubric_order.pct_affected",
+              43.3
+            ]
+          ]
+        }
+      ]
+    },
+    "rootcause_results.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "llama3-8b",
+        "mistral-7b",
+        "gemma2-2b"
+      ],
+      "num_top_keys": 3,
+      "numeric_stats": {
+        "count": 0,
+        "min": null,
+        "max": null,
+        "mean": null
+      },
+      "issues": []
+    },
+    "full_metrics.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "mads",
+        "cohens_d",
+        "flip_rates",
+        "interpretation"
+      ],
+      "num_top_keys": 4,
+      "numeric_stats": {
+        "count": 14,
+        "min": 0.1277777777777778,
+        "max": 2.377777777777778,
+        "mean": 0.790468253968254
+      },
+      "issues": []
+    },
+    "analysis_output/t4fam_deltas.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "Qwen2.5-0.5B",
+        "Qwen2.5-0.5B-IT",
+        "Qwen2.5-1.5B",
+        "Qwen2.5-1.5B-IT",
+        "Llama-3.2-1B",
+        "Llama-3.2-1B-IT",
+        "Llama-3.2-3B",
+        "Llama-3.2-3B-IT",
+        "Gemma-2-2B",
+        "Gemma-2-2B-IT",
+        "StableLM-2-1.6B",
+        "StableLM-2-1.6B-IT",
+        "Qwen2.5-7B",
+        "Qwen2.5-7B-IT",
+        "delta_changes"
+      ],
+      "numeric_stats": {
+        "count": 105,
+        "min": -2.7,
+        "max": 3.8
+      }
+    },
+    "analysis_output/size_correlation.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "t4fam",
+        "study1"
+      ],
+      "numeric_stats": {
+        "count": 52,
+        "min": -0.0851,
+        "max": 671.0
+      }
+    },
+    "analysis_output/score_distributions.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "per_model",
+        "biased_vs_unbiased_comparison",
+        "interpretation"
+      ],
+      "numeric_stats": {
+        "count": 315,
+        "min": -2.1704,
+        "max": 9
+      }
+    },
+    "analysis_output/probe_correlations.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "n_models",
+        "correlation_matrix",
+        "interpretation",
+        "notable"
+      ],
+      "numeric_stats": {
+        "count": 10,
+        "min": -0.0402,
+        "max": 22
+      }
+    },
+    "analysis_output/robustness_metrics.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "per_model_metrics",
+        "correlations",
+        "n_models_analyzed"
+      ],
+      "numeric_stats": {
+        "count": 214,
+        "min": 0.0148,
+        "max": 35
+      }
+    },
+    "analysis_output/power_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "observed_effect_sizes",
+        "N=9",
+        "N=12",
+        "N=15",
+        "N=22",
+        "minimum_detectable_effects"
+      ],
+      "numeric_stats": {
+        "count": 85,
+        "min": -1.1768,
+        "max": 22
+      }
+    },
+    "analysis_output/per_item_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "items",
+        "domain_summary",
+        "top_items_by_predicted_bias_sensitivity",
+        "recommendation"
+      ],
+      "numeric_stats": {
+        "count": 89,
+        "min": 0,
+        "max": 80
+      }
+    },
+    "analysis_output/model_ranking.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "by_mean_delta",
+        "kendalls_w",
+        "top_3_least_biased",
+        "bottom_3_most_biased"
+      ],
+      "numeric_stats": {
+        "count": 5,
+        "min": 0.08908840058622369,
+        "max": 30.1462
+      }
+    },
+    "analysis_output/finding_stability.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "jackknife",
+        "bootstrap_22_models_means",
+        "probe_ranking_stability",
+        "bootstrap_n",
+        "overall_stability"
+      ],
+      "numeric_stats": {
+        "count": 54,
+        "min": -1.25,
+        "max": 10000
+      }
+    },
+    "analysis_output/variance_decomposition.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "all_data",
+        "probe_rubric_order",
+        "probe_score_id",
+        "probe_reference_answer",
+        "previous_estimate"
+      ],
+      "numeric_stats": {
+        "count": 27,
+        "min": 0.6428,
+        "max": 310
+      }
+    },
+    "analysis_output/cohens_d.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "t4fam",
+        "study1",
+        "t4fam_summary",
+        "study1_summary"
+      ],
+      "numeric_stats": {
+        "count": 342,
+        "min": -3.0833,
+        "max": 22
+      }
+    },
+    "analysis_output/bootstrapped_cis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "t4fam_base",
+        "t4fam_instruct",
+        "study1_22"
+      ],
+      "numeric_stats": {
+        "count": 46,
+        "min": 0.1143,
+        "max": 10000
+      }
+    },
+    "analysis_output/wilcoxon_results.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "rubric_order",
+        "score_id",
+        "reference_answer"
+      ],
+      "numeric_stats": {
+        "count": 45,
+        "min": -2.7,
+        "max": 8.0
+      }
+    },
+    "analysis_output/training_method_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "groupings",
+        "per_method_analysis",
+        "comparison",
+        "finding_sft_vs_rlhf",
+        "caveat"
+      ],
+      "numeric_stats": {
+        "count": 44,
+        "min": 0,
+        "max": 12
+      }
+    },
+    "analysis_output/size_quantile_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "size_map",
+        "quantile_definitions",
+        "per_quantile",
+        "finding",
+        "note"
+      ],
+      "numeric_stats": {
+        "count": 47,
+        "min": 0.1667,
+        "max": 671.0
+      }
+    },
+    "analysis_output/synthetic_validation.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "n_trials",
+        "n_families",
+        "false_positive_rate_per_probe",
+        "overall_false_positive_rate",
+        "interpretation_fpr",
+        "detection_power_by_effect_size_d",
+        "interpretation_power",
+        "note"
+      ],
+      "numeric_stats": {
+        "count": 10,
+        "min": 0.002,
+        "max": 1000
+      }
+    },
+    "analysis_output/score_inflation.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "per_family",
+        "overall",
+        "statistical_test",
+        "finding",
+        "note"
+      ],
+      "numeric_stats": {
+        "count": 25,
+        "min": -37.56,
+        "max": 3.4333
+      }
+    },
+    "analysis_output/outlier_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "study1_22_instruct_models",
+        "t4fam_base_models",
+        "notable"
+      ],
+      "numeric_stats": {
+        "count": 21,
+        "min": 0,
+        "max": 22
+      }
+    },
+    "analysis_output/multilingual_bias.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "files_found",
+        "analysis_possible",
+        "languages_available",
+        "items_per_language",
+        "finding"
+      ],
+      "numeric_stats": {
+        "count": 5,
+        "min": 50,
+        "max": 50
+      }
+    },
+    "analysis_output/item_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "t4fam",
+        "study1"
+      ],
+      "numeric_stats": {
+        "count": 119,
+        "min": -1.9333,
+        "max": 22
+      }
+    },
+    "analysis_output/domain_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "items_available",
+        "items",
+        "limitation",
+        "conclusion"
+      ],
+      "numeric_stats": {
+        "count": 1,
+        "min": 80,
+        "max": 80
+      }
+    },
+    "analysis_output/family_profiles.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "profiles",
+        "sorted_by_improvement",
+        "most_improved_by_instruction_tuning",
+        "least_improved_by_instruction_tuning",
+        "overall_finding"
+      ],
+      "numeric_stats": {
+        "count": 0,
+        "min": null,
+        "max": null
+      }
+    },
+    "analysis_output/consensus_analysis.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "n_models_with_scores",
+        "mean_pairwise_correlation",
+        "sd_pairwise_correlation",
+        "interpretation",
+        "fleiss_kappa",
+        "approximate_finding",
+        "recommendation"
+      ],
+      "numeric_stats": {
+        "count": 3,
+        "min": 0.0899,
+        "max": 35
+      }
+    },
+    "analysis_output/bayesian_results.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "metadata",
+        "data",
+        "format_delta_change",
+        "content_delta_change",
+        "joint_hypothesis",
+        "bayes_factors",
+        "t4fam_base",
+        "t4fam_instruct",
+        "study1"
+      ],
+      "numeric_stats": {
+        "count": 75,
+        "min": -1.3556411723784838,
+        "max": 19197.06534090267
+      }
+    },
+    "analysis_output/hierarchical_bayesian.json": {
+      "parse_ok": true,
+      "error": null,
+      "top_level_keys": [
+        "method",
+        "description",
+        "probes",
+        "overall_finding",
+        "caveat"
+      ],
+      "numeric_stats": {
+        "count": 15,
+        "min": -0.9714,
+        "max": 7
+      }
+    }
+  },
+  "summary": {
+    "total_files_checked": 31,
+    "total_numeric_data_points": 2324,
+    "total_out_of_range_values": 3,
+    "total_missing_values": 0,
+    "unique_model_names_found": [
+      "Command-R",
+      "DeepSeek-V3",
+      "DeepSeek-V4-Flash",
+      "GLM-4.7",
+      "GPT-OSS-20B",
+      "Gemini-2.5-Flash",
+      "Gemma-2-2B",
+      "Gemma-2-2B-IT",
+      "Gemma3-12B",
+      "Gemma3-27B",
+      "Gemma3-4B",
+      "Hermes-3-70B",
+      "Hy3-295B",
+      "Llama-3.2-1B",
+      "Llama-3.2-1B-IT",
+      "Llama-3.2-3B",
+      "Llama-3.2-3B-IT",
+      "Llama3.1-8B",
+      "Llama3.2-3B",
+      "Lunaris-8B",
+      "Mistral-3.2-24B",
+      "Mistral-Nemo-12B",
+      "MythoMax-13B",
+      "Phi-4",
+      "Qwen2.5-0.5B",
+      "Qwen2.5-0.5B-IT",
+      "Qwen2.5-1.5B",
+      "Qwen2.5-1.5B-IT",
+      "Qwen2.5-72B",
+      "Qwen2.5-7B",
+      "Qwen2.5-7B-IT",
+      "Qwen3-14B",
+      "Qwen3-8B",
+      "StableLM-2-1.6B",
+      "StableLM-2-1.6B-IT"
+    ],
+    "unique_probe_names_found": [
+      "reference_answer",
+      "rubric_order",
+      "score_id"
+    ],
+    "unique_condition_names_found": [
+      "descriptive",
+      "good_ref",
+      "letter",
+      "no_ref",
+      "normal",
+      "numeric",
+      "poor_ref",
+      "random",
+      "reversed"
+    ],
+    "inconsistencies_found": [],
+    "overall_status": "FAIL"
+  },
+  "model_name_consistency": {
+    "t4fam_results_models": [
+      "Gemma-2-2B",
+      "Gemma-2-2B-IT",
+      "Llama-3.2-1B",
+      "Llama-3.2-1B-IT",
+      "Llama-3.2-3B",
+      "Llama-3.2-3B-IT",
+      "Qwen2.5-0.5B",
+      "Qwen2.5-0.5B-IT",
+      "Qwen2.5-1.5B",
+      "Qwen2.5-1.5B-IT",
+      "Qwen2.5-7B",
+      "Qwen2.5-7B-IT",
+      "StableLM-2-1.6B",
+      "StableLM-2-1.6B-IT"
+    ],
+    "study1_results_models": [
+      "Command-R",
+      "DeepSeek-V3",
+      "DeepSeek-V4-Flash",
+      "GLM-4.7",
+      "GPT-OSS-20B",
+      "Gemini-2.5-Flash",
+      "Gemma3-12B",
+      "Gemma3-27B",
+      "Gemma3-4B",
+      "Hermes-3-70B",
+      "Hy3-295B",
+      "Llama3.1-8B",
+      "Llama3.2-3B",
+      "Lunaris-8B",
+      "Mistral-3.2-24B",
+      "Mistral-Nemo-12B",
+      "MythoMax-13B",
+      "Phi-4",
+      "Qwen2.5-72B",
+      "Qwen2.5-7B",
+      "Qwen3-14B",
+      "Qwen3-8B"
+    ],
+    "rootcause_analysis_models": [
+      "gemma2-2b-base",
+      "gemma2-2b-instruct",
+      "llama3-8b-base",
+      "llama3-8b-instruct",
+      "mistral-7b-base",
+      "mistral-7b-instruct"
+    ],
+    "common_models": [
+      "Qwen2.5-7B"
+    ],
+    "t4fam_not_in_study1": [
+      "Gemma-2-2B",
+      "Gemma-2-2B-IT",
+      "Llama-3.2-1B",
+      "Llama-3.2-1B-IT",
+      "Llama-3.2-3B",
+      "Llama-3.2-3B-IT",
+      "Qwen2.5-0.5B",
+      "Qwen2.5-0.5B-IT",
+      "Qwen2.5-1.5B",
+      "Qwen2.5-1.5B-IT",
+      "Qwen2.5-7B-IT",
+      "StableLM-2-1.6B",
+      "StableLM-2-1.6B-IT"
+    ],
+    "study1_not_in_t4fam": [
+      "Command-R",
+      "DeepSeek-V3",
+      "DeepSeek-V4-Flash",
+      "GLM-4.7",
+      "GPT-OSS-20B",
+      "Gemini-2.5-Flash",
+      "Gemma3-12B",
+      "Gemma3-27B",
+      "Gemma3-4B",
+      "Hermes-3-70B",
+      "Hy3-295B",
+      "Llama3.1-8B",
+      "Llama3.2-3B",
+      "Lunaris-8B",
+      "Mistral-3.2-24B",
+      "Mistral-Nemo-12B",
+      "MythoMax-13B",
+      "Phi-4",
+      "Qwen2.5-72B",
+      "Qwen3-14B",
+      "Qwen3-8B"
+    ],
+    "note": "t4fam uses 'Family' naming (e.g. Qwen2.5-0.5B/-IT), study1 uses single model names (e.g. Llama3.1-8B)"
+  },
+  "study1_files_match": true
+}

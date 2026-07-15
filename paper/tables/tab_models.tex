@@ -1,0 +1,25 @@
+% tab_models.tex — Model families table
+% Extracted from paper/camera_ready_full.tex
+\begin{table}[h]
+\centering\small
+\caption{Model families tested. $\dagger$ = base+instruct pair available.}
+\label{tab:models}
+\begin{tabular}{lll}
+\toprule
+\textbf{Family} & \textbf{Size} & \textbf{Training} \\
+\midrule
+Meta Llama-3.1, Llama-3.2, Llama-2 & 1B--8B & RLHF \\
+Mistral (7B v0.3$\dagger$, Nemo, 3.2) & 7B--24B & SFT+DPO / SFT \\
+Qwen (2.5$\dagger$, 3) & 0.5B--72B & RLHF \\
+Google Gemma (2$\dagger$, 3) & 2B--27B & RLHF \\
+StableLM-2$\dagger$ & 1.6B & SFT \\
+Microsoft Phi-4 & 14B & SFT \\
+DeepSeek (V3, V4-Flash) & 671B (MoE) & RLHF \\
+Cohere Command-R & 35B & RLHF \\
+Zhipu GLM-4.7 & 9B & RLHF \\
+Google Gemini 2.5-Flash & --- & RLHF \\
+Tencent Hy3 & 295B (MoE) & RLHF \\
+NVIDIA Nemotron Nano & 30B (MoE) & RLHF \\
+\bottomrule
+\end{tabular}
+\end{table}

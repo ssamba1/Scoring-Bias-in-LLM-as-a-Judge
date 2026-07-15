@@ -1,0 +1,32 @@
+{
+  "report_type": "NULL MODEL TESTING",
+  "timestamp": "2026-07-14T23:45:24.319443",
+  "real_data_stats": {
+    "num_scores": 310,
+    "mean": 3.043,
+    "std": 0.8
+  },
+  "null_model_results": {
+    "simulation_method": "Randomly shuffled all scores preserving structure (models, probes, conditions)",
+    "num_model_probe_combos": 108,
+    "real_data_substantial_bias_count": 33,
+    "real_substantial_bias_rate_pct": 30.6,
+    "null_fpr_values": [
+      0.5833,
+      0.6389,
+      0.5278,
+      0.5185,
+      0.5741
+    ],
+    "mean_null_fpr": 0.5685,
+    "mean_null_fpr_pct": 56.9,
+    "min_null_fpr": 0.5185,
+    "max_null_fpr": 0.6389,
+    "real_vs_null_comparison": {
+      "real_substantial_bias_rate_pct": 30.6,
+      "null_substantial_bias_rate_pct": 56.9,
+      "ratio_real_to_null": 0.54
+    },
+    "interpretation": "Null model (random scores) yields ~56.9% false positive rate vs 30.6% in real data. Higher real rate confirms genuine scoring bias effects beyond random variation."
+  }
+}

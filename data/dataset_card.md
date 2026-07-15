@@ -21,6 +21,9 @@ pretty_name: Scoring Bias in LLM-as-a-Judge Dataset
 
 # Scoring Bias in LLM-as-a-Judge — Dataset Card
 
+> **New:** A unified dataset (`data/dataset.json`) and comprehensive data dictionary
+> (`data/data_dictionary.md`) have been added. See those files for the complete structured dataset.
+
 ## Dataset Description
 
 - **Purpose:** Measure scoring bias in LLM-as-a-Judge models using perturbation probes
@@ -45,6 +48,13 @@ pretty_name: Scoring Bias in LLM-as-a-Judge Dataset
 | Score scale | 1–5 (integer) |
 
 ## Structure
+
+The complete structured data is available in two formats:
+
+1. **`data/dataset.json`** — Single unified JSON file with all scores, metrics, model metadata, and statistical analyses.
+2. **`data/data_dictionary.md`** — Documents every field across all data files.
+
+### Raw JSON Structure
 
 ```python
 {

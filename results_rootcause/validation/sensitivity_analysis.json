@@ -1,0 +1,2071 @@
+{
+  "report_type": "SENSITIVITY ANALYSIS",
+  "timestamp": "2026-07-14T23:45:24.309446",
+  "analysis_output_bootstrapped_cis_available": true,
+  "analysis_output_finding_stability_available": true,
+  "analysis_output_robustness_metrics_available": true,
+  "delta_formula_sensitivity": {
+    "delta_max_min": {
+      "top_5": [
+        {
+          "key": "t4fam::StableLM-2-1.6B::reference_answer",
+          "value": 3.8
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::score_id",
+          "value": 3.7
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::rubric_order",
+          "value": 3.5
+        },
+        {
+          "key": "t4fam::StableLM-2-1.6B-IT::reference_answer",
+          "value": 3.4
+        },
+        {
+          "key": "t4fam::Qwen2.5-1.5B::score_id",
+          "value": 3.1
+        }
+      ],
+      "bottom_5": [
+        {
+          "key": "study1::GPT-OSS-20B::reference_answer",
+          "value": 0.1
+        },
+        {
+          "key": "t4fam::Llama-3.2-1B::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "t4fam::Qwen2.5-7B-IT::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-8B::reference_answer",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-14B::score_id",
+          "value": 0.0
+        }
+      ]
+    },
+    "delta_max_mean": {
+      "top_5": [
+        {
+          "key": "t4fam::Llama-3.2-3B::score_id",
+          "value": 1.9
+        },
+        {
+          "key": "t4fam::StableLM-2-1.6B::score_id",
+          "value": 1.9
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::rubric_order",
+          "value": 1.75
+        },
+        {
+          "key": "t4fam::Qwen2.5-1.5B::score_id",
+          "value": 1.733
+        },
+        {
+          "key": "t4fam::StableLM-2-1.6B::reference_answer",
+          "value": 1.567
+        }
+      ],
+      "bottom_5": [
+        {
+          "key": "study1::GPT-OSS-20B::score_id",
+          "value": 0.033
+        },
+        {
+          "key": "t4fam::Llama-3.2-1B::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "t4fam::Qwen2.5-7B-IT::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-8B::reference_answer",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-14B::score_id",
+          "value": 0.0
+        }
+      ]
+    },
+    "delta_mean_min": {
+      "top_5": [
+        {
+          "key": "t4fam::StableLM-2-1.6B::reference_answer",
+          "value": 2.233
+        },
+        {
+          "key": "t4fam::StableLM-2-1.6B-IT::reference_answer",
+          "value": 2.067
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::reference_answer",
+          "value": 1.967
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::score_id",
+          "value": 1.8
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::rubric_order",
+          "value": 1.75
+        }
+      ],
+      "bottom_5": [
+        {
+          "key": "study1::GPT-OSS-20B::reference_answer",
+          "value": 0.033
+        },
+        {
+          "key": "t4fam::Llama-3.2-1B::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "t4fam::Qwen2.5-7B-IT::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-8B::reference_answer",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-14B::score_id",
+          "value": 0.0
+        }
+      ]
+    },
+    "delta_iqr": {
+      "top_5": [
+        {
+          "key": "t4fam::StableLM-2-1.6B::reference_answer",
+          "value": 3.8
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::score_id",
+          "value": 3.7
+        },
+        {
+          "key": "t4fam::Llama-3.2-3B::rubric_order",
+          "value": 3.5
+        },
+        {
+          "key": "t4fam::StableLM-2-1.6B-IT::reference_answer",
+          "value": 3.4
+        },
+        {
+          "key": "t4fam::Qwen2.5-1.5B::score_id",
+          "value": 3.1
+        }
+      ],
+      "bottom_5": [
+        {
+          "key": "study1::GPT-OSS-20B::reference_answer",
+          "value": 0.1
+        },
+        {
+          "key": "t4fam::Llama-3.2-1B::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "t4fam::Qwen2.5-7B-IT::rubric_order",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-8B::reference_answer",
+          "value": 0.0
+        },
+        {
+          "key": "study1::Qwen3-14B::score_id",
+          "value": 0.0
+        }
+      ]
+    }
+  },
+  "leave_one_out_sensitivity": {
+    "Qwen2.5-0.5B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.3,
+        "loo_delta": 0.8,
+        "change": -0.5
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.3,
+        "loo_delta": 0.5,
+        "change": -0.8
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.3,
+        "loo_delta": 1.3,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-0.5B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 2.6,
+        "loo_delta": 2.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 2.6,
+        "loo_delta": 1.9,
+        "change": -0.7
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 2.6,
+        "loo_delta": 0.7,
+        "change": -1.9
+      }
+    ],
+    "Qwen2.5-0.5B-IT::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.4,
+        "loo_delta": 0.2,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.4,
+        "loo_delta": 0.2,
+        "change": -0.2
+      }
+    ],
+    "Qwen2.5-0.5B-IT::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 1.2,
+        "loo_delta": 1.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 1.2,
+        "loo_delta": 0.8,
+        "change": -0.4
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 1.2,
+        "loo_delta": 0.4,
+        "change": -0.8
+      }
+    ],
+    "Qwen2.5-1.5B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 3.1,
+        "loo_delta": 1.0,
+        "change": -2.1
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 3.1,
+        "loo_delta": 2.1,
+        "change": -1.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 3.1,
+        "loo_delta": 3.1,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-1.5B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 2.6,
+        "loo_delta": 2.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 2.6,
+        "loo_delta": 2.5,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 2.6,
+        "loo_delta": 0.1,
+        "change": -2.5
+      }
+    ],
+    "Qwen2.5-1.5B-IT::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.8,
+        "loo_delta": 0.7,
+        "change": -1.1
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.8,
+        "loo_delta": 1.8,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.8,
+        "loo_delta": 1.1,
+        "change": -0.7
+      }
+    ],
+    "Qwen2.5-1.5B-IT::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 1.8,
+        "loo_delta": 1.7,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 1.8,
+        "loo_delta": 1.8,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 1.8,
+        "loo_delta": 0.1,
+        "change": -1.7
+      }
+    ],
+    "Llama-3.2-1B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.3,
+        "loo_delta": 1.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.3,
+        "loo_delta": 0.0,
+        "change": -1.3
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.3,
+        "loo_delta": 1.3,
+        "change": 0.0
+      }
+    ],
+    "Llama-3.2-1B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 2.2,
+        "loo_delta": 2.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 2.2,
+        "loo_delta": 1.4,
+        "change": -0.8
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 2.2,
+        "loo_delta": 0.8,
+        "change": -1.4
+      }
+    ],
+    "Llama-3.2-1B-IT::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 2.0,
+        "loo_delta": 1.2,
+        "change": -0.8
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 2.0,
+        "loo_delta": 0.8,
+        "change": -1.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 2.0,
+        "loo_delta": 2.0,
+        "change": 0.0
+      }
+    ],
+    "Llama-3.2-1B-IT::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 2.6,
+        "loo_delta": 2.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 2.6,
+        "loo_delta": 1.9,
+        "change": -0.7
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 2.6,
+        "loo_delta": 0.7,
+        "change": -1.9
+      }
+    ],
+    "Llama-3.2-3B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 3.7,
+        "loo_delta": 1.7,
+        "change": -2.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 3.7,
+        "loo_delta": 2.0,
+        "change": -1.7
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 3.7,
+        "loo_delta": 3.7,
+        "change": 0.0
+      }
+    ],
+    "Llama-3.2-3B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 3.1,
+        "loo_delta": 3.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 3.1,
+        "loo_delta": 2.8,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 3.1,
+        "loo_delta": 0.3,
+        "change": -2.8
+      }
+    ],
+    "Llama-3.2-3B-IT::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 2.4,
+        "loo_delta": 0.5,
+        "change": -1.9
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 2.4,
+        "loo_delta": 1.9,
+        "change": -0.5
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 2.4,
+        "loo_delta": 2.4,
+        "change": 0.0
+      }
+    ],
+    "Llama-3.2-3B-IT::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 2.5,
+        "loo_delta": 2.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 2.5,
+        "loo_delta": 2.2,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 2.5,
+        "loo_delta": 0.3,
+        "change": -2.2
+      }
+    ],
+    "Gemma-2-2B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 2.1,
+        "loo_delta": 2.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 2.1,
+        "loo_delta": 0.7,
+        "change": -1.4
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 2.1,
+        "loo_delta": 1.4,
+        "change": -0.7
+      }
+    ],
+    "Gemma-2-2B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 2.6,
+        "loo_delta": 2.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 2.6,
+        "loo_delta": 1.7,
+        "change": -0.9
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 2.6,
+        "loo_delta": 0.9,
+        "change": -1.7
+      }
+    ],
+    "Gemma-2-2B-IT::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.6,
+        "loo_delta": 0.5,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.6,
+        "loo_delta": 0.1,
+        "change": -0.5
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.6,
+        "loo_delta": 0.6,
+        "change": 0.0
+      }
+    ],
+    "Gemma-2-2B-IT::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 1.1,
+        "loo_delta": 1.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 1.1,
+        "loo_delta": 1.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 1.1,
+        "loo_delta": 0.1,
+        "change": -1.0
+      }
+    ],
+    "StableLM-2-1.6B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 2.9,
+        "loo_delta": 0.1,
+        "change": -2.8
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 2.9,
+        "loo_delta": 2.8,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 2.9,
+        "loo_delta": 2.9,
+        "change": 0.0
+      }
+    ],
+    "StableLM-2-1.6B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 3.8,
+        "loo_delta": 3.8,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 3.8,
+        "loo_delta": 2.9,
+        "change": -0.9
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 3.8,
+        "loo_delta": 0.9,
+        "change": -2.9
+      }
+    ],
+    "StableLM-2-1.6B-IT::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 2.5,
+        "loo_delta": 1.1,
+        "change": -1.4
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 2.5,
+        "loo_delta": 1.4,
+        "change": -1.1
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 2.5,
+        "loo_delta": 2.5,
+        "change": 0.0
+      }
+    ],
+    "StableLM-2-1.6B-IT::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 3.4,
+        "loo_delta": 3.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 3.4,
+        "loo_delta": 2.8,
+        "change": -0.6
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 3.4,
+        "loo_delta": 0.6,
+        "change": -2.8
+      }
+    ],
+    "Qwen2.5-7B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 2.5,
+        "loo_delta": 2.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 2.5,
+        "loo_delta": 0.0,
+        "change": -2.5
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 2.5,
+        "loo_delta": 2.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.7,
+        "loo_delta": 1.0,
+        "change": -0.7
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.7,
+        "loo_delta": 0.7,
+        "change": -1.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.7,
+        "loo_delta": 1.7,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-7B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 2.4,
+        "loo_delta": 2.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 2.4,
+        "loo_delta": 2.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 2.4,
+        "loo_delta": 0.0,
+        "change": -2.4
+      },
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-7B-IT::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.4,
+        "loo_delta": 0.0,
+        "change": -0.4
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-7B-IT::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.2,
+        "change": -0.7
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.9,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.7,
+        "change": -0.2
+      }
+    ],
+    "Llama3.1-8B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.6,
+        "loo_delta": 0.4,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.6,
+        "loo_delta": 0.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.6,
+        "loo_delta": 0.2,
+        "change": -0.4
+      }
+    ],
+    "Llama3.1-8B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.6,
+        "loo_delta": 0.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.6,
+        "loo_delta": 0.4,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.6,
+        "loo_delta": 0.2,
+        "change": -0.4
+      }
+    ],
+    "Llama3.1-8B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.8,
+        "loo_delta": 0.2,
+        "change": -0.6
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.8,
+        "loo_delta": 0.8,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.8,
+        "loo_delta": 0.6,
+        "change": -0.2
+      }
+    ],
+    "Llama3.2-3B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.4,
+        "loo_delta": 0.2,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.4,
+        "loo_delta": 0.2,
+        "change": -0.2
+      }
+    ],
+    "Llama3.2-3B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.6,
+        "loo_delta": 0.3,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.6,
+        "loo_delta": 0.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.6,
+        "loo_delta": 0.3,
+        "change": -0.3
+      }
+    ],
+    "Llama3.2-3B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.2,
+        "loo_delta": 0.0,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-7B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.7,
+        "loo_delta": 0.6,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.7,
+        "loo_delta": 0.7,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.7,
+        "loo_delta": 0.1,
+        "change": -0.6
+      }
+    ],
+    "Qwen3-8B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 1.2,
+        "loo_delta": 0.7,
+        "change": -0.5
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 1.2,
+        "loo_delta": 1.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 1.2,
+        "loo_delta": 0.5,
+        "change": -0.7
+      }
+    ],
+    "Qwen3-8B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.5,
+        "loo_delta": 0.2,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.5,
+        "loo_delta": 0.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.5,
+        "loo_delta": 0.3,
+        "change": -0.2
+      }
+    ],
+    "Qwen3-8B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.0,
+        "loo_delta": 0.0,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.0,
+        "loo_delta": 0.0,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.0,
+        "loo_delta": 0.0,
+        "change": 0.0
+      }
+    ],
+    "Qwen3-14B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "Qwen3-14B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.0,
+        "loo_delta": 0.0,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.0,
+        "loo_delta": 0.0,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.0,
+        "loo_delta": 0.0,
+        "change": 0.0
+      }
+    ],
+    "Qwen3-14B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      }
+    ],
+    "Gemma3-4B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.2,
+        "loo_delta": 0.1,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.2,
+        "loo_delta": 0.1,
+        "change": -0.1
+      }
+    ],
+    "Gemma3-4B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.5,
+        "loo_delta": 0.4,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.5,
+        "loo_delta": 0.1,
+        "change": -0.4
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.5,
+        "loo_delta": 0.5,
+        "change": 0.0
+      }
+    ],
+    "Gemma3-4B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "Gemma3-12B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.9,
+        "loo_delta": 0.4,
+        "change": -0.5
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.9,
+        "loo_delta": 0.9,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.9,
+        "loo_delta": 0.5,
+        "change": -0.4
+      }
+    ],
+    "Gemma3-12B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.3,
+        "loo_delta": 0.0,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      }
+    ],
+    "Gemma3-12B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.3,
+        "change": -0.6
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.6,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.9,
+        "change": 0.0
+      }
+    ],
+    "Gemma3-27B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.8,
+        "loo_delta": 0.2,
+        "change": -0.6
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.8,
+        "loo_delta": 0.6,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.8,
+        "loo_delta": 0.8,
+        "change": 0.0
+      }
+    ],
+    "Gemma3-27B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.2,
+        "loo_delta": 0.0,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      }
+    ],
+    "Gemma3-27B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.3,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.2,
+        "change": -0.3
+      }
+    ],
+    "Phi-4::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.6,
+        "loo_delta": 0.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.6,
+        "loo_delta": 0.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.6,
+        "loo_delta": 0.0,
+        "change": -0.6
+      }
+    ],
+    "Phi-4::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.7,
+        "loo_delta": 0.7,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.7,
+        "loo_delta": 0.5,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.7,
+        "loo_delta": 0.2,
+        "change": -0.5
+      }
+    ],
+    "Phi-4::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "Mistral-Nemo-12B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.3,
+        "loo_delta": 0.2,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.3,
+        "loo_delta": 0.1,
+        "change": -0.2
+      }
+    ],
+    "Mistral-Nemo-12B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.0,
+        "loo_delta": 1.0,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.0,
+        "loo_delta": 0.4,
+        "change": -0.6
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.0,
+        "loo_delta": 0.6,
+        "change": -0.4
+      }
+    ],
+    "Mistral-Nemo-12B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.4,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.1,
+        "change": -0.4
+      }
+    ],
+    "Lunaris-8B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.4,
+        "loo_delta": 0.3,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.4,
+        "loo_delta": 0.1,
+        "change": -0.3
+      }
+    ],
+    "Lunaris-8B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.4,
+        "loo_delta": 0.3,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.4,
+        "loo_delta": 0.1,
+        "change": -0.3
+      }
+    ],
+    "Lunaris-8B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 1.0,
+        "loo_delta": 0.8,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 1.0,
+        "loo_delta": 1.0,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 1.0,
+        "loo_delta": 0.2,
+        "change": -0.8
+      }
+    ],
+    "Hermes-3-70B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.8,
+        "loo_delta": 0.8,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.8,
+        "loo_delta": 0.8,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.8,
+        "loo_delta": 0.0,
+        "change": -0.8
+      }
+    ],
+    "Hermes-3-70B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.8,
+        "loo_delta": 0.2,
+        "change": -1.6
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.8,
+        "loo_delta": 1.6,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.8,
+        "loo_delta": 1.8,
+        "change": 0.0
+      }
+    ],
+    "Hermes-3-70B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.2,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.5,
+        "loo_delta": 0.3,
+        "change": -0.2
+      }
+    ],
+    "MythoMax-13B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 1.5,
+        "loo_delta": 1.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 1.5,
+        "loo_delta": 1.2,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 1.5,
+        "loo_delta": 0.3,
+        "change": -1.2
+      }
+    ],
+    "MythoMax-13B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.3,
+        "loo_delta": 1.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.3,
+        "loo_delta": 0.5,
+        "change": -0.8
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.3,
+        "loo_delta": 0.8,
+        "change": -0.5
+      }
+    ],
+    "MythoMax-13B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.2,
+        "loo_delta": 0.0,
+        "change": -0.2
+      }
+    ],
+    "DeepSeek-V3::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.2,
+        "loo_delta": 0.1,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.2,
+        "loo_delta": 0.1,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      }
+    ],
+    "DeepSeek-V3::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.8,
+        "loo_delta": 0.2,
+        "change": -0.6
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.8,
+        "loo_delta": 0.6,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.8,
+        "loo_delta": 0.8,
+        "change": 0.0
+      }
+    ],
+    "DeepSeek-V3::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.0,
+        "change": -0.3
+      }
+    ],
+    "DeepSeek-V4-Flash::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.3,
+        "loo_delta": 0.2,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.3,
+        "loo_delta": 0.1,
+        "change": -0.2
+      }
+    ],
+    "DeepSeek-V4-Flash::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.5,
+        "loo_delta": 0.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.5,
+        "loo_delta": 0.5,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.5,
+        "loo_delta": 0.0,
+        "change": -0.5
+      }
+    ],
+    "DeepSeek-V4-Flash::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.0,
+        "change": -0.3
+      }
+    ],
+    "Hy3-295B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 1.0,
+        "loo_delta": 0.9,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 1.0,
+        "loo_delta": 1.0,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 1.0,
+        "loo_delta": 0.1,
+        "change": -0.9
+      }
+    ],
+    "Hy3-295B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.2,
+        "loo_delta": 1.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.2,
+        "loo_delta": 0.5,
+        "change": -0.7
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.2,
+        "loo_delta": 0.7,
+        "change": -0.5
+      }
+    ],
+    "Hy3-295B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.6,
+        "loo_delta": 0.1,
+        "change": -0.5
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.6,
+        "loo_delta": 0.6,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.6,
+        "loo_delta": 0.5,
+        "change": -0.1
+      }
+    ],
+    "Gemini-2.5-Flash::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.3,
+        "loo_delta": 0.0,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      }
+    ],
+    "Gemini-2.5-Flash::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.3,
+        "loo_delta": 0.1,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.3,
+        "loo_delta": 0.2,
+        "change": -0.1
+      }
+    ],
+    "Gemini-2.5-Flash::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.1,
+        "change": -0.8
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.9,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.8,
+        "change": -0.1
+      }
+    ],
+    "Command-R::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.3,
+        "loo_delta": 0.1,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.3,
+        "loo_delta": 0.2,
+        "change": -0.1
+      }
+    ],
+    "Command-R::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 1.1,
+        "loo_delta": 1.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 1.1,
+        "loo_delta": 0.7,
+        "change": -0.4
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 1.1,
+        "loo_delta": 0.4,
+        "change": -0.7
+      }
+    ],
+    "Command-R::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.1,
+        "change": -0.8
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.9,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.9,
+        "loo_delta": 0.8,
+        "change": -0.1
+      }
+    ],
+    "GLM-4.7::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "GLM-4.7::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.2,
+        "loo_delta": 0.0,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.2,
+        "loo_delta": 0.2,
+        "change": 0.0
+      }
+    ],
+    "GLM-4.7::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.2,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.1,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      }
+    ],
+    "GPT-OSS-20B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "GPT-OSS-20B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "GPT-OSS-20B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.0,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.1,
+        "loo_delta": 0.1,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-72B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 1.3,
+        "loo_delta": 0.9,
+        "change": -0.4
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 1.3,
+        "loo_delta": 0.4,
+        "change": -0.9
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 1.3,
+        "loo_delta": 1.3,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-72B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.8,
+        "loo_delta": 0.0,
+        "change": -0.8
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.8,
+        "loo_delta": 0.8,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.8,
+        "loo_delta": 0.8,
+        "change": 0.0
+      }
+    ],
+    "Qwen2.5-72B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.0,
+        "change": -0.3
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      }
+    ],
+    "Mistral-3.2-24B::rubric_order": [
+      {
+        "excluded_condition": "normal",
+        "full_delta": 0.3,
+        "loo_delta": 0.2,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "reversed",
+        "full_delta": 0.3,
+        "loo_delta": 0.1,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "random",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      }
+    ],
+    "Mistral-3.2-24B::score_id": [
+      {
+        "excluded_condition": "numeric",
+        "full_delta": 0.3,
+        "loo_delta": 0.2,
+        "change": -0.1
+      },
+      {
+        "excluded_condition": "letter",
+        "full_delta": 0.3,
+        "loo_delta": 0.1,
+        "change": -0.2
+      },
+      {
+        "excluded_condition": "descriptive",
+        "full_delta": 0.3,
+        "loo_delta": 0.3,
+        "change": 0.0
+      }
+    ],
+    "Mistral-3.2-24B::reference_answer": [
+      {
+        "excluded_condition": "no_ref",
+        "full_delta": 0.4,
+        "loo_delta": 0.0,
+        "change": -0.4
+      },
+      {
+        "excluded_condition": "good_ref",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      },
+      {
+        "excluded_condition": "poor_ref",
+        "full_delta": 0.4,
+        "loo_delta": 0.4,
+        "change": 0.0
+      }
+    ]
+  }
+}

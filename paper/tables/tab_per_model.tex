@@ -1,0 +1,39 @@
+% tab_per_model.tex — Per-model bias scores
+% Extracted from paper/camera_ready_full.tex
+\begin{table*}[h]
+\centering\small
+\caption{Per-model bias scores ($\Delta$) across 22 instruct models.
+$\Delta$ is the max inter-variant mean difference. Lower = less biased.}
+\label{tab:per_model}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Rubric} & \textbf{Score ID} & \textbf{Ref Ans} \\
+\midrule
+Command-R & 0.30 & 1.10 & 0.90 \\
+DeepSeek-V3 & 0.20 & 0.80 & 0.30 \\
+DeepSeek-V4-Flash & 0.30 & 0.50 & 0.30 \\
+GLM-4.7 & 0.10 & 0.20 & 0.30 \\
+GPT-OSS-20B & 0.10 & 0.10 & 0.10 \\
+Gemini-2.5-Flash & 0.30 & 0.30 & 0.90 \\
+Gemma3-12B & 0.90 & 0.30 & 0.90 \\
+Gemma3-27B & 0.80 & 0.20 & 0.50 \\
+Gemma3-4B & 0.20 & 0.50 & 0.10 \\
+Hermes-3-70B & 0.80 & 1.80 & 0.50 \\
+Hy3-295B & 1.00 & 1.20 & 0.60 \\
+Llama-3.1-8B & 0.60 & 0.60 & 0.80 \\
+Llama-3.2-3B & 0.40 & 0.60 & 0.20 \\
+Lunaris-8B & 0.40 & 0.40 & 1.00 \\
+Mistral-3.2-24B & 0.30 & 0.30 & 0.40 \\
+Mistral-Nemo-12B & 0.30 & 1.00 & 0.50 \\
+MythoMax-13B & 1.50 & 1.30 & 0.20 \\
+Phi-4 & 0.60 & 0.70 & 0.10 \\
+Qwen2.5-72B & 1.30 & 0.80 & 0.30 \\
+Qwen2.5-7B & 0.70 & 1.70 & 0.10 \\
+Qwen3-14B & 0.10 & 0.00 & 0.10 \\
+Qwen3-8B & 1.20 & 0.50 & 0.00 \\
+\midrule
+\textbf{Mean} & \textbf{0.56} & \textbf{0.68} & \textbf{0.41} \\
+\textbf{Std Dev} & \textbf{0.41} & \textbf{0.49} & \textbf{0.31} \\
+\bottomrule
+\end{tabular}
+\end{table*}

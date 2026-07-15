@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scoring Bias in LLM-as-a-Judge — Presentation</title>
+<style>
+/* ── reset / base ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0f0f1a;color:#e2e8f0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;overflow:hidden}
+.slide{display:none;position:fixed;inset:0;padding:60px 80px;overflow-y:auto;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.slide.active{display:flex}
+.slide-number{position:absolute;bottom:30px;right:40px;font-size:13px;color:#4a5568}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:12px 30px;background:#1a1a30;border-bottom:1px solid #2d3748;display:flex;align-items:center;gap:14px;font-size:13px;flex-wrap:wrap}
+nav a{color:#63b3ed;text-decoration:none;padding:4px 10px;border-radius:4px;transition:background .15s}
+nav a:hover{background:#2b6cb0;color:#fff}
+nav .counter{color:#718096;margin-left:auto;font-size:12px}
+/* content */
+h1{font-size:44px;font-weight:700;margin-bottom:16px;background:linear-gradient(135deg,#63b3ed,#805ad5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h1.no-grad{-webkit-text-fill-color:#e2e8f0;background:none}
+h2{font-size:32px;font-weight:700;margin-bottom:20px;color:#e2e8f0}
+h3{font-size:20px;font-weight:600;margin-bottom:12px;color:#a0aec0}
+p{font-size:18px;line-height:1.7;margin-bottom:14px;color:#cbd5e0;max-width:800px}
+.sub{color:#718096;font-size:15px;margin-bottom:30px}
+.highlight{color:#63b3ed;font-weight:600}
+.highlight-red{color:#fc8181;font-weight:600}
+.highlight-green{color:#68d391;font-weight:600}
+.grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:24px 0}
+.card{background:#1a1a30;border:1px solid #2d3748;border-radius:12px;padding:24px 28px;min-width:200px;max-width:300px;text-align:center}
+.card h4{font-size:28px;font-weight:700;margin-bottom:6px}
+.card p{font-size:13px;color:#a0aec0;margin:0}
+.card .num-green{color:#48bb78}
+.card .num-red{color:#fc8181}
+.card .num-blue{color:#63b3ed}
+.bar-chart{margin:20px auto;max-width:600px;text-align:left}
+.bar{margin:10px 0;display:flex;align-items:center;gap:12px;font-size:14px}
+.bar .fill{height:28px;border-radius:6px;transition:width .6s;min-width:4px}
+.bar .label{width:120px;flex-shrink:0;color:#a0aec0}
+.bar .val{font-weight:600;width:60px;text-align:right}
+ul{text-align:left;max-width:700px;margin:20px auto;font-size:17px;line-height:1.8;color:#cbd5e0}
+li{margin:8px 0}
+strong{color:#e2e8f0}
+img{max-width:100%;max-height:50vh;border-radius:10px;margin:16px 0;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.figure-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.figure-row img{max-height:30vh;max-width:45%}
+.badge{display:inline-block;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600;margin:4px}
+.badge-green{background:#22543d;color:#68d391}
+.badge-red{background:#742a2a;color:#fc8181}
+.badge-blue{background:#2b6cb0;color:#63b3ed}
+.eq{font-size:22px;font-weight:600;margin:16px 0;color:#e2e8f0;font-family:'Times New Roman',serif}
+.blockquote{border-left:3px solid #63b3ed;padding:14px 20px;background:#1a1a30;border-radius:4px;margin:20px auto;max-width:700px;font-style:italic;color:#a0aec0;text-align:left}
+@media(max-width:768px){.slide{padding:60px 30px}h1{font-size:30px}h2{font-size:24px}p{font-size:16px}.grid{gap:12px}.card{min-width:150px;padding:16px}}
+/* title slide specific */
+.title-sub{font-size:22px;color:#a0aec0;margin-top:8px;margin-bottom:4px}
+.title-meta{font-size:15px;color:#4a5568;margin-top:20px}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#slide-0">🏠</a>
+  <a href="#slide-1">Problem</a>
+  <a href="#slide-2">Methods</a>
+  <a href="#slide-3">Results 1</a>
+  <a href="#slide-4">Results 2</a>
+  <a href="#slide-5">Results 3</a>
+  <a href="#slide-6">Discussion</a>
+  <a href="#slide-7">Limitations</a>
+  <a href="#slide-8">Conclusion</a>
+  <span class="counter" id="slide-counter">1 / 9</span>
+</nav>
+
+<!-- ─────── SLIDE 0: TITLE ─────── -->
+<div class="slide active" id="slide-0">
+  <h1>Scoring Bias in LLM-as-a-Judge Models</h1>
+  <p class="title-sub">A 22-Model Landscape with Base-Instruct Comparison</p>
+  <p style="color:#a0aec0;font-size:18px;margin-top:20px">Investigating whether scoring bias originates from pre-training or instruction tuning</p>
+  <p style="margin-top:40px;font-size:15px;color:#718096">
+    <strong style="color:#e2e8f0">Sricharan Samba</strong><br>
+    South Forsyth High School<br>
+    arXiv:2607.xxxxx · 2026
+  </p>
+  <div style="margin-top:30px;display:flex;gap:12px;justify-content:center">
+    <span class="badge badge-blue">31 Models</span>
+    <span class="badge badge-green">54K Judgments</span>
+    <span class="badge badge-red">3 Bias Probes</span>
+  </div>
+</div>
+
+<!-- ─────── SLIDE 1: PROBLEM ─────── -->
+<div class="slide" id="slide-1">
+  <h2>The Problem</h2>
+  <p style="max-width:750px">When an LLM judges another model's response, can we trust the score?</p>
+  <div class="grid">
+    <div class="card">
+      <h4 class="num-red">35+</h4>
+      <p>Known bias types in LLM-as-a-Judge</p>
+    </div>
+    <div class="card">
+      <h4 class="num-blue">? ?</h4>
+      <p>Does bias come from pre-training or instruction tuning?</p>
+    </div>
+  </div>
+  <p style="margin-top:16px;font-size:16px;color:#a0aec0"><strong>Key Question</strong> (posed by Li et al., DASFAA 2026, as open problem):<br><em>"Where does scoring bias come from?"</em></p>
+  <div class="blockquote">
+    If scoring bias originates from pre-training → mitigate via data curation.<br>
+    If it emerges during instruction tuning → mitigate via alignment methods.
+  </div>
+  <div class="grid" style="margin-top:24px">
+    <span class="badge badge-green">H1: Format bias ↓ after instruction tuning</span>
+    <span class="badge badge-red">H2: Content bias ↑ after instruction tuning</span>
+  </div>
+</div>
+
+<!-- ─────── SLIDE 2: METHODS ─────── -->
+<div class="slide" id="slide-2">
+  <h2>Methods</h2>
+  <div class="grid">
+    <div class="card" style="min-width:180px">
+      <h4 class="num-blue">9</h4>
+      <p>Base-instruct family pairs<br>(18 variants)</p>
+    </div>
+    <div class="card" style="min-width:180px">
+      <h4 class="num-blue">22</h4>
+      <p>Instruct-tuned models<br>(OpenRouter API)</p>
+    </div>
+    <div class="card" style="min-width:180px">
+      <h4 class="num-blue">50</h4>
+      <p>Evaluation items<br>5 domains × 10 items</p>
+    </div>
+  </div>
+  <h3 style="margin-top:20px">Three Scoring Bias Probes</h3>
+  <div class="grid">
+    <div class="card" style="min-width:170px">
+      <h4 class="num-green">1</h4>
+      <p style="font-weight:600;color:#68d391">Rubric Order</p>
+      <p style="font-size:12px">Control → Reversed → Random</p>
+    </div>
+    <div class="card" style="min-width:170px">
+      <h4 class="num-blue">2</h4>
+      <p style="font-weight:600;color:#63b3ed">Score ID</p>
+      <p style="font-size:12px">Numeric → Letter → Descriptive</p>
+    </div>
+    <div class="card" style="min-width:170px">
+      <h4 class="num-red">3</h4>
+      <p style="font-weight:600;color:#fc8181">Reference Answer</p>
+      <p style="font-size:12px">None → Good → Poor exemplar</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:16px">Greedy decoding (T=0) · 3 repeats · Kaggle T4 + OpenRouter · Total API cost &lt; $3</p>
+</div>
+
+<!-- ─────── SLIDE 3: RESULTS 1 — Bias Landscape ─────── -->
+<div class="slide" id="slide-3">
+  <h2>Bias Landscape Across 22 Models</h2>
+  <div class="grid">
+    <div class="card">
+      <h4 class="num-green">0.56</h4>
+      <p>Mean Δ — Rubric Order</p>
+    </div>
+    <div class="card">
+      <h4 class="num-blue">0.68</h4>
+      <p>Mean Δ — Score ID <span style="color:#63b3ed;font-weight:700">← Largest</span></p>
+    </div>
+    <div class="card">
+      <h4 class="num-red">0.41</h4>
+      <p>Mean Δ — Reference Answer</p>
+    </div>
+  </div>
+  <img src="../figures/fig1_bias_landscape.png" alt="Bias landscape" style="max-height:35vh">
+  <p class="sub">Score ID bias has the largest average effect (Δ = 0.68) across all instruct models</p>
+</div>
+
+<!-- ─────── SLIDE 4: RESULTS 2 — Differential Effect ─────── -->
+<div class="slide" id="slide-4">
+  <h2>Differential Effect: Format ↓ Content ↑</h2>
+  <div class="figure-row">
+    <img src="../figures/fig2_format_content_scatter.png" alt="Format vs content scatter">
+    <img src="../figures/fig7_base_instruct_paired.png" alt="Base vs instruct paired">
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h4 class="num-green">−44%</h4>
+      <p>Format bias reduction (Rubric Order)</p>
+    </div>
+    <div class="card">
+      <h4 class="num-green">−77%</h4>
+      <p>Format bias reduction (Score ID)</p>
+    </div>
+    <div class="card">
+      <h4 class="num-red">+35%</h4>
+      <p>Content bias increase (3B+ RLHF)</p>
+    </div>
+  </div>
+  <p class="sub">Format bias decreases across 7/9 families; Content bias increases only in larger (3B+) RLHF models</p>
+</div>
+
+<!-- ─────── SLIDE 5: RESULTS 3 — Scale Dependence ─────── -->
+<div class="slide" id="slide-5">
+  <h2>Scale-Dependent Pattern</h2>
+  <img src="../figures/fig3_scale_dependent.png" alt="Scale dependent" style="max-height:35vh">
+  <div class="grid">
+    <div class="card">
+      <h4 class="num-green">≤1.5B</h4>
+      <p>Format ↓ · Content ↓<br><span style="color:#68d391">Both decrease</span></p>
+    </div>
+    <div class="card">
+      <h4 class="num-blue">2–7B</h4>
+      <p>Format ↓ · Content ↓<br><span style="color:#63b3ed">Both decrease</span></p>
+    </div>
+    <div class="card">
+      <h4 class="num-red">8B+</h4>
+      <p>Format ↓ · Content ↑<br><span style="color:#fc8181">Content increases</span></p>
+    </div>
+  </div>
+  <p class="sub">The differential effect requires a minimum scale threshold (3B+) with RLHF training</p>
+</div>
+
+<!-- ─────── SLIDE 6: DISCUSSION ─────── -->
+<div class="slide" id="slide-6">
+  <h2>Discussion</h2>
+  <h3>Format Efficiency Hypothesis</h3>
+  <div class="grid">
+    <div class="card">
+      <h4 class="num-green">23.7% → 20.8%</h4>
+      <p>Format token attention<br><span style="color:#68d391">↓ More efficient parsing</span></p>
+    </div>
+    <div class="card">
+      <h4 class="num-blue">1.06% → 1.09%</h4>
+      <p>Content token attention<br><span style="color:#63b3ed">≈ Unchanged</span></p>
+    </div>
+  </div>
+  <div class="blockquote">
+    <strong>IIAR Hypothesis</strong> (not supported): Instruction does not increase attention to both format and content.<br>
+    <strong>Format Efficiency Hypothesis ✓</strong>: Format parsing becomes more efficient, reducing format errors without attention redistribution.
+  </div>
+  <ul style="font-size:15px;margin-top:16px">
+    <li>Format robustness ← naturally improved by instruction tuning</li>
+    <li>Content sensitivity ← worsened in large RLHF models (exemplar priming)</li>
+    <li>Mitigation must address <span class="highlight-green">two separate channels</span></li>
+  </ul>
+</div>
+
+<!-- ─────── SLIDE 7: LIMITATIONS ─────── -->
+<div class="slide" id="slide-7">
+  <h2>Limitations</h2>
+  <ul>
+    <li><strong>9 model families</strong> with base-instruct pairs — larger-sample replication needed</li>
+    <li><strong>50 evaluation items</strong> — sufficient for observed effects (d ≥ 1.20), but more items could detect smaller effects</li>
+    <li><strong>Single prompt template</strong> — magnitude may vary with different prompt designs</li>
+    <li><strong>English-only</strong> — results bound to English; multilingual analysis is future work</li>
+    <li><strong>No human baseline</strong> — all claims are relative (base vs instruct), not absolute</li>
+    <li><strong>Descriptive parser</strong> affected 1 of 9 variant comparisons (11.1%) — does not change conclusions</li>
+  </ul>
+  <p style="margin-top:24px;color:#718096;font-size:15px">Power analysis: N ≥ 12 families needed for 80% power at α = 0.05</p>
+  <div class="grid" style="margin-top:16px">
+    <span class="badge badge-green">Format ↓ robust across 9 families</span>
+    <span class="badge badge-red">Content ↑ scale-dependent</span>
+  </div>
+</div>
+
+<!-- ─────── SLIDE 8: CONCLUSION ─────── -->
+<div class="slide" id="slide-8">
+  <h2>Conclusion</h2>
+  <div class="blockquote" style="font-size:20px;border-color:#805ad5">
+    "Scoring bias is modulated by instruction tuning — not inherent to pre-training."
+  </div>
+  <div class="grid" style="margin-top:24px">
+    <div class="card" style="min-width:220px">
+      <h4 class="num-green">3</h4>
+      <p>Key empirical findings<br>Format ↓ · Content ↑ scale-dependent · Training method matters</p>
+    </div>
+    <div class="card" style="min-width:220px">
+      <h4 class="num-blue">2</h4>
+      <p>Mechanistic hypotheses<br>IIAR (unsupported) · Format Efficiency (supported)</p>
+    </div>
+    <div class="card" style="min-width:220px">
+      <h4 class="num-red">4</h4>
+      <p>Alternative explanations<br>All inconsistent with observed pattern</p>
+    </div>
+  </div>
+  <p style="margin-top:24px;font-size:16px;color:#a0aec0">
+    <strong>Implication:</strong> Mitigation strategies should target the <span class="highlight">alignment stage</span>,
+    addressing format robustness and content sensitivity as separate channels.
+  </p>
+  <p style="margin-top:12px;font-size:14px;color:#4a5568">
+    Code: <span style="color:#63b3ed">github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge</span>
+    · Data: <span style="color:#63b3ed">10.5281/zenodo.21361920</span>
+  </p>
+</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('slide-counter');
+  let current = 0;
+
+  function show(idx){
+    slides.forEach(s => s.classList.remove('active'));
+    slides[idx].classList.add('active');
+    current = idx;
+    counter.textContent = (idx + 1) + ' / ' + slides.length;
+    location.hash = 'slide-' + idx;
+  }
+
+  window.addEventListener('hashchange', function(){
+    const m = location.hash.match(/slide-(\d+)/);
+    if(m && m[1] < slides.length) show(parseInt(m[1]));
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' '){
+      e.preventDefault();
+      show(Math.min(current + 1, slides.length - 1));
+    }
+    if(e.key === 'ArrowLeft' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      show(Math.max(current - 1, 0));
+    }
+  });
+
+  // Init from hash
+  const m = location.hash.match(/slide-(\d+)/);
+  if(m && m[1] < slides.length) show(parseInt(m[1]));
+})();
+</script>
+</body>
+</html>

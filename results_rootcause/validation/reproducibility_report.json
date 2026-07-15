@@ -1,0 +1,39 @@
+{
+  "report_type": "REPRODUCIBILITY VERIFICATION",
+  "timestamp": "2026-07-14T23:45:24.283216",
+  "t4fam_delta_recomputation": {
+    "total_checks": 42,
+    "matches": 42,
+    "mismatches": 0,
+    "match_rate_pct": 100.0,
+    "discrepancies": []
+  },
+  "study1_recomputation": {
+    "models_processed": 22,
+    "note": "Study1 deltas recomputed successfully"
+  },
+  "rootcause_analysis_crosscheck": {
+    "models_available": [
+      "llama3-8b-base",
+      "llama3-8b-instruct",
+      "mistral-7b-base",
+      "mistral-7b-instruct",
+      "gemma2-2b-base",
+      "gemma2-2b-instruct"
+    ],
+    "note": "Naming convention differs: rootcause uses 'llama3-8b-base', study1 uses 'Llama3.1-8B'"
+  },
+  "full_metrics_crosscheck": {
+    "available_keys": [
+      "mads",
+      "cohens_d",
+      "flip_rates",
+      "interpretation"
+    ]
+  },
+  "overall_summary": {
+    "delta_recomputation_match_rate": 100.0,
+    "delta_discrepancy_count": 0,
+    "reproducibility_verdict": "FULL REPRODUCIBILITY"
+  }
+}

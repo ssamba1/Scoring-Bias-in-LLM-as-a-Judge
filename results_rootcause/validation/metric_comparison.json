@@ -1,0 +1,27 @@
+{
+  "report_type": "METRIC COMPARISON",
+  "timestamp": "2026-07-14T23:45:24.285200",
+  "metrics_computed": {
+    "num_model_probe_combos": 108
+  },
+  "pairwise_correlations": {
+    "delta_max_min_vs_mad": 0.9893,
+    "delta_max_min_vs_std": 0.9963,
+    "delta_max_min_vs_cv": 0.965,
+    "delta_max_min_vs_flip_rate": 0.8674,
+    "mad_vs_std": 0.998,
+    "mad_vs_cv": 0.9648,
+    "mad_vs_flip_rate": 0.8429,
+    "std_vs_cv": 0.9686,
+    "std_vs_flip_rate": 0.8545,
+    "cv_vs_flip_rate": 0.8406
+  },
+  "summary": {
+    "delta_mad_correlation": 0.9893,
+    "delta_std_correlation": 0.9963,
+    "delta_cv_correlation": 0.965,
+    "delta_flip_rate_correlation": 0.8674,
+    "highest_agreement": "mad_vs_std",
+    "lowest_agreement": "cv_vs_flip_rate"
+  }
+}

@@ -1,0 +1,29 @@
+% tab_bayesian.tex — Bayesian analysis results
+\begin{table}[h]
+\centering\small
+\caption{Bayesian analysis results using conjugate Normal-Inverse-Gamma priors
+($\mu_0=0$, $\kappa_0=1$, $\alpha_0=2$, $\beta_0=2$).
+BF$_{10}$ quantifies evidence for H$_1$ (bias exists) vs H$_0$ (no bias).
+BF $>$ 3 = moderate, $>$ 10 = strong, $>$ 100 = decisive.}
+\label{tab:bayesian}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Group} & \textbf{Probe} & \textbf{Posterior Mean} & \textbf{95\% HDI} & \textbf{BF$_{10}$} \\
+\midrule
+\multirow{3}{*}{T4 Base (n=7)}
+ & Rubric Order & 0.60 & $[-0.33,\ 1.53]$ & 0.92 \\
+ & Score ID & 2.11 & $[1.20,\ 3.04]$ & 298.67 \\
+ & Reference Answer & 2.41 & $[1.54,\ 3.25]$ & 177.33 \\
+\midrule
+\multirow{3}{*}{T4 Instruct (n=7)}
+ & Rubric Order & 0.25 & $[-0.17,\ 0.67]$ & 0.47 \\
+ & Score ID & 1.26 & $[0.45,\ 2.06]$ & 19.29 \\
+ & Reference Answer & 1.69 & $[0.82,\ 2.56]$ & 13.99 \\
+\midrule
+\multirow{3}{*}{Study 1 (n=22)}
+ & Rubric Order & 0.54 & $[0.36,\ 0.72]$ & 18,753 \\
+ & Score ID & 0.65 & $[0.42,\ 0.88]$ & 19,197 \\
+ & Reference Answer & 0.40 & $[0.26,\ 0.54]$ & 11,472 \\
+\bottomrule
+\end{tabular}
+\end{table}
