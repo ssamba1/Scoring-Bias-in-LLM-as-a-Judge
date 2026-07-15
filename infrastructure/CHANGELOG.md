@@ -44,3 +44,5 @@
 - Bias interaction experiments
 - Root cause analysis framework
 - Literature review infrastructure
+
+- Improved docstrings across analysis modules
