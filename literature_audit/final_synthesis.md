@@ -86,3 +86,5 @@
 - Faster execution (2-3 weeks)
 
 Both are **confirmed untouched** with zero dedicated papers.
+
+Synthesis complete.
