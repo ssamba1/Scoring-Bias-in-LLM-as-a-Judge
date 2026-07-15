@@ -66,3 +66,5 @@ proposed extension for future development.
 - Full paper: [arXiv:2607.xxxxx](https://arxiv.org/abs/2607.xxxxx)
 - Data: Pre-computed bias deltas for 22 models
 - Dashboard: Streamlit-based interactive explorer
+
+Status: concept only
