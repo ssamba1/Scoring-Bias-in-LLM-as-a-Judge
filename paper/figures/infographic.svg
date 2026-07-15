@@ -113,7 +113,7 @@
   <!-- Format ↓ -->
   <rect x="80" y="810" width="300" height="120" rx="8" fill="#22543d" opacity="0.3" stroke="#48bb78" stroke-width="1.5"/>
   <text x="230" y="840" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="16" font-weight="700" fill="#68d391">Format Bias ↓</text>
-  <text x="230" y="862" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Instruct < Base</text>
+  <text x="230" y="862" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="#a0aec0">Instruct &lt; Base</text>
   <line x1="110" y1="880" x2="350" y2="880" stroke="#48bb78" stroke-width="0.5" opacity="0.3"/>
   <text x="230" y="898" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#9ae6b4">Rubric Order: −44% (Δ 0.69 → 0.29)</text>
   <text x="230" y="916" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#9ae6b4">Score ID: −77% (Δ 2.41 → 1.44)</text>
