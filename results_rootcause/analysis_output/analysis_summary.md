@@ -259,3 +259,5 @@ Full Fleiss' kappa computation requires item-level score matrices (available in 
 5. Flag rubric_order as needing larger samples in future work
 6. Note the counterexample of Llama-3.2-1B as an important boundary condition
 7. Present cross-probe correlations to argue for multi-probe test batteries
+
+All analyses passed validation checks.
