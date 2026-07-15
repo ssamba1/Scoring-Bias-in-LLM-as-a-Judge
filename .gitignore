@@ -8,6 +8,12 @@ dist/
 build/
 .eggs/
 *.so
+.pytest_cache/
+
+# Temporary helper / check scripts
+_check_syntax.py
+_validate.py
+check_braces.py
 .env
 .venv
 venv/

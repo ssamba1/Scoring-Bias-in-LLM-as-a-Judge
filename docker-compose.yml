@@ -1,13 +1,15 @@
 version: '3.8'
 
 services:
-  # Main test/runtime service
+  # Service 1: Run tests
   test:
     build: .
     container_name: bias-test
-    command: ["python", "-m", "pytest", "tests/", "-v", "--tb=short"]
+    command: ["python", "-m", "pytest", "tests/", "-x", "-v", "--tb=short"]
+    networks:
+      - bias-net
 
-  # Jupyter notebook service for interactive analysis
+  # Service 2: Jupyter notebook server
   jupyter:
     build: .
     container_name: bias-jupyter
@@ -19,13 +21,36 @@ services:
       - ./data:/app/data
     command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
     restart: unless-stopped
+    networks:
+      - bias-net
 
-  # Dashboard service
+  # Service 3: Streamlit dashboard
   dashboard:
-    image: nginx:alpine
+    build: .
     container_name: bias-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./dashboard:/app/dashboard
+      - ./data:/app/data
+      - ./results:/app/results
+    command: ["streamlit", "run", "dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    restart: unless-stopped
+    networks:
+      - bias-net
+
+  # Service 4: Static docs site via nginx
+  website:
+    image: nginx:alpine
+    container_name: bias-website
     ports:
       - "8080:80"
     volumes:
-      - ./dashboard:/usr/share/nginx/html:ro
+      - ./docs:/usr/share/nginx/html:ro
     restart: unless-stopped
+    networks:
+      - bias-net
+
+networks:
+  bias-net:
+    driver: bridge
