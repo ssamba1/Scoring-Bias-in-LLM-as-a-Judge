@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="paper/figures_png/graphical_abstract.svg" width="700" alt="Graphical Abstract - Scoring Bias in LLM-as-a-Judge Models">
+  <img src="paper/figures_png/graphical_abstract.svg" width="700" alt="Graphical Abstract: Scoring Bias in LLM-as-a-Judge Models">
 </p>
 
 <h1 align="center">Scoring Bias in LLM-as-a-Judge Models</h1>
@@ -16,7 +16,7 @@
 
 ---
 
-**LLMs deployed as automated judges exhibit systematic scoring biases - but do these biases originate from pre-training or from instruction tuning?** We systematically compare base (pre-trained) and instruct (fine-tuned) variants across **31 model variants from 16 families** using three perturbation-based scoring bias probes. With **40,500+ judgments**, we find that instruction tuning has **opposite effects depending on bias type**: format-related biases decrease, while content-related biases increase in larger RLHF-trained models.
+**LLMs deployed as automated judges exhibit systematic scoring biases but do these biases originate from pre-training or from instruction tuning?** We systematically compare base (pre-trained) and instruct (fine-tuned) variants across **31 model variants from 16 families** using three perturbation-based scoring bias probes. With **40,500+ judgments**, we find that instruction tuning has **opposite effects depending on bias type**: format-related biases decrease, while content-related biases increase in larger RLHF-trained models.
 
 ### Key Findings
 
@@ -46,11 +46,11 @@
 
 ## Motivation & Significance
 
-LLMs are increasingly used as automated judges to evaluate other LLMs - in chatbot arenas, RLHF reward modeling, and benchmark leaderboards. This practice assumes that LLM judges provide unbiased evaluations, but growing evidence shows they exhibit systematic scoring biases: their ratings are influenced by factors unrelated to response quality, such as option ordering, score label anchoring, and reference answer framing.
+LLMs are increasingly used as automated judges to evaluate other LLMs in chatbot arenas, RLHF reward modeling, and benchmark leaderboards. This practice assumes that LLM judges provide unbiased evaluations, but growing evidence shows they exhibit systematic scoring biases: their ratings are influenced by factors unrelated to response quality, such as option ordering, score label anchoring, and reference answer framing.
 
 **Open question:** Do these biases originate from pre-training (the base model) or from instruction tuning (the fine-tuned model)?
 
-Prior work (Li et al., DASFAA 2026) documented scoring biases in 5 commercial models but could not isolate the source of bias because commercial APIs expose only the instruct-tuned version. By studying **open-weight models**, we compare base and instruct variants of the same architecture under identical conditions - isolating instruction tuning's causal role.
+Prior work (Li et al., DASFAA 2026) documented scoring biases in 5 commercial models but could not isolate the source of bias because commercial APIs expose only the instruct-tuned version. By studying **open-weight models**, we compare base and instruct variants of the same architecture under identical conditions isolating instruction tuning's causal role.
 
 ---
 
@@ -109,7 +109,7 @@ Each probe computes Δ = |score(original) − score(perturbed)|, measuring the m
 
 Key insights:
 - **Format biases** (rubric order, score ID) consistently improve after instruction tuning across model sizes
-- **Content bias** (reference answer) increases specifically in larger (3B+) RLHF-trained models - smaller models and non-RLHF models do not show this effect
+- **Content bias** (reference answer) increases specifically in larger (3B+) RLHF-trained models smaller models and non-RLHF models do not show this effect
 - This creates a **differential effect**: instruction tuning is simultaneously beneficial and harmful depending on bias type
 
 ### Statistical Power
@@ -258,7 +258,7 @@ See [`data/model_cards/all_models.md`](data/model_cards/all_models.md) for compl
 
 This work builds on the perturbation-based scoring bias framework introduced by **Li et al. (2025)** ["Scoring Bias in LLM-as-a-Judge"](https://doi.org/10.1007/978-981-96-0957-6_11), DASFAA 2026. While Li et al. studied 5 commercial models (GPT-4o, DeepSeek-V3, etc.), we extend the analysis to **31 open-weight variants** and provide the first systematic comparison of **base vs instruct** models to isolate the effect of instruction tuning on scoring bias.
 
-This paper is part of a broader research portfolio on **Robust & Efficient AI** (see [researchmaxxing](https://github.com/ssamba1/researchmaxxing)), which investigates whether brain-inspired alternatives - predictive coding, spiking neural networks, and sparse coding - can address the reliability failures identified here.
+This paper is part of a broader research portfolio on **Robust & Efficient AI** (see [researchmaxxing](https://github.com/ssamba1/researchmaxxing)), which investigates whether brain-inspired alternatives predictive coding, spiking neural networks, and sparse coding can address the reliability failures identified here.
 
 ---
 
@@ -266,4 +266,4 @@ This paper is part of a broader research portfolio on **Robust & Efficient AI** 
 
 **License:** CC-BY 4.0. See [`LICENSE`](LICENSE).
 
-**Contact:** Sricharan Samba - [srisamba09@gmail.com](mailto:srisamba09@gmail.com)
+**Contact:** Sricharan Samba [srisamba09@gmail.com](mailto:srisamba09@gmail.com)
