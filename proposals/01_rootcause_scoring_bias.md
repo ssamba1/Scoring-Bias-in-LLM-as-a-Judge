@@ -131,3 +131,5 @@ For each model family, compare:
 - **Li et al. 2025 citations checked:** None of the 27+ citing papers address root cause
 - **Pan et al. 2025 methodology:** Proved valid for user-assistant bias, never applied to scoring bias
 - **Verdict: ✅ CONFIRMED UNTOUCHED**
+
+### Status: complete
