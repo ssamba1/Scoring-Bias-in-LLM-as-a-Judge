@@ -220,3 +220,5 @@ if __name__ == "__main__":
     benchmark = bm.generate_benchmark(n_items=50)
     summary = bm.save_benchmark(benchmark)
     bm.print_summary(benchmark)
+
+# TODO: extend benchmark to cover all probe types
