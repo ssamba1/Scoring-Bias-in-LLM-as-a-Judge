@@ -7,3 +7,5 @@ dependencies:
   - pip
   - pip:
     - -r file:../requirements.txt
+
+# Binder environment ready
