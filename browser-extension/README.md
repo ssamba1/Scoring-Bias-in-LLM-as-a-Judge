@@ -64,3 +64,5 @@ proposed extension for future development.
 - All data stored locally
 - No network requests after install
 - Open source
+
+Status: concept only
