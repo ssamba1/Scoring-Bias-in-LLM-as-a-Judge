@@ -83,3 +83,7 @@ Upload the per-item scores as `ssamba1/scoring-bias-llm-as-a-judge`. This drives
 | **Time + citations** | Community recognition | 1-3 years | $0 |
 
 **The biggest ROI for your time right now:** human baseline (1 hr) + attention at 3B (30 min). Those two experiments double the paper's evidence depth for 90 minutes of work.
+
+### Next Steps
+
+Submit to NeurIPS High School track and update with community feedback.
