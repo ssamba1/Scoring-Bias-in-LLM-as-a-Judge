@@ -305,3 +305,5 @@ Soumik [21] compared 9 mitigation strategies across 5 judges, finding:
 [28] Pan et al. 2025. User-Assistant Bias in LLM-as-a-Judge. ACL 2026.
 [29] Shi et al. 2025. Judging the Judges: A Systematic Study of Position Bias. AACL-IJCNLP 2025.
 [30] Dev et al. 2026. Judge Reliability Harness. ICLR 2026 Workshop.
+
+Last updated: July 2026
