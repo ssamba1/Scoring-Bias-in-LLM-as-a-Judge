@@ -504,3 +504,7 @@ if comparison:
 - **GitHub Issues**: https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge/issues
 - **Email**: srisamba09@gmail.com
 - **License**: MIT (code), CC-BY 4.0 (data, paper)
+
+## Quick Reference
+
+See the README for setup and Getting Started for tutorials.
