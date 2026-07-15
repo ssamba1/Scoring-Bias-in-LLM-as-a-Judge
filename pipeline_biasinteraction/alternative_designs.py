@@ -201,3 +201,5 @@ if __name__ == "__main__":
     with open(__file__ + ".json", "w") as f:
         json.dump([asdict(d) for d in designs], f, indent=2)
     print(f"Designs saved to alternative_designs.py.json")
+
+# Design exploration finished
