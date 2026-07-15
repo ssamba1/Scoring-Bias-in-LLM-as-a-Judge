@@ -241,3 +241,5 @@ async def get_model_detail(model_name: str):
         "n_entries": len(entries),
         "probes": entries,
     }
+
+# API entry point
