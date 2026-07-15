@@ -1,0 +1,79 @@
+{
+  "method": "z-score threshold |z| > 2",
+  "study1_22_instruct_models": {
+    "rubric_order": {
+      "mean": 0.5636,
+      "sd": 0.4124,
+      "n_models": 22,
+      "outliers": [
+        {
+          "model": "MythoMax-13B",
+          "delta": 1.5,
+          "z_score": 2.271,
+          "sd_from_mean": 2.271,
+          "direction": "above"
+        }
+      ],
+      "n_outliers": 1
+    },
+    "score_id": {
+      "mean": 0.6773,
+      "sd": 0.4947,
+      "n_models": 22,
+      "outliers": [
+        {
+          "model": "Qwen2.5-7B",
+          "delta": 1.7,
+          "z_score": 2.068,
+          "sd_from_mean": 2.068,
+          "direction": "above"
+        },
+        {
+          "model": "Hermes-3-70B",
+          "delta": 1.8,
+          "z_score": 2.27,
+          "sd_from_mean": 2.27,
+          "direction": "above"
+        }
+      ],
+      "n_outliers": 2
+    },
+    "reference_answer": {
+      "mean": 0.4136,
+      "sd": 0.3137,
+      "n_models": 22,
+      "outliers": [],
+      "n_outliers": 0
+    }
+  },
+  "t4fam_base_models": {
+    "rubric_order": {
+      "mean": 0.6857,
+      "sd": 1.2589,
+      "outliers": [
+        {
+          "family": "Llama-3.2-3B",
+          "delta": 3.5,
+          "z_score": 2.236
+        }
+      ],
+      "n_outliers": 1
+    },
+    "score_id": {
+      "mean": 2.4143,
+      "sd": 0.9082,
+      "outliers": [],
+      "n_outliers": 0
+    },
+    "reference_answer": {
+      "mean": 2.7571,
+      "sd": 0.535,
+      "outliers": [],
+      "n_outliers": 0
+    }
+  },
+  "notable": {
+    "MythoMax_13B_rubric": "\u0394=1.50, largest rubric_order bias among 22 models",
+    "Hermes_3_70B_score_id": "\u0394=1.80, largest score_id bias among 22 models"
+  }
+}

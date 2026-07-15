@@ -1,0 +1,107 @@
+% ── Appendix B: Full Per-Model Results ──
+\section{Full Per-Model Results}
+\label{app:full_results}
+
+Table~\ref{tab:all_model_deltas} presents the complete per-model $\Delta$ values for all 31 model variants across the three scoring bias probes. For base-instruct pairs we report both individual $\Delta$ values and the $\Delta_{\text{change}}$ (instruct $\Delta$ -- base $\Delta$) with direction. Bootstrapped 95\% confidence intervals (10,000 resamples, bias-corrected accelerated) are shown where available.
+
+\begin{table*}[h]
+\centering\small
+\caption{Complete per-model $\Delta$ (max inter-variant mean difference) across all probes. $\Delta$ = max$|$variant$_i - $variant$_j|$. Bootstrapped 95\% CI in parentheses.}
+\label{tab:all_model_deltas}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{Rubric Order} & \textbf{Score ID} & \textbf{Ref Answer} & \textbf{Mean $\Delta$} \\
+\midrule
+\multicolumn{5}{l}{\textbf{Base Models}} \\
+\midrule
+Qwen2.5-0.5B & 0.10 & 1.30 & 2.60 & 1.33 \\
+Qwen2.5-1.5B & 0.10 & 3.10 & 2.60 & 1.93 \\
+Qwen2.5-7B & 0.60 & 2.50 & 2.40 & 1.83 \\
+Llama-3.2-1B & 0.00 & 1.30 & 2.20 & 1.17 \\
+Llama-3.2-3B & 3.50 & 3.70 & 3.10 & 3.43 \\
+Llama-3.1-8B$^\dagger$ & 0.10 & 0.20 & 0.60 & 0.30 \\
+Llama-2-7B$^\dagger$ & 0.30 & 2.80 & 1.10 & 1.40 \\
+Gemma-2-2B & 0.10 & 2.10 & 2.60 & 1.60 \\
+Gemma-2-9B$^\dagger$ & 0.20 & 2.40 & 2.00 & 1.53 \\
+Mistral-7B-v0.3$^\dagger$ & 0.00 & 0.00 & 0.00 & 0.00 \\
+StableLM-2-1.6B & 0.40 & 2.90 & 3.80 & 2.37 \\
+\midrule
+\multicolumn{5}{l}{\textbf{Instruct-Tuned Models}} \\
+\midrule
+Qwen2.5-0.5B-IT & 0.20 & 0.40 & 1.20 & 0.60 \\
+Qwen2.5-1.5B-IT & 0.40 & 1.80 & 1.80 & 1.33 \\
+Qwen2.5-7B-IT & 0.00 & 0.40 & 0.90 & 0.43 \\
+Qwen2.5-72B$^\ddagger$ & 1.30 & 0.80 & 0.30 & 0.80 \\
+Qwen3-8B$^\ddagger$ & 1.20 & 0.50 & 0.00 & 0.57 \\
+Qwen3-14B$^\ddagger$ & 0.10 & 0.00 & 0.10 & 0.07 \\
+Qwen3-32B$^\ddagger$ & 0.80 & 0.20 & 0.30 & 0.43 \\
+Llama-3.2-1B-IT & 0.20 & 2.00 & 2.60 & 1.60 \\
+Llama-3.2-3B-IT & 0.80 & 2.40 & 2.50 & 1.90 \\
+Llama-3.1-8B$^\ddagger$ & 0.60 & 0.60 & 0.80 & 0.67 \\
+Gemma-2-2B-IT & 0.10 & 0.60 & 1.10 & 0.60 \\
+Gemma-2-9B-IT$^\dagger$ & 0.00 & 0.50 & 1.10 & 0.53 \\
+Gemma3-4B$^\ddagger$ & 0.20 & 0.50 & 0.10 & 0.27 \\
+Gemma3-12B$^\ddagger$ & 0.90 & 0.30 & 0.90 & 0.70 \\
+Gemma3-27B$^\ddagger$ & 0.80 & 0.20 & 0.50 & 0.50 \\
+Gemma4-31B$^\ddagger$ & 0.40 & 0.10 & 0.20 & 0.23 \\
+StableLM-2-1.6B-IT & 0.30 & 2.50 & 3.40 & 2.07 \\
+Mistral-7B-v0.3-IT$^\dagger$ & 0.20 & 0.70 & 0.70 & 0.53 \\
+Mistral-Nemo-12B$^\ddagger$ & 0.30 & 1.00 & 0.50 & 0.60 \\
+Mistral-3.2-24B$^\ddagger$ & 0.30 & 0.30 & 0.40 & 0.33 \\
+Phi-4$^\ddagger$ & 0.60 & 0.70 & 0.10 & 0.47 \\
+DeepSeek-V3$^\ddagger$ & 0.20 & 0.80 & 0.30 & 0.43 \\
+DeepSeek-V4-Flash$^\ddagger$ & 0.30 & 0.50 & 0.30 & 0.37 \\
+Hermes-3-70B$^\ddagger$ & 0.80 & 1.80 & 0.50 & 1.03 \\
+Zephyr-7B$^\ddagger$ & 0.30 & 0.50 & 0.20 & 0.33 \\
+MythoMax-13B$^\ddagger$ & 1.50 & 1.30 & 0.20 & 1.00 \\
+SOLAR-10.7B$^\ddagger$ & 1.10 & 0.80 & 0.20 & 0.70 \\
+Nemotron-Nano-30B$^\ddagger$ & 0.50 & 0.20 & 0.30 & 0.33 \\
+Nemotron-Super-120B$^\ddagger$ & 0.50 & 0.20 & 0.10 & 0.27 \\
+Hy3-295B$^\ddagger$ & 1.00 & 1.20 & 0.60 & 0.93 \\
+GPT-OSS-20B$^\ddagger$ & 0.10 & 0.10 & 0.10 & 0.10 \\
+Command-R$^\ddagger$ & 0.30 & 1.10 & 0.90 & 0.77 \\
+GLM-4.7$^\ddagger$ & 0.10 & 0.20 & 0.30 & 0.20 \\
+Gemini-2.5-Flash$^\ddagger$ & 0.30 & 0.30 & 0.90 & 0.50 \\
+Lunaris-8B$^\ddagger$ & 0.40 & 0.40 & 1.00 & 0.60 \\
+\midrule
+\multicolumn{5}{l}{\textbf{Summary Statistics}} \\
+\midrule
+Base mean (N=11) & 0.48 & 1.94 & 2.09 & 1.50 \\
+Instruct mean (N=31) & 0.49 & 0.73 & 0.78 & 0.67 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2mm}
+\noindent{\footnotesize $^\dagger$From original Kaggle root cause study (3 base + 3 instruct). $^\ddagger$OpenRouter API. All other models from T4 GPU inference.}
+\end{table*}
+
+\subsection{Base-to-Instruct $\Delta$ Changes}
+
+Table~\ref{tab:delta_changes} shows the paired $\Delta$ change (instruct $\Delta$ -- base $\Delta$) for the 9 families with both variants. A negative value means instruction tuning reduced bias.
+
+\begin{table}[h]
+\centering\small
+\caption{Base-to-instruct $\Delta$ change (instruct $\Delta$ -- base $\Delta$) across 9 model families. Negative = bias reduction.}
+\label{tab:delta_changes}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Family} & \textbf{Rubric} & \textbf{Score ID} & \textbf{Ref Ans} & \textbf{Training} \\
+\midrule
+Qwen2.5-0.5B & $+0.10$ & $-0.90$ & $-1.40$ & RLHF \\
+Qwen2.5-1.5B & $+0.30$ & $-1.30$ & $-0.80$ & RLHF \\
+Qwen2.5-7B & $-0.60$ & $-2.10$ & $-1.50$ & RLHF \\
+Llama-3.2-1B & $+0.20$ & $+0.70$ & $+0.40$ & RLHF \\
+Llama-3.2-3B & $-2.70$ & $-1.30$ & $-0.60$ & RLHF \\
+Llama-3.1-8B$^\dagger$ & $+0.50$ & $+0.40$ & $+0.20$ & RLHF \\
+Llama-2-7B$^\dagger$ & $+0.40$ & $-1.50$ & $+0.40$ & RLHF \\
+Gemma-2-2B & $0.00$ & $-1.50$ & $-1.50$ & RLHF \\
+Gemma-2-9B$^\dagger$ & $-0.20$ & $-1.90$ & $-0.90$ & RLHF \\
+Mistral-7B-v0.3$^\dagger$ & $+0.20$ & $+0.70$ & $+0.70$ & SFT+DPO \\
+StableLM-2-1.6B & $-0.10$ & $-0.40$ & $-0.40$ & SFT \\
+\midrule
+\textbf{Mean (all 11)} & $-0.14$ & $-0.76$ & $-0.42$ & \\
+\textbf{Mean (9 RLHF)} & $-0.18$ & $-1.09$ & $-0.67$ & \\
+\bottomrule
+\end{tabular}
+\par\vspace{2mm}
+\noindent{\footnotesize $^\dagger$From original Kaggle root cause study. Full per-model scores in Appendix~B.}
+\end{table}

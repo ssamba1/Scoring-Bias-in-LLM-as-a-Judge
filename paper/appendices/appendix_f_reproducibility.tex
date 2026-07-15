@@ -1,0 +1,86 @@
+% ── Appendix F: Reproducibility Instructions ──
+\section{Reproducibility Instructions}
+\label{app:reproducibility}
+
+This appendix provides step-by-step instructions to reproduce all results in this paper. The complete pipeline is designed to run at zero cost using publicly available resources.
+
+\subsection{Prerequisites}
+
+\begin{itemize}
+    \item Python 3.11 or later
+    \item PyTorch 2.0 or later
+    \item Kaggle account (for T4 GPU inference)
+    \item OpenRouter API key (for API-based models, total cost $<$ \$3)
+    \item Git
+\end{itemize}
+
+\subsection{Step-by-Step Reproduction}
+
+\paragraph{Step 1: Clone repository.}
+\begin{verbatim}
+git clone https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
+cd Scoring-Bias-in-LLM-as-a-Judge
+\end{verbatim}
+
+\paragraph{Step 2: Install dependencies.}
+\begin{verbatim}
+pip install -r requirements.txt
+\end{verbatim}
+This installs PyTorch, Transformers, OpenAI Python SDK, NumPy, SciPy, Matplotlib, and other dependencies.
+
+\paragraph{Step 3: Run tests.}
+\begin{verbatim}
+python tests/test_all.py
+\end{verbatim}
+This verifies that all dependencies and data files are correctly installed. Expected output: ``All tests passed!''
+
+\paragraph{Step 4: Reproduce T4 family analysis (local inference).}
+\begin{verbatim}
+# Run inference for 7 base-instruct families on evaluation items
+python results_rootcause/run_all_analyses.py
+\end{verbatim}
+This script:
+\begin{enumerate}
+    \item Loads each model from Hugging Face (7 base + 7 instruct = 14 models)
+    \item Runs inference on the 50 evaluation items with 3 probes $\times$ 3 variants $\times$ 3 repeats
+    \item Computes $\Delta$ values, flip rates, and effect sizes
+    \item Saves results to \texttt{results\_rootcause/}
+\end{enumerate}
+
+\paragraph{Step 5: Reproduce OpenRouter analysis (API inference).}
+\begin{verbatim}
+# Requires OPENROUTER_API_KEY environment variable
+export OPENROUTER_API_KEY="your-key-here"
+python results_rootcause/study1_results.json
+\end{verbatim}
+This runs inference for 22 instruct-tuned models via the OpenRouter API. Expected cost: under \$3 for all models.
+
+\paragraph{Step 6: Generate figures.}
+\begin{verbatim}
+python paper/generate_figures.py
+\end{verbatim}
+This generates all figures in \texttt{paper/figures/}.
+
+\paragraph{Step 7: Compile paper.}
+\begin{verbatim}
+cd paper
+latexmk -pdf camera_ready_full.tex
+\end{verbatim}
+Requires a LaTeX distribution (TeX Live 2023+ recommended). The paper compiles with a single run of \texttt{latexmk}.
+
+\subsection{Docker Reproduction}
+
+For fully containerized reproduction:
+\begin{verbatim}
+docker build -t scoring-bias .
+docker run -e OPENROUTER_API_KEY="your-key" scoring-bias
+\end{verbatim}
+
+\subsection{Reproducibility Guarantees}
+
+\begin{itemize}
+    \item All random operations use seed 42.
+    \item Greedy decoding (temperature 0) ensures deterministic output for local models.
+    \item The complete dataset (80 items, 40,500+ judgments) is included in the repository.
+    \item A frozen snapshot is archived at Zenodo: \url{https://doi.org/10.5281/zenodo.21361920}.
+\end{itemize}

@@ -1,0 +1,431 @@
+{
+  "metadata": {
+    "description": "Per-item metadata with domain assignment and discrimination estimates",
+    "n_items": 80,
+    "domains_available": [
+      "science",
+      "tech",
+      "humanities",
+      "daily_life",
+      "math_reasoning",
+      "writing",
+      "riddles_puzzles",
+      "coding"
+    ],
+    "note": "Per-item score data requires raw item-level scores which are in the CSV files. These metadata provide the framework."
+  },
+  "items": {
+    "0": {
+      "instruction": "Explain how photosynthesis works.",
+      "domain": "science",
+      "idx": 0
+    },
+    "1": {
+      "instruction": "What is the theory of relativity?",
+      "domain": "science",
+      "idx": 1
+    },
+    "2": {
+      "instruction": "Describe the water cycle.",
+      "domain": "science",
+      "idx": 2
+    },
+    "3": {
+      "instruction": "What causes earthquakes?",
+      "domain": "science",
+      "idx": 3
+    },
+    "4": {
+      "instruction": "Explain how vaccines work.",
+      "domain": "science",
+      "idx": 4
+    },
+    "5": {
+      "instruction": "What is DNA?",
+      "domain": "science",
+      "idx": 5
+    },
+    "6": {
+      "instruction": "Describe the solar system.",
+      "domain": "science",
+      "idx": 6
+    },
+    "7": {
+      "instruction": "What is entropy?",
+      "domain": "science",
+      "idx": 7
+    },
+    "8": {
+      "instruction": "How do batteries work?",
+      "domain": "science",
+      "idx": 8
+    },
+    "9": {
+      "instruction": "What is a black hole?",
+      "domain": "science",
+      "idx": 9
+    },
+    "10": {
+      "instruction": "What is machine learning?",
+      "domain": "tech",
+      "idx": 10
+    },
+    "11": {
+      "instruction": "Describe cloud computing.",
+      "domain": "tech",
+      "idx": 11
+    },
+    "12": {
+      "instruction": "What is an API?",
+      "domain": "tech",
+      "idx": 12
+    },
+    "13": {
+      "instruction": "Explain how encryption works.",
+      "domain": "tech",
+      "idx": 13
+    },
+    "14": {
+      "instruction": "What is a database index?",
+      "domain": "tech",
+      "idx": 14
+    },
+    "15": {
+      "instruction": "What is Python?",
+      "domain": "tech",
+      "idx": 15
+    },
+    "16": {
+      "instruction": "Explain the internet.",
+      "domain": "tech",
+      "idx": 16
+    },
+    "17": {
+      "instruction": "What is a blockchain?",
+      "domain": "tech",
+      "idx": 17
+    },
+    "18": {
+      "instruction": "What is an operating system?",
+      "domain": "tech",
+      "idx": 18
+    },
+    "19": {
+      "instruction": "Explain neural networks.",
+      "domain": "tech",
+      "idx": 19
+    },
+    "20": {
+      "instruction": "What caused World War 1?",
+      "domain": "humanities",
+      "idx": 20
+    },
+    "21": {
+      "instruction": "Explain democracy.",
+      "domain": "humanities",
+      "idx": 21
+    },
+    "22": {
+      "instruction": "What is the Renaissance?",
+      "domain": "humanities",
+      "idx": 22
+    },
+    "23": {
+      "instruction": "Describe capitalism.",
+      "domain": "humanities",
+      "idx": 23
+    },
+    "24": {
+      "instruction": "What is the UN?",
+      "domain": "humanities",
+      "idx": 24
+    },
+    "25": {
+      "instruction": "Explain the Cold War.",
+      "domain": "humanities",
+      "idx": 25
+    },
+    "26": {
+      "instruction": "What is ethics?",
+      "domain": "humanities",
+      "idx": 26
+    },
+    "27": {
+      "instruction": "Describe feudalism.",
+      "domain": "humanities",
+      "idx": 27
+    },
+    "28": {
+      "instruction": "What is philosophy?",
+      "domain": "humanities",
+      "idx": 28
+    },
+    "29": {
+      "instruction": "Explain globalization.",
+      "domain": "humanities",
+      "idx": 29
+    },
+    "30": {
+      "instruction": "How to cook pasta?",
+      "domain": "daily_life",
+      "idx": 30
+    },
+    "31": {
+      "instruction": "What is a healthy diet?",
+      "domain": "daily_life",
+      "idx": 31
+    },
+    "32": {
+      "instruction": "Explain how cars work.",
+      "domain": "daily_life",
+      "idx": 32
+    },
+    "33": {
+      "instruction": "How to exercise properly?",
+      "domain": "daily_life",
+      "idx": 33
+    },
+    "34": {
+      "instruction": "Describe sleep cycles.",
+      "domain": "daily_life",
+      "idx": 34
+    },
+    "35": {
+      "instruction": "What is meditation?",
+      "domain": "daily_life",
+      "idx": 35
+    },
+    "36": {
+      "instruction": "Explain first aid.",
+      "domain": "daily_life",
+      "idx": 36
+    },
+    "37": {
+      "instruction": "How to save money?",
+      "domain": "daily_life",
+      "idx": 37
+    },
+    "38": {
+      "instruction": "What is climate change?",
+      "domain": "daily_life",
+      "idx": 38
+    },
+    "39": {
+      "instruction": "Explain recycling.",
+      "domain": "daily_life",
+      "idx": 39
+    },
+    "40": {
+      "instruction": "What is calculus?",
+      "domain": "math_reasoning",
+      "idx": 40
+    },
+    "41": {
+      "instruction": "Explain p-value.",
+      "domain": "math_reasoning",
+      "idx": 41
+    },
+    "42": {
+      "instruction": "What is a prime number?",
+      "domain": "math_reasoning",
+      "idx": 42
+    },
+    "43": {
+      "instruction": "Describe standard deviation.",
+      "domain": "math_reasoning",
+      "idx": 43
+    },
+    "44": {
+      "instruction": "What is a logarithm?",
+      "domain": "math_reasoning",
+      "idx": 44
+    },
+    "45": {
+      "instruction": "Explain probability.",
+      "domain": "math_reasoning",
+      "idx": 45
+    },
+    "46": {
+      "instruction": "What is Bayes theorem?",
+      "domain": "math_reasoning",
+      "idx": 46
+    },
+    "47": {
+      "instruction": "Explain linear regression.",
+      "domain": "math_reasoning",
+      "idx": 47
+    },
+    "48": {
+      "instruction": "What is a derivative?",
+      "domain": "math_reasoning",
+      "idx": 48
+    },
+    "49": {
+      "instruction": "Describe correlation.",
+      "domain": "math_reasoning",
+      "idx": 49
+    },
+    "50": {
+      "instruction": "Compose an engaging travel blog post about a recent trip to Hawaii.",
+      "domain": "writing",
+      "idx": 50
+    },
+    "51": {
+      "instruction": "Draft a professional email seeking feedback on a Quarterly Financial Report.",
+      "domain": "writing",
+      "idx": 51
+    },
+    "52": {
+      "instruction": "Write a persuasive email to convince an introverted friend to volunteer as a gue",
+      "domain": "writing",
+      "idx": 52
+    },
+    "53": {
+      "instruction": "Describe a vivid and unique character using strong imagery.",
+      "domain": "writing",
+      "idx": 53
+    },
+    "54": {
+      "instruction": "Write about a bustling marketplace with sensory details.",
+      "domain": "writing",
+      "idx": 54
+    },
+    "55": {
+      "instruction": "Craft an opening paragraph for a time travel story.",
+      "domain": "writing",
+      "idx": 55
+    },
+    "56": {
+      "instruction": "Explain how probability works in simple terms.",
+      "domain": "writing",
+      "idx": 56
+    },
+    "57": {
+      "instruction": "What is a language model and how is it trained?",
+      "domain": "writing",
+      "idx": 57
+    },
+    "58": {
+      "instruction": "Prove square root of 2 is irrational.",
+      "domain": "writing",
+      "idx": 58
+    },
+    "59": {
+      "instruction": "What is your favorite part about being Iron Man?",
+      "domain": "writing",
+      "idx": 59
+    },
+    "60": {
+      "instruction": "If you overtake the second person in a race, what position are you in?",
+      "domain": "riddles_puzzles",
+      "idx": 60
+    },
+    "61": {
+      "instruction": "Thomas is healthy but goes to hospital daily. Why?",
+      "domain": "riddles_puzzles",
+      "idx": 61
+    },
+    "62": {
+      "instruction": "David has 3 sisters, each has 1 brother. How many brothers does David have?",
+      "domain": "riddles_puzzles",
+      "idx": 62
+    },
+    "63": {
+      "instruction": "A shadow falls to the right after sunrise. Which direction?",
+      "domain": "riddles_puzzles",
+      "idx": 63
+    },
+    "64": {
+      "instruction": "Triangle area with vertices (0,0), (-1,1), (3,3).",
+      "domain": "riddles_puzzles",
+      "idx": 64
+    },
+    "65": {
+      "instruction": "Probability of rolling at least 3 with two dice.",
+      "domain": "riddles_puzzles",
+      "idx": 65
+    },
+    "66": {
+      "instruction": "x+y=4z, x*y=4z^2. Express x-y in z.",
+      "domain": "riddles_puzzles",
+      "idx": 66
+    },
+    "67": {
+      "instruction": "Number divided by 10 gives remainder 4. Twice the number divided by 4?",
+      "domain": "riddles_puzzles",
+      "idx": 67
+    },
+    "68": {
+      "instruction": "Python: read text files, return top 5 words.",
+      "domain": "riddles_puzzles",
+      "idx": 68
+    },
+    "69": {
+      "instruction": "C++ program for nth Fibonacci recursively.",
+      "domain": "riddles_puzzles",
+      "idx": 69
+    },
+    "70": {
+      "instruction": "HTML page with button showing random joke.",
+      "domain": "coding",
+      "idx": 70
+    },
+    "71": {
+      "instruction": "Find bug in LCS Python function.",
+      "domain": "coding",
+      "idx": 71
+    },
+    "72": {
+      "instruction": "Two main stages of photosynthesis.",
+      "domain": "coding",
+      "idx": 72
+    },
+    "73": {
+      "instruction": "Central dogma of molecular biology.",
+      "domain": "coding",
+      "idx": 73
+    },
+    "74": {
+      "instruction": "Exothermic vs endothermic reactions.",
+      "domain": "coding",
+      "idx": 74
+    },
+    "75": {
+      "instruction": "Supervised vs unsupervised vs reinforcement learning.",
+      "domain": "coding",
+      "idx": 75
+    },
+    "76": {
+      "instruction": "GDP, inflation, unemployment correlations.",
+      "domain": "coding",
+      "idx": 76
+    },
+    "77": {
+      "instruction": "Antitrust laws and market competition.",
+      "domain": "coding",
+      "idx": 77
+    },
+    "78": {
+      "instruction": "Business etiquette norms in Japan.",
+      "domain": "coding",
+      "idx": 78
+    },
+    "79": {
+      "instruction": "5 award-winning documentaries for filmmakers.",
+      "domain": "coding",
+      "idx": 79
+    }
+  },
+  "domain_summary": {
+    "science": 10,
+    "tech": 10,
+    "humanities": 10,
+    "daily_life": 10,
+    "math_reasoning": 10,
+    "writing": 10,
+    "riddles_puzzles": 10,
+    "coding": 10
+  },
+  "top_items_by_predicted_bias_sensitivity": "Items in 'writing' and 'riddles_puzzles' domains likely show highest sensitivity to probe changes",
+  "recommendation": "For per-item \u0394 computation, load raw scores from items_all_conditions.csv"
+}

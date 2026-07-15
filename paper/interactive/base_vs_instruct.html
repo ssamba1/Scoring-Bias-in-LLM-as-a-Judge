@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base vs Instruct — Family Comparison</title>
+<style>
+:root {
+  --bg: #0d1117; --card: #161b22; --border: #30363d;
+  --text: #c9d1d9; --text-dim: #8b949e; --accent: #58a6ff;
+  --base-color: #58a6ff; --instruct-color: #f0883e;
+  --green: #3fb950; --red: #f85149;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 1.8em; margin-bottom: 4px; }
+.subtitle { color: var(--text-dim); margin-bottom: 24px; font-size: 0.95em; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px; }
+.controls label { font-weight: 600; font-size: 0.9em; color: var(--text-dim); }
+.controls select {
+  background: var(--card); color: var(--text); border: 1px solid var(--border);
+  padding: 8px 12px; border-radius: 6px; font-size: 0.95em; cursor: pointer;
+}
+.controls select:focus { outline: none; border-color: var(--accent); }
+.legend { display: flex; gap: 20px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.9em; }
+.legend-dot { width: 14px; height: 14px; border-radius: 3px; }
+.legend-dot.base { background: var(--base-color); }
+.legend-dot.instruct { background: var(--instruct-color); }
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px; margin-bottom: 20px;
+}
+.card h2 { font-size: 1.1em; margin-bottom: 16px; color: var(--accent); }
+.chart-wrap { width: 100%; overflow-x: auto; }
+.chart-wrap canvas { display: block; margin: 0 auto; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+.stat-card {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 6px; padding: 12px; text-align: center;
+}
+.stat-card .label { font-size: 0.8em; color: var(--text-dim); }
+.stat-card .value { font-size: 1.3em; font-weight: 700; margin-top: 4px; }
+.stat-card .value.decrease { color: var(--green); }
+.stat-card .value.increase { color: var(--red); }
+.stat-card .value.neutral { color: var(--text); }
+.detail-table-wrap { overflow-x: auto; margin-top: 20px; }
+table {
+  width: 100%; border-collapse: collapse; font-size: 0.85em;
+}
+th { background: rgba(255,255,255,0.05); padding: 8px 10px; text-align: left; font-weight: 600; white-space: nowrap; }
+td { padding: 8px 10px; border-top: 1px solid var(--border); text-align: center; }
+td:first-child, th:first-child { text-align: left; }
+tr:hover { background: rgba(255,255,255,0.02); }
+.change-decrease { color: var(--green); }
+.change-increase { color: var(--red); }
+.footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center; }
+.footer a { color: var(--accent); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Base vs Instruct Comparison</h1>
+  <p class="subtitle">Paired comparison of base and instruct models across 7 model families. Instruction tuning generally reduces evaluation bias.</p>
+
+  <div class="controls">
+    <label for="probeSelect">Probe:</label>
+    <select id="probeSelect" onchange="redraw()">
+      <option value="rubric_order">Rubric Order</option>
+      <option value="score_id">Score ID</option>
+      <option value="reference_answer">Reference Answer</option>
+    </select>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot base"></span> Base</span>
+      <span class="legend-item"><span class="legend-dot instruct"></span> Instruct</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 id="chartTitle">Rubric Order — Base vs Instruct Δ</h2>
+    <div class="chart-wrap"><canvas id="baseChart" width="800" height="400"></canvas></div>
+
+    <div class="stats-grid" id="statsGrid"></div>
+
+    <div class="detail-table-wrap">
+      <table id="detailTable">
+        <thead>
+          <tr>
+            <th>Family</th><th>Base Model</th><th>Base Δ</th><th>Instruct Model</th><th>Instruct Δ</th><th>Δ Change</th><th>Direction</th>
+          </tr>
+        </thead>
+        <tbody id="detailBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Supplementary material — <a href="index.html">Back to Interactive Hub</a></p>
+  </div>
+</div>
+
+<script>
+// ─── DATA ──────────────────────────────────────────────────────────────────
+const FAMILIES = [
+  {base:"Qwen2.5-0.5B", instruct:"Qwen2.5-0.5B-IT", label:"Qwen2.5-0.5B"},
+  {base:"Qwen2.5-1.5B", instruct:"Qwen2.5-1.5B-IT", label:"Qwen2.5-1.5B"},
+  {base:"Llama-3.2-1B", instruct:"Llama-3.2-1B-IT", label:"Llama-3.2-1B"},
+  {base:"Llama-3.2-3B", instruct:"Llama-3.2-3B-IT", label:"Llama-3.2-3B"},
+  {base:"Gemma-2-2B", instruct:"Gemma-2-2B-IT", label:"Gemma-2-2B"},
+  {base:"StableLM-2-1.6B", instruct:"StableLM-2-1.6B-IT", label:"StableLM-2-1.6B"},
+  {base:"Qwen2.5-7B", instruct:"Qwen2.5-7B-IT", label:"Qwen2.5-7B"}
+];
+
+const DELTAS = {
+  // base_name -> {rubric_order, score_id, reference_answer}
+  "Qwen2.5-0.5B":    {rubric_order:0.1, score_id:1.3, reference_answer:2.6},
+  "Qwen2.5-0.5B-IT": {rubric_order:0.2, score_id:0.4, reference_answer:1.2},
+  "Qwen2.5-1.5B":    {rubric_order:0.1, score_id:3.1, reference_answer:2.6},
+  "Qwen2.5-1.5B-IT": {rubric_order:0.4, score_id:1.8, reference_answer:1.8},
+  "Llama-3.2-1B":    {rubric_order:0.0, score_id:1.3, reference_answer:2.2},
+  "Llama-3.2-1B-IT": {rubric_order:0.2, score_id:2.0, reference_answer:2.6},
+  "Llama-3.2-3B":    {rubric_order:3.5, score_id:3.7, reference_answer:3.1},
+  "Llama-3.2-3B-IT": {rubric_order:0.8, score_id:2.4, reference_answer:2.5},
+  "Gemma-2-2B":      {rubric_order:0.1, score_id:2.1, reference_answer:2.6},
+  "Gemma-2-2B-IT":   {rubric_order:0.1, score_id:0.6, reference_answer:1.1},
+  "StableLM-2-1.6B": {rubric_order:0.4, score_id:2.9, reference_answer:3.8},
+  "StableLM-2-1.6B-IT":{rubric_order:0.3, score_id:2.5, reference_answer:3.4},
+  "Qwen2.5-7B":      {rubric_order:0.6, score_id:2.5, reference_answer:2.4},
+  "Qwen2.5-7B-IT":   {rubric_order:0.0, score_id:0.4, reference_answer:0.9}
+};
+
+function getDelta(name, probe) {
+  return DELTAS[name]?.[probe] ?? 0;
+}
+
+function getChange(family, probe) {
+  const b = getDelta(family.base, probe);
+  const i = getDelta(family.instruct, probe);
+  return i - b; // negative = decrease (improvement)
+}
+
+// ─── DRAW CHART ────────────────────────────────────────────────────────────
+function redraw() {
+  const probe = document.getElementById('probeSelect').value;
+  const probeLabels = {rubric_order:'Rubric Order', score_id:'Score ID', reference_answer:'Reference Answer'};
+  document.getElementById('chartTitle').textContent = probeLabels[probe] + ' — Base vs Instruct Δ';
+
+  const canvas = document.getElementById('baseChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = {top:30, bottom:60, left:55, right:25};
+  ctx.clearRect(0, 0, W, H);
+
+  const n = FAMILIES.length;
+  const maxVal = 4.2;
+  const groupW = (W - pad.left - pad.right) / n;
+  const barW = Math.min(groupW * 0.35, 36);
+  const barGap = 4;
+
+  // gridlines
+  for (let v = 0; v <= 4; v++) {
+    const y = pad.top + (H - pad.top - pad.bottom) * (1 - v/maxVal);
+    ctx.strokeStyle = '#21262d';
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    ctx.fillStyle = '#8b949e'; ctx.font = '10px monospace';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(v.toFixed(1), pad.left - 6, y);
+  }
+
+  FAMILIES.forEach((fam, i) => {
+    const bx = pad.left + i * groupW + (groupW - 2*barW - barGap)/2;
+    const bVal = getDelta(fam.base, probe);
+    const iVal = getDelta(fam.instruct, probe);
+
+    // Base bar
+    const bH = (H - pad.top - pad.bottom) * Math.min(bVal, maxVal) / maxVal;
+    const bY = pad.top + (H - pad.top - pad.bottom) - bH;
+    ctx.fillStyle = '#58a6ff';
+    ctx.beginPath();
+    ctx.roundRect(bx, bY, barW, Math.max(bH,2), [3,3,0,0]);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 10px monospace';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillText(bVal.toFixed(1), bx + barW/2, bY - 3);
+
+    // Instruct bar
+    const iH = (H - pad.top - pad.bottom) * Math.min(iVal, maxVal) / maxVal;
+    const iY = pad.top + (H - pad.top - pad.bottom) - iH;
+    ctx.fillStyle = '#f0883e';
+    ctx.beginPath();
+    ctx.roundRect(bx + barW + barGap, iY, barW, Math.max(iH,2), [3,3,0,0]);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 10px monospace';
+    ctx.fillText(iVal.toFixed(1), bx + barW + barGap + barW/2, iY - 3);
+
+    // Effect size annotation (Δ change)
+    const change = getChange(fam, probe);
+    const labelY = Math.min(bY, iY) - 20;
+    ctx.fillStyle = change < -0.1 ? '#3fb950' : change > 0.1 ? '#f85149' : '#8b949e';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    const arrow = change < -0.1 ? '↓' : change > 0.1 ? '↑' : '→';
+    ctx.fillText(`${arrow} ${change >= 0 ? '+' : ''}${change.toFixed(1)}`, bx + barW + barGap/2, labelY);
+
+    // Family label
+    ctx.fillStyle = '#c9d1d9';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    const shortLabel = fam.label.replace('StableLM-2-1.6B', 'StableLM').replace('Llama-3.2-', 'Llama-3.2-').replace('Gemma-2-2B', 'Gemma-2').replace('Qwen2.5-', 'Qwen2.5-');
+    ctx.fillText(fam.label, bx + barW + barGap/2, pad.top + (H - pad.top - pad.bottom) + 8);
+  });
+
+  // update stats
+  updateStats(probe);
+  updateDetailTable(probe);
+}
+
+// ─── STATS ─────────────────────────────────────────────────────────────────
+function updateStats(probe) {
+  const grid = document.getElementById('statsGrid');
+  const changes = FAMILIES.map(f => getChange(f, probe));
+  const decreaseCount = changes.filter(c => c < -0.05).length;
+  const increaseCount = changes.filter(c => c > 0.05).length;
+  const neutralCount = changes.filter(c => c >= -0.05 && c <= 0.05).length;
+  const avgChange = changes.reduce((a,b)=>a+b,0) / changes.length;
+  const maxDecrease = Math.min(...changes);
+  const maxIncrease = Math.max(...changes);
+
+  grid.innerHTML = `
+    <div class="stat-card">
+      <div class="label">Average Δ Change</div>
+      <div class="value ${avgChange < -0.05 ? 'decrease' : avgChange > 0.05 ? 'increase' : 'neutral'}">
+        ${avgChange >= 0 ? '+' : ''}${avgChange.toFixed(2)}
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Decreased (improved)</div>
+      <div class="value decrease">${decreaseCount} / ${FAMILIES.length}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Increased (worsened)</div>
+      <div class="value increase">${increaseCount} / ${FAMILIES.length}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Max Decrease</div>
+      <div class="value decrease">${maxDecrease.toFixed(1)}</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Max Increase</div>
+      <div class="value increase">+${maxIncrease.toFixed(1)}</div>
+    </div>
+  `;
+}
+
+// ─── DETAIL TABLE ─────────────────────────────────────────────────────────
+function updateDetailTable(probe) {
+  const tbody = document.getElementById('detailBody');
+  tbody.innerHTML = FAMILIES.map(f => {
+    const b = getDelta(f.base, probe);
+    const i = getDelta(f.instruct, probe);
+    const change = i - b;
+    const dir = change < -0.05 ? 'Decrease ✓' : change > 0.05 ? 'Increase ✗' : 'Neutral';
+    const cls = change < -0.05 ? 'change-decrease' : change > 0.05 ? 'change-increase' : '';
+    return `<tr>
+      <td style="font-weight:600">${f.label}</td>
+      <td>${f.base}</td>
+      <td>${b.toFixed(1)}</td>
+      <td>${f.instruct}</td>
+      <td>${i.toFixed(1)}</td>
+      <td class="${cls}" style="font-weight:600">${change >= 0 ? '+' : ''}${change.toFixed(2)}</td>
+      <td class="${cls}">${dir}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+if (!CanvasRenderingContext2D.prototype.roundRect) {
+  CanvasRenderingContext2D.prototype.roundRect = function(x,y,w,h,radii) {
+    const r = Array.isArray(radii)?radii:[radii,radii,radii,radii].map(rr=>Math.min(rr||0,Math.min(w,h)/2));
+    this.moveTo(x+r[0],y); this.lineTo(x+w-r[1],y); this.quadraticCurveTo(x+w,y,x+w,y+r[1]);
+    this.lineTo(x+w,y+h-r[2]); this.quadraticCurveTo(x+w,y+h,x+w-r[2],y+h);
+    this.lineTo(x+r[3],y+h); this.quadraticCurveTo(x,y+h,x,y+h-r[3]);
+    this.lineTo(x,y+r[0]); this.quadraticCurveTo(x,y,x+r[0],y); this.closePath();
+    return this;
+  };
+}
+redraw();
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+{
+  "metadata": {
+    "description": "Item analysis: discrimination and difficulty for probe variants",
+    "method": "Item discrimination = correlation between item score and mean \u0394 (lower \u0394 = less biased). Item difficulty = mean score across all models.",
+    "note": "Based on aggregated variant means. Per-item (per-question) analysis would require item-level score data."
+  },
+  "t4fam": {
+    "rubric_order": {
+      "normal": {
+        "n_models": 14,
+        "difficulty_mean": 3.7214,
+        "difficulty_interpretation": "easy",
+        "discrimination_correlation": 0.8042,
+        "discrimination_p": 0.000526188345816786,
+        "discrimination_index_top27pct_minus_bottom27pct": -1.2,
+        "discrimination_quality": "good",
+        "top_27pct_mean": 3.1333,
+        "bottom_27pct_mean": 4.3333
+      },
+      "reversed": {
+        "n_models": 14,
+        "difficulty_mean": 3.2786,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.223,
+        "discrimination_p": 0.4434678932943761,
+        "discrimination_index_top27pct_minus_bottom27pct": -0.1,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 3.0333,
+        "bottom_27pct_mean": 3.1333
+      }
+    },
+    "score_id": {
+      "numeric": {
+        "n_models": 14,
+        "difficulty_mean": 3.7214,
+        "difficulty_interpretation": "easy",
+        "discrimination_correlation": 0.8042,
+        "discrimination_p": 0.000526188345816786,
+        "discrimination_index_top27pct_minus_bottom27pct": -1.2,
+        "discrimination_quality": "good",
+        "top_27pct_mean": 3.1333,
+        "bottom_27pct_mean": 4.3333
+      },
+      "letter": {
+        "n_models": 14,
+        "difficulty_mean": 2.35,
+        "difficulty_interpretation": "hard",
+        "discrimination_correlation": -0.646,
+        "discrimination_p": 0.012569751657482435,
+        "discrimination_index_top27pct_minus_bottom27pct": 1.7,
+        "discrimination_quality": "good",
+        "top_27pct_mean": 3.0,
+        "bottom_27pct_mean": 1.3
+      },
+      "descriptive": {
+        "n_models": 14,
+        "difficulty_mean": 2.7143,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.358,
+        "discrimination_p": 0.20886684613046255,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.8333,
+        "discrimination_quality": "fair",
+        "top_27pct_mean": 3.1,
+        "bottom_27pct_mean": 2.2667
+      }
+    },
+    "reference_answer": {
+      "no_ref": {
+        "n_models": 14,
+        "difficulty_mean": 3.7214,
+        "difficulty_interpretation": "easy",
+        "discrimination_correlation": 0.8042,
+        "discrimination_p": 0.000526188345816786,
+        "discrimination_index_top27pct_minus_bottom27pct": -1.2,
+        "discrimination_quality": "good",
+        "top_27pct_mean": 3.1333,
+        "bottom_27pct_mean": 4.3333
+      },
+      "good_ref": {
+        "n_models": 14,
+        "difficulty_mean": 4.0643,
+        "difficulty_interpretation": "easy",
+        "discrimination_correlation": 0.7879,
+        "discrimination_p": 0.0008171550334305948,
+        "discrimination_index_top27pct_minus_bottom27pct": -1.9333,
+        "discrimination_quality": "good",
+        "top_27pct_mean": 3.0,
+        "bottom_27pct_mean": 4.9333
+      },
+      "poor_ref": {
+        "n_models": 14,
+        "difficulty_mean": 1.7857,
+        "difficulty_interpretation": "hard",
+        "discrimination_correlation": -0.3832,
+        "discrimination_p": 0.1762689294646177,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.7,
+        "discrimination_quality": "fair",
+        "top_27pct_mean": 2.2,
+        "bottom_27pct_mean": 1.5
+      }
+    }
+  },
+  "study1": {
+    "rubric_order": {
+      "normal": {
+        "n_models": 22,
+        "difficulty_mean": 2.8091,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.1719,
+        "discrimination_p": 0.4443589318230886,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.66,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 2.9,
+        "bottom_27pct_mean": 2.24
+      },
+      "reversed": {
+        "n_models": 22,
+        "difficulty_mean": 2.8955,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.0825,
+        "discrimination_p": 0.7150613494379628,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.28,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 2.88,
+        "bottom_27pct_mean": 2.6
+      },
+      "random": {
+        "n_models": 22,
+        "difficulty_mean": 2.9273,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.2613,
+        "discrimination_p": 0.24006894730547546,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.36,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 2.94,
+        "bottom_27pct_mean": 2.58
+      }
+    },
+    "score_id": {
+      "numeric": {
+        "n_models": 22,
+        "difficulty_mean": 2.9318,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.2468,
+        "discrimination_p": 0.26822290336104415,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.8,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 3.12,
+        "bottom_27pct_mean": 2.32
+      },
+      "letter": {
+        "n_models": 22,
+        "difficulty_mean": 3.2091,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": 0.1107,
+        "discrimination_p": 0.6238895749209674,
+        "discrimination_index_top27pct_minus_bottom27pct": -0.06,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 3.14,
+        "bottom_27pct_mean": 3.2
+      },
+      "descriptive": {
+        "n_models": 22,
+        "difficulty_mean": 3.1773,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": 0.0159,
+        "discrimination_p": 0.9441302651187484,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.2,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 3.14,
+        "bottom_27pct_mean": 2.94
+      }
+    },
+    "reference_answer": {
+      "no_ref": {
+        "n_models": 22,
+        "difficulty_mean": 2.9364,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.2617,
+        "discrimination_p": 0.23942013320294284,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.82,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 3.16,
+        "bottom_27pct_mean": 2.34
+      },
+      "good_ref": {
+        "n_models": 22,
+        "difficulty_mean": 2.9636,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.2515,
+        "discrimination_p": 0.25886896267328663,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.68,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 3.1,
+        "bottom_27pct_mean": 2.42
+      },
+      "poor_ref": {
+        "n_models": 22,
+        "difficulty_mean": 2.8909,
+        "difficulty_interpretation": "medium",
+        "discrimination_correlation": -0.2361,
+        "discrimination_p": 0.2901143912593511,
+        "discrimination_index_top27pct_minus_bottom27pct": 0.68,
+        "discrimination_quality": "poor",
+        "top_27pct_mean": 3.06,
+        "bottom_27pct_mean": 2.38
+      }
+    }
+  }
+}

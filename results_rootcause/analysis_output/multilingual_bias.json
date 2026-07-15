@@ -1,0 +1,25 @@
+{
+  "files_found": [
+    "items_ar.json",
+    "items_en.json",
+    "items_es.json",
+    "items_hi.json",
+    "items_zh.json"
+  ],
+  "analysis_possible": true,
+  "languages_available": [
+    "ar",
+    "en",
+    "es",
+    "hi",
+    "zh"
+  ],
+  "items_per_language": {
+    "ar": 50,
+    "en": 50,
+    "es": 50,
+    "hi": 50,
+    "zh": 50
+  },
+  "finding": "Multilingual analysis requires per-item scores in each language, which were not collected in the current study design. The item sets exist but scores are only available for the English (en) condition."
+}

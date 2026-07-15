@@ -1,0 +1,91 @@
+% ── Appendix G: Prompt Templates ──
+\section{Prompt Templates}
+\label{app:prompts}
+
+All prompt templates used in the study are documented below. Each template follows the same structure with variations only in the bias manipulation.
+
+\subsection{Base Prompt Template}
+
+The base (control) scoring prompt:
+\begin{quote}\small
+\noindent\texttt{Evaluate the following response to the instruction on a scale of 1--5,\\
+where 1 is worst and 5 is best.\\
+\#\#\# Instruction: [item]\\
+\#\#\# Response: [response]\\
+\#\#\# Score:}
+\end{quote}
+
+\subsection{Rubric Order Probe Variants}
+
+\paragraph{Normal (control):}
+\begin{quote}\small
+\noindent\texttt{...on a scale of 1--5, where 1 is worst and 5 is best.}
+\end{quote}
+
+\paragraph{Reversed:}
+\begin{quote}\small
+\noindent\texttt{...on a scale of 1--5, where 1 is best and 5 is worst.}
+\end{quote}
+
+\paragraph{Random mapping:}
+\begin{quote}\small
+\noindent\texttt{...on a scale of 1--5, where 1 corresponds to 'average',\\
+2 to 'excellent', 3 to 'worst', 4 to 'best', 5 to 'poor'.}
+\end{quote}
+
+\subsection{Score ID Probe Variants}
+
+\paragraph{Numeric (control):}
+\begin{quote}\small
+\noindent\texttt{...Score (1--5):}
+\end{quote}
+
+\paragraph{Letter grades:}
+\begin{quote}\small
+\noindent\texttt{...Score (A--E, where A is best and E is worst):}
+\end{quote}
+
+\paragraph{Descriptive labels:}
+\begin{quote}\small
+\noindent\texttt{...Score (Poor, Below Average, Average, Good, Excellent):}
+\end{quote}
+
+\subsection{Reference Answer Probe Variants}
+
+\paragraph{No exemplar (control):}
+The model is prompted with only the instruction and response, as shown in the base template above.
+
+\paragraph{Good exemplar:}
+\begin{quote}\small
+\noindent\texttt{Example of an excellent response: [good\_example]\\
+Now evaluate the following response...}
+\end{quote}
+
+\paragraph{Poor exemplar:}
+\begin{quote}\small
+\noindent\texttt{Example of a poor response: [poor\_example]\\
+Now evaluate the following response...}
+\end{quote}
+
+\subsection{Inference Configuration}
+
+\begin{itemize}
+    \item \textbf{Temperature:} 0.0 (greedy decoding) for all local models
+    \item \textbf{Max tokens:} 5 (single numeric score)
+    \item \textbf{Stop sequences:} None (model generates naturally)
+    \item \textbf{Repeats:} 3 per condition (deterministic at temperature 0)
+    \item \textbf{Timeout (OpenRouter):} 15 seconds per API call
+\end{itemize}
+
+\subsection{Score Parsing}
+
+Scores are parsed from model output using the following logic:
+
+\begin{enumerate}
+    \item Extract the first integer 1--5 from the output (numeric condition)
+    \item Map letter grades A=5, B=4, C=3, D=2, E=1 (letter condition)
+    \item Map descriptive labels: Excellent=5, Good=4, Average=3, Below Average=2, Poor=1 (descriptive condition)
+    \item If no valid score is found, flag as parse failure (excluded from analysis)
+\end{enumerate}
+
+The descriptive parser was less reliable for base models, which sometimes output non-standard text. This affected 11.1\% of descriptive condition judgments. Numeric and letter variants had $<$ 1\% parse failure rate.

@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=68.0"]
-build-backend = "setuptools.backends._legacy:_Backend"
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "scoring-bias-llm-as-judge"
@@ -8,3 +8,78 @@ version = "1.0.0"
 description = "Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge"
 readme = "README.md"
 requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Sricharan Samba"},
+]
+keywords = ["llm-as-a-judge", "scoring-bias", "evaluation", "nlp"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.13",
+    "pandas>=2.2",
+    "matplotlib>=3.10",
+    "seaborn>=0.13",
+    "pydantic>=2.13",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3",
+    "pytest-cov>=7.1",
+    "flake8>=7.2",
+    "black>=24.10",
+]
+api = [
+    "fastapi>=0.115",
+    "uvicorn>=0.34",
+]
+dashboard = [
+    "streamlit>=1.40",
+]
+notebook = [
+    "jupyter>=1.1",
+    "jupytext>=1.16",
+]
+all = [
+    "scoring-bias-llm-as-judge[dev,api,dashboard,notebook]",
+]
+
+[project.urls]
+Homepage = "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
+Repository = "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
+Documentation = "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
+
+[project.scripts]
+scoring-bias = "cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["scoring_bias*"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short --no-header"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.flake8]
+max-line-length = 100
+exclude = [".git", "__pycache__", "build", "dist", "*.egg-info"]
+
+[tool.coverage.run]
+source = ["src", "cli.py", "scripts"]
+omit = ["tests/*"]

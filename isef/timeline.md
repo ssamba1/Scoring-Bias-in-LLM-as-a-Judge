@@ -1,88 +1,120 @@
-# Gantt Chart — Bias Interaction Experiment
+# Research Timeline
 
-## Timeline Overview
+## Project: Scoring Bias in LLM-as-a-Judge Models
 
-```
-Week 1      Week 2      Week 3      Week 4      Week 5      
-├───────────┼───────────┼───────────┼───────────┼───────────┤
-│Setup &    │Data       │Data       │Analysis   │Paper &    
-│Pilot      │Collection │Collection │+ Figures  │Submission 
-│           │(Judge 1-3)│(Judge 4-5)│           │          
-```
+---
 
-## Detailed Schedule
+### Project Overview
 
-### Week 1: Setup & Pilot
-```
-Day 1     Day 2     Day 3     Day 4     Day 5     Day 6     Day 7
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│Install   │Get API  │Test     │Generate  │Run      │Run 10-  │Analyze  │
-│deps +    │keys +   │API      │items     │synthetic│item     │pilot    │
-│clone repo│config   │connect- │(already  │pilot    │probe    │results  │
-│          │         │ivity    │done)     │         │         │         │
-```
+**Start Date:** January 2026
+**Current Date:** July 14, 2026
+**Total Duration:** ~6 months
+**Target Competition:** ISEF 2027
 
-### Week 2: Data Collection (Judges 1-3)
-```
-Day 8     Day 9     Day 10    Day 11    Day 12    Day 13    Day 14
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│Run       │Continue  │Run       │Continue  │Run       │Continue  │Quality  │
-│Gemini    │Gemini    │DeepSeek  │DeepSeek  │Llama 3   │Llama 3   │check +  │
-│(~30 min) │(if needed)│(~30 min)│(if needed)│(~30 min)│(if needed)│backup   │
-```
+---
 
-### Week 3: Data Collection (Judges 4-5) + Begin Analysis
-```
-Day 15    Day 16    Day 17    Day 18    Day 19    Day 20    Day 21
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│Run       │Continue  │Run       │Continue  │Analyze   │Analyze   │Draft    │
-│GPT-4o    │GPT-4o    │Claude    │Claude    │results   │results   │results  │
-│(~2 hrs)  │(if needed)│(~2 hrs) │(if needed)│so far    │all judges│section  │
-```
+### Phase 1: Literature Review & Gap Identification
 
-### Week 4: Analysis & Figures
-```
-Day 22    Day 23    Day 24    Day 25    Day 26    Day 27    Day 28
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│Run full  │Generate  │Create   │Write    │Write    │Write    │Edit +   │
-│analysis  │figures   │tables   │intro +  │results  │discuss- │proofread│
-│pipeline  │(6 plots) │+ stats  │related  │section  │ion      │paper    │
-│          │          │         │work     │         │         │         │
-```
+| Dates | Activities | Deliverables |
+|-------|------------|--------------|
+| Jan 2026 (Weeks 1–2) | Systematic literature review of LLM bias research | Read 60+ papers; built bias taxonomy |
+| Jan 2026 (Weeks 3–4) | Identified open problems in LLM-as-a-Judge | Discovered Li et al. (2026) open question: "where does scoring bias come from?" |
+| Feb 2026 (Week 1) | Formulated research questions and hypotheses | RQ1–RQ4 and H1–H4 specified |
 
-### Week 5: Paper & Submission
-```
-Day 29    Day 30    Day 31    Day 32    Day 33    Day 34    Day 35
-├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│Convert   │Create   │Final    │Submit   │Respond  │Submit   │Celebrate│
-│to LaTeX  │ISEF     │review   │to arXiv │to       │to ISEF  │🎉       │
-│          │materials│+ polish │         │reviewers│/science │         │
-│          │         │         │         │         │fair     │         │
-```
+**Milestone:** Gap identified (scoring bias root cause) — no prior work addressed this question ✓
 
-## Milestones
+---
 
-| Milestone | Week | Deliverable |
-|-----------|------|-------------|
-| M1 | 1 | Pilot complete — pipeline verified |
-| M2 | 2 | 3 judges scored — preliminary patterns visible |
-| M3 | 3 | All 5 judges scored — data collection complete |
-| M4 | 4 | Analysis complete — key findings confirmed |
-| M5 | 5 | Paper submitted to arXiv |
+### Phase 2: Experimental Design
 
-## Task Dependencies
+| Dates | Activities | Deliverables |
+|-------|------------|--------------|
+| Feb 2026 (Weeks 2–3) | Designed perturbation framework based on Li et al. (2026) | 3 scoring bias probes (rubric order, score ID, reference answer) |
+| Feb 2026 (Week 4) | Selected model families; designed item set | 50 items across 5 domains; 9 base-instruct pairs + 22 instruct models |
+| Mar 2026 (Week 1) | Built inference pipeline; set up Kaggle environment | Python scripts for model inference, data collection, and analysis |
 
-```
-Setup (W1) ──> Gemini (W2) ──> DeepSeek (W2) ──> Llama (W2) ──> GPT-4o (W3) ──> Claude (W3) ──> Analysis (W4) ──> Paper (W5)
-                    │                │                │                │                │
-                    └────────────────┴────────────────┴────────────────┴────────────────┘
-                                 All must complete before analysis
-```
+**Milestone:** Complete experimental protocol with 54,000 judgment capacity ✓
 
-## Resource Loading
+---
 
-| Resource | W1 | W2 | W3 | W4 | W5 |
-|----------|----|----|----|----|----|
-| Student A | 50% | 30% | 30% | 50% | 50% |
-| Student B | 50% | 30% | 30% | 50% | 50% |
-| API budget | $0 | $3 | $23 | $0 | $0 |
+### Phase 3: Data Collection
+
+| Dates | Activities | Deliverables |
+|-------|------------|--------------|
+| Mar 2026 (Weeks 2–3) | Primary data collection on Kaggle T4 GPU | 9 families × 2 variants × 3 probes × 3 variants × 50 items × 3 repeats = **24,300 judgments** |
+| Mar 2026 (Week 4) | Supplementary data collection via OpenRouter API | 22 instruct-only models = **29,700 judgments** |
+| Mar 2026 (Week 4) | Quality checks on collected data | Verified deterministic output (temperature 0); identified 5 excluded models (stop-token truncation) |
+
+**Milestone:** 54,000 total judgments collected at cost under $3 ✓
+
+---
+
+### Phase 4: Analysis
+
+| Dates | Activities | Deliverables |
+|-------|------------|--------------|
+| Apr 2026 (Weeks 1–2) | Statistical analysis | Calculated Δ, flip rate, Cohen's d, MAD for all probes and models |
+| Apr 2026 (Week 2) | Alternative explanation testing | Tested and ruled out 4 competing hypotheses |
+| Apr 2026 (Week 3) | Attention weight analysis (Qwen2.5-0.5B, Llama-3.2-3B) | Format Efficiency Hypothesis evidence |
+| Apr 2026 (Week 3) | Cross-validation of results | Verified pattern consistency across model sizes and training methods |
+
+**Milestone:** Core findings established — differential effect confirmed ✓
+
+---
+
+### Phase 5: Communication & Publication
+
+| Dates | Activities | Deliverables |
+|-------|------------|--------------|
+| Apr–May 2026 (Weeks 4–6) | Paper writing | Camera-ready paper (5 pages, single author) |
+| May 2026 (Week 1) | Figures and tables | 4 key tables (bias landscape, per-model, base-instruct comparison, alternative explanations) |
+| May 2026 (Week 2) | Peer feedback and revisions | Addressed feedback; strengthened limitations section |
+| Jun 2026 | Code and data release | GitHub repository with full reproduction pipeline |
+| Jun 2026 | arXiv preprint and Zenodo archival | arXiv:2607.xxxxx; DOI: 10.5281/zenodo.21361920 |
+
+**Milestone:** Full research package publicly available ✓
+
+---
+
+### Phase 6: Competition Preparation
+
+| Dates | Activities | Deliverables |
+|-------|------------|--------------|
+| Jul 2026 (Weeks 1–2) | ISEF materials preparation | Abstract, research plan, project summary, safety form, poster template, presentation outline |
+| Jul 2026 (Week 2) | Presentation rehearsal | 5-minute presentation timed and practiced |
+| Jul–Aug 2026 (Ongoing) | Additional data collection | Adding more model families to increase statistical power (target: N ≥ 12) |
+
+**Milestone:** ISEF application package complete ✓
+
+---
+
+### Future Plans (Through ISEF 2027)
+
+| Dates | Activities | Target |
+|-------|------------|--------|
+| Aug–Oct 2026 | Expand to N ≥ 12 model families | Statistical significance at p < 0.05 |
+| Oct–Dec 2026 | Develop and test mitigation strategies (multi-model ensembling, calibration) | Quantified bias reduction across models |
+| Dec 2026–Feb 2027 | Cross-lingual evaluation | Test non-English scoring bias |
+| Feb–Apr 2027 | Rehearse and refine presentation | ISEF 2027 finals |
+| May 2027 | **ISEF 2027 Competition** | Present at Regeneron ISEF |
+
+---
+
+### Key ISEF Dates (2026–2027)
+
+- **Now:** ISEF materials preparation
+- **Fall 2026:** Regional/State fair registration (varies by region)
+- **Winter 2026–2027:** Regional/State fairs
+- **Spring 2027:** ISEF finalist selection
+- **May 2027:** Regeneron ISEF 2027
+
+---
+
+### Computational Resources Used
+
+| Resource | Purpose | Cost |
+|----------|---------|------|
+| Kaggle T4 GPU (free tier) | Primary model inference (local models) | $0 |
+| OpenRouter API | Instruct-only model inference (22 models) | < $3 |
+| Local CPU | Analysis, paper writing, attention extraction | $0 |
+| **Total** | | **< $3 USD** |

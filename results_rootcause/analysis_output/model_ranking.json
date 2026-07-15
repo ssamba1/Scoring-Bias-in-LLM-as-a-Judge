@@ -1,0 +1,207 @@
+{
+  "metadata": {
+    "description": "Ranking of 22 instruct models by mean \u0394 across probes, with Kendall's W",
+    "n_models": 22,
+    "probes": [
+      "rubric_order",
+      "score_id",
+      "reference_answer"
+    ],
+    "interpretation": "Lower \u0394 = less biased (more robust evaluation)"
+  },
+  "by_mean_delta": [
+    {
+      "rank": 1,
+      "model": "Qwen3-14B",
+      "mean_delta": 0.0667,
+      "rubric_order_delta": 0.1,
+      "score_id_delta": 0.0,
+      "reference_answer_delta": 0.1
+    },
+    {
+      "rank": 2,
+      "model": "GPT-OSS-20B",
+      "mean_delta": 0.1,
+      "rubric_order_delta": 0.1,
+      "score_id_delta": 0.1,
+      "reference_answer_delta": 0.1
+    },
+    {
+      "rank": 3,
+      "model": "GLM-4.7",
+      "mean_delta": 0.2,
+      "rubric_order_delta": 0.1,
+      "score_id_delta": 0.2,
+      "reference_answer_delta": 0.3
+    },
+    {
+      "rank": 4,
+      "model": "Gemma3-4B",
+      "mean_delta": 0.2667,
+      "rubric_order_delta": 0.2,
+      "score_id_delta": 0.5,
+      "reference_answer_delta": 0.1
+    },
+    {
+      "rank": 5,
+      "model": "Mistral-3.2-24B",
+      "mean_delta": 0.3333,
+      "rubric_order_delta": 0.3,
+      "score_id_delta": 0.3,
+      "reference_answer_delta": 0.4
+    },
+    {
+      "rank": 6,
+      "model": "DeepSeek-V4-Flash",
+      "mean_delta": 0.3667,
+      "rubric_order_delta": 0.3,
+      "score_id_delta": 0.5,
+      "reference_answer_delta": 0.3
+    },
+    {
+      "rank": 7,
+      "model": "Llama3.2-3B",
+      "mean_delta": 0.4,
+      "rubric_order_delta": 0.4,
+      "score_id_delta": 0.6,
+      "reference_answer_delta": 0.2
+    },
+    {
+      "rank": 8,
+      "model": "DeepSeek-V3",
+      "mean_delta": 0.4333,
+      "rubric_order_delta": 0.2,
+      "score_id_delta": 0.8,
+      "reference_answer_delta": 0.3
+    },
+    {
+      "rank": 9,
+      "model": "Phi-4",
+      "mean_delta": 0.4667,
+      "rubric_order_delta": 0.6,
+      "score_id_delta": 0.7,
+      "reference_answer_delta": 0.1
+    },
+    {
+      "rank": 10,
+      "model": "Gemma3-27B",
+      "mean_delta": 0.5,
+      "rubric_order_delta": 0.8,
+      "score_id_delta": 0.2,
+      "reference_answer_delta": 0.5
+    },
+    {
+      "rank": 11,
+      "model": "Gemini-2.5-Flash",
+      "mean_delta": 0.5,
+      "rubric_order_delta": 0.3,
+      "score_id_delta": 0.3,
+      "reference_answer_delta": 0.9
+    },
+    {
+      "rank": 12,
+      "model": "Qwen3-8B",
+      "mean_delta": 0.5667,
+      "rubric_order_delta": 1.2,
+      "score_id_delta": 0.5,
+      "reference_answer_delta": 0.0
+    },
+    {
+      "rank": 13,
+      "model": "Mistral-Nemo-12B",
+      "mean_delta": 0.6,
+      "rubric_order_delta": 0.3,
+      "score_id_delta": 1.0,
+      "reference_answer_delta": 0.5
+    },
+    {
+      "rank": 14,
+      "model": "Lunaris-8B",
+      "mean_delta": 0.6,
+      "rubric_order_delta": 0.4,
+      "score_id_delta": 0.4,
+      "reference_answer_delta": 1.0
+    },
+    {
+      "rank": 15,
+      "model": "Llama3.1-8B",
+      "mean_delta": 0.6667,
+      "rubric_order_delta": 0.6,
+      "score_id_delta": 0.6,
+      "reference_answer_delta": 0.8
+    },
+    {
+      "rank": 16,
+      "model": "Gemma3-12B",
+      "mean_delta": 0.7,
+      "rubric_order_delta": 0.9,
+      "score_id_delta": 0.3,
+      "reference_answer_delta": 0.9
+    },
+    {
+      "rank": 17,
+      "model": "Command-R",
+      "mean_delta": 0.7667,
+      "rubric_order_delta": 0.3,
+      "score_id_delta": 1.1,
+      "reference_answer_delta": 0.9
+    },
+    {
+      "rank": 18,
+      "model": "Qwen2.5-72B",
+      "mean_delta": 0.8,
+      "rubric_order_delta": 1.3,
+      "score_id_delta": 0.8,
+      "reference_answer_delta": 0.3
+    },
+    {
+      "rank": 19,
+      "model": "Qwen2.5-7B",
+      "mean_delta": 0.8333,
+      "rubric_order_delta": 0.7,
+      "score_id_delta": 1.7,
+      "reference_answer_delta": 0.1
+    },
+    {
+      "rank": 20,
+      "model": "Hy3-295B",
+      "mean_delta": 0.9333,
+      "rubric_order_delta": 1.0,
+      "score_id_delta": 1.2,
+      "reference_answer_delta": 0.6
+    },
+    {
+      "rank": 21,
+      "model": "MythoMax-13B",
+      "mean_delta": 1.0,
+      "rubric_order_delta": 1.5,
+      "score_id_delta": 1.3,
+      "reference_answer_delta": 0.2
+    },
+    {
+      "rank": 22,
+      "model": "Hermes-3-70B",
+      "mean_delta": 1.0333,
+      "rubric_order_delta": 0.8,
+      "score_id_delta": 1.8,
+      "reference_answer_delta": 0.5
+    }
+  ],
+  "kendalls_w": {
+    "W": 0.4785,
+    "chi_square": 30.1462,
+    "df": 21,
+    "p_value": 0.08908840058622369,
+    "interpretation": "Moderate agreement"
+  },
+  "top_3_least_biased": [
+    "Qwen3-14B",
+    "GPT-OSS-20B",
+    "GLM-4.7"
+  ],
+  "bottom_3_most_biased": [
+    "Hy3-295B",
+    "MythoMax-13B",
+    "Hermes-3-70B"
+  ]
+}

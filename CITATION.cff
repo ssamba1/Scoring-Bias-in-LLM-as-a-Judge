@@ -1,11 +1,10 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it."
-title: "Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge"
+title: "Scoring Bias in LLM-as-a-Judge Models: A 22-Model Landscape with Base-Instruct Comparison"
 authors:
-  - family-names: "Samba"
-    given-names: "Sricharan"
-identifiers:
-  - type: doi
-    value: "10.5281/zenodo.21361920"
+  - family-names: Samba
+    given-names: Sricharan
+orcid: ""
+doi: 10.5281/zenodo.21361920
 repository-code: "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
-license: "CC-BY-4.0"
+license: MIT
+message: "If you use this work, please cite it."

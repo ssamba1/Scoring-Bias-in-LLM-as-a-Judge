@@ -1,0 +1,99 @@
+% ── Literature Table: Comprehensive Bias Types in LLM-as-a-Judge ──
+\section{Comprehensive Literature Table of Bias Types}
+\label{app:literature_table}
+
+Table~\ref{tab:bias_types} provides a comprehensive taxonomy of bias types identified in the LLM-as-a-Judge literature, with representative references. We catalog 35+ distinct bias types organized into 7 categories. The three scoring bias types studied in this work are highlighted in bold.
+
+\begin{table*}[h]
+\centering\small
+\caption{Comprehensive taxonomy of bias types in LLM-as-a-Judge research, with references. Bold = scoring bias types studied in this work.}
+\label{tab:bias_types}
+\begin{tabular}{lll}
+\toprule
+\textbf{Category} & \textbf{Bias Type} & \textbf{References} \\
+\midrule
+\multirow{6}{*}{\textbf{Scoring Bias}}
+& \textbf{Rubric Order Bias} & \textbf{Li et al.~2026; This work} \\
+& \textbf{Score ID Bias} & \textbf{Li et al.~2026; This work} \\
+& \textbf{Reference Answer Bias} & \textbf{Li et al.~2026; This work} \\
+& Scale direction bias & Li et al.~2026 \\
+& Label format bias & Li et al.~2026 \\
+& Exemplar anchoring bias & Li et al.~2026 \\
+\midrule
+\multirow{6}{*}{\textbf{Position Bias}}
+& Pairwise position bias & Wang et al.~2024; Zheng et al.~2023; Shi et al.~2025 \\
+& List position bias & Shi et al.~2025 \\
+& Late-position bias & Thakur et al.~2024 \\
+& Early-position bias & Thakur et al.~2024 \\
+& Rubric position bias & Xu et al.~2026 \\
+& Random position bias & Shi et al.~2025 \\
+\midrule
+\multirow{6}{*}{\textbf{Format \& Length Bias}}
+& Verbosity / Length bias & Zheng et al.~2023; Ye et al.~2024 \\
+& Format compliance bias & Zhu et al.~2023 (JudgeLM) \\
+& Output structure bias & Ye et al.~2024 (CALM) \\
+& Tokenization bias & Gu et al.~2026 (Survey) \\
+& Numeric vs textual bias & Li et al.~2026 \\
+& Prompt formatting bias & Li et al.~2026 \\
+\midrule
+\multirow{5}{*}{\textbf{Content \& Knowledge Bias}}
+& Self-enhancement bias & Zheng et al.~2023; Gu et al.~2026 \\
+& Knowledge bias & Zhu et al.~2023 (JudgeLM) \\
+& Authority bias & Zhou et al.~2026 \\
+& Stereotype bias & Ye et al.~2024 \\
+& Domain familiarity bias & Park et al.~2024 \\
+\midrule
+\multirow{6}{*}{\textbf{Social \& Demographic Bias}}
+& User-assistant bias & Pan et al.~2026 \\
+& Gender bias & Ye et al.~2024 \\
+& Racial / Ethnic bias & Ye et al.~2024 \\
+& Socioeconomic bias & Ye et al.~2024 \\
+& Language variety bias & Gu et al.~2026 \\
+& Cultural bias & Gu et al.~2026 \\
+\midrule
+\multirow{4}{*}{\textbf{Training \& Data Bias}}
+& Fine-tuning bias & Zhu et al.~2023 (JudgeLM) \\
+& RLHF conservatism & Pan et al.~2026 \\
+& DPO vs RLHF differences & This work \\
+& Base vs instruct divergence & Pan et al.~2026; Thakur et al.~2024; This work \\
+\midrule
+\multirow{4}{*}{\textbf{Mitigation \& Calibration}}
+& Debiasing with bias detection & Yang et al.~2025 \\
+& Bias-aware training & Zhou et al.~2026; Park et al.~2024 \\
+& Ensemble mitigation & This work \\
+& Calibration methods & Gu et al.~2026; This work \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Reference Summary Table}
+
+Table~\ref{tab:ref_summary} summarizes the key dimensions of each cited paper: models studied, bias types covered, whether scoring bias was investigated, and whether a base-vs-instruct comparison was performed.
+
+\begin{table*}[h]
+\centering\small
+\caption{Summary of key references by research dimensions. ``Scoring Bias'' = dedicated scoring bias study. ``BvI'' = base vs instruct comparison. ``N'' = number of models/judges tested.}
+\label{tab:ref_summary}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Reference} & \textbf{Venue} & \textbf{Year} & \textbf{N} & \textbf{Scoring Bias} & \textbf{BvI} & \textbf{Citation} \\
+\midrule
+Wang et al. & ACL & 2024 & 2 & No & No & \cite{wang2023large} \\
+Zheng et al. & NeurIPS & 2023 & 4 & No & No & \cite{zheng2023judging} \\
+Ye et al. (CALM) & NeurIPS WS & 2024 & 5 & No & No & \cite{ye2024justice} \\
+Chen et al. & arXiv & 2024 & 5 & No & No & \cite{chen2024humans} \\
+Zhu et al. (JudgeLM) & arXiv & 2023 & 3 & No & No & \cite{zhu2023judgelm} \\
+Shi et al. & IJCNLP & 2025 & 9 & No & No & \cite{shi2024position} \\
+Park et al. (OffsetBias) & EMNLP & 2024 & 3 & No & No & \cite{park2024offsetbias} \\
+Thakur et al. & arXiv & 2024 & 9 & No & Partial & \cite{thakur2024judging} \\
+Li et al. & DASFAA & 2026 & 5 & Yes & No & \cite{li2025scoring} \\
+Pan et al. & ACL Findings & 2026 & 52 & No & Yes & \cite{pan2025user} \\
+Xu et al. & arXiv & 2026 & 6 & No & No & \cite{xu2026position} \\
+Gu et al. (Survey) & NLP Journal & 2026 & --- & Survey & No & \cite{gu2024survey} \\
+Yang et al. & NeurIPS & 2025 & 4 & No & No & \cite{yang2025debiasing} \\
+Zhou et al. & arXiv & 2026 & 6 & No & No & \cite{zhou2026robust} \\
+\midrule
+\textbf{This work} & \textbf{---} & \textbf{2026} & \textbf{31} & \textbf{Yes} & \textbf{Yes} & \cite{samba2026scoring} \\
+\bottomrule
+\end{tabular}
+\end{table*}

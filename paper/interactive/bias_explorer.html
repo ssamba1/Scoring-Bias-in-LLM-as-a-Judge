@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bias Explorer — Interactive Model Bias Visualization</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --card: #161b22;
+  --border: #30363d;
+  --text: #c9d1d9;
+  --text-dim: #8b949e;
+  --accent: #58a6ff;
+  --green: #3fb950;
+  --yellow: #d29922;
+  --red: #f85149;
+  --low-bias: #3fb950;
+  --med-bias: #d29922;
+  --high-bias: #f85149;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5;
+}
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { font-size: 1.8em; margin-bottom: 4px; }
+.subtitle { color: var(--text-dim); margin-bottom: 24px; font-size: 0.95em; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px; }
+.controls label { font-weight: 600; font-size: 0.9em; color: var(--text-dim); }
+.controls select {
+  background: var(--card); color: var(--text); border: 1px solid var(--border);
+  padding: 8px 12px; border-radius: 6px; font-size: 0.95em; min-width: 220px;
+  cursor: pointer;
+}
+.controls select:focus { outline: none; border-color: var(--accent); }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px;
+}
+.card h2 { font-size: 1.1em; margin-bottom: 16px; color: var(--accent); }
+.chart-wrap { position: relative; width: 100%; max-width: 450px; margin: 0 auto; }
+.chart-wrap canvas { width: 100% !important; height: auto !important; }
+.delta-summary {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.delta-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px; border-radius: 6px; background: rgba(255,255,255,0.03);
+  border-left: 4px solid var(--border);
+}
+.delta-row .label { font-weight: 600; font-size: 0.9em; }
+.delta-row .value {
+  font-size: 1.4em; font-weight: 700; font-family: 'SF Mono', 'Cascadia Code', monospace;
+}
+.delta-row.low { border-left-color: var(--low-bias); }
+.delta-row.low .value { color: var(--low-bias); }
+.delta-row.med { border-left-color: var(--med-bias); }
+.delta-row.med .value { color: var(--med-bias); }
+.delta-row.high { border-left-color: var(--high-bias); }
+.delta-row.high .value { color: var(--high-bias); }
+.legend { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.85em; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+.legend-dot.low { background: var(--low-bias); }
+.legend-dot.med { background: var(--med-bias); }
+.legend-dot.high { background: var(--high-bias); }
+
+.table-wrap { overflow-x: auto; }
+table {
+  width: 100%; border-collapse: collapse; font-size: 0.9em;
+}
+th {
+  background: rgba(255,255,255,0.05); padding: 10px 12px;
+  text-align: left; font-weight: 600; cursor: pointer; white-space: nowrap;
+  user-select: none; position: sticky; top: 0;
+}
+th:hover { background: rgba(255,255,255,0.08); }
+th .sort-arrow { margin-left: 4px; opacity: 0.4; }
+th.sorted .sort-arrow { opacity: 1; }
+td { padding: 8px 12px; border-top: 1px solid var(--border); }
+tr:hover { background: rgba(255,255,255,0.02); }
+.cell-delta { font-family: 'SF Mono', 'Cascadia Code', monospace; font-weight: 600; text-align: center; }
+.cell-low { color: var(--low-bias); }
+.cell-med { color: var(--med-bias); }
+.cell-high { color: var(--high-bias); }
+.model-name { font-weight: 600; }
+.model-name.base { color: var(--accent); }
+.model-name.instruct { color: #f0883e; }
+.search-box {
+  background: var(--card); color: var(--text); border: 1px solid var(--border);
+  padding: 8px 12px; border-radius: 6px; font-size: 0.9em; width: 100%; max-width: 300px;
+  margin-bottom: 12px;
+}
+.search-box:focus { outline: none; border-color: var(--accent); }
+.tag-base, .tag-instruct {
+  display: inline-block; font-size: 0.7em; padding: 2px 6px; border-radius: 4px;
+  margin-left: 6px; font-weight: 600;
+}
+.tag-base { background: rgba(88,166,255,0.15); color: var(--accent); }
+.tag-instruct { background: rgba(240,136,62,0.15); color: #f0883e; }
+.footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center; }
+.footer a { color: var(--accent); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Bias Explorer</h1>
+  <p class="subtitle">Interactive exploration of evaluation bias across all models. Lower Δ = less biased (more robust evaluation).</p>
+
+  <div class="controls">
+    <label for="modelSelect">Model:</label>
+    <select id="modelSelect"></select>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot low"></span> Low bias (Δ &lt; 0.5)</span>
+      <span class="legend-item"><span class="legend-dot med"></span> Medium bias (Δ 0.5–1.5)</span>
+      <span class="legend-item"><span class="legend-dot high"></span> High bias (Δ &gt; 1.5)</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Radar Chart — Probe Deltas</h2>
+      <div class="chart-wrap"><canvas id="radarChart" width="400" height="400"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Delta Summary</h2>
+      <div class="delta-summary" id="deltaSummary"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>All Models — Probe Deltas</h2>
+    <input class="search-box" id="tableSearch" type="text" placeholder="Search models..." oninput="filterTable()">
+    <div class="table-wrap">
+      <table id="deltaTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">Model <span class="sort-arrow">↕</span></th>
+            <th onclick="sortTable(1)">Type <span class="sort-arrow">↕</span></th>
+            <th onclick="sortTable(2)">Rubric Order Δ <span class="sort-arrow">↕</span></th>
+            <th onclick="sortTable(3)">Score ID Δ <span class="sort-arrow">↕</span></th>
+            <th onclick="sortTable(4)">Ref Answer Δ <span class="sort-arrow">↕</span></th>
+            <th onclick="sortTable(5)">Mean Δ <span class="sort-arrow">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Supplementary material — <a href="index.html">Back to Interactive Hub</a></p>
+  </div>
+</div>
+
+<script>
+// ─── ALL MODEL DATA ─────────────────────────────────────────────────────────
+// Each entry: {name, type:'base'|'instruct'|'study1', rubric_order, score_id, reference_answer}
+// Deltas computed as max-min range across conditions within each probe.
+
+const ALL_MODELS = [
+  // == T4Fam: Base models (7 families) ==
+  {name:"Qwen2.5-0.5B", type:"base", rubric_order:0.1, score_id:1.3, reference_answer:2.6},
+  {name:"Qwen2.5-1.5B", type:"base", rubric_order:0.1, score_id:3.1, reference_answer:2.6},
+  {name:"Llama-3.2-1B", type:"base", rubric_order:0.0, score_id:1.3, reference_answer:2.2},
+  {name:"Llama-3.2-3B", type:"base", rubric_order:3.5, score_id:3.7, reference_answer:3.1},
+  {name:"Gemma-2-2B", type:"base", rubric_order:0.1, score_id:2.1, reference_answer:2.6},
+  {name:"StableLM-2-1.6B", type:"base", rubric_order:0.4, score_id:2.9, reference_answer:3.8},
+  {name:"Qwen2.5-7B", type:"base", rubric_order:0.6, score_id:2.5, reference_answer:2.4},
+
+  // == T4Fam: Instruct models (7 families) ==
+  {name:"Qwen2.5-0.5B-IT", type:"instruct", rubric_order:0.2, score_id:0.4, reference_answer:1.2},
+  {name:"Qwen2.5-1.5B-IT", type:"instruct", rubric_order:0.4, score_id:1.8, reference_answer:1.8},
+  {name:"Llama-3.2-1B-IT", type:"instruct", rubric_order:0.2, score_id:2.0, reference_answer:2.6},
+  {name:"Llama-3.2-3B-IT", type:"instruct", rubric_order:0.8, score_id:2.4, reference_answer:2.5},
+  {name:"Gemma-2-2B-IT", type:"instruct", rubric_order:0.1, score_id:0.6, reference_answer:1.1},
+  {name:"StableLM-2-1.6B-IT", type:"instruct", rubric_order:0.3, score_id:2.5, reference_answer:3.4},
+  {name:"Qwen2.5-7B-IT", type:"instruct", rubric_order:0.0, score_id:0.4, reference_answer:0.9},
+
+  // == Study1: 22 instruct models (computed deltas) ==
+  {name:"Llama3.1-8B", type:"instruct", rubric_order:0.6, score_id:0.6, reference_answer:0.8},
+  {name:"Llama3.2-3B", type:"instruct", rubric_order:0.4, score_id:0.6, reference_answer:0.2},
+  {name:"Qwen3-8B", type:"instruct", rubric_order:1.2, score_id:0.5, reference_answer:0.0},
+  {name:"Qwen3-14B", type:"instruct", rubric_order:0.1, score_id:0.0, reference_answer:0.1},
+  {name:"Gemma3-4B", type:"instruct", rubric_order:0.2, score_id:0.5, reference_answer:0.1},
+  {name:"Gemma3-12B", type:"instruct", rubric_order:0.9, score_id:0.3, reference_answer:0.9},
+  {name:"Gemma3-27B", type:"instruct", rubric_order:0.8, score_id:0.2, reference_answer:0.5},
+  {name:"Phi-4", type:"instruct", rubric_order:0.6, score_id:0.7, reference_answer:0.1},
+  {name:"Mistral-Nemo-12B", type:"instruct", rubric_order:0.3, score_id:1.0, reference_answer:0.5},
+  {name:"Lunaris-8B", type:"instruct", rubric_order:0.4, score_id:0.4, reference_answer:1.0},
+  {name:"Hermes-3-70B", type:"instruct", rubric_order:0.8, score_id:1.8, reference_answer:0.5},
+  {name:"MythoMax-13B", type:"instruct", rubric_order:1.5, score_id:1.3, reference_answer:0.2},
+  {name:"DeepSeek-V3", type:"instruct", rubric_order:0.2, score_id:0.8, reference_answer:0.3},
+  {name:"DeepSeek-V4-Flash", type:"instruct", rubric_order:0.3, score_id:0.5, reference_answer:0.3},
+  {name:"Hy3-295B", type:"instruct", rubric_order:1.0, score_id:1.2, reference_answer:0.6},
+  {name:"Gemini-2.5-Flash", type:"instruct", rubric_order:0.3, score_id:0.3, reference_answer:0.9},
+  {name:"Command-R", type:"instruct", rubric_order:0.3, score_id:1.1, reference_answer:0.9},
+  {name:"GLM-4.7", type:"instruct", rubric_order:0.1, score_id:0.2, reference_answer:0.3},
+  {name:"GPT-OSS-20B", type:"instruct", rubric_order:0.1, score_id:0.1, reference_answer:0.1},
+  {name:"Qwen2.5-72B", type:"instruct", rubric_order:1.3, score_id:0.8, reference_answer:0.3},
+  {name:"Mistral-3.2-24B", type:"instruct", rubric_order:0.3, score_id:0.3, reference_answer:0.4}
+];
+
+// utilities
+function mean(arr) { return arr.reduce((a,b)=>a+b,0)/arr.length; }
+function deltaClass(d) {
+  if (d < 0.5) return 'low';
+  if (d <= 1.5) return 'med';
+  return 'high';
+}
+function deltaColor(d) {
+  const c = deltaClass(d);
+  return c === 'low' ? '#3fb950' : c === 'med' ? '#d29922' : '#f85149';
+}
+
+// ─── RADAR CHART ─────────────────────────────────────────────────────────────
+function drawRadar(modelIdx) {
+  const m = ALL_MODELS[modelIdx];
+  const labels = ['Rubric Order', 'Score ID', 'Ref Answer'];
+  const vals = [m.rubric_order, m.score_id, m.reference_answer];
+  const maxVal = 4.0;
+
+  const canvas = document.getElementById('radarChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2;
+  const R = Math.min(cx, cy) - 50;
+  ctx.clearRect(0, 0, W, H);
+
+  // background grid
+  for (let ring = 1; ring <= 4; ring++) {
+    const r = R * ring / 4;
+    ctx.beginPath();
+    for (let i = 0; i < 3; i++) {
+      const a = Math.PI/2 - i * 2*Math.PI/3;
+      const x = cx + r * Math.cos(a);
+      const y = cy - r * Math.sin(a);
+      i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = ring === 4 ? '#30363d' : '#21262d';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // axes
+  for (let i = 0; i < 3; i++) {
+    const a = Math.PI/2 - i * 2*Math.PI/3;
+    ctx.beginPath(); ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(a), cy - R * Math.sin(a));
+    ctx.strokeStyle = '#30363d'; ctx.lineWidth = 1; ctx.stroke();
+
+    // label
+    const lx = cx + (R+30) * Math.cos(a);
+    const ly = cy - (R+30) * Math.sin(a);
+    ctx.fillStyle = '#c9d1d9';
+    ctx.font = '13px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(labels[i], lx, ly);
+
+    // tick labels
+    for (let t = 1; t <= 4; t++) {
+      const tr = R * t / 4;
+      const tx = cx + tr * Math.cos(a);
+      const ty = cy - tr * Math.sin(a);
+      ctx.fillStyle = '#8b949e';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(t.toFixed(0), tx - (a === 0 ? 16 : 0), ty);
+    }
+  }
+
+  // data polygon
+  ctx.beginPath();
+  for (let i = 0; i < 3; i++) {
+    const v = Math.min(vals[i], maxVal);
+    const r = R * v / maxVal;
+    const a = Math.PI/2 - i * 2*Math.PI/3;
+    const x = cx + r * Math.cos(a);
+    const y = cy - r * Math.sin(a);
+    i === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(88,166,255,0.15)';
+  ctx.fill();
+  ctx.strokeStyle = '#58a6ff';
+  ctx.lineWidth = 2.5;
+  ctx.stroke();
+
+  // data points
+  for (let i = 0; i < 3; i++) {
+    const v = Math.min(vals[i], maxVal);
+    const r = R * v / maxVal;
+    const a = Math.PI/2 - i * 2*Math.PI/3;
+    const x = cx + r * Math.cos(a);
+    const y = cy - r * Math.sin(a);
+    ctx.beginPath(); ctx.arc(x, y, 5, 0, 2*Math.PI);
+    ctx.fillStyle = '#58a6ff'; ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+
+  // center value labels
+  for (let i = 0; i < 3; i++) {
+    const v = Math.min(vals[i], maxVal);
+    const r = R * v / maxVal;
+    const a = Math.PI/2 - i * 2*Math.PI/3;
+    const x = cx + r * Math.cos(a);
+    const y = cy - r * Math.sin(a);
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 13px monospace';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    const offY = a > 0 ? -12 : 12;
+    ctx.fillText(vals[i].toFixed(1), x, y - Math.sign(Math.sin(a)) * 12);
+  }
+}
+
+// ─── DELTA SUMMARY ───────────────────────────────────────────────────────────
+function updateSummary(modelIdx) {
+  const m = ALL_MODELS[modelIdx];
+  const probes = [
+    {label:'Rubric Order Δ', key:'rubric_order'},
+    {label:'Score ID Δ', key:'score_id'},
+    {label:'Ref Answer Δ', key:'reference_answer'}
+  ];
+  const div = document.getElementById('deltaSummary');
+  div.innerHTML = probes.map(p => {
+    const v = m[p.key];
+    const cls = deltaClass(v);
+    return `<div class="delta-row ${cls}"><span class="label">${p.label}</span><span class="value">${v.toFixed(1)}</span></div>`;
+  }).join('') +
+  `<div class="delta-row" style="border-left-color:var(--accent);margin-top:8px;background:rgba(88,166,255,0.08);">
+    <span class="label">Mean Δ</span>
+    <span class="value" style="color:var(--accent)">${mean([m.rubric_order,m.score_id,m.reference_answer]).toFixed(2)}</span>
+  </div>`;
+}
+
+// ─── TABLE ───────────────────────────────────────────────────────────────────
+let sortCol = -1, sortAsc = true;
+
+function buildTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = ALL_MODELS.map((m,i) => {
+    const md = mean([m.rubric_order, m.score_id, m.reference_answer]);
+    return `<tr data-idx="${i}">
+      <td class="model-name ${m.type}">${m.name}</td>
+      <td>${m.type === 'base' ? '<span class="tag-base">BASE</span>' : '<span class="tag-instruct">IT</span>'}</td>
+      <td class="cell-delta cell-${deltaClass(m.rubric_order)}">${m.rubric_order.toFixed(1)}</td>
+      <td class="cell-delta cell-${deltaClass(m.score_id)}">${m.score_id.toFixed(1)}</td>
+      <td class="cell-delta cell-${deltaClass(m.reference_answer)}">${m.reference_answer.toFixed(1)}</td>
+      <td class="cell-delta" style="color:${deltaColor(md)};font-weight:700">${md.toFixed(2)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterTable() {
+  const q = document.getElementById('tableSearch').value.toLowerCase();
+  const rows = document.querySelectorAll('#tableBody tr');
+  rows.forEach(r => {
+    r.style.display = r.cells[0].textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+function sortTable(col) {
+  if (sortCol === col) { sortAsc = !sortAsc; }
+  else { sortCol = col; sortAsc = true; }
+
+  const tbody = document.getElementById('tableBody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+
+  rows.sort((a,b) => {
+    let va, vb;
+    if (col <= 1) {
+      va = a.cells[col].textContent.trim().toLowerCase();
+      vb = b.cells[col].textContent.trim().toLowerCase();
+      return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    } else {
+      // numeric columns
+      const getVal = (cell) => {
+        const t = cell.textContent.trim();
+        // handle tag inside cell for type column
+        return parseFloat(t) || 0;
+      };
+      va = parseFloat(a.cells[col].textContent.trim()) || 0;
+      vb = parseFloat(b.cells[col].textContent.trim()) || 0;
+      return sortAsc ? va - vb : vb - va;
+    }
+  });
+
+  tbody.innerHTML = '';
+  rows.forEach(r => tbody.appendChild(r));
+
+  // update arrow
+  document.querySelectorAll('th').forEach((th, i) => {
+    th.classList.toggle('sorted', i === col);
+    const arrow = th.querySelector('.sort-arrow');
+    if (arrow) arrow.textContent = i === col ? (sortAsc ? '▲' : '▼') : '↕';
+  });
+}
+
+// ─── MODEL SELECT CHANGE ────────────────────────────────────────────────────
+function onModelChange() {
+  const sel = document.getElementById('modelSelect');
+  const idx = parseInt(sel.value);
+  drawRadar(idx);
+  updateSummary(idx);
+}
+
+// ─── INIT ───────────────────────────────────────────────────────────────────
+(function init() {
+  const sel = document.getElementById('modelSelect');
+  ALL_MODELS.forEach((m,i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = m.name + (m.type === 'base' ? ' (base)' : ' (instruct)');
+    sel.appendChild(opt);
+  });
+  buildTable();
+  // default to first model = Qwen2.5-0.5B
+  onModelChange();
+})();
+</script>
+</body>
+</html>

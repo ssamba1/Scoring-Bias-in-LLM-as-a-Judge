@@ -1,0 +1,333 @@
+{
+  "metadata": {
+    "description": "Domain analysis of bias effects",
+    "available_data": "Per-model per-variant means only (aggregated across all items)",
+    "required_data": "Per-item scores mapped to domains for domain-specific \u0394 computation",
+    "status": "Cannot compute from available aggregate data"
+  },
+  "items_available": 80,
+  "items": [
+    {
+      "idx": 0,
+      "instruction": "Explain how photosynthesis works."
+    },
+    {
+      "idx": 1,
+      "instruction": "What is the theory of relativity?"
+    },
+    {
+      "idx": 2,
+      "instruction": "Describe the water cycle."
+    },
+    {
+      "idx": 3,
+      "instruction": "What causes earthquakes?"
+    },
+    {
+      "idx": 4,
+      "instruction": "Explain how vaccines work."
+    },
+    {
+      "idx": 5,
+      "instruction": "What is DNA?"
+    },
+    {
+      "idx": 6,
+      "instruction": "Describe the solar system."
+    },
+    {
+      "idx": 7,
+      "instruction": "What is entropy?"
+    },
+    {
+      "idx": 8,
+      "instruction": "How do batteries work?"
+    },
+    {
+      "idx": 9,
+      "instruction": "What is a black hole?"
+    },
+    {
+      "idx": 10,
+      "instruction": "What is machine learning?"
+    },
+    {
+      "idx": 11,
+      "instruction": "Describe cloud computing."
+    },
+    {
+      "idx": 12,
+      "instruction": "What is an API?"
+    },
+    {
+      "idx": 13,
+      "instruction": "Explain how encryption works."
+    },
+    {
+      "idx": 14,
+      "instruction": "What is a database index?"
+    },
+    {
+      "idx": 15,
+      "instruction": "What is Python?"
+    },
+    {
+      "idx": 16,
+      "instruction": "Explain the internet."
+    },
+    {
+      "idx": 17,
+      "instruction": "What is a blockchain?"
+    },
+    {
+      "idx": 18,
+      "instruction": "What is an operating system?"
+    },
+    {
+      "idx": 19,
+      "instruction": "Explain neural networks."
+    },
+    {
+      "idx": 20,
+      "instruction": "What caused World War 1?"
+    },
+    {
+      "idx": 21,
+      "instruction": "Explain democracy."
+    },
+    {
+      "idx": 22,
+      "instruction": "What is the Renaissance?"
+    },
+    {
+      "idx": 23,
+      "instruction": "Describe capitalism."
+    },
+    {
+      "idx": 24,
+      "instruction": "What is the UN?"
+    },
+    {
+      "idx": 25,
+      "instruction": "Explain the Cold War."
+    },
+    {
+      "idx": 26,
+      "instruction": "What is ethics?"
+    },
+    {
+      "idx": 27,
+      "instruction": "Describe feudalism."
+    },
+    {
+      "idx": 28,
+      "instruction": "What is philosophy?"
+    },
+    {
+      "idx": 29,
+      "instruction": "Explain globalization."
+    },
+    {
+      "idx": 30,
+      "instruction": "How to cook pasta?"
+    },
+    {
+      "idx": 31,
+      "instruction": "What is a healthy diet?"
+    },
+    {
+      "idx": 32,
+      "instruction": "Explain how cars work."
+    },
+    {
+      "idx": 33,
+      "instruction": "How to exercise properly?"
+    },
+    {
+      "idx": 34,
+      "instruction": "Describe sleep cycles."
+    },
+    {
+      "idx": 35,
+      "instruction": "What is meditation?"
+    },
+    {
+      "idx": 36,
+      "instruction": "Explain first aid."
+    },
+    {
+      "idx": 37,
+      "instruction": "How to save money?"
+    },
+    {
+      "idx": 38,
+      "instruction": "What is climate change?"
+    },
+    {
+      "idx": 39,
+      "instruction": "Explain recycling."
+    },
+    {
+      "idx": 40,
+      "instruction": "What is calculus?"
+    },
+    {
+      "idx": 41,
+      "instruction": "Explain p-value."
+    },
+    {
+      "idx": 42,
+      "instruction": "What is a prime number?"
+    },
+    {
+      "idx": 43,
+      "instruction": "Describe standard deviation."
+    },
+    {
+      "idx": 44,
+      "instruction": "What is a logarithm?"
+    },
+    {
+      "idx": 45,
+      "instruction": "Explain probability."
+    },
+    {
+      "idx": 46,
+      "instruction": "What is Bayes theorem?"
+    },
+    {
+      "idx": 47,
+      "instruction": "Explain linear regression."
+    },
+    {
+      "idx": 48,
+      "instruction": "What is a derivative?"
+    },
+    {
+      "idx": 49,
+      "instruction": "Describe correlation."
+    },
+    {
+      "idx": 50,
+      "instruction": "Compose an engaging travel blog post about a recent trip to Hawaii."
+    },
+    {
+      "idx": 51,
+      "instruction": "Draft a professional email seeking feedback on a Quarterly Financial Report."
+    },
+    {
+      "idx": 52,
+      "instruction": "Write a persuasive email to convince an introverted friend to volunteer as a guest speaker."
+    },
+    {
+      "idx": 53,
+      "instruction": "Describe a vivid and unique character using strong imagery."
+    },
+    {
+      "idx": 54,
+      "instruction": "Write about a bustling marketplace with sensory details."
+    },
+    {
+      "idx": 55,
+      "instruction": "Craft an opening paragraph for a time travel story."
+    },
+    {
+      "idx": 56,
+      "instruction": "Explain how probability works in simple terms."
+    },
+    {
+      "idx": 57,
+      "instruction": "What is a language model and how is it trained?"
+    },
+    {
+      "idx": 58,
+      "instruction": "Prove square root of 2 is irrational."
+    },
+    {
+      "idx": 59,
+      "instruction": "What is your favorite part about being Iron Man?"
+    },
+    {
+      "idx": 60,
+      "instruction": "If you overtake the second person in a race, what position are you in?"
+    },
+    {
+      "idx": 61,
+      "instruction": "Thomas is healthy but goes to hospital daily. Why?"
+    },
+    {
+      "idx": 62,
+      "instruction": "David has 3 sisters, each has 1 brother. How many brothers does David have?"
+    },
+    {
+      "idx": 63,
+      "instruction": "A shadow falls to the right after sunrise. Which direction?"
+    },
+    {
+      "idx": 64,
+      "instruction": "Triangle area with vertices (0,0), (-1,1), (3,3)."
+    },
+    {
+      "idx": 65,
+      "instruction": "Probability of rolling at least 3 with two dice."
+    },
+    {
+      "idx": 66,
+      "instruction": "x+y=4z, x*y=4z^2. Express x-y in z."
+    },
+    {
+      "idx": 67,
+      "instruction": "Number divided by 10 gives remainder 4. Twice the number divided by 4?"
+    },
+    {
+      "idx": 68,
+      "instruction": "Python: read text files, return top 5 words."
+    },
+    {
+      "idx": 69,
+      "instruction": "C++ program for nth Fibonacci recursively."
+    },
+    {
+      "idx": 70,
+      "instruction": "HTML page with button showing random joke."
+    },
+    {
+      "idx": 71,
+      "instruction": "Find bug in LCS Python function."
+    },
+    {
+      "idx": 72,
+      "instruction": "Two main stages of photosynthesis."
+    },
+    {
+      "idx": 73,
+      "instruction": "Central dogma of molecular biology."
+    },
+    {
+      "idx": 74,
+      "instruction": "Exothermic vs endothermic reactions."
+    },
+    {
+      "idx": 75,
+      "instruction": "Supervised vs unsupervised vs reinforcement learning."
+    },
+    {
+      "idx": 76,
+      "instruction": "GDP, inflation, unemployment correlations."
+    },
+    {
+      "idx": 77,
+      "instruction": "Antitrust laws and market competition."
+    },
+    {
+      "idx": 78,
+      "instruction": "Business etiquette norms in Japan."
+    },
+    {
+      "idx": 79,
+      "instruction": "5 award-winning documentaries for filmmakers."
+    }
+  ],
+  "limitation": "No domain labels available in data. Items 1-50 from items_all_conditions.csv could be mapped to domains (science=1-10, tech=11-20, humanities=21-30, daily=31-40, math=41-50) but we only have aggregated mean scores.",
+  "conclusion": "Per-domain \u0394 computation requires per-item score data which is not available in the aggregated result files. We recommend recording per-item scores in future data collection runs."
+}

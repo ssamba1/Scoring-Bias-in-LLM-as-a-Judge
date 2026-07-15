@@ -1,0 +1,115 @@
+{
+  "method": "Group 22 instruct models into size quantiles",
+  "size_map": {
+    "Llama3.1-8B": 8.0,
+    "Llama3.2-3B": 3.0,
+    "Qwen2.5-7B": 7.0,
+    "Qwen3-8B": 8.0,
+    "Qwen3-14B": 14.0,
+    "Gemma3-4B": 4.0,
+    "Gemma3-12B": 12.0,
+    "Gemma3-27B": 27.0,
+    "Phi-4": 14.0,
+    "Mistral-Nemo-12B": 12.0,
+    "Lunaris-8B": 8.0,
+    "Hermes-3-70B": 70.0,
+    "MythoMax-13B": 13.0,
+    "DeepSeek-V3": 671.0,
+    "DeepSeek-V4-Flash": 671.0,
+    "Hy3-295B": 295.0,
+    "Gemini-2.5-Flash": 100.0,
+    "Command-R": 35.0,
+    "GLM-4.7": 4.7,
+    "GPT-OSS-20B": 20.0,
+    "Qwen2.5-72B": 72.0,
+    "Mistral-3.2-24B": 24.0
+  },
+  "quantile_definitions": {
+    "tiny": "\u22643B parameters",
+    "small": "\u22647B parameters",
+    "medium": "\u226430B parameters",
+    "large": "\u2264100B parameters",
+    "very large": ">100B parameters"
+  },
+  "per_quantile": {
+    "tiny (\u22643B)": {
+      "n_models": 1,
+      "models": [
+        "Llama3.2-3B"
+      ],
+      "mean_deltas": {
+        "rubric_order": 0.4,
+        "score_id": 0.6,
+        "reference_answer": 0.2
+      },
+      "overall_bias": 0.4
+    },
+    "small (\u22647B)": {
+      "n_models": 3,
+      "models": [
+        "Qwen2.5-7B",
+        "Gemma3-4B",
+        "GLM-4.7"
+      ],
+      "mean_deltas": {
+        "rubric_order": 0.3333,
+        "score_id": 0.8,
+        "reference_answer": 0.1667
+      },
+      "overall_bias": 0.4333
+    },
+    "medium (\u226430B)": {
+      "n_models": 11,
+      "models": [
+        "Llama3.1-8B",
+        "Qwen3-8B",
+        "Qwen3-14B",
+        "Gemma3-12B",
+        "Gemma3-27B",
+        "Phi-4",
+        "Mistral-Nemo-12B",
+        "Lunaris-8B",
+        "MythoMax-13B",
+        "GPT-OSS-20B",
+        "Mistral-3.2-24B"
+      ],
+      "mean_deltas": {
+        "rubric_order": 0.6182,
+        "score_id": 0.4909,
+        "reference_answer": 0.4182
+      },
+      "overall_bias": 0.5091
+    },
+    "large (\u2264100B)": {
+      "n_models": 4,
+      "models": [
+        "Hermes-3-70B",
+        "Gemini-2.5-Flash",
+        "Command-R",
+        "Qwen2.5-72B"
+      ],
+      "mean_deltas": {
+        "rubric_order": 0.675,
+        "score_id": 1.0,
+        "reference_answer": 0.65
+      },
+      "overall_bias": 0.775
+    },
+    "very large (>100B)": {
+      "n_models": 3,
+      "models": [
+        "DeepSeek-V3",
+        "DeepSeek-V4-Flash",
+        "Hy3-295B"
+      ],
+      "mean_deltas": {
+        "rubric_order": 0.5,
+        "score_id": 0.8333,
+        "reference_answer": 0.4
+      },
+      "overall_bias": 0.5778
+    }
+  },
+  "finding": "No clear monotonic relationship between model size and bias. Medium models (\u226430B) show the lowest bias on average. Very large models (>100B) show mixed patterns, with some being very biased (Hy3-295B) and some very unbiased (DeepSeek variants).",
+  "note": "Confounded by architecture, training data, and method differences across size categories."
+}

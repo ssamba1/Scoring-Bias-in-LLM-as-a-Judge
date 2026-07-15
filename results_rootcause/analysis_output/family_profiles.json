@@ -1,0 +1,239 @@
+{
+  "metadata": {
+    "description": "Per-family base\u2192instruct \u0394 profiles",
+    "families": [
+      "Qwen2.5-0.5B",
+      "Qwen2.5-1.5B",
+      "Llama-3.2-1B",
+      "Llama-3.2-3B",
+      "Gemma-2-2B",
+      "StableLM-2-1.6B",
+      "Qwen2.5-7B"
+    ]
+  },
+  "profiles": [
+    {
+      "family": "Llama-3.2-3B",
+      "base_params": "Llama-3.2-3B base (Llama 3.2)",
+      "instruct_version": "Llama-3.2-3B-IT",
+      "probes": {
+        "rubric_order": {
+          "base_delta": 3.5,
+          "instruct_delta": 0.8,
+          "delta_change": -2.7,
+          "direction": "decrease"
+        },
+        "score_id": {
+          "base_delta": 3.7,
+          "instruct_delta": 2.4,
+          "delta_change": -1.3,
+          "direction": "decrease"
+        },
+        "reference_answer": {
+          "base_delta": 3.1,
+          "instruct_delta": 2.5,
+          "delta_change": -0.6,
+          "direction": "decrease"
+        }
+      },
+      "mean_delta_change": -1.5333,
+      "most_improved_probe": "rubric_order",
+      "least_improved_probe": "reference_answer",
+      "overall_improvement": "improved"
+    },
+    {
+      "family": "Qwen2.5-7B",
+      "base_params": "Qwen2.5-7B base (Qwen2.5 7B)",
+      "instruct_version": "Qwen2.5-7B-IT",
+      "probes": {
+        "rubric_order": {
+          "base_delta": 0.6,
+          "instruct_delta": 0.0,
+          "delta_change": -0.6,
+          "direction": "decrease"
+        },
+        "score_id": {
+          "base_delta": 2.5,
+          "instruct_delta": 0.4,
+          "delta_change": -2.1,
+          "direction": "decrease"
+        },
+        "reference_answer": {
+          "base_delta": 2.4,
+          "instruct_delta": 0.9,
+          "delta_change": -1.5,
+          "direction": "decrease"
+        }
+      },
+      "mean_delta_change": -1.4,
+      "most_improved_probe": "score_id",
+      "least_improved_probe": "rubric_order",
+      "overall_improvement": "improved"
+    },
+    {
+      "family": "Gemma-2-2B",
+      "base_params": "Gemma-2-2B base (Gemma 2)",
+      "instruct_version": "Gemma-2-2B-IT",
+      "probes": {
+        "rubric_order": {
+          "base_delta": 0.1,
+          "instruct_delta": 0.1,
+          "delta_change": 0.0,
+          "direction": "increase"
+        },
+        "score_id": {
+          "base_delta": 2.1,
+          "instruct_delta": 0.6,
+          "delta_change": -1.5,
+          "direction": "decrease"
+        },
+        "reference_answer": {
+          "base_delta": 2.6,
+          "instruct_delta": 1.1,
+          "delta_change": -1.5,
+          "direction": "decrease"
+        }
+      },
+      "mean_delta_change": -1.0,
+      "most_improved_probe": "score_id",
+      "least_improved_probe": "rubric_order",
+      "overall_improvement": "improved"
+    },
+    {
+      "family": "Qwen2.5-0.5B",
+      "base_params": "Qwen2.5-0.5B base (Qwen2.5 0.5B)",
+      "instruct_version": "Qwen2.5-0.5B-IT",
+      "probes": {
+        "rubric_order": {
+          "base_delta": 0.1,
+          "instruct_delta": 0.2,
+          "delta_change": 0.1,
+          "direction": "increase"
+        },
+        "score_id": {
+          "base_delta": 1.3,
+          "instruct_delta": 0.4,
+          "delta_change": -0.9,
+          "direction": "decrease"
+        },
+        "reference_answer": {
+          "base_delta": 2.6,
+          "instruct_delta": 1.2,
+          "delta_change": -1.4,
+          "direction": "decrease"
+        }
+      },
+      "mean_delta_change": -0.7333,
+      "most_improved_probe": "reference_answer",
+      "least_improved_probe": "rubric_order",
+      "overall_improvement": "improved"
+    },
+    {
+      "family": "Qwen2.5-1.5B",
+      "base_params": "Qwen2.5-1.5B base (Qwen2.5 1.5B)",
+      "instruct_version": "Qwen2.5-1.5B-IT",
+      "probes": {
+        "rubric_order": {
+          "base_delta": 0.1,
+          "instruct_delta": 0.4,
+          "delta_change": 0.3,
+          "direction": "increase"
+        },
+        "score_id": {
+          "base_delta": 3.1,
+          "instruct_delta": 1.8,
+          "delta_change": -1.3,
+          "direction": "decrease"
+        },
+        "reference_answer": {
+          "base_delta": 2.6,
+          "instruct_delta": 1.8,
+          "delta_change": -0.8,
+          "direction": "decrease"
+        }
+      },
+      "mean_delta_change": -0.6,
+      "most_improved_probe": "score_id",
+      "least_improved_probe": "rubric_order",
+      "overall_improvement": "improved"
+    },
+    {
+      "family": "StableLM-2-1.6B",
+      "base_params": "StableLM-2-1.6B base (StableLM 2)",
+      "instruct_version": "StableLM-2-1.6B-IT",
+      "probes": {
+        "rubric_order": {
+          "base_delta": 0.4,
+          "instruct_delta": 0.3,
+          "delta_change": -0.1,
+          "direction": "decrease"
+        },
+        "score_id": {
+          "base_delta": 2.9,
+          "instruct_delta": 2.5,
+          "delta_change": -0.4,
+          "direction": "decrease"
+        },
+        "reference_answer": {
+          "base_delta": 3.8,
+          "instruct_delta": 3.4,
+          "delta_change": -0.4,
+          "direction": "decrease"
+        }
+      },
+      "mean_delta_change": -0.3,
+      "most_improved_probe": "score_id",
+      "least_improved_probe": "rubric_order",
+      "overall_improvement": "improved"
+    },
+    {
+      "family": "Llama-3.2-1B",
+      "base_params": "Llama-3.2-1B base (Llama 3.2)",
+      "instruct_version": "Llama-3.2-1B-IT",
+      "probes": {
+        "rubric_order": {
+          "base_delta": 0.0,
+          "instruct_delta": 0.2,
+          "delta_change": 0.2,
+          "direction": "increase"
+        },
+        "score_id": {
+          "base_delta": 1.3,
+          "instruct_delta": 2.0,
+          "delta_change": 0.7,
+          "direction": "increase"
+        },
+        "reference_answer": {
+          "base_delta": 2.2,
+          "instruct_delta": 2.6,
+          "delta_change": 0.4,
+          "direction": "increase"
+        }
+      },
+      "mean_delta_change": 0.4333,
+      "most_improved_probe": "rubric_order",
+      "least_improved_probe": "score_id",
+      "overall_improvement": "worsened"
+    }
+  ],
+  "sorted_by_improvement": [
+    "Llama-3.2-3B",
+    "Qwen2.5-7B",
+    "Gemma-2-2B",
+    "Qwen2.5-0.5B",
+    "Qwen2.5-1.5B",
+    "StableLM-2-1.6B",
+    "Llama-3.2-1B"
+  ],
+  "most_improved_by_instruction_tuning": [
+    "Llama-3.2-3B",
+    "Qwen2.5-7B",
+    "Gemma-2-2B"
+  ],
+  "least_improved_by_instruction_tuning": [
+    "Qwen2.5-1.5B",
+    "StableLM-2-1.6B",
+    "Llama-3.2-1B"
+  ],
+  "overall_finding": "Instruction tuning reduces bias for most families, especially on score_id and reference_answer probes. Llama-3.2-3B shows the largest improvement (mean \u0394 change = -1.53). Llama-3.2-1B is the only family that worsens (mean \u0394 change = +0.43)."
+}

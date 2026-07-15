@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "description": "Spearman/Pearson correlation between model parameter count and \u0394 per probe",
+    "model_params": {
+      "Llama3.1-8B": 8.0,
+      "Llama3.2-3B": 3.0,
+      "Qwen2.5-7B": 7.0,
+      "Qwen3-8B": 8.0,
+      "Qwen3-14B": 14.0,
+      "Gemma3-4B": 4.0,
+      "Gemma3-12B": 12.0,
+      "Gemma3-27B": 27.0,
+      "Phi-4": 14.0,
+      "Mistral-Nemo-12B": 12.0,
+      "Lunaris-8B": 8.0,
+      "Hermes-3-70B": 70.0,
+      "MythoMax-13B": 13.0,
+      "DeepSeek-V3": 671.0,
+      "DeepSeek-V4-Flash": 671.0,
+      "Hy3-295B": 295.0,
+      "Gemini-2.5-Flash": 100.0,
+      "Command-R": 35.0,
+      "GLM-4.7": 4.7,
+      "GPT-OSS-20B": 20.0,
+      "Qwen2.5-72B": 72.0,
+      "Mistral-3.2-24B": 24.0
+    },
+    "interpretation": "Negative r means larger models have smaller \u0394 (less biased)"
+  },
+  "t4fam": {
+    "rubric_order": {
+      "n_models": 14,
+      "spearman_rho": 0.3101,
+      "spearman_p": 0.2805587509465027,
+      "spearman_significant_at_005": false,
+      "pearson_r_log_size": 0.2732,
+      "pearson_p": 0.34461963532667184,
+      "pearson_significant_at_005": false,
+      "direction": "positive (larger=more biased)"
+    },
+    "score_id": {
+      "n_models": 14,
+      "spearman_rho": 0.2933,
+      "spearman_p": 0.3087478318557484,
+      "spearman_significant_at_005": false,
+      "pearson_r_log_size": 0.23,
+      "pearson_p": 0.4289486168598887,
+      "pearson_significant_at_005": false,
+      "direction": "positive (larger=more biased)"
+    },
+    "reference_answer": {
+      "n_models": 14,
+      "spearman_rho": -0.0851,
+      "spearman_p": 0.7723702352104451,
+      "spearman_significant_at_005": false,
+      "pearson_r_log_size": -0.079,
+      "pearson_p": 0.7884039151329509,
+      "pearson_significant_at_005": false,
+      "direction": "negative (larger=less biased)"
+    }
+  },
+  "study1": {
+    "rubric_order": {
+      "n_models": 22,
+      "spearman_rho": 0.0445,
+      "spearman_p": 0.84416975581613,
+      "spearman_significant_at_005": false,
+      "pearson_r_log_size": 0.0247,
+      "pearson_p": 0.9132788978408588,
+      "pearson_significant_at_005": false,
+      "direction": "positive (larger=more biased)"
+    },
+    "score_id": {
+      "n_models": 22,
+      "spearman_rho": 0.1297,
+      "spearman_p": 0.5651587356700056,
+      "spearman_significant_at_005": false,
+      "pearson_r_log_size": 0.1695,
+      "pearson_p": 0.45068258303870024,
+      "pearson_significant_at_005": false,
+      "direction": "positive (larger=more biased)"
+    },
+    "reference_answer": {
+      "n_models": 22,
+      "spearman_rho": 0.2958,
+      "spearman_p": 0.18139242701375657,
+      "spearman_significant_at_005": false,
+      "pearson_r_log_size": 0.1627,
+      "pearson_p": 0.4693542100838936,
+      "pearson_significant_at_005": false,
+      "direction": "positive (larger=more biased)"
+    }
+  }
+}

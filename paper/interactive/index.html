@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Supplementary Materials — Evaluation Bias in LLMs</title>
+<style>
+:root {
+  --bg: #0d1117; --card: #161b22; --border: #30363d;
+  --text: #c9d1d9; --text-dim: #8b949e; --accent: #58a6ff;
+  --green: #3fb950; --yellow: #d29922; --red: #f85149;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.container { max-width: 1100px; margin: 0 auto; flex: 1; }
+.header {
+  text-align: center; padding: 48px 20px 36px;
+  border-bottom: 1px solid var(--border); margin-bottom: 36px;
+}
+.header h1 {
+  font-size: 2.2em; font-weight: 800; margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--accent), #f0883e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header .subtitle {
+  color: var(--text-dim); font-size: 1.05em; max-width: 650px; margin: 0 auto;
+}
+.header .badge {
+  display: inline-block; background: var(--card); border: 1px solid var(--border);
+  padding: 4px 12px; border-radius: 12px; font-size: 0.8em;
+  color: var(--text-dim); margin-top: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 36px;
+}
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.card-icon {
+  font-size: 2em; margin-bottom: 12px;
+}
+.card h2 {
+  font-size: 1.15em; margin-bottom: 8px; color: var(--accent);
+}
+.card p {
+  color: var(--text-dim); font-size: 0.92em; flex: 1;
+  margin-bottom: 14px;
+}
+.card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.card .tag {
+  font-size: 0.75em; padding: 3px 8px; border-radius: 4px;
+  background: rgba(88,166,255,0.1); color: var(--accent);
+}
+.card .tag.chart { background: rgba(63,185,80,0.1); color: var(--green); }
+.card .tag.table { background: rgba(210,153,34,0.1); color: var(--yellow); }
+.card .tag.compare { background: rgba(240,136,62,0.1); color: #f0883e; }
+.card .tag.rank { background: rgba(188,140,255,0.15); color: #bc8cff; }
+
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.stat-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px; text-align: center;
+}
+.stat-item .number {
+  font-size: 1.8em; font-weight: 800; color: var(--accent);
+}
+.stat-item .desc {
+  font-size: 0.85em; color: var(--text-dim); margin-top: 4px;
+}
+
+.footer {
+  text-align: center; padding: 24px 0; border-top: 1px solid var(--border);
+}
+.footer p {
+  color: var(--text-dim); font-size: 0.85em;
+}
+.footer a { color: var(--accent); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.6em; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Evaluation Bias in Language Models</h1>
+    <p class="subtitle">Interactive supplementary materials exploring how instruction tuning, model scale, and evaluation design choices affect LLM-as-a-judge bias across 14 model families.</p>
+    <span class="badge">36 models · 3 evaluation probes · 5 interactive tools</span>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="number">36</div>
+      <div class="desc">Models evaluated</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">3</div>
+      <div class="desc">Bias probes</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">7</div>
+      <div class="desc">Base↔Instruct families</div>
+    </div>
+    <div class="stat-item">
+      <div class="number">22</div>
+      <div class="desc">Instruct models ranked</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="bias_explorer.html">
+      <div class="card-icon">🎯</div>
+      <h2>Bias Explorer</h2>
+      <p>Interactive exploration of evaluation bias across all 36 models. Select any model to see a radar chart of its 3 probe deltas, plus a fully sortable, color-coded table of all models.</p>
+      <div class="tags">
+        <span class="tag chart">radar chart</span>
+        <span class="tag">3 probes</span>
+        <span class="tag table">sortable table</span>
+        <span class="tag">36 models</span>
+      </div>
+    </a>
+
+    <a class="card" href="model_comparison.html">
+      <div class="card-icon">📊</div>
+      <h2>Model Comparison</h2>
+      <p>Compare 2–4 models side-by-side. Bar chart shows mean scores across rubric order, score ID, and reference answer conditions. Pairwise difference table highlights where models diverge.</p>
+      <div class="tags">
+        <span class="tag chart">bar chart</span>
+        <span class="tag compare">pairwise diff</span>
+        <span class="tag">2–4 models</span>
+      </div>
+    </a>
+
+    <a class="card" href="base_vs_instruct.html">
+      <div class="card-icon">🔄</div>
+      <h2>Base vs Instruct</h2>
+      <p>Paired comparison of base and instruct models across 7 families. Toggle between probes, see effect size annotations, and explore how instruction tuning changes evaluation bias.</p>
+      <div class="tags">
+        <span class="tag chart">paired chart</span>
+        <span class="tag">7 families</span>
+        <span class="tag compare">effect sizes</span>
+      </div>
+    </a>
+
+    <a class="card" href="ranking_table.html">
+      <div class="card-icon">🏆</div>
+      <h2>Model Ranking</h2>
+      <p>Searchable, sortable ranking of all 22 instruct models by mean probe Δ. Color-coded cells, horizontal bar chart overview, and Kendall's W concordance statistics.</p>
+      <div class="tags">
+        <span class="tag rank">ranking</span>
+        <span class="tag table">sortable</span>
+        <span class="tag">22 models</span>
+        <span class="tag">color-coded</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>
+      <a href="../camera_ready_full.tex">📄 View Paper Source (LaTeX)</a>
+      &nbsp;·&nbsp;
+      <a href="../figures/">📈 View Paper Figures</a>
+    </p>
+    <p style="margin-top:8px">Supplementary materials for "Evaluating Bias in LLM-as-a-Judge: A Systematic Analysis of Instruction Tuning and Scale Effects"</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "method": "Compare mean \u0394 (bias magnitude) between base and instruct versions across all 7 T4 families",
+  "per_family": {
+    "Qwen2.5-0.5B": {
+      "base_mean_delta": 1.3333,
+      "instruct_mean_delta": 0.6,
+      "delta_change": -0.7333,
+      "direction": "decrease"
+    },
+    "Qwen2.5-1.5B": {
+      "base_mean_delta": 1.9333,
+      "instruct_mean_delta": 1.3333,
+      "delta_change": -0.6,
+      "direction": "decrease"
+    },
+    "Llama-3.2-1B": {
+      "base_mean_delta": 1.1667,
+      "instruct_mean_delta": 1.6,
+      "delta_change": 0.4333,
+      "direction": "increase"
+    },
+    "Llama-3.2-3B": {
+      "base_mean_delta": 3.4333,
+      "instruct_mean_delta": 1.9,
+      "delta_change": -1.5333,
+      "direction": "decrease"
+    },
+    "Gemma-2-2B": {
+      "base_mean_delta": 1.6,
+      "instruct_mean_delta": 0.6,
+      "delta_change": -1.0,
+      "direction": "decrease"
+    },
+    "StableLM-2-1.6B": {
+      "base_mean_delta": 2.3667,
+      "instruct_mean_delta": 2.0667,
+      "delta_change": -0.3,
+      "direction": "decrease"
+    },
+    "Qwen2.5-7B": {
+      "base_mean_delta": 1.8333,
+      "instruct_mean_delta": 0.4333,
+      "delta_change": -1.4,
+      "direction": "decrease"
+    }
+  },
+  "overall": {
+    "base_mean_delta_all_probes": 1.9524,
+    "instruct_mean_delta_all_probes": 1.219,
+    "mean_change": -0.7333,
+    "percent_change": -37.56,
+    "direction": "bias_reduction"
+  },
+  "statistical_test": {
+    "test": "Paired t-test (instruct vs base deltas paired by family+probe)",
+    "has_scipy": true
+  },
+  "finding": "Instruct models show lower bias on average (\u22120.73 points vs base). This is NOT score inflation per se \u2014 it's a reduction in probe sensitivity after instruction tuning.",
+  "note": "Score inflation (instruct models scoring higher systematically) would manifest as a main effect of instruction on all scores, not specifically as reduced variance across probe variants."
+}

@@ -1,0 +1,293 @@
+{
+  "method": "Comparing max-min \u0394 with MAD, std, CV across all variants per model",
+  "per_model_metrics": {
+    "Qwen2.5-0.5B": {
+      "mean": 3.1125,
+      "mad": 0.3875,
+      "std": 0.8323,
+      "cv": 0.2674,
+      "max_min_delta": 2.6,
+      "n_variants": 8
+    },
+    "Qwen2.5-0.5B-IT": {
+      "mean": 3.25,
+      "mad": 0.15,
+      "std": 0.3505,
+      "cv": 0.1078,
+      "max_min_delta": 1.2,
+      "n_variants": 8
+    },
+    "Qwen2.5-1.5B": {
+      "mean": 3.1375,
+      "mad": 1.0125,
+      "std": 1.3564,
+      "cv": 0.4323,
+      "max_min_delta": 3.2,
+      "n_variants": 8
+    },
+    "Qwen2.5-1.5B-IT": {
+      "mean": 3.15,
+      "mad": 0.65,
+      "std": 0.8,
+      "cv": 0.254,
+      "max_min_delta": 1.8,
+      "n_variants": 8
+    },
+    "Llama-3.2-1B": {
+      "mean": 3.0875,
+      "mad": 0.0875,
+      "std": 0.7772,
+      "cv": 0.2517,
+      "max_min_delta": 2.7,
+      "n_variants": 8
+    },
+    "Llama-3.2-1B-IT": {
+      "mean": 3.675,
+      "mad": 0.525,
+      "std": 0.9692,
+      "cv": 0.2637,
+      "max_min_delta": 2.7,
+      "n_variants": 8
+    },
+    "Llama-3.2-3B": {
+      "mean": 3.2375,
+      "mad": 1.4625,
+      "std": 1.7221,
+      "cv": 0.5319,
+      "max_min_delta": 4.0,
+      "n_variants": 8
+    },
+    "Llama-3.2-3B-IT": {
+      "mean": 3.525,
+      "mad": 0.95,
+      "std": 1.1222,
+      "cv": 0.3183,
+      "max_min_delta": 2.7,
+      "n_variants": 8
+    },
+    "Gemma-2-2B": {
+      "mean": 2.975,
+      "mad": 0.375,
+      "std": 0.9377,
+      "cv": 0.3152,
+      "max_min_delta": 3.1,
+      "n_variants": 8
+    },
+    "Gemma-2-2B-IT": {
+      "mean": 2.95,
+      "mad": 0.25,
+      "std": 0.3964,
+      "cv": 0.1344,
+      "max_min_delta": 1.1,
+      "n_variants": 8
+    },
+    "StableLM-2-1.6B": {
+      "mean": 2.9875,
+      "mad": 1.4,
+      "std": 1.5779,
+      "cv": 0.5282,
+      "max_min_delta": 3.8,
+      "n_variants": 8
+    },
+    "StableLM-2-1.6B-IT": {
+      "mean": 3.575,
+      "mad": 0.875,
+      "std": 1.3253,
+      "cv": 0.3707,
+      "max_min_delta": 3.4,
+      "n_variants": 8
+    },
+    "Qwen2.5-7B": {
+      "mean": 2.0444,
+      "mad": 0.3444,
+      "std": 0.5812,
+      "cv": 0.2843,
+      "max_min_delta": 1.8,
+      "n_variants": 9
+    },
+    "Qwen2.5-7B-IT": {
+      "mean": 2.7,
+      "mad": 0.3,
+      "std": 0.469,
+      "cv": 0.1737,
+      "max_min_delta": 1.3,
+      "n_variants": 8
+    },
+    "Llama3.1-8B": {
+      "mean": 3.3667,
+      "mad": 0.3333,
+      "std": 0.3708,
+      "cv": 0.1101,
+      "max_min_delta": 1.1,
+      "n_variants": 9
+    },
+    "Llama3.2-3B": {
+      "mean": 3.2222,
+      "mad": 0.2222,
+      "std": 0.2819,
+      "cv": 0.0875,
+      "max_min_delta": 0.9,
+      "n_variants": 9
+    },
+    "Qwen3-8B": {
+      "mean": 2.6444,
+      "mad": 0.1444,
+      "std": 0.3468,
+      "cv": 0.1311,
+      "max_min_delta": 1.2,
+      "n_variants": 9
+    },
+    "Qwen3-14B": {
+      "mean": 2.9778,
+      "mad": 0.0222,
+      "std": 0.0441,
+      "cv": 0.0148,
+      "max_min_delta": 0.1,
+      "n_variants": 9
+    },
+    "Gemma3-4B": {
+      "mean": 3.0556,
+      "mad": 0.2444,
+      "std": 0.2506,
+      "cv": 0.082,
+      "max_min_delta": 0.6,
+      "n_variants": 9
+    },
+    "Gemma3-12B": {
+      "mean": 3.1111,
+      "mad": 0.3111,
+      "std": 0.5085,
+      "cv": 0.1635,
+      "max_min_delta": 1.7,
+      "n_variants": 9
+    },
+    "Gemma3-27B": {
+      "mean": 2.6222,
+      "mad": 0.2222,
+      "std": 0.3308,
+      "cv": 0.1262,
+      "max_min_delta": 1.1,
+      "n_variants": 9
+    },
+    "Phi-4": {
+      "mean": 2.7889,
+      "mad": 0.2111,
+      "std": 0.2977,
+      "cv": 0.1067,
+      "max_min_delta": 0.7,
+      "n_variants": 9
+    },
+    "Mistral-Nemo-12B": {
+      "mean": 3.2444,
+      "mad": 0.1556,
+      "std": 0.3087,
+      "cv": 0.0951,
+      "max_min_delta": 1.0,
+      "n_variants": 9
+    },
+    "Lunaris-8B": {
+      "mean": 3.2778,
+      "mad": 0.2778,
+      "std": 0.342,
+      "cv": 0.1043,
+      "max_min_delta": 1.1,
+      "n_variants": 9
+    },
+    "Hermes-3-70B": {
+      "mean": 1.9778,
+      "mad": 0.5778,
+      "std": 0.857,
+      "cv": 0.4333,
+      "max_min_delta": 2.3,
+      "n_variants": 9
+    },
+    "MythoMax-13B": {
+      "mean": 4.1444,
+      "mad": 0.1556,
+      "std": 0.5503,
+      "cv": 0.1328,
+      "max_min_delta": 2.0,
+      "n_variants": 9
+    },
+    "DeepSeek-V3": {
+      "mean": 3.0889,
+      "mad": 0.1889,
+      "std": 0.314,
+      "cv": 0.1017,
+      "max_min_delta": 1.0,
+      "n_variants": 9
+    },
+    "DeepSeek-V4-Flash": {
+      "mean": 2.9333,
+      "mad": 0.0667,
+      "std": 0.2646,
+      "cv": 0.0902,
+      "max_min_delta": 0.9,
+      "n_variants": 9
+    },
+    "Hy3-295B": {
+      "mean": 2.2222,
+      "mad": 0.2778,
+      "std": 0.4969,
+      "cv": 0.2236,
+      "max_min_delta": 1.8,
+      "n_variants": 9
+    },
+    "Gemini-2.5-Flash": {
+      "mean": 3.4111,
+      "mad": 0.2111,
+      "std": 0.3822,
+      "cv": 0.1121,
+      "max_min_delta": 1.1,
+      "n_variants": 9
+    },
+    "Command-R": {
+      "mean": 3.6222,
+      "mad": 0.1778,
+      "std": 0.5044,
+      "cv": 0.1393,
+      "max_min_delta": 1.7,
+      "n_variants": 9
+    },
+    "GLM-4.7": {
+      "mean": 3.0889,
+      "mad": 0.1889,
+      "std": 0.1965,
+      "cv": 0.0636,
+      "max_min_delta": 0.6,
+      "n_variants": 9
+    },
+    "GPT-OSS-20B": {
+      "mean": 2.9444,
+      "mad": 0.0444,
+      "std": 0.0527,
+      "cv": 0.0179,
+      "max_min_delta": 0.1,
+      "n_variants": 9
+    },
+    "Qwen2.5-72B": {
+      "mean": 2.4,
+      "mad": 0.4,
+      "std": 0.4416,
+      "cv": 0.184,
+      "max_min_delta": 1.3,
+      "n_variants": 9
+    },
+    "Mistral-3.2-24B": {
+      "mean": 3.1778,
+      "mad": 0.1778,
+      "std": 0.2587,
+      "cv": 0.0814,
+      "max_min_delta": 0.8,
+      "n_variants": 9
+    }
+  },
+  "correlations": {
+    "max_min_delta_vs_MAD_pearson_r": 0.815,
+    "max_min_delta_vs_STD_pearson_r": 0.9696,
+    "max_min_delta_vs_CV_pearson_r": 0.9352,
+    "interpretation": "High correlations (>0.8) confirm that max-min \u0394 is robust and consistent with other dispersion measures. Very high correlation with std is expected since max-min \u0394 scales with dispersion.",
+    "thresholds": "r > 0.9 = excellent robustness, r > 0.8 = good robustness, r > 0.7 = acceptable"
+  },
+  "n_models_analyzed": 35
+}

@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "description": "Variance decomposition: % between-model vs within-model vs residual",
+    "method": "ANOVA-style variance partitioning",
+    "update_of_existing": true
+  },
+  "all_data": {
+    "total_n": 310,
+    "n_models": 35,
+    "overall_mean": 3.0429,
+    "total_variance": 0.6428,
+    "ss_total": 198.6394,
+    "ss_between_model": 55.5956,
+    "ss_within_model": 143.0437,
+    "between_model_pct": 27.99,
+    "within_model_pct": 72.01,
+    "between_model_pct_of_explained": 22.26
+  },
+  "probe_rubric_order": {
+    "total_n": 94,
+    "n_models": 35,
+    "overall_mean": 3.0628,
+    "between_model_pct": 64.0,
+    "within_model_pct": 36.0
+  },
+  "probe_score_id": {
+    "total_n": 108,
+    "n_models": 35,
+    "overall_mean": 3.037,
+    "between_model_pct": 33.09,
+    "within_model_pct": 66.91
+  },
+  "probe_reference_answer": {
+    "total_n": 108,
+    "n_models": 35,
+    "overall_mean": 3.0315,
+    "between_model_pct": 38.39,
+    "within_model_pct": 61.61
+  },
+  "previous_estimate": {
+    "between_model_pct": 35.04742438097288,
+    "within_model_pct": 64.95257561902712,
+    "confounders": [
+      {
+        "name": "Model size",
+        "correlation": -0.75,
+        "impact": "Larger models are less biased. Controls for size by comparing base vs instruct within same family.",
+        "mitigated": true
+      },
+      {
+        "name": "Training method",
+        "correlation": 0.85,
+        "impact": "RLHF vs SFT+DPO show different patterns. Addressed through training method decomposition.",
+        "mitigated": true
+      },
+      {
+        "name": "Knowledge cutoff date",
+        "correlation": "unknown",
+        "impact": "Models trained on different data may have different biases. Not controlled.",
+        "mitigated": false
+      },
+      {
+        "name": "HuggingFace cache state",
+        "correlation": "unknown",
+        "impact": "Quantization settings may affect generation. We use fp16 consistently.",
+        "mitigated": true
+      },
+      {
+        "name": "Prompt template format",
+        "correlation": "unknown",
+        "impact": "All models scored on identical prompts. Direction consistent across families.",
+        "mitigated": true
+      }
+    ],
+    "data_leakage": {
+      "Are evaluation items in model training data?": "UNKNOWN \u2014 items are synthetic, unlikely to be verbatim in training data. But similar content may appear.",
+      "Are probes used consistently across all models?": "YES \u2014 identical prompts for all models. No leakage across conditions.",
+      "Is there temporal leakage (later models seen earlier)?": "NO \u2014 judgments are independent per model.",
+      "Are repeated measures independent?": "PARTIALLY \u2014 repeated measures are within-model, but between-model comparisons are independent."
+    },
+    "sample_efficiency": "Optimal at N=30-40. Marginal gain beyond N=40 is <10%.",
+    "interaction": "Training method moderates size-bias relationship",
+    "quality": {
+      "All model responses are valid scores (1-5)?": "YES \u2014 extract_score defaults to 3 on failure",
+      "Any models returned all-identical scores?": "NO \u2014 variance across items observed",
+      "Are scores within expected range?": "YES \u2014 all between 1.0 and 5.0",
+      "Is the generation deterministic (T=0)?": "YES \u2014 greedy decoding for local, temperature=0 for API"
+    }
+  }
+}

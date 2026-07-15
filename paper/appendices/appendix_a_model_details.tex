@@ -1,0 +1,66 @@
+% ── Appendix A: Full Model Card Table ──
+\section{Full Model Card Table}
+\label{app:model_details}
+
+Table~\ref{tab:all_models} lists all 31 model variants used in this study — 9 base models and 22 instruct-tuned models. For the 9 families with both base and instruct variants, both are shown. For each model we report the Hugging Face model ID, parameter count, architecture, training method, context window, license, inference platform, and access type.
+
+\begin{table*}[h]
+\centering\small
+\caption{Complete model card table for all 31 model variants. Platform: K = Kaggle T4 GPU, O = OpenRouter API. Access: O = open, G = gated. Training methods: PT = pre-training only, SFT = supervised fine-tuning, RLHF = reinforcement learning from human feedback (PPO), DPO = direct preference optimization.}
+\label{tab:all_models}
+\begin{tabular}{llllllll}
+\toprule
+\textbf{Model} & \textbf{HF Model ID} & \textbf{Params} & \textbf{Training} & \textbf{Ctx} & \textbf{License} & \textbf{Platform} & \textbf{Access} \\
+\midrule
+\multicolumn{8}{l}{\textbf{Base + Instruct Pairs}} \\
+\midrule
+Llama-3.1-8B & \texttt{meta-llama/Meta-Llama-3.1-8B} & 8.03B & PT / SFT+RLHF & 131K & Llama 3.1 Community & K & G \\
+Llama-3.2-1B & \texttt{meta-llama/Llama-3.2-1B} & 1.23B & PT / SFT+RLHF & 131K & Llama 3.2 Community & K & G \\
+Llama-3.2-3B & \texttt{meta-llama/Llama-3.2-3B} & 3.21B & PT / SFT+RLHF & 131K & Llama 3.2 Community & K & G \\
+Llama-2-7B & \texttt{meta-llama/Llama-2-7b-hf} & 6.74B & PT / SFT+RLHF & 4K & Llama 2 Community & K & G \\
+Mistral-7B-v0.3 & \texttt{mistralai/Mistral-7B-v0.3} & 7.24B & PT / SFT+DPO & 32K & Apache 2.0 & K & O \\
+Qwen2.5-0.5B & \texttt{Qwen/Qwen2.5-0.5B} & 0.49B & PT / SFT+RLHF & 32K & Apache 2.0 & K & O \\
+Qwen2.5-1.5B & \texttt{Qwen/Qwen2.5-1.5B} & 1.54B & PT / SFT+RLHF & 32K & Apache 2.0 & K & O \\
+Qwen2.5-7B & \texttt{Qwen/Qwen2.5-7B} & 7.63B & PT / SFT+RLHF & 128K & Apache 2.0 & K & O \\
+Gemma-2-2B & \texttt{google/gemma-2-2b} & 2.57B & PT / SFT+RLHF & 8K & Gemma License & K & G \\
+Gemma-2-9B & \texttt{google/gemma-2-9b} & 9.24B & PT / SFT+RLHF & 8K & Gemma License & K & G \\
+StableLM-2-1.6B & \texttt{stabilityai/stablelm-2-1\_6b} & 1.64B & PT / SFT & 4K & Stability AI & K & O \\
+\midrule
+\multicolumn{8}{l}{\textbf{Instruct-Only Models (OpenRouter)}} \\
+\midrule
+Qwen3-8B & \texttt{Qwen/Qwen3-8B} & 8.15B & SFT+RLHF & 128K & Apache 2.0 & O & O \\
+Qwen3-14B & \texttt{Qwen/Qwen3-14B} & 14.18B & SFT+RLHF & 128K & Apache 2.0 & O & O \\
+Qwen3-32B & \texttt{Qwen/Qwen3-32B} & 32.76B & SFT+RLHF & 128K & Apache 2.0 & O & O \\
+Qwen2.5-72B & \texttt{Qwen/Qwen2.5-72B} & 72.71B & SFT+RLHF & 128K & Apache 2.0 & O & O \\
+Gemma3-4B & \texttt{google/gemma-3-4b-it} & 3.82B & SFT+RLHF & 32K & Gemma License & O & G \\
+Gemma3-12B & \texttt{google/gemma-3-12b-it} & 12.15B & SFT+RLHF & 32K & Gemma License & O & G \\
+Gemma3-27B & \texttt{google/gemma-3-27b-it} & 27.20B & SFT+RLHF & 32K & Gemma License & O & G \\
+Gemma4-31B & \texttt{google/gemma-4-31b-it} & 30.70B & SFT+RLHF & 256K & Apache 2.0 & O & G \\
+Phi-4 & \texttt{microsoft/phi-4} & 14.68B & SFT & 128K & MIT & O & O \\
+Mistral-Nemo-12B & \texttt{mistralai/Mistral-Nemo-Base-2407} & 12.0B & SFT & 128K & Apache 2.0 & O & O \\
+Mistral-3.2-24B & \texttt{mistralai/Mistral-Small-24B-Instruct-2501} & 24.0B & SFT & 128K & Apache 2.0 & O & O \\
+DeepSeek-V3 & \texttt{deepseek-ai/DeepSeek-V3} & 671B (37B act.) & SFT+RLHF & 128K & DeepSeek License & O & O \\
+DeepSeek-V4-Flash & \texttt{deepseek-ai/DeepSeek-V4-Flash} & 671B (37B act.) & SFT+RLHF & 128K & DeepSeek License & O & O \\
+Hermes-3-70B & \texttt{NousResearch/Hermes-3-Llama-3.1-70B} & 70.6B & SFT & 131K & Llama 3.1 Community & O & O \\
+Zephyr-7B & \texttt{HuggingFaceH4/zephyr-7b-beta} & 7.24B & SFT+DPO & 32K & MIT & O & O \\
+MythoMax-13B & \texttt{Gryphe/MythoMax-L2-13b} & 12.9B & Fine-tune (merge) & 4K & Apache 2.0 & O & O \\
+SOLAR-10.7B & \texttt{upstage/SOLAR-10.7B-Instruct-v1.0} & 10.7B & SFT & 32K & Apache 2.0 & O & O \\
+Nemotron-Nano-30B & \texttt{nvidia/Nemotron-3-Nano-30B-A3B} & 30B (3B act.) & SFT+RLHF & 256K & NVIDIA Open & O & O \\
+Nemotron-Super-120B & \texttt{nvidia/Nemotron-3-Super-120B-A12B} & 120B (12B act.) & SFT+RLHF & 1M & NVIDIA Open & O & O \\
+Hy3-295B & \texttt{Tencent/Hunyuan-Large} & 295B (21B act.) & SFT+RLHF & 256K & Apache 2.0 & O & O \\
+GPT-OSS-20B & \texttt{openai/gpt-oss-20b} & 21B (3.6B act.) & SFT+RLHF & 131K & Apache 2.0 & O & O \\
+Command-R & \texttt{CohereForAI/c4ai-command-r-v01} & 35B & SFT+RLHF & 128K & CC-BY-NC & O & O \\
+GLM-4.7 & \texttt{THUDM/glm-4-9b-chat} & 9.0B & SFT+RLHF & 128K & Apache 2.0 & O & O \\
+Gemini-2.5-Flash & \texttt{--- (API)} & \textasciitilde{}-- & RLHF & 1M & Google TOS & O & G \\
+Lunaris-8B & \texttt{arcee-ai/Lunaris-8B} & 8.0B & SFT+DPO & 8K & Apache 2.0 & O & O \\
+\midrule
+\multicolumn{8}{l}{\textbf{Excluded Models (see Appendix~E)}} \\
+\midrule
+Gemini-2.5-Pro & \texttt{--- (API)} & \textasciitilde{}-- & RLHF & 2M & Google TOS & O & G \\
+Inflection-3-Pi & \texttt{inflection/inflection-3-pi} & 8.0B & SFT+RLHF & 8K & Inflection License & O & G \\
+Command-R7B & \texttt{CohereForAI/command-r7b-12-2024} & 7.0B & SFT+RLHF & 128K & CC-BY-NC & O & O \\
+Mistral-Small-24B & \texttt{mistralai/Mistral-7B-Instruct-v0.3} & 24.0B & SFT & 128K & Apache 2.0 & O & O \\
+Inflection-3-Pi-- & \texttt{inflection/inflection-3-pi} & 8.0B & SFT+RLHF & 8K & Inflection License & O & G \\
+\bottomrule
+\end{tabular}
+\end{table*}

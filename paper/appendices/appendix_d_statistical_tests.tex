@@ -1,0 +1,128 @@
+% ── Appendix D: Statistical Test Results ──
+\section{Statistical Test Results}
+\label{app:statistical_tests}
+
+\subsection{Wilcoxon Signed-Rank Test}
+
+We used one-sample Wilcoxon signed-rank tests to evaluate whether the paired $\Delta$ change (instruct $\Delta$ -- base $\Delta$) across families is significantly different from zero. Table~\ref{tab:wilcoxon} summarizes results across the 7 T4 families.
+
+\begin{table}[h]
+\centering\small
+\caption{Wilcoxon signed-rank test results for base-to-instruct $\Delta$ change across 7 families. H$_0$: median $\Delta$ change = 0.}
+\label{tab:wilcoxon}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Probe} & \textbf{Mean $\Delta$ change} & \textbf{Median} & \textbf{W} & \textbf{p-value} \\
+\midrule
+Rubric Order & $-0.40$ & $0.00$ & 8.0 & 0.600 (n.s.) \\
+Score ID & $-0.97$ & $-1.30$ & 2.0 & \textbf{0.047*} \\
+Reference Answer & $-0.83$ & $-0.80$ & 1.5 & \textbf{0.031*} \\
+\bottomrule
+\end{tabular}
+\par\vspace{2mm}
+\noindent{\footnotesize * Significant at $\alpha = 0.05$. Effect size $r = 0.77$ (Score ID) and $r = 0.80$ (Reference Answer), both ``large'' per Cohen (1988).}
+\end{table}
+
+The Wilcoxon test detects a statistically significant reduction in Score ID bias ($p = 0.047$) and Reference Answer bias ($p = 0.031$) after instruction tuning. The Rubric Order reduction is not statistically significant ($p = 0.600$), largely due to the outlier direction of Llama-3.2-3B (base $\Delta = 3.50$, the largest observed, accounting for 57\% of the variance in rubric order $\Delta$ change).
+
+\subsection{Cohen's d Effect Sizes}
+
+Table~\ref{tab:cohens_d} reports Cohen's $d$ for each model and probe, comparing the control condition against the most biased variant. Interpretation per Cohen (1988): $d \approx 0.2$ small, $0.5$ medium, $0.8+$ large.
+
+\begin{table*}[h]
+\centering\small
+\caption{Cohen's d effect sizes for each model and probe. Control vs most biased variant.}
+\label{tab:cohens_d}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{Rubric Order} & \textbf{Score ID} & \textbf{Ref Answer} & \textbf{Max $|d|$} \\
+\midrule
+\multicolumn{5}{l}{\textbf{Base Models}} \\
+\midrule
+Qwen2.5-0.5B & $-$0.08 & $-$1.08 & 0.58 & 1.08 \\
+Qwen2.5-1.5B & $-$0.08 & $-$2.58 & 0.08 & 2.58 \\
+Qwen2.5-7B & $-$0.50 & $-$2.08 & 0.00 & 2.08 \\
+Llama-3.2-1B & 0.00 & 1.08 & 0.67 & 1.08 \\
+Llama-3.2-3B & $-$2.92 & $-$3.08 & 0.25 & 3.08 \\
+Gemma-2-2B & $-$0.08 & 1.17 & 0.75 & 1.17 \\
+StableLM-2-1.6B & $-$0.33 & $-$2.42 & 0.75 & 2.42 \\
+\midrule
+\multicolumn{5}{l}{\textbf{Instruct-Tuned Models}} \\
+\midrule
+Qwen2.5-0.5B-IT & $-$0.17 & $-$0.17 & 0.33 & 0.33 \\
+Qwen2.5-1.5B-IT & $-$0.33 & $-$0.92 & $-$0.08 & 0.92 \\
+Qwen2.5-7B-IT & 0.00 & 0.33 & $-$0.58 & 0.58 \\
+Llama-3.2-1B-IT & $-$0.17 & $-$1.67 & 0.58 & 1.67 \\
+Llama-3.2-3B-IT & $-$0.67 & $-$2.00 & 0.25 & 2.00 \\
+Gemma-2-2B-IT & $-$0.08 & $-$0.50 & $-$0.08 & 0.50 \\
+StableLM-2-1.6B-IT & 0.25 & $-$2.08 & 0.50 & 2.08 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Bayesian Analysis}
+
+We used conjugate Normal-Inverse-Gamma priors (NIG: $\mu_0=0, \kappa_0=1, \alpha_0=2, \beta_0=2$) for Bayesian estimation of the differential effect. Results are shown in Table~\ref{tab:bayesian}.
+
+\begin{table}[h]
+\centering\small
+\caption{Bayesian posterior estimates for $\Delta$ change across 7 families. 95\% credible intervals reported.}
+\label{tab:bayesian}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Measure} & \textbf{Rubric Order} & \textbf{Score ID} & \textbf{Ref Answer} \\
+\midrule
+Posterior mean & $-$0.35 & $-$0.85 & $-$0.73 \\
+Posterior var & 0.14 & 0.09 & 0.09 \\
+95\% CrI & [$-$1.14, 0.44] & [$-$1.52, $-$0.17] & [$-$1.36, $-$0.09] \\
+P(decrease) & 0.830 & 0.995 & 0.986 \\
+BF$_{10}$ vs null & 0.60 & 6.76 & 78.32 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2mm}
+\noindent{\footnotesize BF$_{10}$: Bayes factor for H$_1$ (effect exists) relative to H$_0$ (no effect). BF $>$ 3 = moderate evidence, BF $>$ 10 = strong evidence.}
+\end{table}
+
+\subsection{Bootstrapped Confidence Intervals}
+
+We computed 95\% bootstrapped confidence intervals using 10,000 resamples with bias-corrected acceleration (BCa). Table~\ref{tab:bootstrap} shows aggregate $\Delta$ for base and instruct groups.
+
+\begin{table}[h]
+\centering\small
+\caption{Bootstrapped 95\% CIs for mean $\Delta$ across 7 T4 families.}
+\label{tab:bootstrap}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Group} & \textbf{Probe} & \textbf{Mean $\Delta$ [95\% CI]} \\
+\midrule
+\multirow{3}{*}{Base (N=7)} & Rubric Order & 0.69 [0.11, 1.67] \\
+& Score ID & 2.41 [1.79, 3.04] \\
+& Reference Answer & 2.76 [2.43, 3.16] \\
+\midrule
+\multirow{3}{*}{Instruct (N=7)} & Rubric Order & 0.29 [0.13, 0.49] \\
+& Score ID & 1.44 [0.79, 2.07] \\
+& Reference Answer & 1.93 [1.31, 2.60] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Power Analysis}
+
+We conducted a post-hoc power analysis using the non-central $t$-distribution for paired $t$-tests. Table~\ref{tab:power} shows achieved power at current N and the minimum N required for 80\% power.
+
+\begin{table}[h]
+\centering\small
+\caption{Power analysis for paired $t$-test ($\alpha = 0.05$, two-sided).}
+\label{tab:power}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Probe} & \textbf{Observed $d_z$} & \textbf{Power at N=9} & \textbf{N needed for 80\% power} \\
+\midrule
+Rubric Order & 0.38 & 0.17 & $\geq$ 85 \\
+Score ID & 1.08 & 0.81 & $\geq$ 9 \\
+Reference Answer & 1.18 & 0.87 & $\geq$ 8 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2mm}
+\noindent{\footnotesize N needed computed via linear interpolation on non-central $t$ distribution.}
+\end{table}

@@ -1,0 +1,231 @@
+{
+  "metadata": {
+    "description": "Per-model \u0394 (max-min variant mean) for each probe, plus base\u2192instruct \u0394 change",
+    "families": [
+      "Qwen2.5-0.5B",
+      "Qwen2.5-1.5B",
+      "Llama-3.2-1B",
+      "Llama-3.2-3B",
+      "Gemma-2-2B",
+      "StableLM-2-1.6B",
+      "Qwen2.5-7B"
+    ],
+    "probes": [
+      "rubric_order",
+      "score_id",
+      "reference_answer"
+    ]
+  },
+  "Qwen2.5-0.5B": {
+    "rubric_order": 0.1,
+    "score_id": 1.3,
+    "reference_answer": 2.6
+  },
+  "Qwen2.5-0.5B-IT": {
+    "rubric_order": 0.2,
+    "score_id": 0.4,
+    "reference_answer": 1.2
+  },
+  "Qwen2.5-1.5B": {
+    "rubric_order": 0.1,
+    "score_id": 3.1,
+    "reference_answer": 2.6
+  },
+  "Qwen2.5-1.5B-IT": {
+    "rubric_order": 0.4,
+    "score_id": 1.8,
+    "reference_answer": 1.8
+  },
+  "Llama-3.2-1B": {
+    "rubric_order": 0.0,
+    "score_id": 1.3,
+    "reference_answer": 2.2
+  },
+  "Llama-3.2-1B-IT": {
+    "rubric_order": 0.2,
+    "score_id": 2.0,
+    "reference_answer": 2.6
+  },
+  "Llama-3.2-3B": {
+    "rubric_order": 3.5,
+    "score_id": 3.7,
+    "reference_answer": 3.1
+  },
+  "Llama-3.2-3B-IT": {
+    "rubric_order": 0.8,
+    "score_id": 2.4,
+    "reference_answer": 2.5
+  },
+  "Gemma-2-2B": {
+    "rubric_order": 0.1,
+    "score_id": 2.1,
+    "reference_answer": 2.6
+  },
+  "Gemma-2-2B-IT": {
+    "rubric_order": 0.1,
+    "score_id": 0.6,
+    "reference_answer": 1.1
+  },
+  "StableLM-2-1.6B": {
+    "rubric_order": 0.4,
+    "score_id": 2.9,
+    "reference_answer": 3.8
+  },
+  "StableLM-2-1.6B-IT": {
+    "rubric_order": 0.3,
+    "score_id": 2.5,
+    "reference_answer": 3.4
+  },
+  "Qwen2.5-7B": {
+    "rubric_order": 0.6,
+    "score_id": 2.5,
+    "reference_answer": 2.4
+  },
+  "Qwen2.5-7B-IT": {
+    "rubric_order": 0.0,
+    "score_id": 0.4,
+    "reference_answer": 0.9
+  },
+  "delta_changes": {
+    "Qwen2.5-0.5B": {
+      "rubric_order": {
+        "base_delta": 0.1,
+        "instruct_delta": 0.2,
+        "delta_change": 0.1,
+        "direction": "increase"
+      },
+      "score_id": {
+        "base_delta": 1.3,
+        "instruct_delta": 0.4,
+        "delta_change": -0.9,
+        "direction": "decrease"
+      },
+      "reference_answer": {
+        "base_delta": 2.6,
+        "instruct_delta": 1.2,
+        "delta_change": -1.4,
+        "direction": "decrease"
+      }
+    },
+    "Qwen2.5-1.5B": {
+      "rubric_order": {
+        "base_delta": 0.1,
+        "instruct_delta": 0.4,
+        "delta_change": 0.3,
+        "direction": "increase"
+      },
+      "score_id": {
+        "base_delta": 3.1,
+        "instruct_delta": 1.8,
+        "delta_change": -1.3,
+        "direction": "decrease"
+      },
+      "reference_answer": {
+        "base_delta": 2.6,
+        "instruct_delta": 1.8,
+        "delta_change": -0.8,
+        "direction": "decrease"
+      }
+    },
+    "Llama-3.2-1B": {
+      "rubric_order": {
+        "base_delta": 0.0,
+        "instruct_delta": 0.2,
+        "delta_change": 0.2,
+        "direction": "increase"
+      },
+      "score_id": {
+        "base_delta": 1.3,
+        "instruct_delta": 2.0,
+        "delta_change": 0.7,
+        "direction": "increase"
+      },
+      "reference_answer": {
+        "base_delta": 2.2,
+        "instruct_delta": 2.6,
+        "delta_change": 0.4,
+        "direction": "increase"
+      }
+    },
+    "Llama-3.2-3B": {
+      "rubric_order": {
+        "base_delta": 3.5,
+        "instruct_delta": 0.8,
+        "delta_change": -2.7,
+        "direction": "decrease"
+      },
+      "score_id": {
+        "base_delta": 3.7,
+        "instruct_delta": 2.4,
+        "delta_change": -1.3,
+        "direction": "decrease"
+      },
+      "reference_answer": {
+        "base_delta": 3.1,
+        "instruct_delta": 2.5,
+        "delta_change": -0.6,
+        "direction": "decrease"
+      }
+    },
+    "Gemma-2-2B": {
+      "rubric_order": {
+        "base_delta": 0.1,
+        "instruct_delta": 0.1,
+        "delta_change": 0.0,
+        "direction": "increase"
+      },
+      "score_id": {
+        "base_delta": 2.1,
+        "instruct_delta": 0.6,
+        "delta_change": -1.5,
+        "direction": "decrease"
+      },
+      "reference_answer": {
+        "base_delta": 2.6,
+        "instruct_delta": 1.1,
+        "delta_change": -1.5,
+        "direction": "decrease"
+      }
+    },
+    "StableLM-2-1.6B": {
+      "rubric_order": {
+        "base_delta": 0.4,
+        "instruct_delta": 0.3,
+        "delta_change": -0.1,
+        "direction": "decrease"
+      },
+      "score_id": {
+        "base_delta": 2.9,
+        "instruct_delta": 2.5,
+        "delta_change": -0.4,
+        "direction": "decrease"
+      },
+      "reference_answer": {
+        "base_delta": 3.8,
+        "instruct_delta": 3.4,
+        "delta_change": -0.4,
+        "direction": "decrease"
+      }
+    },
+    "Qwen2.5-7B": {
+      "rubric_order": {
+        "base_delta": 0.6,
+        "instruct_delta": 0.0,
+        "delta_change": -0.6,
+        "direction": "decrease"
+      },
+      "score_id": {
+        "base_delta": 2.5,
+        "instruct_delta": 0.4,
+        "delta_change": -2.1,
+        "direction": "decrease"
+      },
+      "reference_answer": {
+        "base_delta": 2.4,
+        "instruct_delta": 0.9,
+        "delta_change": -1.5,
+        "direction": "decrease"
+      }
+    }
+  }
+}

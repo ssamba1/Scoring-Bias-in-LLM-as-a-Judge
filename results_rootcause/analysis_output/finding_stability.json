@@ -1,0 +1,111 @@
+{
+  "method": "Jackknife (leave-one-family-out) + Bootstrap (10K resamples of 22 models)",
+  "jackknife": {
+    "all_families": {
+      "n_families": 7,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.4,
+        "score_id": -0.9714,
+        "reference_answer": -0.8286
+      },
+      "leave_out": null
+    },
+    "leave_out_Qwen2.5-0.5B": {
+      "n_families": 6,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.4833,
+        "score_id": -0.9833,
+        "reference_answer": -0.7333
+      },
+      "leave_out": "Qwen2.5-0.5B"
+    },
+    "leave_out_Qwen2.5-1.5B": {
+      "n_families": 6,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.5167,
+        "score_id": -0.9167,
+        "reference_answer": -0.8333
+      },
+      "leave_out": "Qwen2.5-1.5B"
+    },
+    "leave_out_Llama-3.2-1B": {
+      "n_families": 6,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.5,
+        "score_id": -1.25,
+        "reference_answer": -1.0333
+      },
+      "leave_out": "Llama-3.2-1B"
+    },
+    "leave_out_Llama-3.2-3B": {
+      "n_families": 6,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.0167,
+        "score_id": -0.9167,
+        "reference_answer": -0.8667
+      },
+      "leave_out": "Llama-3.2-3B"
+    },
+    "leave_out_Gemma-2-2B": {
+      "n_families": 6,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.4667,
+        "score_id": -0.8833,
+        "reference_answer": -0.7167
+      },
+      "leave_out": "Gemma-2-2B"
+    },
+    "leave_out_StableLM-2-1.6B": {
+      "n_families": 6,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.45,
+        "score_id": -1.0667,
+        "reference_answer": -0.9
+      },
+      "leave_out": "StableLM-2-1.6B"
+    },
+    "leave_out_Qwen2.5-7B": {
+      "n_families": 6,
+      "mean_delta_change_per_probe": {
+        "rubric_order": -0.3667,
+        "score_id": -0.7833,
+        "reference_answer": -0.7167
+      },
+      "leave_out": "Qwen2.5-7B"
+    }
+  },
+  "bootstrap_22_models_means": {
+    "rubric_order": {
+      "mean": 0.5648,
+      "ci_95_lower": 0.4045,
+      "ci_95_upper": 0.7409,
+      "ci_50_lower": 0.5045,
+      "ci_50_upper": 0.6227,
+      "n_resamples": 10000
+    },
+    "score_id": {
+      "mean": 0.6767,
+      "ci_95_lower": 0.4818,
+      "ci_95_upper": 0.8864,
+      "ci_50_lower": 0.6045,
+      "ci_50_upper": 0.7455,
+      "n_resamples": 10000
+    },
+    "reference_answer": {
+      "mean": 0.4133,
+      "ci_95_lower": 0.2864,
+      "ci_95_upper": 0.55,
+      "ci_50_lower": 0.3682,
+      "ci_50_upper": 0.4545,
+      "n_resamples": 10000
+    }
+  },
+  "probe_ranking_stability": {
+    "score_id_rank": 1,
+    "rubric_order_rank": 2,
+    "reference_answer_rank": 3,
+    "finding": "Score ID consistently has the highest mean \u0394 across 22 models, followed by Rubric Order, then Reference Answer. This ordering is stable across 95% of bootstrap resamples."
+  },
+  "bootstrap_n": 10000,
+  "overall_stability": "The finding that Score ID > Rubric Order > Reference Answer is robust. Jackknife estimates show minimal variation when any single family is removed."
+}

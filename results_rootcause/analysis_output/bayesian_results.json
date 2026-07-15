@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "description": "Bayesian analysis using conjugate Normal-Inverse-Gamma priors",
+    "prior": "NIG(\u03bc0=0, \u03ba0=1, \u03b10=2, \u03b20=2)",
+    "focus": "Differential effect: format (rubric_order) \u0394 change vs content (reference_answer) \u0394 change",
+    "hypothesis": "P(format \u0394 decreases AND content \u0394 increases)"
+  },
+  "data": {
+    "n_families": 7,
+    "format_delta_changes": [
+      0.1,
+      0.3,
+      0.2,
+      -2.7,
+      0.0,
+      -0.1,
+      -0.6
+    ],
+    "content_delta_changes": [
+      -1.4,
+      -0.8,
+      0.4,
+      -0.6,
+      -1.5,
+      -0.4,
+      -1.5
+    ],
+    "format_mean_change": -0.4,
+    "content_mean_change": -0.8286
+  },
+  "format_delta_change": {
+    "posterior": {
+      "mean": -0.35000000000000003,
+      "var": 0.13781250000000003
+    },
+    "p_decrease": 0.82992,
+    "p_increase": 0.17008,
+    "posterior_025": -1.1398608739602099,
+    "posterior_975": 0.44226019308667436,
+    "credible_interval_95": [
+      -1.1398608739602099,
+      0.44226019308667436
+    ]
+  },
+  "content_delta_change": {
+    "posterior": {
+      "mean": -0.7250000000000001,
+      "var": 0.087109375
+    },
+    "p_decrease": 0.98604,
+    "p_increase": 0.01396,
+    "posterior_025": -1.3556411723784838,
+    "posterior_975": -0.09330876335358637,
+    "credible_interval_95": [
+      -1.3556411723784838,
+      -0.09330876335358637
+    ]
+  },
+  "joint_hypothesis": {
+    "P(format_decrease AND content_increase)": 0.01184,
+    "P(format_decrease)": 0.82992,
+    "P(content_increase)": 0.01396,
+    "expected_if_independent": 0.0115856832,
+    "hypothesis_supported": false
+  },
+  "bayes_factors": {
+    "format_delta_change_BF10_vs_null": 0.6017351768128473,
+    "content_delta_change_BF10_vs_null": 6.764593679418382,
+    "interpretation": "BF10 > 3 = moderate evidence, > 10 = strong evidence for H1 (effect exists)"
+  },
+  "t4fam_base": {
+    "rubric_order": {
+      "n": 7,
+      "sample_mean": 0.6857,
+      "posterior_mean": 0.6,
+      "posterior_var": 0.1862,
+      "credible_interval_95": [
+        -0.3292643410668337,
+        1.5254817587757772
+      ],
+      "p_positive": 0.91198,
+      "bf10_vs_null": 0.9220088063422065
+    },
+    "score_id": {
+      "n": 7,
+      "sample_mean": 2.4143,
+      "posterior_mean": 2.1125,
+      "posterior_var": 0.1883,
+      "credible_interval_95": [
+        1.1974693870530484,
+        3.0397753660546907
+      ],
+      "p_positive": 0.99974,
+      "bf10_vs_null": 298.665284563985
+    },
+    "reference_answer": {
+      "n": 7,
+      "sample_mean": 2.7571,
+      "posterior_mean": 2.4125,
+      "posterior_var": 0.162,
+      "credible_interval_95": [
+        1.5444966305709225,
+        3.2519511231187135
+      ],
+      "p_positive": 0.99994,
+      "bf10_vs_null": 12372.586367213813
+    }
+  },
+  "t4fam_instruct": {
+    "rubric_order": {
+      "n": 7,
+      "sample_mean": 0.2857,
+      "posterior_mean": 0.25,
+      "posterior_var": 0.0387,
+      "credible_interval_95": [
+        -0.16603721485129547,
+        0.6681145646735481
+      ],
+      "p_positive": 0.89466,
+      "bf10_vs_null": 5.215851615079389
+    },
+    "score_id": {
+      "n": 7,
+      "sample_mean": 1.4429,
+      "posterior_mean": 1.2625,
+      "posterior_var": 0.1434,
+      "credible_interval_95": [
+        0.4467456329918723,
+        2.057574898834869
+      ],
+      "p_positive": 0.9969,
+      "bf10_vs_null": 19.461360294252508
+    },
+    "reference_answer": {
+      "n": 7,
+      "sample_mean": 1.9286,
+      "posterior_mean": 1.6875,
+      "posterior_var": 0.1639,
+      "credible_interval_95": [
+        0.8209400269562294,
+        2.556752340166975
+      ],
+      "p_positive": 0.99942,
+      "bf10_vs_null": 80.58651014925297
+    }
+  },
+  "study1": {
+    "rubric_order": {
+      "n": 22,
+      "sample_mean": 0.5636,
+      "posterior_mean": 0.5391,
+      "posterior_var": 0.0111,
+      "credible_interval_95": [
+        0.3244685765098727,
+        0.7490694893042597
+      ],
+      "p_positive": 1.0,
+      "bf10_vs_null": 18753.505670552706
+    },
+    "score_id": {
+      "n": 22,
+      "sample_mean": 0.6773,
+      "posterior_mean": 0.6478,
+      "posterior_var": 0.0143,
+      "credible_interval_95": [
+        0.4027744623187226,
+        0.8888671985040874
+      ],
+      "p_positive": 0.99998,
+      "bf10_vs_null": 19197.06534090267
+    },
+    "reference_answer": {
+      "n": 22,
+      "sample_mean": 0.4136,
+      "posterior_mean": 0.3957,
+      "posterior_var": 0.008,
+      "credible_interval_95": [
+        0.21610670039774177,
+        0.5764127962579095
+      ],
+      "p_positive": 0.99994,
+      "bf10_vs_null": 11472.04425908829
+    }
+  }
+}

@@ -1,105 +1,286 @@
-% This work %
+% ── References ──
+% Auto-audited with DOIs, URLs, arXiv IDs added where applicable.
+% New references (2025–2026) added.
+% Sorted alphabetically by first author.
+
+% ── Our work ──
 @article{samba2026scoring,
-  title={Scoring Bias in LLM-as-a-Judge Models: A 22-Model Landscape with Base-Instruct Comparison},
-  author={Samba, Sricharan},
-  journal={arXiv preprint},
-  year={2026},
-  note={Code: \url{https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge}}
+  title     = {Scoring Bias in {LLM-as-a-Judge} Models: A 22-Model Landscape with Base-Instruct Comparison},
+  author    = {Samba, Sricharan},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  doi       = {10.5281/zenodo.21361920},
+  url       = {https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge},
+  eprint    = {2607.xxxxx},
+  archivePrefix = {arXiv},
+  note      = {Code: \url{https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge}}
 }
-% Related work %
-@inproceedings{li2025scoring,
-  title={Evaluating Scoring Bias in LLM-as-a-Judge},
-  author={Li, Q. and others},
-  booktitle={DASFAA},
-  year={2026}
-}
-@inproceedings{wang2023large,
-  title={Large Language Models are not Fair Evaluators},
-  author={Wang, P. and others},
-  booktitle={ACL},
-  year={2024}
-}
-@inproceedings{ye2024justice,
-  title={Justice or Prejudice? Quantifying Biases in LLM-as-a-Judge},
-  author={Ye, J. and others},
-  booktitle={NeurIPS Workshop},
-  year={2024}
-}
-@inproceedings{park2024offsetbias,
-  title={OffsetBias: Leveraging Debiased Data for Tuning Evaluators},
-  author={Park, J. and others},
-  booktitle={EMNLP Findings},
-  year={2024}
-}
-@inproceedings{pan2025user,
-  title={User-Assistant Bias in LLMs},
-  author={Pan, X. and others},
-  booktitle={ACL Findings},
-  year={2026}
-}
-@article{thakur2024judging,
-  title={Judging the Judges},
-  author={Thakur, A. and others},
-  journal={arXiv:2406.12624},
-  year={2024}
-}
-@article{chen2024humans,
-  title={Humans or LLMs as the Judge?},
-  author={Chen, G. and others},
-  journal={arXiv:2402.10669},
-  year={2024}
-}
-@article{xu2026position,
-  title={Am I More Pointwise or Pairwise?},
-  author={Xu, Y. and others},
-  journal={arXiv:2602.02219},
-  year={2026}
-}
-@inproceedings{zheng2023judging,
-  title={Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena},
-  author={Zheng, L. and others},
-  booktitle={NeurIPS},
-  year={2023}
-}
+
+% ── Related work ──
+
+% AlpacaEval (GitHub 2024)
 @misc{alpacaeval,
-  title={{AlpacaEval}: An Automatic Evaluator for Instruction-Following Models},
-  author={Dubois, Y. and others},
-  year={2024},
-  howpublished={\url{https://github.com/tatsu-lab/alpaca_eval}}
+  title        = {{AlpacaEval}: An Automatic Evaluator for Instruction-Following Models},
+  author       = {Dubois, Yann and Li, Xuechen and Taori, Rohan and Zhang, Tianyi and Gulrajani, Ishaan and Ba, Jimmy and Guestrin, Carlos and Liang, Percy and Hashimoto, Tatsunori B.},
+  year         = {2024},
+  howpublished = {\url{https://github.com/tatsu-lab/alpaca_eval}},
+  doi          = {10.48550/arXiv.2404.04475},
+  url          = {https://github.com/tatsu-lab/alpaca_eval}
 }
+
+% Constitutional AI (arXiv 2022)
 @article{bai2022constitutional,
-  title={Constitutional AI: Harmlessness from AI Feedback},
-  author={Bai, Y. and others},
-  journal={arXiv:2212.08073},
-  year={2022}
+  title     = {Constitutional {AI}: Harmlessness from {AI} Feedback},
+  author    = {Bai, Yuntao and Kadavath, Saurav and Kundu, Sandipan and Askell, Amanda and Kernion, Jackson and Jones, Andy and Chen, Anna and Goldie, Azalia and Mirhoseini, Azalia and McKinnon, Cameron and Chen, Carol and Olsson, Catherine and Olah, Christopher and Hernandez, Danny and Drain, Dawn and Ganguli, Deep and Li, Dustin and Tran-Johnson, Eli and Perez, Ethan and Kerr, Jamie and Mueller, Jared and Ladish, Jeffrey and Landau, Joshua and Ngousse, Kamal and Lukosuite, Kamile and Lovitt, Liane and Sellitto, Michael and Elhage, Nelson and Schiefer, Nicholas and Mercado, Noemi and DasSarma, Nova and Lasenby, Robert and Larson, Robin and Ringer, Sam and Johnston, Scott and Kravec, Shauna and El Showk, Sheer and Fort, Stanislav and Lanham, Tamera and Telleen-Lawton, Timothy and Conerly, Tom and Henighan, Tom and Hume, Tristan and Bowman, Samuel R. and Hatfield-Dodds, Zac and Mann, Ben and Amodei, Dario and Joseph, Nicholas and McCandlish, Sam and Brown, Tom and Kaplan, Jared},
+  journal   = {arXiv preprint},
+  year      = {2022},
+  doi       = {10.48550/arXiv.2212.08073},
+  url       = {https://arxiv.org/abs/2212.08073},
+  eprint    = {2212.08073},
+  archivePrefix = {arXiv}
 }
-@article{gu2024survey,
-  title={A Survey on LLM-as-a-Judge},
-  author={Gu, J. and others},
-  journal={arXiv:2411.15594},
-  year={2024}
+
+% Humans vs LLMs as judges (arXiv 2024)
+@article{chen2024humans,
+  title     = {Humans or {LLMs} as the Judge? {A} Study on Judgement Biases},
+  author    = {Chen, Guiming Hardy and Chen, Shunian and Liu, Ziche and Jiang, Feng and Wang, Benyou},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  doi       = {10.48550/arXiv.2402.10669},
+  url       = {https://arxiv.org/abs/2402.10669},
+  eprint    = {2402.10669},
+  archivePrefix = {arXiv}
 }
-@misc{llama3,
-  title={{Meta Llama 3}},
-  author={{Meta AI}},
-  year={2024},
-  howpublished={\url{https://llama.meta.com/}}
+
+% Evaluating and Mitigating LLM-as-a-judge Bias in Communication Systems (2025)
+@article{gao2025evaluating,
+  title     = {Evaluating and Mitigating {LLM-as-a-judge} Bias in Communication Systems},
+  author    = {Gao, Jiaxin and Chen, Chen and Jia, Yanwen and Gong, Xueluan and Lam, Kwok-Yan and Wang, Qian},
+  journal   = {arXiv preprint},
+  year      = {2025},
+  doi       = {10.48550/arXiv.2510.12462},
+  url       = {https://arxiv.org/abs/2510.12462},
+  eprint    = {2510.12462},
+  archivePrefix = {arXiv}
 }
-@misc{mistral,
-  title={{Mistral 7B}},
-  author={{Mistral AI}},
-  year={2023},
-  howpublished={\url{https://mistral.ai/}}
-}
+
+% Gemma 2 (model card 2024)
 @misc{gemma2,
-  title={{Gemma 2}},
-  author={{Google DeepMind}},
-  year={2024},
-  howpublished={\url{https://ai.google.dev/gemma}}
+  title        = {Gemma 2: Improving Open Language Models at a Practical Size},
+  author       = {{Google DeepMind}},
+  year         = {2024},
+  howpublished = {\url{https://ai.google.dev/gemma}},
+  doi          = {10.48550/arXiv.2408.00118},
+  url          = {https://arxiv.org/abs/2408.00118}
 }
+
+% Survey on LLM-as-a-Judge (arXiv 2024, published 2026)
+@article{gu2024survey,
+  title     = {A Survey on {LLM-as-a-Judge}},
+  author    = {Gu, Jiawei and Jiang, Xuhui and Shi, Zhichao and Tan, Hexiang and Zhai, Xuehao and Xu, Chengjin and Li, Wei and Shen, Yinghan and Ma, Shengjie and Liu, Honghao and Wang, Saizhuo and Zhang, Kun and Wang, Yuanzhuo and Gao, Wen and Ni, Lionel and Guo, Jian},
+  journal   = {Natural Language Processing Journal},
+  year      = {2026},
+  volume    = {5},
+  pages     = {100456},
+  doi       = {10.1016/j.nlp.2025.100456},
+  url       = {https://arxiv.org/abs/2411.15594},
+  eprint    = {2411.15594},
+  archivePrefix = {arXiv}
+}
+
+% How to Correctly Report LLM-as-a-Judge Evaluations (2025)
+@article{lee2025correctly,
+  title     = {How to Correctly Report {LLM-as-a-Judge} Evaluations},
+  author    = {Lee, Chungpa and Zeng, Thomas and Jeong, Jongwon and Sohn, Jy-yong and Lee, Kangwook},
+  journal   = {arXiv preprint},
+  year      = {2025},
+  doi       = {10.48550/arXiv.2511.21140},
+  url       = {https://arxiv.org/abs/2511.21140},
+  eprint    = {2511.21140},
+  archivePrefix = {arXiv}
+}
+
+% Scoring bias (DASFAA 2026)
+@inproceedings{li2025scoring,
+  title     = {Evaluating Scoring Bias in {LLM-as-a-Judge}},
+  author    = {Li, Qingquan and Dou, Shaoyu and Shao, Kailai and Chen, Chao and Hu, Haixiang},
+  booktitle = {Proceedings of the 31st International Conference on Database Systems for Advanced Applications (DASFAA)},
+  year      = {2026},
+  doi       = {10.1007/978-981-92-0372-7_2},
+  url       = {https://link.springer.com/chapter/10.1007/978-981-92-0372-7_2},
+  eprint    = {2506.22316},
+  archivePrefix = {arXiv}
+}
+
+% Validating LLM-as-a-Judge under rating indeterminacy (NeurIPS 2025)
+@inproceedings{li2025validating,
+  title     = {Validating {LLM-as-a-Judge} Systems under Rating Indeterminacy},
+  author    = {Li, Z. and others},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  url       = {https://neurips.cc/virtual/2025/poster/117308}
+}
+
+% Meta Llama 3 (model card 2024)
+@misc{llama3,
+  title        = {The {Llama} 3 {Herd} of {Models}},
+  author       = {{Meta AI}},
+  year         = {2024},
+  howpublished = {\url{https://llama.meta.com/}},
+  doi          = {10.48550/arXiv.2407.21783},
+  url          = {https://arxiv.org/abs/2407.21783}
+}
+
+% Mistral 7B (model card 2023)
+@misc{mistral,
+  title        = {Mistral 7{B}},
+  author       = {Jiang, Albert Q. and Sablayrolles, Alexandre and Mensch, Arthur and Bamford, Chris and Chaplot, Devendra Singh and de las Casas, Diego and Bressand, Florian and Lengyel, Gianna and Lample, Guillaume and Saulnier, Lucile and Lavaud, Lelio Renard and Lachaux, Marie-Anne and Stock, Pierre and Le Scao, Teven and Lavril, Thibaut and Wang, Thomas and Lacroix, Timoth{\'e}e and El Sayed, William},
+  year         = {2023},
+  howpublished = {\url{https://mistral.ai/}},
+  doi          = {10.48550/arXiv.2310.06825},
+  url          = {https://arxiv.org/abs/2310.06825}
+}
+
+% User-assistant bias in LLMs (ACL Findings 2026)
+@inproceedings{pan2025user,
+  title     = {User-Assistant Bias in {LLMs}},
+  author    = {Pan, Xu and Fan, Jingxuan and Xiong, Zidi and Hahami, Ely and Overwiening, Jorin and Xie, Ziqian},
+  booktitle = {Findings of the Association for Computational Linguistics: ACL 2026},
+  year      = {2026},
+  doi       = {10.18653/v1/2026.findings-acl.449},
+  url       = {https://aclanthology.org/2026.findings-acl.449/}
+}
+
+% OffsetBias: Debiased data for tuning evaluators (EMNLP 2024)
+@inproceedings{park2024offsetbias,
+  title     = {{OffsetBias}: Leveraging Debiased Data for Tuning Evaluators},
+  author    = {Park, Junsoo and Jwa, Seungyeon and Meiying, Ren and Kim, Daeyoung and Choi, Sanghyuk},
+  booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2024},
+  year      = {2024},
+  doi       = {10.18653/v1/2024.findings-emnlp.57},
+  url       = {https://aclanthology.org/2024.findings-emnlp.57/}
+}
+
+% Qwen2.5 (model card 2024)
 @misc{qwen,
-  title={{Qwen2.5}},
-  author={{Qwen Team}},
-  year={2024},
-  howpublished={\url{https://github.com/QwenLM/Qwen2.5}}
+  title        = {Qwen2.5 Technical Report},
+  author       = {{Qwen Team} (Alibaba Group)},
+  year         = {2024},
+  howpublished = {\url{https://github.com/QwenLM/Qwen2.5}},
+  doi          = {10.48550/arXiv.2412.15115},
+  url          = {https://arxiv.org/abs/2412.15115}
+}
+
+% Position bias systematic study (IJCNLP 2025)
+@inproceedings{shi2024position,
+  title     = {A Systematic Study of Position Bias in {LLM-as-a-Judge}},
+  author    = {Shi, Lin and Ma, Chiyu and Liang, Wenhua and Diao, Xingjian and Ma, Weicheng and Vosoughi, Soroush},
+  booktitle = {Proceedings of the International Joint Conference on Natural Language Processing (IJCNLP)},
+  year      = {2025},
+  doi       = {10.48550/arXiv.2406.07791},
+  url       = {https://arxiv.org/abs/2406.07791},
+  eprint    = {2406.07791},
+  archivePrefix = {arXiv}
+}
+
+% Judging the judges (arXiv 2024)
+@article{thakur2024judging,
+  title     = {Judging the Judges: Evaluating Alignment and Vulnerabilities in {LLMs-as-Judges}},
+  author    = {Thakur, Aman Singh and Choudhary, Kartik and Ramayapally, Venkat Srinik and Vaidyanathan, Sankaran and Hupkes, Dieuwke},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  doi       = {10.48550/arXiv.2406.12624},
+  url       = {https://arxiv.org/abs/2406.12624},
+  eprint    = {2406.12624},
+  archivePrefix = {arXiv}
+}
+
+% Position bias in pairwise evaluation (ACL 2024)
+@inproceedings{wang2023large,
+  title     = {Large Language Models are not Fair Evaluators},
+  author    = {Wang, Peiyi and Li, Lei and Chen, Liang and Cai, Zefan and Zhu, Dawei and Lin, Binghuai and Cao, Yunbo and Kong, Lingpeng and Liu, Qi and Liu, Tianyu and Sui, Zhifang},
+  booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (ACL)},
+  year      = {2024},
+  doi       = {10.18653/v1/2024.acl-long.511},
+  url       = {https://aclanthology.org/2024.acl-long.511/}
+}
+
+% Pointwise vs Pairwise (arXiv 2026)
+@article{xu2026position,
+  title     = {Am {I} More Pointwise or Pairwise? {A} Study on Position Bias in Rubric-Based Evaluation},
+  author    = {Xu, Yuzheng and Hirasawa, Tosho and Kozuno, Tadashi and Ushiku, Yoshitaka},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  doi       = {10.48550/arXiv.2602.02219},
+  url       = {https://arxiv.org/abs/2602.02219},
+  eprint    = {2602.02219},
+  archivePrefix = {arXiv}
+}
+
+% Debiasing with reasoning-based bias detector (NeurIPS 2025)
+@inproceedings{yang2025debiasing,
+  title     = {Debiasing with a Reasoning-based Bias Detector},
+  author    = {Yang, H. and others},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025},
+  url       = {https://papers.neurips.cc/paper_files/paper/2025/file/095c7a06f229943c46bd0b519edf20f9-Paper-Conference.pdf}
+}
+
+% CALM: 12 bias types (NeurIPS Workshop 2024)
+@inproceedings{ye2024justice,
+  title     = {Justice or Prejudice? Quantifying Biases in {LLM-as-a-Judge}},
+  author    = {Ye, Jiayi and Wang, Yanbo and Huang, Yue and Chen, Dongping and Zhang, Qihui and Moniz, Nuno and Gao, Tian and Geyer, Werner and Huang, Chao and Chen, Pin-Yu and Chawla, Nitesh V. and Zhang, Xiangliang},
+  booktitle = {NeurIPS Workshop on Socially Responsible Language Modelling Research (SoLaR)},
+  year      = {2024},
+  doi       = {10.48550/arXiv.2410.02736},
+  url       = {https://arxiv.org/abs/2410.02736},
+  eprint    = {2410.02736},
+  archivePrefix = {arXiv}
+}
+
+% Bias in the Loop: Auditing LLM-as-a-Judge for Software Engineering (2026)
+@article{zhao2026bias,
+  title     = {Bias in the Loop: Auditing {LLM-as-a-Judge} for Software Engineering},
+  author    = {Zhao, Zixiao and Esmaeili, Amirreza and Fard, Fatemeh},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  doi       = {10.48550/arXiv.2604.16790},
+  url       = {https://arxiv.org/abs/2604.16790},
+  eprint    = {2604.16790},
+  archivePrefix = {arXiv}
+}
+
+% MT-Bench & Chatbot Arena (NeurIPS 2023)
+@inproceedings{zheng2023judging,
+  title     = {Judging {LLM-as-a-Judge} with {MT-Bench} and {Chatbot Arena}},
+  author    = {Zheng, Lianmin and Chiang, Wei-Lin and Sheng, Ying and Zhuang, Siyuan and Wu, Zhanghao and Zhuang, Yonghao and Lin, Zi and Li, Zhuohan and Li, Dacheng and Xing, Eric P. and Zhang, Hao and Gonzalez, Joseph E. and Stoica, Ion},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2023},
+  doi       = {10.48550/arXiv.2306.05685},
+  url       = {https://papers.nips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html}
+}
+
+% Taxonomic bias evaluation and bias-aware training (2026)
+@article{zhou2026robust,
+  title     = {Toward Robust {LLM-Based} Judges: Taxonomic Bias Evaluation and Bias-Aware Training},
+  author    = {Zhou, Hongli and Huang, Hui and Zhang, Rui and Chen, Kehai and Xu, Bing and Zhu, Conghui and Zhao, Tiejun and Yang, Muyun},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  doi       = {10.48550/arXiv.2603.08091},
+  url       = {https://arxiv.org/abs/2603.08091},
+  eprint    = {2603.08091},
+  archivePrefix = {arXiv}
+}
+
+% JudgeLM: Fine-tuned LLMs as scalable judges (2023)
+@article{zhu2023judgelm,
+  title     = {{JudgeLM}: Fine-tuned Large Language Models are Scalable Judges},
+  author    = {Zhu, Lianghui and Wang, Xinggang and Wang, Xinlong},
+  journal   = {arXiv preprint},
+  year      = {2023},
+  doi       = {10.48550/arXiv.2310.17631},
+  url       = {https://arxiv.org/abs/2310.17631},
+  eprint    = {2310.17631},
+  archivePrefix = {arXiv},
+  note      = {Analyzes position bias, knowledge bias, and format bias from fine-tuning}
 }

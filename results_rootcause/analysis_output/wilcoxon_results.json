@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "description": "Wilcoxon signed-rank test for paired \u0394 change (instruct \u0394 - base \u0394) across families",
+    "families_available": [
+      "Qwen2.5-0.5B",
+      "Qwen2.5-1.5B",
+      "Llama-3.2-1B",
+      "Llama-3.2-3B",
+      "Gemma-2-2B",
+      "StableLM-2-1.6B",
+      "Qwen2.5-7B"
+    ],
+    "test": "One-sample Wilcoxon signed-rank test against H0: \u0394_change = 0"
+  },
+  "rubric_order": {
+    "n_families": 7,
+    "mean_delta_change": -0.4,
+    "median_delta_change": 0.0,
+    "std_delta_change": 1.0551,
+    "wilcoxon_W": 8.0,
+    "z_statistic": -1.0142,
+    "p_value": 0.6001794871405538,
+    "significant_at_005": false,
+    "effect_size_r": 0.3833,
+    "direction": "decrease",
+    "changes_per_family": {
+      "Qwen2.5-0.5B": 0.1,
+      "Qwen2.5-1.5B": 0.3,
+      "Llama-3.2-1B": 0.2,
+      "Llama-3.2-3B": -2.7,
+      "Gemma-2-2B": 0.0,
+      "StableLM-2-1.6B": -0.1,
+      "Qwen2.5-7B": -0.6
+    }
+  },
+  "score_id": {
+    "n_families": 7,
+    "mean_delta_change": -0.9714,
+    "median_delta_change": -1.3,
+    "std_delta_change": 0.9032,
+    "wilcoxon_W": 2.0,
+    "z_statistic": -2.0284,
+    "p_value": 0.046875,
+    "significant_at_005": true,
+    "effect_size_r": 0.7667,
+    "direction": "decrease",
+    "changes_per_family": {
+      "Qwen2.5-0.5B": -0.9,
+      "Qwen2.5-1.5B": -1.3,
+      "Llama-3.2-1B": 0.7,
+      "Llama-3.2-3B": -1.3,
+      "Gemma-2-2B": -1.5,
+      "StableLM-2-1.6B": -0.4,
+      "Qwen2.5-7B": -2.1
+    }
+  },
+  "reference_answer": {
+    "n_families": 7,
+    "mean_delta_change": -0.8286,
+    "median_delta_change": -0.8,
+    "std_delta_change": 0.7041,
+    "wilcoxon_W": 1.5,
+    "z_statistic": -2.1129,
+    "p_value": 0.03125,
+    "significant_at_005": true,
+    "effect_size_r": 0.7986,
+    "direction": "decrease",
+    "changes_per_family": {
+      "Qwen2.5-0.5B": -1.4,
+      "Qwen2.5-1.5B": -0.8,
+      "Llama-3.2-1B": 0.4,
+      "Llama-3.2-3B": -0.6,
+      "Gemma-2-2B": -1.5,
+      "StableLM-2-1.6B": -0.4,
+      "Qwen2.5-7B": -1.5
+    }
+  }
+}

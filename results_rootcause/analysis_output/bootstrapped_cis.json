@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "description": "95% bootstrapped confidence intervals for \u0394 across models",
+    "n_resamples": 10000,
+    "method": "Percentile bootstrap with bias-corrected acceleration"
+  },
+  "t4fam_base": {
+    "rubric_order": {
+      "mean": 0.6857,
+      "std": 1.2589,
+      "ci_95_lower": 0.1143,
+      "ci_95_upper": 1.6714,
+      "n": 7
+    },
+    "score_id": {
+      "mean": 2.4143,
+      "std": 0.9082,
+      "ci_95_lower": 1.7857,
+      "ci_95_upper": 3.0429,
+      "n": 7
+    },
+    "reference_answer": {
+      "mean": 2.7571,
+      "std": 0.535,
+      "ci_95_lower": 2.4286,
+      "ci_95_upper": 3.1571,
+      "n": 7
+    }
+  },
+  "t4fam_instruct": {
+    "rubric_order": {
+      "mean": 0.2857,
+      "std": 0.261,
+      "ci_95_lower": 0.1286,
+      "ci_95_upper": 0.4857,
+      "n": 7
+    },
+    "score_id": {
+      "mean": 1.4429,
+      "std": 0.9449,
+      "ci_95_lower": 0.7857,
+      "ci_95_upper": 2.0714,
+      "n": 7
+    },
+    "reference_answer": {
+      "mean": 1.9286,
+      "std": 0.934,
+      "ci_95_lower": 1.3143,
+      "ci_95_upper": 2.6,
+      "n": 7
+    }
+  },
+  "study1_22": {
+    "rubric_order": {
+      "mean": 0.5636,
+      "std": 0.4124,
+      "ci_95_lower": 0.4045,
+      "ci_95_upper": 0.7409,
+      "n": 22
+    },
+    "score_id": {
+      "mean": 0.6773,
+      "std": 0.4947,
+      "ci_95_lower": 0.4864,
+      "ci_95_upper": 0.8909,
+      "n": 22
+    },
+    "reference_answer": {
+      "mean": 0.4136,
+      "std": 0.3137,
+      "ci_95_lower": 0.2864,
+      "ci_95_upper": 0.5409,
+      "n": 22
+    }
+  }
+}

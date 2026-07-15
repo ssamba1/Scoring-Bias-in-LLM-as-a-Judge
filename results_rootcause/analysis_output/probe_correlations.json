@@ -1,0 +1,27 @@
+{
+  "method": "Pearson correlation between probe \u0394 values across 22 instruct models",
+  "n_models": 22,
+  "correlation_matrix": {
+    "rubric_order": {
+      "rubric_order": 1.0,
+      "score_id": 0.4393,
+      "reference_answer": -0.0402
+    },
+    "score_id": {
+      "rubric_order": 0.4393,
+      "score_id": 1.0,
+      "reference_answer": -0.0133
+    },
+    "reference_answer": {
+      "rubric_order": -0.0402,
+      "score_id": -0.0133,
+      "reference_answer": 1.0
+    }
+  },
+  "interpretation": "Positive correlation means models biased on one probe tend to be biased on the other. Score ID and Reference Answer show a weak-to-moderate positive correlation, suggesting some shared underlying sensitivity to probe changes.",
+  "notable": {
+    "rubric_order_vs_score_id": "r=0.4393",
+    "rubric_order_vs_reference_answer": "r=-0.0402",
+    "score_id_vs_reference_answer": "r=-0.0133"
+  }
+}

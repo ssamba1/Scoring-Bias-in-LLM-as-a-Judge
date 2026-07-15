@@ -1,0 +1,37 @@
+% ── Appendix E: Excluded Models ──
+\section{Excluded Models}
+\label{app:excluded}
+
+Five models from the original OpenRouter selection were excluded from the final analysis due to stop-token truncation issues. These models produced uniform scores across all probe variants, making bias measurement impossible. Table~\ref{tab:excluded} documents each excluded model and the diagnostic data.
+
+\begin{table}[h]
+\centering\small
+\caption{Excluded OpenRouter models with reason for exclusion. All five models returned identical scores across all probe conditions, consistent with a stop-token firing on the first token before processing the full scoring rubric.}
+\label{tab:excluded}
+\begin{tabular}{llll}
+\toprule
+\textbf{Model} & \textbf{HF/API ID} & \textbf{Reason} & \textbf{First token} \\
+\midrule
+Gemini-2.5-Pro & \texttt{google/gemini-2.5-pro-exp-03-25} & Stop token on every probe & ``4'' (constant) \\
+Inflection-3-Pi & \texttt{inflection/inflection-3-pi} & Uniform output across all variants & ``3'' (constant) \\
+Nemotron-Nano-30B & \texttt{nvidia/nemotron-3-nano-30b-a3b} & Single-token collapse & ``3'' (constant) \\
+Command-R7B & \texttt{cohere/command-r7b-12-2024} & Repeated identical scores & ``4'' (constant) \\
+Mistral-Small-24B & \texttt{mistralai/mistral-small-24b-instruct-2501} & Stop-token truncation & ``3'' (constant) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The exclusion criterion was: the model returned identical scores for all 50 items across all probe variants (control and biased), indicating that the generation stopped immediately after emitting the first token without considering the scoring rubric. This is a known issue with greedy decoding at temperature 0 for models optimized for short-form chat completions rather than rubric-based scoring.
+
+\subsection{Impact Assessment}
+
+Excluding these 5 models from the 27 originally targeted for the OpenRouter study leaves 22 instruct-tuned models in the final analysis. The excluded models span diverse families (Google, Inflection, NVIDIA, Cohere, Mistral) and architectures. Their absence does not systematically bias the remaining sample toward any particular training method or model family, as the exclusion was purely technical (stop-token behavior rather than any performance criterion).
+
+We attempted to mitigate this issue by:
+\begin{enumerate}
+    \item Increasing max tokens from 5 to 10 (no change — all models still emitted single tokens)
+    \item Adjusting the prompt to encourage multi-token output (no change for these specific models)
+    \item Using temperature 0.1 instead of 0.0 (no change for these specific models)
+\end{enumerate}
+
+Future studies should test for stop-token truncation by checking score variance across probe conditions as a quality-control step, and consider using temperature $> 0$ or nucleus sampling for models known to exhibit this behavior.

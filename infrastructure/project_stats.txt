@@ -1,0 +1,55 @@
+Project Statistics
+==================
+Generated: 2026-07-14 (post-cleanup)
+
+=== File Counts ===
+Python files:     89 (active, excl archives)
+Python lines:     14,892
+TeX files:        34
+TeX lines:         4,188
+JSON files:       42
+JSON lines:       17,468
+Markdown files:  109
+CSV files:        14
+HTML files:       46
+YAML files:       10
+Total files:     393 (excluding .git)
+
+=== Total Size ===
+11 MB
+
+=== Cleanup Summary ===
+- 16 draft .tex files archived to paper/archive/
+- 25 exploratory scripts archived to results_rootcause/archive/
+- 2 synthetic CSV files moved to data/synthetic/
+- 3 intermediate CSV files moved to data/raw/
+- results/ merged into results_rootcause/
+- 7 __pycache__ directories removed
+- 2 duplicate READMEs removed (paper/README.md, paper/arXiv_README.md)
+- No committed credentials found
+
+=== Directory Structure ===
+pipeline_biasinteraction/   - Bias interaction study pipeline
+pipeline_rootcause/         - Root cause analysis pipeline
+results_rootcause/          - Analysis results, output, and figures
+  archive/                  - Archived exploratory scripts
+  analysis_output/          - Structured analysis output (JSON)
+paper/                      - Paper compilation and LaTeX
+  archive/                  - Archived draft .tex files
+  arxiv_submission/         - ArXiv submission package
+  appendices/               - Paper appendices (A-G)
+  figures/                  - Generated publication figures
+data/                       - Evaluation datasets
+  raw/                      - Intermediate/generated CSV data
+  synthetic/                - Synthetic experimental data
+  multilingual/             - Multilingual item translations
+  model_cards/              - Model documentation
+tests/                      - Pytest suite
+literature/                 - Literature review and audit
+dashboard/                  - Interactive dashboards (HTML)
+notebooks/                  - Jupyter notebooks
+infrastructure/             - Config files, lint reports, stats
+binder/                     - MyBinder cloud reproducibility config
+isef/                       - ISEF competition materials
+docs/                       - Documentation
+benchmark/                  - Benchmarking scripts and data

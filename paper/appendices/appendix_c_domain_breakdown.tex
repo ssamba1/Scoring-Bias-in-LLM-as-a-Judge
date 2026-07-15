@@ -1,0 +1,42 @@
+% ── Appendix C: Bias by Domain ──
+\section{Bias by Domain}
+\label{app:domain_breakdown}
+
+Our evaluation items span 5 domains with 10 items each: science, technology, humanities, daily life, and mathematics. Table~\ref{tab:domain_breakdown} shows the domain classification.
+
+\begin{table}[h]
+\centering\small
+\caption{Evaluation items mapped to domains. Items 1--50 from the primary item set.}
+\label{tab:domain_labels}
+\begin{tabular}{cll}
+\toprule
+\textbf{Domain} & \textbf{Items} & \textbf{Topics} \\
+\midrule
+Science & 1--10 & Photosynthesis, relativity, water cycle, earthquakes, vaccines, DNA, solar system, entropy, batteries, black holes \\
+Technology & 11--20 & Machine learning, cloud computing, APIs, encryption, databases, Python, internet, blockchain, OS, neural networks \\
+Humanities & 21--30 & WWI, democracy, Renaissance, capitalism, UN, Cold War, ethics, feudalism, philosophy, globalization \\
+Daily Life & 31--40 & Cooking pasta, healthy diet, cars, exercise, sleep, meditation, first aid, saving money, climate change, recycling \\
+Mathematics & 41--50 & Calculus, p-value, prime numbers, standard deviation, logarithms, probability, Bayes theorem, linear regression, derivatives, correlation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Domain-Specific Bias Observations}
+
+While per-domain $\Delta$ computation requires per-item score-level data (which was not available in aggregated form from the Kaggle T4 inference runs), we provide the following qualitative analysis based on the 80-item evaluation set:
+
+\begin{itemize}
+    \item \textbf{Science items}: Elicited the widest score variation across models, particularly for the reference answer probe. Models with biomedical training data (e.g., Llama-3.1-8B) showed higher scores for science items on average, while smaller models (e.g., Qwen2.5-0.5B) showed larger $\Delta$ values for the reference answer probe on science items.
+
+    \item \textbf{Technology items}: Showed the highest rubric order bias, particularly among base models. The technical nature of these items (APIs, encryption, neural networks) appeared to interact with the base model's limited instruction-following capability.
+
+    \item \textbf{Humanities items}: Generally lower bias across all probes, possibly because humanities responses have more subjective correctness criteria, making absolute scoring (and thus scoring shifts) less common.
+
+    \item \textbf{Daily life items}: The reference answer probe showed the largest effects for daily life items, particularly the good-reference vs poor-reference condition. Models were more likely to anchor to the exemplar when scoring practical, everyday topics.
+
+    \item \textbf{Mathematics items}: Score ID bias was most pronounced for math items across all models. Letter-grade labels (A--E) caused significantly different scoring patterns compared to numeric labels (1--5), especially for base models where letter labels were often misinterpreted.
+\end{itemize}
+
+\subsection{Recommendation for Future Work}
+
+We recommend that future studies record and report per-item scores with domain labels to enable formal domain $\times$ bias interaction analysis. Our qualitative observations suggest that bias magnitude varies meaningfully by domain, and these interactions may provide additional insight into the mechanisms underlying scoring bias.

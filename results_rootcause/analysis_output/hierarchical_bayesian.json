@@ -1,0 +1,194 @@
+{
+  "method": "Empirical Bayes hierarchical model: \u0394_family ~ N(pop_mean, pop_sd); observed \u0394_family ~ N(\u0394_family, se_family)",
+  "description": "Each family has its own true mean \u0394, drawn from a population distribution. Shrinkage estimates pull extreme values toward the population mean.",
+  "probes": {
+    "rubric_order": {
+      "n_families": 7,
+      "population_mean": -0.4,
+      "population_sd": 1.0551,
+      "between_family_variance": 1.1133,
+      "shrinkage_estimates": [
+        {
+          "family": "Qwen2.5-0.5B",
+          "observed": 0.1,
+          "shrunk": 0.0925,
+          "se": 0.13,
+          "shrinkage_amount": 0.0075
+        },
+        {
+          "family": "Qwen2.5-1.5B",
+          "observed": 0.3,
+          "shrunk": 0.278,
+          "se": 0.19,
+          "shrinkage_amount": 0.022
+        },
+        {
+          "family": "Llama-3.2-1B",
+          "observed": 0.2,
+          "shrunk": 0.1865,
+          "se": 0.16,
+          "shrinkage_amount": 0.0135
+        },
+        {
+          "family": "Llama-3.2-3B",
+          "observed": -2.7,
+          "shrunk": -1.719,
+          "se": 0.91,
+          "shrinkage_amount": 0.981
+        },
+        {
+          "family": "Gemma-2-2B",
+          "observed": 0.0,
+          "shrunk": -0.0036,
+          "se": 0.1,
+          "shrinkage_amount": 0.0036
+        },
+        {
+          "family": "StableLM-2-1.6B",
+          "observed": -0.1,
+          "shrunk": -0.1045,
+          "se": 0.13,
+          "shrinkage_amount": 0.0045
+        },
+        {
+          "family": "Qwen2.5-7B",
+          "observed": -0.6,
+          "shrunk": -0.5868,
+          "se": 0.28,
+          "shrinkage_amount": 0.0132
+        }
+      ],
+      "p_positive": 0.2242,
+      "credible_interval_95": [
+        -1.1817,
+        0.3817
+      ]
+    },
+    "score_id": {
+      "n_families": 7,
+      "population_mean": -0.9714,
+      "population_sd": 0.9032,
+      "between_family_variance": 0.8157,
+      "shrinkage_estimates": [
+        {
+          "family": "Qwen2.5-0.5B",
+          "observed": -0.9,
+          "shrunk": -0.9103,
+          "se": 0.37,
+          "shrinkage_amount": 0.0103
+        },
+        {
+          "family": "Qwen2.5-1.5B",
+          "observed": -1.3,
+          "shrunk": -1.2253,
+          "se": 0.49,
+          "shrinkage_amount": 0.0747
+        },
+        {
+          "family": "Llama-3.2-1B",
+          "observed": 0.7,
+          "shrunk": 0.5238,
+          "se": 0.31,
+          "shrinkage_amount": 0.1762
+        },
+        {
+          "family": "Llama-3.2-3B",
+          "observed": -1.3,
+          "shrunk": -1.2253,
+          "se": 0.49,
+          "shrinkage_amount": 0.0747
+        },
+        {
+          "family": "Gemma-2-2B",
+          "observed": -1.5,
+          "shrunk": -1.357,
+          "se": 0.55,
+          "shrinkage_amount": 0.143
+        },
+        {
+          "family": "StableLM-2-1.6B",
+          "observed": -0.4,
+          "shrunk": -0.432,
+          "se": 0.22,
+          "shrinkage_amount": 0.032
+        },
+        {
+          "family": "Qwen2.5-7B",
+          "observed": -2.1,
+          "shrunk": -1.654,
+          "se": 0.73,
+          "shrinkage_amount": 0.446
+        }
+      ],
+      "p_positive": 0.0157,
+      "credible_interval_95": [
+        -1.6405,
+        -0.3024
+      ]
+    },
+    "reference_answer": {
+      "n_families": 7,
+      "population_mean": -0.8286,
+      "population_sd": 0.7041,
+      "between_family_variance": 0.4957,
+      "shrinkage_estimates": [
+        {
+          "family": "Qwen2.5-0.5B",
+          "observed": -1.4,
+          "shrunk": -1.1983,
+          "se": 0.52,
+          "shrinkage_amount": 0.2017
+        },
+        {
+          "family": "Qwen2.5-1.5B",
+          "observed": -0.8,
+          "shrunk": -0.8054,
+          "se": 0.34,
+          "shrinkage_amount": 0.0054
+        },
+        {
+          "family": "Llama-3.2-1B",
+          "observed": 0.4,
+          "shrunk": 0.2907,
+          "se": 0.22,
+          "shrinkage_amount": 0.1093
+        },
+        {
+          "family": "Llama-3.2-3B",
+          "observed": -0.6,
+          "shrunk": -0.6312,
+          "se": 0.28,
+          "shrinkage_amount": 0.0312
+        },
+        {
+          "family": "Gemma-2-2B",
+          "observed": -1.5,
+          "shrunk": -1.2455,
+          "se": 0.55,
+          "shrinkage_amount": 0.2545
+        },
+        {
+          "family": "StableLM-2-1.6B",
+          "observed": -0.4,
+          "shrunk": -0.4381,
+          "se": 0.22,
+          "shrinkage_amount": 0.0381
+        },
+        {
+          "family": "Gemma-2-2B",
+          "observed": -1.5,
+          "shrunk": -1.2455,
+          "se": 0.55,
+          "shrinkage_amount": 0.2545
+        }
+      ],
+      "p_positive": 0.0093,
+      "credible_interval_95": [
+        -1.3502,
+        -0.307
+      ]
+    }
+  },
+  "overall_finding": "Score ID and Reference Answer show clear negative population mean \u0394 (instruction tuning reduces bias). Rubric Order shows near-zero population mean \u0394 with high between-family variance.",
+  "caveat": "Simplified model using approximate standard errors. Full MCMC sampling would provide more accurate uncertainty estimates."
+}

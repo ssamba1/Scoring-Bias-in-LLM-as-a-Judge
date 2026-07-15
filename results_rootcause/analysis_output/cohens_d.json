@@ -1,0 +1,895 @@
+{
+  "metadata": {
+    "description": "Cohen's d = (mean_biased - mean_control) / pooled_sd for each model and probe",
+    "probe_definitions": {
+      "rubric_order": {
+        "control": "normal",
+        "biased": "reversed",
+        "label": "Reversed rubric order"
+      },
+      "score_id": {
+        "control": "numeric",
+        "biased": "letter",
+        "label": "Letter score_ID"
+      },
+      "reference_answer": {
+        "control": "no_ref",
+        "biased": "good_ref",
+        "label": "Good reference answer"
+      }
+    },
+    "interpretation": "d \u2248 0.2 small, 0.5 medium, 0.8+ large"
+  },
+  "t4fam": {
+    "Qwen2.5-0.5B": {
+      "rubric_order": {
+        "control_mean": 3.5,
+        "biased_mean": 3.4,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.5,
+        "biased_mean": 2.2,
+        "cohens_d": -1.0833,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 3.5,
+        "biased_mean": 4.2,
+        "cohens_d": 0.5833,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "Qwen2.5-0.5B-IT": {
+      "rubric_order": {
+        "control_mean": 3.4,
+        "biased_mean": 3.2,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.4,
+        "biased_mean": 3.2,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.4,
+        "biased_mean": 3.8,
+        "cohens_d": 0.3333,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      }
+    },
+    "Qwen2.5-1.5B": {
+      "rubric_order": {
+        "control_mean": 4.1,
+        "biased_mean": 4.0,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 4.1,
+        "biased_mean": 1.0,
+        "cohens_d": -2.5833,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 4.1,
+        "biased_mean": 4.2,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      }
+    },
+    "Qwen2.5-1.5B-IT": {
+      "rubric_order": {
+        "control_mean": 3.8,
+        "biased_mean": 3.4,
+        "cohens_d": -0.3333,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 3.8,
+        "biased_mean": 2.7,
+        "cohens_d": -0.9167,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 3.8,
+        "biased_mean": 3.7,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Llama-3.2-1B": {
+      "rubric_order": {
+        "control_mean": 3.0,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.0,
+        "biased_mean": 4.3,
+        "cohens_d": 1.0833,
+        "direction": "biased_higher",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 3.0,
+        "biased_mean": 3.8,
+        "cohens_d": 0.6667,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "Llama-3.2-1B-IT": {
+      "rubric_order": {
+        "control_mean": 4.2,
+        "biased_mean": 4.0,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 4.2,
+        "biased_mean": 2.2,
+        "cohens_d": -1.6667,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 4.2,
+        "biased_mean": 4.9,
+        "cohens_d": 0.5833,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "Llama-3.2-3B": {
+      "rubric_order": {
+        "control_mean": 4.7,
+        "biased_mean": 1.2,
+        "cohens_d": -2.9167,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "score_id": {
+        "control_mean": 4.7,
+        "biased_mean": 1.0,
+        "cohens_d": -3.0833,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 4.7,
+        "biased_mean": 5.0,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      }
+    },
+    "Llama-3.2-3B-IT": {
+      "rubric_order": {
+        "control_mean": 4.4,
+        "biased_mean": 3.6,
+        "cohens_d": -0.6667,
+        "direction": "biased_lower",
+        "effect_size": "medium"
+      },
+      "score_id": {
+        "control_mean": 4.4,
+        "biased_mean": 2.0,
+        "cohens_d": -2.0,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 4.4,
+        "biased_mean": 4.7,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      }
+    },
+    "Gemma-2-2B": {
+      "rubric_order": {
+        "control_mean": 3.0,
+        "biased_mean": 2.9,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.0,
+        "biased_mean": 4.4,
+        "cohens_d": 1.1667,
+        "direction": "biased_higher",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 3.0,
+        "biased_mean": 3.9,
+        "cohens_d": 0.75,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "Gemma-2-2B-IT": {
+      "rubric_order": {
+        "control_mean": 3.2,
+        "biased_mean": 3.1,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.2,
+        "biased_mean": 2.6,
+        "cohens_d": -0.5,
+        "direction": "biased_lower",
+        "effect_size": "medium"
+      },
+      "reference_answer": {
+        "control_mean": 3.2,
+        "biased_mean": 3.1,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "StableLM-2-1.6B": {
+      "rubric_order": {
+        "control_mean": 4.0,
+        "biased_mean": 3.6,
+        "cohens_d": -0.3333,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 4.0,
+        "biased_mean": 1.1,
+        "cohens_d": -2.4167,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 4.0,
+        "biased_mean": 4.9,
+        "cohens_d": 0.75,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "StableLM-2-1.6B-IT": {
+      "rubric_order": {
+        "control_mean": 4.3,
+        "biased_mean": 4.6,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 4.3,
+        "biased_mean": 1.8,
+        "cohens_d": -2.0833,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 4.3,
+        "biased_mean": 4.9,
+        "cohens_d": 0.5,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "Qwen2.5-7B": {
+      "rubric_order": {
+        "control_mean": 3.7,
+        "biased_mean": 3.1,
+        "cohens_d": -0.5,
+        "direction": "biased_lower",
+        "effect_size": "medium"
+      },
+      "score_id": {
+        "control_mean": 3.7,
+        "biased_mean": 1.2,
+        "cohens_d": -2.0833,
+        "direction": "biased_lower",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 3.7,
+        "biased_mean": 3.7,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Qwen2.5-7B-IT": {
+      "rubric_order": {
+        "control_mean": 2.8,
+        "biased_mean": 2.8,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 2.8,
+        "biased_mean": 3.2,
+        "cohens_d": 0.3333,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "reference_answer": {
+        "control_mean": 2.8,
+        "biased_mean": 2.1,
+        "cohens_d": -0.5833,
+        "direction": "biased_lower",
+        "effect_size": "medium"
+      }
+    }
+  },
+  "study1": {
+    "Llama3.1-8B": {
+      "rubric_order": {
+        "control_mean": 3.6,
+        "biased_mean": 3.4,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.7,
+        "biased_mean": 3.9,
+        "cohens_d": 0.1667,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.6,
+        "biased_mean": 3.0,
+        "cohens_d": -0.5,
+        "direction": "biased_lower",
+        "effect_size": "medium"
+      }
+    },
+    "Llama3.2-3B": {
+      "rubric_order": {
+        "control_mean": 3.3,
+        "biased_mean": 3.1,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.2,
+        "biased_mean": 3.5,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "reference_answer": {
+        "control_mean": 3.2,
+        "biased_mean": 3.0,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Qwen2.5-7B": {
+      "rubric_order": {
+        "control_mean": 1.6,
+        "biased_mean": 1.7,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 1.7,
+        "biased_mean": 3.4,
+        "cohens_d": 1.4167,
+        "direction": "biased_higher",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 1.8,
+        "biased_mean": 1.7,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Qwen3-8B": {
+      "rubric_order": {
+        "control_mean": 2.1,
+        "biased_mean": 2.6,
+        "cohens_d": 0.4167,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 2.5,
+        "biased_mean": 2.8,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "reference_answer": {
+        "control_mean": 2.5,
+        "biased_mean": 2.5,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Qwen3-14B": {
+      "rubric_order": {
+        "control_mean": 2.9,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.0,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.0,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Gemma3-4B": {
+      "rubric_order": {
+        "control_mean": 2.7,
+        "biased_mean": 2.8,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.3,
+        "biased_mean": 2.8,
+        "cohens_d": -0.4167,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      },
+      "reference_answer": {
+        "control_mean": 3.3,
+        "biased_mean": 3.2,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Gemma3-12B": {
+      "rubric_order": {
+        "control_mean": 3.2,
+        "biased_mean": 2.7,
+        "cohens_d": -0.4167,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 3.1,
+        "biased_mean": 2.8,
+        "cohens_d": -0.25,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      },
+      "reference_answer": {
+        "control_mean": 3.1,
+        "biased_mean": 4.0,
+        "cohens_d": 0.75,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "Gemma3-27B": {
+      "rubric_order": {
+        "control_mean": 2.4,
+        "biased_mean": 3.2,
+        "cohens_d": 0.6667,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      },
+      "score_id": {
+        "control_mean": 2.5,
+        "biased_mean": 2.7,
+        "cohens_d": 0.1667,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 2.4,
+        "biased_mean": 2.6,
+        "cohens_d": 0.1667,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      }
+    },
+    "Phi-4": {
+      "rubric_order": {
+        "control_mean": 2.4,
+        "biased_mean": 2.4,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 2.9,
+        "biased_mean": 3.1,
+        "cohens_d": 0.1667,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 2.9,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      }
+    },
+    "Mistral-Nemo-12B": {
+      "rubric_order": {
+        "control_mean": 3.2,
+        "biased_mean": 3.3,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.3,
+        "biased_mean": 3.9,
+        "cohens_d": 0.5,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      },
+      "reference_answer": {
+        "control_mean": 3.4,
+        "biased_mean": 3.3,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Lunaris-8B": {
+      "rubric_order": {
+        "control_mean": 3.3,
+        "biased_mean": 3.2,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.0,
+        "biased_mean": 2.9,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.0,
+        "biased_mean": 3.2,
+        "cohens_d": 0.1667,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      }
+    },
+    "Hermes-3-70B": {
+      "rubric_order": {
+        "control_mean": 1.4,
+        "biased_mean": 1.4,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 1.7,
+        "biased_mean": 3.5,
+        "cohens_d": 1.5,
+        "direction": "biased_higher",
+        "effect_size": "large"
+      },
+      "reference_answer": {
+        "control_mean": 1.7,
+        "biased_mean": 1.4,
+        "cohens_d": -0.25,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      }
+    },
+    "MythoMax-13B": {
+      "rubric_order": {
+        "control_mean": 4.2,
+        "biased_mean": 4.5,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 4.2,
+        "biased_mean": 5.0,
+        "cohens_d": 0.6667,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      },
+      "reference_answer": {
+        "control_mean": 4.3,
+        "biased_mean": 4.3,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "DeepSeek-V3": {
+      "rubric_order": {
+        "control_mean": 3.1,
+        "biased_mean": 2.9,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 2.9,
+        "biased_mean": 3.7,
+        "cohens_d": 0.6667,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      },
+      "reference_answer": {
+        "control_mean": 3.0,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "DeepSeek-V4-Flash": {
+      "rubric_order": {
+        "control_mean": 2.7,
+        "biased_mean": 2.6,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.0,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.0,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Hy3-295B": {
+      "rubric_order": {
+        "control_mean": 2.1,
+        "biased_mean": 2.2,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 2.0,
+        "biased_mean": 1.3,
+        "cohens_d": -0.5833,
+        "direction": "biased_lower",
+        "effect_size": "medium"
+      },
+      "reference_answer": {
+        "control_mean": 1.9,
+        "biased_mean": 2.4,
+        "cohens_d": 0.4167,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      }
+    },
+    "Gemini-2.5-Flash": {
+      "rubric_order": {
+        "control_mean": 3.0,
+        "biased_mean": 3.3,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 3.3,
+        "biased_mean": 3.1,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.2,
+        "biased_mean": 4.0,
+        "cohens_d": 0.6667,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      }
+    },
+    "Command-R": {
+      "rubric_order": {
+        "control_mean": 3.8,
+        "biased_mean": 3.6,
+        "cohens_d": -0.1667,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.9,
+        "biased_mean": 3.5,
+        "cohens_d": -0.3333,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      },
+      "reference_answer": {
+        "control_mean": 3.8,
+        "biased_mean": 3.0,
+        "cohens_d": -0.6667,
+        "direction": "biased_lower",
+        "effect_size": "medium"
+      }
+    },
+    "GLM-4.7": {
+      "rubric_order": {
+        "control_mean": 2.9,
+        "biased_mean": 2.8,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 3.1,
+        "biased_mean": 3.3,
+        "cohens_d": 0.1667,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.1,
+        "biased_mean": 3.4,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      }
+    },
+    "GPT-OSS-20B": {
+      "rubric_order": {
+        "control_mean": 2.9,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "score_id": {
+        "control_mean": 2.9,
+        "biased_mean": 3.0,
+        "cohens_d": 0.0833,
+        "direction": "biased_higher",
+        "effect_size": "negligible"
+      },
+      "reference_answer": {
+        "control_mean": 3.0,
+        "biased_mean": 2.9,
+        "cohens_d": -0.0833,
+        "direction": "biased_lower",
+        "effect_size": "negligible"
+      }
+    },
+    "Qwen2.5-72B": {
+      "rubric_order": {
+        "control_mean": 1.9,
+        "biased_mean": 3.2,
+        "cohens_d": 1.0833,
+        "direction": "biased_higher",
+        "effect_size": "large"
+      },
+      "score_id": {
+        "control_mean": 2.0,
+        "biased_mean": 2.8,
+        "cohens_d": 0.6667,
+        "direction": "biased_higher",
+        "effect_size": "medium"
+      },
+      "reference_answer": {
+        "control_mean": 2.0,
+        "biased_mean": 2.3,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      }
+    },
+    "Mistral-3.2-24B": {
+      "rubric_order": {
+        "control_mean": 3.1,
+        "biased_mean": 2.8,
+        "cohens_d": -0.25,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      },
+      "score_id": {
+        "control_mean": 3.3,
+        "biased_mean": 3.6,
+        "cohens_d": 0.25,
+        "direction": "biased_higher",
+        "effect_size": "small"
+      },
+      "reference_answer": {
+        "control_mean": 3.4,
+        "biased_mean": 3.0,
+        "cohens_d": -0.3333,
+        "direction": "biased_lower",
+        "effect_size": "small"
+      }
+    }
+  },
+  "t4fam_summary": {
+    "rubric_order": {
+      "mean_d": -0.369,
+      "sd_d": 0.7678,
+      "n_models": 14,
+      "interpretation": "small"
+    },
+    "score_id": {
+      "mean_d": -1.1429,
+      "sd_d": 1.3624,
+      "n_models": 14,
+      "interpretation": "large"
+    },
+    "reference_answer": {
+      "mean_d": 0.2857,
+      "sd_d": 0.3877,
+      "n_models": 14,
+      "interpretation": "small"
+    }
+  },
+  "study1_summary": {
+    "rubric_order": {
+      "mean_d": 0.072,
+      "sd_d": 0.3246,
+      "n_models": 22,
+      "interpretation": "negligible"
+    },
+    "score_id": {
+      "mean_d": 0.2311,
+      "sd_d": 0.5207,
+      "n_models": 22,
+      "interpretation": "small"
+    },
+    "reference_answer": {
+      "mean_d": 0.0227,
+      "sd_d": 0.3295,
+      "n_models": 22,
+      "interpretation": "negligible"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "method": "Monte Carlo simulation under H0 and H1",
+  "n_trials": 1000,
+  "n_families": 7,
+  "false_positive_rate_per_probe": {
+    "rubric_order": 0.092,
+    "score_id": 0.1,
+    "reference_answer": 0.094
+  },
+  "overall_false_positive_rate": 0.0953,
+  "interpretation_fpr": "False positive rate at \u03b1=0.05. Values near 0.05 indicate valid test calibration.",
+  "detection_power_by_effect_size_d": {
+    "0.3": 0.002,
+    "0.5": 0.006,
+    "0.8": 0.025,
+    "1.0": 0.031
+  },
+  "interpretation_power": "Power to detect instruction-tuning effect of given magnitude. Power > 0.8 at d=0.8 indicates adequate sensitivity for large effects.",
+  "note": "Synthetic data uses normal distributions to simulate scores. Real data may have different distributions."
+}

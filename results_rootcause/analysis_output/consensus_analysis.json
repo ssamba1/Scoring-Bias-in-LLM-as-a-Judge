@@ -1,0 +1,10 @@
+{
+  "method": "Mean pairwise Pearson correlation between models' score profiles across all variants",
+  "n_models_with_scores": 35,
+  "mean_pairwise_correlation": 0.0899,
+  "sd_pairwise_correlation": 0.4195,
+  "interpretation": "Mean pairwise r > 0.5 = strong consensus (models agree on which items are easy/hard). r < 0.3 = low consensus.",
+  "fleiss_kappa": "Cannot compute Fleiss' kappa without per-item categorical ratings for each model. Requires item-level score files.",
+  "approximate_finding": "Mean pairwise correlation = 0.0899. Models show weak agreement in their score patterns.",
+  "recommendation": "For full Fleiss' kappa, load the raw per-item score matrices and binarize scores (e.g., pass/fail threshold)."
+}

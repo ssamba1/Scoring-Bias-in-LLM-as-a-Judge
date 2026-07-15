@@ -1,0 +1,489 @@
+{
+  "method": "Monte Carlo simulation of paired t-test power for N=3..30, given observed Cohen's d_z",
+  "alpha": 0.05,
+  "n_simulations_per_N": 5000,
+  "power_by_N": {
+    "3": {
+      "rubric_order": {
+        "simulated_power": 0.2292,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.542,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.5924,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "4": {
+      "rubric_order": {
+        "simulated_power": 0.2094,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.6016,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.6484,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "5": {
+      "rubric_order": {
+        "simulated_power": 0.2146,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.6688,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.7434,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "6": {
+      "rubric_order": {
+        "simulated_power": 0.203,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.7226,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.802,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "7": {
+      "rubric_order": {
+        "simulated_power": 0.2332,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.7954,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.8662,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "8": {
+      "rubric_order": {
+        "simulated_power": 0.2352,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.8458,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.892,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "9": {
+      "rubric_order": {
+        "simulated_power": 0.2446,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.8772,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9196,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "10": {
+      "rubric_order": {
+        "simulated_power": 0.261,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9156,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9482,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "11": {
+      "rubric_order": {
+        "simulated_power": 0.2546,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.927,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9668,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "12": {
+      "rubric_order": {
+        "simulated_power": 0.2798,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9478,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9752,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "13": {
+      "rubric_order": {
+        "simulated_power": 0.2942,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.962,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9812,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "14": {
+      "rubric_order": {
+        "simulated_power": 0.3052,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9734,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9854,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "15": {
+      "rubric_order": {
+        "simulated_power": 0.3232,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.98,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9916,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "16": {
+      "rubric_order": {
+        "simulated_power": 0.3422,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.984,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9934,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "17": {
+      "rubric_order": {
+        "simulated_power": 0.3416,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9906,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9972,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "18": {
+      "rubric_order": {
+        "simulated_power": 0.3638,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9932,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9984,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "19": {
+      "rubric_order": {
+        "simulated_power": 0.39,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9946,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9988,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "20": {
+      "rubric_order": {
+        "simulated_power": 0.3976,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9972,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9992,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "21": {
+      "rubric_order": {
+        "simulated_power": 0.4156,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9968,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9988,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "22": {
+      "rubric_order": {
+        "simulated_power": 0.43,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.999,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "23": {
+      "rubric_order": {
+        "simulated_power": 0.4442,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9992,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 0.9996,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "24": {
+      "rubric_order": {
+        "simulated_power": 0.4544,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9994,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "25": {
+      "rubric_order": {
+        "simulated_power": 0.4664,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9996,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "26": {
+      "rubric_order": {
+        "simulated_power": 0.48,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9994,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "27": {
+      "rubric_order": {
+        "simulated_power": 0.4868,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 0.9998,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "28": {
+      "rubric_order": {
+        "simulated_power": 0.5184,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "29": {
+      "rubric_order": {
+        "simulated_power": 0.5144,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    },
+    "30": {
+      "rubric_order": {
+        "simulated_power": 0.5312,
+        "cohens_d_z": 0.3791,
+        "n_simulations": 5000
+      },
+      "score_id": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.0756,
+        "n_simulations": 5000
+      },
+      "reference_answer": {
+        "simulated_power": 1.0,
+        "cohens_d_z": 1.1768,
+        "n_simulations": 5000
+      }
+    }
+  },
+  "N_for_80_percent_power": {
+    "rubric_order": ">30",
+    "score_id": 8,
+    "reference_answer": 6
+  },
+  "finding": "Score ID requires N=8, Reference Answer requires N=6, Rubric Order requires N=>30 for 80% power. The rubric_order effect is underpowered at current N\u226422."
+}
