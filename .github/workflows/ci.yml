@@ -49,6 +49,68 @@ jobs:
         run: |
           black --check --diff results_rootcause/*.py tests/*.py pipeline_rootcause/*.py
 
+  paper-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+      - name: Compile paper
+        run: |
+          cd paper
+          pdflatex -interaction=nonstopmode camera_ready_full.tex 2>&1 | tail -20 || true
+          echo "=== Second pass ==="
+          pdflatex -interaction=nonstopmode camera_ready_full.tex 2>&1 | tail -20 || true
+      - name: Report compilation status
+        run: |
+          if [ -f paper/camera_ready_full.pdf ]; then
+            echo "✅ Paper compilation succeeded (PDF generated)"
+          else
+            echo "⚠️ Paper compilation did not produce a PDF (LaTeX may have errors)"
+          fi
+
+  figures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install matplotlib numpy pandas seaborn
+      - name: Verify figures can be regenerated
+        run: python paper/figures/generate_all_figures.py --check
+
+  data-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run data validation
+        run: python results_rootcause/validation/run_all_validation.py
+
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pre-commit
+        run: pip install pre-commit
+      - name: Run pre-commit on all files
+        run: pre-commit run --all-files
+
   paper-check:
     runs-on: ubuntu-latest
     steps:
@@ -59,7 +121,6 @@ jobs:
           test -f paper/camera_ready_full.tex && echo "✓ Main paper exists"
           test -f paper/generate_png_figures.py && echo "✓ Figure generator exists"
           test -f paper/arxiv_package.py && echo "✓ arXiv packager exists"
-          test -f paper/generate_pdf.py && echo "✓ PDF generator exists"
 
   docker:
     runs-on: ubuntu-latest

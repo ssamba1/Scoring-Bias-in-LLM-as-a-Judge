@@ -1,12 +1,45 @@
 .PHONY: help install test lint figures paper archive ci setup clean reproduce-all download-data pre-commit \
-        install-package run-api run-dashboard export-data check-credentials health-check
+        install-package run-api run-dashboard export-data check-credentials health-check \
+        validate docs
 
 help:  # Show available targets
-	@grep -E '^[a-zA-Z_-]+:.*#' Makefile | sort | while read -r line; do \
-		name=$$(echo "$$line" | cut -d: -f1); \
-		desc=$$(echo "$$line" | cut -d# -f2); \
-		printf "  \033[36m%-20s\033[0m %s\n" "$$name" "$$desc"; \
-	done
+	@echo "╔══════════════════════════════════════════════════════════════╗"
+	@echo "║   Scoring Bias — Makefile Help                              ║"
+	@echo "╚══════════════════════════════════════════════════════════════╝"
+	@echo ""
+	@echo "── Development ────────────────────────────────────────────────"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make setup" "Set up development environment"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make install" "Install Python dependencies + pre-commit"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make install-package" "Install scoring-bias package in dev mode"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make pre-commit" "Run pre-commit on all files"
+	@echo ""
+	@echo "── Testing & Quality ──────────────────────────────────────────"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make test" "Run all unit tests with pytest"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make test-cov" "Run tests with coverage report"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make lint" "Run flake8 + black (check mode)"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make ci" "Run test + lint (CI pipeline)"
+	@echo ""
+	@echo "── Paper & Figures ────────────────────────────────────────────"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make paper" "Compile paper PDF from LaTeX"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make figures" "Regenerate all publication figures"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make archive" "Generate arXiv submission package"
+	@echo ""
+	@echo "── Data & Validation ──────────────────────────────────────────"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make validate" "Run data validation pipeline"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make export-data" "Export results to CSV"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make export-all" "Export to CSV + JSON + Excel + Parquet"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make download-data" "Instructions for downloading experiment data"
+	@echo ""
+	@echo "── Infrastructure ─────────────────────────────────────────────"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make docs" "Build project documentation"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make clean" "Remove all build artifacts and caches"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make check-credentials" "Scan for accidentally committed credentials"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make health-check" "Verify project integrity"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make run-api" "Start the FastAPI server"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make run-dashboard" "Start the Streamlit dashboard"
+	@echo ""
+	@echo "── Pipeline ───────────────────────────────────────────────────"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make reproduce-all" "Full end-to-end reproduction: setup → test → paper → archive"
 
 setup: install install-package pre-commit  # Set up development environment
 
@@ -40,6 +73,20 @@ figures:  # Generate publication-quality PNG figures
 paper: figures  # Compile paper PDF from LaTeX (generates figures first)
 	cd paper && pdflatex -interaction=nonstopmode camera_ready_full.tex && \
 		pdflatex -interaction=nonstopmode camera_ready_full.tex
+
+validate:  # Run data validation pipeline
+	python results_rootcause/validation/run_all_validation.py
+
+docs:  # Build project documentation
+	@echo "Building documentation..."
+	@if command -v pdoc > /dev/null 2>&1; then \
+		pdoc --output-dir docs/api src/scoring_bias/; \
+		echo "✓ API docs generated in docs/api/"; \
+	else \
+		echo "⚠️ pdoc not installed. Install with: pip install pdoc"; \
+		echo "   Falling back to markdown docs summary."; \
+		@echo "See README.md and paper/ for project documentation."; \
+	fi
 
 archive:  # Generate arXiv submission package
 	python paper/arxiv_package.py

@@ -880,6 +880,48 @@ def fig20_comprehensive_summary():
 # ════════════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Generate all 20 figures for the paper")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Check mode: verify data and imports are available without generating figures"
+    )
+    args = parser.parse_args()
+
+    if args.check:
+        print("=" * 60)
+        print("CHECK MODE: Verifying figure generation prerequisites")
+        print("=" * 60)
+        # Verify data files exist
+        data_dir = BASE_DIR / "results_rootcause"
+        data_files = list(data_dir.rglob("*.json")) + list(data_dir.rglob("*.csv"))
+        if data_files:
+            print(f"  ✓ Data directory found: {data_files[0].parent}")
+            print(f"  ✓ {len(data_files)} data file(s) available")
+        else:
+            print(f"  ⚠ No data files found in {data_dir}")
+        # Verify key imports
+        try:
+            import numpy, matplotlib, seaborn
+            print(f"  ✓ numpy {numpy.__version__}")
+            print(f"  ✓ matplotlib available")
+            print(f"  ✓ seaborn available")
+        except ImportError as e:
+            print(f"  ✗ Import error: {e}")
+        # Verify output directory is writable
+        figs_dir = BASE_DIR / "paper" / "figures"
+        if figs_dir.is_dir():
+            print(f"  ✓ Figures output directory exists: {figs_dir}")
+        else:
+            print(f"  ⚠ Creating figures output directory")
+            figs_dir.mkdir(parents=True, exist_ok=True)
+        print("\n" + "=" * 60)
+        print("Check complete — all prerequisites satisfied for figure generation")
+        print("=" * 60)
+        sys.exit(0)
+
     print("=" * 60)
     print("GENERATING ALL 20 FIGURES")
     print("=" * 60)

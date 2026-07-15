@@ -35,19 +35,74 @@ If you identify a new scoring bias type:
 1. **Fork** the repository
 2. **Create a feature branch**: `git checkout -b feature/your-feature`
 3. **Install dependencies**: `pip install -r requirements.txt`
-4. **Run existing tests**: `python tests/test_all.py`
+4. **Run existing tests**: `python -m pytest tests/ -v`
 5. **Make your changes**
 6. **Add tests** for new functionality
 7. **Run all tests** and ensure they pass
-8. **Submit a pull request**
+8. **Run pre-commit**: `pre-commit run --all-files`
+9. **Submit a pull request**
 
 ## 📝 Code Style
 
-- Python: Follow PEP 8
-- LaTeX: Keep lines under 80 characters where possible
-- JSON: Use consistent formatting (2-space indentation)
-- Markdown: Use GitHub-flavored markdown
-- Include docstrings for all Python functions (NumPy style preferred)
+- **Python**: Follow PEP 8. Use 4-space indentation. Include NumPy-style docstrings for all public functions.
+- **LaTeX**: Keep lines under 80 characters where possible. Use 2-space indentation for .tex files.
+- **JSON**: Use 2-space indentation.
+- **Markdown**: Use GitHub-flavored markdown. Wrap lines at 80 characters for readability.
+- **YAML**: Use 2-space indentation.
+
+## 🔍 Code Review Guidelines
+
+All pull requests require review before merging. Reviewers should check for:
+
+### Correctness
+- Does the code do what it claims?
+- Are edge cases handled (empty inputs, missing data, API failures)?
+- Are floating-point comparisons robust?
+- Are statistical computations correct (effect sizes, p-values, Bayesian posteriors)?
+
+### Reproducibility
+- Are all random seeds fixed (seed=42)?
+- Is temperature=0 for all judge calls?
+- Are exact model versions and API parameters documented?
+- Are intermediate outputs deterministic given the same inputs?
+
+### Code Quality
+- Is the code well-structured and readable?
+- Are there sufficient docstrings and inline comments?
+- Are variable names descriptive and unambiguous?
+- Is there unnecessary duplication that could be refactored?
+
+### Testing
+- Do new features have corresponding tests?
+- Do tests cover the main success paths and key failure modes?
+- Are tests deterministic and isolated (no shared mutable state)?
+
+### Research Integrity
+- Is there clear separation between pre-registered analyses and post-hoc findings?
+- Are limitations transparently discussed?
+- Are all assumptions stated explicitly?
+
+## ✅ Testing Requirements
+
+All contributions must maintain or improve test coverage:
+
+- **Unit tests**: Required for all new Python functions and methods. Place in `tests/` with filename `test_<module>.py`.
+- **Regression tests**: Required for bug fixes. Add a test that fails on the old code and passes with the fix.
+- **Data integrity tests**: Required when adding/modifying experiment data. Verify schema, ranges, and expected distributions.
+- **Running tests**: Always run `python -m pytest tests/ -v` before submitting. All tests must pass.
+- **Coverage**: Aim for 80%+ coverage on new code. Run `python -m pytest tests/ --cov=src --cov-report=term-missing` to verify.
+
+## ✅ Pull Request Checklist
+
+- [ ] Code follows project style guidelines
+- [ ] Tests pass (`python -m pytest tests/ -v`)
+- [ ] Pre-commit hooks pass (`pre-commit run --all-files`)
+- [ ] New models have corresponding model cards
+- [ ] New functions have NumPy-style docstrings
+- [ ] References have complete DOIs/URLs
+- [ ] Documentation updated if relevant
+- [ ] All analysis results are reproducible
+- [ ] Code has been self-reviewed
 
 ## 🔬 Research Integrity
 
@@ -56,15 +111,6 @@ All contributions must adhere to:
 - Disclosure of any API costs or computational resources used
 - Clear separation between pre-registered analyses and post-hoc findings
 - Open data sharing where possible
-
-## ✅ Pull Request Checklist
-
-- [ ] Code follows project style guidelines
-- [ ] Tests pass
-- [ ] New models have corresponding model cards
-- [ ] References have complete DOIs/URLs
-- [ ] Documentation updated if relevant
-- [ ] All analysis results are reproducible
 
 ## 📧 Contact
 

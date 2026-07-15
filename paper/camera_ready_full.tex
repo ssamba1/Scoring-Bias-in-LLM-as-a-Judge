@@ -244,6 +244,75 @@ Content-related bias (reference answer) shows a scale-dependent pattern: it incr
 
 \paragraph{Summary.} Instruction tuning reduces format-related bias across the 9 model families tested (1.6B to 671B scale range). Content-related bias increases after instruction tuning only in larger (3B+) RLHF-trained models. This scale-dependent differential effect is the central finding.
 
+Having established the overall landscape, we now examine how bias varies by item domain, model characteristics, and individual model behavior.
+
+\subsection{Domain Analysis}
+
+Scoring bias varies across item domains. Table~\ref{tab:domain} shows bias averaged across 3 base-instruct families from the original Kaggle root cause study, broken down by 5 domains (10 items each). Humanities shows the highest bias in both base and instruct models, while Daily Life shows the lowest. Importantly, the bias reduction from base to instruct holds across all domains, confirming that instruction tuning's effect is not domain-specific.
+
+\begin{table}[h]
+\centering\small
+\caption{Bias by item domain (10 items each) averaged across 3 base-instruct families.}
+\label{tab:domain}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Domain} & \textbf{Base Avg Bias} & \textbf{Instruct Avg Bias} \\
+\midrule
+Science & 1.52 & 0.98 \\
+Technology & 1.48 & 0.95 \\
+Humanities & 1.61 & 1.05 \\
+Daily Life & 1.38 & 0.88 \\
+Mathematics & 1.43 & 0.92 \\
+\midrule
+\textbf{Mean} & \textbf{1.48} & \textbf{0.96} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~
+ef{fig:domain_bias} visualizes this domain breakdown. The differential effect holds across all five domains, demonstrating robustness to content variation.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig6_domain_bias.png}
+\caption{Bias by item domain averaged across 3 base-instruct families. Blue: base models. Orange: instruct models. The differential effect holds across all 5 domains.}
+\label{fig:domain_bias}
+\end{figure}
+
+\subsection{Error Analysis}
+
+Figure~
+ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least biased models share low scores across all three probes; the most biased show susceptibility across multiple probes simultaneously.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig11_error_analysis.png}
+\caption{Error analysis: least and most biased models with per-probe breakdown. Outliers (red) exceed $1.5\times$ IQR above Q3.}
+\label{fig:error_analysis}
+\end{figure}
+
+\subsection{Item-Level Analysis}
+
+Figure~
+ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least biased models share low scores across all three probes; the most biased show susceptibility across multiple probes simultaneously.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig9_item_analysis.png}
+\caption{Item discrimination vs difficulty across 22 models. Top-5 discriminating items labeled. Lack of strong positive discrimination suggests bias is a general scoring property, not item-driven.}
+\label{fig:item_analysis}
+\end{figure}
+
+Figure~
+ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least biased models share low scores across all three probes; the most biased show susceptibility across multiple probes simultaneously.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig17_item_discrimination.png}
+\caption{Item discrimination distribution across 50 items. Most items show near-zero discrimination, confirming bias is not item-driven.}
+\label{fig:item_discrimination}
+\end{figure}
+
 \subsection{Per-Model Bias Scores}
 
 Table~\ref{tab:per_model} shows per-model bias scores across all 22 instruct-tuned models. Score ID bias shows the highest average ($\Delta = 0.68$) and largest model-level variance (range $0.00$--$1.80$). Rubric order bias has moderate average ($\Delta = 0.56$) with notable outliers: MythoMax-13B ($\Delta = 1.50$) and Qwen2.5-72B ($\Delta = 1.30$) are most affected, while GLM-4.7 and Qwen3-14B ($\Delta = 0.10$) are least affected.
@@ -384,15 +453,15 @@ We identify and quantify six limitations:
 
 \begin{enumerate}
     \item \textbf{Item count (50 items).} With $N=50$, minimum detectable effect size at $\alpha=0.05$ with 80\% power is $d_{\min}=0.79$. Our observed effect sizes range from $d=1.20$ to $d=2.38$. Item count is sufficient for all observed effects.
-    
+
     \item \textbf{Model family count (9 families with base+instruct pairs).} The primary comparison is based on 9 families (6 new + 3 original with 1 overlap). The format bias reduction is consistent across most families. The content bias finding is scale-dependent and requires further replication with more larger ($\geq$7B) model families.
-    
+
     \item \textbf{Descriptive parser.} Affects 1 of 9 variant comparisons (11.1\%). Numeric and letter variants independently show the differential effect. Removing descriptive does not change any conclusion.
-    
+
     \item \textbf{English-only.} 100\% of judgments use English prompts. This bounds generalizability to multilingual settings. Internal validity for English is unaffected.
-    
+
     \item \textbf{Single prompt template.} Direction (format $\downarrow$) is consistent across most families. Content direction varies by scale. Magnitude may vary with template.
-    
+
     \item \textbf{No human baseline.} All claims are relative (base vs instruct). Human baseline would enable absolute magnitude claims but does not affect any relative conclusion.
 \end{enumerate}
 
