@@ -30,7 +30,7 @@ print("COMPUTING ALL MISSING METRICS")
 print("="*60)
 
 # 1. Mean Absolute Deviation (MAD)
-print("\n1. MAD (Mean Absolute Deviation) — matching Li et al. methodology")
+print("\n1. MAD (Mean Absolute Deviation)  matching Li et al. methodology")
 print(f"{'Model':<15} {'Rubric MAD':<12} {'Score MAD':<12} {'Ref MAD':<12} {'Avg MAD':<10}")
 print("-"*60)
 all_mads = {"base":[],"instruct":[]}

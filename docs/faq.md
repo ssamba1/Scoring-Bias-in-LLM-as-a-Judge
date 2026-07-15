@@ -8,7 +8,7 @@
 
 ### Q1: What is this research about?
 
-**A:** We investigate **scoring bias in LLM-as-a-Judge models** — when AI models used as judges systematically change their scores because of superficial prompt features rather than response quality. Specifically, we compare base (pre-trained only) and instruct (instruction-tuned) variants to understand **where these biases come from**.
+**A:** We investigate **scoring bias in LLM-as-a-Judge models**  when AI models used as judges systematically change their scores because of superficial prompt features rather than response quality. Specifically, we compare base (pre-trained only) and instruct (instruction-tuned) variants to understand **where these biases come from**.
 
 ### Q2: What is an "LLM-as-a-Judge"?
 
@@ -17,17 +17,17 @@
 ### Q3: What are the three types of scoring bias you studied?
 
 **A:** We studied three probes:
-1. **Rubric Order Bias** — Does reversing the scale (1=best vs 1=worst) change scores?
-2. **Score ID Bias** — Do different labeling systems (numbers vs letters vs words) change scores?
-3. **Reference Answer Bias** — Does showing a sample answer before scoring change scores?
+1. **Rubric Order Bias**  Does reversing the scale (1=best vs 1=worst) change scores?
+2. **Score ID Bias**  Do different labeling systems (numbers vs letters vs words) change scores?
+3. **Reference Answer Bias**  Does showing a sample answer before scoring change scores?
 
 ### Q4: Why does this matter? Who cares if AI judges are biased?
 
 **A:** If AI judges are biased, then:
-- **Model rankings are unreliable** — A model might rank higher simply because the judge's scoring bias favors it
-- **Research conclusions could be wrong** — Papers that use AI judges might draw incorrect conclusions
-- **Real-world applications suffer** — AI judges are used in content moderation, education, and healthcare evaluation
-- **Progress is harder to measure** — We can't tell if AI systems are actually improving if our measurement tools are broken
+- **Model rankings are unreliable**  A model might rank higher simply because the judge's scoring bias favors it
+- **Research conclusions could be wrong**  Papers that use AI judges might draw incorrect conclusions
+- **Real-world applications suffer**  AI judges are used in content moderation, education, and healthcare evaluation
+- **Progress is harder to measure**  We can't tell if AI systems are actually improving if our measurement tools are broken
 
 ### Q5: What's the most important finding?
 
@@ -43,7 +43,7 @@ In other words: training models to follow instructions makes them less vulnerabl
 
 ### Q7: How many judgments did you collect?
 
-**A:** We collected **40,500+ individual judgments** — each model scored 80 items across 3 probes with multiple conditions.
+**A:** We collected **40,500+ individual judgments**  each model scored 80 items across 3 probes with multiple conditions.
 
 ### Q8: How much did this cost?
 
@@ -81,7 +81,7 @@ A high flip rate means the bias affects many individual judgments, not just the 
 
 ### Q12: What is Cohen's d?
 
-**A:** Cohen's d is a **standardized effect size** — it measures the magnitude of bias in standard deviation units. This lets us compare bias across different scales and models:
+**A:** Cohen's d is a **standardized effect size**  it measures the magnitude of bias in standard deviation units. This lets us compare bias across different scales and models:
 - |d| < 0.2: negligible
 - |d| = 0.2–0.5: small
 - |d| = 0.5–0.8: medium
@@ -120,15 +120,15 @@ A high flip rate means the bias affects many individual judgments, not just the 
 
 ### Q16: Which model was the most biased?
 
-**A:** Among instruct models, **Score ID bias** has the largest average effect (Δ = 0.68 across 22 models). Individual models show much higher values — for example, Llama 3.1 70B has Score ID bias of Δ = 1.80, meaning scores change by almost 2 points out of 5 just because of how scores are labeled!
+**A:** Among instruct models, **Score ID bias** has the largest average effect (Δ = 0.68 across 22 models). Individual models show much higher values  for example, Llama 3.1 70B has Score ID bias of Δ = 1.80, meaning scores change by almost 2 points out of 5 just because of how scores are labeled!
 
 ### Q17: Which model was the least biased?
 
-**A:** Generally, larger models are less biased, but size alone doesn't guarantee low bias. The models with the lowest overall bias tend to be the larger models (70B+) and models with extensive RLHF training. However, patterns vary by probe — a model might have very low rubric order bias but high reference answer bias.
+**A:** Generally, larger models are less biased, but size alone doesn't guarantee low bias. The models with the lowest overall bias tend to be the larger models (70B+) and models with extensive RLHF training. However, patterns vary by probe  a model might have very low rubric order bias but high reference answer bias.
 
 ### Q18: Is bigger always better?
 
-**A:** No. While larger models are **generally** less biased, we found counterexamples. For instance, Hy3-295B (a 295-billion parameter model) has a mean Δ of 0.93 — quite biased. Size helps but doesn't guarantee fairness.
+**A:** No. While larger models are **generally** less biased, we found counterexamples. For instance, Hy3-295B (a 295-billion parameter model) has a mean Δ of 0.93  quite biased. Size helps but doesn't guarantee fairness.
 
 ### Q19: Do RLHF and DPO have different effects?
 
@@ -140,7 +140,7 @@ A high flip rate means the bias affects many individual judgments, not just the 
 - **Wilcoxon signed-rank test**: p = 0.047
 - **Cohen's d_z**: 1.08 (large effect)
 
-For Rubric Order bias, the reduction is not statistically significant at current N (7 paired comparisons) — we need more model families to increase power.
+For Rubric Order bias, the reduction is not statistically significant at current N (7 paired comparisons)  we need more model families to increase power.
 
 ### Q21: Could the biases come from the evaluation items rather than the models?
 
@@ -195,13 +195,13 @@ make reproduce-all
 ### Q27: What are the main Python scripts?
 
 **A:** The key entry points are:
-- `cli.py` — Command-line interface for the analysis pipeline
-- `scoring_bias/analysis.py` — Core analysis functions
-- `scoring_bias/visualization.py` — Figure generation
-- `scoring_bias/models.py` — Data structures
-- `scoring_bias/metrics.py` — Statistical metrics
-- `dashboard.py` — Interactive dashboard
-- `api.py` — FastAPI backend
+- `cli.py`  Command-line interface for the analysis pipeline
+- `scoring_bias/analysis.py`  Core analysis functions
+- `scoring_bias/visualization.py`  Figure generation
+- `scoring_bias/models.py`  Data structures
+- `scoring_bias/metrics.py`  Statistical metrics
+- `dashboard.py`  Interactive dashboard
+- `api.py`  FastAPI backend
 
 ### Q28: How do I run the tests?
 
@@ -262,8 +262,8 @@ pytest tests/ -v --cov=src --cov-report=term-missing
 ### Q36: Where can I learn more?
 
 **A:** Check out:
-- [User Guide](user_guide.md) — Complete guide to the codebase
-- [Educational Explainer](educational_explainer.md) — Accessible explanation for students
-- [Methodology Tutorial](methodology_tutorial.md) — Step-by-step walkthrough
-- [Paper](paper/camera_ready_full.tex) — Full academic paper
-- [Interactive Dashboard](dashboard/interactive_paper.html) — Explore results visually
+- [User Guide](user_guide.md)  Complete guide to the codebase
+- [Educational Explainer](educational_explainer.md)  Accessible explanation for students
+- [Methodology Tutorial](methodology_tutorial.md)  Step-by-step walkthrough
+- [Paper](paper/camera_ready_full.tex)  Full academic paper
+- [Interactive Dashboard](dashboard/interactive_paper.html)  Explore results visually

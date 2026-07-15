@@ -35,7 +35,7 @@ with open(TEX) as f:
     tex = f.read()
 
 # Extract paper content from LaTeX and convert to HTML
-# This is a simplified conversion — just enough to make it readable
+# This is a simplified conversion  just enough to make it readable
 import re
 
 def clean_tex(text):
@@ -102,7 +102,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Where Does Scoring Bias Come From? — Camera Ready</title>
+<title>Where Does Scoring Bias Come From?  Camera Ready</title>
 <style>
 @page {{ size: letter; margin: 1in; }}
 * {{ margin: 0; padding: 0; box-sizing: border-box; }}

@@ -1,4 +1,4 @@
-# User Guide — Scoring Bias in LLM-as-a-Judge
+# User Guide  Scoring Bias in LLM-as-a-Judge
 
 > **Complete guide to understanding and using the codebase for the paper
 > "Scoring Bias in LLM-as-a-Judge Models: A 22-Model Landscape with Base-Instruct Comparison"**
@@ -24,7 +24,7 @@
 
 ## Overview
 
-This project investigates **scoring bias in LLM-as-a-Judge models** — systematic score changes caused by superficial prompt features rather than response quality. We compare **base** (pre-trained only) and **instruct** (instruction-tuned) variants across 31 model variants from 16 families, using 3 scoring bias probes on 80 evaluation items (40,500+ judgments).
+This project investigates **scoring bias in LLM-as-a-Judge models**  systematic score changes caused by superficial prompt features rather than response quality. We compare **base** (pre-trained only) and **instruct** (instruction-tuned) variants across 31 model variants from 16 families, using 3 scoring bias probes on 80 evaluation items (40,500+ judgments).
 
 ### Key Findings
 
@@ -135,11 +135,11 @@ cp .env.template .env
 ```
 
 The `.env.template` expects keys for:
-- `ANTHROPIC_API_KEY` — for Claude models
-- `OPENAI_API_KEY` — for GPT models
-- `GEMINI_API_KEY` — for Gemini models
-- `DEEPSEEK_API_KEY` — for DeepSeek models
-- `TOGETHER_API_KEY` — for Together AI models
+- `ANTHROPIC_API_KEY`  for Claude models
+- `OPENAI_API_KEY`  for GPT models
+- `GEMINI_API_KEY`  for Gemini models
+- `DEEPSEEK_API_KEY`  for DeepSeek models
+- `TOGETHER_API_KEY`  for Together AI models
 
 ### Test Configuration
 
@@ -447,9 +447,9 @@ pytest tests/ -v          # Or use pytest directly
 | Docker build fails | Missing build dependencies | Check Dockerfile prerequisites |
 
 For more detailed help, see:
-- [Setup Guide](setup_guide.md) — platform-specific instructions
-- [Troubleshooting Guide](troubleshooting.md) — common issues
-- [FAQ](faq.md) — frequently asked questions
+- [Setup Guide](setup_guide.md)  platform-specific instructions
+- [Troubleshooting Guide](troubleshooting.md)  common issues
+- [FAQ](faq.md)  frequently asked questions
 
 ---
 

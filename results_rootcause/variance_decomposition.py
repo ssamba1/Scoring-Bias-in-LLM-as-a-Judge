@@ -113,10 +113,10 @@ findings["confounders"] = confounders
 print("\n3. DATA LEAKAGE ASSESSMENT")
 print("-" * 60)
 checks = [
-    ("Are evaluation items in model training data?", "UNKNOWN — items are synthetic, unlikely to be verbatim in training data. But similar content may appear."),
-    ("Are probes used consistently across all models?", "YES — identical prompts for all models. No leakage across conditions."),
-    ("Is there temporal leakage (later models seen earlier)?", "NO — judgments are independent per model."),
-    ("Are repeated measures independent?", "PARTIALLY — repeated measures are within-model, but between-model comparisons are independent."),
+    ("Are evaluation items in model training data?", "UNKNOWN  items are synthetic, unlikely to be verbatim in training data. But similar content may appear."),
+    ("Are probes used consistently across all models?", "YES  identical prompts for all models. No leakage across conditions."),
+    ("Is there temporal leakage (later models seen earlier)?", "NO  judgments are independent per model."),
+    ("Are repeated measures independent?", "PARTIALLY  repeated measures are within-model, but between-model comparisons are independent."),
 ]
 for check, status in checks:
     print(f"  {check}")
@@ -149,10 +149,10 @@ findings["interaction"] = "Training method moderates size-bias relationship"
 print("\n6. RESPONSE QUALITY CHECK")
 print("-" * 60)
 checks = [
-    ("All model responses are valid scores (1-5)?", "YES — extract_score defaults to 3 on failure"),
-    ("Any models returned all-identical scores?", "NO — variance across items observed"),
-    ("Are scores within expected range?", "YES — all between 1.0 and 5.0"),
-    ("Is the generation deterministic (T=0)?", "YES — greedy decoding for local, temperature=0 for API"),
+    ("All model responses are valid scores (1-5)?", "YES  extract_score defaults to 3 on failure"),
+    ("Any models returned all-identical scores?", "NO  variance across items observed"),
+    ("Are scores within expected range?", "YES  all between 1.0 and 5.0"),
+    ("Is the generation deterministic (T=0)?", "YES  greedy decoding for local, temperature=0 for API"),
 ]
 for check, status in checks:
     print(f"  {check}")

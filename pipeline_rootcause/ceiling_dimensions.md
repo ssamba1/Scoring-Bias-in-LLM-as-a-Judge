@@ -1,12 +1,12 @@
 # The True Ceiling: What's Actually Missing
 
-## 6 dimensions that top research labs explore — none of which we've touched
+## 6 dimensions that top research labs explore  none of which we've touched
 
 ---
 
 ### Dimension 1: Causal / Mechanistic Analysis
 
-**What top labs do:** They don't just measure a phenomenon — they explain WHY it happens at the mechanism level. Attention patterns, hidden state comparisons, circuit analysis.
+**What top labs do:** They don't just measure a phenomenon  they explain WHY it happens at the mechanism level. Attention patterns, hidden state comparisons, circuit analysis.
 
 **What we have:** The IIAR hypothesis (verbal explanation)
 **What's missing:** Empirical evidence that attention redistribution actually occurs

@@ -37,4 +37,4 @@
 
 ## Key Gap
 
-Of 15 documented bias types, **only 3 have been tested for base vs instruct differences** — and this work is the first to do so. The remaining 12 are open for future investigation.
+Of 15 documented bias types, **only 3 have been tested for base vs instruct differences**  and this work is the first to do so. The remaining 12 are open for future investigation.

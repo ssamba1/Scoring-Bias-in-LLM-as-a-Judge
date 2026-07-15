@@ -1,4 +1,4 @@
-# API Reference — `scoring_bias` Package
+# API Reference  `scoring_bias` Package
 
 > **Complete API reference for the `scoring_bias` package.**
 >
@@ -343,8 +343,8 @@ def compute_flip_rate(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `control_scores` | `List[float]` | — | Scores under control condition (per item) |
-| `treatment_scores` | `List[float]` | — | Scores under treatment condition (per item) |
+| `control_scores` | `List[float]` |  | Scores under control condition (per item) |
+| `treatment_scores` | `List[float]` |  | Scores under treatment condition (per item) |
 | `threshold` | `float` | `0.5` | Minimum absolute difference to count as a flip |
 
 **Returns**: Fraction of items that flipped (`0.0`–`1.0`), or `None` if lists are empty or mismatched.
@@ -373,8 +373,8 @@ def bootstrap_ci(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `control_scores` | `List[float]` | — | Scores under control condition |
-| `treatment_scores` | `List[float]` | — | Scores under treatment condition |
+| `control_scores` | `List[float]` |  | Scores under control condition |
+| `treatment_scores` | `List[float]` |  | Scores under treatment condition |
 | `n_resamples` | `int` | `10000` | Number of bootstrap resamples |
 | `ci` | `float` | `0.95` | Confidence level |
 | `seed` | `Optional[int]` | `None` | Random seed for reproducibility |
@@ -409,8 +409,8 @@ def compute_model_summary(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `model_name` | `str` | — | Name of the model |
-| `scores_by_probe` | `Dict[ProbeType, Dict[str, List[float]]]` | — | Dict mapping ProbeType → condition → scores |
+| `model_name` | `str` |  | Name of the model |
+| `scores_by_probe` | `Dict[ProbeType, Dict[str, List[float]]]` |  | Dict mapping ProbeType → condition → scores |
 | `is_base` | `bool` | `False` | Whether this is a base variant |
 | `n_bootstrap` | `int` | `10000` | Bootstrap resamples for CI |
 | `seed` | `int` | `42` | Random seed |
@@ -552,7 +552,7 @@ def mean_absolute_deviation(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `scores` | `List[float]` | — | List of score values |
+| `scores` | `List[float]` |  | List of score values |
 | `center` | `Optional[float]` | `None` | Center point (default: mean of scores) |
 
 **Returns**: Mean absolute deviation, or `None` if list is empty.
@@ -625,7 +625,7 @@ def plot_bias_landscape(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `results` | `BiasResult` | — | BiasResult with model profiles |
+| `results` | `BiasResult` |  | BiasResult with model profiles |
 | `save_path` | `Optional[str]` | `None` | Optional path to save figure |
 | `figsize` | `Tuple[int, int]` | `(14, 8)` | Figure dimensions |
 
@@ -648,8 +648,8 @@ def plot_model_comparison(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `model1` | `ModelProfile` | — | First model profile |
-| `model2` | `ModelProfile` | — | Second model profile |
+| `model1` | `ModelProfile` |  | First model profile |
+| `model2` | `ModelProfile` |  | Second model profile |
 | `save_path` | `Optional[str]` | `None` | Optional path to save figure |
 | `figsize` | `Tuple[int, int]` | `(10, 6)` | Figure dimensions |
 
@@ -669,7 +669,7 @@ def plot_probe_breakdown(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `model` | `ModelProfile` | — | The model profile to plot |
+| `model` | `ModelProfile` |  | The model profile to plot |
 | `save_path` | `Optional[str]` | `None` | Optional path to save figure |
 | `figsize` | `Tuple[int, int]` | `(12, 5)` | Figure dimensions |
 
@@ -704,7 +704,7 @@ def plot_base_instruct_comparison(
 **Parameters**:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `comparisons` | `List[ComparisonResult]` | — | List of ComparisonResult objects |
+| `comparisons` | `List[ComparisonResult]` |  | List of ComparisonResult objects |
 | `save_path` | `Optional[str]` | `None` | Optional path to save figure |
 | `figsize` | `Tuple[int, int]` | `(12, 6)` | Figure dimensions |
 

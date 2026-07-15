@@ -12,7 +12,7 @@
 # ---
 
 # %% [markdown]
-# # 01 — Data Overview
+# # 01  Data Overview
 #
 # Load and explore the scoring bias dataset.
 #

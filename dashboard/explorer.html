@@ -45,10 +45,10 @@ select:hover, button:hover { background: #475569; }
 <div class="container">
   <div id="tab-overview-content" class="tab-content">
     <div class="stats-row" id="stats-overview">
-      <div class="stat-box"><div class="value" id="total-scores">—</div><div class="label">Total Scores</div></div>
-      <div class="stat-box"><div class="value" id="total-judges">—</div><div class="label">Judges</div></div>
-      <div class="stat-box"><div class="value" id="total-items">—</div><div class="label">Items</div></div>
-      <div class="stat-box"><div class="value" id="avg-score">—</div><div class="label">Avg Score</div></div>
+      <div class="stat-box"><div class="value" id="total-scores"></div><div class="label">Total Scores</div></div>
+      <div class="stat-box"><div class="value" id="total-judges"></div><div class="label">Judges</div></div>
+      <div class="stat-box"><div class="value" id="total-items"></div><div class="label">Items</div></div>
+      <div class="stat-box"><div class="value" id="avg-score"></div><div class="label">Avg Score</div></div>
     </div>
     <div class="grid">
       <div class="card"><h2>Score Distribution by Judge</h2><canvas id="chart-distribution"></canvas></div>
@@ -89,7 +89,7 @@ select:hover, button:hover { background: #475569; }
   <div id="tab-benchmark-content" class="tab-content" style="display:none">
     <div class="card">
       <h2>Benchmark Status</h2>
-      <p>Scoring Bias Benchmark v1.0 — 950 probes across 7 bias dimensions.</p>
+      <p>Scoring Bias Benchmark v1.0  950 probes across 7 bias dimensions.</p>
       <table>
         <thead><tr><th>Probe</th><th>Items</th><th>Bias Type</th><th>Status</th></tr></thead>
         <tbody id="benchmark-tbody"></tbody>

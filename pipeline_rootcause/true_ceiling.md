@@ -9,7 +9,7 @@
 **Current list:** Llama, Llama 3.2, Llama 2, Mistral v0.2/0.3, Qwen 2.5/2, Gemma 1/2, Phi, OLMo, DeepSeek, Falcon, MPT, Pythia, CodeLlama, CrystalCoder, StarCoder, Bloomz, TinyLlama, StableLM, RecurrentGemma, Granite = **44 families**
 
 **Remaining open models with base+instruct:**
-- Yi 6B ✅ (not listed — add it)
+- Yi 6B ✅ (not listed  add it)
 - StableLM 3B ✅  
 - DBRX 7B ✅
 - Solar 7B ✅
@@ -99,7 +99,7 @@ This is the TRUE ceiling for probes.
 |-----------|-----------|---------------------|--------|--------|
 | Models | 44 families (88 variants) | **50 families (100 variants)** | +6 families | +4 hrs GPU |
 | Items | 500 synthetic | **6,000 from MT-Bench + FLASK** | +5,500 items, real benchmarks | 2 hrs format |
-| Probes (full) | — | **12 probes on 10 families** | +9 probe types | +25 hrs GPU |
+| Probes (full) |  | **12 probes on 10 families** | +9 probe types | +25 hrs GPU |
 | Probes (core) | 3 scoring on 44 families | 3 scoring on 50 families | Same, more models | 30 hrs GPU |
 | Languages | English only | **5 languages (EN, ZH, ES, AR, HI)** | +4 languages | 1 hr translate |
 | Human baseline | None | **5 raters × 100 items** | +500 human judgments | 2 hrs |
@@ -115,14 +115,14 @@ This is the TRUE ceiling for probes.
 
 | Priority | Improvement | Impact | Effort | Do Now? |
 |----------|------------|--------|--------|---------|
-| ① | Real benchmark items (MT-Bench, FLASK) | **High** — external validity | 2 hrs format | ✅ Yes |
-| ② | Human baseline (5 raters) | **High** — ground truth | 2 hrs | ✅ Yes |
-| ③ | 12 probes on 10 families | **Medium** — comprehensiveness | 25 hrs GPU | ⚠️ After main run |
-| ④ | 5+ languages | **Medium** — generalizability | 1 hr translate | ✅ Yes |
-| ⑤ | Advanced stats (mixed effects) | **Medium** — rigor | 4 hrs code | ✅ Yes |
-| ⑥ | Add missing families (Yi, Solar, etc.) | **Low** — marginal | 4 hrs GPU | ⚠️ If desired |
+| ① | Real benchmark items (MT-Bench, FLASK) | **High**  external validity | 2 hrs format | ✅ Yes |
+| ② | Human baseline (5 raters) | **High**  ground truth | 2 hrs | ✅ Yes |
+| ③ | 12 probes on 10 families | **Medium**  comprehensiveness | 25 hrs GPU | ⚠️ After main run |
+| ④ | 5+ languages | **Medium**  generalizability | 1 hr translate | ✅ Yes |
+| ⑤ | Advanced stats (mixed effects) | **Medium**  rigor | 4 hrs code | ✅ Yes |
+| ⑥ | Add missing families (Yi, Solar, etc.) | **Low**  marginal | 4 hrs GPU | ⚠️ If desired |
 
-**The true ceiling** is Version A+ : ~60 GPU hours, 50 families, 12 probes, 5 languages, human baseline, real benchmark items, advanced statistics. That would be the most comprehensive LLM bias study ever conducted — by a wide margin.
+**The true ceiling** is Version A+ : ~60 GPU hours, 50 families, 12 probes, 5 languages, human baseline, real benchmark items, advanced statistics. That would be the most comprehensive LLM bias study ever conducted  by a wide margin.
 
 **My recommendation:** Run what you have (44 families, 30 hrs). While it runs, prepare the human baseline and benchmark items. By the time the GPU run finishes, you'll have everything needed for the ceiling version.
 

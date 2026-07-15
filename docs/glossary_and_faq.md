@@ -10,13 +10,13 @@
 | **Base model** | Pre-trained language model, no instruction tuning |
 | **Instruct model** | Base model further trained with SFT + RLHF to follow instructions |
 | **Instruction tuning** | Training process (SFT + RLHF) that teaches models to follow instructions |
-| **SFT** | Supervised Fine-Tuning — training on human demonstrations |
+| **SFT** | Supervised Fine-Tuning  training on human demonstrations |
 | **RLHF** | Reinforcement Learning from Human Feedback |
 | **Flip Rate (FR)** | Proportion of items where biased score differs from control |
 | **Mean Absolute Deviation (MAD)** | Average absolute difference between scores |
 | **Cohen's d** | Standardized effect size measure |
 | **Spearman's ρ** | Rank correlation between scores |
-| **IIAR hypothesis** | Instruction-Induced Attention Redistribution — our theory for the differential effect |
+| **IIAR hypothesis** | Instruction-Induced Attention Redistribution  our theory for the differential effect |
 | **Differential effect** | Format biases ↓, content biases ↑ after instruction tuning |
 
 # FAQ

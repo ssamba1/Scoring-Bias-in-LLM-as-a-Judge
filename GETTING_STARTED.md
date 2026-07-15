@@ -100,7 +100,6 @@ python3 explore_rootcause.py
 | Check references | `paper/references.bib` |
 | Read literature review | `literature/literature_review.md` |
 | Read paper notes | `literature/paper_notes.md` |
-| View ISEF materials | `isef/` |
 | View dashboard | `dashboard/index.html` (open in browser) |
 
 ## API Cost Estimates

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ATTENTION HEAD ANALYSIS — tests the IIAR hypothesis
+ATTENTION HEAD ANALYSIS  tests the IIAR hypothesis
 by comparing attention redistribution in base vs instruct models.
 
 Run on Kaggle T4 (free). Requires model pairs:

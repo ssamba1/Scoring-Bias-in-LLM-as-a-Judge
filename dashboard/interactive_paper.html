@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Where Does Scoring Bias Come From? — Interactive Paper</title>
+<title>Where Does Scoring Bias Come From?  Interactive Paper</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
@@ -57,12 +57,12 @@ We present the first systematic investigation of whether scoring bias originates
 
 <!-- 1. INTRODUCTION -->
 <h2 id="intro">1. Introduction</h2>
-<p>When an AI model evaluates another AI model's response, can you trust the score? The LLM-as-a-Judge paradigm has become central to modern AI development—powering benchmarks like MT-Bench and Chatbot Arena, serving as reward models in RLHF, and automating evaluation in production pipelines. Yet a growing body of work documents that these judges are <span class="highlight">systematically biased</span>.</p>
+<p>When an AI model evaluates another AI model's response, can you trust the score? The LLM-as-a-Judge paradigm has become central to modern AI developmentpowering benchmarks like MT-Bench and Chatbot Arena, serving as reward models in RLHF, and automating evaluation in production pipelines. Yet a growing body of work documents that these judges are <span class="highlight">systematically biased</span>.</p>
 
 <p>A fundamental question remains unanswered: <strong>where does scoring bias come from?</strong> Is it inherent to pre-trained language models, or does it emerge during instruction tuning (SFT + RLHF)? This question has direct practical implications: if bias originates from pre-training, mitigation must target data curation; if it emerges during instruction tuning, mitigation should focus on alignment methods.</p>
 
 <div class="callout">
-<strong>Key question:</strong> Does instruction tuning improve or worsen scoring bias? We find the answer is <em>both</em>—depending on the bias type.
+<strong>Key question:</strong> Does instruction tuning improve or worsen scoring bias? We find the answer is <em>both</em>depending on the bias type.
 </div>
 
 <!-- 2. METHOD -->
@@ -113,7 +113,7 @@ We present the first systematic investigation of whether scoring bias originates
 </div>
 </div>
 
-<p>This is the central finding: <span class="highlight">instruction tuning has opposite effects depending on whether the bias targets format or content features.</span> Format biases (rubric order, score ID) consistently decrease—instruction-tuned models better parse scoring instructions. But content bias (reference answer) increases—instruction-tuned models are <em>more</em> susceptible to exemplar-based biasing.</p>
+<p>This is the central finding: <span class="highlight">instruction tuning has opposite effects depending on whether the bias targets format or content features.</span> Format biases (rubric order, score ID) consistently decreaseinstruction-tuned models better parse scoring instructions. But content bias (reference answer) increasesinstruction-tuned models are <em>more</em> susceptible to exemplar-based biasing.</p>
 
 <div class="chart-box">
 <canvas id="biasChart" height="250"></canvas>
@@ -133,10 +133,10 @@ We present the first systematic investigation of whether scoring bias originates
 
 <table>
 <tr><th>Hypothesis</th><th>Prediction</th><th>Result</th></tr>
-<tr><td>Global scoring shift</td><td>All probes move same direction</td><td><strong>Rejected</strong> — opposite directions observed</td></tr>
-<tr><td>Single family drives effect</td><td>Removing one family changes pattern</td><td><strong>Rejected</strong> — pattern holds across all</td></tr>
-<tr><td>Probe ordering artifact</td><td>Control differs in more than bias</td><td><strong>Rejected</strong> — identical prompts except bias</td></tr>
-<tr><td>Parser failure</td><td>Descriptive variant drives result</td><td><strong>Rejected</strong> — numeric+letter alone show pattern</td></tr>
+<tr><td>Global scoring shift</td><td>All probes move same direction</td><td><strong>Rejected</strong>  opposite directions observed</td></tr>
+<tr><td>Single family drives effect</td><td>Removing one family changes pattern</td><td><strong>Rejected</strong>  pattern holds across all</td></tr>
+<tr><td>Probe ordering artifact</td><td>Control differs in more than bias</td><td><strong>Rejected</strong>  identical prompts except bias</td></tr>
+<tr><td>Parser failure</td><td>Descriptive variant drives result</td><td><strong>Rejected</strong>  numeric+letter alone show pattern</td></tr>
 </table>
 
 <!-- 5. THEORY -->
@@ -156,7 +156,7 @@ We present the first systematic investigation of whether scoring bias originates
 
 <!-- 7. CONCLUSION -->
 <h2 id="conclusion">7. Conclusion</h2>
-<p>Scoring bias is <span class="highlight">not inherent to pre-training</span>—it is modulated by instruction tuning. This is good news for format biases (instruction tuning naturally reduces them) but a warning for content biases (instruction tuning worsens them). Model developers should report bias profiles alongside evaluation scores.</p>
+<p>Scoring bias is <span class="highlight">not inherent to pre-training</span>it is modulated by instruction tuning. This is good news for format biases (instruction tuning naturally reduces them) but a warning for content biases (instruction tuning worsens them). Model developers should report bias profiles alongside evaluation scores.</p>
 
 </div>
 

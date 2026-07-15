@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Statistical Analysis Notebook — comprehensive R-style statistical analysis for
+Statistical Analysis Notebook  comprehensive R-style statistical analysis for
 bias interaction experiments. Generates publication-ready tables and figures.
 
 Usage:

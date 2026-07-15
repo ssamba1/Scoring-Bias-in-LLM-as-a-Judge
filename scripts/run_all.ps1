@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Master Run All Script (PowerShell) — Root Cause Analysis Pipeline
+    Master Run All Script (PowerShell)  Root Cause Analysis Pipeline
 .DESCRIPTION
     Runs the complete root cause analysis pipeline:
     1. Validate data
@@ -17,7 +17,7 @@ $ResultsDir = Join-Path $ProjectRoot "results_rootcause"
 $PaperDir = Join-Path $ProjectRoot "paper"
 
 Write-Host "╔" ("═" * 58) "╗" -ForegroundColor Cyan
-Write-Host "║       ROOT CAUSE ANALYSIS — MASTER PIPELINE" -ForegroundColor Cyan
+Write-Host "║       ROOT CAUSE ANALYSIS  MASTER PIPELINE" -ForegroundColor Cyan
 Write-Host "╚" ("═" * 58) "╝" -ForegroundColor Cyan
 Write-Host "Project: $ProjectRoot"
 Write-Host "Date:    $(Get-Date)"

@@ -2,7 +2,7 @@
 """Build real analytical depth: independent findings beyond the differential effect.
 
 Each analysis yields a NEW finding, not commentary on the existing one.
-No GPU needed — uses model metadata + existing data.
+No GPU needed  uses model metadata + existing data.
 """
 import json, math
 from pathlib import Path
@@ -65,7 +65,7 @@ for group, name in [(rlhf, "RLHF"), (sft_dpo, "SFT+DPO"), (dpo, "DPO"), ([m for 
 findings.append({
     "finding": "Training Method Decomposition",
     "result": "RLHF models show the strongest differential effect. SFT+DPO models (Mistral) are outliers. DPO-only models (Zephyr) show higher overall bias.",
-    "evidence": f"RLHF avg rubric Δ={sum(abs(m[3]) for m in rlhf)/len(rlhf):.2f}, SFT+DPO avg={sum(abs(m[3]) for m in sft_dpo)/len(sft_dpo):.2f}" if rlhf and sft_dpo else "N=3 per group — directional only"
+    "evidence": f"RLHF avg rubric Δ={sum(abs(m[3]) for m in rlhf)/len(rlhf):.2f}, SFT+DPO avg={sum(abs(m[3]) for m in sft_dpo)/len(sft_dpo):.2f}" if rlhf and sft_dpo else "N=3 per group  directional only"
 })
 
 print("\n" + "="*60)
@@ -73,7 +73,7 @@ print("DEPTH FINDING 2: THE MISTRAL OUTLIER")
 print("="*60)
 print()
 
-# Mistral behaves differently — why?
+# Mistral behaves differently  why?
 mistral = MODELS[1]
 print(f"  Mistral-7B is the ONLY model where rubric bias Δ < 0 (bias WORSENED)")
 print(f"  Mistral-7B rubric Δ: {mistral[3]:+.2f} (expect positive for most models)")
@@ -87,7 +87,7 @@ print(f"  Test: Compare Mistral-Nemo (SFT+DPO) with RLHF models of similar size"
 print(f"  Mistral-Nemo rubric Δ: {MODELS[10][3]:+.2f} (also SFT+DPO, similar pattern?)")
 
 findings.append({
-    "finding": "The Mistral Outlier — DPO vs RLHF Bias Profile",
+    "finding": "The Mistral Outlier  DPO vs RLHF Bias Profile",
     "result": "Mistral-7B (SFT+DPO) shows rubric bias INCREASE (+0.66) while RLHF models show decrease (-1.0 to -3.2). This suggests the differential effect is training-method specific, not a universal property of instruction tuning.",
     "evidence": "Mistral-7B rubric Δ=+0.66 vs Llama-3.1-8B RLHF rubric Δ=-3.20. Both are ~7B parameters, suggesting training method, not size, is the driver."
 })
@@ -117,7 +117,7 @@ print("  → Size is NOT the primary driver. Training method matters more.")
 
 findings.append({
     "finding": "Size Independence",
-    "result": "The differential effect is not a size artifact. Large models (Nemotron, DeepSeek) show it, but so do small models (Gemma 2B). Mistral 7B (SFT+DPO) is the outlier — suggesting training method, not size, is the key variable.",
+    "result": "The differential effect is not a size artifact. Large models (Nemotron, DeepSeek) show it, but so do small models (Gemma 2B). Mistral 7B (SFT+DPO) is the outlier  suggesting training method, not size, is the key variable.",
     "evidence": f"Small model range: [{min(abs(m[3]) for m in small):.2f}, {max(abs(m[3]) for m in small):.2f}] vs Large model range: [{min(abs(m[3]) for m in large):.2f}, {max(abs(m[3]) for m in large):.2f}]" if small and large else "Directional pattern holds"
 })
 

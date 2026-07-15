@@ -278,7 +278,7 @@ def main():
         for ds, probes in comparison.items():
             for p, info in probes.items():
                 overlap = "OVERLAP" if info["cis_overlap"] else "MISMATCH"
-                print(f"  {ds}/{p}: {overlap} — existing CI={info['existing_ci']}, "
+                print(f"  {ds}/{p}: {overlap}  existing CI={info['existing_ci']}, "
                       f"new CI={info['new_ci']}, mean_diff={info['mean_difference']}")
 
     # Summarize

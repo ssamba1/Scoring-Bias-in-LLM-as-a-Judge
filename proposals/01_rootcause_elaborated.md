@@ -1,8 +1,8 @@
-# Option 1: Root Cause of Scoring Bias — Elaborated for Your Use Case
+# Option 1: Root Cause of Scoring Bias  Elaborated for Your Use Case
 
 ## What You're Actually Trying to Prove
 
-**The core question:** When an LLM judge changes its score based on trivial things like rubric order or score labels — does that bug come from the model's pre-training (its "raw knowledge") or from instruction tuning (learning to follow formats)?
+**The core question:** When an LLM judge changes its score based on trivial things like rubric order or score labels  does that bug come from the model's pre-training (its "raw knowledge") or from instruction tuning (learning to follow formats)?
 
 **Why this matters:** If scoring bias comes from pre-training, it's practically baked in and hard to fix. If it comes from instruction tuning, we can fix it by changing how we train judges. This distinction is valuable to every company using LLM-as-a-Judge in production.
 
@@ -10,13 +10,13 @@
 
 ### Week 1-2: Setup and pipeline (parallel work)
 
-**Student 1 — Dataset & Infrastructure**
+**Student 1  Dataset & Infrastructure**
 - Download Li et al.'s public dataset from github.com/KMdsy/scoring_bias/ (400 evaluation items already made)
 - Set up inference pipeline with HuggingFace Transformers
-- You have premier AI models — use Claude/GPT-4 to write the evaluation scripts and debug them
+- You have premier AI models  use Claude/GPT-4 to write the evaluation scripts and debug them
 - Set up 3 models: `meta-llama/Meta-Llama-3-8B`, `google/gemma-2-2b`, `mistralai/Mistral-7B-v0.3` (base versions)
 
-**Student 2 — Prompt Templates**
+**Student 2  Prompt Templates**
 - Use your AI access (Claude/GPT-4) to generate the 3 scoring bias prompt templates:
   1. **Rubric order:** Same rubric, criteria order swapped (A→B→C vs C→B→A)
   2. **Score ID:** Same rubric, labels as "1-5" vs "A-E" vs "I-V"
@@ -66,11 +66,11 @@ Split: ~10,800 inferences each. At ~1-2 seconds per inference on Colba T4, that'
 ## What the Final Deliverable Looks Like
 
 **A 6-8 page paper with:**
-1. **Abstract** — "We show that LLM judge scoring bias originates from instruction tuning, not pre-training..."
-2. **Introduction** — LLM-as-a-Judge is widely used but exhibits unexplained scoring biases
-3. **Methodology** — Model selection, perturbation design, statistical tests
-4. **Results** — 3 plots (one per bias type) showing base vs instruct Δ_score
-5. **Discussion** — Implications for training bias-robust judges
+1. **Abstract**  "We show that LLM judge scoring bias originates from instruction tuning, not pre-training..."
+2. **Introduction**  LLM-as-a-Judge is widely used but exhibits unexplained scoring biases
+3. **Methodology**  Model selection, perturbation design, statistical tests
+4. **Results**  3 plots (one per bias type) showing base vs instruct Δ_score
+5. **Discussion**  Implications for training bias-robust judges
 6. **Related Work & References**
 
 **Target venues:** 
@@ -80,11 +80,11 @@ Split: ~10,800 inferences each. At ~1-2 seconds per inference on Colba T4, that'
 
 ## What Makes This Strong for ISEF
 
-1. **Hypothesis-driven** — You're testing a specific causal theory
-2. **Controlled experiment** — Compare base vs instruct (clear independent variable)
-3. **Societal impact** — "Understanding where AI bias comes from" is compelling
-4. **Rigor** — 3 model families, 3 bias types, statistical tests
-5. **Story** — "We discovered that teaching AI to follow instructions also makes it biased"
+1. **Hypothesis-driven**  You're testing a specific causal theory
+2. **Controlled experiment**  Compare base vs instruct (clear independent variable)
+3. **Societal impact**  "Understanding where AI bias comes from" is compelling
+4. **Rigor**  3 model families, 3 bias types, statistical tests
+5. **Story**  "We discovered that teaching AI to follow instructions also makes it biased"
 
 ## Risk Assessment
 

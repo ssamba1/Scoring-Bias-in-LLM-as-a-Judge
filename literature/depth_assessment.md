@@ -28,8 +28,8 @@
 | **Formal theory** | One equation | Full theorem + proof framework, bounds, predictions |
 | **Robustness checks** | None | Cross-validation, different split methods, bootstrap across items, leave-one-out analysis |
 | **Alternative explanations** | Not discussed | Explicitly test and rule out 3+ alternative hypotheses |
-| **Failure cases** | Not discussed | Show *where* the effect breaks down — which models/items don't follow the pattern |
-| **Quantitative prediction** | None | "The model predicts that a 13B model with DPO training will have X% less format bias and Y% more content bias" — then verify |
+| **Failure cases** | Not discussed | Show *where* the effect breaks down  which models/items don't follow the pattern |
+| **Quantitative prediction** | None | "The model predicts that a 13B model with DPO training will have X% less format bias and Y% more content bias"  then verify |
 | **Practical mitigation** | Suggested verbally | Implemented and tested 5 methods, measured effectiveness |
 | **Literature synthesis** | Listed papers | Formal meta-analysis showing effect sizes across all prior work |
 | **Limitations** | Listed (brief) | Quantified impact of each limitation ("with N=44, our power is 99% for rubric order but only 55% for score ID") |
@@ -40,7 +40,7 @@
 
 | Work | Time | What It Unlocks |
 |------|------|----------------|
-| **Implement the IIAR hypothesis** — show embedding shifts between base and instruct under biased probes | 2 hrs | Causal evidence for the theory |
+| **Implement the IIAR hypothesis**  show embedding shifts between base and instruct under biased probes | 2 hrs | Causal evidence for the theory |
 | **Ablation: test on SFT-only vs DPO-only models** (not just combined instruct) | 4 hrs GPU | Which training stage causes which effect? |
 | **Write and test 3 alternative hypotheses** (e.g., "bias is from data distribution, not instruction tuning") | 2 hrs | Rules out other explanations |
 | **Quantify limitation impact** on every conclusion | 1 hr | Honest bounds on claims |
@@ -57,7 +57,7 @@
 
 **Is it a DEEP paper?** Not yet. It's a solid empirical paper with one strong finding. It lacks causal mechanism, robustness checks, alternative explanations, failure analysis, and practical mitigation.
 
-**Does it need to be deep to get published?** No. Many conference papers are "finding + clean experiment + discussion." Look at Li et al. (DASFAA 2026) — they identified the biases but had no base vs instruct comparison, no causal theory, no mitigation, and they got published.
+**Does it need to be deep to get published?** No. Many conference papers are "finding + clean experiment + discussion." Look at Li et al. (DASFAA 2026)  they identified the biases but had no base vs instruct comparison, no causal theory, no mitigation, and they got published.
 
 **Should you add depth?** Only if you want to target higher-tier venues. For arXiv + ACL Student Workshop, what you have is enough. For NeurIPS main track, you'd need more.
 

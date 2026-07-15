@@ -47,7 +47,7 @@ print(f"  Probes tested: {n_comparisons}")
 print(f"  Raw α = {alpha_raw}")
 print(f"  Bonferroni-corrected α = {alpha_corrected:.4f}")
 print(f"  Interpretation: Reject H₀ only if p < 0.017")
-# Our reference answer p was 0.034 — would NOT survive correction
+# Our reference answer p was 0.034  would NOT survive correction
 print(f"  Reference answer p=0.034 → {'SURVIVES' if 0.034 < alpha_corrected else 'FAILS'} Bonferroni")
 print(f"  Rubric order p=0.003 → SURVIVES Bonferroni")
 print(f"  Score ID p=0.009 → SURVIVES Bonferroni")
@@ -89,7 +89,7 @@ def wilcoxon_approx(vals):
 
 for probe, vals in deltas.items():
     if all(v == 0 for v in vals): 
-        print(f"  {probe:<10} all zeros — skipping")
+        print(f"  {probe:<10} all zeros  skipping")
         continue
     W, z, p = wilcoxon_approx(vals)
     status = "significant" if p < 0.05 else "not significant"
@@ -97,7 +97,7 @@ for probe, vals in deltas.items():
     findings[f"wilcoxon_{probe}"] = {"W": W, "z": z, "p": p}
 
 # ── 4. NORMALITY TESTS ──
-print("\n4. NORMALITY TEST (Shapiro-Wilk style — are the data normal for t-tests?)")
+print("\n4. NORMALITY TEST (Shapiro-Wilk style  are the data normal for t-tests?)")
 print("-"*60)
 def normality_test(vals):
     n = len(vals)
@@ -155,7 +155,7 @@ print("\n8. INTRA-CLASS CORRELATION (Reliability across model repeats)")
 print("-"*60)
 print("  With 3 repeats per model-probe combination:")
 print("  ICC(2,1) estimates the agreement between individual repeats")
-icc_estimate = 0.87  # simulated — need real data for exact
+icc_estimate = 0.87  # simulated  need real data for exact
 print(f"  Estimated ICC = {icc_estimate:.2f} (excellent reliability > 0.75)")
 print("  Note: ICC requires per-item scores, not aggregate deltas")
 findings["icc_reliability"] = {"estimated": icc_estimate, "interpretation": "excellent (if > 0.75)"}
@@ -182,7 +182,7 @@ for probe, vals in deltas.items():
     top = outliers[0]
     print(f"  {probe:<10} largest outlier: {top[0]} (z={top[1]:.2f})")
     if top[1] > 2:
-        print(f"           ⚠ Potential outlier — exceeds 2σ threshold")
+        print(f"           ⚠ Potential outlier  exceeds 2σ threshold")
     findings[f"outlier_{probe}"] = {"top_outlier": top[0], "z_score": top[1]}
 
 # ── 11. EFFECT SIZE COMPARISON WITH LITERATURE ──
@@ -194,7 +194,7 @@ for study, effects in lit_effects.items():
         our_d = findings.get(f"cohens_d_{probe}", {}).get("d", 0)
         lit_d = effects.get(f"{probe}_d", 0)
         print(f"  {probe:<10} Our d={our_d:.2f} vs {study} d={lit_d:.2f}")
-findings["compared_to_literature"] = {"our_effects": "generally larger — likely due to base vs instruct contrast"}
+findings["compared_to_literature"] = {"our_effects": "generally larger  likely due to base vs instruct contrast"}
 
 # ── 12. SENSITIVITY TO EFFECT DIRECTION ──
 print("\n12. DIRECTION CONSISTENCY ANALYSIS")

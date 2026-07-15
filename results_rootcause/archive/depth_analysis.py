@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Depth analysis: tests alternative hypotheses using existing Kaggle data.
-Buildable NOW — no GPU needed.
+Buildable NOW  no GPU needed.
 """
 import json, statistics
 from pathlib import Path
@@ -51,7 +51,7 @@ b_global = statistics.mean(base_avgs)
 i_global = statistics.mean(inst_avgs)
 print(f"\n  Global: base={b_global:.2f}  instruct={i_global:.2f}")
 print(f"  If purely a level shift, ALL probes would go SAME direction")
-print(f"  Instead: rubric ↓, score ↓, ref ↑ — opposite directions")
+print(f"  Instead: rubric ↓, score ↓, ref ↑  opposite directions")
 print(f"  → H1 REJECTED: level shift cannot produce differential effect")
 results["tests"].append({"hypothesis": "Global scoring level shift", "result": "REJECTED", "reason": "Opposite directions across probes"})
 
@@ -72,7 +72,7 @@ results["tests"].append({"hypothesis": "Single family drives effect", "result": 
 print("\nH3: 'Ordering of probes within prompts causes the effect'")
 print(f"  Control and biased variants differ ONLY in the bias manipulation")
 print(f"  Reversed rubric: '1=best 5=worst' vs '1=worst 5=best'")
-print(f"  The only variable is the scale direction — by construction")
+print(f"  The only variable is the scale direction  by construction")
 print(f"  → H3 REJECTED: experiment controls for ordering")
 results["tests"].append({"hypothesis": "Probe ordering causes effect", "result": "REJECTED", "reason": "Control and biased differ only in the bias variable"})
 

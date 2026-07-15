@@ -1,4 +1,4 @@
-# RESEARCH PROPOSAL — Option 2: Bias Interaction Effects
+# RESEARCH PROPOSAL  Option 2: Bias Interaction Effects
 
 ## Summary
 **Question:** When multiple LLM judge biases are simultaneously present (e.g., position bias + verbosity bias), do they compound (get worse), cancel out, or interact non-linearly?
@@ -10,7 +10,7 @@
 ## 1. Why This Gap is Real
 
 ### Evidence of absence:
-Subagent 3's exhaustive search: "bias interaction LLM judge", "compound OR cancel OR interact position verbosity", "cross-bias interaction", "combined bias effect" — **zero systematic empirical studies found.**
+Subagent 3's exhaustive search: "bias interaction LLM judge", "compound OR cancel OR interact position verbosity", "cross-bias interaction", "combined bias effect"  **zero systematic empirical studies found.**
 
 ### Acknowledged but never studied:
 Blog posts (mbrenndoerfer) note: *"Position bias, verbosity bias, and sycophancy do not operate independently. They interact and compound."* Soumik (2026, TMLR) mentions *"cross-bias interaction analysis"* but doesn't deeply study it.
@@ -79,7 +79,7 @@ For each of 400 evaluation items, generate 8 versions:
 - Verbosity bias Δ = score(long) − score(short)
 - Sentiment bias Δ = score(positive) − score(negative)
 
-### 3.2 Interaction Effects (NOVEL — this is the contribution)
+### 3.2 Interaction Effects (NOVEL  this is the contribution)
 - **Position × Verbosity:** Is Δ_verbosity the same in favored vs disfavored position?
 - **Position × Sentiment:** Does position bias change with sentiment?
 - **Verbosity × Sentiment:** Are verbose-positive responses doubly favored?
@@ -118,12 +118,12 @@ score ~ position + length + sentiment +
 
 ## 5. Paper Outline
 
-1. **Introduction** — LLM judges have known individual biases, but they never occur in isolation. What happens when biases co-occur?
-2. **Related Work** — Documented biases and their effect sizes (Zheng 2023, Shi 2025, Ye 2024, etc.)
-3. **Methodology** — Full factorial design, item construction, models, statistical model
-4. **Results** — Main effects (replicate known), interaction effects (novel), model comparison
-5. **Analysis** — Which bias pairs compound? Which cancel? Is the worst case predictable?
-6. **Implications** — How to design bias test suites (must test combinations, not just individual biases)
+1. **Introduction**  LLM judges have known individual biases, but they never occur in isolation. What happens when biases co-occur?
+2. **Related Work**  Documented biases and their effect sizes (Zheng 2023, Shi 2025, Ye 2024, etc.)
+3. **Methodology**  Full factorial design, item construction, models, statistical model
+4. **Results**  Main effects (replicate known), interaction effects (novel), model comparison
+5. **Analysis**  Which bias pairs compound? Which cancel? Is the worst case predictable?
+6. **Implications**  How to design bias test suites (must test combinations, not just individual biases)
 7. **Limitations & Future Work**
 
 ---
@@ -142,12 +142,12 @@ score ~ position + length + sentiment +
 ## 7. Cost Estimate
 - 5 judge models × 3,200 judgments each = 16,000 API calls
 - Estimated cost: ~$30-80 total (most judges are cheap for scoring)
-- **Total: ~$50 maximum** — zero GPU
+- **Total: ~$50 maximum**  zero GPU
 
 ---
 
 ## 8. Novelty Verification
-- **Searched:** "bias interaction LLM judge", "compound cancel interact position verbosity", "cross-bias interaction systematic" — **ZERO results**
+- **Searched:** "bias interaction LLM judge", "compound cancel interact position verbosity", "cross-bias interaction systematic"  **ZERO results**
 - Soumik (Apr 2026) mentions cross-bias analysis but does NOT systematically study interactions
 - Blog posts note "biases interact" as observation, not as systematic experiment
 - **Verdict: ✅ CONFIRMED UNTOUCHED**

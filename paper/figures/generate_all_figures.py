@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-generate_all_figures.py — Regenerate ALL figures (fig1–fig20) for the
+generate_all_figures.py  Regenerate ALL figures (fig1–fig20) for the
 Scoring Bias in LLM-as-a-Judge paper.
 
 Usage:
@@ -131,7 +131,7 @@ def fig1_bias_landscape():
 
     ax.set_xlabel("Model (sorted by mean Δ)", fontsize=12)
     ax.set_ylabel("Bias Δ (max inter-variant mean difference)", fontsize=12)
-    ax.set_title("Figure 1: Scoring Bias Landscape — All 22 Instruct-Tuned Models",
+    ax.set_title("Figure 1: Scoring Bias Landscape  All 22 Instruct-Tuned Models",
                  fontsize=14, fontweight="bold")
     ax.set_xticks(x + width)
     ax.set_xticklabels(models, rotation=45, ha="right", fontsize=8)
@@ -391,7 +391,7 @@ def fig8_flip_rate_comparison():
     ax.set_xticks(x)
     ax.set_xticklabels(probes, fontsize=12)
     ax.set_ylabel("Flip Rate (%)", fontsize=12)
-    ax.set_title("Figure 8: Flip Rate Comparison — Our Results vs Li et al. (2025)",
+    ax.set_title("Figure 8: Flip Rate Comparison  Our Results vs Li et al. (2025)",
                  fontsize=14, fontweight="bold")
     ax.legend(fontsize=10, framealpha=0.9)
     ax.grid(axis="y", alpha=0.3)
@@ -490,7 +490,7 @@ def fig10_comprehensive_dashboard():
     ax_b.set_yticks(range(len(models)))
     ax_b.set_yticklabels(models, fontsize=9)
     ax_b.set_xlabel("Mean Δ (Bias)", fontsize=12)
-    ax_b.set_title("B. Bias Landscape — All 22 Instruct Models", fontsize=13, fontweight="bold")
+    ax_b.set_title("B. Bias Landscape  All 22 Instruct Models", fontsize=13, fontweight="bold")
     ax_b.axvline(x=0.4, color="grey", linestyle=":", alpha=0.5)
     legend_elements = [
         Patch(facecolor="#E74C3C", label="High bias (Δ>0.7)"),
@@ -513,7 +513,7 @@ def fig10_comprehensive_dashboard():
         "KEY FINDINGS\n"
         "------------------------------------------------------------------------\n\n"
         "1. SCORING BIAS IS UBIQUITOUS. All 22 instruct models show measurable bias across at least one probe.\n"
-        f"   Mean Δ = {mean_bias_all:.3f} — a single probe change shifts scores by ~{mean_bias_all:.0%} of the scale.\n\n"
+        f"   Mean Δ = {mean_bias_all:.3f}  a single probe change shifts scores by ~{mean_bias_all:.0%} of the scale.\n\n"
         f"2. MODEL ROBUSTNESS VARIES 15×. Least biased: {best_model} (Δ={best_delta:.2f}).\n"
         f"   Most biased: {worst_model} (Δ={worst_delta:.2f}).\n\n"
         "3. INSTRUCTION TUNING REDUCES FORMAT BIAS BUT CAN INCREASE CONTENT BIAS.\n"
@@ -528,7 +528,7 @@ def fig10_comprehensive_dashboard():
               bbox=dict(boxstyle="round,pad=1.5", facecolor="#FAFAFA",
                         edgecolor="#333333", linewidth=2))
 
-    plt.suptitle("Figure 10: Comprehensive Summary — Scoring Bias in LLM-as-a-Judge",
+    plt.suptitle("Figure 10: Comprehensive Summary  Scoring Bias in LLM-as-a-Judge",
                  fontsize=16, fontweight="bold", y=0.98)
     fig.savefig(FIGS / "fig10_comprehensive_dashboard.png", dpi=300, bbox_inches="tight")
     plt.close()
@@ -541,7 +541,7 @@ def fig10_comprehensive_dashboard():
 
 
 def fig11_error_analysis():
-    """Figure 11: Error analysis — most & least biased models."""
+    """Figure 11: Error analysis  most & least biased models."""
     entries = ranking["by_mean_delta"]
     most_biased = entries[-5:]
     least_biased = entries[:5]
@@ -584,7 +584,7 @@ def fig11_error_analysis():
         ax.legend(fontsize=10, framealpha=0.9)
         ax.axhline(y=0, color="grey", linewidth=0.8)
 
-    plt.suptitle("Figure 11: Error Analysis — Most & Least Biased Models",
+    plt.suptitle("Figure 11: Error Analysis  Most & Least Biased Models",
                  fontsize=16, fontweight="bold", y=1.02)
     plt.tight_layout()
     fig.savefig(FIGS / "fig11_error_analysis.png", dpi=300, bbox_inches="tight")
@@ -682,7 +682,7 @@ def fig14_probe_correlation_matrix():
 
 
 def fig15_power_curve():
-    """Figure 15: Power curve — N families vs statistical power."""
+    """Figure 15: Power curve  N families vs statistical power."""
     power_data = power_curve["power_by_N"]
     ns = sorted(int(k) for k in power_data.keys())
 
@@ -699,7 +699,7 @@ def fig15_power_curve():
 
     ax.set_xlabel("Number of Families (N)", fontsize=12)
     ax.set_ylabel("Statistical Power", fontsize=12)
-    ax.set_title("Figure 15: Power Curve — N Families vs Statistical Power",
+    ax.set_title("Figure 15: Power Curve  N Families vs Statistical Power",
                  fontsize=14, fontweight="bold")
     ax.legend(fontsize=10, framealpha=0.9, loc="lower right")
     ax.set_ylim(0, 1.05)
@@ -713,7 +713,7 @@ def fig15_power_curve():
 
 
 def fig16_variance_decomposition():
-    """Figure 16: Variance decomposition — between vs within model."""
+    """Figure 16: Variance decomposition  between vs within model."""
     probes_data = {
         "All Data": var_decomp["all_data"],
         "Rubric Order": var_decomp["probe_rubric_order"],
@@ -737,7 +737,7 @@ def fig16_variance_decomposition():
     ax.set_xticks(x)
     ax.set_xticklabels(labels, fontsize=11)
     ax.set_ylabel("Variance (%)", fontsize=12)
-    ax.set_title("Figure 16: Variance Decomposition — Between vs Within Model",
+    ax.set_title("Figure 16: Variance Decomposition  Between vs Within Model",
                  fontsize=14, fontweight="bold")
     ax.legend(fontsize=10, framealpha=0.9)
     ax.set_ylim(0, 105)
@@ -757,7 +757,7 @@ def fig16_variance_decomposition():
 
 
 def fig17_item_discrimination():
-    """Figure 17: Item discrimination — reused from fig9."""
+    """Figure 17: Item discrimination  reused from fig9."""
     fig9_item_analysis()
 
 
@@ -816,7 +816,7 @@ def fig18_base_vs_instruct_all_models():
         ]
         ax.legend(handles=legend_elements, fontsize=9, framealpha=0.9)
 
-    plt.suptitle("Figure 18: Base vs Instruct Model Bias — By Training Method",
+    plt.suptitle("Figure 18: Base vs Instruct Model Bias  By Training Method",
                  fontsize=15, fontweight="bold", y=1.03)
     plt.tight_layout()
     fig.savefig(FIGS / "fig18_base_vs_instruct_all_models.png", dpi=300, bbox_inches="tight")
@@ -825,7 +825,7 @@ def fig18_base_vs_instruct_all_models():
 
 
 def fig19_bayes_factor_comparison():
-    """Figure 19: Bayes factor comparison — bar chart."""
+    """Figure 19: Bayes factor comparison  bar chart."""
     fig, ax = plt.subplots(figsize=(12, 7))
 
     conditions = ["Base (t4fam)", "Instruct (t4fam)", "Study 1 (22 models)"]
@@ -859,7 +859,7 @@ def fig19_bayes_factor_comparison():
     ax.set_xticks(x + bar_width)
     ax.set_xticklabels(conditions, fontsize=12)
     ax.set_ylabel("log₁₀(Bayes Factor)", fontsize=12)
-    ax.set_title("Figure 19: Bayes Factor Comparison — Base, Instruct, and All Models",
+    ax.set_title("Figure 19: Bayes Factor Comparison  Base, Instruct, and All Models",
                  fontsize=15, fontweight="bold")
     ax.legend(fontsize=9, framealpha=0.9, loc="upper left")
     ax.set_ylim(bottom=-0.3)
@@ -918,7 +918,7 @@ if __name__ == "__main__":
             print(f"  ⚠ Creating figures output directory")
             figs_dir.mkdir(parents=True, exist_ok=True)
         print("\n" + "=" * 60)
-        print("Check complete — all prerequisites satisfied for figure generation")
+        print("Check complete  all prerequisites satisfied for figure generation")
         print("=" * 60)
         sys.exit(0)
 

@@ -3,7 +3,7 @@
 import json
 
 print("""
-=== SCORING BIAS IN LLM-AS-A-JUDGE — FINAL RESULTS ===
+=== SCORING BIAS IN LLM-AS-A-JUDGE  FINAL RESULTS ===
 
 DATA: 10 base-instruct families + 22 instruct-only models = 32 variants
 DOI: 10.5281/zenodo.21361920

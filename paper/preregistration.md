@@ -1,4 +1,4 @@
-# Preregistration Draft — OSF-Style
+# Preregistration Draft  OSF-Style
 
 ## Study 1: Root Cause of Scoring Bias
 

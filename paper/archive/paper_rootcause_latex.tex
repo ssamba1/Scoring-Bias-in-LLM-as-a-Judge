@@ -95,7 +95,7 @@ For each probe, we compute:
 \begin{itemize}
     \item \textbf{Flip rate (FR)}: Proportion of items where the score changes from baseline
     \item \textbf{Mean absolute deviation (MAD)}: Average $|score_i - score_{baseline}|$
-    \item \textbf{Bias amplification factor}: $\frac{FR_{instruct}}{FR_{base}}$ — how much bias increases after instruction tuning
+    \item \textbf{Bias amplification factor}: $\frac{FR_{instruct}}{FR_{base}}$  how much bias increases after instruction tuning
 \end{itemize}
 
 We use bootstrapped confidence intervals (10,000 resamples) and paired t-tests for significance.
@@ -177,7 +177,7 @@ All three model families show the same qualitative pattern: base models have low
 \subsection{Interpretation}
 Our results strongly suggest that scoring bias is primarily acquired during post-training (instruction tuning and/or RLHF), not inherited from pre-training. This is consistent with the hypothesis that instruction tuning makes models more attentive to surface-level prompt features (including rubric format and ID labels) as a side effect of improving instruction following \cite{pan2025user}.
 
-The hierarchical pattern is notable: reference answer bias is amplified most (2.29$\times$), followed by rubric order (2.09$\times$) and score ID (1.77$\times$). This ordering correlates with how directly each bias relates to the scoring instruction — reference answers are explicitly part of the task, suggesting that instruction tuning primarily amplifies task-related attention.
+The hierarchical pattern is notable: reference answer bias is amplified most (2.29$\times$), followed by rubric order (2.09$\times$) and score ID (1.77$\times$). This ordering correlates with how directly each bias relates to the scoring instruction  reference answers are explicitly part of the task, suggesting that instruction tuning primarily amplifies task-related attention.
 
 \subsection{Implications}
 \begin{enumerate}

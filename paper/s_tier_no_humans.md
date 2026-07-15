@@ -23,14 +23,14 @@ Rerun T4 script. This adds:
 ### Run on Colab A100 (free, 90 min/week) → 5 more families
 Colab gives you a free A100 for 90 min/week. Each model takes ~5 min:
 - **Gemma-2-9B** + IT (9B, gated, needs HF_TOKEN)
-- **Llama-3.1-8B** + IT (8B, gated — this is the one that showed content ↑ in original Kaggle)
+- **Llama-3.1-8B** + IT (8B, gated  this is the one that showed content ↑ in original Kaggle)
 - **Qwen2.5-14B** + IT (14B, open)
 - **Mistral-7B-v0.3** (if not done above)
 - **DeepSeek-7B** + IT (7B, open)
 
 **N = 12 → 17 families**
 
-### OpenRouter — 5 more instruct-only models ($2)
+### OpenRouter  5 more instruct-only models ($2)
 Add 5 more instruct models from the earlier list that failed (Gemini-2.5-Pro, etc.) with the fixed stop tokens.
 
 **N = 17 families + 27 instruct models**
@@ -56,7 +56,7 @@ Test whether small models (≤1.5B) truly show NO content bias increase (not jus
 
 ## Phase 3: Theory Experiments (1 week, $0)
 
-### Attention analysis at 7B — 1 hour on Colab A100
+### Attention analysis at 7B  1 hour on Colab A100
 Run attention analysis on Llama-3.1-8B (shows content ↑). This tests:
 - Format Efficiency Hypothesis: does format attention decrease more at 8B?
 - Does content attention finally increase at 8B?

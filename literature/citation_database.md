@@ -1,4 +1,4 @@
-# LLM-as-a-Judge Bias Research — Complete Citation Database
+# LLM-as-a-Judge Bias Research  Complete Citation Database
 
 ## 30+ References with DOI Links
 

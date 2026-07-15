@@ -4,10 +4,10 @@
 
 Go to https://arxiv.org/submit and upload these files:
 
-1. **`main.tex`** — Full manuscript (rename `camera_ready_full.tex`)
-2. **`references.bib`** — Bibliography (16 entries)
+1. **`main.tex`**  Full manuscript (rename `camera_ready_full.tex`)
+2. **`references.bib`**  Bibliography (16 entries)
 
-arXiv's system will compile them automatically — they have LaTeX installed.
+arXiv's system will compile them automatically  they have LaTeX installed.
 
 ## Metadata Fields to Fill
 

@@ -1,4 +1,4 @@
-# Project dependencies — pinned from pip freeze
+# Project dependencies  pinned from pip freeze
 # Full environment snapshot in requirements-all.txt
 transformers==5.12.1
 torch>=2.0.0

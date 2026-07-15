@@ -94,4 +94,4 @@ Week 12:    Writing polish, figures, submission
 | Reproducibility | 9/10 | 10/10 | HF dataset, Binder |
 | Venue fit | 3/10 | 8/10 | Now viable for NeurIPS main |
 
-**Final score:** 6.5/10 → ~8.5-9.0/10 — competitive at NeurIPS/ACL main track.
+**Final score:** 6.5/10 → ~8.5-9.0/10  competitive at NeurIPS/ACL main track.

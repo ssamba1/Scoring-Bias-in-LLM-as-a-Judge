@@ -104,7 +104,7 @@ def fig11():
         ax.legend(fontsize=10, framealpha=0.9)
         ax.axhline(y=0, color='grey', linewidth=0.8)
 
-    plt.suptitle('Figure 11: Error Analysis — Most & Least Biased Models',
+    plt.suptitle('Figure 11: Error Analysis  Most & Least Biased Models',
                  fontsize=16, fontweight='bold', y=1.02)
     plt.tight_layout()
     fig.savefig(os.path.join(FIGS, 'fig11_error_analysis.png'), dpi=300, bbox_inches='tight')
@@ -237,7 +237,7 @@ def fig15():
     # Annotate power at N=9 for each probe
     ax.set_xlabel('Number of Families (N)')
     ax.set_ylabel('Statistical Power')
-    ax.set_title('Figure 15: Power Curve — N Families vs Statistical Power',
+    ax.set_title('Figure 15: Power Curve  N Families vs Statistical Power',
                  fontsize=14, fontweight='bold')
     ax.legend(fontsize=10, framealpha=0.9, loc='lower right')
     ax.set_ylim(0, 1.05)
@@ -295,7 +295,7 @@ def fig16():
         ax.set_title(label, fontsize=9, fontweight='bold')
 
     ax2.axis('off')  # placeholder for flow
-    plt.suptitle('Figure 16: Variance Decomposition — Between-Model vs Within-Model',
+    plt.suptitle('Figure 16: Variance Decomposition  Between-Model vs Within-Model',
                  fontsize=15, fontweight='bold', y=1.02)
     plt.tight_layout()
     fig.savefig(os.path.join(FIGS, 'fig16_variance_decomposition.png'), dpi=300, bbox_inches='tight')
@@ -434,7 +434,7 @@ def fig18():
                                    markersize=10, label=m) for m in ['RLHF', 'SFT']]
         ax.legend(handles=legend_elements, fontsize=9, framealpha=0.9)
 
-    plt.suptitle('Figure 18: Base vs Instruct Model Bias — Per Family (7 families, 14 models)',
+    plt.suptitle('Figure 18: Base vs Instruct Model Bias  Per Family (7 families, 14 models)',
                  fontsize=15, fontweight='bold', y=1.03)
     plt.tight_layout()
     fig.savefig(os.path.join(FIGS, 'fig18_base_vs_instruct_all_models.png'), dpi=300, bbox_inches='tight')
@@ -481,7 +481,7 @@ def fig19():
     ax.set_xticks(x + bar_width)
     ax.set_xticklabels(conditions, fontsize=12)
     ax.set_ylabel('log10(Bayes Factor)')
-    ax.set_title('Figure 19: Bayes Factor Comparison — Base, Instruct, and All Models',
+    ax.set_title('Figure 19: Bayes Factor Comparison  Base, Instruct, and All Models',
                  fontsize=15, fontweight='bold')
     ax.legend(fontsize=9, framealpha=0.9, loc='upper left')
     ax.set_ylim(bottom=-0.3)
@@ -535,7 +535,7 @@ def fig20():
     ax_b.set_yticks(range(len(models)))
     ax_b.set_yticklabels(models, fontsize=9)
     ax_b.set_xlabel('Mean Δ (Bias)')
-    ax_b.set_title('B. Bias Landscape — All 22 Instruct Models', fontsize=13, fontweight='bold')
+    ax_b.set_title('B. Bias Landscape  All 22 Instruct Models', fontsize=13, fontweight='bold')
     ax_b.axvline(x=0.4, color='grey', linestyle=':', alpha=0.5)
     # Color legend
     from matplotlib.patches import Patch
@@ -602,7 +602,7 @@ def fig20():
              fontsize=14, verticalalignment='top',
              bbox=dict(boxstyle='round,pad=1.5', facecolor='#FAFAFA', edgecolor='#333333', linewidth=2))
 
-    plt.suptitle('Figure 20: Comprehensive Summary — Evaluation Probe Bias Analysis',
+    plt.suptitle('Figure 20: Comprehensive Summary  Evaluation Probe Bias Analysis',
                  fontsize=18, fontweight='bold', y=0.98)
     fig.savefig(os.path.join(FIGS, 'fig20_comprehensive_summary.png'), dpi=300, bbox_inches='tight')
     plt.close()

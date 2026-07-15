@@ -1,6 +1,6 @@
 # Research Notebook
 
-> **A timeline of the research journey — from initial idea to submission.**
+> **A timeline of the research journey  from initial idea to submission.**
 >
 > Key decisions, what was tried and didn't work, and lessons learned.
 
@@ -24,7 +24,7 @@
 
 ## Overview
 
-**Research Question**: Where does scoring bias in LLM-as-a-Judge models come from — pre-training or instruction tuning?
+**Research Question**: Where does scoring bias in LLM-as-a-Judge models come from  pre-training or instruction tuning?
 
 **Timeline**: March 2026 → July 2026 (approximately 4 months)
 
@@ -86,7 +86,7 @@ Prior work treated LLMs as black boxes. We wanted to open the box and understand
 
 ### First Attempt: Bias Interaction Effects
 
-We initially planned to study how **multiple biases interact** — for example, does rubric order bias interact with reference answer bias?
+We initially planned to study how **multiple biases interact**  for example, does rubric order bias interact with reference answer bias?
 
 **Status**: This became a secondary project (`pipeline_biasinteraction/`).
 
@@ -112,7 +112,7 @@ We tested 3 model families on Kaggle's free GPU tier:
 - **Gemma 2** (27B): Google's open-weight model
 - **Qwen 2.5** (32B): Alibaba's open-weight model
 
-**Results**: We found a hint of the differential effect — but with only 3 families, we couldn't draw conclusions.
+**Results**: We found a hint of the differential effect  but with only 3 families, we couldn't draw conclusions.
 
 **Decision**: Expand to more model families.
 
@@ -138,7 +138,7 @@ Was this real? We needed more data.
 
 ### Key Decision: Go Broad, Not Deep
 
-We chose breadth over depth — test many models with 3 probes rather than few models with many probes. This was the right call for our research question (which is about general patterns across models).
+We chose breadth over depth  test many models with 3 probes rather than few models with many probes. This was the right call for our research question (which is about general patterns across models).
 
 ### What We Gave Up
 
@@ -212,7 +212,7 @@ The **Instruction-Induced Attention Redistribution** hypothesis was developed ov
 
 1. **Observation**: Format biases ↓, content biases ↑
 2. **Question**: What mechanism could explain both?
-3. **Hypothesis**: Instruction tuning redistributes attention — more focus on task-relevant features (reducing format bias), but also more attention to all context (increasing content bias)
+3. **Hypothesis**: Instruction tuning redistributes attention  more focus on task-relevant features (reducing format bias), but also more attention to all context (increasing content bias)
 
 ### Statistical Verification
 
@@ -360,7 +360,7 @@ For arXiv submission, we created:
 
 ### What Could Be Improved
 
-1. **More base-instruct pairs**: Only 7 families had both variants — limited power for some comparisons
+1. **More base-instruct pairs**: Only 7 families had both variants  limited power for some comparisons
 2. **More probe types**: 3 probes is a start, but there are many more biases to study
 3. **Pre-registration**: Should have pre-registered the analysis plan
 4. **Deeper analysis of individual models**: Averaging across probes hides interesting model-specific patterns
@@ -445,7 +445,7 @@ Final: Production-grade research code
 
 ## Final Thoughts
 
-This research journey taught us that **the origin of AI biases is complex**. The same training process that makes models better at following instructions can simultaneously fix some biases and create others. There's no simple fix — understanding this complexity is the first step toward building fairer AI judges.
+This research journey taught us that **the origin of AI biases is complex**. The same training process that makes models better at following instructions can simultaneously fix some biases and create others. There's no simple fix  understanding this complexity is the first step toward building fairer AI judges.
 
 The codebase and data are fully open-source. We hope other researchers will build on this foundation, test more models, discover more biases, and develop effective mitigation strategies.
 

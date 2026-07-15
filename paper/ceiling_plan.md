@@ -11,7 +11,7 @@
 **Sections to expand:**
 | Section | Current Pages | Target | What's Missing |
 |---------|--------------|--------|---------------|
-| Title + Abstract | 1 | 1 | — |
+| Title + Abstract | 1 | 1 |  |
 | Introduction | 1 | 3 | Hook paragraph, concrete example, road map |
 | Related Work | 1 | 3 | Bias taxonomy table, position-in-literature diagram |
 | Methodology | 1 | 3 | Model card, probe design rationale, item construction |
@@ -19,7 +19,7 @@
 | Discussion | 1 | 2 | IIAR predictions, comparison with alternative theories |
 | Limitations | 0.5 | 2 | Quantified impact of each limitation |
 | Broader Impact | 0.5 | 1 | Ethics, societal implications |
-| Conclusion | 0.5 | 1 | — |
+| Conclusion | 0.5 | 1 |  |
 
 **Time:** ~6 hours  
 **Impact:** The single most important thing for the paper's quality.

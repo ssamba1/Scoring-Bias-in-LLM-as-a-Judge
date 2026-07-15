@@ -1,4 +1,4 @@
-# Everything Remaining — Complete Project Inventory
+# Everything Remaining  Complete Project Inventory
 
 ## Phase A: Buildable NOW (no GPU results needed)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Data augmentation tool — generate additional evaluation items on demand.
+"""Data augmentation tool  generate additional evaluation items on demand.
 Extends the existing 400 items with more diverse samples.
 """
 import csv, json, random, sys

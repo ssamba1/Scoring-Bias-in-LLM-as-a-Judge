@@ -12,7 +12,7 @@
 # ---
 
 # %% [markdown]
-# # 03 — Base vs Instruct Comparison
+# # 03  Base vs Instruct Comparison
 #
 # Compare base and instruct-tuned variants of the same model families.
 #

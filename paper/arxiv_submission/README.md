@@ -8,10 +8,10 @@
 
 ## Files Included
 
-- **main.tex** — Full manuscript (20 pages, two-column, camera-ready)
-- **fig1_framework.html** through **fig8_mitigation.html** — Publication figures
-- **metadata.yaml** — arXiv submission metadata
-- **submit.sh** — Automated submission script
+- **main.tex**  Full manuscript (20 pages, two-column, camera-ready)
+- **fig1_framework.html** through **fig8_mitigation.html**  Publication figures
+- **metadata.yaml**  arXiv submission metadata
+- **submit.sh**  Automated submission script
 
 ## How to Reproduce
 

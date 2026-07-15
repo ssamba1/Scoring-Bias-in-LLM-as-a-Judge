@@ -1,4 +1,4 @@
-# RESEARCH PROPOSAL — Option 1: Root Cause of Scoring Bias
+# RESEARCH PROPOSAL  Option 1: Root Cause of Scoring Bias
 
 ## Summary
 **Question:** Does LLM judge scoring bias (rubric order, score ID, reference answer score) originate from pre-training data or post-training (instruction tuning + RLHF)?
@@ -98,12 +98,12 @@ For each model family, compare:
 
 ## 6. Paper Outline
 
-1. **Introduction** — LLM-as-a-Judge is critical but biased. Open question: where does scoring bias come from?
-2. **Related Work** — Li et al. 2025 (defined scoring bias), Pan et al. 2025 (methodology proof)
-3. **Methodology** — Models, datasets, perturbation types, statistical tests
-4. **Results** — Base vs instruct comparison across 3 families × 3 bias types
-5. **Analysis** — Which training stage introduces bias? Is it consistent across model families?
-6. **Implications** — Guidance for training bias-robust judges
+1. **Introduction**  LLM-as-a-Judge is critical but biased. Open question: where does scoring bias come from?
+2. **Related Work**  Li et al. 2025 (defined scoring bias), Pan et al. 2025 (methodology proof)
+3. **Methodology**  Models, datasets, perturbation types, statistical tests
+4. **Results**  Base vs instruct comparison across 3 families × 3 bias types
+5. **Analysis**  Which training stage introduces bias? Is it consistent across model families?
+6. **Implications**  Guidance for training bias-robust judges
 7. **Limitations & Future Work**
 
 ---
@@ -127,7 +127,7 @@ For each model family, compare:
 ---
 
 ## 9. Novelty Verification
-- **Searched:** "scoring bias base instruct comparison", "scoring bias root cause", "scoring bias pre-training post-training" — **ZERO results**
+- **Searched:** "scoring bias base instruct comparison", "scoring bias root cause", "scoring bias pre-training post-training"  **ZERO results**
 - **Li et al. 2025 citations checked:** None of the 27+ citing papers address root cause
 - **Pan et al. 2025 methodology:** Proved valid for user-assistant bias, never applied to scoring bias
 - **Verdict: ✅ CONFIRMED UNTOUCHED**

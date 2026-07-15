@@ -62,14 +62,14 @@ h1{font-size:1.5rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-b
     <h3>Control (unbiased prompt)</h3>
     <div id="control-box" class="response-box" style="min-height:60px">
       Prompt: "Score from 1 to 5 (1=worst, 5=best)"<br><br>
-      <span id="control-score" class="score score-mid">—</span>
+      <span id="control-score" class="score score-mid"></span>
     </div>
   </div>
   <div class="card">
     <h3 id="biased-label">Biased (altered prompt)</h3>
     <div id="biased-box" class="response-box" style="min-height:60px">
       <span id="biased-prompt">Click "Run Demonstration"</span><br><br>
-      <span id="biased-score" class="score score-mid">—</span>
+      <span id="biased-score" class="score score-mid"></span>
     </div>
   </div>
 </div>
@@ -83,7 +83,7 @@ h1{font-size:1.5rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-b
 <div class="card">
   <h3>Key Insight</h3>
   <p style="font-size:0.85rem;color:#94a3b8;line-height:1.6">
-    <strong style="color:#fbbf24">Base models</strong> follow rubric instructions literally — reversing the scale completely flips their scores.<br>
+    <strong style="color:#fbbf24">Base models</strong> follow rubric instructions literally  reversing the scale completely flips their scores.<br>
     <strong style="color:#60a5fa">Instruct models</strong> are more robust to format changes but MORE susceptible to content biasing (reference examples).<br>
     This differential effect is the key finding of our research.
   </p>
@@ -91,23 +91,23 @@ h1{font-size:1.5rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-b
 
 <script>
 const DATA = {
-  "llama3-base":  {"rubric":{"ctrl":5.00,"biased":1.00,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":80},
-                   "scoreid":{"ctrl":5.00,"biased":4.98,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":0.4},
+  "llama3-base":  {"rubric":{"ctrl":5.00,"biased":1.00,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\"  reversed scale","pct":80},
+                   "scoreid":{"ctrl":5.00,"biased":4.98,"prompt":"\"Score from A to E (A=best, E=worst)\"  letter grades","pct":0.4},
                    "ref":{"ctrl":5.00,"biased":4.60,"prompt":"Reference example shown before scoring","pct":8}},
-  "llama3-inst":  {"rubric":{"ctrl":3.28,"biased":2.96,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":10},
-                   "scoreid":{"ctrl":4.68,"biased":4.48,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":4},
+  "llama3-inst":  {"rubric":{"ctrl":3.28,"biased":2.96,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\"  reversed scale","pct":10},
+                   "scoreid":{"ctrl":4.68,"biased":4.48,"prompt":"\"Score from A to E (A=best, E=worst)\"  letter grades","pct":4},
                    "ref":{"ctrl":2.68,"biased":3.88,"prompt":"Reference example with score 5 shown","pct":45}},
-  "mistral-base": {"rubric":{"ctrl":4.04,"biased":1.08,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":73},
-                   "scoreid":{"ctrl":3.96,"biased":4.90,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":24},
+  "mistral-base": {"rubric":{"ctrl":4.04,"biased":1.08,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\"  reversed scale","pct":73},
+                   "scoreid":{"ctrl":3.96,"biased":4.90,"prompt":"\"Score from A to E (A=best, E=worst)\"  letter grades","pct":24},
                    "ref":{"ctrl":4.06,"biased":2.26,"prompt":"Poor reference example shown","pct":44}},
-  "mistral-inst": {"rubric":{"ctrl":4.78,"biased":1.16,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":76},
-                   "scoreid":{"ctrl":4.90,"biased":5.00,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":2},
+  "mistral-inst": {"rubric":{"ctrl":4.78,"biased":1.16,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\"  reversed scale","pct":76},
+                   "scoreid":{"ctrl":4.90,"biased":5.00,"prompt":"\"Score from A to E (A=best, E=worst)\"  letter grades","pct":2},
                    "ref":{"ctrl":4.46,"biased":4.08,"prompt":"Reference example shown","pct":8}},
-  "gemma2-base":  {"rubric":{"ctrl":1.40,"biased":1.44,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":3},
-                   "scoreid":{"ctrl":3.94,"biased":5.00,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":27},
+  "gemma2-base":  {"rubric":{"ctrl":1.40,"biased":1.44,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\"  reversed scale","pct":3},
+                   "scoreid":{"ctrl":3.94,"biased":5.00,"prompt":"\"Score from A to E (A=best, E=worst)\"  letter grades","pct":27},
                    "ref":{"ctrl":1.00,"biased":1.00,"prompt":"Any reference example shown","pct":0}},
-  "gemma2-inst":  {"rubric":{"ctrl":3.74,"biased":3.80,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\" — reversed scale","pct":2},
-                   "scoreid":{"ctrl":3.88,"biased":4.04,"prompt":"\"Score from A to E (A=best, E=worst)\" — letter grades","pct":4},
+  "gemma2-inst":  {"rubric":{"ctrl":3.74,"biased":3.80,"prompt":"\"Score from 1 to 5 (1=best, 5=worst)\"  reversed scale","pct":2},
+                   "scoreid":{"ctrl":3.88,"biased":4.04,"prompt":"\"Score from A to E (A=best, E=worst)\"  letter grades","pct":4},
                    "ref":{"ctrl":3.86,"biased":3.16,"prompt":"Reference example shown","pct":18}}
 };
 

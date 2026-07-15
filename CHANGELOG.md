@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0] — July 2026
+## [1.0.0]  July 2026
 
 ### Added
 - Complete camera-ready paper (20 pages, LaTeX)
@@ -17,7 +17,6 @@
 - CI workflow (GitHub Actions)
 - Dockerfile + docker-compose
 - arXiv submission package
-- ISEF competition materials
 - Production-grade infrastructure:
   - .pre-commit-config.yaml with trailing-whitespace, end-of-file-fixer, check-yaml, check-json, check-added-large-files, flake8, black
   - .editorconfig with language-specific indentation rules
@@ -36,7 +35,7 @@
   - .hermes.md project config for Hermes agent
   - Lint report and project statistics in infrastructure/
 
-## [0.9.0] — June 2026
+## [0.9.0]  June 2026
 
 ### Added
 - Initial project structure

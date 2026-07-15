@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ATTENTION ANALYSIS AT 3B — Tests IIAR at scale where content ↑ effect appears.
+ATTENTION ANALYSIS AT 3B  Tests IIAR at scale where content ↑ effect appears.
 Compares: Llama-3.2-3B base vs instruct attention patterns.
 
 Run on Kaggle T4 (free). Needs HF_TOKEN for gated Llama models.
@@ -23,7 +23,7 @@ PROMPT = """Evaluate the following response.
 ### Score from 1-5 (where 1 is worst, 5 is best)
 ### Score:"""
 
-# Token classification — expanded for better coverage
+# Token classification  expanded for better coverage
 FORMAT_PATTERNS = ["###", "Instruction", "Response", "Score", "1", "2", "3", "4", "5", 
                    "from", "where", "is", "the", "worst", "best", ":", "\n", " ", "."]
 CONTENT_PATTERNS = ["photosynthesis", "explain", "happens", "plants", "sunlight", 

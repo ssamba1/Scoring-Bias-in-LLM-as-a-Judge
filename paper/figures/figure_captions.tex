@@ -1,5 +1,5 @@
 % ─────────────────────────────────────────────────────────────────
-% Figure Captions — Scoring Bias in LLM-as-a-Judge
+% Figure Captions  Scoring Bias in LLM-as-a-Judge
 % Ready to copy into the paper. Each caption is a standalone \caption{...}
 % with proper \label{fig:name} for cross-referencing.
 % ─────────────────────────────────────────────────────────────────
@@ -211,7 +211,7 @@ but this may reflect small sample size (n=2) rather than a training-method effec
 Lines show mean $\Delta$ across 5 size bins: $\leq$3B (n=6), $\leq$7B (n=5), $\leq$30B (n=4),
 $\leq$100B (n=3), and $>$100B (n=4).
 Score ID bias (green) shows the strongest size-dependent trend, decreasing from
-$\Delta = 1.08$ ($\leq$3B) to $\Delta = 0.28$ ($>$100B) — a 74\% reduction.
+$\Delta = 1.08$ ($\leq$3B) to $\Delta = 0.28$ ($>$100B)  a 74\% reduction.
 Rubric Order and Reference Answer show weaker size dependence.
 The largest bin ($>$100B) includes DeepSeek-V3 (671B MoE) and Hy3-295B (MoE),
 which may benefit from both scale and architectural sparsity.
@@ -229,7 +229,7 @@ Pearson correlation coefficients between probe $\Delta$ values across 22 instruc
 All three probes show near-zero pairwise correlations ($|r| < 0.15$), indicating that
 they capture \textit{independent} dimensions of scoring bias.
 This independence is methodologically important: it means that evaluating a model's
-bias requires testing all three probe types — no single probe can proxy for another.
+bias requires testing all three probe types  no single probe can proxy for another.
 Rubric Order and Score ID show $r = -0.06$, while Score ID and Reference Answer show
 $r = 0.14$ (the largest pairwise correlation, still negligible).
 }

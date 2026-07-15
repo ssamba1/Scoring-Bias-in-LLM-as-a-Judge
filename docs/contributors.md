@@ -146,13 +146,13 @@ flake8 src/scoring_bias/ cli.py tests/ \
 ### Pre-commit Configuration
 
 Our `.pre-commit-config.yaml` enforces:
-- `trailing-whitespace` — No trailing spaces
-- `end-of-file-fixer` — Files end with newline
-- `check-yaml` — Valid YAML syntax
-- `check-json` — Valid JSON syntax
-- `check-added-large-files` — No files >500KB
-- `black` — Automatic formatting
-- `flake8` — Linting
+- `trailing-whitespace`  No trailing spaces
+- `end-of-file-fixer`  Files end with newline
+- `check-yaml`  Valid YAML syntax
+- `check-json`  Valid JSON syntax
+- `check-added-large-files`  No files >500KB
+- `black`  Automatic formatting
+- `flake8`  Linting
 
 ### Import Order
 
@@ -222,9 +222,9 @@ tests/
 ### Test Requirements
 
 Every new function or method should have tests that cover:
-1. **Normal case** — Known expected output
-2. **Edge cases** — Empty inputs, single elements, boundary values
-3. **Error cases** — Invalid inputs return appropriate values (usually `None`)
+1. **Normal case**  Known expected output
+2. **Edge cases**  Empty inputs, single elements, boundary values
+3. **Error cases**  Invalid inputs return appropriate values (usually `None`)
 
 ### Fixtures
 

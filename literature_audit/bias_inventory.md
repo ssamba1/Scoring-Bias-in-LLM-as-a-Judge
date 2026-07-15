@@ -1,6 +1,6 @@
 # LLM-as-a-Judge: Complete Bias Type Inventory
 
-> **Exhaustive literature audit** — Every documented bias type in LLM-as-a-Judge research, with original paper, year, and mitigation status.
+> **Exhaustive literature audit**  Every documented bias type in LLM-as-a-Judge research, with original paper, year, and mitigation status.
 > Compiled: July 2026 | Target audience: High school AI/ML research students seeking untouched gaps.
 
 ---
@@ -30,12 +30,12 @@
 | **Year** | 2023 |
 | **Venue** | NeurIPS 2023 |
 | **Mitigation Exists?** | ✅ |
-| **Mitigation Papers** | • Wang et al. (2024) ACL: "Large Language Models are not Fair Evaluators" — 3 calibration methods (multiple evidence, balanced position, human-in-the-loop)<br>• Zheng et al. (2023): standard position-swap practice<br>• Zhou et al. (2024) CCL: "Mitigating the Bias of Large Language Model Evaluation"<br>• Soumik (2026) TMLR: systematic evaluation of 9 debiasing strategies |
+| **Mitigation Papers** | • Wang et al. (2024) ACL: "Large Language Models are not Fair Evaluators"  3 calibration methods (multiple evidence, balanced position, human-in-the-loop)<br>• Zheng et al. (2023): standard position-swap practice<br>• Zhou et al. (2024) CCL: "Mitigating the Bias of Large Language Model Evaluation"<br>• Soumik (2026) TMLR: systematic evaluation of 9 debiasing strategies |
 | **Status** | Well-studied, multiple mitigations exist |
 
 **Key follow-up works:**
-- Shi et al. (2024/2025) "Judging the Judges: A Systematic Study of Position Bias in LLM-as-a-Judge" — AACL/IJCNLP 2025
-- Thakur et al. (2024) "Judging the Judges: Evaluating Alignment and Vulnerabilities in LLMs-as-Judges" — GEM Workshop 2025
+- Shi et al. (2024/2025) "Judging the Judges: A Systematic Study of Position Bias in LLM-as-a-Judge"  AACL/IJCNLP 2025
+- Thakur et al. (2024) "Judging the Judges: Evaluating Alignment and Vulnerabilities in LLMs-as-Judges"  GEM Workshop 2025
 
 ---
 
@@ -49,7 +49,7 @@
 | **Year** | 2023 |
 | **Venue** | NeurIPS 2023 |
 | **Mitigation Exists?** | ✅ (partial) |
-| **Mitigation Papers** | • Park et al. (2024) "OffsetBias" — OFFSETBIAS training dataset improves robustness<br>• Zhou et al. (2024) CCL — calibration-based method<br>• Post-hoc length control (Hu et al. 2024, "Explaining Length Bias") |
+| **Mitigation Papers** | • Park et al. (2024) "OffsetBias"  OFFSETBIAS training dataset improves robustness<br>• Zhou et al. (2024) CCL  calibration-based method<br>• Post-hoc length control (Hu et al. 2024, "Explaining Length Bias") |
 | **Status** | Mitigations exist but no silver bullet; still an active area |
 
 ---
@@ -62,11 +62,11 @@
 
 | Field | Value |
 |-------|-------|
-| **First Paper** | Zheng et al. (self-enhancement bias) — NeurIPS 2023 |
-| **Formal Metric** | Wataoka et al. (2024) "Self-Preference Bias in LLM-as-a-Judge" — NeurIPS SafeGenAI Workshop |
-| **Causal Study** | Panickssery et al. (2024) "LLM Evaluators Recognize and Favor Their Own Generations" — NeurIPS 2024 |
+| **First Paper** | Zheng et al. (self-enhancement bias)  NeurIPS 2023 |
+| **Formal Metric** | Wataoka et al. (2024) "Self-Preference Bias in LLM-as-a-Judge"  NeurIPS SafeGenAI Workshop |
+| **Causal Study** | Panickssery et al. (2024) "LLM Evaluators Recognize and Favor Their Own Generations"  NeurIPS 2024 |
 | **Mitigation Exists?** | ✅ (partial) |
-| **Mitigation Papers** | • Panickssery et al. (2024) — de-identification (hiding model identity)<br>• Yang et al. (2026) "Quantifying and Mitigating Self-Preference Bias of LLM Judges" — structured multi-dimensional evaluation strategy<br>• Multi-model juries / ensembles (industry practice) |
+| **Mitigation Papers** | • Panickssery et al. (2024)  de-identification (hiding model identity)<br>• Yang et al. (2026) "Quantifying and Mitigating Self-Preference Bias of LLM Judges"  structured multi-dimensional evaluation strategy<br>• Multi-model juries / ensembles (industry practice) |
 | **Status** | Active research; 2026 paper proposes first dedicated mitigation |
 
 ---
@@ -91,17 +91,17 @@
 
 | Field | Value |
 |-------|-------|
-| **First Paper** | Park et al. (2024) "OffsetBias" — identified as error case in EVALBIASBENCH |
+| **First Paper** | Park et al. (2024) "OffsetBias"  identified as error case in EVALBIASBENCH |
 | **Year** | 2024 |
 | **Venue** | Findings of EMNLP 2024 |
 | **Also studied by** | Ye et al. (2024) "Justice or Prejudice?" (as part of 12-bias taxonomy) |
 | **Mitigation Exists?** | ✅ (partial) |
-| **Mitigation Papers** | Park et al. (2024) — OFFSETBIAS training data partially addresses it |
+| **Mitigation Papers** | Park et al. (2024)  OFFSETBIAS training data partially addresses it |
 | **Status** | Indirectly mitigated via debiased training data; no dedicated fix |
 
 ---
 
-## 6. Scoring Bias — Score Rubric Order Bias
+## 6. Scoring Bias  Score Rubric Order Bias
 
 **Definition:** The order in which score rubric criteria are listed affects the judge's score.
 
@@ -115,7 +115,7 @@
 
 ---
 
-## 7. Scoring Bias — Score ID Bias
+## 7. Scoring Bias  Score ID Bias
 
 **Definition:** Whether candidates are labeled A/B vs. 1/2 vs. Alpha/Beta changes the judge's preference.
 
@@ -129,7 +129,7 @@
 
 ---
 
-## 8. Scoring Bias — Reference Answer Score Bias
+## 8. Scoring Bias  Reference Answer Score Bias
 
 **Definition:** Providing a "golden" reference answer anchors the judge; varying the reference shifts scores.
 
@@ -325,7 +325,7 @@
 | **Year** | 2024 |
 | **Venue** | Findings of EMNLP 2024 |
 | **Mitigation Exists?** | ✅ |
-| **Mitigation Papers** | Park et al. (2024) — OFFSETBIAS training dataset |
+| **Mitigation Papers** | Park et al. (2024)  OFFSETBIAS training dataset |
 | **Status** | Mitigation exists via debiased training data |
 
 ---
@@ -340,7 +340,7 @@
 | **Year** | 2024 |
 | **Venue** | Findings of EMNLP 2024 |
 | **Mitigation Exists?** | ✅ |
-| **Mitigation Papers** | Park et al. (2024) — OFFSETBIAS training dataset |
+| **Mitigation Papers** | Park et al. (2024)  OFFSETBIAS training dataset |
 | **Status** | Mitigated via debiased data |
 
 ---
@@ -355,7 +355,7 @@
 | **Year** | 2024 |
 | **Venue** | Findings of EMNLP 2024 |
 | **Mitigation Exists?** | ✅ |
-| **Mitigation Papers** | Park et al. (2024) — OFFSETBIAS training dataset |
+| **Mitigation Papers** | Park et al. (2024)  OFFSETBIAS training dataset |
 | **Status** | Mitigated via debiased data |
 
 ---
@@ -370,7 +370,7 @@
 | **Year** | 2024 |
 | **Venue** | Findings of EMNLP 2024 |
 | **Mitigation Exists?** | ✅ |
-| **Mitigation Papers** | Park et al. (2024) — OFFSETBIAS training dataset |
+| **Mitigation Papers** | Park et al. (2024)  OFFSETBIAS training dataset |
 | **Status** | Mitigated via debiased data |
 
 ---
@@ -385,7 +385,7 @@
 | **Year** | 2024 |
 | **Venue** | Findings of EMNLP 2024 |
 | **Mitigation Exists?** | ✅ |
-| **Mitigation Papers** | Park et al. (2024) — OFFSETBIAS training dataset |
+| **Mitigation Papers** | Park et al. (2024)  OFFSETBIAS training dataset |
 | **Status** | Mitigated via debiased data |
 
 ---
@@ -400,7 +400,7 @@
 | **Year** | 2025 |
 | **Venue** | Findings of EMNLP 2025 |
 | **Mitigation Exists?** | ✅ |
-| **Mitigation Papers** | Liu et al. (2025) — AGDe-Judge (Assistant-Guided Debiasing) |
+| **Mitigation Papers** | Liu et al. (2025)  AGDe-Judge (Assistant-Guided Debiasing) |
 | **Status** | Dedicated mitigation exists |
 
 ---
@@ -481,7 +481,7 @@
 
 | Field | Value |
 |-------|-------|
-| **First Paper** | Reif & Schwartz (2024) — label bias in LLM evaluation |
+| **First Paper** | Reif & Schwartz (2024)  label bias in LLM evaluation |
 | **Year** | 2024 |
 | **Venue** | (identified in multiple papers) |
 | **Mitigation Exists?** | ⬜ **NO dedicated mitigation** |
@@ -491,7 +491,7 @@
 
 ## 33. Leniency / Strictness Bias
 
-**Definition:** Different LLMs (or the same LLM with different prompts) anchor on different baselines — some grade leniently, others strictly.
+**Definition:** Different LLMs (or the same LLM with different prompts) anchor on different baselines  some grade leniently, others strictly.
 
 | Field | Value |
 |-------|-------|
@@ -550,23 +550,23 @@
 These are biases that have been **identified in published research** but have **zero peer-reviewed mitigation papers**:
 
 ### Tier 1: Easy entry (well-defined, small scope)
-1. **Family Bias** (Wataoka 2024) — → design a cross-family judge panel or family-aware calibration
-2. **Score Rubric Order Bias** (Li 2025) — → propose rubric randomization or order-robust scoring
-3. **Score ID Bias** (Li 2025) — → design label-agnostic evaluation
-4. **Reference Answer Score Bias** (Li 2025) — → develop reference-robust scoring protocols
+1. **Family Bias** (Wataoka 2024)  → design a cross-family judge panel or family-aware calibration
+2. **Score Rubric Order Bias** (Li 2025)  → propose rubric randomization or order-robust scoring
+3. **Score ID Bias** (Li 2025)  → design label-agnostic evaluation
+4. **Reference Answer Score Bias** (Li 2025)  → develop reference-robust scoring protocols
 
 ### Tier 2: Medium complexity (needs creative approach)
-5. **Authority Bias** (Chen 2024) — → citation verification integration for LLM judges
-6. **Fallacy Oversight Bias** (Chen 2024) — → fallacy-aware judge prompting
-7. **Beauty Bias** (Chen 2024) — → content-vs-style disentanglement
-8. **Sentiment Bias** (Ye 2024) — → sentiment-normalized scoring
-9. **Bandwagon Effect** (Koo 2024) — → independence-preserving evaluation
-10. **Egocentric Bias** (Koo 2024) — → cross-model style calibration
-11. **Refinement-Aware Bias** (Ye 2024) — → blind refinement evaluation
-12. **Distraction Bias** (Ye 2024) — → relevance-filtered judging
+5. **Authority Bias** (Chen 2024)  → citation verification integration for LLM judges
+6. **Fallacy Oversight Bias** (Chen 2024)  → fallacy-aware judge prompting
+7. **Beauty Bias** (Chen 2024)  → content-vs-style disentanglement
+8. **Sentiment Bias** (Ye 2024)  → sentiment-normalized scoring
+9. **Bandwagon Effect** (Koo 2024)  → independence-preserving evaluation
+10. **Egocentric Bias** (Koo 2024)  → cross-model style calibration
+11. **Refinement-Aware Bias** (Ye 2024)  → blind refinement evaluation
+12. **Distraction Bias** (Ye 2024)  → relevance-filtered judging
 
 ### Tier 3: Higher complexity (broader scope)
-13–19. **Rich Content, CoT Bias, Gender Bias, Moderation Bias, Anchoring Bias, Label Bias, Leniency Bias** — these range from partially defined to entirely undefined in peer review.
+13–19. **Rich Content, CoT Bias, Gender Bias, Moderation Bias, Anchoring Bias, Label Bias, Leniency Bias**  these range from partially defined to entirely undefined in peer review.
 
 > **Note:** For biases that also lack a formal accepted **definition** in peer-reviewed literature (moderation, anchoring), there is a double opportunity: define and then mitigate.
 
@@ -576,23 +576,23 @@ These are biases that have been **identified in published research** but have **
 
 | Paper | Year | Venue | Coverage |
 |-------|------|-------|----------|
-| Zheng et al. — "Judging LLM-as-a-Judge with MT-Bench" | 2023 | **NeurIPS** | Position, verbosity, self-enhancement |
-| Wang et al. — "LLMs are not Fair Evaluators" | 2024 | **ACL** | Position bias + calibration |
-| Koo et al. — "Benchmarking Cognitive Biases in LLMs as Evaluators" | 2024 | **Findings of ACL** | 6 cognitive biases |
-| Chen et al. — "Humans or LLMs as the Judge? A Study on Judgement Bias" | 2024 | **EMNLP** | Fallacy oversight, authority, beauty |
-| Ye et al. — "Justice or Prejudice?" (CALM) | 2024 | **ICLR 2025** | **12 biases** (most comprehensive single taxonomy) |
-| Park et al. — "OffsetBias" | 2024 | **Findings of EMNLP** | 6 biases + EVALBIASBENCH + OFFSETBIAS |
-| Wataoka et al. — "Self-Preference Bias in LLM-as-a-Judge" | 2024 | **NeurIPS SafeGenAI** | Self-preference metric + family bias |
-| Panickssery et al. — "LLM Evaluators Recognize and Favor Their Own Generations" | 2024 | **NeurIPS** | Self-precision + self-recognition |
-| Li et al. — "LLMs-as-Judges: A Comprehensive Survey" | 2024 | arXiv | Survey |
-| Gu et al. — "A Survey on LLM-as-a-Judge" | 2024 | arXiv / The Innovation | **Survey** |
-| Shi et al. — "Judging the Judges: A Systematic Study of Position Bias" | 2025 | **AACL/IJCNLP** | Position bias (deep dive) |
-| Li et al. — "Evaluating Scoring Bias in LLM-as-a-Judge" | 2025 | arXiv | 3 scoring biases |
-| Liu et al. — "Assistant-Guided Mitigation of Teacher Preference Bias" | 2025 | **Findings of EMNLP** | Teacher preference bias |
-| Gao et al. — "Evaluating and Mitigating LLM-as-a-judge Bias in Communication Systems" | 2026 | arXiv | 11 biases in pointwise setting |
-| Yang et al. — "Quantifying and Mitigating Self-Preference Bias of LLM Judges" | 2026 | arXiv | Self-preference mitigation |
-| Soumik — "A Systematic Evaluation of Bias Mitigation Strategies" | 2026 | **TMLR** | 9 debiasing strategies compared |
-| Malberg et al. — "A Comprehensive Evaluation of Cognitive Biases in LLMs" | 2025 | NLP4DH | 30 cognitive biases (not all judge-specific) |
+| Zheng et al.  "Judging LLM-as-a-Judge with MT-Bench" | 2023 | **NeurIPS** | Position, verbosity, self-enhancement |
+| Wang et al.  "LLMs are not Fair Evaluators" | 2024 | **ACL** | Position bias + calibration |
+| Koo et al.  "Benchmarking Cognitive Biases in LLMs as Evaluators" | 2024 | **Findings of ACL** | 6 cognitive biases |
+| Chen et al.  "Humans or LLMs as the Judge? A Study on Judgement Bias" | 2024 | **EMNLP** | Fallacy oversight, authority, beauty |
+| Ye et al.  "Justice or Prejudice?" (CALM) | 2024 | **ICLR 2025** | **12 biases** (most comprehensive single taxonomy) |
+| Park et al.  "OffsetBias" | 2024 | **Findings of EMNLP** | 6 biases + EVALBIASBENCH + OFFSETBIAS |
+| Wataoka et al.  "Self-Preference Bias in LLM-as-a-Judge" | 2024 | **NeurIPS SafeGenAI** | Self-preference metric + family bias |
+| Panickssery et al.  "LLM Evaluators Recognize and Favor Their Own Generations" | 2024 | **NeurIPS** | Self-precision + self-recognition |
+| Li et al.  "LLMs-as-Judges: A Comprehensive Survey" | 2024 | arXiv | Survey |
+| Gu et al.  "A Survey on LLM-as-a-Judge" | 2024 | arXiv / The Innovation | **Survey** |
+| Shi et al.  "Judging the Judges: A Systematic Study of Position Bias" | 2025 | **AACL/IJCNLP** | Position bias (deep dive) |
+| Li et al.  "Evaluating Scoring Bias in LLM-as-a-Judge" | 2025 | arXiv | 3 scoring biases |
+| Liu et al.  "Assistant-Guided Mitigation of Teacher Preference Bias" | 2025 | **Findings of EMNLP** | Teacher preference bias |
+| Gao et al.  "Evaluating and Mitigating LLM-as-a-judge Bias in Communication Systems" | 2026 | arXiv | 11 biases in pointwise setting |
+| Yang et al.  "Quantifying and Mitigating Self-Preference Bias of LLM Judges" | 2026 | arXiv | Self-preference mitigation |
+| Soumik  "A Systematic Evaluation of Bias Mitigation Strategies" | 2026 | **TMLR** | 9 debiasing strategies compared |
+| Malberg et al.  "A Comprehensive Evaluation of Cognitive Biases in LLMs" | 2025 | NLP4DH | 30 cognitive biases (not all judge-specific) |
 
 ---
 

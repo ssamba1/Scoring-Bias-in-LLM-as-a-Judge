@@ -16,7 +16,7 @@ This document summarizes 15 deep analyses performed on the research data from st
 | Score ID | 0.68 | 0.49 | **Qwen2.5-7B** (Δ=1.70, z=2.07), **Hermes-3-70B** (Δ=1.80, z=2.27) |
 | Reference Answer | 0.41 | 0.31 | None |
 
-**Key finding:** 3 statistical outliers flagged among 22 models. MythoMax-13B is an outlier on rubric_order (2.27 SD above mean). Hermes-3-70B and Qwen2.5-7B are outliers on score_id. No outliers on reference_answer — this probe shows the most homogeneous response across models.
+**Key finding:** 3 statistical outliers flagged among 22 models. MythoMax-13B is an outlier on rubric_order (2.27 SD above mean). Hermes-3-70B and Qwen2.5-7B are outliers on score_id. No outliers on reference_answer  this probe shows the most homogeneous response across models.
 
 In the T4 base models, **Llama-3.2-3B** is an outlier on rubric_order (Δ=3.50, z=2.24).
 
@@ -38,7 +38,7 @@ In the T4 base models, **Llama-3.2-3B** is an outlier on rubric_order (Δ=3.50, 
 | StableLM-2-1.6B | −0.30 | Score ID (−0.4) / Ref A (−0.4) | Rubric Order (−0.1) |
 | **Llama-3.2-1B** | **+0.43** | Score ID (+0.7) | Rubric Order (+0.2) |
 
-**Key finding:** 6/7 families show reduced bias after instruction tuning. Llama-3.2-1B is the sole exception — all three probes show *increased* bias after instruction tuning. Llama-3.2-3B shows the largest improvement (Δ change = −2.7 on rubric_order).
+**Key finding:** 6/7 families show reduced bias after instruction tuning. Llama-3.2-1B is the sole exception  all three probes show *increased* bias after instruction tuning. Llama-3.2-3B shows the largest improvement (Δ change = −2.7 on rubric_order).
 
 ---
 
@@ -165,7 +165,7 @@ In the T4 base models, **Llama-3.2-3B** is an outlier on rubric_order (Δ=3.50, 
 | Score ID | **−0.97** | 0.82 | Strong population-level reduction after instruction |
 | Reference Answer | **−0.83** | 0.50 | Clear population-level reduction |
 
-**Key finding:** Score ID and Reference Answer show clear negative population mean Δ — instruction tuning reliably reduces bias on these probes. Rubric Order has high between-family variance with a muted population effect, indicating this probe's sensitivity depends heavily on the specific model family.
+**Key finding:** Score ID and Reference Answer show clear negative population mean Δ  instruction tuning reliably reduces bias on these probes. Rubric Order has high between-family variance with a muted population effect, indicating this probe's sensitivity depends heavily on the specific model family.
 
 Shrinkage estimates pull extreme families (e.g., Llama-3.2-3B's −2.7) toward the population mean, providing more conservative per-family estimates.
 
@@ -181,7 +181,7 @@ Shrinkage estimates pull extreme families (e.g., Llama-3.2-3B's −2.7) toward t
 | **Reference Answer: N=7** |
 | **Rubric Order: N > 30** |
 
-**Key finding:** The current N=7 families provides ~80% power for score_id and reference_answer effects. The rubric_order probe is severely underpowered — even N=22 would provide only ~40% power. This explains the non-significant Wilcoxon and mixed Bayesian results for rubric_order.
+**Key finding:** The current N=7 families provides ~80% power for score_id and reference_answer effects. The rubric_order probe is severely underpowered  even N=22 would provide only ~40% power. This explains the non-significant Wilcoxon and mixed Bayesian results for rubric_order.
 
 ---
 
@@ -205,7 +205,7 @@ Shrinkage estimates pull extreme families (e.g., Llama-3.2-3B's −2.7) toward t
 
 **Files found:** `items_en.json`, `items_hi.json`, `items_ar.json`, `items_es.json`, `items_zh.json`
 
-**Key finding:** Multilingual item sets exist for 5 languages (EN, HI, AR, ES, ZH). However, scores are only available for the English condition. Multilingual bias analysis requires running the same probe variants with translated items — a direction for future work.
+**Key finding:** Multilingual item sets exist for 5 languages (EN, HI, AR, ES, ZH). However, scores are only available for the English condition. Multilingual bias analysis requires running the same probe variants with translated items  a direction for future work.
 
 ---
 
@@ -215,7 +215,7 @@ Shrinkage estimates pull extreme families (e.g., Llama-3.2-3B's −2.7) toward t
 
 **Overall:** Base mean Δ = 1.95 → Instruct mean Δ = 1.22 (**−37.4%** change)
 
-**Key finding:** Instruction tuning *reduces* bias magnitude, not inflates scores. This is the opposite of "score inflation" — it's bias mitigation. Every family except Llama-3.2-1B shows reduced variance across probe variants after instruction tuning.
+**Key finding:** Instruction tuning *reduces* bias magnitude, not inflates scores. This is the opposite of "score inflation"  it's bias mitigation. Every family except Llama-3.2-1B shows reduced variance across probe variants after instruction tuning.
 
 ---
 
@@ -225,7 +225,7 @@ Shrinkage estimates pull extreme families (e.g., Llama-3.2-3B's −2.7) toward t
 
 **Mean pairwise r:** ~0.09
 
-**Key finding:** Extremely low inter-model agreement. Models show almost no consensus on which items are easy or hard. This is consistent with the high variance decomposition (72% within-model variance) — individual models' scores are idiosyncratic, driven by probe condition far more than by item content.
+**Key finding:** Extremely low inter-model agreement. Models show almost no consensus on which items are easy or hard. This is consistent with the high variance decomposition (72% within-model variance)  individual models' scores are idiosyncratic, driven by probe condition far more than by item content.
 
 Full Fleiss' kappa computation requires item-level score matrices (available in raw CSV data) and binarization thresholds.
 
@@ -241,8 +241,8 @@ Full Fleiss' kappa computation requires item-level score matrices (available in 
 
 ### What needs caution?
 - **Rubric_order probe is underpowered** at current N (needs N>30 for 80% power)
-- **Synthetic FPR (0.095)** is slightly elevated — some inflation of significance
-- **Training method labels** are heuristic — groups are confounded by size/architecture
+- **Synthetic FPR (0.095)** is slightly elevated  some inflation of significance
+- **Training method labels** are heuristic  groups are confounded by size/architecture
 - **Per-item and multilingual analyses** are blocked without raw item-level scores
 
 ### Surprising findings

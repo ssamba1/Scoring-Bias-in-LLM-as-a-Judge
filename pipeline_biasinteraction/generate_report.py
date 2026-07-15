@@ -83,7 +83,7 @@ def compute_judge_stats(data):
 def generate_markdown_report(stats):
     """Generate a markdown report."""
     lines = []
-    lines.append("# Bias Interaction Experiment — Analysis Report")
+    lines.append("# Bias Interaction Experiment  Analysis Report")
     lines.append(f"*Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}*\n")
     
     # Overview table
@@ -120,16 +120,16 @@ def generate_markdown_report(stats):
     
     compounding = [j for j, s in stats.items() if s.get("interaction_ratio", 0) > 1.05]
     if compounding:
-        lines.append(f"- **Compounding biases detected**: {', '.join(compounding)} — "
+        lines.append(f"- **Compounding biases detected**: {', '.join(compounding)}  "
                      f"biases are worse together than individually")
     
     additive = [j for j, s in stats.items() if 0.95 <= s.get("interaction_ratio", 0) <= 1.05]
     if additive:
-        lines.append(f"- **Additive biases**: {', '.join(additive)} — biases combine linearly")
+        lines.append(f"- **Additive biases**: {', '.join(additive)}  biases combine linearly")
     
     cancelling = [j for j, s in stats.items() if s.get("interaction_ratio", 0) < 0.95]
     if cancelling:
-        lines.append(f"- **Cancelling biases**: {', '.join(cancelling)} — biases partially offset")
+        lines.append(f"- **Cancelling biases**: {', '.join(cancelling)}  biases partially offset")
     
     lines.append(f"- **Average degradation across judges**: "
                  f"{statistics.mean(s.get('degradation',0) for s in stats.values()):.3f}")

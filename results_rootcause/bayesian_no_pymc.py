@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bayesian analysis — works without PyMC."""
+"""Bayesian analysis  works without PyMC."""
 import json, statistics, math
 
 t4 = json.load(open("C:/Users/Admin/Research/research-draft/results_rootcause/t4fam_results.json"))
@@ -46,7 +46,7 @@ def stud_t_cdf(t, df):
         return 0.5 * betainc(df/(df + t*t), df/2, 0.5)
 
 def betainc(x, a, b):
-    """Incomplete beta function — simple approximation."""
+    """Incomplete beta function  simple approximation."""
     if x <= 0: return 0.0
     if x >= 1: return 1.0
     # Use continued fraction for numerical stability
@@ -65,7 +65,7 @@ def t_ppf(p, df):
     return z + (z**3 + z) / (4*df) + (5*z**5 + 16*z**3 + 3*z) / (96*df**2)
 
 print("="*70)
-print("BAYESIAN ANALYSIS — Normal-Inverse-Gamma Conjugate Model")
+print("BAYESIAN ANALYSIS  Normal-Inverse-Gamma Conjugate Model")
 print("10 families (7 T4 + 3 Kaggle)")
 print("="*70)
 print(f"\n{'Probe':<20} {'Base μ':<8} {'Inst μ':<8} {'Δ':<8} {'95% HDI':<18} {'P(Δ<0)':<10} {'Evidence':<12}")

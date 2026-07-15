@@ -43,7 +43,7 @@ def estimate_sample_size(effect_size=0.1, power=0.8, alpha=0.05, n_groups=8):
 
 def main():
     print("="*65)
-    print("POWER ANALYSIS — Bias Interaction Experiment")
+    print("POWER ANALYSIS  Bias Interaction Experiment")
     print("="*65)
     
     print("\nSample size required per condition (n):")
@@ -67,7 +67,7 @@ def main():
     
     For detecting small interaction effects (f=0.10) at 80% power:
     - Need n ≈ 300+ items per condition
-    - 400 × 8 = 50 per cell — may miss small interactions
+    - 400 × 8 = 50 per cell  may miss small interactions
     
     Conclusion: 400 items is sufficient for medium-to-large interactions.
     If you expect small effects, increase to 1000+ items.

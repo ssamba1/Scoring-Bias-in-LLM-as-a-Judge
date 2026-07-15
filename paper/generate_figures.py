@@ -145,7 +145,7 @@ def fig1_bias_landscape():
 
     ax.set_xlabel('Model', fontsize=11)
     ax.set_ylabel('Bias Magnitude (Δ)', fontsize=11)
-    ax.set_title('Figure 1: Bias Landscape — Probe Effects Across 22 Models', fontsize=13, fontweight='bold')
+    ax.set_title('Figure 1: Bias Landscape  Probe Effects Across 22 Models', fontsize=13, fontweight='bold')
     ax.set_xticks(x)
     ax.set_xticklabels([short_name(m) for m in model_order], rotation=45, ha='right', fontsize=8)
     ax.legend(frameon=True, fontsize=9, loc='upper right')
@@ -215,8 +215,8 @@ def fig2_format_content_scatter():
            Patch(facecolor=CB[1], label='Format ↑ Content ↓')]
     ax.legend(handles=leg, fontsize=7.5, loc='lower right', framealpha=0.8)
 
-    ax.set_xlabel('Format Δ Change (Rubric Order) — Base → Instruct', fontsize=11)
-    ax.set_ylabel('Content Δ Change (Score ID + Ref Answer) — Base → Instruct', fontsize=11)
+    ax.set_xlabel('Format Δ Change (Rubric Order)  Base → Instruct', fontsize=11)
+    ax.set_ylabel('Content Δ Change (Score ID + Ref Answer)  Base → Instruct', fontsize=11)
     ax.set_title('Figure 2: Format vs Content Bias Change Across Base→Instruct Training', fontsize=12, fontweight='bold')
     mr = max(abs(df['fmt'].max()), abs(df['cnt'].max()), abs(df['fmt'].min()), abs(df['cnt'].min())) + 0.3
     ax.set_xlim(-mr, mr); ax.set_ylim(-mr, mr)
@@ -330,7 +330,7 @@ def fig5_bayesian_posteriors():
         ax.legend(fontsize=7, loc='upper left')
         ax.set_xlim(-0.5, 2.5)
 
-    fig.suptitle('Figure 5: Bayesian Analysis of Probe Effects — Prior vs. Posterior Distributions',
+    fig.suptitle('Figure 5: Bayesian Analysis of Probe Effects  Prior vs. Posterior Distributions',
                  fontsize=13, fontweight='bold', y=1.03)
     fig.tight_layout()
     fig.savefig(os.path.join(OUT_DIR, 'fig5_bayesian_posteriors.png'), dpi=300)

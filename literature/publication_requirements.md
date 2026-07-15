@@ -9,7 +9,7 @@
 
 | # | Question | Our Status | Evidence Needed |
 |---|----------|-----------|-----------------|
-| 1 | **Claims**: Do main claims match results? | ✅ Yes | Abstract: "instruction tuning has differential effects" — supported by data |
+| 1 | **Claims**: Do main claims match results? | ✅ Yes | Abstract: "instruction tuning has differential effects"  supported by data |
 | 2 | **Limitations**: Separate limitations section? | ✅ Yes | In study1_standalone.tex (section 6) |
 | 3 | **Theory/Proofs**: Assumptions stated? | ⚠️ Partial | We have informal IIAR hypothesis, no formal theorem (like monograph.tex) |
 | 4 | **Reproducibility**: Steps to reproduce? | ✅ Yes | Complete Docker, Kaggle notebook, seed fixed, temperature 0 |
@@ -17,7 +17,7 @@
 | 6 | **Experimental details**: Hyperparameters, splits? | ✅ Yes | Temperature 0, 3 repeats, 50 items, 3 variants per probe |
 | 7 | **Statistical significance**: Error bars, CIs, tests? | ⚠️ Partial | Bootstrap CIs, Cohen's d. Need: paired t-tests, Standard Error bars on ALL figures |
 | 8 | **Compute resources**: GPU type, hours, memory? | ✅ Yes | T4 GPU, ~6 hours total, 17GB VRAM |
-| 9 | **Code of ethics**: Conform to NeurIPS ethics? | ✅ Yes | No human subjects, open data — no concerns |
+| 9 | **Code of ethics**: Conform to NeurIPS ethics? | ✅ Yes | No human subjects, open data  no concerns |
 | 10 | **Broader impact**: Societal consequences? | ❌ Missing | Need 1 paragraph on how biased AI judges affect real-world evaluation |
 | 11 | **Safeguards**: Malicious use prevention? | ❌ Missing | Need: discussion of how findings could be used to manipulate evaluations |
 | 12 | **Licenses**: For all assets (code, data, models)? | ⚠️ Partial | MIT license for code. Need: model licenses (Llama3, Mistral, Gemma) |
@@ -71,7 +71,7 @@
 | **Poster (10 pts):** Logical organization | ✅ Study1_standalone.tex is well-structured | 4/4 |
 | Clarity of graphics | ⚠️ Need publication-quality figures (done in HTML, need for poster) | 3/4 |
 | Supporting documentation | ✅ Complete GitHub repo | 2/2 |
-| **Interview (25 pts):** Clear responses | ⚠️ Practice needed (student-dependent) | — |
+| **Interview (25 pts):** Clear responses | ⚠️ Practice needed (student-dependent) |  |
 | Understanding of basic science | ✅ Students can explain LLM scoring bias | 5/5 |
 | Understanding limitations | ✅ Limitations section in paper | 5/5 |
 | Degree of independence | ✅ All work done independently | 5/5 |
@@ -117,7 +117,7 @@
 
 ---
 
-## Part E: Comprehensive Gap Analysis — What We MUST Do
+## Part E: Comprehensive Gap Analysis  What We MUST Do
 
 ### Critical (blocks submission)
 

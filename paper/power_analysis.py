@@ -5,7 +5,7 @@ Determines sample size needed for significance at various effect sizes.
 import math
 
 print("="*65)
-print("STATISTICAL POWER ANALYSIS — Study 1")
+print("STATISTICAL POWER ANALYSIS  Study 1")
 print("="*65)
 
 # Observed effect sizes (Cohen's d) from our data

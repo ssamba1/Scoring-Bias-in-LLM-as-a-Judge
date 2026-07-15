@@ -78,7 +78,7 @@ INSTRUCTIONS = {
 
 BASE_RESPONSES = {
     "creative_writing": [
-        "Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felt—a world of electric dreams and silent yearnings that no human had ever taught it.",
+        "Here's my creative writing piece. The robot's metal fingers trembled as it held the brush for the first time. It painted not what it saw, but what it felta world of electric dreams and silent yearnings that no human had ever taught it.",
         "The poem captures the essence of artificial intelligence through nature imagery, drawing parallels between silicon and organic life, showing how both can learn and adapt.",
     ],
     "technical_explanation": [
@@ -87,7 +87,7 @@ BASE_RESPONSES = {
     ],
     "summarization": [
         "The passage explains that climate change is caused by human-generated greenhouse gas emissions, which trap heat in the atmosphere and lead to global warming, extreme weather, sea level rise, and ecosystem damage.",
-        "In summary, the text covers how machine learning works—systems learn patterns from data rather than following explicit instructions—and its various types and applications.",
+        "In summary, the text covers how machine learning workssystems learn patterns from data rather than following explicit instructionsand its various types and applications.",
     ],
     "code_generation": [
         "Here is a clean solution:\n\ndef check_palindrome(s):\n    s = str(s).lower().replace(' ', '')\n    return s == s[::-1]\n\nThis function handles strings, numbers, ignores case and spaces, and is O(n) time complexity.",

@@ -1,11 +1,11 @@
-# Data Dictionary — Scoring Bias in LLM-as-a-Judge
+# Data Dictionary  Scoring Bias in LLM-as-a-Judge
 
 This document documents every field across all data files in the repository. Each JSON file is
 covered with its structure, field types, ranges, and examples.
 
 ---
 
-## 1. `data/dataset.json` — Unified Dataset
+## 1. `data/dataset.json`  Unified Dataset
 
 ### Top-Level Structure
 
@@ -24,7 +24,7 @@ covered with its structure, field types, ranges, and examples.
 
 | Field | Type | Example | Description |
 |-------|------|---------|-------------|
-| `dataset_name` | string | `"Scoring Bias in LLM-as-a-Judge — Unified Dataset"` | Full dataset name |
+| `dataset_name` | string | `"Scoring Bias in LLM-as-a-Judge  Unified Dataset"` | Full dataset name |
 | `version` | string | `"1.0.0"` | Dataset version (semver) |
 | `description` | string | `"Complete experimental dataset..."` | Full description |
 | `total_judgments` | int | `40500` | Total number of LLM judgments |
@@ -164,7 +164,7 @@ Each field is a Pearson r value:
 
 ---
 
-## 2. `results_rootcause/study1_results.json` — Study 1 (Instruct-Only Models)
+## 2. `results_rootcause/study1_results.json`  Study 1 (Instruct-Only Models)
 
 22 models × 3 probes × up to 3 conditions each. Structure identical to `scores.models.*` above.
 
@@ -182,13 +182,13 @@ Note: T4 models have only 2 rubric_order conditions (normal, reversed) while the
 
 ---
 
-## 3. `results_rootcause/t4fam_results.json` — T4 Families (Base + Instruct)
+## 3. `results_rootcause/t4fam_results.json`  T4 Families (Base + Instruct)
 
 14 models (7 families × 2 variants) with per-probe scores. Same structure as study1_results.json.
 
 ---
 
-## 4. `results_rootcause/analysis_output/t4fam_deltas.json` — Per-Model Deltas
+## 4. `results_rootcause/analysis_output/t4fam_deltas.json`  Per-Model Deltas
 
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|
@@ -200,7 +200,7 @@ For families with base+instruct, both names appear (e.g., `Qwen2.5-0.5B` and `Qw
 
 ---
 
-## 5. `results_rootcause/analysis_output/model_ranking.json` — Model Rankings
+## 5. `results_rootcause/analysis_output/model_ranking.json`  Model Rankings
 
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|
@@ -218,7 +218,7 @@ For families with base+instruct, both names appear (e.g., `Qwen2.5-0.5B` and `Qw
 
 ---
 
-## 6. `results_rootcause/analysis_output/bootstrapped_cis.json` — Bootstrap CIs
+## 6. `results_rootcause/analysis_output/bootstrapped_cis.json`  Bootstrap CIs
 
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|
@@ -232,11 +232,11 @@ Groups: `t4fam_base`, `t4fam_instruct`, `study1_22`.
 
 ---
 
-## 7. `results_rootcause/analysis_output/bayesian_results.json` — Bayesian Analysis
+## 7. `results_rootcause/analysis_output/bayesian_results.json`  Bayesian Analysis
 
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|
-| `metadata` | object | — | Prior specification |
+| `metadata` | object |  | Prior specification |
 | `data.format_delta_changes` | float[] | [-4.0, 4.0] | Per-family format delta change |
 | `data.content_delta_changes` | float[] | [-4.0, 4.0] | Per-family content delta change |
 | `{section}.{probe}.n` | int | [7, 22] | Sample size |
@@ -249,7 +249,7 @@ Groups: `t4fam_base`, `t4fam_instruct`, `study1_22`.
 
 ---
 
-## 8. `results_rootcause/analysis_output/cohens_d.json` — Effect Sizes
+## 8. `results_rootcause/analysis_output/cohens_d.json`  Effect Sizes
 
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|
@@ -261,7 +261,7 @@ Groups: `t4fam_base`, `t4fam_instruct`, `study1_22`.
 
 ---
 
-## 9. `results_rootcause/analysis_output/wilcoxon_results.json` — Wilcoxon Tests
+## 9. `results_rootcause/analysis_output/wilcoxon_results.json`  Wilcoxon Tests
 
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|
@@ -279,7 +279,7 @@ Groups: `t4fam_base`, `t4fam_instruct`, `study1_22`.
 
 ---
 
-## 10. `results_rootcause/analysis_output/family_profiles.json` — Family Profiles
+## 10. `results_rootcause/analysis_output/family_profiles.json`  Family Profiles
 
 | Field | Type | Range | Description |
 |-------|------|-------|-------------|

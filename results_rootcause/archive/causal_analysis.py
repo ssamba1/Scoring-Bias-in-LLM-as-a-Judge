@@ -32,12 +32,12 @@ def compute_embedding_shift(model_name, base_id, inst_id, items, probes):
             inst_states = []
             for item in items:
                 prompt = build_prompt(probe_type, variant_name, item)
-                # Would need to run twice — once with base model, once with instruct
-                # This is a template — actual execution requires two model loads
+                # Would need to run twice  once with base model, once with instruct
+                # This is a template  actual execution requires two model loads
                 pass
     return results
 
-print("Causal analysis cell ready — 5 families, embedding extraction")
+print("Causal analysis cell ready  5 families, embedding extraction")
 print("Runtime: ~30 min per family (extra forward passes)")
 print(""
 '''.strip()

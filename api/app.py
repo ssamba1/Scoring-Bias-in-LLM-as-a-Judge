@@ -1,10 +1,10 @@
 """
-scoring-bias API — FastAPI service for scoring bias analysis.
+scoring-bias API  FastAPI service for scoring bias analysis.
 
 Provides RESTful endpoints for:
-- GET  /health           — Health check
-- GET  /models           — List all models with bias delta values
-- POST /predict          — Predict bias for a model
+- GET  /health            Health check
+- GET  /models            List all models with bias delta values
+- POST /predict           Predict bias for a model
 
 Run with:
     uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload

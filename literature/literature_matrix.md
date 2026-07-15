@@ -1,4 +1,4 @@
-# Complete Literature Matrix — LLM-as-a-Judge Bias Research
+# Complete Literature Matrix  LLM-as-a-Judge Bias Research
 
 ## All Papers Read in Full
 
@@ -11,7 +11,7 @@
 | 5 | Park et al. (OffsetBias) | EMNLP | 2024 | GPT-4, GPT-3.5, Llama-2 | 6 biases | ~1,000 | ❌ | Debiased data improves judge robustness. |
 | 6 | Pan et al. | ACL Findings | 2026 | 52 models (Llama, Mistral, Gemma, etc.) | User-assistant bias | ~1,000 | ✅ **YES** | Instruction-tuned models show strong user bias. Base models neutral. |
 | 7 | Xu et al. | arXiv | 2026 | GPT-OSS, Qwen3.5, Gemma-3 | Rubric position bias | 2,816 | ❌ | Position bias is model-specific (some first-biased, some last-biased). |
-| 8 | **This work (Study 1)** | *Target* | 2026 | Llama 3 8B, Mistral 7B, Gemma 2 2B (base+instruct) | 3 scoring (rubric, score ID, ref answer) | 50 × 3 = 8,100 | ✅ **YES — FIRST for scoring bias** | **DIFFERENTIAL effect: format bias ↓, content bias ↑** |
+| 8 | **This work (Study 1)** | *Target* | 2026 | Llama 3 8B, Mistral 7B, Gemma 2 2B (base+instruct) | 3 scoring (rubric, score ID, ref answer) | 50 × 3 = 8,100 | ✅ **YES  FIRST for scoring bias** | **DIFFERENTIAL effect: format bias ↓, content bias ↑** |
 
 ## Key Methodological Comparison
 

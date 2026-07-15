@@ -6,7 +6,7 @@ Level 10 means your work changes how an entire field thinks and operates.
 Examples: "Attention is All You Need" (transformer architecture), 
 BERT (pre-training changes everything), AlexNet (deep learning works).
 
-These papers didn't just find something new — they made everything before them obsolete.
+These papers didn't just find something new  they made everything before them obsolete.
 
 ---
 
@@ -16,7 +16,7 @@ A level-10 contribution in LLM bias research would mean:
 
 1. **Everyone uses your method** to evaluate/audit their models
 2. **Your finding changes how models are trained** (not just evaluated)
-3. **Your framework becomes the standard** — people say "run the Smith bias audit" like they say "run ImageNet"
+3. **Your framework becomes the standard**  people say "run the Smith bias audit" like they say "run ImageNet"
 
 ---
 
@@ -37,7 +37,7 @@ You need to ADD three things on top of the definitive study:
 ### 1. A Deployable Bias Audit Tool (Already 60% Built)
 
 `bias_api.py` exists but needs to be:
-- Deployed as a live web service (Render, Railway, or similar — free tier)
+- Deployed as a live web service (Render, Railway, or similar  free tier)
 - Accept any HuggingFace model ID → return a bias report card PDF
 - Get used by real researchers (share on Twitter, Reddit, LinkedIn)
 
@@ -45,7 +45,7 @@ You need to ADD three things on top of the definitive study:
 
 ### 2. A New Evaluation Protocol That Becomes Standard
 
-Right now, people evaluate LLMs with MT-Bench, Chatbot Arena, etc. — all of which have biased judges. Your protocol:
+Right now, people evaluate LLMs with MT-Bench, Chatbot Arena, etc.  all of which have biased judges. Your protocol:
 - "Score reports should include a bias profile alongside the score"
 - Show that it changes model RANKINGS (not just scores)
 - Get adopted by Chatbot Arena or MT-Bench maintainers
@@ -80,8 +80,8 @@ A level-10 paper would also show how to fix content bias:
 
 | Prerequisite | Status | Path |
 |-------------|--------|------|
-| Novel finding | ✅ Have it | — |
-| Clean experiment | ✅ Have it | — |
+| Novel finding | ✅ Have it |  |
+| Clean experiment | ✅ Have it |  |
 | Deployable tool | ⚠️ Built but not deployed | Deploy bias_api.py to Render |
 | New protocol | ❌ Not proposed | Write a position paper/brief |
 | Training fix | ❌ Not done | Fine-tune a bias-resistant judge |

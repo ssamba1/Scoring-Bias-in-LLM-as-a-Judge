@@ -62,12 +62,12 @@
 ## The Real S-Tier Secret
 
 S-tier papers aren't made in one sprint. They're:
-1. **First** (priority secured — you have this for base-vs-instruct scoring bias ✅)
-2. **Solid** (evidence supports claims — you're getting there)
-3. **Reproducible** (anyone can verify — on track)
-4. **Well-told** (writing + figures — needs polish)
-5. **Cited** (community validation — takes time)
+1. **First** (priority secured  you have this for base-vs-instruct scoring bias ✅)
+2. **Solid** (evidence supports claims  you're getting there)
+3. **Reproducible** (anyone can verify  on track)
+4. **Well-told** (writing + figures  needs polish)
+5. **Cited** (community validation  takes time)
 
-**You're at step 1-2, heading to step 3.** S-tier comes from publishing, getting cited, and building a research program — not from one more round of edits.
+**You're at step 1-2, heading to step 3.** S-tier comes from publishing, getting cited, and building a research program  not from one more round of edits.
 
 **Publish on arXiv NOW** to establish priority. Then iterate toward S-tier through follow-up papers.

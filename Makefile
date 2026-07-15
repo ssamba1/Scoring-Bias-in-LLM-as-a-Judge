@@ -4,7 +4,7 @@
 
 help:  # Show available targets
 	@echo "╔══════════════════════════════════════════════════════════════╗"
-	@echo "║   Scoring Bias — Makefile Help                              ║"
+	@echo "║   Scoring Bias  Makefile Help                              ║"
 	@echo "╚══════════════════════════════════════════════════════════════╝"
 	@echo ""
 	@echo "── Development ────────────────────────────────────────────────"

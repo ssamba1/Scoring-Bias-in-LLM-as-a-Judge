@@ -13,19 +13,19 @@ print("="*60)
 print("""
 The video abstract will show:
 
-FRAME 1 (0-3s): Three bar pairs appear — Rubric Order, Score ID, Reference Answer
+FRAME 1 (0-3s): Three bar pairs appear  Rubric Order, Score ID, Reference Answer
   Each pair shows base (blue) and instruct (orange) side by side.
 
-FRAME 2 (3-6s): Green arrow appears on Rubric Order — value drops 44%
+FRAME 2 (3-6s): Green arrow appears on Rubric Order  value drops 44%
   Text: "Rubric Order Bias: -44%"
 
-FRAME 3 (6-9s): Green arrow appears on Score ID — value drops 77%
+FRAME 3 (6-9s): Green arrow appears on Score ID  value drops 77%
   Text: "Score ID Bias: -77%"
 
-FRAME 4 (9-12s): Red arrow appears on Reference Answer — value rises 35%
+FRAME 4 (9-12s): Red arrow appears on Reference Answer  value rises 35%
   Text: "Reference Answer Bias: +35%"
 
-FRAME 5 (12-15s): Two channels emerge — "Format" (green) and "Content" (red)
+FRAME 5 (12-15s): Two channels emerge  "Format" (green) and "Content" (red)
   Text: "DIFFERENTIAL EFFECT: instruction tuning has opposite effects"
   
 FRAME 6 (15-18s): All models, languages, probes fade in

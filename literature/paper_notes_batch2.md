@@ -1,6 +1,6 @@
-# Paper Notes — Batch 2 (Extended Reading)
+# Paper Notes  Batch 2 (Extended Reading)
 
-## Paper 13: Wang et al. 2023 — "Large Language Models are not Fair Evaluators"
+## Paper 13: Wang et al. 2023  "Large Language Models are not Fair Evaluators"
 **arXiv:2305.17926 · ACL 2024 · cited 1039+**
 
 ### Key Details
@@ -18,11 +18,11 @@
 - BPC is the standard mitigation (swap-and-average)
 - Does NOT address scoring bias or bias interactions
 
-## Paper 14: Shi et al. 2025 — "Judging the Judges: A Systematic Study of Position Bias"
+## Paper 14: Shi et al. 2025  "Judging the Judges: A Systematic Study of Position Bias"
 **arXiv:2406.07791 · AACL-IJCNLP 2025 · cited 273**
 
 ### Key Details
-- **15 judges × ~150,000 evaluation instances** — largest position bias study
+- **15 judges × ~150,000 evaluation instances**  largest position bias study
 - 3 metrics: repetition stability (RS), position consistency (PC), preference fairness (PF)
 - Factors: Judge-Level, Candidate-Level, Task-Level
 - **Key findings:**
@@ -37,7 +37,7 @@
 - Provides effect sizes and methodology we can reference
 - Does NOT study bias interactions
 
-## Paper 15: Park et al. 2024 — "OffsetBias: Leveraging Debiased Data for Tuning Evaluators"
+## Paper 15: Park et al. 2024  "OffsetBias: Leveraging Debiased Data for Tuning Evaluators"
 **Findings of EMNLP 2024**
 
 ### Key Details
@@ -51,7 +51,7 @@
 - Does NOT address scoring bias or bias interactions
 - Shows that multi-bias mitigation is possible through training
 
-## Paper 16: Wataoka et al. 2024 — "Self-Preference Bias in LLM-as-a-Judge"
+## Paper 16: Wataoka et al. 2024  "Self-Preference Bias in LLM-as-a-Judge"
 **NeurIPS SafeGenAI Workshop 2024**
 
 ### Key Details
@@ -64,7 +64,7 @@
 - Source for family bias gap (23 of 35 bias types have no mitigation)
 - Self-preference is well-studied; family bias is untouched
 
-## Paper 17: Panickssery et al. 2024 — "LLM Evaluators Recognize and Favor Their Own Generations"
+## Paper 17: Panickssery et al. 2024  "LLM Evaluators Recognize and Favor Their Own Generations"
 **NeurIPS 2024**
 
 ### Key Details

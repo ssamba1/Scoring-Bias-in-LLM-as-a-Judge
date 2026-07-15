@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cross-probe correlation and item difficulty analysis.
 Builds analytical depth by examining relationships between bias types and items.
-Uses existing data — no GPU needed.
+Uses existing data  no GPU needed.
 """
 import json, math
 from pathlib import Path
@@ -57,7 +57,7 @@ worst = domains[item_bias_estimate.index(max(item_bias_estimate))]
 print(f"   Best domain (lowest bias): {best} ({min(item_bias_estimate):.1f})")
 print(f"   Worst domain (highest bias): {worst} ({max(item_bias_estimate):.1f})")
 print(f"   Range: {max(item_bias_estimate) - min(item_bias_estimate):.1f}")
-print(f"   Item effect is moderate — domains explain ~{(max(item_bias_estimate)-min(item_bias_estimate))/sum(item_bias_estimate)*len(item_bias_estimate)*100:.0f}% of variance")
+print(f"   Item effect is moderate  domains explain ~{(max(item_bias_estimate)-min(item_bias_estimate))/sum(item_bias_estimate)*len(item_bias_estimate)*100:.0f}% of variance")
 
 print("\n5. CONSENSUS ANALYSIS")
 print("   Across all families, what is the confidence in the differential effect?")

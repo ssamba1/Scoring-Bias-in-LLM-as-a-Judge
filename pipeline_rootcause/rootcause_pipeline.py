@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Root Cause of Scoring Bias — HuggingFace inference pipeline.
+"""Root Cause of Scoring Bias  HuggingFace inference pipeline.
 Compares base vs instruct models on rubric order, score ID, and reference answer bias.
 
 Usage: python3 rootcause_pipeline.py
@@ -245,7 +245,7 @@ def analyze_results(all_results, model_type):
 
 if __name__ == "__main__":
     print("="*70)
-    print("ROOT CAUSE OF SCORING BIAS — PIPELINE")
+    print("ROOT CAUSE OF SCORING BIAS  PIPELINE")
     print("="*70)
     
     items = load_items(30)

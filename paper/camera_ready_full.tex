@@ -38,7 +38,7 @@
 \section{Introduction}
 
 \paragraph{The problem.}
-When an AI model evaluates another AI model's response, can we trust the score? Consider a concrete example: a base model is asked to score a biology answer on a scale of 1 to 5, where 1 is worst and 5 is best. If the scale is reversed (1=best, 5=worst), a base model may literally output ``5'' (the worst score) for an excellent answer, because it follows the rubric format without understanding semantics. An instruction-tuned version of the same model correctly interprets the scale. But show that same instruction-tuned model a poor example before scoring, and it will score \emph{lower} than if shown no example — a bias that the base model does not exhibit.
+When an AI model evaluates another AI model's response, can we trust the score? Consider a concrete example: a base model is asked to score a biology answer on a scale of 1 to 5, where 1 is worst and 5 is best. If the scale is reversed (1=best, 5=worst), a base model may literally output ``5'' (the worst score) for an excellent answer, because it follows the rubric format without understanding semantics. An instruction-tuned version of the same model correctly interprets the scale. But show that same instruction-tuned model a poor example before scoring, and it will score \emph{lower} than if shown no example  a bias that the base model does not exhibit.
 
 The LLM-as-a-Judge paradigm~\cite{zheng2023judging} has become central to modern AI development---powering benchmarks like MT-Bench and Chatbot Arena, serving as reward models in RLHF~\cite{bai2022constitutional}, and automating evaluation in production pipelines. Yet a growing body of work documents that these judges are systematically biased. Over 35 distinct bias types have been identified~\cite{ye2024justice,gu2024survey}, including position bias~\cite{wang2023large}, verbosity bias, self-enhancement bias, and---most recently---scoring bias~\cite{li2025scoring}.
 
@@ -66,7 +66,7 @@ We compare base and instruct variants across 9 model families (all inference on 
     \item \textbf{H4:} Training method modulates the effect; RLHF-trained families show a stronger differential effect than SFT-only or SFT+DPO families.
 \end{enumerate}
 
-\paragraph{Novelty.} The question — whether scoring bias originates from pre-training or instruction tuning — was posed by Li et al. (DASFAA 2026) as an open problem. Our work provides initial experimental evidence toward an answer, and presents the largest open comparison of scoring bias across instruct-tuned models to date.
+\paragraph{Novelty.} The question  whether scoring bias originates from pre-training or instruction tuning  was posed by Li et al. (DASFAA 2026) as an open problem. Our work provides initial experimental evidence toward an answer, and presents the largest open comparison of scoring bias across instruct-tuned models to date.
 
 \paragraph{Our contributions:}
 \begin{enumerate}
@@ -422,11 +422,11 @@ Why does instruction tuning improve format robustness while increasing content s
 \paragraph{IIAR test.} We tested the IIAR hypothesis by extracting per-layer attention weights from Qwen2.5-0.5B and Llama-3.2-3B base and instruct variants. IIAR predicts $\kappa > 1.0$ for both format and content attention after instruction tuning. The data does not support this at either scale:
 
 \begin{itemize}
-    \item \textbf{0.5B:} Format $\kappa_f = 1.003$, Content $\kappa_c = 0.870$ — neither increases.
-    \item \textbf{3B:} Format $\kappa_f = 0.879$, Content $\kappa_c = 1.035$ — format \emph{decreases}, content flat.
+    \item \textbf{0.5B:} Format $\kappa_f = 1.003$, Content $\kappa_c = 0.870$  neither increases.
+    \item \textbf{3B:} Format $\kappa_f = 0.879$, Content $\kappa_c = 1.035$  format \emph{decreases}, content flat.
 \end{itemize}
 
-\paragraph{Alternative: Format Efficiency Hypothesis.} The pattern suggests a different mechanism: instruction tuning makes format parsing more efficient, requiring less attention to format tokens ($23.7\% \to 20.8\%$ at 3B). This efficiency reduces format-related scoring errors (format bias $\downarrow$). Content attention remains essentially unchanged ($1.06\% \to 1.09\%$), suggesting the content bias increase in larger models has a different cause — possibly increased helpfulness making models more susceptible to exemplar priming, rather than attention redistribution.
+\paragraph{Alternative: Format Efficiency Hypothesis.} The pattern suggests a different mechanism: instruction tuning makes format parsing more efficient, requiring less attention to format tokens ($23.7\% \to 20.8\%$ at 3B). This efficiency reduces format-related scoring errors (format bias $\downarrow$). Content attention remains essentially unchanged ($1.06\% \to 1.09\%$), suggesting the content bias increase in larger models has a different cause  possibly increased helpfulness making models more susceptible to exemplar priming, rather than attention redistribution.
 
 \paragraph{Theoretical predictions.}
 The IIAR hypothesis makes five testable predictions:
@@ -461,7 +461,7 @@ We identify and quantify six limitations:
     \item \textbf{No human baseline.} All claims are relative (base vs instruct). Human baseline would enable absolute magnitude claims but does not affect any relative conclusion.
 \end{enumerate}
 
-\paragraph{Overall.} The format bias reduction finding is robust across 9 families. The content bias finding is scale-dependent — increasing in larger models, decreasing in smaller ones. This scale dependence is itself a finding that warrants further investigation.
+\paragraph{Overall.} The format bias reduction finding is robust across 9 families. The content bias finding is scale-dependent  increasing in larger models, decreasing in smaller ones. This scale dependence is itself a finding that warrants further investigation.
 
 % ── BROADER IMPACT ──
 \section{Broader Impact}
@@ -483,7 +483,7 @@ All code, data, and analysis are publicly available at \url{https://github.com/s
 
 % ── Author Contributions ──
 \section*{Author Contributions}
-CRediT taxonomy: Conceptualization (lead), Methodology (lead), Software (lead), Validation (lead), Formal Analysis (lead), Investigation (lead), Data Curation (lead), Writing — Original Draft (lead), Writing — Review \& Editing (lead), Visualization (lead).
+CRediT taxonomy: Conceptualization (lead), Methodology (lead), Software (lead), Validation (lead), Formal Analysis (lead), Investigation (lead), Data Curation (lead), Writing  Original Draft (lead), Writing  Review \& Editing (lead), Visualization (lead).
 
 % ── PRE-REGISTRATION ──
 \section*{Pre-registration}

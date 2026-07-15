@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-COMPREHENSIVE ANALYSIS — all data sources
+COMPREHENSIVE ANALYSIS  all data sources
 Merges Kaggle (3 families) + T4 (5 families) + OpenRouter (22 instruct models)
 Computes: per-family differential effect, bias landscape, scale analysis
 """
@@ -85,5 +85,5 @@ for group, label in [(small_models, "Small (≤1.5B)"), (large_models, "Larger (
         print(f"  Ref answer:   {statistics.mean(ref_changes):+.2f} avg")
 
 print("\n=== CONCLUSION ===")
-print(f"Format bias (rubric): DOWN in 5/5 T4 families — robust finding")
-print(f"Content bias (ref ans): scale-dependent — more data needed at 3B+")
+print(f"Format bias (rubric): DOWN in 5/5 T4 families  robust finding")
+print(f"Content bias (ref ans): scale-dependent  more data needed at 3B+")

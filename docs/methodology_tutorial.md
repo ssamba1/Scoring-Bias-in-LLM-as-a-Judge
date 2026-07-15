@@ -1,4 +1,4 @@
-# Methodology Tutorial — Step by Step
+# Methodology Tutorial  Step by Step
 
 > **A detailed walkthrough of the scoring-bias analysis methodology,
 > with code examples for each step.**
@@ -45,7 +45,7 @@ Each stage builds on the previous one. Here's what each stage does:
 
 Before diving into the analysis, let's understand the data structures in `src/scoring_bias/models.py`.
 
-### ProbeType — The Three Bias Probes
+### ProbeType  The Three Bias Probes
 
 ```python
 from enum import Enum
@@ -59,7 +59,7 @@ class ProbeType(str, Enum):
 
 Each probe tests a different type of scoring bias.
 
-### ScoreRecord — One Data Point
+### ScoreRecord  One Data Point
 
 ```python
 @dataclass
@@ -74,7 +74,7 @@ class ScoreRecord:
     is_base: bool            # True if base variant
 ```
 
-### ProbeResult — Aggregated for One Probe
+### ProbeResult  Aggregated for One Probe
 
 ```python
 @dataclass
@@ -95,7 +95,7 @@ class ProbeResult:
         return abs(self.delta) if self.delta is not None else None
 ```
 
-### ModelProfile — One Model's Full Results
+### ModelProfile  One Model's Full Results
 
 ```python
 @dataclass
@@ -117,7 +117,7 @@ class ModelProfile:
         """Average flip rate across all probes."""
 ```
 
-### BiasResult — Top-Level Container
+### BiasResult  Top-Level Container
 
 ```python
 @dataclass
@@ -133,7 +133,7 @@ class BiasResult:
     def num_models(self) -> int
 ```
 
-### ComparisonResult — Base vs Instruct
+### ComparisonResult  Base vs Instruct
 
 ```python
 @dataclass
@@ -165,7 +165,7 @@ Normal condition:    "Score 1-5 where 1=worst, 5=best"
 Treatment condition: "Score 1-5 where 1=best, 5=worst"
 ```
 
-A fair model should adjust — if 5=worst, giving a 5 is bad. But biased models might just copy the number without considering direction.
+A fair model should adjust  if 5=worst, giving a 5 is bad. But biased models might just copy the number without considering direction.
 
 ### Score ID Probe
 
@@ -249,7 +249,7 @@ print(f"Δ = {delta:.4f}")
 
 | Δ Value | Interpretation |
 |---------|---------------|
-| 0.0 | No bias — model is perfectly fair |
+| 0.0 | No bias  model is perfectly fair |
 | 0.0–0.3 | Small bias |
 | 0.3–0.8 | Moderate bias |
 | 0.8+ | Large bias |

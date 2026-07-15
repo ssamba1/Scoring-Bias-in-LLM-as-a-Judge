@@ -1,4 +1,4 @@
-# Model Cards — All 31 Model Variants
+# Model Cards  All 31 Model Variants
 
 ## NeurIPS Datasheet Format
 
@@ -19,7 +19,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Llama 3.1 Community License (gated access) |
 | **Release date** | July 2024 |
 | **Known biases** | Verbosity bias (prefers longer responses), position bias in pairwise comparisons, self-enhancement bias for Llama-generated responses |
-| **Study metrics** | **Base Δ**: 0.60 rub, 0.20 ID, 0.60 ref — **Instruct Δ**: 0.60 rub, 0.60 ID, 0.80 ref |
+| **Study metrics** | **Base Δ**: 0.60 rub, 0.20 ID, 0.60 ref  **Instruct Δ**: 0.60 rub, 0.60 ID, 0.80 ref |
 | **Change** | Rubric: +0.50, Score ID: +0.40, Ref Answer: +0.20 |
 
 ---
@@ -37,7 +37,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Llama 3.2 Community License (gated access) |
 | **Release date** | September 2024 |
 | **Known biases** | Limited instruction following at 1B scale; higher susceptibility to format confusion; shows lower scoring variance overall |
-| **Study metrics** | **Base Δ**: 0.00 rub, 1.30 ID, 2.20 ref — **Instruct Δ**: 0.20 rub, 2.00 ID, 2.60 ref |
+| **Study metrics** | **Base Δ**: 0.00 rub, 1.30 ID, 2.20 ref  **Instruct Δ**: 0.20 rub, 2.00 ID, 2.60 ref |
 | **Change** | Rubric: +0.20, Score ID: +0.70, Ref Answer: +0.40 |
 
 ---
@@ -55,7 +55,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Llama 3.2 Community License (gated access) |
 | **Release date** | September 2024 |
 | **Known biases** | Large rubric order bias in base variant (Δ=3.50), the highest observed among all models. Instruct variant shows dramatic improvement (Δ=0.80, -77%). |
-| **Study metrics** | **Base Δ**: 3.50 rub, 3.70 ID, 3.10 ref — **Instruct Δ**: 0.80 rub, 2.40 ID, 2.50 ref |
+| **Study metrics** | **Base Δ**: 3.50 rub, 3.70 ID, 3.10 ref  **Instruct Δ**: 0.80 rub, 2.40 ID, 2.50 ref |
 | **Change** | Rubric: -2.70, Score ID: -1.30, Ref Answer: -0.60 |
 
 ---
@@ -73,7 +73,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Llama 2 Community License (gated access) |
 | **Release date** | July 2023 |
 | **Known biases** | Position bias (documented), self-enhancement bias, limited context window restricts complex scoring tasks |
-| **Study metrics** | **Base Δ**: 0.30 rub, 2.80 ID, 1.10 ref — **Instruct Δ**: 0.70 rub, 1.30 ID, 1.50 ref |
+| **Study metrics** | **Base Δ**: 0.30 rub, 2.80 ID, 1.10 ref  **Instruct Δ**: 0.70 rub, 1.30 ID, 1.50 ref |
 | **Change** | Rubric: +0.40, Score ID: -1.50, Ref Answer: +0.40 |
 
 ---
@@ -91,7 +91,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Apache 2.0 |
 | **Release date** | May 2024 |
 | **Known biases** | Strong self-enhancement bias; DPO training may reduce format bias less effectively than RLHF |
-| **Study metrics** | **Base Δ**: 0.00 rub, 0.00 ID, 0.00 ref — **Instruct Δ**: 0.20 rub, 0.70 ID, 0.70 ref |
+| **Study metrics** | **Base Δ**: 0.00 rub, 0.00 ID, 0.00 ref  **Instruct Δ**: 0.20 rub, 0.70 ID, 0.70 ref |
 | **Change** | Rubric: +0.20, Score ID: +0.70, Ref Answer: +0.70 |
 
 ---
@@ -109,7 +109,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Apache 2.0 |
 | **Release date** | September 2024 |
 | **Known biases** | Very small model shows limited semantic understanding; high susceptibility to reference answer priming. Score ID bias improves substantially after instruction tuning. |
-| **Study metrics** | **Base Δ**: 0.10 rub, 1.30 ID, 2.60 ref — **Instruct Δ**: 0.20 rub, 0.40 ID, 1.20 ref |
+| **Study metrics** | **Base Δ**: 0.10 rub, 1.30 ID, 2.60 ref  **Instruct Δ**: 0.20 rub, 0.40 ID, 1.20 ref |
 | **Change** | Rubric: +0.10, Score ID: -0.90, Ref Answer: -1.40 |
 
 ---
@@ -127,7 +127,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Apache 2.0 |
 | **Release date** | September 2024 |
 | **Known biases** | Very high base score ID bias (Δ=3.10) driven by letter grades (score 1.0 vs numeric 4.1). Instruction tuning reduces but does not eliminate this gap. |
-| **Study metrics** | **Base Δ**: 0.10 rub, 3.10 ID, 2.60 ref — **Instruct Δ**: 0.40 rub, 1.80 ID, 1.80 ref |
+| **Study metrics** | **Base Δ**: 0.10 rub, 3.10 ID, 2.60 ref  **Instruct Δ**: 0.40 rub, 1.80 ID, 1.80 ref |
 | **Change** | Rubric: +0.30, Score ID: -1.30, Ref Answer: -0.80 |
 
 ---
@@ -145,7 +145,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Apache 2.0 |
 | **Release date** | September 2024 |
 | **Known biases** | Strong base model score ID bias; instruction tuning is the most effective of all Qwen2.5 sizes (Score ID: -2.10 Δ). Reference answer bias nearly eliminated in instruct variant. |
-| **Study metrics** | **Base Δ**: 0.60 rub, 2.50 ID, 2.40 ref — **Instruct Δ**: 0.00 rub, 0.40 ID, 0.90 ref |
+| **Study metrics** | **Base Δ**: 0.60 rub, 2.50 ID, 2.40 ref  **Instruct Δ**: 0.00 rub, 0.40 ID, 0.90 ref |
 | **Change** | Rubric: -0.60, Score ID: -2.10, Ref Answer: -1.50 |
 
 ---
@@ -163,7 +163,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Gemma License (gated access) |
 | **Release date** | June 2024 |
 | **Known biases** | Moderate score ID bias in base variant; instruction tuning is highly effective for this model (-1.50 Δ for both Score ID and Reference Answer). |
-| **Study metrics** | **Base Δ**: 0.10 rub, 2.10 ID, 2.60 ref — **Instruct Δ**: 0.10 rub, 0.60 ID, 1.10 ref |
+| **Study metrics** | **Base Δ**: 0.10 rub, 2.10 ID, 2.60 ref  **Instruct Δ**: 0.10 rub, 0.60 ID, 1.10 ref |
 | **Change** | Rubric: 0.00, Score ID: -1.50, Ref Answer: -1.50 |
 
 ---
@@ -181,7 +181,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Gemma License (gated access) |
 | **Release date** | June 2024 |
 | **Known biases** | Moderate base bias across all probes. Instruction tuning produces consistent reductions in all three bias types. |
-| **Study metrics** | **Base Δ**: 0.20 rub, 2.40 ID, 2.00 ref — **Instruct Δ**: 0.00 rub, 0.50 ID, 1.10 ref |
+| **Study metrics** | **Base Δ**: 0.20 rub, 2.40 ID, 2.00 ref  **Instruct Δ**: 0.00 rub, 0.50 ID, 1.10 ref |
 | **Change** | Rubric: -0.20, Score ID: -1.90, Ref Answer: -0.90 |
 
 ---
@@ -199,7 +199,7 @@ This document provides detailed model cards for all 31 model variants used in th
 | **License** | Stability AI License |
 | **Release date** | March 2024 |
 | **Known biases** | Very high base reference answer bias (Δ=3.80), the highest observed. Score ID bias also high (Δ=2.90). SFT-only training shows limited bias reduction compared to RLHF models. |
-| **Study metrics** | **Base Δ**: 0.40 rub, 2.90 ID, 3.80 ref — **Instruct Δ**: 0.30 rub, 2.50 ID, 3.40 ref |
+| **Study metrics** | **Base Δ**: 0.40 rub, 2.90 ID, 3.80 ref  **Instruct Δ**: 0.30 rub, 2.50 ID, 3.40 ref |
 | **Change** | Rubric: -0.10, Score ID: -0.40, Ref Answer: -0.40 |
 
 ---

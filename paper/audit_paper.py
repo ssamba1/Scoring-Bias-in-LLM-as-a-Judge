@@ -60,14 +60,14 @@ print(f"  In-text citations: {cites} {'(OK ≥5)' if cites >= 5 else '(TOO FEW)'
 # ── 3. COMPARISON WITH PROFESSIONAL STANDARDS ── #
 print("\n3. COMPARISON WITH PROFESSIONAL STANDARDS")
 print()
-print("  LI ET AL. (DASFAA 2026) — STRUCTURE:")
+print("  LI ET AL. (DASFAA 2026)  STRUCTURE:")
 print("  ✓ Title: Specific (Evaluating Scoring Bias in LLM-as-a-Judge)")
 print("  ✓ Authors: Academic institution (Nanjing Univ. of Sci. & Tech.)")
 print("  ✓ Length: ~8 pages conference format")
 print("  ✓ Tables: 5+ (full results, ablation, comparison)")
 print(f"  ✓ Abstract: 183 words, covers problem, method, key numbers, contribution")
 print()
-print("  WANG ET AL. (ACL 2024) — STRUCTURE:")
+print("  WANG ET AL. (ACL 2024)  STRUCTURE:")
 print("  ✓ Title: Direct (Large Language Models are not Fair Evaluators)")
 print("  ✓ Authors: Microsoft Research + academia")
 print("  ✓ Tables: 4 with numbered findings")
@@ -77,7 +77,7 @@ print("  THIS WORK:")
 print("  ✓ Title: Question format, dual-field contribution")
 print("  ✓ Authors: High school placeholder (needs real names)")
 print("  ✓ Length: ~5 pages two-column (shorter than norm)")
-print("  ✓ Tables: 3 (main, families, comparison) — one more needed")
+print("  ✓ Tables: 3 (main, families, comparison)  one more needed")
 print(f"  ✓ Experiment: {6*3*3*50*3:,} judgments (1.7× Wang et al. scale)")
 
 # ── 4. SPECIFIC WEAKNESSES ── #
@@ -85,7 +85,7 @@ print("\n4. SPECIFIC WEAKNESSES IDENTIFIED")
 weaknesses = []
 
 if "Figure" not in text:
-    weaknesses.append("No figure directive in main TeX — figures will compile as blank boxes")
+    weaknesses.append("No figure directive in main TeX  figures will compile as blank boxes")
 if "High School" in text or "Student" in text:
     weaknesses.append("Author placeholder text not replaced (Student A/B, High School Name)")
 if words > 250:
@@ -95,9 +95,9 @@ if tables < 3:
 if refs < 12:
     weaknesses.append(f"Only {refs} references, Li et al. has 15-20")
 if not text.count("\\begin{equation}") >= 1:
-    weaknesses.append("No formal theory/equation (Li et al. has none either — acceptable)")
+    weaknesses.append("No formal theory/equation (Li et al. has none either  acceptable)")
 if text.count("\\paragraph") < 3:
-    weaknesses.append("Few paragraph headers — makes navigation harder")
+    weaknesses.append("Few paragraph headers  makes navigation harder")
 
 for w in weaknesses:
     print(f"  ⚠️  {w}")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Synthetic Data Calibration Tool — adjusts the synthetic data generator
+Synthetic Data Calibration Tool  adjusts the synthetic data generator
 to match the exact interaction ratios and effect sizes reported in our paper.
 Ensures consistency between experiments, analysis, and paper.
 
@@ -170,7 +170,7 @@ def generate_comparison_report():
     for judge, gt in GROUND_TRUTH.items():
         jd = [r for r in data if r.get("judge") == judge]
         if not jd:
-            lines.append(f"| {judge} | {gt['ir']} | {gt['pattern']} | No data | — |")
+            lines.append(f"| {judge} | {gt['ir']} | {gt['pattern']} | No data |  |")
             continue
 
         baseline = [r["score"] for r in jd if r.get("condition") == "baseline"]
@@ -191,7 +191,7 @@ def generate_comparison_report():
             match = "✅" if abs(empirical_ir - gt["ir"]) < 0.3 else "⚠️" if abs(empirical_ir - gt["ir"]) < 0.5 else "✗"
             lines.append(f"| {judge} | {gt['ir']} | {gt['pattern']} | {empirical_ir:.2f} | {match} |")
         else:
-            lines.append(f"| {judge} | {gt['ir']} | {gt['pattern']} | Missing conditions | — |")
+            lines.append(f"| {judge} | {gt['ir']} | {gt['pattern']} | Missing conditions |  |")
 
     report = "\n".join(lines)
     report_path = RESULTS_DIR / "calibration_report.md"

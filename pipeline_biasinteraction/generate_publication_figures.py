@@ -51,7 +51,7 @@ for j in judges:
 
 # Generate ASCII bar charts (terminal-friendly)
 print("="*70)
-print("PUBLICATION FIGURES — Bias Interaction Effects")
+print("PUBLICATION FIGURES  Bias Interaction Effects")
 print("="*70)
 
 print("\n1. Interaction Ratios by Judge")
@@ -107,7 +107,7 @@ h2{color:#93c5fd;margin:30px 0 15px}
 canvas{max-height:300px;margin:15px 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 </style></head><body>
-<h1>Publication Figures — Bias in LLM-as-a-Judge</h1>
+<h1>Publication Figures  Bias in LLM-as-a-Judge</h1>
 <div class='grid'>
 <div><h2>Interaction Ratios</h2><canvas id='c1'></canvas></div>
 <div><h2>Baseline vs Worst</h2><canvas id='c2'></canvas></div>

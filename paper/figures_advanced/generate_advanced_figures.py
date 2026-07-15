@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate advanced analytical figures for the paper.
 Forest plot, heatmap, correlation matrix, power curve.
-No GPU needed — pure matplotlib.
+No GPU needed  pure matplotlib.
 """
 import matplotlib
 matplotlib.use('Agg')
@@ -50,7 +50,7 @@ plt.savefig(OUT / 'forest_plot.png', dpi=200, bbox_inches='tight')
 plt.close()
 print(f"1. Forest plot: {OUT / 'forest_plot.png'}")
 
-# 2. HEATMAP — Model × Probe
+# 2. HEATMAP  Model × Probe
 fig, ax = plt.subplots(figsize=(12, 6))
 matrix = np.array([rubric, score, ref]).T
 im = ax.imshow(matrix, cmap='YlOrRd', aspect='auto')
@@ -70,7 +70,7 @@ plt.savefig(OUT / 'heatmap_model_probe.png', dpi=200, bbox_inches='tight')
 plt.close()
 print(f"2. Heatmap: {OUT / 'heatmap_model_probe.png'}")
 
-# 3. CORRELATION MATRIX — Probes
+# 3. CORRELATION MATRIX  Probes
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 pairs = [('Rubric', 'Score ID', rubric, score), 
          ('Rubric', 'Ref Answer', rubric, ref),

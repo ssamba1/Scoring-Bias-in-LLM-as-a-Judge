@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0] — July 2026
+## [1.0.0]  July 2026
 
 ### Added
 - Complete camera-ready paper (20 pages, LaTeX)
@@ -36,7 +36,7 @@
   - .hermes.md project config for Hermes agent
   - Lint report and project statistics in infrastructure/
 
-## [0.9.0] — June 2026
+## [0.9.0]  June 2026
 
 ### Added
 - Initial project structure

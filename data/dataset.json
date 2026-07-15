@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "dataset_name": "Scoring Bias in LLM-as-a-Judge — Unified Dataset",
+    "dataset_name": "Scoring Bias in LLM-as-a-Judge  Unified Dataset",
     "version": "1.0.0",
     "description": "Complete experimental dataset for scoring bias analysis in LLM-as-a-Judge models. Contains per-model per-probe scores, bias deltas, flip rates, and metadata for 31 model variants across 16 families.",
     "total_judgments": 40500,
@@ -69,11 +69,11 @@
       "GPT-OSS-20B": {"family": "GPT-OSS", "size": "20B", "is_base": false, "training_method": "SFT", "access": "openrouter_api", "excluded": false, "notes": "Open-source GPT model 20B instruct"},
       "Hy3-295B": {"family": "Hy3", "size": "295B", "is_base": false, "training_method": "DPO", "access": "openrouter_api", "excluded": false, "notes": "Tencent Hy3 295B (MoE) instruct"},
       "Gemini-2.5-Flash": {"family": "Gemini", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": false, "notes": "Google Gemini 2.5 Flash (API only)"},
-      "Gemini-2.5-Pro": {"family": "Gemini", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
-      "Inflection-3-Pi": {"family": "Inflection", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
-      "Nemotron-Nano-30B": {"family": "Nemotron", "size": "30B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
-      "Command-R7B": {"family": "Command-R", "size": "7B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"},
-      "Mistral-Small-24B": {"family": "Mistral", "size": "24B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED — stop-token truncation"}
+      "Gemini-2.5-Pro": {"family": "Gemini", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED  stop-token truncation"},
+      "Inflection-3-Pi": {"family": "Inflection", "size": "unknown", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED  stop-token truncation"},
+      "Nemotron-Nano-30B": {"family": "Nemotron", "size": "30B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED  stop-token truncation"},
+      "Command-R7B": {"family": "Command-R", "size": "7B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED  stop-token truncation"},
+      "Mistral-Small-24B": {"family": "Mistral", "size": "24B", "is_base": false, "training_method": "RLHF", "access": "openrouter_api", "excluded": true, "notes": "EXCLUDED  stop-token truncation"}
     }
   },
   "scores": {

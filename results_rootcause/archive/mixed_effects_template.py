@@ -6,7 +6,7 @@ import json, math
 from pathlib import Path
 
 print("="*60)
-print("MIXED-EFFECTS MODEL — Template")
+print("MIXED-EFFECTS MODEL  Template")
 print("="*60)
 print("""
 This script implements a mixed-effects model for the 44-family experiment.
@@ -78,7 +78,7 @@ print("To run after data is available:")
 print(template)
 print()
 print("="*60)
-print("BIAS CLUSTERING — Template")
+print("BIAS CLUSTERING  Template")
 print("="*60)
 
 cluster_template = '''
@@ -117,7 +117,7 @@ for i, fam in enumerate(families):
     plt.annotate(fam, (coords[i, 0], coords[i, 1]), fontsize=6)
 plt.xlabel(f"PC1 ({pca.explained_variance_ratio_[0]:.1%})")
 plt.ylabel(f"PC2 ({pca.explained_variance_ratio_[1]:.1%})")
-plt.title("Bias Profile PCA — 44 Families")
+plt.title("Bias Profile PCA  44 Families")
 plt.savefig("paper/figures/study1/bias_clusters.png", dpi=150)
 print("Saved: paper/figures/study1/bias_clusters.png")
 print(f"Explained variance: {sum(pca.explained_variance_ratio_):.1%}")

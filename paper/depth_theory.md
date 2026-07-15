@@ -9,7 +9,7 @@ from pathlib import Path
 OUT = Path(__file__).parent / "depth_theory.md"
 
 print("="*70)
-print("IIAR HYPOTHESIS — FORMAL PREDICTIONS")
+print("IIAR HYPOTHESIS  FORMAL PREDICTIONS")
 print("="*70)
 
 theory = r"""
@@ -24,7 +24,7 @@ changing the Jacobian as $J_{h_I} = J_{h_B} + \Delta J_h$.
 
 The **attention redistribution** $\kappa = \|J_{h_I}\|_F / \|J_{h_B}\|_F$ is guaranteed
 to satisfy $\kappa > 1$ for non-trivial $\Delta\theta$, meaning instruction tuning
-increases sensitivity to ALL prompt tokens — not just format tokens.
+increases sensitivity to ALL prompt tokens  not just format tokens.
 
 ## Testable Predictions
 
@@ -67,7 +67,7 @@ For our data: |−44%| + |−77%| = 121% ≥ 35% ✓ (bound satisfied)
 print(theory)
 
 print("\n\n" + "="*70)
-print("MITIGATION ANALYSIS — ENSEMBLING ACROSS MODELS")
+print("MITIGATION ANALYSIS  ENSEMBLING ACROSS MODELS")
 print("="*70)
 
 # Existing data from 3 families

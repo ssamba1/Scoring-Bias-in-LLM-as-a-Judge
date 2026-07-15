@@ -16,7 +16,7 @@
 
 ## Data Citation
 
-> Author (2026). "Where Does Scoring Bias Come From? — Experiment Data." Zenodo. https://doi.org/10.5281/zenodo.XXXXX
+> Author (2026). "Where Does Scoring Bias Come From?  Experiment Data." Zenodo. https://doi.org/10.5281/zenodo.XXXXX
 
 ## Code Citation
 

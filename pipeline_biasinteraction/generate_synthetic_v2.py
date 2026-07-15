@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Enhanced Synthetic Data Generator v2 — Bayesian hierarchical model with realistic noise.
+Enhanced Synthetic Data Generator v2  Bayesian hierarchical model with realistic noise.
 Generates synthetic scores that mimic real LLM judge behavior patterns including:
 - Individual bias effects (position, verbosity, sentiment)
 - Interaction effects (compound, additive, or cancelling)
@@ -152,7 +152,7 @@ class BiasDataGenerator:
             * profile["interaction_strength"] * 0.02
         )
 
-        # Noise (heteroscedastic — more noise for extreme conditions)
+        # Noise (heteroscedastic  more noise for extreme conditions)
         base_noise = profile["noise_scale"]
         condition_noise_mult = 1.0 + 0.3 * (
             abs(condition["pos_offset"]) + abs(condition["len_offset"]) + abs(condition["sent_offset"])
@@ -289,8 +289,8 @@ class BiasDataGenerator:
             verb_normal = jd[(jd["length"]=="normal") & (jd["position"]=="first") & (jd["sentiment"]=="neutral")]["score"].mean()
             verb_bias = abs(verb_long - verb_normal)
 
-            # Combined (worst case — disfavored_position + short + negative effects together)
-            # The worst case condition name is "worst_case" — position second + short length + negative sentiment
+            # Combined (worst case  disfavored_position + short + negative effects together)
+            # The worst case condition name is "worst_case"  position second + short length + negative sentiment
             baseline = jd[jd["condition"]=="baseline"]["score"].mean()
             # Compute expected additive from individual bias effects  
             worst = jd[jd["condition"]=="worst_case"]["score"].mean()
@@ -328,7 +328,7 @@ class BiasDataGenerator:
 
         # Print summary
         print("="*70)
-        print("ENHANCED SYNTHETIC DATA GENERATOR v2 — SUMMARY")
+        print("ENHANCED SYNTHETIC DATA GENERATOR v2  SUMMARY")
         print("="*70)
         print(f"Generated {len(df):,} data points ({n_items} items × {n_judges} judges × {len(self.conditions)} conditions × {n_repeats} repeats)")
         print(f"\nGround Truth vs Empirical Interaction Ratios:")

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Inference Executor — runs scoring bias experiments against real LLM APIs.
+Inference Executor  runs scoring bias experiments against real LLM APIs.
 Handles API calls, rate limiting, retries, error recovery, and result persistence.
 
 Usage:
@@ -213,7 +213,7 @@ class InferenceExecutor:
             benchmark = json.load(f)
 
         print(f"\n{'='*60}")
-        print(f"EXPERIMENT EXECUTION — Benchmark: {benchmark.get('name', 'unknown')}")
+        print(f"EXPERIMENT EXECUTION  Benchmark: {benchmark.get('name', 'unknown')}")
         print(f"{'='*60}")
 
         judges_to_run = [judge_name] if judge_name and judge_name != "all" else list(self.judges.keys())
@@ -285,7 +285,7 @@ class InferenceExecutor:
         for r in results:
             probes[r["bias_type"]].append(r["score"])
 
-        print(f"\n  Judge {judge_name} — Per-probe statistics:")
+        print(f"\n  Judge {judge_name}  Per-probe statistics:")
         for probe, scores in sorted(probes.items()):
             clean = [s for s in scores if s is not None]
             if clean:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Comprehensive Test Suite — 100+ tests covering all project components.
+Comprehensive Test Suite  100+ tests covering all project components.
 Run: python3 -m pytest tests/ -v
 Or:  python3 tests/run_all.py
 """

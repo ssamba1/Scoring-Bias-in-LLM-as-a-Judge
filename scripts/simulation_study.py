@@ -100,7 +100,7 @@ def run_simulation(n_families, true_effect_size):
 
 def main():
     print("=" * 60)
-    print("SIMULATION STUDY — Synthetic Data Recovery")
+    print("SIMULATION STUDY  Synthetic Data Recovery")
     print("=" * 60)
 
     effect_sizes = [0.1, 0.3, 0.5, 0.8, 1.0]

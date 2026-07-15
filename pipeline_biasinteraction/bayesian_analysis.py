@@ -103,7 +103,7 @@ class BayesianAnalysis:
         results = {}
 
         print("\n" + "="*70)
-        print("BAYESIAN ANALYSIS — Bias Interaction Effects")
+        print("BAYESIAN ANALYSIS  Bias Interaction Effects")
         print("="*70)
 
         for judge in judges:

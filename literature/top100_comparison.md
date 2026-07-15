@@ -1,4 +1,4 @@
-# THE TOP 100 PAPERS EVER — What Makes Them Exceptional
+# THE TOP 100 PAPERS EVER  What Makes Them Exceptional
 
 ## And How We Compare
 
@@ -6,7 +6,7 @@
 
 ## Part 1: The Characteristics of Elite Papers
 
-I analyzed the common characteristics of papers that changed their fields — from Einstein (1905) to Vaswani et al. (2017) to the present. Ten traits separate them from everything else:
+I analyzed the common characteristics of papers that changed their fields  from Einstein (1905) to Vaswani et al. (2017) to the present. Ten traits separate them from everything else:
 
 ### Trait 1: They Answer a Question Everyone Was Asking
 **Elite papers:** Watson & Crick (DNA structure), Shannon (information theory), Vaswani et al. (attention mechanism)
@@ -39,7 +39,7 @@ I analyzed the common characteristics of papers that changed their fields — fr
 *Our score:* ⚠️ **Partial.** Pattern is consistent across 3 families, but N=3 means t-tests aren't significant. This is fixable.
 
 ### Trait 6: The Writing is Memorable
-**Elite papers:** Feynman's papers ("There's Plenty of Room at the Bottom"), Turing (1950 — "Can machines think?")
+**Elite papers:** Feynman's papers ("There's Plenty of Room at the Bottom"), Turing (1950  "Can machines think?")
 **People remember the paper because of how it was written.**
 
 *Our score:* ❌ **No.** Our writing is competent but not memorable. The title is a question (good), but the prose is standard academic.
@@ -96,22 +96,22 @@ I analyzed the common characteristics of papers that changed their fields — fr
 
 ### What We Can Fix
 
-#### A. Overwhelming Evidence (Trait 5) — MAJOR
+#### A. Overwhelming Evidence (Trait 5)  MAJOR
 **Current:** 3 families, t-tests not significant
 **Fix:** Add 2-3 more model families (Qwen 2.5 7B, Phi-3-mini, OLMo-7B). This is ONE Kaggle run.
 **Impact:** Changes N=3 → N=5-6, t-tests become significant (power analysis confirms).
 **Effort:** 4 hours GPU, $0.
 
-#### B. Memorable Writing (Trait 6) — MAJOR  
+#### B. Memorable Writing (Trait 6)  MAJOR  
 **Current:** Competent but forgettable
 **Fix:** Rewrite abstract and introduction with a hook. Key changes:
 - Title: Keep "Where Does Scoring Bias Come From?" (good question format)
-- Abstract first sentence: "The AI models that evaluate other AI models are biased — and the bias is learned during training, not inherent to the model."
+- Abstract first sentence: "The AI models that evaluate other AI models are biased  and the bias is learned during training, not inherent to the model."
 - Introduction: Start with a concrete example of how a judge changes score when the rubric is reversed
 - Conclusion: End with a forward-looking statement about "bias-aware" judge design
 **Effort:** 2 hours writing.
 
-#### C. Open More Questions (Trait 7) — MODERATE
+#### C. Open More Questions (Trait 7)  MODERATE
 **Current:** "More models needed"
 **Fix:** Add a concrete research agenda for the next 5 years:
 1. Causal mechanisms (which attention heads cause the differential effect)
@@ -132,7 +132,7 @@ I analyzed the common characteristics of papers that changed their fields — fr
 
 ### Will This Paper Be Among the Top 100 of All Time?
 
-**No.** And that's okay. The top 100 all-time papers are like the Olympic gold medalists of science — Einstein, Newton, Shannon, Turing, Watson & Crick. They changed how humanity understands reality.
+**No.** And that's okay. The top 100 all-time papers are like the Olympic gold medalists of science  Einstein, Newton, Shannon, Turing, Watson & Crick. They changed how humanity understands reality.
 
 The correct comparison is not against Einstein (1905) but against the published literature in YOUR field. Against that standard:
 
@@ -140,8 +140,8 @@ The correct comparison is not against Einstein (1905) but against the published 
 |-------------|-------------|
 | Einstein, Newton, Shannon | ❌ Not comparable (different scale of impact) |
 | Vaswani et al. (Attention), Krizhevsky et al. (AlexNet) | ❌ Not comparable (different scale of impact) |
-| Li et al. (DASFAA 2026) — our direct competition | ✅ **Equal structure, better novelty** |
-| Wang et al. (ACL 2024) — published in our field | ✅ **Equal quality, more data** |
+| Li et al. (DASFAA 2026)  our direct competition | ✅ **Equal structure, better novelty** |
+| Wang et al. (ACL 2024)  published in our field | ✅ **Equal quality, more data** |
 | Average ISEF Grand Award winner | ✅ **Above average** |
 | Average NeurIPS HS Track paper | ✅ **Above average** |
 

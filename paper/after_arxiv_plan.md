@@ -1,6 +1,6 @@
 # After arXiv: Path to S-Tier (NeurIPS/ACL Level)
 
-## Phase 1: v2.0 — Strengthen Core (1-2 weeks, $0-5)
+## Phase 1: v2.0  Strengthen Core (1-2 weeks, $0-5)
 
 ### 1. Fix the 4-bit loading issue → Qwen2.5-7B + Mistral-7B (30 min)
 Run the T4 script with `!pip install -q --upgrade transformers bitsandbytes accelerate` first. Gets you 2 more families (Qwen2.5-7B, Mistral-7B). N=9 → N=11 families.
@@ -15,11 +15,11 @@ Run the T4 script with `!pip install -q --upgrade transformers bitsandbytes acce
 Run `attention_analysis_kaggle.py` on Llama-3.2-3B (shows content ↑). If κ > 1.0 at 3B but not at 0.5B → proves IIAR has a scale threshold. This is the key experiment.
 
 ### 4. Domain analysis (30 min)
-Already have the code + per-item data from the T4 run. Run `domain_analysis.py` — tells you if science items show different bias than humanities.
+Already have the code + per-item data from the T4 run. Run `domain_analysis.py`  tells you if science items show different bias than humanities.
 
 **After Phase 1: ~8.0-8.5/10. Paper has N=11, human baseline, attention evidence, per-domain breakdown.**
 
-## Phase 2: v3.0 — The NeurIPS Push (1-2 months, $20-100)
+## Phase 2: v3.0  The NeurIPS Push (1-2 months, $20-100)
 
 ### 5. More families via A100 (free on Colab)
 Run 7B+ models on Colab's free A100 (90 min/week):

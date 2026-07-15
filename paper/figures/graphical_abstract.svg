@@ -143,6 +143,6 @@
 
   <rect x="730" y="495" width="370" height="80" rx="8" fill="#2b6cb0" opacity="0.1" stroke="#3182ce" stroke-width="1"/>
   <text x="915" y="520" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#63b3ed">Conclusion: Scoring bias is modulated by</text>
-  <text x="915" y="538" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#63b3ed">instruction tuning — not inherent to pre-training</text>
+  <text x="915" y="538" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="600" fill="#63b3ed">instruction tuning  not inherent to pre-training</text>
   <text x="915" y="558" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#718096">Mitigation must target the alignment stage</text>
 </svg>

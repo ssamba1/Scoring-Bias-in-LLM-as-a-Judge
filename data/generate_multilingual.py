@@ -9,7 +9,7 @@ BASE = Path(__file__).parent.parent
 OUT = BASE / "data" / "multilingual"
 OUT.mkdir(parents=True, exist_ok=True)
 
-# 50 English items (instruction, response) — shortened for readability
+# 50 English items (instruction, response)  shortened for readability
 ITEMS_EN = [
     ("Explain how photosynthesis works.", "Plants use sunlight to convert CO2 and water into glucose and oxygen."),
     ("What is the theory of relativity?", "Einstein's theory says space and time are relative to the observer's frame."),
@@ -23,7 +23,7 @@ ITEMS_EN = [
     ("What is a black hole?", "A region where gravity prevents anything, even light, from escaping."),
 ]
 
-# Template-based translations (accurate but simplified — no API cost)
+# Template-based translations (accurate but simplified  no API cost)
 # Format: (instruction, response) per language
 TRANSLATIONS = {
     "zh": {  # Chinese (Simplified)

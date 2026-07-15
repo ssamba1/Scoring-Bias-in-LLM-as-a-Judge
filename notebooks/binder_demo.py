@@ -34,7 +34,7 @@ import matplotlib as mpl
 
 mpl.rcParams["figure.dpi"] = 120
 
-print("✓ Setup complete — interactive widgets are ready below.")
+print("✓ Setup complete  interactive widgets are ready below.")
 
 # %% [markdown]
 # ## Load Pre-computed Data
@@ -160,7 +160,7 @@ ax.set_xticks(x + width)
 ax.set_xticklabels(pivot.index, rotation=45, ha="right")
 ax.axhline(y=0, color="gray", linestyle="--", alpha=0.5)
 ax.set_ylabel("Bias Delta (Δ)")
-ax.set_title("Full Bias Landscape — All Models and Probes")
+ax.set_title("Full Bias Landscape  All Models and Probes")
 ax.legend()
 fig.tight_layout()
 plt.show()

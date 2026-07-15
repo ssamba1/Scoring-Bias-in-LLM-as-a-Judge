@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scoring Bias in LLM-as-a-Judge — Presentation</title>
+<title>Scoring Bias in LLM-as-a-Judge  Presentation</title>
 <style>
 /* ── reset / base ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -152,28 +152,28 @@ img{max-width:100%;max-height:50vh;border-radius:10px;margin:16px 0;box-shadow:0
   <p class="sub" style="margin-top:16px">Greedy decoding (T=0) · 3 repeats · Kaggle T4 + OpenRouter · Total API cost &lt; $3</p>
 </div>
 
-<!-- ─────── SLIDE 3: RESULTS 1 — Bias Landscape ─────── -->
+<!-- ─────── SLIDE 3: RESULTS 1  Bias Landscape ─────── -->
 <div class="slide" id="slide-3">
   <h2>Bias Landscape Across 22 Models</h2>
   <div class="grid">
     <div class="card">
       <h4 class="num-green">0.56</h4>
-      <p>Mean Δ — Rubric Order</p>
+      <p>Mean Δ  Rubric Order</p>
     </div>
     <div class="card">
       <h4 class="num-blue">0.68</h4>
-      <p>Mean Δ — Score ID <span style="color:#63b3ed;font-weight:700">← Largest</span></p>
+      <p>Mean Δ  Score ID <span style="color:#63b3ed;font-weight:700">← Largest</span></p>
     </div>
     <div class="card">
       <h4 class="num-red">0.41</h4>
-      <p>Mean Δ — Reference Answer</p>
+      <p>Mean Δ  Reference Answer</p>
     </div>
   </div>
   <img src="../figures/fig1_bias_landscape.png" alt="Bias landscape" style="max-height:35vh">
   <p class="sub">Score ID bias has the largest average effect (Δ = 0.68) across all instruct models</p>
 </div>
 
-<!-- ─────── SLIDE 4: RESULTS 2 — Differential Effect ─────── -->
+<!-- ─────── SLIDE 4: RESULTS 2  Differential Effect ─────── -->
 <div class="slide" id="slide-4">
   <h2>Differential Effect: Format ↓ Content ↑</h2>
   <div class="figure-row">
@@ -197,7 +197,7 @@ img{max-width:100%;max-height:50vh;border-radius:10px;margin:16px 0;box-shadow:0
   <p class="sub">Format bias decreases across 7/9 families; Content bias increases only in larger (3B+) RLHF models</p>
 </div>
 
-<!-- ─────── SLIDE 5: RESULTS 3 — Scale Dependence ─────── -->
+<!-- ─────── SLIDE 5: RESULTS 3  Scale Dependence ─────── -->
 <div class="slide" id="slide-5">
   <h2>Scale-Dependent Pattern</h2>
   <img src="../figures/fig3_scale_dependent.png" alt="Scale dependent" style="max-height:35vh">
@@ -247,12 +247,12 @@ img{max-width:100%;max-height:50vh;border-radius:10px;margin:16px 0;box-shadow:0
 <div class="slide" id="slide-7">
   <h2>Limitations</h2>
   <ul>
-    <li><strong>9 model families</strong> with base-instruct pairs — larger-sample replication needed</li>
-    <li><strong>50 evaluation items</strong> — sufficient for observed effects (d ≥ 1.20), but more items could detect smaller effects</li>
-    <li><strong>Single prompt template</strong> — magnitude may vary with different prompt designs</li>
-    <li><strong>English-only</strong> — results bound to English; multilingual analysis is future work</li>
-    <li><strong>No human baseline</strong> — all claims are relative (base vs instruct), not absolute</li>
-    <li><strong>Descriptive parser</strong> affected 1 of 9 variant comparisons (11.1%) — does not change conclusions</li>
+    <li><strong>9 model families</strong> with base-instruct pairs  larger-sample replication needed</li>
+    <li><strong>50 evaluation items</strong>  sufficient for observed effects (d ≥ 1.20), but more items could detect smaller effects</li>
+    <li><strong>Single prompt template</strong>  magnitude may vary with different prompt designs</li>
+    <li><strong>English-only</strong>  results bound to English; multilingual analysis is future work</li>
+    <li><strong>No human baseline</strong>  all claims are relative (base vs instruct), not absolute</li>
+    <li><strong>Descriptive parser</strong> affected 1 of 9 variant comparisons (11.1%)  does not change conclusions</li>
   </ul>
   <p style="margin-top:24px;color:#718096;font-size:15px">Power analysis: N ≥ 12 families needed for 80% power at α = 0.05</p>
   <div class="grid" style="margin-top:16px">
@@ -265,7 +265,7 @@ img{max-width:100%;max-height:50vh;border-radius:10px;margin:16px 0;box-shadow:0
 <div class="slide" id="slide-8">
   <h2>Conclusion</h2>
   <div class="blockquote" style="font-size:20px;border-color:#805ad5">
-    "Scoring bias is modulated by instruction tuning — not inherent to pre-training."
+    "Scoring bias is modulated by instruction tuning  not inherent to pre-training."
   </div>
   <div class="grid" style="margin-top:24px">
     <div class="card" style="min-width:220px">

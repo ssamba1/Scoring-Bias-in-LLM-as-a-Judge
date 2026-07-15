@@ -53,7 +53,7 @@ One variant of a probe. For example, the Rubric Order probe has "normal" and "re
 A range of values that likely contains the true population parameter. A 95% CI means that if we repeated the experiment many times, 95% of CIs would contain the true value. See also: [Bootstrap Confidence Interval](#bootstrap-confidence-interval).
 
 ### Content Bias
-Bias related to the content of prompts — what information is included. Reference answer bias is a content bias because it involves showing an example answer. See also: [Format Bias](#format-bias), [Reference Answer Bias](#reference-answer-bias).
+Bias related to the content of prompts  what information is included. Reference answer bias is a content bias because it involves showing an example answer. See also: [Format Bias](#format-bias), [Reference Answer Bias](#reference-answer-bias).
 
 ---
 
@@ -116,7 +116,7 @@ A platform and library for sharing and using pre-trained machine learning models
 ## I
 
 ### IIAR Hypothesis
-**Instruction-Induced Attention Redistribution hypothesis**: our proposed explanation for the differential effect. Instruction tuning changes how models distribute attention — focusing more on task-relevant features (reducing format bias) but also more on all contextual information (increasing content bias).
+**Instruction-Induced Attention Redistribution hypothesis**: our proposed explanation for the differential effect. Instruction tuning changes how models distribute attention  focusing more on task-relevant features (reducing format bias) but also more on all contextual information (increasing content bias).
 
 ### Inference (in ML)
 The process of using a trained model to make predictions. In our context, inference means asking an LLM to produce a score for a given item.

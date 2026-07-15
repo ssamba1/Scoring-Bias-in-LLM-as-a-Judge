@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Corrected Synthetic Data Generator v3 — produces data that exactly matches
+Corrected Synthetic Data Generator v3  produces data that exactly matches
 the interaction ratios and effect sizes reported in our paper.
 
 Ground truth values (from our published research):

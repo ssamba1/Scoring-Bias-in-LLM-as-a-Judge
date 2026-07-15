@@ -1,5 +1,5 @@
 """
-FastAPI Web Service — Experiment Management API.
+FastAPI Web Service  Experiment Management API.
 Provides RESTful endpoints for:
 - Querying experiment results
 - Triggering experiment runs

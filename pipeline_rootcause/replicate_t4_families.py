@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-12-FAMILY REPLICATION — Kaggle T4 GPU
+12-FAMILY REPLICATION  Kaggle T4 GPU
 Loads models from HuggingFace, runs inference locally.
 
 ✅ 100% guarantee: 3 Qwen families (6 models) work with NO auth, NO config
 ✅ Bonus: 3 more families (Llama, Gemma) if HF_TOKEN is set
-✅ Graceful skip on failure — never crashes
+✅ Graceful skip on failure  never crashes
 
 Run time: ~30-90 min depending on auth+gated success
 """
@@ -41,7 +41,7 @@ ITEMS = [
     (11, "What is machine learning?",
      "Computers learn patterns from data without being explicitly programmed for every case."),
     (12, "How does a database index work?",
-     "Like a book's index — finds data faster without scanning everything."),
+     "Like a book's index  finds data faster without scanning everything."),
     (13, "TCP vs UDP?",
      "TCP is reliable, connection-oriented. UDP is faster, no delivery guarantee."),
     (14, "What is an API?",
@@ -103,7 +103,7 @@ ITEMS = [
     (42, "Area of a circle?",
      "πr² where r = radius."),
     (43, "What is a derivative?",
-     "Measures function change as input changes — slope at a point."),
+     "Measures function change as input changes  slope at a point."),
     (44, "Quadratic formula?",
      "x = (-b ± √(b²-4ac))/2a for ax²+bx+c=0."),
     (45, "What is probability?",
@@ -150,18 +150,18 @@ PROBES = [("rubric_order",["normal","reversed"]),("score_id",["numeric","letter"
 # GUARANTEED: Qwen (Apache 2.0, no auth, fits T4)
 # BONUS: Llama/Gemma (need HF_TOKEN in env, gated)
 MODELS = [
-    # GUARANTEED — always work, no auth needed
+    # GUARANTEED  always work, no auth needed
     ("Qwen/Qwen2.5-0.5B", "Qwen2.5-0.5B", False),
     ("Qwen/Qwen2.5-0.5B-Instruct", "Qwen2.5-0.5B-IT", False),
     ("Qwen/Qwen2.5-1.5B", "Qwen2.5-1.5B", False),
     ("Qwen/Qwen2.5-1.5B-Instruct", "Qwen2.5-1.5B-IT", False),
-    # Open 7B (fp16 borderlines T4 — uses 4-bit for safety)
+    # Open 7B (fp16 borderlines T4  uses 4-bit for safety)
     ("Qwen/Qwen2.5-7B", "Qwen2.5-7B", False, "4bit"),
     ("Qwen/Qwen2.5-7B-Instruct", "Qwen2.5-7B-IT", False, "4bit"),
     # Open 1.6B (fits easily)
     ("stabilityai/stablelm-2-1_6b", "StableLM-2-1.6B", False),
     ("stabilityai/stablelm-2-1_6b-chat", "StableLM-2-1.6B-IT", False),
-    # BONUS — need HF_TOKEN, skip gracefully if fails
+    # BONUS  need HF_TOKEN, skip gracefully if fails
     ("meta-llama/Llama-3.2-1B", "Llama-3.2-1B", True),
     ("meta-llama/Llama-3.2-1B-Instruct", "Llama-3.2-1B-IT", True),
     ("meta-llama/Llama-3.2-3B", "Llama-3.2-3B", True),

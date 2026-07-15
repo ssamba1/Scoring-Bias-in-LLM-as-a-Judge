@@ -1,4 +1,4 @@
-# FINAL SYNTHESIS — Exhaustive Research Gap Audit
+# FINAL SYNTHESIS  Exhaustive Research Gap Audit
 
 ## Sources
 - **My research:** ~60 papers read, 30+ search dimensions
@@ -8,7 +8,7 @@
 
 ---
 
-## Part A: Activation Steering — VERDICT: Do NOT pursue
+## Part A: Activation Steering  VERDICT: Do NOT pursue
 
 | Finding | Source |
 |---|---|
@@ -20,11 +20,11 @@
 
 ---
 
-## Part B: LLM-as-a-Judge — Verified Untouched Niches
+## Part B: LLM-as-a-Judge  Verified Untouched Niches
 
 ### Inventory of ALL documented bias types (35 total)
 - 12 have at least one mitigation paper
-- **23 have ZERO peer-reviewed mitigation** — confirmed research gaps
+- **23 have ZERO peer-reviewed mitigation**  confirmed research gaps
 - Source: Subagent 1's complete inventory at `C:\Users\Admin\Hermes\llm-as-a-judge-bias-inventory.md`
 
 ### Verified Untouched Niche Rankings
@@ -41,7 +41,7 @@
 
 ---
 
-## Part C: The Two Best Options — Detailed Comparison
+## Part C: The Two Best Options  Detailed Comparison
 
 ### Option 1: Root Cause of Scoring Bias
 **Ask:** Does LLM judge scoring bias (rubric order, score ID, reference answer score) originate from pre-training, instruction tuning, or RLHF?

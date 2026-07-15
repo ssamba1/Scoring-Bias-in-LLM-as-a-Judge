@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Domain analysis — compute bias per domain (science, tech, humanities, daily, math).
+Domain analysis  compute bias per domain (science, tech, humanities, daily, math).
 Requires per-item scores (not just per-variant averages).
 Needs: results_rootcause/12_families_results.json (from run_12_families.py) 
   or results_rootcause/study1_per_item.json (per-item breakdown from experiment)

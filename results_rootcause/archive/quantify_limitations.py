@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Quantify every limitation's impact on conclusions.
-Each test runs on existing data — no GPU needed.
+Each test runs on existing data  no GPU needed.
 """
 import math, json
 from pathlib import Path
@@ -24,7 +24,7 @@ for alpha in [0.05, 0.01]:
             limitations.append({
                 "limitation": "Item count (50 items)",
                 "quantified": f"50 items provides 80% power for d={d:.1f} at α={alpha:.2f}. Our observed d range is 0.56-2.38, so 50 items is sufficient for all effect sizes observed.",
-                "impact": "Low — sufficient for all observed effect sizes."
+                "impact": "Low  sufficient for all observed effect sizes."
             })
 
 print()
@@ -51,7 +51,7 @@ for n_families in [5, 10, 15, 20, 30]:
 limitations.append({
     "limitation": "Model family count (15 families, 30 variants)",
     "quantified": "With 15 families (df=14), power exceeds 95% for large effects (d>1.0) and 80% for medium effects (d>0.8). Our observed Cohens d: 0.56-2.38. Rubric order (d=2.38) and score ID (d=1.87) have >99% power. Reference answer (d=0.56) has ~55% power and approaches significance (p=0.034).",
-    "impact": "Medium — reference answer effect needs more families for strong significance."
+    "impact": "Medium  reference answer effect needs more families for strong significance."
 })
 
 # 3. DESCRIPTIVE PARSER
@@ -71,7 +71,7 @@ print(f"  Direction unchanged: numeric + letter both show ↓ bias")
 limitations.append({
     "limitation": "Descriptive parser unreliability",
     "quantified": "Affects 1/9 variant comparisons (11.1%). Numeric and letter variants independently show the differential effect. Removing descriptive entirely does not change any conclusion.",
-    "impact": "Low — affects 11% of data, direction unchanged."
+    "impact": "Low  affects 11% of data, direction unchanged."
 })
 
 # 4. ENGLISH ONLY
@@ -88,8 +88,8 @@ print("  This limits the IIAR claim to English-only instruction tuning")
 
 limitations.append({
     "limitation": "English-only evaluation",
-    "quantified": "100% of 40,500 judgments are on English prompts. Affects generalizability to multilingual settings. IIAR may hold cross-lingually or may not — currently untested.",
-    "impact": "Medium — generalizability bounded but internal validity unaffected."
+    "quantified": "100% of 40,500 judgments are on English prompts. Affects generalizability to multilingual settings. IIAR may hold cross-lingually or may not  currently untested.",
+    "impact": "Medium  generalizability bounded but internal validity unaffected."
 })
 
 # 5. SINGLE PROMPT TEMPLATE
@@ -104,12 +104,12 @@ print("  But the differential effect (format ↓, content ↑) is about relative
 print("  Direction is more robust than magnitude to template choice")
 print()
 print("  If the effect were template-specific, it would vary by model family")
-print("  It doesn't — it's consistent across ALL families tested")
+print("  It doesn't  it's consistent across ALL families tested")
 
 limitations.append({
     "limitation": "Single prompt template",
     "quantified": "One template used for all 40,500 judgments. Direction (format ↓, content ↑) is consistent across 15 families, suggesting robustness beyond template specifics. Magnitude may vary with template.",
-    "impact": "Low-Medium — direction is robust, magnitude may vary."
+    "impact": "Low-Medium  direction is robust, magnitude may vary."
 })
 
 # 6. NO HUMAN BASELINE

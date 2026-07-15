@@ -70,7 +70,7 @@ The descriptive probe variant (score as "Poor, Fair, Good, Very Good, Excellent"
 
 ---
 
-### Criticism 6: Single Seed (42) — Results May Not Generalize
+### Criticism 6: Single Seed (42)  Results May Not Generalize
 
 **Likely from:** Reproducibility reviewer
 **Severity:** Low
@@ -94,13 +94,13 @@ We use the standard scoring prompt format from Prometheus 2 (Kim et al., 2024), 
 
 ---
 
-### Criticism 8: Novelty — Thakur et al. (2024) Already Compared Base vs Instruct
+### Criticism 8: Novelty  Thakur et al. (2024) Already Compared Base vs Instruct
 
 **Likely from:** Literature-review reviewer
 **Severity:** High
 
 **Response:**
-Thakur et al. compared base and instruct versions of Llama-2 as *exam-takers* (models being judged) in a fact-checking task. They did not study *scoring bias* — the systematic score shifts caused by prompt perturbations. Our work is the first to compare base vs instruct models as *judges* in a scoring bias context. Furthermore, Thakur et al. did not test the three scoring bias probes (rubric order, score ID, reference answer) that we study. Pan et al. compared base vs instruct for user-assistant bias, not scoring bias. Li et al. explicitly call for root cause analysis of scoring bias, which we provide.
+Thakur et al. compared base and instruct versions of Llama-2 as *exam-takers* (models being judged) in a fact-checking task. They did not study *scoring bias*  the systematic score shifts caused by prompt perturbations. Our work is the first to compare base vs instruct models as *judges* in a scoring bias context. Furthermore, Thakur et al. did not test the three scoring bias probes (rubric order, score ID, reference answer) that we study. Pan et al. compared base vs instruct for user-assistant bias, not scoring bias. Li et al. explicitly call for root cause analysis of scoring bias, which we provide.
 
 ---
 

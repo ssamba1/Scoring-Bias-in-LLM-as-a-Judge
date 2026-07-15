@@ -1,4 +1,4 @@
-# Model Cards — 44 Families
+# Model Cards  44 Families
 
 ## Standardized documentation for all models tested (NeurIPS Datasheet compliance)
 

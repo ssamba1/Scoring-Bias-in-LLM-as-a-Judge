@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-scoring-bias CLI — Command-line interface for scoring bias analysis.
+scoring-bias CLI  Command-line interface for scoring bias analysis.
 
 Usage:
     scoring-bias compute-deltas [--input FILE] [--output DIR]
@@ -302,7 +302,7 @@ def cmd_generate_figures(args: argparse.Namespace) -> None:
 def cmd_run_all(args: argparse.Namespace) -> None:
     """Run the full analysis pipeline: deltas → flip rates → CI → figures."""
     print("=" * 60)
-    print("  Scoring Bias Analysis — Full Pipeline")
+    print("  Scoring Bias Analysis  Full Pipeline")
     print("=" * 60)
 
     # Step 1: Deltas

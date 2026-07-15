@@ -3,7 +3,7 @@
 ## Option 1: Root Cause of Scoring Bias
 
 ### Q1: "Base models might not follow the scoring prompt format, making the comparison unfair."
-**Rebuttal:** This is actually a feature, not a bug. Base models' inability to follow format-specific instructions *is the mechanism* by which instruction tuning introduces bias. The fact that base models give similar scores across rubric conditions shows that pre-trained representations are inherently bias-free with respect to surface form. The bias emerges when the model learns to attend to format — a capability that comes with instruction tuning.
+**Rebuttal:** This is actually a feature, not a bug. Base models' inability to follow format-specific instructions *is the mechanism* by which instruction tuning introduces bias. The fact that base models give similar scores across rubric conditions shows that pre-trained representations are inherently bias-free with respect to surface form. The bias emerges when the model learns to attend to format  a capability that comes with instruction tuning.
 
 **Safeguard in our design:** We use simple prompt formats (score 1-5, no chain-of-thought) that even base models can follow. We validated this with a pilot.
 
@@ -18,8 +18,8 @@
 ### Q4: "How do you know instruction tuning causes the bias, not RLHF specifically?"
 **Rebuttal:** We can't distinguish SFT from RLHF with publicly available checkpoints (Meta releases only base and instruct). However, we test Mistral, which only has SFT (no RLHF). If Mistral also shows the pattern, the bias comes from SFT alone. This is discussed in our limitations.
 
-### Q5: "This is obvious — of course instruction-tuned models follow instructions better."
-**Rebuttal:** Following instructions and exhibiting scoring bias are not logically connected. An ideal instruction-tuned judge would follow the *intent* of the rubric (measure response quality) while being invariant to surface form. Our finding is that current instruction tuning achieves the former at the cost of the latter — a non-obvious trade-off.
+### Q5: "This is obvious  of course instruction-tuned models follow instructions better."
+**Rebuttal:** Following instructions and exhibiting scoring bias are not logically connected. An ideal instruction-tuned judge would follow the *intent* of the rubric (measure response quality) while being invariant to surface form. Our finding is that current instruction tuning achieves the former at the cost of the latter  a non-obvious trade-off.
 
 ---
 
@@ -31,13 +31,13 @@
 **Practical motivation:** Until interaction effects are measured, we don't know whether $10,000 of bias mitigation research generalizes to production.
 
 ### Q2: "The interaction ratios vary widely by model. Can you draw general conclusions?"
-**Rebuttal:** The variation across models IS a key finding — it shows that interaction patterns are model-specific, not universal. This means:
+**Rebuttal:** The variation across models IS a key finding  it shows that interaction patterns are model-specific, not universal. This means:
 1. Evaluation pipelines should measure interaction effects per-model, not assume general patterns
 2. Model selection should consider interaction profiles for specific deployment contexts
 3. The field needs standardized interaction benchmarks
 
 ### Q3: "These are synthetic responses, not real user data."
-**Rebuttal:** Synthetic responses allow controlled manipulation of individual factors (length, sentiment) while holding content constant — which is impossible with real user data. This internal validity is appropriate for establishing the existence of interaction effects. Replication with real data is important future work.
+**Rebuttal:** Synthetic responses allow controlled manipulation of individual factors (length, sentiment) while holding content constant  which is impossible with real user data. This internal validity is appropriate for establishing the existence of interaction effects. Replication with real data is important future work.
 
 ### Q4: "Three bias types is a small sample."
 **Rebuttal:** We selected the three most impactful biases (covering 59.2% of all biased evaluations per Yang et al. 2025). Adding more bias types would increase the factorial complexity exponentially (2^k conditions for k binary factors). Our design demonstrates the methodology; extending to more biases is a natural next step.

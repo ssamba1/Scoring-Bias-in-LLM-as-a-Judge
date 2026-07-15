@@ -12,7 +12,7 @@
 # ---
 
 # %% [markdown]
-# # 02 — Bias Landscape
+# # 02  Bias Landscape
 #
 # Visualize the scoring bias landscape across all models and probes.
 #

@@ -1,4 +1,4 @@
-# Dataset Release Package — Bias in LLM-as-a-Judge
+# Dataset Release Package  Bias in LLM-as-a-Judge
 
 ## Study 1: Root Cause of Scoring Bias
 
@@ -72,7 +72,7 @@ This package contains all datasets generated for Study 1. All data is released u
 | Cost | $0 (Kaggle free tier) |
 
 ## License
-CC-BY 4.0 — Free to use, share, and adapt with attribution.
+CC-BY 4.0  Free to use, share, and adapt with attribution.
 
 ## Citation
 ```

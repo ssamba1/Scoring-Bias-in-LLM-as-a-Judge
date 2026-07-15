@@ -12,7 +12,7 @@
 # ---
 
 # %% [markdown]
-# # 04 — Bayesian Analysis
+# # 04  Bayesian Analysis
 #
 # A Bayesian approach to scoring bias estimation using PyMC or approximations.
 #
@@ -44,7 +44,7 @@ try:
     HAS_PYMC = True
 except ImportError:
     HAS_PYMC = False
-    print("PyMC not installed — using scipy-based Bayesian approximation instead.")
+    print("PyMC not installed  using scipy-based Bayesian approximation instead.")
     print("Install with: pip install pymc")
 
 # %% [markdown]

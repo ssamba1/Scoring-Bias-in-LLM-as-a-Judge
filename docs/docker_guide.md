@@ -461,7 +461,7 @@ README.md
 
 | Problem | Solution |
 |---------|----------|
-| `ModuleNotFoundError` | Package not installed in image—rebuild |
+| `ModuleNotFoundError` | Package not installed in imagerebuild |
 | Permission denied | Use `chmod` in Dockerfile or run as root |
 | Port already in use | Change host port: `-p 8889:8888` |
 | Container exits immediately | Check command syntax in `CMD` or `command` |

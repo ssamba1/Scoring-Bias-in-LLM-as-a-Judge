@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-PROMPT ABLATION — tests whether differential effect is robust to prompt changes.
+PROMPT ABLATION  tests whether differential effect is robust to prompt changes.
 Runs rubric order probe with 5 different prompt templates.
 
 Run on Kaggle T4 with a single model pair (e.g., Llama-3.2-3B).

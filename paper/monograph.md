@@ -13,7 +13,7 @@
 
 Large Language Models (LLMs) are increasingly deployed as automated judges (LLM-as-a-Judge) to evaluate the outputs of other AI systems. This paradigm has become central to AI benchmarking, alignment research, and production monitoring. However, LLM judges exhibit systematic biases that can compromise evaluation reliability. This monograph presents two complementary studies that together provide the most comprehensive investigation of scoring bias in LLM judges to date.
 
-**Study 1 (Root Cause)** examines where scoring bias comes from. By comparing base (pre-trained only) and instruct (SFT+RLHF) versions of three open-weight model families—Llama 3 8B, Mistral 7B, and Gemma 2 2B—across 11,250 scoring judgments, we find that instruction tuning amplifies scoring bias by 1.77–2.29× compared to base models. This constitutes the first causal evidence that scoring bias emerges primarily during post-training, not pre-training.
+**Study 1 (Root Cause)** examines where scoring bias comes from. By comparing base (pre-trained only) and instruct (SFT+RLHF) versions of three open-weight model familiesLlama 3 8B, Mistral 7B, and Gemma 2 2Bacross 11,250 scoring judgments, we find that instruction tuning amplifies scoring bias by 1.77–2.29× compared to base models. This constitutes the first causal evidence that scoring bias emerges primarily during post-training, not pre-training.
 
 **Study 2 (Bias Interactions)** examines what happens when multiple biases co-occur. Using a full-factorial 2×3×3 experimental design across 48,000 judgments from 5 frontier models (Claude, GPT-4o, Gemini, DeepSeek, Llama), we demonstrate for the first time that position bias and verbosity bias interact non-additively, with interaction ratios reaching 2.10× expected additive effects. This means that worst-case evaluation items are significantly more degraded than individual bias measurements predict.
 
@@ -25,13 +25,13 @@ Together, these studies provide both a diagnosis (where bias comes from) and a m
 
 ### 1.1 Introduction
 
-Scoring bias in LLM-as-a-Judge—the tendency for scores to change based on superficial prompt features like rubric order, score labels, or reference answer scores—has been documented by Li et al. (2025), who explicitly called for root cause analysis. Understanding where this bias comes from is essential for developing effective mitigation strategies.
+Scoring bias in LLM-as-a-Judgethe tendency for scores to change based on superficial prompt features like rubric order, score labels, or reference answer scoreshas been documented by Li et al. (2025), who explicitly called for root cause analysis. Understanding where this bias comes from is essential for developing effective mitigation strategies.
 
 Two competing hypotheses exist:
 1. **Pre-training hypothesis:** Bias originates from statistical patterns in the training corpus
 2. **Post-training hypothesis:** Bias emerges during instruction tuning and/or RLHF
 
-To distinguish these, we compare base (pre-trained only) and instruct (SFT+RLHF) versions of the same model families—effectively an ablation study where instruction tuning is the treatment variable.
+To distinguish these, we compare base (pre-trained only) and instruct (SFT+RLHF) versions of the same model familieseffectively an ablation study where instruction tuning is the treatment variable.
 
 ### 1.2 Methodology
 
@@ -70,7 +70,7 @@ The hierarchical pattern is notable: reference answer bias is amplified most (2.
 
 ### 2.1 Introduction
 
-While individual biases in LLM-as-a-Judge are well-documented (35+ bias types across the literature), no prior work has systematically studied whether biases interact when simultaneously present. This is a critical gap because in production settings, biases never occur in isolation—a response might be short (triggering verbosity bias) AND presented in a disfavored position (triggering position bias).
+While individual biases in LLM-as-a-Judge are well-documented (35+ bias types across the literature), no prior work has systematically studied whether biases interact when simultaneously present. This is a critical gap because in production settings, biases never occur in isolationa response might be short (triggering verbosity bias) AND presented in a disfavored position (triggering position bias).
 
 ### 2.2 Methodology
 
@@ -133,7 +133,7 @@ Taken together, our two studies paint a comprehensive picture:
 | Where does scoring bias come from? | Instruction tuning (not pre-training) | 1.77–2.29× amplification |
 | How do biases combine? | Non-additively (compounding) | IR up to 2.10 |
 | Is the pattern universal? | Mostly, but model-specific | 4/5 judges compound; Gemini is additive |
-| Can we fix it? | Yes—target post-training | Base models show low bias |
+| Can we fix it? | Yestarget post-training | Base models show low bias |
 
 ### Practical Recommendations
 

@@ -10,9 +10,9 @@
 **STATUS: EXISTS**
 
 Papers found:
-- **Hills (2025)** "Could you be wrong: Debiasing LLMs using a metacognitive prompt for improving human decision making" — arXiv:2507.10124. Directly shows that asking LLMs "could you be wrong?" causes them to introspect and identify their own biases (omission bias, etc.) and produce metacognitive reflection.
-- **Panickssery et al. (2024)** "LLM Evaluators Recognize and Favor Their Own Generations" — NeurIPS 2024. Shows causal link between self-recognition and self-preference bias.
-- **"Self-Preference Bias in LLM-as-a-Judge"** (2024) — Studies correlation between self-recognition capability and self-preference strength.
+- **Hills (2025)** "Could you be wrong: Debiasing LLMs using a metacognitive prompt for improving human decision making"  arXiv:2507.10124. Directly shows that asking LLMs "could you be wrong?" causes them to introspect and identify their own biases (omission bias, etc.) and produce metacognitive reflection.
+- **Panickssery et al. (2024)** "LLM Evaluators Recognize and Favor Their Own Generations"  NeurIPS 2024. Shows causal link between self-recognition and self-preference bias.
+- **"Self-Preference Bias in LLM-as-a-Judge"** (2024)  Studies correlation between self-recognition capability and self-preference strength.
 
 **Bottom line:** This area is active. The metacognitive prompting approach is particularly well-explored.
 
@@ -23,10 +23,10 @@ Papers found:
 **STATUS: EXISTS** (multiple papers)
 
 Papers found:
-- **Echterhoff et al. (2024)** "Cognitive Bias in Decision-Making with LLMs" — EMNLP 2024 Findings. Evaluates anchoring bias in sequential setups.
-- **O'Leary (2025)** "An Anchoring Effect in Large Language Models" — SSRN.
-- **Huang et al. (2025)** "Understanding the Anchoring Effect of LLM with Synthetic Data" — arXiv.
-- **Mahajan et al. (2025)** "Cognitive bias in clinical large language models" — PMC.
+- **Echterhoff et al. (2024)** "Cognitive Bias in Decision-Making with LLMs"  EMNLP 2024 Findings. Evaluates anchoring bias in sequential setups.
+- **O'Leary (2025)** "An Anchoring Effect in Large Language Models"  SSRN.
+- **Huang et al. (2025)** "Understanding the Anchoring Effect of LLM with Synthetic Data"  arXiv.
+- **Mahajan et al. (2025)** "Cognitive bias in clinical large language models"  PMC.
 
 **Bottom line:** Well-established. Not a novel niche.
 
@@ -36,9 +36,9 @@ Papers found:
 
 **STATUS: ✅ CONFIRMED UNTOUCHED**
 
-Searches performed: "LLM-as-a-judge fatigue", "evaluation session degradation", "batch effect LLM judge", "long context evaluation decline", "fatigue OR tired OR exhaust LLM judge evaluation", "cognitive load LLM judge" — **zero empirical papers found.**
+Searches performed: "LLM-as-a-judge fatigue", "evaluation session degradation", "batch effect LLM judge", "long context evaluation decline", "fatigue OR tired OR exhaust LLM judge evaluation", "cognitive load LLM judge"  **zero empirical papers found.**
 
-The survey papers (Gu et al. 2026, Cell Press) mention human annotator fatigue as a known problem and suggest LLMs *might* be superior to humans because they don't fatigue — but no paper tests whether LLM judges actually *do* degrade over long evaluation sessions.
+The survey papers (Gu et al. 2026, Cell Press) mention human annotator fatigue as a known problem and suggest LLMs *might* be superior to humans because they don't fatigue  but no paper tests whether LLM judges actually *do* degrade over long evaluation sessions.
 
 **This is a genuinely untouched area.** Key questions:
 - Does LLM judge accuracy/consistency decline after evaluating 100, 500, 1000 items?
@@ -55,9 +55,9 @@ The survey papers (Gu et al. 2026, Cell Press) mention human annotator fatigue a
 **STATUS: EXISTS** (limited)
 
 Papers found:
-- **Zhuge et al. (2024/2025)** "Agent-as-a-Judge: Evaluate Agents with Agents" — ICML 2025. Framework for using agents as evaluators of other agent trajectories.
-- **Yu (2025)** "The Rise of Agent-as-a-Judge Evaluation for LLMs" — arXiv:2508.02994. Survey covering trajectory evaluation biases.
-- **Zylos Research** "LLM-as-Judge Patterns for Agent Evaluation: Calibration, Bias, and..." — Discusses trajectory-specific biases.
+- **Zhuge et al. (2024/2025)** "Agent-as-a-Judge: Evaluate Agents with Agents"  ICML 2025. Framework for using agents as evaluators of other agent trajectories.
+- **Yu (2025)** "The Rise of Agent-as-a-Judge Evaluation for LLMs"  arXiv:2508.02994. Survey covering trajectory evaluation biases.
+- **Zylos Research** "LLM-as-Judge Patterns for Agent Evaluation: Calibration, Bias, and..."  Discusses trajectory-specific biases.
 
 **Nuance:** The Agent-as-a-Judge papers focus on *framework design*, not on systematic measurement of trajectory-specific biases. A dedicated empirical study ("What biases do LLM judges exhibit when evaluating agent trajectories compared to evaluating final outputs?") does not exist as a standalone paper.
 
@@ -70,9 +70,9 @@ Papers found:
 **STATUS: EXISTS**
 
 Papers found:
-- **Raina et al. (2024)** "Is LLM-as-a-Judge Robust? Investigating Universal Adversarial Attacks on Zero-shot LLM Assessment" — EMNLP 2024. Shows adversarial phrases can universally inflate judge scores.
-- **Al Masoud et al. (2026)** "Security in LLM-as-a-Judge: A Comprehensive SoK" — arXiv:2603.29403. Systematizes attacks on/through LLM judges.
-- **LessWrong** "Your LLM Judge may be biased" — Documents real biased judge failures in safety evaluation.
+- **Raina et al. (2024)** "Is LLM-as-a-Judge Robust? Investigating Universal Adversarial Attacks on Zero-shot LLM Assessment"  EMNLP 2024. Shows adversarial phrases can universally inflate judge scores.
+- **Al Masoud et al. (2026)** "Security in LLM-as-a-Judge: A Comprehensive SoK"  arXiv:2603.29403. Systematizes attacks on/through LLM judges.
+- **LessWrong** "Your LLM Judge may be biased"  Documents real biased judge failures in safety evaluation.
 
 **Nuance:** Existing work is about *adversarial attacks* on judges (can you trick them?), not about *inherent bias causing safety approval failures*. A paper titled "Do Biased LLM Judges Unknowingly Approve Unsafe Content?" does not exist.
 
@@ -84,7 +84,7 @@ Papers found:
 
 **STATUS: ✅ CONFIRMED UNTOUCHED**
 
-Searches performed: "bias interaction LLM judge", "compound OR cancel OR interact position verbosity", "combined bias effect", "cross-bias interaction", "bias interaction effects systematic study" — **zero systematic empirical studies found.**
+Searches performed: "bias interaction LLM judge", "compound OR cancel OR interact position verbosity", "combined bias effect", "cross-bias interaction", "bias interaction effects systematic study"  **zero systematic empirical studies found.**
 
 Blog posts (mbrenndoerfer) state: "Position bias, verbosity bias, and sycophancy do not operate independently. They interact and compound." The OpenReview on Self-Preference Bias notes: "position bias, verbosity bias, and self-preference bias interact and affect each other." But these are *observations*, not *systematic studies*.
 
@@ -102,11 +102,11 @@ No paper asks:
 **STATUS: EXISTS** (general) but **UNTOUCHED** for the specific angle
 
 Papers found (general calibration):
-- **Tian et al. (2025)** "Overconfidence in LLM-as-a-Judge: Diagnosis and Confidence-Driven Solution" — arXiv:2508.06225. Studies overconfidence in LLM judges (confidence > accuracy).
-- **"Competing Biases underlie Overconfidence and Underconfidence in LLMs"** — Nature Machine Intelligence (2026). Reveals choice-supportive bias and contradiction hypersensitivity.
-- **"How to Correctly Report LLM-as-a-Judge Evaluations"** — Statistical framework for bias correction with confidence intervals.
+- **Tian et al. (2025)** "Overconfidence in LLM-as-a-Judge: Diagnosis and Confidence-Driven Solution"  arXiv:2508.06225. Studies overconfidence in LLM judges (confidence > accuracy).
+- **"Competing Biases underlie Overconfidence and Underconfidence in LLMs"**  Nature Machine Intelligence (2026). Reveals choice-supportive bias and contradiction hypersensitivity.
+- **"How to Correctly Report LLM-as-a-Judge Evaluations"**  Statistical framework for bias correction with confidence intervals.
 
-**None of these study calibration FOR BIAS DETECTION.** The specific question — "When an LLM judge IS biased, is its confidence in that biased judgment well-calibrated? Does the judge know it's being biased?" — is untouched.
+**None of these study calibration FOR BIAS DETECTION.** The specific question  "When an LLM judge IS biased, is its confidence in that biased judgment well-calibrated? Does the judge know it's being biased?"  is untouched.
 
 **ISEF potential: HIGH.** Protocol: Create evaluation items where the judge exhibits known biases (position, etc.). Ask the judge for confidence in its own judgment. Compare confidence when biased vs unbiased. Doable in 2-3 weeks with API.
 
@@ -117,10 +117,10 @@ Papers found (general calibration):
 **STATUS: EXISTS**
 
 Papers found:
-- **"A Benchmark for Evaluating LLM-Judge in Identifying Cultural Errors"** — arXiv:2605.26955. Specific benchmark for LLM-judge cultural error detection.
-- **"Why are all LLMs Obsessed with Japanese Culture?"** (2026) — Uses LLM-as-a-judge to detect cultural bias.
-- **"Cultural bias and cultural alignment of large language models"** — PMC (2024).
-- **"Ready to Translate, Not to Represent?"** — Uses LLM-as-a-judge for translation bias detection.
+- **"A Benchmark for Evaluating LLM-Judge in Identifying Cultural Errors"**  arXiv:2605.26955. Specific benchmark for LLM-judge cultural error detection.
+- **"Why are all LLMs Obsessed with Japanese Culture?"** (2026)  Uses LLM-as-a-judge to detect cultural bias.
+- **"Cultural bias and cultural alignment of large language models"**  PMC (2024).
+- **"Ready to Translate, Not to Represent?"**  Uses LLM-as-a-judge for translation bias detection.
 
 **Bottom line:** Well-trodden. Cultural bias in LLMs is a major research area. LLM-as-a-judge used both as tool and object of study.
 
@@ -130,13 +130,13 @@ Papers found:
 
 **STATUS: ✅ CONFIRMED UNTOUCHED**
 
-Searches performed: "temporal stability LLM judge bias", "judge drift over time", "repeated evaluation consistency", "longitudinal LLM judge", "test-retest reliability LLM-as-a-judge", "temporal OR longitudinal bias drift" — **zero empirical papers found.**
+Searches performed: "temporal stability LLM judge bias", "judge drift over time", "repeated evaluation consistency", "longitudinal LLM judge", "test-retest reliability LLM-as-a-judge", "temporal OR longitudinal bias drift"  **zero empirical papers found.**
 
 Related but different:
-- **"Stable Personas"** — studies temporal stability of *LLM personas/personality*, not judge bias.
-- **"Human-anchored longitudinal comparison"** — uses bias-calibrated LLM-as-judge but studies *model drift*, not judge bias stability.
-- **"On the Fundamental Limits of LLMs at Scale"** — mentions "judge drift" as a conceptual phrase about benchmark skew.
-- **Blog post "LLM-as-Judge Drift"** (tianpan.co) — discusses model version changes, not repeated use of same model.
+- **"Stable Personas"**  studies temporal stability of *LLM personas/personality*, not judge bias.
+- **"Human-anchored longitudinal comparison"**  uses bias-calibrated LLM-as-judge but studies *model drift*, not judge bias stability.
+- **"On the Fundamental Limits of LLMs at Scale"**  mentions "judge drift" as a conceptual phrase about benchmark skew.
+- **Blog post "LLM-as-Judge Drift"** (tianpan.co)  discusses model version changes, not repeated use of same model.
 
 **No paper studies:** Does position bias strength change when the same judge evaluates the same items at time A vs time B (1 hour, 1 day, 1 week later)? Is verbosity bias temporally stable?
 
@@ -148,12 +148,12 @@ Related but different:
 
 **STATUS: ✅ CONFIRMED UNTOUCHED**
 
-Searches performed: "multi-turn vs single-turn bias comparison LLM judge", "multi-turn conversation evaluation bias difference", "multi-turn position bias single-turn comparative" — **zero papers found comparing bias magnitude between multi-turn and single-turn evaluations.**
+Searches performed: "multi-turn vs single-turn bias comparison LLM judge", "multi-turn conversation evaluation bias difference", "multi-turn position bias single-turn comparative"  **zero papers found comparing bias magnitude between multi-turn and single-turn evaluations.**
 
 Related but different:
-- **Zheng et al. (2023)** "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena" — studies LLM judges on multi-turn questions but doesn't compare bias across settings.
-- **"RankJudge: A Multi-Turn LLM-as-a-Judge Synthetic Benchmark Generator"** (2026) — benchmark generation, not bias comparison.
-- **"LLMs Get Lost In Multi-Turn Conversation"** — studies LLM performance drop in multi-turn, not judge bias.
+- **Zheng et al. (2023)** "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena"  studies LLM judges on multi-turn questions but doesn't compare bias across settings.
+- **"RankJudge: A Multi-Turn LLM-as-a-Judge Synthetic Benchmark Generator"** (2026)  benchmark generation, not bias comparison.
+- **"LLMs Get Lost In Multi-Turn Conversation"**  studies LLM performance drop in multi-turn, not judge bias.
 
 **No paper asks:** Does position bias become stronger in multi-turn evaluations (where there's more context)? Does verbosity bias differ when evaluating a full conversation vs a single response?
 
@@ -183,7 +183,7 @@ Related but different:
 ### 🥇 #6: Bias Interaction Effects (Do LLM Judge Biases Compound or Cancel?)
 
 **Why:** 
-- **Completely untouched** — zero papers found
+- **Completely untouched**  zero papers found
 - **Clean experiment:** Create a 2×2 factorial design with position bias (first/second) and verbosity bias (short/long). Cross them: short-first, long-first, short-second, long-second. Measure individual bias strengths, then measure combined. Test all pairs of known biases.
 - **API-doable:** Only need to call LLM-as-a-judge with controlled comparison pairs.
 - **ISEF appeal:** The elegance of asking "do biases add or cancel?" is immediately understandable to judges. Statistical interaction analysis (ANOVA) is a sophisticated technique for a high schooler.
@@ -204,5 +204,5 @@ Related but different:
 - **Completely untouched**
 - **Growing importance:** As agents become multi-turn, understanding whether judges evaluate them differently is critical.
 - **Clean comparison:** Same judge, same content, but one presented as single-turn Q&A and one as multi-turn conversation. Measure position bias, verbosity bias, self-enhancement in both conditions.
-- **ISEF appeal:** Directly addresses a practical gap — current leaderboards mix single-turn and multi-turn evaluations without accounting for differential bias.
+- **ISEF appeal:** Directly addresses a practical gap  current leaderboards mix single-turn and multi-turn evaluations without accounting for differential bias.
 - **Timeline:** 2-3 weeks.

@@ -125,7 +125,7 @@ conda activate scoring-bias
 
 ---
 
-## Windows Setup (git-bash — Recommended)
+## Windows Setup (git-bash  Recommended)
 
 Git-bash provides a POSIX-compatible environment on Windows. This is our recommended approach.
 
@@ -183,7 +183,7 @@ In git-bash:
 
 ---
 
-## Windows Setup (WSL — Alternative)
+## Windows Setup (WSL  Alternative)
 
 Windows Subsystem for Linux provides a full Linux environment on Windows.
 
@@ -222,7 +222,7 @@ pip install -e ".[dev,api,dashboard,notebook]"
 
 ---
 
-## Windows Setup (PowerShell — Alternative)
+## Windows Setup (PowerShell  Alternative)
 
 If you must use PowerShell, here are the adjustments:
 
@@ -263,7 +263,7 @@ pre-commit install
    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
    ```
 
-2. **Path separator issues**: Use `\` or `/` — PowerShell accepts both.
+2. **Path separator issues**: Use `\` or `/`  PowerShell accepts both.
 
 3. **Makefile**: The `make` command is not available in PowerShell. Use one of:
    - Install `make` via Chocolatey: `choco install make`

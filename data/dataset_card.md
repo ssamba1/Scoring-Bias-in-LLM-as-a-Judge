@@ -19,7 +19,7 @@ size_categories:
 pretty_name: Scoring Bias in LLM-as-a-Judge Dataset
 ---
 
-# Scoring Bias in LLM-as-a-Judge — Dataset Card
+# Scoring Bias in LLM-as-a-Judge  Dataset Card
 
 > **New:** A unified dataset (`data/dataset.json`) and comprehensive data dictionary
 > (`data/data_dictionary.md`) have been added. See those files for the complete structured dataset.
@@ -51,8 +51,8 @@ pretty_name: Scoring Bias in LLM-as-a-Judge Dataset
 
 The complete structured data is available in two formats:
 
-1. **`data/dataset.json`** — Single unified JSON file with all scores, metrics, model metadata, and statistical analyses.
-2. **`data/data_dictionary.md`** — Documents every field across all data files.
+1. **`data/dataset.json`**  Single unified JSON file with all scores, metrics, model metadata, and statistical analyses.
+2. **`data/data_dictionary.md`**  Documents every field across all data files.
 
 ### Raw JSON Structure
 
@@ -88,7 +88,7 @@ The complete structured data is available in two formats:
   - Llama-3.1-8B, Llama-2-7B, Mistral-7B-v0.3, Gemma-2-9B, Qwen2.5-7B
 - **Instruct-only (OpenRouter API):** 22 models
   - Qwen3 (8B, 14B, 32B), Qwen2.5-72B, Gemma3 (4B, 12B, 27B), Gemma4-31B, Phi-4, Mistral-Nemo-12B, Mistral-3.2-24B, DeepSeek (V3, V4-Flash), Hermes-3-70B, Zephyr-7B, MythoMax-13B, SOLAR-10.7B, Nemotron (Nano-30B, Super-120B), Hy3-295B, GPT-OSS-20B, Command-R, GLM-4.7, Gemini-2.5-Flash, Lunaris-8B
-- **Excluded models:** 5 (Gemini-2.5-Pro, Inflection-3-Pi, Nemotron-Nano-30B, Command-R7B, Mistral-Small-24B) — stop-token truncation
+- **Excluded models:** 5 (Gemini-2.5-Pro, Inflection-3-Pi, Nemotron-Nano-30B, Command-R7B, Mistral-Small-24B)  stop-token truncation
 
 ## Recommended Uses
 

@@ -16,7 +16,7 @@ all_results = {
 }
 
 print("="*65)
-print("ROOT CAUSE OF SCORING BIAS — BASE vs INSTRUCT")
+print("ROOT CAUSE OF SCORING BIAS  BASE vs INSTRUCT")
 print("="*65)
 print(f"{'Family':<15} {'Base Avg':<12} {'Instruct Avg':<15} {'Delta':<10} {'Base Var':<12} {'Instruct Var':<15}")
 print("-"*70)

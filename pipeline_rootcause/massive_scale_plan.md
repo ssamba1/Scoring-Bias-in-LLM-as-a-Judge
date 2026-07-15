@@ -56,18 +56,18 @@
 
 ### Strategy: 3 parallel sessions
 
-**Session A — Large models (8-9B), 5 variants × 2 hrs = 10 hrs**
+**Session A  Large models (8-9B), 5 variants × 2 hrs = 10 hrs**
 Kickoff 1: Llama 3 8B base + instruct
 Kickoff 2: Llama 3.1 8B base + instruct  
 Kickoff 3: Gemma 2 9B base + instruct
 → Use 3 separate notebook instances
 
-**Session B — Mid-size (7B), 12 variants × 2 hrs = 12 hrs**
+**Session B  Mid-size (7B), 12 variants × 2 hrs = 12 hrs**
 Kickoff 1: Mistral, Qwen 2.5, DeepSeek, OLMo
 Kickoff 2: Falcon, MPT, Pythia, CodeLlama
 Kickoff 3: CrystalCoder, StarCoder, Bloomz, Llama 2
 
-**Session C — Small models (2-3.8B), 8 variants × 1 hr = 4 hrs**  
+**Session C  Small models (2-3.8B), 8 variants × 1 hr = 4 hrs**  
 Can batch 2-3 small models per notebook:
 - Notebook 1: Qwen 3B base + instruct, Llama 3.2 3B base + instruct
 - Notebook 2: Gemma 2 2B base + instruct, Phi-3 base + instruct
@@ -95,7 +95,7 @@ With N=20 families, df=19:
 ### Additional Analyses Unlocked
 1. **Model size vs bias correlation** (2B → 9B, continuous trend)
 2. **Family-level patterns** (which architectures are most/least biased)
-3. **Instruct-only model comparison** (Zephyr vs Starling vs Tulu — different training methods)
+3. **Instruct-only model comparison** (Zephyr vs Starling vs Tulu  different training methods)
 4. **Cross-architecture analysis** (Llama vs Mistral vs Qwen vs Gemma)
 5. **Year-over-year trend** (Llama 2 vs 3 vs 3.1)
 6. **Training method analysis** (SFT vs DPO vs PPO)

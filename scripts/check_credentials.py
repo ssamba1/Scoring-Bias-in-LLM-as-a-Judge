@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Check Credentials — Scan the project for accidentally committed API keys,
+Check Credentials  Scan the project for accidentally committed API keys,
 tokens, secrets, and credentials. Reports findings with file paths.
 
 Usage:

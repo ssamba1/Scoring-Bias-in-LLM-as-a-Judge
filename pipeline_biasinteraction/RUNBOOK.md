@@ -1,4 +1,4 @@
-# Experiment Run Book — Bias Interaction Study
+# Experiment Run Book  Bias Interaction Study
 
 ## Purpose
 Standardized protocol for running the bias interaction experiment to ensure reproducibility.
@@ -82,7 +82,7 @@ python3 pipeline_biasinteraction/results_db.py
 
 ### Partial results
 - Results are saved after every 50 items
-- If interrupted, rerun the same judge — it skips already-scored items (when implemented)
+- If interrupted, rerun the same judge  it skips already-scored items (when implemented)
 
 ## Data Dictionary
 

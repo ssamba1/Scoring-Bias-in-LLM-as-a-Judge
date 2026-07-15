@@ -1,14 +1,14 @@
 """
-Scoring Bias Dashboard — Interactive Streamlit app for exploring bias results.
+Scoring Bias Dashboard  Interactive Streamlit app for exploring bias results.
 
 Run with:
     streamlit run dashboard/app.py
 
 Tabs:
-    1. Model Explorer — Select a model, see probe breakdowns
-    2. Comparison    — Select 2+ models, side-by-side
-    3. Landscape     — All models, sorting
-    4. About         — Paper info, citation
+    1. Model Explorer  Select a model, see probe breakdowns
+    2. Comparison     Select 2+ models, side-by-side
+    3. Landscape      All models, sorting
+    4. About          Paper info, citation
 """
 
 from __future__ import annotations

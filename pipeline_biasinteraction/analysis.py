@@ -204,7 +204,7 @@ def generate_synthetic_results(num_items=50, num_judges=5, output_dir=None):
 def print_report(data):
     """Print a human-readable analysis report."""
     print("\n" + "="*70)
-    print("BIAS INTERACTION EFFECTS — ANALYSIS REPORT")
+    print("BIAS INTERACTION EFFECTS  ANALYSIS REPORT")
     print("="*70)
     
     for judge in sorted(set(r["judge"] for r in data)):

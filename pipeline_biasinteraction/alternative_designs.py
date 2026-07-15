@@ -42,7 +42,7 @@ def design1_quick_sweep():
 def design2_standard():
     """
     Design 2: Standard (3 biases, 5 judges, 400 items)
-    The main proposal — comprehensive enough for publication.
+    The main proposal  comprehensive enough for publication.
     """
     return ExperimentalDesign(
         name="Standard (Recommended)",
@@ -165,7 +165,7 @@ def print_comparison():
     ]
     
     print("="*100)
-    print("BIAS INTERACTION EXPERIMENT — ALTERNATIVE DESIGNS")
+    print("BIAS INTERACTION EXPERIMENT  ALTERNATIVE DESIGNS")
     print("="*100)
     print(f"{'Design':<25} {'Items':<8} {'Judges':<8} {'Calls':<10} {'Cost':<8} {'Weeks':<8} {'Difficulty':<10}")
     print("-"*100)
@@ -178,10 +178,10 @@ def print_comparison():
     print("RECOMMENDATION")
     print("="*100)
     print("""
-    For a first paper: Design 2 (Standard) — balances rigor and cost.
-    For a pilot/exploratory: Design 1 (Quick Sweep) — get results in 2 weeks.
-    For maximum impact: Design 3 (Comprehensive) — most complete, but costly.
-    For ISEF: Design 2 or 5 — thorough enough for competition, feasible timeline.
+    For a first paper: Design 2 (Standard)  balances rigor and cost.
+    For a pilot/exploratory: Design 1 (Quick Sweep)  get results in 2 weeks.
+    For maximum impact: Design 3 (Comprehensive)  most complete, but costly.
+    For ISEF: Design 2 or 5  thorough enough for competition, feasible timeline.
     """)
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Paper compilation script — assembles all paper sections into a single document.
+"""Paper compilation script  assembles all paper sections into a single document.
 Usage: python3 compile_paper.py --option 2 --format md
 """
 import argparse, os, datetime
@@ -30,7 +30,7 @@ def compile_option2_md():
             content = f.read()
         return content
     
-    return "# Paper not found — use paper_biasinteraction.md directly"
+    return "# Paper not found  use paper_biasinteraction.md directly"
 
 def compile_option1_md():
     path = PAPER_DIR / "paper_rootcause.md"
@@ -38,7 +38,7 @@ def compile_option1_md():
         with open(path) as f:
             content = f.read()
         return content
-    return "# Paper not found — use paper_rootcause.md directly"
+    return "# Paper not found  use paper_rootcause.md directly"
 
 def extract_sections(md_content):
     """Extract sections from markdown for HTML conversion."""
@@ -166,7 +166,7 @@ def main():
         print(f"Markdown: {out_path}")
     
     if args.format in ("html", "both"):
-        html = convert_to_html(md, f"Research Paper — {'Bias Interaction' if args.option == 2 else 'Root Cause'}")
+        html = convert_to_html(md, f"Research Paper  {'Bias Interaction' if args.option == 2 else 'Root Cause'}")
         out_path = os.path.join(PAPER_DIR, f"{base_name}_compiled.html")
         with open(out_path, "w") as f:
             f.write(html)

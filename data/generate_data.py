@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-CANONICAL Synthetic Data Generator — produces data matching paper IR values.
+CANONICAL Synthetic Data Generator  produces data matching paper IR values.
 Replaces all other synthetic generators. This is the source of truth.
 
 Paper values:
@@ -147,7 +147,7 @@ def main():
         "n_records": len(records),
         "n_judges": len(PAPER),
         "n_items": 400,
-        "note": "Canonical synthetic dataset — matches paper values"
+        "note": "Canonical synthetic dataset  matches paper values"
     }
     meta_path = RESULTS / "synthetic_metadata.json"
     with open(meta_path, "w") as f:
@@ -161,7 +161,7 @@ def main():
         b = sum(1 for r in records if r["judge"]==judge and r["condition"]=="baseline")
         print(f"  {judge}: {c} worst-case, {b} baseline items")
 
-    print(f"\nDone. This is the canonical dataset — use it for all pipelines.")
+    print(f"\nDone. This is the canonical dataset  use it for all pipelines.")
 
 if __name__ == "__main__":
     main()

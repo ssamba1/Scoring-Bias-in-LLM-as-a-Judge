@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress tracker — CLI dashboard for experiment status.
+"""Progress tracker  CLI dashboard for experiment status.
 Reports which judges have been run, analysis progress, and next steps.
 """
 import csv, json, os
@@ -38,7 +38,7 @@ def check_db():
 def print_dashboard():
     """Print the experiment dashboard."""
     print("="*65)
-    print("LLM-as-a-Judge BIAS RESEARCH — EXPERIMENT DASHBOARD")
+    print("LLM-as-a-Judge BIAS RESEARCH  EXPERIMENT DASHBOARD")
     print("="*65)
     
     # Judge status
@@ -81,7 +81,7 @@ def print_dashboard():
     if pending:
         print(f"  Run pending judges: {' '.join(pending)}")
     else:
-        print(f"  ✅ All judges complete — proceed to analysis")
+        print(f"  ✅ All judges complete  proceed to analysis")
     
     if not analysis["figures"]:
         print(f"  Generate figures: python3 pipeline_biasinteraction/generate_figures.py")

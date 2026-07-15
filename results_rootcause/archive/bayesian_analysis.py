@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BAYESIAN HIERARCHICAL ANALYSIS — replaces t-tests
+BAYESIAN HIERARCHICAL ANALYSIS  replaces t-tests
 Models the differential effect with partial pooling across families.
 Gives posterior distributions + Bayes factors.
 
@@ -91,7 +91,7 @@ for probe in data:
             if p_positive > 0.95 or p_positive < 0.05:
                 print(f"  → Effect credible at 95% level")
             else:
-                print(f"  → Effect not credible — need more families")
+                print(f"  → Effect not credible  need more families")
     else:
         print(f"  Install pymc for Bayesian analysis")
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Deep Analysis Script — 15 Comprehensive Analyses on Research Data
+Deep Analysis Script  15 Comprehensive Analyses on Research Data
 =================================================================
 All analyses are CPU-runnable and output JSON files to analysis_output/.
 """
@@ -838,7 +838,7 @@ score_inflation_result = {
         "test": "Paired t-test (instruct vs base deltas paired by family+probe)",
         "has_scipy": has_scipy
     },
-    "finding": f"Instruct models show {'lower' if overall_instruct_mean < overall_base_mean else 'higher'} bias on average ({'−' if overall_instruct_mean < overall_base_mean else '+'}{abs(round(overall_instruct_mean - overall_base_mean, 2))} points vs base). This is NOT score inflation per se — it's a reduction in probe sensitivity after instruction tuning.",
+    "finding": f"Instruct models show {'lower' if overall_instruct_mean < overall_base_mean else 'higher'} bias on average ({'−' if overall_instruct_mean < overall_base_mean else '+'}{abs(round(overall_instruct_mean - overall_base_mean, 2))} points vs base). This is NOT score inflation per se  it's a reduction in probe sensitivity after instruction tuning.",
     "note": "Score inflation (instruct models scoring higher systematically) would manifest as a main effect of instruction on all scores, not specifically as reduced variance across probe variants."
 }
 save(score_inflation_result, "score_inflation.json")
@@ -894,7 +894,7 @@ save(consensus_result, "consensus_analysis.json")
 
 # ─── SUMMARY ──────────────────────────────────────────────────────────
 print("\n" + "=" * 60)
-print("DEEP ANALYSIS COMPLETE — Summary")
+print("DEEP ANALYSIS COMPLETE  Summary")
 print("=" * 60)
 print(f"\n  Files written to: {OUT}")
 print(f"\n  1. outlier_analysis.json       ─ z-scores, outliers flagged")

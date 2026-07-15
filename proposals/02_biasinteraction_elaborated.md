@@ -1,8 +1,8 @@
-# Option 2: Bias Interaction Effects — Elaborated for Your Use Case
+# Option 2: Bias Interaction Effects  Elaborated for Your Use Case
 
 ## What You're Actually Trying to Prove
 
-**The core question:** Everyone knows LLM judges have individual biases (position bias, verbosity bias, etc.). But in real use, these biases don't occur in isolation — a response might be BOTH verbose AND in the disfavored position. Does that make the bias twice as bad? Or do the biases cancel each other out?
+**The core question:** Everyone knows LLM judges have individual biases (position bias, verbosity bias, etc.). But in real use, these biases don't occur in isolation  a response might be BOTH verbose AND in the disfavored position. Does that make the bias twice as bad? Or do the biases cancel each other out?
 
 **Why this matters:** If biases compound, evaluation pipelines need to test combinations, not just individual biases. If they cancel, maybe we can intentionally design inputs to counteract known biases.
 
@@ -28,7 +28,7 @@ Both students can split the 400 items: 200 each, using AI to generate all 8 vari
 
 ### Week 2: Run the judge API calls
 
-You have access to premier models — here's the exact API plan:
+You have access to premier models  here's the exact API plan:
 
 | Model | API | Cost per 1k items | Total (3,200 items × 3 repeats) |
 |-------|-----|-------------------|-------------------------------|
@@ -38,7 +38,7 @@ You have access to premier models — here's the exact API plan:
 | DeepSeek V3 | DeepSeek | ~$0.001 | ~$1 |
 | Llama 3 70B | Together/Groq | ~$0.001 | ~$1 |
 
-**Total cost: ~$30 — and you already have access to these models through your premier subscriptions!**
+**Total cost: ~$30  and you already have access to these models through your premier subscriptions!**
 
 Split: Student A runs 3 models, Student B runs 2 models. Each call returns a JSON with the score.
 
@@ -54,11 +54,11 @@ verbosity_effect = score(long) - score(short)
 sentiment_effect = score(positive) - score(negative)
 ```
 
-**Step 2: Interaction effects (NOVEL — this is the discovery)**
+**Step 2: Interaction effects (NOVEL  this is the discovery)**
 ```python
 # Does verbosity bias change depending on position?
 # If verbosity_effect is 0.3 in first position but 0.5 in second position,
-# that's an interaction — they compound.
+# that's an interaction  they compound.
 interaction_pos_verb = Δ_verbosity_at_position1 - Δ_verbosity_at_position2
 ```
 
@@ -90,12 +90,12 @@ Have Claude/GPT-4 write ALL the analysis code. Just describe the statistics you 
 ## What the Final Deliverable Looks Like
 
 **A 6-8 page paper with:**
-1. **Abstract** — "We show that LLM judge biases don't operate independently — position bias and verbosity bias compound, making the worst case 2× worse than expected..."
-2. **Introduction** — LLM judges have known biases, but they've only been studied in isolation
-3. **Methodology** — Full-factorial 2×2×2 design, 5 judge models, 400 items
-4. **Results** — Key finding: [e.g., verbosity and position biases compound additively, but sentiment bias cancels with verbosity]
-5. **Discussion** — Practical implications for evaluation pipeline design
-6. **Limitations** — Only tested 3 bias types, pairwise scoring, English-only
+1. **Abstract**  "We show that LLM judge biases don't operate independently  position bias and verbosity bias compound, making the worst case 2× worse than expected..."
+2. **Introduction**  LLM judges have known biases, but they've only been studied in isolation
+3. **Methodology**  Full-factorial 2×2×2 design, 5 judge models, 400 items
+4. **Results**  Key finding: [e.g., verbosity and position biases compound additively, but sentiment bias cancels with verbosity]
+5. **Discussion**  Practical implications for evaluation pipeline design
+6. **Limitations**  Only tested 3 bias types, pairwise scoring, English-only
 
 **Target venues:**
 - ICML NextGen / NeurIPS High School Projects
@@ -104,17 +104,17 @@ Have Claude/GPT-4 write ALL the analysis code. Just describe the statistics you 
 
 ## What Makes This Strong for ISEF
 
-1. **Beautiful experimental design** — Full-factorial is textbook good science
-2. **Practical implications** — "How to design better AI evaluation" is timely
-3. **Novel finding** — Nobody has measured this before
-4. **Statistical sophistication** — ANOVA, interaction effects — impresses judges
-5. **Cross-platform** — Tests 5 different AI models from different companies
+1. **Beautiful experimental design**  Full-factorial is textbook good science
+2. **Practical implications**  "How to design better AI evaluation" is timely
+3. **Novel finding**  Nobody has measured this before
+4. **Statistical sophistication**  ANOVA, interaction effects  impresses judges
+5. **Cross-platform**  Tests 5 different AI models from different companies
 
 ## Risk Assessment
 
 | Risk | Probability | Mitigation |
 |------|-------------|------------|
-| No interactions found (all biases are purely additive) | Medium | Even this is a finding — "biases in LLM judges are independent" would be surprising |
+| No interactions found (all biases are purely additive) | Medium | Even this is a finding  "biases in LLM judges are independent" would be surprising |
 | API rate limits | Low | Spread calls across the week, use multiple API keys |
 | High variance in scores | Medium | Run 3 repeats per condition, use median score |
 | Someone publishes bias interactions before you | Extremely low | Multiple independent searches confirmed zero papers |

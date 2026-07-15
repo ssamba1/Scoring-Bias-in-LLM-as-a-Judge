@@ -1,4 +1,4 @@
-# Replication Package — Bias in LLM-as-a-Judge
+# Replication Package  Bias in LLM-as-a-Judge
 
 ## Repository: github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 

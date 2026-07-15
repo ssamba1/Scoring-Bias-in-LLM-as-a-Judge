@@ -4,10 +4,10 @@
 
 ---
 
-## 1. Li et al. (2025) — "Evaluating Scoring Bias in LLM-as-a-Judge"
+## 1. Li et al. (2025)  "Evaluating Scoring Bias in LLM-as-a-Judge"
 **Venue:** DASFAA 2026  
 **Link:** arXiv:2506.22316  
-**Status:** Published — closest paper to our work
+**Status:** Published  closest paper to our work
 
 ### What They Did
 - First paper to define scoring bias in LLM-as-a-Judge
@@ -33,7 +33,7 @@
 
 ---
 
-## 2. Xu et al. (2026) — "Revealing Position Bias in Rubric-Based LLM-as-a-Judge"
+## 2. Xu et al. (2026)  "Revealing Position Bias in Rubric-Based LLM-as-a-Judge"
 **Venue:** arXiv (not yet published)  
 **Link:** arXiv:2602.02219
 
@@ -51,7 +51,7 @@
 
 ---
 
-## 3. Gao et al. (2025) — "Evaluating and Mitigating LLM-as-a-judge Bias in Communication Systems"  
+## 3. Gao et al. (2025)  "Evaluating and Mitigating LLM-as-a-judge Bias in Communication Systems"  
 **Venue:** arXiv (not yet published)  
 **Link:** arXiv:2510.12462
 
@@ -67,10 +67,10 @@
 
 ---
 
-## 4. Wang et al. (2023) — "Large Language Models are not Fair Evaluators"
+## 4. Wang et al. (2023)  "Large Language Models are not Fair Evaluators"
 **Venue:** ACL 2024  
 **Link:** arXiv:2305.17926  
-**Status:** Published — Seminal position bias paper (2300+ citations)
+**Status:** Published  Seminal position bias paper (2300+ citations)
 
 ### What They Did
 - First to systematically document position bias in LLM-as-a-Judge
@@ -89,7 +89,7 @@
 | Feature | Li et al. 2025 | Xu et al. 2026 | Wang et al. 2023 | **Our Study 1** |
 |---------|---------------|---------------|-----------------|----------------|
 | **Scoring bias** | ✅ Yes | ❌ No (only position) | ❌ No (only pair) | **✅ Yes** |
-| **Base vs Instruct** | ❌ No | ❌ No | ❌ No | **✅ YES — Unique** |
+| **Base vs Instruct** | ❌ No | ❌ No | ❌ No | **✅ YES  Unique** |
 | **Rubric Order** | ✅ Yes | ✅ Yes (partially) | ❌ No | **✅ Yes** |
 | **Score ID** | ✅ Yes | ❌ No | ❌ No | **✅ Yes** |
 | **Reference Answer** | ✅ Yes | ❌ No | ❌ No | **✅ Yes** |
@@ -122,7 +122,7 @@
 | **Fixed descriptive probe** | Broken | Already fixed in code | Re-run |
 | **70B+ models** | None tested | P100 can't fit 70B | Not possible |
 | **Multi-seed runs** | Single seed 42 | Run seeds 42, 123, 456 | 3× runtime |
-| **Ablation by item domain** | Not implemented | Code ready — need per-item labels | 1 hour |
+| **Ablation by item domain** | Not implemented | Code ready  need per-item labels | 1 hour |
 
 ### What Makes Us Unique (Our Advantage)
 
@@ -142,9 +142,9 @@
 
 **To submit to a conference (NeurIPS HS, ISEF):**
 
-1. **Run with 100 items + fixed probe** — 2 more hours on Kaggle
-2. **Add Flip Rate metric** — 1 hour of coding (matching Li et al.'s methodology)
-3. **Add item-level analysis** — which items trigger the most/least bias
-4. **Improve the paper** — camera_ready_paper.tex already has real data
+1. **Run with 100 items + fixed probe**  2 more hours on Kaggle
+2. **Add Flip Rate metric**  1 hour of coding (matching Li et al.'s methodology)
+3. **Add item-level analysis**  which items trigger the most/least bias
+4. **Improve the paper**  camera_ready_paper.tex already has real data
 
 That's it. The core contribution (base vs instruct comparison showing differential effects) is solid and **nobody else has done it**.

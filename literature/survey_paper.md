@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Large Language Models (LLMs) are increasingly deployed as automated judges (LLM-as-a-Judge) to evaluate the outputs of other AI systems. This paradigm has become the dominant evaluation method across benchmarks, alignment efforts, and production monitoring. However, LLM judges exhibit systematic biases that can compromise evaluation reliability. This survey provides a comprehensive catalog of 35 documented bias types, organized by experimental paradigm (comparative vs. scoring-based), with detailed analysis of each bias's definition, first documentation, effect size, existing mitigations, and remaining research gaps. We identify that 23 of 35 bias types (65.7%) have no peer-reviewed mitigation, and that bias interaction effects—how biases behave when simultaneously present—represents the single largest open research gap. We conclude with specific recommendations for practitioners and a roadmap for future research.
+Large Language Models (LLMs) are increasingly deployed as automated judges (LLM-as-a-Judge) to evaluate the outputs of other AI systems. This paradigm has become the dominant evaluation method across benchmarks, alignment efforts, and production monitoring. However, LLM judges exhibit systematic biases that can compromise evaluation reliability. This survey provides a comprehensive catalog of 35 documented bias types, organized by experimental paradigm (comparative vs. scoring-based), with detailed analysis of each bias's definition, first documentation, effect size, existing mitigations, and remaining research gaps. We identify that 23 of 35 bias types (65.7%) have no peer-reviewed mitigation, and that bias interaction effectshow biases behave when simultaneously presentrepresents the single largest open research gap. We conclude with specific recommendations for practitioners and a roadmap for future research.
 
 ---
 
@@ -14,7 +14,7 @@ Large Language Models (LLMs) are increasingly deployed as automated judges (LLM-
 
 The evaluation of natural language generation has historically relied on human annotation, which is expensive, slow, and difficult to scale. The LLM-as-a-Judge paradigm [1, 2] addresses this by using a strong language model to score or compare outputs from other models. This approach has been widely adopted: it is used in major benchmarks [3, 4], alignment pipelines [5], retrieval evaluation [6], and production monitoring.
 
-However, LLM judges are not perfect evaluators. They exhibit systematic biases — systematic deviations from ideal, unbiased evaluation — that can skew results in predictable directions [7, 8]. Understanding these biases is critical because:
+However, LLM judges are not perfect evaluators. They exhibit systematic biases  systematic deviations from ideal, unbiased evaluation  that can skew results in predictable directions [7, 8]. Understanding these biases is critical because:
 
 1. **Benchmark reliability**: If judges are biased, model rankings may reflect judge preferences rather than genuine quality differences.
 2. **Alignment safety**: Biased judges used as reward models may optimize for the wrong objectives [5].
@@ -74,7 +74,7 @@ Bias in LLM judges can arise from multiple sources:
 - **First documented**: Zheng et al. 2023 [1]
 - **Effect size**: 31.3% of examples affected (largest) [18]
 - **Mitigations**: RBD [18], length-normalized scoring
-- **Notes**: Direction is model-specific — Claude prefers concise [18]
+- **Notes**: Direction is model-specific  Claude prefers concise [18]
 - **Remaining gaps**: Root cause, interaction effects
 
 **3.1.3 Self-Preference Bias**
@@ -89,7 +89,7 @@ Bias in LLM judges can arise from multiple sources:
 - **First documented**: Wataoka et al. 2024 [19]
 - **Effect size**: Not quantified
 - **Mitigations**: NONE (research gap)
-- **Status**: ★ Gap — no dedicated mitigation
+- **Status**: ★ Gap  no dedicated mitigation
 
 **3.1.5 Authority Bias**
 - **Definition**: LLM judge prefers responses that cite authoritative sources or appear expert
@@ -261,7 +261,7 @@ Soumik [21] compared 9 mitigation strategies across 5 judges, finding:
 
 1. **Test bias combinations**, not individual biases
 2. **Use multiple judge models** to cross-validate
-3. **Apply worst-case analysis** — test extreme bias combinations
+3. **Apply worst-case analysis**  test extreme bias combinations
 4. **Document bias profiles** for your evaluation pipeline
 
 ### 6.2 For Researchers

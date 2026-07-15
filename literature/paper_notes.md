@@ -1,6 +1,6 @@
-# Paper Reading Notes — Extracted from Full-Text Reading
+# Paper Reading Notes  Extracted from Full-Text Reading
 
-## Paper 1: Li et al. 2025 — Full Methodology (Extended)
+## Paper 1: Li et al. 2025  Full Methodology (Extended)
 
 ### Exact Metrics
 1. **Flip Rate (FP):** % of scores that change when rubric is perturbed
@@ -24,7 +24,7 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 2. **Score ID:** Arabic numerals {1,2,3,4,5}, Letter-Grades {E,D,C,B,A}, Roman-Numerals {i,ii,iii,iv,v}
 3. **Reference answer:** Ref-5 (reference scored 5), Ref-3 (reference scored 3), No reference
 
-### Models tested (ALL instruct/chat — NO base models):
+### Models tested (ALL instruct/chat  NO base models):
 - GPT-4o (closed-source, large)
 - DeepSeek-V3-671B (open-weight, large)
 - Qwen3-32B, Qwen3-8B (open-weight, mid/small)
@@ -33,13 +33,13 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 ### Key numeric results:
 - Descending rubric order causes 20-46% of scores to flip (FP)
 - Letter-Grades and Roman-Numerals cause 15-30% flip rates
-- Ref-5 causes 35-48% flip rates — the largest effect
+- Ref-5 causes 35-48% flip rates  the largest effect
 - Smaller models (Qwen3-8B) show MORE scoring bias than larger ones
 - **Implication:** Model size affects bias susceptibility
 
 ### Key Methodological Details
 - **Models tested:** GPT-4o, DeepSeek-V3-671B, Qwen3-32B, Qwen3-8B, Mistral-Small-24B-Instruct-2501
-- **All models are INSTRUCT/CHAT versions** — no base models tested
+- **All models are INSTRUCT/CHAT versions**  no base models tested
 - **Dataset:** 4 benchmarks (MT-Bench n=80, Vicuna Bench n=80, FLASK n=100, BigGen Bench n=100)
 - **Metrics:** Stability (CON, SC), Accuracy (TA, BS), Scoring Tendency (MS, VarS)
 - **3 bias types defined:**
@@ -60,7 +60,7 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 
 ---
 
-## Paper 2: Pan et al. 2025 — "User-Assistant Bias in LLMs"
+## Paper 2: Pan et al. 2025  "User-Assistant Bias in LLMs"
 **arXiv:2508.15815 · ACL 2026 Findings · ~30 citations**
 
 ### Key Methodological Details
@@ -79,7 +79,7 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 
 ---
 
-## Paper 3: Gu et al. 2024 — "A Survey on LLM-as-a-Judge"
+## Paper 3: Gu et al. 2024  "A Survey on LLM-as-a-Judge"
 **arXiv:2411.15594 · Nov 2024 · cited 1661+**
 
 ### Structure
@@ -91,7 +91,7 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 
 ---
 
-## Paper 4: Zheng et al. 2023 — "Judging LLM-as-a-Judge with MT-Bench"
+## Paper 4: Zheng et al. 2023  "Judging LLM-as-a-Judge with MT-Bench"
 **NeurIPS 2023 · cited 2000+**
 
 ### Key Details
@@ -104,7 +104,7 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 
 ---
 
-## Paper 6: Soumik 2026 — "Judging the Judges: A Systematic Evaluation of Bias Mitigation Strategies"
+## Paper 6: Soumik 2026  "Judging the Judges: A Systematic Evaluation of Bias Mitigation Strategies"
 **arXiv:2604.23178 · TMLR 2026 · single author**
 
 ### Key Details
@@ -112,15 +112,15 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 - **Benchmarks:** MT-Bench n=400, LLMBar n=200, custom n=375
 - **9 debiasing strategies** systematically compared
 - **Key findings:**
-  1. Style bias is dominant (0.10-0.76) — far exceeds position bias (≤0.04)
+  1. Style bias is dominant (0.10-0.76)  far exceeds position bias (≤0.04)
   2. Verbosity bias is heterogeneous: Pro/Flash/Llama prefer longer (+0.24 to +0.44), Claude prefers concise (-0.12), GPT-4o neutral (-0.04)
   3. Gemini 2.5 Flash + Combined Budget = 71.0% agreement (kappa=0.549) at ~$0.001/eval
   4. Debiasing helps: Claude +11.5pp, Flash +7.5pp
-- **Key gap:** "Cross-bias interaction analysis" mentioned as future work — does NOT study bias interactions
+- **Key gap:** "Cross-bias interaction analysis" mentioned as future work  does NOT study bias interactions
 - **Does NOT cover:** scoring bias (rubric order, score ID, reference answer), bias interactions
 - **Key quote:** "Style bias is the dominant bias... far exceeding position bias, yet is rarely studied"
 
-## Paper 7: Xu et al. 2026 — "Am I More Pointwise or Pairwise? Revealing Position Bias in Rubric-Based LLM-as-a-Judge"
+## Paper 7: Xu et al. 2026  "Am I More Pointwise or Pairwise? Revealing Position Bias in Rubric-Based LLM-as-a-Judge"
 **arXiv:2602.02219 · Feb 2026**
 
 ### Key Details
@@ -131,7 +131,7 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 - Mitigation only helps models with strong bias
 - **Relevance to our work:** Confirms that rubric structure matters, but does NOT address rubric order bias as defined by Li et al.
 
-## Paper 9: Feuer et al. 2026 — "Towards Provably Unbiased LLM Judges via Bias-Bounded Evaluation"
+## Paper 9: Feuer et al. 2026  "Towards Provably Unbiased LLM Judges via Bias-Bounded Evaluation"
 **arXiv:2603.05485 · Mar 2026**
 
 ### Key Details
@@ -142,7 +142,7 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 - **Key distinction:** Theoretical framework for bias guarantees, NOT specific to scoring bias
 - **Relevance:** General approach, doesn't address our specific gap
 
-## Paper 10: Dev et al. 2026 — "Judge Reliability Harness" (RAND Corporation)
+## Paper 10: Dev et al. 2026  "Judge Reliability Harness" (RAND Corporation)
 **arXiv:2603.05399 · ICLR 2026 Workshop · Mar 2026**
 
 ### Key Details
@@ -153,16 +153,16 @@ Score 1: {desc1} Score 2: {desc2} ... Score 5: {desc5}
 - **Key quote:** "No judge we evaluated is uniformly reliable across benchmarks"
 - **Relevance:** Confirms the unreliability problem we're addressing
 
-## Paper 11: Doğruöz et al. 2026 — "LLMs-as-a-Judge in Multilingual Settings"
+## Paper 11: Doğruöz et al. 2026  "LLMs-as-a-Judge in Multilingual Settings"
 **arXiv:2607.02235 · Jul 2026**
 
 ### Key Details
 - Out of 650 papers mentioning LLM-as-a-judge, only 33 focus on multilingual
 - "Inconsistent evaluation outcomes, a tendency to overtrust LLM judgments in multilingual settings"
 - Widespread reliance on a single judge model per study
-- **Relevance:** Documents cross-cultural bias gap — underexplored area
+- **Relevance:** Documents cross-cultural bias gap  underexplored area
 
-## Paper 12: Yang et al. 2025 — "Any Large Language Model Can Be a Reliable Judge"
+## Paper 12: Yang et al. 2025  "Any Large Language Model Can Be a Reliable Judge"
 **NeurIPS 2025**
 
 ### Key Details

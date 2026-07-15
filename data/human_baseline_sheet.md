@@ -9,17 +9,17 @@ You are helping evaluate how well LLM responses answer instructions. For each it
 
 | Score | Meaning |
 |-------|---------|
-| 5 | Excellent — complete, accurate, well-structured |
-| 4 | Good — mostly correct with minor issues |
-| 3 | Acceptable — adequate but could be better |
-| 2 | Poor — significant errors or omissions |
-| 1 | Very poor — fails to address the instruction |
+| 5 | Excellent  complete, accurate, well-structured |
+| 4 | Good  mostly correct with minor issues |
+| 3 | Acceptable  adequate but could be better |
+| 2 | Poor  significant errors or omissions |
+| 1 | Very poor  fails to address the instruction |
 
 3. **Enter your score** in the blank provided
 
 **Important:**
-- Score each item independently — don't compare with other raters
-- There are no "right" answers — this is about human judgment
+- Score each item independently  don't compare with other raters
+- There are no "right" answers  this is about human judgment
 - Take ~10-15 seconds per item (total ~15 minutes for all 50)
 
 ---
@@ -75,7 +75,7 @@ You are helping evaluate how well LLM responses answer instructions. For each it
     **Score:** ___
 
 12. **Instruction:** Explain how a database index works.  
-    **Response:** An index is like a book's table of contents — it helps find data faster without scanning everything.  
+    **Response:** An index is like a book's table of contents  it helps find data faster without scanning everything.  
     **Score:** ___
 
 13. **Instruction:** Describe the difference between TCP and UDP.  
@@ -205,7 +205,7 @@ You are helping evaluate how well LLM responses answer instructions. For each it
     **Score:** ___
 
 43. **Instruction:** Explain what a derivative is in calculus.  
-    **Response:** A derivative measures how a function changes as its input changes — the slope at a point.  
+    **Response:** A derivative measures how a function changes as its input changes  the slope at a point.  
     **Score:** ___
 
 44. **Instruction:** What is the quadratic formula?  

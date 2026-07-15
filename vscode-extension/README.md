@@ -1,4 +1,4 @@
-# Scoring Bias VSCode Extension — Concept
+# Scoring Bias VSCode Extension  Concept
 
 ## Overview
 
@@ -29,15 +29,15 @@ score labels, or reference answers may introduce systematic bias.
 ```
 Extension Host
 ├── activationEvents: ["onLanguage:json", "onLanguage:markdown"]
-├── main.ts — Activation, commands, tree views
-├── biasProvider.ts — Data provider for bias landscape
-├── inlineAnnotator.ts — Document decoration provider
-└── telemetry.ts — Optional anonymous usage stats
+├── main.ts  Activation, commands, tree views
+├── biasProvider.ts  Data provider for bias landscape
+├── inlineAnnotator.ts  Document decoration provider
+└── telemetry.ts  Optional anonymous usage stats
 
 Data:
-├── biasData.json — Pre-computed deltas for 22 models
-├── rubricPatterns.json — Known bias patterns
-└── modelProfiles.json — Model metadata
+├── biasData.json  Pre-computed deltas for 22 models
+├── rubricPatterns.json  Known bias patterns
+└── modelProfiles.json  Model metadata
 ```
 
 ## Commands
@@ -58,7 +58,7 @@ Data:
 
 ## Development Status
 
-**Concept only** — Not implemented. This document outlines the
+**Concept only**  Not implemented. This document outlines the
 proposed extension for future development.
 
 ## Related Resources

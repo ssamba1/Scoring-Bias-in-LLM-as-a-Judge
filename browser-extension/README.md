@@ -1,4 +1,4 @@
-# Scoring Bias Browser Extension — Concept
+# Scoring Bias Browser Extension  Concept
 
 ## Overview
 
@@ -26,16 +26,16 @@ extension overlays bias information directly on evaluation results.
 
 ```
 Browser Extension
-├── manifest.json — Permissions, content scripts
+├── manifest.json  Permissions, content scripts
 ├── popup/
-│   ├── index.html — Popup UI
-│   ├── popup.js — Popup logic
+│   ├── index.html  Popup UI
+│   ├── popup.js  Popup logic
 │   └── styles.css
 ├── content/
-│   ├── content.js — Page injection
-│   └── annotator.js — DOM manipulation
+│   ├── content.js  Page injection
+│   └── annotator.js  DOM manipulation
 └── data/
-    └── biasData.json — Pre-computed bias values
+    └── biasData.json  Pre-computed bias values
 ```
 
 ## Data Flow
@@ -55,7 +55,7 @@ Browser Extension
 
 ## Development Status
 
-**Concept only** — Not implemented. This document outlines the
+**Concept only**  Not implemented. This document outlines the
 proposed extension for future development.
 
 ## Privacy

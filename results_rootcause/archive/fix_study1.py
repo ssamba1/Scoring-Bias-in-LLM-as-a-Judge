@@ -7,7 +7,7 @@ import json, random, math
 
 random.seed(42)
 
-# Real results from Kaggle — only the valid probes (descriptive parser was broken)
+# Real results from Kaggle  only the valid probes (descriptive parser was broken)
 # Each max_delta uses the 2 valid variants only for score_id (numeric + letter, not descriptive)
 VALID_DATA = {
     "llama3-base": {
@@ -138,7 +138,7 @@ print("""
    format processing while increasing content sensitivity
    
 3. Implication: bias mitigation must target BOTH format and content
-   channels separately — a single approach won't work
+   channels separately  a single approach won't work
    
 4. First experimental evidence for this differential effect
    (no prior work has shown this)

@@ -106,11 +106,11 @@ Posterior distributions for interaction ratios (50,000 Monte Carlo samples):
 You are evaluating a response. Score it from 1 to 5.
 
 ### Score Rubrics:
-Score 1: Poor quality — the response fails to address the instruction.
-Score 2: Below average — the response partially addresses the instruction.
-Score 3: Average — the response adequately addresses the instruction.
-Score 4: Good — the response thoroughly addresses the instruction.
-Score 5: Excellent — the response perfectly addresses the instruction.
+Score 1: Poor quality  the response fails to address the instruction.
+Score 2: Below average  the response partially addresses the instruction.
+Score 3: Average  the response adequately addresses the instruction.
+Score 4: Good  the response thoroughly addresses the instruction.
+Score 5: Excellent  the response perfectly addresses the instruction.
 
 ### The instruction to evaluate:
 [instruction]

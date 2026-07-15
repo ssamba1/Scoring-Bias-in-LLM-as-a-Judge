@@ -1,5 +1,5 @@
 """
-scoring_bias — LLM-as-a-Judge Scoring Bias Analysis Package.
+scoring_bias  LLM-as-a-Judge Scoring Bias Analysis Package.
 
 Core analysis toolkit for the paper:
     "Scoring Bias in LLM-as-a-Judge Models: A 22-Model Landscape

@@ -68,7 +68,7 @@ print(f"  Jaccard similarity of top-3 sets: {jaccard:.2f}")
 # 5. SCORE INFLATION ANALYSIS
 print("\n5. SCORE INFLATION: Do instruct models score consistently higher?")
 # Compare: does average score differ between base and instruct?
-print("  (Requires per-item score data — placeholder methodology)")
+print("  (Requires per-item score data  placeholder methodology)")
 print("  Method: Compare mean scores across all items for base vs instruct")
 print("  If instruct scores are consistently higher → inflation hypothesis")
 

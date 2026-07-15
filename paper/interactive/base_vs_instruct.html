@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Base vs Instruct — Family Comparison</title>
+<title>Base vs Instruct  Family Comparison</title>
 <style>
 :root {
   --bg: #0d1117; --card: #161b22; --border: #30363d;
@@ -87,7 +87,7 @@ tr:hover { background: rgba(255,255,255,0.02); }
   </div>
 
   <div class="card">
-    <h2 id="chartTitle">Rubric Order — Base vs Instruct Δ</h2>
+    <h2 id="chartTitle">Rubric Order  Base vs Instruct Δ</h2>
     <div class="chart-wrap"><canvas id="baseChart" width="800" height="400"></canvas></div>
 
     <div class="stats-grid" id="statsGrid"></div>
@@ -105,7 +105,7 @@ tr:hover { background: rgba(255,255,255,0.02); }
   </div>
 
   <div class="footer">
-    <p>Supplementary material — <a href="index.html">Back to Interactive Hub</a></p>
+    <p>Supplementary material  <a href="index.html">Back to Interactive Hub</a></p>
   </div>
 </div>
 
@@ -153,7 +153,7 @@ function getChange(family, probe) {
 function redraw() {
   const probe = document.getElementById('probeSelect').value;
   const probeLabels = {rubric_order:'Rubric Order', score_id:'Score ID', reference_answer:'Reference Answer'};
-  document.getElementById('chartTitle').textContent = probeLabels[probe] + ' — Base vs Instruct Δ';
+  document.getElementById('chartTitle').textContent = probeLabels[probe] + '  Base vs Instruct Δ';
 
   const canvas = document.getElementById('baseChart');
   const ctx = canvas.getContext('2d');

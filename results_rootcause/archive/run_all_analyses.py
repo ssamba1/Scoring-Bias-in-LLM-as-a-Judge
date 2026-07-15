@@ -4,17 +4,17 @@ Comprehensive CPU-based statistical analysis of rootcause bias study data.
 Produces 11 analysis outputs as structured JSON files for paper supplement.
 
 Analyses:
-  1. DELTA COMPUTATION — base-instruct paired Δ per model and Δ-change
-  2. BOOTSTRAPPED CONFIDENCE INTERVALS — 10,000 resamples with 95% CI
-  3. COHEN'S D — effect size per model per probe
-  4. WILCOXON SIGNED-RANK TEST — paired Δ change significance
-  5. VARIANCE DECOMPOSITION — between-model vs within-model vs residual
-  6. MODEL RANKING — rank 22 instruct models, Kendall's W
-  7. SIZE CORRELATION — parameter count vs Δ per probe
-  8. BAYESIAN ANALYSIS — conjugate Normal-Inverse-Gamma posteriors, Bayes factors
-  9. ITEM ANALYSIS — item discrimination and difficulty
-  10. DOMAIN ANALYSIS — Δ by domain (data permitting)
-  11. POWER ANALYSIS — power at α=0.05 for N={9,12,15,22}
+  1. DELTA COMPUTATION  base-instruct paired Δ per model and Δ-change
+  2. BOOTSTRAPPED CONFIDENCE INTERVALS  10,000 resamples with 95% CI
+  3. COHEN'S D  effect size per model per probe
+  4. WILCOXON SIGNED-RANK TEST  paired Δ change significance
+  5. VARIANCE DECOMPOSITION  between-model vs within-model vs residual
+  6. MODEL RANKING  rank 22 instruct models, Kendall's W
+  7. SIZE CORRELATION  parameter count vs Δ per probe
+  8. BAYESIAN ANALYSIS  conjugate Normal-Inverse-Gamma posteriors, Bayes factors
+  9. ITEM ANALYSIS  item discrimination and difficulty
+  10. DOMAIN ANALYSIS  Δ by domain (data permitting)
+  11. POWER ANALYSIS  power at α=0.05 for N={9,12,15,22}
 """
 import json, math, statistics, itertools, random, sys
 from pathlib import Path
@@ -1142,7 +1142,7 @@ print()
 # SUMMARY
 # ================================================================
 print("=" * 70)
-print("ANALYSIS COMPLETE — SUMMARY")
+print("ANALYSIS COMPLETE  SUMMARY")
 print("=" * 70)
 print(f"\nAll 11 analyses completed and saved to: {OUT}")
 print()

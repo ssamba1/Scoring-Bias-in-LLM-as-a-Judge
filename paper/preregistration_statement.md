@@ -25,6 +25,6 @@
 5. Leave-one-family-out sensitivity
 
 ## Deviations
-- Reference answer effect fails Bonferroni — downgraded from "significant" to "marginal"
+- Reference answer effect fails Bonferroni  downgraded from "significant" to "marginal"
 - Training method decomposition added post-hoc after observing Mistral outlier
 - Depth findings (5 findings) added during analysis

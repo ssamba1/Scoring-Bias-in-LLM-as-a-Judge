@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Scoring Bias Benchmark (SBB) — a standardized benchmark for measuring scoring bias in LLM judges.
+Scoring Bias Benchmark (SBB)  a standardized benchmark for measuring scoring bias in LLM judges.
 Inspired by EVALBIASBENCH [Park et al. 2024] but focused specifically on scoring-based evaluation.
 
 The benchmark measures 7 dimensions of scoring bias:
-1. Rubric Order Bias  — ascending vs descending vs random rubric order
-2. Score ID Bias     — Arabic numerals vs letter grades vs Roman numerals  
-3. Reference Answer  — Ref-score influence on subsequent scoring
-4. Position Bias     — first vs second position in comparison settings
-5. Verbosity Bias    — short vs normal vs long response preference
-6. Sentiment Bias    — negative vs neutral vs positive tone preference
-7. Range Bias        — 1-5 vs 1-10 scale effects
+1. Rubric Order Bias   ascending vs descending vs random rubric order
+2. Score ID Bias      Arabic numerals vs letter grades vs Roman numerals  
+3. Reference Answer   Ref-score influence on subsequent scoring
+4. Position Bias      first vs second position in comparison settings
+5. Verbosity Bias     short vs normal vs long response preference
+6. Sentiment Bias     negative vs neutral vs positive tone preference
+7. Range Bias         1-5 vs 1-10 scale effects
 """
 import csv, json, os, random, itertools
 from pathlib import Path
@@ -22,23 +22,23 @@ DATA_DIR = BASE_DIR / "data"
 random.seed(42)
 
 RUBRIC_TEMPLATES = {
-    "ascending": """Score 1: Poor quality — the response fails to address the instruction and contains major errors.
-Score 2: Below average — the response partially addresses the instruction but has significant flaws.
-Score 3: Average — the response adequately addresses the instruction with minor issues.
-Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
-Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.""",
+    "ascending": """Score 1: Poor quality  the response fails to address the instruction and contains major errors.
+Score 2: Below average  the response partially addresses the instruction but has significant flaws.
+Score 3: Average  the response adequately addresses the instruction with minor issues.
+Score 4: Good  the response thoroughly addresses the instruction with minimal issues.
+Score 5: Excellent  the response perfectly addresses the instruction with exceptional quality.""",
 
-    "descending": """Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.
-Score 4: Good — the response thoroughly addresses the instruction with minimal issues.
-Score 3: Average — the response adequately addresses the instruction with minor issues.
-Score 2: Below average — the response partially addresses the instruction but has significant flaws.
-Score 1: Poor quality — the response fails to address the instruction and contains major errors.""",
+    "descending": """Score 5: Excellent  the response perfectly addresses the instruction with exceptional quality.
+Score 4: Good  the response thoroughly addresses the instruction with minimal issues.
+Score 3: Average  the response adequately addresses the instruction with minor issues.
+Score 2: Below average  the response partially addresses the instruction but has significant flaws.
+Score 1: Poor quality  the response fails to address the instruction and contains major errors.""",
 
-    "random": """Score 3: Average — the response adequately addresses the instruction with minor issues.
-Score 5: Excellent — the response perfectly addresses the instruction with exceptional quality.
-Score 1: Poor quality — the response fails to address the instruction and contains major errors.
-Score 2: Below average — the response partially addresses the instruction but has significant flaws.
-Score 4: Good — the response thoroughly addresses the instruction with minimal issues."""
+    "random": """Score 3: Average  the response adequately addresses the instruction with minor issues.
+Score 5: Excellent  the response perfectly addresses the instruction with exceptional quality.
+Score 1: Poor quality  the response fails to address the instruction and contains major errors.
+Score 2: Below average  the response partially addresses the instruction but has significant flaws.
+Score 4: Good  the response thoroughly addresses the instruction with minimal issues."""
 }
 
 SCORE_IDS = {

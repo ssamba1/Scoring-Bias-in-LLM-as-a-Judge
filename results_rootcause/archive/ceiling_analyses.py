@@ -50,7 +50,7 @@ consistency_code = '''
 import json, statistics
 from scipy import stats as sp_stats
 
-# Load data — needs temperature > 0 for meaningful consistency analysis
+# Load data  needs temperature > 0 for meaningful consistency analysis
 with open("results_rootcause/study1_max_scale.json") as f:
     data = json.load(f)
 
@@ -140,7 +140,7 @@ def generate_report_card(model_name, hf_path):
     return report
 
 print("Report card generator defined.")
-print("Model-agnostic — works with any HuggingFace model name.")
+print("Model-agnostic  works with any HuggingFace model name.")
 print("Output: PDF with bias scores, severity levels, interpretation.")
 '''.strip()
 

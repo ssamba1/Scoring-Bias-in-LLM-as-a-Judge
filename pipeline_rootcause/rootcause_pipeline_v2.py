@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Root Cause of Scoring Bias — Production GPU Pipeline.
+Root Cause of Scoring Bias  Production GPU Pipeline.
 Loads base and instruct models from HuggingFace, runs scoring bias probes,
 and compares bias susceptibility across training stages.
 
@@ -334,7 +334,7 @@ Score: """
         base_results = [r for r in results if "base" in r["model"]]
         inst_results = [r for r in results if "instruct" in r["model"]]
 
-        print(f"\n  BASE vs INSTRUCT COMPARISON — {model_key}")
+        print(f"\n  BASE vs INSTRUCT COMPARISON  {model_key}")
         print(f"  {'Probe':<25} {'Base Score':<12} {'Instruct Score':<16} {'Delta':<10}")
         print(f"  {'-'*63}")
 

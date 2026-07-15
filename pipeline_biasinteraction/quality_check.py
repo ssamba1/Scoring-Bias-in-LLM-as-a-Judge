@@ -119,7 +119,7 @@ def check_anomalous_items(data):
 def generate_report(data, output_path=None):
     """Generate full quality report."""
     print("="*65)
-    print("DATA QUALITY REPORT — Bias Interaction Experiment")
+    print("DATA QUALITY REPORT  Bias Interaction Experiment")
     print("="*65)
     
     checks = [

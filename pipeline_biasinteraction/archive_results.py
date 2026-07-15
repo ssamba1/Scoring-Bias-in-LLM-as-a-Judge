@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Results archiving system — snapshot, version, and compare experiment results.
+"""Results archiving system  snapshot, version, and compare experiment results.
 Usage: python3 archive_results.py --snapshot
        python3 archive_results.py --list
        python3 archive_results.py --compare snapshot_001 snapshot_002

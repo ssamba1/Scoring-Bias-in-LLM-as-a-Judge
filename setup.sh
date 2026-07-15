@@ -35,11 +35,11 @@ echo "[3/4] Installing dependencies..."
 
 # Option 2 dependencies
 echo "  Installing API-based pipeline dependencies..."
-$PY -m pip install --quiet openai anthropic google-generativeai pandas numpy scipy matplotlib seaborn statsmodels pyyaml 2>/dev/null || echo "  (Some packages may have failed — install manually if needed)"
+$PY -m pip install --quiet openai anthropic google-generativeai pandas numpy scipy matplotlib seaborn statsmodels pyyaml 2>/dev/null || echo "  (Some packages may have failed  install manually if needed)"
 
 # Option 1 dependencies
 echo "  Installing GPU pipeline dependencies..."
-$PY -m pip install --quiet transformers torch accelerate huggingface_hub 2>/dev/null || echo "  (Some packages may have failed — install manually if needed)"
+$PY -m pip install --quiet transformers torch accelerate huggingface_hub 2>/dev/null || echo "  (Some packages may have failed  install manually if needed)"
 
 # Run tests
 echo "[4/4] Running tests..."

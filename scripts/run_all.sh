@@ -20,7 +20,7 @@ cd "$PROJECT_DIR"
 
 echo ""
 echo "╔══════════════════════════════════════════════════════════════╗"
-echo "║       ROOT CAUSE ANALYSIS — MASTER PIPELINE                 ║"
+echo "║       ROOT CAUSE ANALYSIS  MASTER PIPELINE                 ║"
 echo "╚══════════════════════════════════════════════════════════════╝"
 echo "Project: $PROJECT_DIR"
 echo "Date:    $(date)"

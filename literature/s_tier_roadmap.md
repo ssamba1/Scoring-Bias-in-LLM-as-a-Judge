@@ -11,8 +11,8 @@
 
 | Step | Work | Time | Achievable? |
 |------|------|------|------------|
-| Attention head analysis — show WHICH heads redistribute | Requires model internals access (TransformerLens) | 1 week | ✅ Solo |
-| Ablation study — verify causal effect | Remove specific heads → check if bias changes | 1 week | ✅ Solo |
+| Attention head analysis  show WHICH heads redistribute | Requires model internals access (TransformerLens) | 1 week | ✅ Solo |
+| Ablation study  verify causal effect | Remove specific heads → check if bias changes | 1 week | ✅ Solo |
 | Formal proof with experimental bounds | Already have theorems, need tight bounds | 2 days | ✅ Solo |
 | **Total for S** | **~2 weeks** | **✅ Yes** |
 
@@ -101,9 +101,9 @@
 
 ## What to Do Right Now (While Models Run)
 
-1. **Zenodo connection** — go to zenodo.org, sign in with GitHub, flip switch for this repo → DOI in 10 min
-2. **Binder** — create `binder/postBuild` file with `pip install -r requirements.txt`
-3. **HF dataset** — `upload_data_to_hf.py` script
+1. **Zenodo connection**  go to zenodo.org, sign in with GitHub, flip switch for this repo → DOI in 10 min
+2. **Binder**  create `binder/postBuild` file with `pip install -r requirements.txt`
+3. **HF dataset**  `upload_data_to_hf.py` script
 
 These 3 things get Reproducibility and Infrastructure to S-tier in ~1 hour.
 

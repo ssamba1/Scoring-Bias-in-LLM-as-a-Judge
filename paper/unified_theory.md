@@ -15,7 +15,7 @@ We present a unified theoretical framework that explains scoring bias in LLM-as-
 
 ## 1. The Central Hypothesis
 
-**Instruction-Induced Attention Redistribution (IIAR):** Instruction tuning increases a model's attention to all prompt features that are correlated with instruction following, including both task-relevant features (the actual instruction) and task-irrelevant surface features (rubric format, score labels, response position, length, and tone). Bias arises from the latter class — features that the model learns to attend to because they correlate with instructions during training, even though they should be irrelevant to scoring.
+**Instruction-Induced Attention Redistribution (IIAR):** Instruction tuning increases a model's attention to all prompt features that are correlated with instruction following, including both task-relevant features (the actual instruction) and task-irrelevant surface features (rubric format, score labels, response position, length, and tone). Bias arises from the latter class  features that the model learns to attend to because they correlate with instructions during training, even though they should be irrelevant to scoring.
 
 This hypothesis is supported by:
 1. **Study 1**: Base models show lower bias because they haven't learned to attend to instruction-correlated surface features
@@ -71,7 +71,7 @@ where:
 | $\rho_{ij}$ is model-specific | Study 2 (Gemini additive, others compounding) | Same architecture → same $\rho_{ij}$ |
 | $B_{\text{total}}$ is minimized when $\kappa = 1$ (base models) | Study 1 | Use base models as judges |
 | $\rho_{ij} > 0$ for all pairs when $\kappa > 1$ | Study 2 (4/5 compounding) | Test all bias type pairs |
-| $\rho_{ij} = 0$ for independent features | — | Design orthogonal perturbations |
+| $\rho_{ij} = 0$ for independent features |  | Design orthogonal perturbations |
 
 ---
 

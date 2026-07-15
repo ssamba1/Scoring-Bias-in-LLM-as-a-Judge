@@ -96,7 +96,7 @@ def latex_to_html(latex):
 def clean_text(text):
     """Remove LaTeX artifacts."""
     text = text.replace('``', '"').replace("''", '"')
-    text = text.replace('---', '—').replace('--', '–')
+    text = text.replace('---', '').replace('--', '–')
     text = text.replace("\\'", "'").replace("\\`", "`")
     text = re.sub(r' +', ' ', text)
     return text.strip()
@@ -118,7 +118,7 @@ html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Where Does Scoring Bias Come From? — Camera Ready</title>
+<title>Where Does Scoring Bias Come From?  Camera Ready</title>
 <style>
 @page {{ size: letter; margin: 0.75in; }}
 * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -188,7 +188,7 @@ Email: {{author1,author2}}@institution.edu</p>
 
 <!-- Static tables (replace with auto-generated when data arrives) -->
 <div class="table-placeholder">
-<strong>Table 1:</strong> Main Results — Aggregate across 44 model families<br>
+<strong>Table 1:</strong> Main Results  Aggregate across 44 model families<br>
 <span class="note">Data from Kaggle experiment (running).</span>
 </div>
 

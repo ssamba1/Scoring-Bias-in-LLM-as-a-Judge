@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Health Check — Verify project integrity.
+Health Check  Verify project integrity.
 
 Checks:
 - All required files exist
@@ -107,7 +107,7 @@ def check_json_validity(root: Path) -> List[str]:
             with open(json_file) as f:
                 json.load(f)
         except json.JSONDecodeError as e:
-            issues.append(f"INVALID JSON: {json_file} — {e}")
+            issues.append(f"INVALID JSON: {json_file}  {e}")
     return issues
 
 
@@ -154,7 +154,7 @@ def check_python_syntax(root: Path) -> List[str]:
         try:
             ast.parse(py_file.read_text())
         except SyntaxError as e:
-            issues.append(f"SYNTAX ERROR: {py_file} — {e}")
+            issues.append(f"SYNTAX ERROR: {py_file}  {e}")
     return issues
 
 

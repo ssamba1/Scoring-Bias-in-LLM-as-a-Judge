@@ -1,4 +1,4 @@
-# ULTIMATE REQUIREMENTS DOCUMENT — 5000x DEPTH SYNTHESIS
+# ULTIMATE REQUIREMENTS DOCUMENT  5000x DEPTH SYNTHESIS
 
 ## What Makes a Paper Win at NeuralPS, Get Published at ACL/ICML, or Win at ISEF
 
@@ -76,7 +76,7 @@ Every top conference evaluates papers on exactly 4 dimensions. Here's what each 
 |-----------|
 | Addresses explicit gap from Li et al. (DASFAA 2026) |
 | Direct implications for bias mitigation in AI evaluation |
-| LLM-as-a-Judge is used everywhere — Chatbot Arena, MT-Bench, AlpacaEval |
+| LLM-as-a-Judge is used everywhere  Chatbot Arena, MT-Bench, AlpacaEval |
 | Differential effect finding is actionable (format vs content channels) |
 | $0 cost means anyone can replicate |
 
@@ -96,8 +96,8 @@ Every top conference evaluates papers on exactly 4 dimensions. Here's what each 
 |-----------------|
 | **First base-vs-instruct comparison for scoring bias** (Li et al. called for this) |
 | **Differential effect never shown before** (format ↓, content ↑) |
-| **IIAR hypothesis** — new theoretical explanation for bias origins |
-| **Complete open-source infrastructure** — Docker, CI/CD, API, interactive tools |
+| **IIAR hypothesis**  new theoretical explanation for bias origins |
+| **Complete open-source infrastructure**  Docker, CI/CD, API, interactive tools |
 
 **This is also a strong dimension. Nobody has done what we did.**
 
@@ -128,7 +128,7 @@ Every top conference evaluates papers on exactly 4 dimensions. Here's what each 
 
 ### The Gap Between 3.5 and 5.0
 
-The difference between "borderline reject" and "accept" is not in the idea — it's in the execution. Our idea is strong (first base-vs-instruct comparison, novel differential effect). The gap is:
+The difference between "borderline reject" and "accept" is not in the idea  it's in the execution. Our idea is strong (first base-vs-instruct comparison, novel differential effect). The gap is:
 1. **Statistical power** (N=3 families → need N=5-6)
 2. **Evaluation scale** (50 items → need 100+)
 3. **Metric completeness** (need Spearman's ρ, Pearson's r, MAD)
@@ -156,23 +156,23 @@ These are ALL fixable. The core idea is solid.
 
 After researching ISEF 2024/2025 winning projects (computer science category):
 
-1. **Clear real-world application** — Winners frame their project around a specific problem people understand
-2. **Quantifiable results** — "Our method improves X by Y%" is the standard format
-3. **Impressive notebook** — Judges spend 2-3 minutes reviewing the notebook before interview
-4. **Student independence** — Judges explicitly evaluate how much the student did vs. mentor
-5. **Passion + knowledge** — During the 8-10 minute interview, students must demonstrate deep understanding
-6. **Creativity** — The project must show the student's own ideas, not just applying existing methods
+1. **Clear real-world application**  Winners frame their project around a specific problem people understand
+2. **Quantifiable results**  "Our method improves X by Y%" is the standard format
+3. **Impressive notebook**  Judges spend 2-3 minutes reviewing the notebook before interview
+4. **Student independence**  Judges explicitly evaluate how much the student did vs. mentor
+5. **Passion + knowledge**  During the 8-10 minute interview, students must demonstrate deep understanding
+6. **Creativity**  The project must show the student's own ideas, not just applying existing methods
 
 ### Our ISEF Interview Strategy
 
 **Key talking points (30-second pitch):**
-"We discovered where AI judge bias comes from. AI models used to evaluate other AI — like in Chatbot Arena — are systematically biased. People knew the bias existed but didn't know where it came from. We showed that instruction tuning — the training process that teaches AI to follow instructions — is responsible. And we found something surprising: instruction tuning makes some biases better but others worse. This has never been shown before."
+"We discovered where AI judge bias comes from. AI models used to evaluate other AI  like in Chatbot Arena  are systematically biased. People knew the bias existed but didn't know where it came from. We showed that instruction tuning  the training process that teaches AI to follow instructions  is responsible. And we found something surprising: instruction tuning makes some biases better but others worse. This has never been shown before."
 
 **Anticipate these questions:**
 - "How many models did you test?" → 6 model variants, 3 families, 8,100 judgments
-- "How is this different from prior work?" → Li et al. identified the bias but not the cause — we found the cause
+- "How is this different from prior work?" → Li et al. identified the bias but not the cause  we found the cause
 - "What's the practical implication?" → Debiasing must target format and content separately
-- "How much did this cost?" → $0 — all on free Kaggle GPU
+- "How much did this cost?" → $0  all on free Kaggle GPU
 - "Could you have done more?" → Yes, more models and items would strengthen the statistics
 
 ---
@@ -232,11 +232,11 @@ After researching ISEF 2024/2025 winning projects (computer science category):
 
 ### What's Realistic
 
-- **NeurIPS/ICML** — Unlikely for a high school project at this scale (they expect 100+ GPU-hours and multi-institution teams)
-- **ACL/EMNLP Findings** — Achievable with fixes. Several similar-scale papers accepted. Our differential effect is strong.
-- **NeurIPS High School Projects Track** — **Most realistic target.** Accepts well-executed projects with novel findings.
-- **ISEF** — **Also realistic.** Our 82/100 → 94/100 is achievable with the 5 fixes above.
-- **arXiv preprint** — **Immediately.** Free, no acceptance process. Establishes priority.
+- **NeurIPS/ICML**  Unlikely for a high school project at this scale (they expect 100+ GPU-hours and multi-institution teams)
+- **ACL/EMNLP Findings**  Achievable with fixes. Several similar-scale papers accepted. Our differential effect is strong.
+- **NeurIPS High School Projects Track**  **Most realistic target.** Accepts well-executed projects with novel findings.
+- **ISEF**  **Also realistic.** Our 82/100 → 94/100 is achievable with the 5 fixes above.
+- **arXiv preprint**  **Immediately.** Free, no acceptance process. Establishes priority.
 
 ### Final Recommendation
 
@@ -247,4 +247,4 @@ After researching ISEF 2024/2025 winning projects (computer science category):
 
 The science is solid. The differential effect is real and novel. The infrastructure is complete. The remaining work is execution, not invention.
 
-**github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge** — ready for submission.
+**github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge**  ready for submission.

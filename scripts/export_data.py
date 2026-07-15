@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Export Data — Export all analysis results to various formats.
+Export Data  Export all analysis results to various formats.
 
 Usage:
     python scripts/export_data.py [--format csv|excel|json|parquet] [--output DIR] [--input FILE]

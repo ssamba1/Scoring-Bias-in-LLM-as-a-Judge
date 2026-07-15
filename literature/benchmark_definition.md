@@ -22,14 +22,14 @@
 
 | Level | Description | Example | Our Current |
 |-------|-------------|---------|-------------|
-| **10** | Opens a new subfield | Vaswani "Attention" | — |
-| **9** | Definitive study, exhaustively thorough | — | — |
-| **8** | Comprehensive, multiple angles, strong stats | — | — |
-| **7** | Solid paper with novel finding + extra depth | Li et al. (DASFAA) | — |
-| **6** | Clean experiment, novel finding, well-written | Wang et al. (ACL) | — |
-| **5** | Good idea, adequate execution | — | **← We are here** |
-| **4** | Interesting finding, thin on execution | — | — |
-| **3** | Preliminary results | — | — |
+| **10** | Opens a new subfield | Vaswani "Attention" |  |
+| **9** | Definitive study, exhaustively thorough |  |  |
+| **8** | Comprehensive, multiple angles, strong stats |  |  |
+| **7** | Solid paper with novel finding + extra depth | Li et al. (DASFAA) |  |
+| **6** | Clean experiment, novel finding, well-written | Wang et al. (ACL) |  |
+| **5** | Good idea, adequate execution |  | **← We are here** |
+| **4** | Interesting finding, thin on execution |  |  |
+| **3** | Preliminary results |  |  |
 
 ---
 
@@ -58,8 +58,8 @@ The jump from 5 to 8 requires exactly this:
 
 A level-8 paper would be cited as:
 
-> *"Smith et al. (2026) conducted the definitive study of scoring bias origins, testing 40+ model families across 3 bias probes with human validation. They found the differential effect — format bias decreases 44-77% while content bias increases 35% — which has become the standard reference for bias mitigation targeting."*
+> *"Smith et al. (2026) conducted the definitive study of scoring bias origins, testing 40+ model families across 3 bias probes with human validation. They found the differential effect  format bias decreases 44-77% while content bias increases 35%  which has become the standard reference for bias mitigation targeting."*
 
-That's the benchmark. 30 hours of work. The OpenRouter run is the critical path — it's running now.
+That's the benchmark. 30 hours of work. The OpenRouter run is the critical path  it's running now.
 
 After that, everything else is writing and analysis, which we can do in parallel.

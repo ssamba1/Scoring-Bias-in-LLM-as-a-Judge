@@ -1,4 +1,4 @@
-# ULTIMATE PUBLICATION REQUIREMENTS — 10x DEPTH
+# ULTIMATE PUBLICATION REQUIREMENTS  10x DEPTH
 
 ## Section-by-Section Analysis of Top-Tier Papers vs Our Study 1
 
@@ -34,7 +34,7 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 ### Our Status: ⚠️ 65%
 | Element | Example from Li et al. | Us | Fix |
 |---------|----------------------|-----|-----|
-| **Practical motivation** | "financial advisory assistant — adding an in-context example shifted scores" | ❌ Missing | Add: concrete example of when scoring bias matters |
+| **Practical motivation** | "financial advisory assistant  adding an in-context example shifted scores" | ❌ Missing | Add: concrete example of when scoring bias matters |
 | **Explicit quote of gap** | "underlying causes remain to be validated" | ✅ We cite this | Done |
 | **Numbered contributions** | 3 bullet points | ❌ Not in standalone paper | Add to study1_standalone.tex |
 | **Comparison to prior work** | Detailed paragraph on what prior work missed | ✅ | Could add more citations |
@@ -51,13 +51,13 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 ### Our Status: ⚠️ 40%
 | Missing component | Importance | Fix |
 |------------------|------------|-----|
-| **OffsetBias paper** (Park et al. 2024) | High — defines 6 bias types | Add 2-3 sentences |
-| **CALM paper** (Ye et al. 2024) | High — quantifies 12 bias types | Add 2-3 sentences |
+| **OffsetBias paper** (Park et al. 2024) | High  defines 6 bias types | Add 2-3 sentences |
+| **CALM paper** (Ye et al. 2024) | High  quantifies 12 bias types | Add 2-3 sentences |
 | **Bias mitigation approaches** (PAIRS, calibration) | Medium | Add paragraph |
 | **Human evaluation papers** (Chen et al. 2024) | Medium | Add |
 | **Position bias literature** (Shi et al. 2025) | Medium | Add |
-| **RLAIF connection** (Lee et al. 2024) | Medium — connects to alignment | Add |
-| **Our contribution statement** | Critical — explicit gap | ✅ Done |
+| **RLAIF connection** (Lee et al. 2024) | Medium  connects to alignment | Add |
+| **Our contribution statement** | Critical  explicit gap | ✅ Done |
 
 ---
 
@@ -70,13 +70,13 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 ### Our Status: ⚠️ 50%
 | Missing | Impact | Fix |
 |---------|--------|-----|
-| **Formal problem formulation with equation** | High — Li et al. has P=(T,I*,[A],R) | Add equation defining scoring prompt components |
-| **Metric equations (FR, MAD, delta)** | High — reproducible science | Add to paper |
-| **Dataset table with statistics** | Medium — Li et al. Table 1 | Create table of our 50 items |
-| **Hyperparameter table** | Medium — temperature, seeds, repeats | Add comprehensive table |
-| **Hardware specification** | Low — we have it | Already in paper |
-| **Exact prompt templates (appendix)** | Medium — Figure 3 in Li et al. | Add to appendix |
-| **Scoring distribution baseline** | Medium — Figure 5 in Li et al. | Heatmap of score distributions |
+| **Formal problem formulation with equation** | High  Li et al. has P=(T,I*,[A],R) | Add equation defining scoring prompt components |
+| **Metric equations (FR, MAD, delta)** | High  reproducible science | Add to paper |
+| **Dataset table with statistics** | Medium  Li et al. Table 1 | Create table of our 50 items |
+| **Hyperparameter table** | Medium  temperature, seeds, repeats | Add comprehensive table |
+| **Hardware specification** | Low  we have it | Already in paper |
+| **Exact prompt templates (appendix)** | Medium  Figure 3 in Li et al. | Add to appendix |
+| **Scoring distribution baseline** | Medium  Figure 5 in Li et al. | Heatmap of score distributions |
 
 ---
 
@@ -93,9 +93,9 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 | **Ablation by model size** | Shows robustness | Compare 2B vs 7B vs 8B |
 | **Ablation by item domain** | Shows generalization | 5 domains already in data |
 | **Error bars on ALL figures** | NeurIPS requirement | ✅ Bootstrap CIs done |
-| **Scoring tendency analysis** | Li et al. Figure 5 — heatmap | Create per-model score distribution |
+| **Scoring tendency analysis** | Li et al. Figure 5  heatmap | Create per-model score distribution |
 | **Per-item analysis** | Which items trigger most/least bias | Add analysis |
-| **Mitigation experiments** | Li et al. §4.3 has 3 strategies | We have bias_mitigation.py — run it |
+| **Mitigation experiments** | Li et al. §4.3 has 3 strategies | We have bias_mitigation.py  run it |
 | **Comparison to baselines** | Wang et al. Table 4 (VANILLA vs MEC vs BPC) | Compare raw vs corrected scores |
 | **Consistency across repeats** | Li et al. does 3 repeats, reports variance | Report per-repeat SD |
 
@@ -105,7 +105,7 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 
 ### What Top Papers Have
 **Li et al.:** 3 paragraphs embedded in results: (1) model scale → robustness, (2) bias can be positive, (3) scoring tendencies
-**Wang et al.:** §5 — ablation on evidence number k, temperature, BPDE effectiveness, generalization, fine-grained analysis = 2 pages
+**Wang et al.:** §5  ablation on evidence number k, temperature, BPDE effectiveness, generalization, fine-grained analysis = 2 pages
 
 ### Our Status: ⚠️ 55%
 | Missing | Fix |
@@ -120,13 +120,13 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 ## 7. LIMITATIONS (0.5 page)
 
 ### What Top Papers Have
-**Li et al.:** §5 — 5 limitations: (1) framework expansion, (2) mitigation needed, (3) root causes unvalidated, (4) data distribution, (5) future work
-**Wang et al.:** §7 — brief, focused on generalizability
+**Li et al.:** §5  5 limitations: (1) framework expansion, (2) mitigation needed, (3) root causes unvalidated, (4) data distribution, (5) future work
+**Wang et al.:** §7  brief, focused on generalizability
 
 ### Our Status: ✅ 80%
 | Our Limitations | Good? |
 |----------------|-------|
-| 50 items — sufficient but smaller than benchmarks | ✅ |
+| 50 items  sufficient but smaller than benchmarks | ✅ |
 | 2B-8B scale only | ✅ |
 | Can't distinguish SFT vs RLHF | ✅ |
 | Descriptive probe excluded | ✅ |
@@ -148,7 +148,7 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 |---------|-----|
 | **Environmental impact** | Compute: 6 GPU-hours on T4 = ~1.5 kg CO2 |
 | **Who benefits, who is harmed** | More detail on potential misuse |
-| **Data privacy** | No personal data — ✅ |
+| **Data privacy** | No personal data  ✅ |
 | **Mitigation recommendations** | ✅ In paper |
 
 ---
@@ -164,7 +164,7 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 |---------|-----|
 | **Numerical results in conclusion** | ✅ 44%/77%/35% included |
 | **Explicit gap-filling statement** | ❌ Add: "This answers the open question posed by Li et al. (2025)" |
-| **Future work directions** | ⚠️ Implicit — make explicit |
+| **Future work directions** | ⚠️ Implicit  make explicit |
 
 ---
 
@@ -258,11 +258,11 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 - [ ] Table 6: Domain breakdown
 
 #### Metrics (need 5)
-- [ ] Flip Rate (FR) — matching Li et al.
-- [ ] Mean Absolute Deviation (MAD) — matching Li et al.
-- [ ] Cohen's d — effect size
-- [ ] Bootstrapped 95% CI — uncertainty
-- [ ] Spearman's ρ — accuracy (if human scores available)
+- [ ] Flip Rate (FR)  matching Li et al.
+- [ ] Mean Absolute Deviation (MAD)  matching Li et al.
+- [ ] Cohen's d  effect size
+- [ ] Bootstrapped 95% CI  uncertainty
+- [ ] Spearman's ρ  accuracy (if human scores available)
 
 #### NeurIPS Checklist (16 items)
 - [ ] Q1: Claims match results
@@ -286,7 +286,7 @@ Based on exhaustive reading of: Li et al. (DASFAA 2026), Wang et al. (ACL 2024),
 
 ## 14. PRIORITIZED ACTION PLAN (ordered by impact)
 
-### PHASE A: CRITICAL (must do — 8 hours)
+### PHASE A: CRITICAL (must do  8 hours)
 ```
 A1 [2h] Generate all 8 publication figures (fix_study1.py → matplotlib)
 A2 [2h] Create full results table (Table 4: 6 models × 3 probes × 4 metrics)
@@ -296,14 +296,14 @@ A5 [1h] Write NeurIPS checklist in paper
 A6 [1h] Add explicit "this answers Li et al.'s call" statements
 ```
 
-### PHASE B: STRONG (should do — 6 hours)
+### PHASE B: STRONG (should do  6 hours)
 ```
 B1 [3h] Kaggle re-run: 100 items + fixed descriptive probe + multi-seed
 B2 [2h] Update all analysis with new Kaggle data
 B3 [1h] Generate per-model score distribution heatmap (Figure 4)
 ```
 
-### PHASE C: POLISH (nice to do — 4 hours)
+### PHASE C: POLISH (nice to do  4 hours)
 ```
 C1 [1h] Spearman's ρ accuracy metric
 C2 [2h] Human baseline: 5 people × 20 items
@@ -327,8 +327,8 @@ C3 [1h] Flip rate comparison bar chart (Figure 7)
 | **Statistical rigor** | 6/10 | 7/10 | Need per-condition error bars |
 | **Human evaluation** | 0/10 | 7/10 | Need human baseline |
 | **Mitigation experiments** | 6/10 | 8/10 | Code exists, not run |
-| **Novelty of contribution** | 9/10 | 8/10 | ✅ Stronger — first base-vs-instruct |
-| **Reproducibility** | 8/10 | 7/10 | ✅ Better — full open source |
+| **Novelty of contribution** | 9/10 | 8/10 | ✅ Stronger  first base-vs-instruct |
+| **Reproducibility** | 8/10 | 7/10 | ✅ Better  full open source |
 | **Writing quality** | 6/10 | 8/10 | Needs polishing |
 
 ### Overall Research Quality Index (RQ)
@@ -338,7 +338,7 @@ Our RQ:  69/120 (57%)
 Li et al. RQ: 98/120 (82%)
 Target for acceptance: >80/120
 
-Our Unfair Advantage: Novelty (9/10) — nobody has done base-vs-instruct
+Our Unfair Advantage: Novelty (9/10)  nobody has done base-vs-instruct
 Our Critical Gap: Scale (5/10) and Figures (3/10)
 ```
 
