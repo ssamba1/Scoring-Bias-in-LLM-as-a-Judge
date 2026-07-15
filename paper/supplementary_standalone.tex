@@ -1,0 +1,130 @@
+% ── Supplementary Material: Standalone Compilation ──
+% Compile with: latexmk -pdf supplementary_standalone.tex
+\documentclass[11pt,twocolumn]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,hyperref,booktabs,amsmath,amssymb,xcolor,float,multirow,array,fancyhdr}
+\usepackage{appendix}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{Scoring Bias in LLM-as-a-Judge — Supplementary}}
+\fancyhead[R]{\small\texttt{Supplementary}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{Supplementary Materials:\\Scoring Bias in LLM-as-a-Judge Models}
+\author{Sricharan Samba \\ \texttt{srisamba09@gmail.com}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\tableofcontents
+\newpage
+
+% ── Include all appendices ──
+\input{appendices/appendix_a_model_details.tex}
+\input{appendices/appendix_b_full_results.tex}
+\input{appendices/appendix_c_domain_breakdown.tex}
+\input{appendices/appendix_d_statistical_tests.tex}
+\input{appendices/appendix_e_excluded_models.tex}
+\input{appendices/appendix_f_reproducibility.tex}
+\input{appendices/appendix_g_prompt_templates.tex}
+\input{appendices/literature_table.tex}
+
+% ── Figures ──
+\section{Additional Figures}
+\label{app:additional_figures}
+
+\subsection{Training Method Comparison}
+\label{app:training_method}
+Figure~\ref{fig:training_method_supp} shows per-probe bias profiles across training methods (RLHF, SFT, SFT+DPO) for the 9 base-instruct families.
+
+% Note: Uncomment when training_method_comparison figure is generated
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/fig12_training_method_comparison.png}
+% \caption{Training method comparison across 9 families. Each point shows mean $\Delta$ for models trained with that method.}
+% \label{fig:training_method_supp}
+% \end{figure}
+
+\subsection{Flip Rate Comparison}
+\label{app:flip_rate}
+Figure~\ref{fig:flip_rate_supp} compares flip rates between this study and Li et al. (DASFAA 2026).
+
+% Note: Uncomment when flip_rate_comparison figure is generated
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/fig8_flip_rate_comparison.png}
+% \caption{Flip rate comparison between this study (22 instruct models) and Li et al. (5 frontier models).}
+% \label{fig:flip_rate_supp}
+% \end{figure}
+
+\subsection{Power Curve}
+\label{app:power_curve}
+Figure~\ref{fig:power_supp} shows the power curve for the paired t-test across varying sample sizes.
+
+% Note: Uncomment when power_curve figure is generated
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/fig15_power_curve.png}
+% \caption{Statistical power as a function of sample size (number of families) for each probe.}
+% \label{fig:power_supp}
+% \end{figure}
+
+\subsection{Probe Correlation Matrix}
+\label{app:probe_correlations}
+Figure~\ref{fig:probe_corr_supp} shows the correlation matrix across all three probes for all 31 model variants.
+
+% Note: Uncomment when probe_correlation figure is generated
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/fig14_probe_correlation_matrix.png}
+% \caption{Cross-probe correlation matrix. Low correlations confirm the three bias dimensions are largely independent.}
+% \label{fig:probe_corr_supp}
+% \end{figure}
+
+\subsection{Variance Decomposition}
+\label{app:variance_decomposition}
+Figure~\ref{fig:var_decomp_supp} decomposes the total variance in bias scores into model, probe, and interaction components.
+
+% Note: Uncomment when variance_decomposition figure is generated
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/fig16_variance_decomposition.png}
+% \caption{Variance decomposition showing that model identity and probe type account for the majority of explainable variance.}
+% \label{fig:var_decomp_supp}
+% \end{figure}
+
+\subsection{Bayes Factor Comparison}
+\label{app:bayes_factor}
+Figure~\ref{fig:bf_supp} compares Bayes factors across all probes for the full 22-model landscape.
+
+% Note: Uncomment when bayes_factor_comparison figure is generated
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/fig19_bayes_factor_comparison.png}
+% \caption{Bayes factor comparison across probes. All exceed BF$_{10}>10{,}000$, providing overwhelming evidence for scoring bias.}
+% \label{fig:bf_supp}
+% \end{figure}
+
+\subsection{Comprehensive Summary}
+\label{app:comprehensive_summary}
+Figure~\ref{fig:comprehensive_summary_supp} provides a comprehensive visual summary of all key findings.
+
+% Note: Uncomment when comprehensive_summary figure is generated
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width=\columnwidth]{figures/fig20_comprehensive_summary.png}
+% \caption{Comprehensive summary of all key findings across 31 model variants.}
+% \label{fig:comprehensive_summary_supp}
+% \end{figure}
+
+% ── Bibliography ──
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}

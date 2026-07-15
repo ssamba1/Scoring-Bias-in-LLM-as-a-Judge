@@ -269,8 +269,7 @@ Mathematics & 1.43 & 0.92 \\
 \end{tabular}
 \end{table}
 
-Figure~
-ef{fig:domain_bias} visualizes this domain breakdown. The differential effect holds across all five domains, demonstrating robustness to content variation.
+Figure~\ref{fig:domain_bias} visualizes this domain breakdown. The differential effect holds across all five domains, demonstrating robustness to content variation.
 
 \begin{figure}[h]
 \centering
@@ -281,8 +280,7 @@ ef{fig:domain_bias} visualizes this domain breakdown. The differential effect ho
 
 \subsection{Error Analysis}
 
-Figure~
-ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least biased models share low scores across all three probes; the most biased show susceptibility across multiple probes simultaneously.
+Figure~\ref{fig:error_analysis} examines the 5 least and 5 most biased models. The least biased models share low scores across all three probes; the most biased show susceptibility across multiple probes simultaneously.
 
 \begin{figure}[h]
 \centering
@@ -293,8 +291,7 @@ ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least 
 
 \subsection{Item-Level Analysis}
 
-Figure~
-ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least biased models share low scores across all three probes; the most biased show susceptibility across multiple probes simultaneously.
+Figure~\ref{fig:item_analysis} examines item difficulty vs discrimination across all probe variants for the 22 instruct models. Items with |r| > 0.3 are discriminating. The lack of strong positive discrimination indicates that bias is not driven by specific difficult items but is a general scoring property.
 
 \begin{figure}[h]
 \centering
@@ -303,8 +300,7 @@ ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least 
 \label{fig:item_analysis}
 \end{figure}
 
-Figure~
-ef{fig:error_analysis} examines the 5 least and 5 most biased models. The least biased models share low scores across all three probes; the most biased show susceptibility across multiple probes simultaneously.
+Figure~\ref{fig:item_discrimination} provides an additional lens on item-level behavior, showing the distribution of discrimination values across all 50 items. Most items cluster near zero, confirming that no single item drives the observed bias.
 
 \begin{figure}[h]
 \centering
@@ -481,7 +477,7 @@ The author declares no competing interests.
 % ── CONCLUSION ──
 \section{Conclusion}
 
-We investigated whether scoring bias in LLM-as-a-Judge originates from pre-training or instruction tuning. Across 9 model families with base-instruct pairs (24,300 judgments) and 22 additional instruct-tuned models (29,700 judgments), we find that instruction tuning has a differential effect on scoring bias. Format-related bias (rubric order, score ID) decreases after instruction tuning in 7 of 9 families, with mean reductions of $-0.42$ and $-0.72$ respectively. Content-related bias (reference answer) shows a scale-dependent increase in larger (3B+) RLHF-trained models (e.g., Llama-3.1-8B: $+1.58$). The 22-model bias landscape (Table~\ref{tab:per_model}, Fig.~\ref{fig:bias_landscape}) shows Score ID bias has the largest average effect ($\Delta=0.68$, Table~\ref{tab:main}), with individual model scores ranging from $0.00$ to $1.80$ (Fig.~\ref{fig:model_ranking}). The differential effect is visualized in Fig.~\ref{fig:format_content_scatter} and Fig.~\ref{fig:base_instruct_paired}, while the scale-dependent pattern appears in Fig.~\ref{fig:scale_dependent}. Bayesian analysis (Fig.~\ref{fig:bayesian_posteriors}) confirms strong evidence for scoring bias across the 22-model landscape and quantifies the evidence for bias reduction in $\leq$7B models. The IIAR hypothesis and Format Efficiency Hypothesis (supported by attention evidence showing format token attention decreasing from $23.7\%$ to $20.8\%$) provide mechanistic explanations. The central implication is that scoring bias is modulated by instruction tuning — not inherent to pre-training — meaning mitigation strategies should target the alignment stage, and must address format robustness and content sensitivity as separate channels.
+We investigated whether scoring bias in LLM-as-a-Judge originates from pre-training or instruction tuning. Across 9 model families with base-instruct pairs (24,300 judgments) and 22 additional instruct-tuned models (29,700 judgments), we find that instruction tuning has a differential effect on scoring bias. Format-related bias (rubric order, score ID) decreases after instruction tuning in 7 of 9 families, with mean reductions of $-0.42$ and $-0.72$ respectively. Content-related bias (reference answer) shows a scale-dependent increase in larger (3B+) RLHF-trained models (e.g., Llama-3.1-8B: $+1.58$). The 22-model bias landscape (Table~\ref{tab:per_model}, Fig.~\ref{fig:bias_landscape}) shows Score ID bias has the largest average effect ($\Delta=0.68$, Table~\ref{tab:main}), with individual model scores ranging from $0.00$ to $1.80$ (Fig.~\ref{fig:model_ranking}). The differential effect is visualized in Fig.~\ref{fig:format_content_scatter} and Fig.~\ref{fig:base_instruct_paired}, while the scale-dependent pattern appears in Fig.~\ref{fig:scale_dependent}. Domain analysis (Fig.~\ref{fig:domain_bias}, Table~\ref{tab:domain}) confirms the effect holds across all 5 domains. Error analysis (Fig.~\ref{fig:error_analysis}) shows high bias is a general susceptibility, not probe-specific. Item-level analysis (Fig.~\ref{fig:item_analysis}, Fig.~\ref{fig:item_discrimination}) confirms bias is not item-driven. Probe correlation analysis (Fig.~\ref{fig:probe_correlations}) demonstrates the three bias dimensions are independent. Training method comparison (Fig.~\ref{fig:training_method}) reveals distinct profiles across RLHF, SFT, and DPO. Comparison with Li et al. (Fig.~\ref{fig:flip_rate_comparison}, Table~\ref{tab:comparison}) shows instruct models approach commercial robustness. Bayesian analysis (Table~\ref{tab:bayesian}, Fig.~\ref{fig:bayesian_posteriors}, Fig.~\ref{fig:bayes_factor_comparison}) confirms strong evidence across all probes, with bootstrapped CIs (Table~\ref{tab:bootstrapped}) and power analysis (Fig.~\ref{fig:power_curve}) contextualizing statistical reliability. Variance decomposition (Fig.~\ref{fig:variance_decomposition}) shows between-model variance dominates but probe bias contributes substantially. The comprehensive summary (Fig.~\ref{fig:comprehensive_dashboard}, Fig.~\ref{fig:comprehensive_summary}) integrates all findings. The IIAR hypothesis and Format Efficiency Hypothesis (supported by attention evidence showing format token attention decreasing from $23.7\%$ to $20.8\%$) provide mechanistic explanations. The central implication is that scoring bias is modulated by instruction tuning not inherent to pre-training meaning mitigation strategies should target the alignment stage, and must address format robustness and content sensitivity as separate channels.
 
 All code, data, and analysis are publicly available at \url{https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge}.
 

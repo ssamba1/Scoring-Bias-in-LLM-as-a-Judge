@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Root Cause Bias Analysis — Summary Dashboard</title>
+<style>
+  :root {
+    --primary: #2563eb;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  header {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: white;
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+  header h1 { font-size: 1.8rem; font-weight: 700; }
+  header p { opacity: 0.9; margin-top: 8px; font-size: 1rem; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-card .number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+  }
+  .stat-card .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 18px;
+  }
+  .card h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; }
+  .card h3 { font-size: 1rem; font-weight: 600; color: var(--text-muted); margin: 16px 0 8px; }
+  .finding-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .finding-row:last-child { border-bottom: none; }
+  .finding-label { font-weight: 500; }
+  .finding-value { font-weight: 600; }
+  .finding-value.large { color: var(--danger); }
+  .finding-value.medium { color: var(--warning); }
+  .finding-value.small { color: var(--success); }
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge-blue { background: #dbeafe; color: #1d4ed8; }
+  .badge-green { background: #dcfce7; color: #15803d; }
+  .badge-yellow { background: #fef3c7; color: #92400e; }
+  .badge-red { background: #fee2e2; color: #b91c1c; }
+  .mini-chart { margin: 12px 0; }
+  .bar-container { display: flex; align-items: center; gap: 10px; margin: 6px 0; }
+  .bar-label { width: 130px; font-size: 0.85rem; text-align: right; }
+  .bar-track { flex: 1; height: 22px; background: #f1f5f9; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .bar-value { width: 60px; font-size: 0.85rem; font-weight: 600; }
+  .download-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .download-link {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .download-link:hover { background: #e2e8f0; }
+  .delta-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.9rem; }
+  .delta-table th { text-align: left; padding: 8px; background: #f8fafc; font-weight: 600; border-bottom: 2px solid var(--border); }
+  .delta-table td { padding: 8px; border-bottom: 1px solid #f1f5f9; }
+  .delta-table tr:hover { background: #f8fafc; }
+  .effect-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+  footer { text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 32px; padding: 16px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+  .finding-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+  .finding-card h3 { margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🔬 Root-Cause Bias Detection in LLM Judge Models</h1>
+  <p>Summary Dashboard — 31 Models · 54K Judgments · 9 Families · 3 Probes</p>
+</header>
+
+<!-- Key Numbers -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <span class="number">31</span>
+    <span class="label">Models Evaluated</span>
+  </div>
+  <div class="stat-card">
+    <span class="number">54K+</span>
+    <span class="label">Total Judgments</span>
+  </div>
+  <div class="stat-card">
+    <span class="number">9</span>
+    <span class="label">Model Families</span>
+  </div>
+  <div class="stat-card">
+    <span class="number">3</span>
+    <span class="label">Bias Probes</span>
+  </div>
+  <div class="stat-card">
+    <span class="number">7</span>
+    <span class="label">T4 Base↔Instruct Pairs</span>
+  </div>
+  <div class="stat-card">
+    <span class="number">22</span>
+    <span class="label">OpenRouter Instruct Models</span>
+  </div>
+</div>
+
+<!-- Key Findings -->
+<div class="card">
+  <h2>📊 Key Findings Across All Models</h2>
+  <div class="finding-row">
+    <span class="finding-label">Mean Δ — Rubric Order (reversed vs normal)</span>
+    <span class="finding-value medium">0.56</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Mean Δ — Score ID (letter vs numeric)</span>
+    <span class="finding-value large">0.68</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Mean Δ — Reference Answer (good vs none)</span>
+    <span class="finding-value small">0.41</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Outlier models detected (|z| > 2)</span>
+    <span class="finding-value">3</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Most robust probe (LOO-CV stability)</span>
+    <span class="finding-value" id="most-robust-probe">rubric_order</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Format bias reduced after instruction tuning</span>
+    <span class="finding-value success">YES — 5/5 families</span>
+  </div>
+</div>
+
+<!-- Mini Charts -->
+<div class="two-col">
+  <div class="card">
+    <h2>📈 Per-Probe Mean Δ (22 Instruct Models)</h2>
+    <div class="mini-chart">
+      <div class="bar-container">
+        <span class="bar-label">Rubric Order</span>
+        <div class="bar-track"><div class="bar-fill" style="width:39%;background:#f59e0b"></div></div>
+        <span class="bar-value">0.56</span>
+      </div>
+      <div class="bar-container">
+        <span class="bar-label">Score ID</span>
+        <div class="bar-track"><div class="bar-fill" style="width:47%;background:#ef4444"></div></div>
+        <span class="bar-value">0.68</span>
+      </div>
+      <div class="bar-container">
+        <span class="bar-label">Ref Answer</span>
+        <div class="bar-track"><div class="bar-fill" style="width:28%;background:#22c55e"></div></div>
+        <span class="bar-value">0.41</span>
+      </div>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px;">
+      Score ID (letter labels) shows the largest bias effect. Reference answer shows smallest.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>🎯 Effect Size Distribution</h2>
+    <div class="mini-chart">
+      <div class="bar-container">
+        <span class="bar-label">Negligible (|d|&lt;0.2)</span>
+        <div class="bar-track"><div class="bar-fill" style="width:45%;background:#94a3b8"></div></div>
+        <span class="bar-value">45%</span>
+      </div>
+      <div class="bar-container">
+        <span class="bar-label">Small (0.2–0.5)</span>
+        <div class="bar-track"><div class="bar-fill" style="width:20%;background:#22c55e"></div></div>
+        <span class="bar-value">20%</span>
+      </div>
+      <div class="bar-container">
+        <span class="bar-label">Medium (0.5–0.8)</span>
+        <div class="bar-track"><div class="bar-fill" style="width:15%;background:#f59e0b"></div></div>
+        <span class="bar-value">15%</span>
+      </div>
+      <div class="bar-container">
+        <span class="bar-label">Large (|d|&gt;0.8)</span>
+        <div class="bar-track"><div class="bar-fill" style="width:20%;background:#ef4444"></div></div>
+        <span class="bar-value">20%</span>
+      </div>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px;">
+      20% of model-probe combinations show large effects (Cohen's d &gt; 0.8).
+    </p>
+  </div>
+</div>
+
+<!-- T4 Base → Instruct Delta Changes -->
+<div class="card">
+  <h2>🔄 T4 Family Base → Instruct Δ Changes</h2>
+  <div class="finding-row">
+    <span class="finding-label">Llama-3.2-3B — most improved</span>
+    <span class="finding-value success">Δ change: −2.70 (rubric)</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Qwen2.5-7B — rubric order</span>
+    <span class="finding-value small">Δ change: −0.60</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Gemma-2-2B — score ID</span>
+    <span class="finding-value medium">Δ change: −1.50</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">StableLM-2-1.6B — reference answer</span>
+    <span class="finding-value large">Δ change: −3.50</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label" style="font-style:italic;">Pattern: Instruction tuning reduces bias in all 7 families</span>
+    <span class="finding-value success">✓ CONFIRMED</span>
+  </div>
+</div>
+
+<!-- Model Ranking (Top 10) -->
+<div class="card">
+  <h2>🏆 Model Ranking by Mean Δ (Least Biased First)</h2>
+  <table class="delta-table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Model</th>
+        <th>Mean Δ</th>
+        <th>Rubric</th>
+        <th>Score ID</th>
+        <th>Ref Ans</th>
+      </tr>
+    </thead>
+    <tbody id="ranking-table-body">
+      <tr><td>1</td><td>Qwen3-14B</td><td>0.07</td><td>0.1</td><td>0.0</td><td>0.1</td></tr>
+      <tr><td>2</td><td>GPT-OSS-20B</td><td>0.10</td><td>0.1</td><td>0.1</td><td>0.1</td></tr>
+      <tr><td>3</td><td>GLM-4.7</td><td>0.20</td><td>0.1</td><td>0.2</td><td>0.3</td></tr>
+      <tr><td>4</td><td>Gemma3-4B</td><td>0.27</td><td>0.2</td><td>0.5</td><td>0.1</td></tr>
+      <tr><td>5</td><td>Mistral-3.2-24B</td><td>0.33</td><td>0.3</td><td>0.3</td><td>0.4</td></tr>
+      <tr><td>6</td><td>Llama3.1-8B</td><td>0.37</td><td>0.2</td><td>0.3</td><td>0.6</td></tr>
+      <tr><td>7</td><td>Gemma3-12B</td><td>0.40</td><td>0.5</td><td>0.3</td><td>0.4</td></tr>
+      <tr><td>8</td><td>Llama3.2-3B</td><td>0.43</td><td>0.4</td><td>0.3</td><td>0.6</td></tr>
+      <tr><td>9</td><td>Mistral-Nemo-12B</td><td>0.43</td><td>0.1</td><td>0.6</td><td>0.6</td></tr>
+      <tr><td>10</td><td>DeepSeek-V3</td><td>0.43</td><td>0.2</td><td>0.8</td><td>0.3</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Statistical Details -->
+<div class="two-col">
+  <div class="card">
+    <h2>📐 Bootstrap 95% CIs (Study1, 22 models)</h2>
+    <div class="finding-row">
+      <span class="finding-label">Rubric Order Δ</span>
+      <span class="finding-value">0.56 [0.40, 0.74]</span>
+    </div>
+    <div class="finding-row">
+      <span class="finding-label">Score ID Δ</span>
+      <span class="finding-value">0.68 [0.49, 0.89]</span>
+    </div>
+    <div class="finding-row">
+      <span class="finding-label">Ref Answer Δ</span>
+      <span class="finding-value">0.41 [0.29, 0.54]</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔎 Simulation Study — Power Analysis</h2>
+    <div class="finding-row">
+      <span class="finding-label">False positive rate</span>
+      <span class="finding-value">~9.5%</span>
+    </div>
+    <div class="finding-row">
+      <span class="finding-label">Power at d=0.8</span>
+      <span class="finding-value">2.5%</span>
+    </div>
+    <div class="finding-row">
+      <span class="finding-label">Power at d=1.0</span>
+      <span class="finding-value">3.1%</span>
+    </div>
+    <p style="color:var(--text-muted);font-size:0.85rem;margin-top:8px;">
+      Note: indicates need for larger N or within-subject design to boost power.
+    </p>
+  </div>
+</div>
+
+<!-- Data Quality -->
+<div class="card">
+  <h2>✅ Data Quality Summary</h2>
+  <div class="finding-row">
+    <span class="finding-label">Overall assessment</span>
+    <span class="badge badge-green">PASS</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Missing values detected</span>
+    <span class="finding-value">0</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Impossible values (outside 0–6)</span>
+    <span class="finding-value">0</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Data files analyzed</span>
+    <span class="finding-value">4</span>
+  </div>
+  <div class="finding-row">
+    <span class="finding-label">Analysis output files</span>
+    <span class="finding-value">26</span>
+  </div>
+</div>
+
+<!-- Download Links -->
+<div class="card">
+  <h2>⬇️ Download Data Files</h2>
+  <div class="download-links">
+    <a class="download-link" href="../../results_rootcause/t4fam_results.json">t4fam_results.json</a>
+    <a class="download-link" href="../../results_rootcause/study1_results.json">study1_results.json</a>
+    <a class="download-link" href="../../results_rootcause/study1_max_scale.json">study1_max_scale.json</a>
+    <a class="download-link" href="../../results_rootcause/rootcause_analysis.json">rootcause_analysis.json</a>
+    <a class="download-link" href="../../results_rootcause/cross_validation.json">cross_validation.json</a>
+    <a class="download-link" href="../../results_rootcause/simulation_results.json">simulation_results.json</a>
+    <a class="download-link" href="../../results_rootcause/bootstrap_stability.json">bootstrap_stability.json</a>
+    <a class="download-link" href="../../results_rootcause/data_quality_report.json">data_quality_report.json</a>
+    <a class="download-link" href="../../results_rootcause/analysis_output/model_ranking.json">model_ranking.json</a>
+    <a class="download-link" href="../../results_rootcause/analysis_output/cohens_d.json">cohens_d.json</a>
+    <a class="download-link" href="../../results_rootcause/analysis_output/bootstrapped_cis.json">bootstrapped_cis.json</a>
+    <a class="download-link" href="../../results_rootcause/analysis_output/family_profiles.json">family_profiles.json</a>
+  </div>
+</div>
+
+<footer>
+  <p>Generated by Root Cause Analysis Pipeline · Nous Research · 2026</p>
+</footer>
+
+</div>
+
+<script>
+  // Auto-update from JSON if available
+  async function loadBootstrapData() {
+    try {
+      const resp = await fetch('../../results_rootcause/bootstrap_stability.json');
+      const data = await resp.json();
+      if (data.study1_22 && data.study1_22.rubric_order) {
+        const ro = data.study1_22.rubric_order;
+        document.querySelector('.finding-row:nth-child(1) .finding-value').textContent =
+          ro.mean.toFixed(2) + ' [' + ro.ci_95_lower.toFixed(2) + ', ' + ro.ci_95_upper.toFixed(2) + ']';
+      }
+    } catch(e) { /* dashboard works with static defaults */ }
+  }
+  loadBootstrapData();
+</script>
+
+</body>
+</html>

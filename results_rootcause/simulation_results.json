@@ -1,0 +1,573 @@
+{
+  "metadata": {
+    "description": "Synthetic data pipeline validation",
+    "n_repetitions": 1,
+    "effect_sizes_tested": [
+      0.1,
+      0.3,
+      0.5,
+      0.8,
+      1.0
+    ],
+    "n_families_tested": [
+      5,
+      10,
+      15,
+      20
+    ]
+  },
+  "grid": {
+    "\u0394=0.1_N=5": {
+      "n_families": 5,
+      "true_effect_size": 0.1,
+      "recovered_mean_delta": 0.4,
+      "recovery_error": 0.3,
+      "recovery_pct_error": 300.0,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.32,
+          "stdev": 0.2588,
+          "n": 5
+        },
+        "score_id": {
+          "mean": 0.32,
+          "stdev": 0.228,
+          "n": 5
+        },
+        "reference_answer": {
+          "mean": 0.56,
+          "stdev": 0.1817,
+          "n": 5
+        }
+      },
+      "data_generated": 5
+    },
+    "\u0394=0.1_N=10": {
+      "n_families": 10,
+      "true_effect_size": 0.1,
+      "recovered_mean_delta": 0.39,
+      "recovery_error": 0.29,
+      "recovery_pct_error": 290.0,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.27,
+          "stdev": 0.1829,
+          "n": 10
+        },
+        "score_id": {
+          "mean": 0.43,
+          "stdev": 0.2406,
+          "n": 10
+        },
+        "reference_answer": {
+          "mean": 0.47,
+          "stdev": 0.2312,
+          "n": 10
+        }
+      },
+      "data_generated": 10
+    },
+    "\u0394=0.1_N=15": {
+      "n_families": 15,
+      "true_effect_size": 0.1,
+      "recovered_mean_delta": 0.4822,
+      "recovery_error": 0.3822,
+      "recovery_pct_error": 382.2,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.4333,
+          "stdev": 0.3331,
+          "n": 15
+        },
+        "score_id": {
+          "mean": 0.54,
+          "stdev": 0.2473,
+          "n": 15
+        },
+        "reference_answer": {
+          "mean": 0.4733,
+          "stdev": 0.2658,
+          "n": 15
+        }
+      },
+      "data_generated": 15
+    },
+    "\u0394=0.1_N=20": {
+      "n_families": 20,
+      "true_effect_size": 0.1,
+      "recovered_mean_delta": 0.4517,
+      "recovery_error": 0.3517,
+      "recovery_pct_error": 351.67,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.355,
+          "stdev": 0.3086,
+          "n": 20
+        },
+        "score_id": {
+          "mean": 0.52,
+          "stdev": 0.2628,
+          "n": 20
+        },
+        "reference_answer": {
+          "mean": 0.48,
+          "stdev": 0.2167,
+          "n": 20
+        }
+      },
+      "data_generated": 20
+    },
+    "\u0394=0.3_N=5": {
+      "n_families": 5,
+      "true_effect_size": 0.3,
+      "recovered_mean_delta": 0.58,
+      "recovery_error": 0.28,
+      "recovery_pct_error": 93.33,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.54,
+          "stdev": 0.1517,
+          "n": 5
+        },
+        "score_id": {
+          "mean": 0.52,
+          "stdev": 0.2775,
+          "n": 5
+        },
+        "reference_answer": {
+          "mean": 0.68,
+          "stdev": 0.2775,
+          "n": 5
+        }
+      },
+      "data_generated": 5
+    },
+    "\u0394=0.3_N=10": {
+      "n_families": 10,
+      "true_effect_size": 0.3,
+      "recovered_mean_delta": 0.4633,
+      "recovery_error": 0.1633,
+      "recovery_pct_error": 54.44,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.29,
+          "stdev": 0.2424,
+          "n": 10
+        },
+        "score_id": {
+          "mean": 0.65,
+          "stdev": 0.2953,
+          "n": 10
+        },
+        "reference_answer": {
+          "mean": 0.45,
+          "stdev": 0.2224,
+          "n": 10
+        }
+      },
+      "data_generated": 10
+    },
+    "\u0394=0.3_N=15": {
+      "n_families": 15,
+      "true_effect_size": 0.3,
+      "recovered_mean_delta": 0.5111,
+      "recovery_error": 0.2111,
+      "recovery_pct_error": 70.37,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.36,
+          "stdev": 0.2923,
+          "n": 15
+        },
+        "score_id": {
+          "mean": 0.4933,
+          "stdev": 0.2987,
+          "n": 15
+        },
+        "reference_answer": {
+          "mean": 0.68,
+          "stdev": 0.4329,
+          "n": 15
+        }
+      },
+      "data_generated": 15
+    },
+    "\u0394=0.3_N=20": {
+      "n_families": 20,
+      "true_effect_size": 0.3,
+      "recovered_mean_delta": 0.4833,
+      "recovery_error": 0.1833,
+      "recovery_pct_error": 61.11,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.38,
+          "stdev": 0.3397,
+          "n": 20
+        },
+        "score_id": {
+          "mean": 0.5,
+          "stdev": 0.2362,
+          "n": 20
+        },
+        "reference_answer": {
+          "mean": 0.57,
+          "stdev": 0.2975,
+          "n": 20
+        }
+      },
+      "data_generated": 20
+    },
+    "\u0394=0.5_N=5": {
+      "n_families": 5,
+      "true_effect_size": 0.5,
+      "recovered_mean_delta": 0.5533,
+      "recovery_error": 0.0533,
+      "recovery_pct_error": 10.67,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.58,
+          "stdev": 0.2683,
+          "n": 5
+        },
+        "score_id": {
+          "mean": 0.58,
+          "stdev": 0.3564,
+          "n": 5
+        },
+        "reference_answer": {
+          "mean": 0.5,
+          "stdev": 0.3082,
+          "n": 5
+        }
+      },
+      "data_generated": 5
+    },
+    "\u0394=0.5_N=10": {
+      "n_families": 10,
+      "true_effect_size": 0.5,
+      "recovered_mean_delta": 0.6,
+      "recovery_error": 0.1,
+      "recovery_pct_error": 20.0,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.66,
+          "stdev": 0.3921,
+          "n": 10
+        },
+        "score_id": {
+          "mean": 0.5,
+          "stdev": 0.2357,
+          "n": 10
+        },
+        "reference_answer": {
+          "mean": 0.64,
+          "stdev": 0.3239,
+          "n": 10
+        }
+      },
+      "data_generated": 10
+    },
+    "\u0394=0.5_N=15": {
+      "n_families": 15,
+      "true_effect_size": 0.5,
+      "recovered_mean_delta": 0.5445,
+      "recovery_error": 0.0445,
+      "recovery_pct_error": 8.89,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.4867,
+          "stdev": 0.2875,
+          "n": 15
+        },
+        "score_id": {
+          "mean": 0.5867,
+          "stdev": 0.342,
+          "n": 15
+        },
+        "reference_answer": {
+          "mean": 0.56,
+          "stdev": 0.3019,
+          "n": 15
+        }
+      },
+      "data_generated": 15
+    },
+    "\u0394=0.5_N=20": {
+      "n_families": 20,
+      "true_effect_size": 0.5,
+      "recovered_mean_delta": 0.575,
+      "recovery_error": 0.075,
+      "recovery_pct_error": 15.0,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.52,
+          "stdev": 0.284,
+          "n": 20
+        },
+        "score_id": {
+          "mean": 0.47,
+          "stdev": 0.3045,
+          "n": 20
+        },
+        "reference_answer": {
+          "mean": 0.735,
+          "stdev": 0.3498,
+          "n": 20
+        }
+      },
+      "data_generated": 20
+    },
+    "\u0394=0.8_N=5": {
+      "n_families": 5,
+      "true_effect_size": 0.8,
+      "recovered_mean_delta": 0.6933,
+      "recovery_error": -0.1067,
+      "recovery_pct_error": -13.33,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.62,
+          "stdev": 0.2168,
+          "n": 5
+        },
+        "score_id": {
+          "mean": 0.78,
+          "stdev": 0.1304,
+          "n": 5
+        },
+        "reference_answer": {
+          "mean": 0.68,
+          "stdev": 0.2588,
+          "n": 5
+        }
+      },
+      "data_generated": 5
+    },
+    "\u0394=0.8_N=10": {
+      "n_families": 10,
+      "true_effect_size": 0.8,
+      "recovered_mean_delta": 0.91,
+      "recovery_error": 0.11,
+      "recovery_pct_error": 13.75,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.69,
+          "stdev": 0.4306,
+          "n": 10
+        },
+        "score_id": {
+          "mean": 1.06,
+          "stdev": 0.2633,
+          "n": 10
+        },
+        "reference_answer": {
+          "mean": 0.98,
+          "stdev": 0.4442,
+          "n": 10
+        }
+      },
+      "data_generated": 10
+    },
+    "\u0394=0.8_N=15": {
+      "n_families": 15,
+      "true_effect_size": 0.8,
+      "recovered_mean_delta": 0.7555,
+      "recovery_error": -0.0445,
+      "recovery_pct_error": -5.56,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.7533,
+          "stdev": 0.5397,
+          "n": 15
+        },
+        "score_id": {
+          "mean": 0.6933,
+          "stdev": 0.3788,
+          "n": 15
+        },
+        "reference_answer": {
+          "mean": 0.82,
+          "stdev": 0.3321,
+          "n": 15
+        }
+      },
+      "data_generated": 15
+    },
+    "\u0394=0.8_N=20": {
+      "n_families": 20,
+      "true_effect_size": 0.8,
+      "recovered_mean_delta": 0.8567,
+      "recovery_error": 0.0567,
+      "recovery_pct_error": 7.08,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.915,
+          "stdev": 0.4043,
+          "n": 20
+        },
+        "score_id": {
+          "mean": 0.88,
+          "stdev": 0.4686,
+          "n": 20
+        },
+        "reference_answer": {
+          "mean": 0.775,
+          "stdev": 0.4908,
+          "n": 20
+        }
+      },
+      "data_generated": 20
+    },
+    "\u0394=1.0_N=5": {
+      "n_families": 5,
+      "true_effect_size": 1.0,
+      "recovered_mean_delta": 0.9333,
+      "recovery_error": -0.0667,
+      "recovery_pct_error": -6.67,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 0.88,
+          "stdev": 0.3347,
+          "n": 5
+        },
+        "score_id": {
+          "mean": 1.18,
+          "stdev": 0.4658,
+          "n": 5
+        },
+        "reference_answer": {
+          "mean": 0.74,
+          "stdev": 0.2408,
+          "n": 5
+        }
+      },
+      "data_generated": 5
+    },
+    "\u0394=1.0_N=10": {
+      "n_families": 10,
+      "true_effect_size": 1.0,
+      "recovered_mean_delta": 1.0567,
+      "recovery_error": 0.0567,
+      "recovery_pct_error": 5.67,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 1.17,
+          "stdev": 0.3773,
+          "n": 10
+        },
+        "score_id": {
+          "mean": 1.11,
+          "stdev": 0.5174,
+          "n": 10
+        },
+        "reference_answer": {
+          "mean": 0.89,
+          "stdev": 0.2885,
+          "n": 10
+        }
+      },
+      "data_generated": 10
+    },
+    "\u0394=1.0_N=15": {
+      "n_families": 15,
+      "true_effect_size": 1.0,
+      "recovered_mean_delta": 1.0445,
+      "recovery_error": 0.0445,
+      "recovery_pct_error": 4.45,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 1.0467,
+          "stdev": 0.4627,
+          "n": 15
+        },
+        "score_id": {
+          "mean": 1.0267,
+          "stdev": 0.4636,
+          "n": 15
+        },
+        "reference_answer": {
+          "mean": 1.06,
+          "stdev": 0.3924,
+          "n": 15
+        }
+      },
+      "data_generated": 15
+    },
+    "\u0394=1.0_N=20": {
+      "n_families": 20,
+      "true_effect_size": 1.0,
+      "recovered_mean_delta": 1.0383,
+      "recovery_error": 0.0383,
+      "recovery_pct_error": 3.83,
+      "per_probe": {
+        "rubric_order": {
+          "mean": 1.165,
+          "stdev": 0.4499,
+          "n": 20
+        },
+        "score_id": {
+          "mean": 0.945,
+          "stdev": 0.362,
+          "n": 20
+        },
+        "reference_answer": {
+          "mean": 1.005,
+          "stdev": 0.3605,
+          "n": 20
+        }
+      },
+      "data_generated": 20
+    }
+  },
+  "summary": {
+    "effect_size_recovery": {
+      "0.1": {
+        "mean_abs_error": 0.331,
+        "mean_error": 0.331,
+        "n_conditions": 4
+      },
+      "0.3": {
+        "mean_abs_error": 0.2094,
+        "mean_error": 0.2094,
+        "n_conditions": 4
+      },
+      "0.5": {
+        "mean_abs_error": 0.0682,
+        "mean_error": 0.0682,
+        "n_conditions": 4
+      },
+      "0.8": {
+        "mean_abs_error": 0.0795,
+        "mean_error": 0.0039,
+        "n_conditions": 4
+      },
+      "1.0": {
+        "mean_abs_error": 0.0515,
+        "mean_error": 0.0182,
+        "n_conditions": 4
+      }
+    },
+    "sample_size_recovery": {
+      "5": {
+        "mean_abs_error": 0.1613,
+        "mean_error": 0.092,
+        "n_conditions": 5
+      },
+      "10": {
+        "mean_abs_error": 0.144,
+        "mean_error": 0.144,
+        "n_conditions": 5
+      },
+      "15": {
+        "mean_abs_error": 0.1454,
+        "mean_error": 0.1276,
+        "n_conditions": 5
+      },
+      "20": {
+        "mean_abs_error": 0.141,
+        "mean_error": 0.141,
+        "n_conditions": 5
+      }
+    }
+  },
+  "interpretation": "Recovery error = recovered_mean_delta - true_effect_size. Values near 0 indicate accurate recovery. Larger N should reduce error. Larger effect sizes may be easier to detect."
+}

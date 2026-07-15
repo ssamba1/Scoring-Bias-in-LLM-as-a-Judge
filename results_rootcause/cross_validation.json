@@ -1,0 +1,951 @@
+{
+  "method": "Cross-validation: LOO-family + K-fold + LOO-model",
+  "t4_leave_one_family_out": {
+    "all_families": {
+      "n_families": 7,
+      "stats": {
+        "rubric_order": {
+          "mean": 0.4857,
+          "stdev": 0.8977,
+          "n": 14
+        },
+        "score_id": {
+          "mean": 1.8786,
+          "stdev": 1.0312,
+          "n": 14
+        },
+        "reference_answer": {
+          "mean": 1.9357,
+          "stdev": 0.7045,
+          "n": 14
+        }
+      }
+    },
+    "leave_one_out": {
+      "Qwen2.5-0.5B_+_Qwen2.5-0.5B-IT": {
+        "family_base": "Qwen2.5-0.5B",
+        "family_instruct": "Qwen2.5-0.5B-IT",
+        "n_families": 6,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.4857,
+            "loo_mean": 0.5417,
+            "change": 0.056,
+            "pct_change": 11.53
+          },
+          "score_id": {
+            "full_mean": 1.8786,
+            "loo_mean": 2.05,
+            "change": 0.1714,
+            "pct_change": 9.12
+          },
+          "reference_answer": {
+            "full_mean": 1.9357,
+            "loo_mean": 2.0333,
+            "change": 0.0976,
+            "pct_change": 5.04
+          }
+        },
+        "stats": {
+          "rubric_order": {
+            "mean": 0.5417,
+            "stdev": 0.9634,
+            "n": 12
+          },
+          "score_id": {
+            "mean": 2.05,
+            "stdev": 0.9977,
+            "n": 12
+          },
+          "reference_answer": {
+            "mean": 2.0333,
+            "stdev": 0.6773,
+            "n": 12
+          }
+        }
+      },
+      "Qwen2.5-1.5B_+_Qwen2.5-1.5B-IT": {
+        "family_base": "Qwen2.5-1.5B",
+        "family_instruct": "Qwen2.5-1.5B-IT",
+        "n_families": 6,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.4857,
+            "loo_mean": 0.525,
+            "change": 0.0393,
+            "pct_change": 8.09
+          },
+          "score_id": {
+            "full_mean": 1.8786,
+            "loo_mean": 1.7833,
+            "change": -0.0953,
+            "pct_change": -5.07
+          },
+          "reference_answer": {
+            "full_mean": 1.9357,
+            "loo_mean": 1.9,
+            "change": -0.0357,
+            "pct_change": -1.84
+          }
+        },
+        "stats": {
+          "rubric_order": {
+            "mean": 0.525,
+            "stdev": 0.9678,
+            "n": 12
+          },
+          "score_id": {
+            "mean": 1.7833,
+            "stdev": 1.0539,
+            "n": 12
+          },
+          "reference_answer": {
+            "mean": 1.9,
+            "stdev": 0.7447,
+            "n": 12
+          }
+        }
+      },
+      "Llama-3.2-1B_+_Llama-3.2-1B-IT": {
+        "family_base": "Llama-3.2-1B",
+        "family_instruct": "Llama-3.2-1B-IT",
+        "n_families": 6,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.4857,
+            "loo_mean": 0.55,
+            "change": 0.0643,
+            "pct_change": 13.24
+          },
+          "score_id": {
+            "full_mean": 1.8786,
+            "loo_mean": 1.9167,
+            "change": 0.0381,
+            "pct_change": 2.03
+          },
+          "reference_answer": {
+            "full_mean": 1.9357,
+            "loo_mean": 1.9833,
+            "change": 0.0476,
+            "pct_change": 2.46
+          }
+        },
+        "stats": {
+          "rubric_order": {
+            "mean": 0.55,
+            "stdev": 0.9587,
+            "n": 12
+          },
+          "score_id": {
+            "mean": 1.9167,
+            "stdev": 1.106,
+            "n": 12
+          },
+          "reference_answer": {
+            "mean": 1.9833,
+            "stdev": 0.7469,
+            "n": 12
+          }
+        }
+      },
+      "Llama-3.2-3B_+_Llama-3.2-3B-IT": {
+        "family_base": "Llama-3.2-3B",
+        "family_instruct": "Llama-3.2-3B-IT",
+        "n_families": 6,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.4857,
+            "loo_mean": 0.2083,
+            "change": -0.2774,
+            "pct_change": -57.11
+          },
+          "score_id": {
+            "full_mean": 1.8786,
+            "loo_mean": 1.6833,
+            "change": -0.1953,
+            "pct_change": -10.4
+          },
+          "reference_answer": {
+            "full_mean": 1.9357,
+            "loo_mean": 1.8417,
+            "change": -0.094,
+            "pct_change": -4.86
+          }
+        },
+        "stats": {
+          "rubric_order": {
+            "mean": 0.2083,
+            "stdev": 0.1832,
+            "n": 12
+          },
+          "score_id": {
+            "mean": 1.6833,
+            "stdev": 0.9428,
+            "n": 12
+          },
+          "reference_answer": {
+            "mean": 1.8417,
+            "stdev": 0.709,
+            "n": 12
+          }
+        }
+      },
+      "Gemma-2-2B_+_Gemma-2-2B-IT": {
+        "family_base": "Gemma-2-2B",
+        "family_instruct": "Gemma-2-2B-IT",
+        "n_families": 6,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.4857,
+            "loo_mean": 0.55,
+            "change": 0.0643,
+            "pct_change": 13.24
+          },
+          "score_id": {
+            "full_mean": 1.8786,
+            "loo_mean": 2.025,
+            "change": 0.1464,
+            "pct_change": 7.79
+          },
+          "reference_answer": {
+            "full_mean": 1.9357,
+            "loo_mean": 2.025,
+            "change": 0.0893,
+            "pct_change": 4.61
+          }
+        },
+        "stats": {
+          "rubric_order": {
+            "mean": 0.55,
+            "stdev": 0.9596,
+            "n": 12
+          },
+          "score_id": {
+            "mean": 2.025,
+            "stdev": 1.0314,
+            "n": 12
+          },
+          "reference_answer": {
+            "mean": 2.025,
+            "stdev": 0.7137,
+            "n": 12
+          }
+        }
+      },
+      "StableLM-2-1.6B_+_StableLM-2-1.6B-IT": {
+        "family_base": "StableLM-2-1.6B",
+        "family_instruct": "StableLM-2-1.6B-IT",
+        "n_families": 6,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.4857,
+            "loo_mean": 0.5083,
+            "change": 0.0226,
+            "pct_change": 4.65
+          },
+          "score_id": {
+            "full_mean": 1.8786,
+            "loo_mean": 1.7417,
+            "change": -0.1369,
+            "pct_change": -7.29
+          },
+          "reference_answer": {
+            "full_mean": 1.9357,
+            "loo_mean": 1.7833,
+            "change": -0.1524,
+            "pct_change": -7.87
+          }
+        },
+        "stats": {
+          "rubric_order": {
+            "mean": 0.5083,
+            "stdev": 0.9737,
+            "n": 12
+          },
+          "score_id": {
+            "mean": 1.7417,
+            "stdev": 1.0518,
+            "n": 12
+          },
+          "reference_answer": {
+            "mean": 1.7833,
+            "stdev": 0.6394,
+            "n": 12
+          }
+        }
+      },
+      "Qwen2.5-7B_+_Qwen2.5-7B-IT": {
+        "family_base": "Qwen2.5-7B",
+        "family_instruct": "Qwen2.5-7B-IT",
+        "n_families": 6,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.4857,
+            "loo_mean": 0.5167,
+            "change": 0.031,
+            "pct_change": 6.38
+          },
+          "score_id": {
+            "full_mean": 1.8786,
+            "loo_mean": 1.95,
+            "change": 0.0714,
+            "pct_change": 3.8
+          },
+          "reference_answer": {
+            "full_mean": 1.9357,
+            "loo_mean": 1.9833,
+            "change": 0.0476,
+            "pct_change": 2.46
+          }
+        },
+        "stats": {
+          "rubric_order": {
+            "mean": 0.5167,
+            "stdev": 0.9637,
+            "n": 12
+          },
+          "score_id": {
+            "mean": 1.95,
+            "stdev": 1.0086,
+            "n": 12
+          },
+          "reference_answer": {
+            "mean": 1.9833,
+            "stdev": 0.6834,
+            "n": 12
+          }
+        }
+      }
+    },
+    "probe_robustness": {
+      "rubric_order": {
+        "mean_abs_pct_change": 16.32,
+        "max_abs_pct_change": 57.11,
+        "stability_rank": 3,
+        "label": "least_robust"
+      },
+      "score_id": {
+        "mean_abs_pct_change": 6.5,
+        "max_abs_pct_change": 10.4,
+        "stability_rank": 2,
+        "label": "intermediate"
+      },
+      "reference_answer": {
+        "mean_abs_pct_change": 4.16,
+        "max_abs_pct_change": 7.87,
+        "stability_rank": 1,
+        "label": "most_robust"
+      }
+    },
+    "family_impact": {
+      "Qwen2.5-0.5B_+_Qwen2.5-0.5B-IT": {
+        "family_base": "Qwen2.5-0.5B",
+        "mean_abs_change": 0.1083,
+        "impact_rank": 2,
+        "impact_label": "intermediate"
+      },
+      "Qwen2.5-1.5B_+_Qwen2.5-1.5B-IT": {
+        "family_base": "Qwen2.5-1.5B",
+        "mean_abs_change": 0.0568,
+        "impact_rank": 5,
+        "impact_label": "intermediate"
+      },
+      "Llama-3.2-1B_+_Llama-3.2-1B-IT": {
+        "family_base": "Llama-3.2-1B",
+        "mean_abs_change": 0.05,
+        "impact_rank": 6,
+        "impact_label": "intermediate"
+      },
+      "Llama-3.2-3B_+_Llama-3.2-3B-IT": {
+        "family_base": "Llama-3.2-3B",
+        "mean_abs_change": 0.1889,
+        "impact_rank": 1,
+        "impact_label": "most_influential"
+      },
+      "Gemma-2-2B_+_Gemma-2-2B-IT": {
+        "family_base": "Gemma-2-2B",
+        "mean_abs_change": 0.1,
+        "impact_rank": 4,
+        "impact_label": "intermediate"
+      },
+      "StableLM-2-1.6B_+_StableLM-2-1.6B-IT": {
+        "family_base": "StableLM-2-1.6B",
+        "mean_abs_change": 0.104,
+        "impact_rank": 3,
+        "impact_label": "intermediate"
+      },
+      "Qwen2.5-7B_+_Qwen2.5-7B-IT": {
+        "family_base": "Qwen2.5-7B",
+        "mean_abs_change": 0.05,
+        "impact_rank": 7,
+        "impact_label": "least_influential"
+      }
+    }
+  },
+  "t4_kfold": {
+    "k": 3,
+    "folds": [
+      {
+        "fold": 1,
+        "n_families": 3,
+        "families": [
+          "Qwen2.5-1.5B",
+          "Llama-3.2-1B",
+          "StableLM-2-1.6B"
+        ],
+        "stats": {
+          "rubric_order": {
+            "mean": 0.2333,
+            "stdev": 0.1633,
+            "n": 6
+          },
+          "score_id": {
+            "mean": 2.2667,
+            "stdev": 0.689,
+            "n": 6
+          },
+          "reference_answer": {
+            "mean": 2.2167,
+            "stdev": 0.6047,
+            "n": 6
+          }
+        }
+      },
+      {
+        "fold": 2,
+        "n_families": 2,
+        "families": [
+          "Llama-3.2-3B",
+          "Qwen2.5-7B"
+        ],
+        "stats": {
+          "rubric_order": {
+            "mean": 1.225,
+            "stdev": 1.5543,
+            "n": 4
+          },
+          "score_id": {
+            "mean": 2.25,
+            "stdev": 1.3675,
+            "n": 4
+          },
+          "reference_answer": {
+            "mean": 2.075,
+            "stdev": 0.8221,
+            "n": 4
+          }
+        }
+      },
+      {
+        "fold": 3,
+        "n_families": 2,
+        "families": [
+          "Gemma-2-2B",
+          "Qwen2.5-0.5B"
+        ],
+        "stats": {
+          "rubric_order": {
+            "mean": 0.125,
+            "stdev": 0.05,
+            "n": 4
+          },
+          "score_id": {
+            "mean": 0.925,
+            "stdev": 0.4992,
+            "n": 4
+          },
+          "reference_answer": {
+            "mean": 1.375,
+            "stdev": 0.5123,
+            "n": 4
+          }
+        }
+      }
+    ],
+    "cross_fold_summary": {
+      "rubric_order": {
+        "mean_across_folds": 0.5278,
+        "stdev_across_folds": 0.6062,
+        "min_fold": 0.125,
+        "max_fold": 1.225,
+        "range": 1.1
+      },
+      "score_id": {
+        "mean_across_folds": 1.8139,
+        "stdev_across_folds": 0.7699,
+        "min_fold": 0.925,
+        "max_fold": 2.2667,
+        "range": 1.3417
+      },
+      "reference_answer": {
+        "mean_across_folds": 1.8889,
+        "stdev_across_folds": 0.4507,
+        "min_fold": 1.375,
+        "max_fold": 2.2167,
+        "range": 0.8417
+      }
+    }
+  },
+  "study1_leave_one_model_out": {
+    "n_models": 22,
+    "full_stats": {
+      "rubric_order": {
+        "mean": 0.5364,
+        "stdev": 0.3935,
+        "n": 22
+      },
+      "score_id": {
+        "mean": 0.5682,
+        "stdev": 0.4476,
+        "n": 22
+      },
+      "reference_answer": {
+        "mean": 0.4045,
+        "stdev": 0.3139,
+        "n": 22
+      }
+    },
+    "loo_results": {
+      "Llama3.1-8B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5333,
+            "change": -0.0031
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5762,
+            "change": 0.008
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.3857,
+            "change": -0.0188
+          }
+        }
+      },
+      "Llama3.2-3B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5429,
+            "change": 0.0065
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5667,
+            "change": -0.0015
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4143,
+            "change": 0.0098
+          }
+        }
+      },
+      "Qwen2.5-7B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5286,
+            "change": -0.0078
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5143,
+            "change": -0.0539
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.419,
+            "change": 0.0145
+          }
+        }
+      },
+      "Qwen3-8B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5048,
+            "change": -0.0316
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5714,
+            "change": 0.0032
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4238,
+            "change": 0.0193
+          }
+        }
+      },
+      "Qwen3-14B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5571,
+            "change": 0.0207
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5952,
+            "change": 0.027
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.419,
+            "change": 0.0145
+          }
+        }
+      },
+      "Gemma3-4B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5524,
+            "change": 0.016
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5714,
+            "change": 0.0032
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.419,
+            "change": 0.0145
+          }
+        }
+      },
+      "Gemma3-12B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.519,
+            "change": -0.0174
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.581,
+            "change": 0.0128
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.381,
+            "change": -0.0235
+          }
+        }
+      },
+      "Gemma3-27B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5238,
+            "change": -0.0126
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5857,
+            "change": 0.0175
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4095,
+            "change": 0.005
+          }
+        }
+      },
+      "Phi-4": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5333,
+            "change": -0.0031
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5714,
+            "change": 0.0032
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.419,
+            "change": 0.0145
+          }
+        }
+      },
+      "Mistral-Nemo-12B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5524,
+            "change": 0.016
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5667,
+            "change": -0.0015
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4,
+            "change": -0.0045
+          }
+        }
+      },
+      "Lunaris-8B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5476,
+            "change": 0.0112
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.581,
+            "change": 0.0128
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.3762,
+            "change": -0.0283
+          }
+        }
+      },
+      "Hermes-3-70B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5238,
+            "change": -0.0126
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5095,
+            "change": -0.0587
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4,
+            "change": -0.0045
+          }
+        }
+      },
+      "MythoMax-13B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5048,
+            "change": -0.0316
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5571,
+            "change": -0.0111
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4143,
+            "change": 0.0098
+          }
+        }
+      },
+      "DeepSeek-V3": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5524,
+            "change": 0.016
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5571,
+            "change": -0.0111
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4095,
+            "change": 0.005
+          }
+        }
+      },
+      "DeepSeek-V4-Flash": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5524,
+            "change": 0.016
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5714,
+            "change": 0.0032
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4095,
+            "change": 0.005
+          }
+        }
+      },
+      "Hy3-295B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5143,
+            "change": -0.0221
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5619,
+            "change": -0.0063
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.3952,
+            "change": -0.0093
+          }
+        }
+      },
+      "Gemini-2.5-Flash": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5476,
+            "change": 0.0112
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5857,
+            "change": 0.0175
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.381,
+            "change": -0.0235
+          }
+        }
+      },
+      "Command-R": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5476,
+            "change": 0.0112
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5619,
+            "change": -0.0063
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.381,
+            "change": -0.0235
+          }
+        }
+      },
+      "GLM-4.7": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5571,
+            "change": 0.0207
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5857,
+            "change": 0.0175
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4095,
+            "change": 0.005
+          }
+        }
+      },
+      "GPT-OSS-20B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5571,
+            "change": 0.0207
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5905,
+            "change": 0.0223
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.419,
+            "change": 0.0145
+          }
+        }
+      },
+      "Qwen2.5-72B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5,
+            "change": -0.0364
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.5571,
+            "change": -0.0111
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4095,
+            "change": 0.005
+          }
+        }
+      },
+      "Mistral-3.2-24B": {
+        "n_models": 21,
+        "changes": {
+          "rubric_order": {
+            "full_mean": 0.5364,
+            "loo_mean": 0.5476,
+            "change": 0.0112
+          },
+          "score_id": {
+            "full_mean": 0.5682,
+            "loo_mean": 0.581,
+            "change": 0.0128
+          },
+          "reference_answer": {
+            "full_mean": 0.4045,
+            "loo_mean": 0.4048,
+            "change": 0.0003
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "metadata": {
+    "method": "Bootstrap with 1000 resamples, percentile CI (\u03b1=0.05)",
+    "n_resamples": 1000
+  },
+  "t4_base": {
+    "rubric_order": {
+      "mean": 0.6863,
+      "stdev": 1.0879,
+      "ci_95_lower": 0.14,
+      "ci_95_upper": 1.2,
+      "ci_width": 1.06,
+      "sd_ci_lower": 0.15,
+      "sd_ci_upper": 1.8358,
+      "n_bootstrap": 1000
+    },
+    "score_id": {
+      "mean": 2.3138,
+      "stdev": 0.9714,
+      "ci_95_lower": 1.725,
+      "ci_95_upper": 2.775,
+      "ci_width": 1.05,
+      "sd_ci_lower": 0.5852,
+      "sd_ci_upper": 1.2369,
+      "n_bootstrap": 1000
+    },
+    "reference_answer": {
+      "mean": 2.2308,
+      "stdev": 0.5649,
+      "ci_95_lower": 1.9,
+      "ci_95_upper": 2.5,
+      "ci_width": 0.6,
+      "sd_ci_lower": 0.3606,
+      "sd_ci_upper": 0.7234,
+      "n_bootstrap": 1000
+    }
+  },
+  "t4_instruct": {
+    "rubric_order": {
+      "mean": 0.2914,
+      "stdev": 0.2536,
+      "ci_95_lower": 0.15,
+      "ci_95_upper": 0.425,
+      "ci_width": 0.275,
+      "sd_ci_lower": 0.1,
+      "sd_ci_upper": 0.3594,
+      "n_bootstrap": 1000
+    },
+    "score_id": {
+      "mean": 1.4555,
+      "stdev": 0.9354,
+      "ci_95_lower": 0.9333,
+      "ci_95_upper": 1.875,
+      "ci_width": 0.9417,
+      "sd_ci_lower": 0.6733,
+      "sd_ci_upper": 1.1295,
+      "n_bootstrap": 1000
+    },
+    "reference_answer": {
+      "mean": 1.6523,
+      "stdev": 0.7282,
+      "ci_95_lower": 1.2333,
+      "ci_95_upper": 2.0,
+      "ci_width": 0.7667,
+      "sd_ci_lower": 0.4509,
+      "sd_ci_upper": 0.9504,
+      "n_bootstrap": 1000
+    }
+  },
+  "t4_all": {
+    "rubric_order": {
+      "mean": 0.4916,
+      "stdev": 0.8067,
+      "ci_95_lower": 0.1833,
+      "ci_95_upper": 0.75,
+      "ci_width": 0.5667,
+      "sd_ci_lower": 0.1727,
+      "sd_ci_upper": 1.2526,
+      "n_bootstrap": 1000
+    },
+    "score_id": {
+      "mean": 1.8895,
+      "stdev": 1.0313,
+      "ci_95_lower": 1.47,
+      "ci_95_upper": 2.3125,
+      "ci_width": 0.8425,
+      "sd_ci_lower": 0.7909,
+      "sd_ci_upper": 1.2481,
+      "n_bootstrap": 1000
+    },
+    "reference_answer": {
+      "mean": 1.9415,
+      "stdev": 0.7045,
+      "ci_95_lower": 1.65,
+      "ci_95_upper": 2.2333,
+      "ci_width": 0.5833,
+      "sd_ci_lower": 0.5339,
+      "sd_ci_upper": 0.8447,
+      "n_bootstrap": 1000
+    }
+  },
+  "study1_22": {
+    "rubric_order": {
+      "mean": 0.5364,
+      "stdev": 0.3911,
+      "ci_95_lower": 0.4167,
+      "ci_95_upper": 0.6643,
+      "ci_width": 0.2476,
+      "sd_ci_lower": 0.3105,
+      "sd_ci_upper": 0.4506,
+      "n_bootstrap": 1000
+    },
+    "score_id": {
+      "mean": 0.5674,
+      "stdev": 0.4374,
+      "ci_95_lower": 0.4167,
+      "ci_95_upper": 0.7,
+      "ci_width": 0.2833,
+      "sd_ci_lower": 0.2287,
+      "sd_ci_upper": 0.5588,
+      "n_bootstrap": 1000
+    },
+    "reference_answer": {
+      "mean": 0.4045,
+      "stdev": 0.3115,
+      "ci_95_lower": 0.3071,
+      "ci_95_upper": 0.5,
+      "ci_width": 0.1929,
+      "sd_ci_lower": 0.2488,
+      "sd_ci_upper": 0.3606,
+      "n_bootstrap": 1000
+    }
+  },
+  "study1_cohens_d": {
+    "rubric_order": {
+      "mean_d": 0.0356,
+      "ci_95_lower": -0.0089,
+      "ci_95_upper": 0.077,
+      "ci_width": 0.0859
+    },
+    "score_id": {
+      "mean_d": 0.0854,
+      "ci_95_lower": 0.0095,
+      "ci_95_upper": 0.1632,
+      "ci_width": 0.1536
+    },
+    "reference_answer": {
+      "mean_d": 0.0089,
+      "ci_95_lower": -0.032,
+      "ci_95_upper": 0.0487,
+      "ci_width": 0.0807
+    }
+  },
+  "comparison_with_existing": {
+    "t4fam_base": {
+      "rubric_order": {
+        "existing_mean": 0.6857,
+        "new_mean": 0.6863,
+        "existing_ci": [
+          0.1143,
+          1.6714
+        ],
+        "new_ci": [
+          0.14,
+          1.2
+        ],
+        "cis_overlap": true,
+        "mean_difference": 0.0006
+      },
+      "score_id": {
+        "existing_mean": 2.4143,
+        "new_mean": 2.3138,
+        "existing_ci": [
+          1.7857,
+          3.0429
+        ],
+        "new_ci": [
+          1.725,
+          2.775
+        ],
+        "cis_overlap": true,
+        "mean_difference": -0.1005
+      },
+      "reference_answer": {
+        "existing_mean": 2.7571,
+        "new_mean": 2.2308,
+        "existing_ci": [
+          2.4286,
+          3.1571
+        ],
+        "new_ci": [
+          1.9,
+          2.5
+        ],
+        "cis_overlap": true,
+        "mean_difference": -0.5263
+      }
+    },
+    "t4fam_instruct": {
+      "rubric_order": {
+        "existing_mean": 0.2857,
+        "new_mean": 0.2914,
+        "existing_ci": [
+          0.1286,
+          0.4857
+        ],
+        "new_ci": [
+          0.15,
+          0.425
+        ],
+        "cis_overlap": true,
+        "mean_difference": 0.0057
+      },
+      "score_id": {
+        "existing_mean": 1.4429,
+        "new_mean": 1.4555,
+        "existing_ci": [
+          0.7857,
+          2.0714
+        ],
+        "new_ci": [
+          0.9333,
+          1.875
+        ],
+        "cis_overlap": true,
+        "mean_difference": 0.0126
+      },
+      "reference_answer": {
+        "existing_mean": 1.9286,
+        "new_mean": 1.6523,
+        "existing_ci": [
+          1.3143,
+          2.6
+        ],
+        "new_ci": [
+          1.2333,
+          2.0
+        ],
+        "cis_overlap": true,
+        "mean_difference": -0.2763
+      }
+    },
+    "study1_22": {
+      "rubric_order": {
+        "existing_mean": 0.5636,
+        "new_mean": 0.5364,
+        "existing_ci": [
+          0.4045,
+          0.7409
+        ],
+        "new_ci": [
+          0.4167,
+          0.6643
+        ],
+        "cis_overlap": true,
+        "mean_difference": -0.0272
+      },
+      "score_id": {
+        "existing_mean": 0.6773,
+        "new_mean": 0.5674,
+        "existing_ci": [
+          0.4864,
+          0.8909
+        ],
+        "new_ci": [
+          0.4167,
+          0.7
+        ],
+        "cis_overlap": true,
+        "mean_difference": -0.1099
+      },
+      "reference_answer": {
+        "existing_mean": 0.4136,
+        "new_mean": 0.4045,
+        "existing_ci": [
+          0.2864,
+          0.5409
+        ],
+        "new_ci": [
+          0.3071,
+          0.5
+        ],
+        "cis_overlap": true,
+        "mean_difference": -0.0091
+      }
+    }
+  }
+}

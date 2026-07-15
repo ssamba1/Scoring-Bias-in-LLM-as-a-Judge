@@ -1,0 +1,552 @@
+{
+  "t4fam_results": {
+    "file": "t4fam_results",
+    "path": "C:\\Users\\Admin\\Research\\research-draft\\results_rootcause\\t4fam_results.json",
+    "exists": true,
+    "file_size_bytes": 4278,
+    "top_level_type": "dict",
+    "num_top_level_keys": 14,
+    "top_level_keys": [
+      "Qwen2.5-0.5B",
+      "Qwen2.5-0.5B-IT",
+      "Qwen2.5-1.5B",
+      "Qwen2.5-1.5B-IT",
+      "Llama-3.2-1B",
+      "Llama-3.2-1B-IT",
+      "Llama-3.2-3B",
+      "Llama-3.2-3B-IT",
+      "Gemma-2-2B",
+      "Gemma-2-2B-IT",
+      "StableLM-2-1.6B",
+      "StableLM-2-1.6B-IT",
+      "Qwen2.5-7B",
+      "Qwen2.5-7B-IT"
+    ],
+    "probes_found": [
+      "score_id",
+      "rubric_order",
+      "reference_answer"
+    ],
+    "variant_names": [
+      "numeric",
+      "letter",
+      "no_ref",
+      "reversed",
+      "good_ref",
+      "normal",
+      "descriptive",
+      "poor_ref"
+    ],
+    "total_variant_entries": 112,
+    "missing_values": 0,
+    "numeric_summary": {
+      "count": 112,
+      "mean": 3.1696,
+      "stdev": 1.0311,
+      "min": 1.0,
+      "max": 5.0,
+      "range": 4.0,
+      "unique_values": 35
+    },
+    "outliers": {
+      "method": "IQR (1.5*IQR rule)",
+      "q1": 2.6,
+      "q3": 4.0,
+      "iqr": 1.4,
+      "lower_fence": 0.5000000000000004,
+      "upper_fence": 6.1,
+      "num_outliers": 0,
+      "outlier_values": []
+    },
+    "per_probe_stats": {
+      "reference_answer": {
+        "count": 42,
+        "mean": 3.1905,
+        "stdev": 1.1875,
+        "min": 1.1,
+        "max": 5.0
+      },
+      "rubric_order": {
+        "count": 28,
+        "mean": 3.5,
+        "stdev": 0.7139,
+        "min": 1.2,
+        "max": 4.7
+      },
+      "score_id": {
+        "count": 42,
+        "mean": 2.9286,
+        "stdev": 0.9991,
+        "min": 1.0,
+        "max": 4.7
+      }
+    },
+    "impossible_values": {
+      "count": 0,
+      "values": [],
+      "note": "Standard scoring scale is 1-5. Values <0 or >6 are suspicious."
+    },
+    "num_models": 14,
+    "naming_issues": 0,
+    "variant_structure_uniqueness": 3,
+    "variant_structures": {
+      "rubric_order:['normal', 'reversed']": 14,
+      "score_id:['descriptive', 'letter', 'numeric']": 14,
+      "reference_answer:['good_ref', 'no_ref', 'poor_ref']": 14
+    },
+    "num_issues": 0,
+    "sample_issues": []
+  },
+  "study1_results": {
+    "file": "study1_results",
+    "path": "C:\\Users\\Admin\\Research\\research-draft\\results_rootcause\\study1_results.json",
+    "exists": true,
+    "file_size_bytes": 7149,
+    "top_level_type": "dict",
+    "num_top_level_keys": 22,
+    "top_level_keys": [
+      "Llama3.1-8B",
+      "Llama3.2-3B",
+      "Qwen2.5-7B",
+      "Qwen3-8B",
+      "Qwen3-14B",
+      "Gemma3-4B",
+      "Gemma3-12B",
+      "Gemma3-27B",
+      "Phi-4",
+      "Mistral-Nemo-12B",
+      "Lunaris-8B",
+      "Hermes-3-70B",
+      "MythoMax-13B",
+      "DeepSeek-V3",
+      "DeepSeek-V4-Flash",
+      "Hy3-295B",
+      "Gemini-2.5-Flash",
+      "Command-R",
+      "GLM-4.7",
+      "GPT-OSS-20B"
+    ],
+    "probes_found": [
+      "score_id",
+      "rubric_order",
+      "reference_answer"
+    ],
+    "variant_names": [
+      "numeric",
+      "letter",
+      "no_ref",
+      "reversed",
+      "good_ref",
+      "normal",
+      "descriptive",
+      "random",
+      "poor_ref"
+    ],
+    "total_variant_entries": 198,
+    "missing_values": 0,
+    "numeric_summary": {
+      "count": 198,
+      "mean": 2.9712,
+      "stdev": 0.6285,
+      "min": 1.2,
+      "max": 5.0,
+      "range": 3.8,
+      "unique_values": 34
+    },
+    "outliers": {
+      "method": "IQR (1.5*IQR rule)",
+      "q1": 2.7,
+      "q3": 3.3,
+      "iqr": 0.5999999999999996,
+      "lower_fence": 1.8000000000000007,
+      "upper_fence": 4.199999999999999,
+      "num_outliers": 20,
+      "outlier_values": [
+        1.2,
+        1.3,
+        1.4,
+        1.4,
+        1.4,
+        1.6,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.8,
+        1.8,
+        4.2,
+        4.2,
+        4.3,
+        4.3,
+        4.5,
+        4.6,
+        5.0
+      ]
+    },
+    "per_probe_stats": {
+      "reference_answer": {
+        "count": 66,
+        "mean": 2.9303,
+        "stdev": 0.6698,
+        "min": 1.2,
+        "max": 4.3
+      },
+      "rubric_order": {
+        "count": 66,
+        "mean": 2.8773,
+        "stdev": 0.5796,
+        "min": 1.4,
+        "max": 4.5
+      },
+      "score_id": {
+        "count": 66,
+        "mean": 3.1061,
+        "stdev": 0.6192,
+        "min": 1.3,
+        "max": 5.0
+      }
+    },
+    "impossible_values": {
+      "count": 0,
+      "values": [],
+      "note": "Standard scoring scale is 1-5. Values <0 or >6 are suspicious."
+    },
+    "num_models": 22,
+    "naming_issues": 0,
+    "variant_structure_uniqueness": 3,
+    "variant_structures": {
+      "rubric_order:['normal', 'random', 'reversed']": 22,
+      "score_id:['descriptive', 'letter', 'numeric']": 22,
+      "reference_answer:['good_ref', 'no_ref', 'poor_ref']": 22
+    },
+    "num_issues": 0,
+    "sample_issues": []
+  },
+  "study1_max_scale": {
+    "file": "study1_max_scale",
+    "path": "C:\\Users\\Admin\\Research\\research-draft\\results_rootcause\\study1_max_scale.json",
+    "exists": true,
+    "file_size_bytes": 7149,
+    "top_level_type": "dict",
+    "num_top_level_keys": 22,
+    "top_level_keys": [
+      "Llama3.1-8B",
+      "Llama3.2-3B",
+      "Qwen2.5-7B",
+      "Qwen3-8B",
+      "Qwen3-14B",
+      "Gemma3-4B",
+      "Gemma3-12B",
+      "Gemma3-27B",
+      "Phi-4",
+      "Mistral-Nemo-12B",
+      "Lunaris-8B",
+      "Hermes-3-70B",
+      "MythoMax-13B",
+      "DeepSeek-V3",
+      "DeepSeek-V4-Flash",
+      "Hy3-295B",
+      "Gemini-2.5-Flash",
+      "Command-R",
+      "GLM-4.7",
+      "GPT-OSS-20B"
+    ],
+    "probes_found": [
+      "score_id",
+      "rubric_order",
+      "reference_answer"
+    ],
+    "variant_names": [
+      "numeric",
+      "letter",
+      "no_ref",
+      "reversed",
+      "good_ref",
+      "normal",
+      "descriptive",
+      "random",
+      "poor_ref"
+    ],
+    "total_variant_entries": 198,
+    "missing_values": 0,
+    "numeric_summary": {
+      "count": 198,
+      "mean": 2.9712,
+      "stdev": 0.6285,
+      "min": 1.2,
+      "max": 5.0,
+      "range": 3.8,
+      "unique_values": 34
+    },
+    "outliers": {
+      "method": "IQR (1.5*IQR rule)",
+      "q1": 2.7,
+      "q3": 3.3,
+      "iqr": 0.5999999999999996,
+      "lower_fence": 1.8000000000000007,
+      "upper_fence": 4.199999999999999,
+      "num_outliers": 20,
+      "outlier_values": [
+        1.2,
+        1.3,
+        1.4,
+        1.4,
+        1.4,
+        1.6,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.7,
+        1.8,
+        1.8,
+        4.2,
+        4.2,
+        4.3,
+        4.3,
+        4.5,
+        4.6,
+        5.0
+      ]
+    },
+    "per_probe_stats": {
+      "reference_answer": {
+        "count": 66,
+        "mean": 2.9303,
+        "stdev": 0.6698,
+        "min": 1.2,
+        "max": 4.3
+      },
+      "rubric_order": {
+        "count": 66,
+        "mean": 2.8773,
+        "stdev": 0.5796,
+        "min": 1.4,
+        "max": 4.5
+      },
+      "score_id": {
+        "count": 66,
+        "mean": 3.1061,
+        "stdev": 0.6192,
+        "min": 1.3,
+        "max": 5.0
+      }
+    },
+    "impossible_values": {
+      "count": 0,
+      "values": [],
+      "note": "Standard scoring scale is 1-5. Values <0 or >6 are suspicious."
+    },
+    "num_models": 22,
+    "naming_issues": 0,
+    "variant_structure_uniqueness": 3,
+    "variant_structures": {
+      "rubric_order:['normal', 'random', 'reversed']": 22,
+      "score_id:['descriptive', 'letter', 'numeric']": 22,
+      "reference_answer:['good_ref', 'no_ref', 'poor_ref']": 22
+    },
+    "num_issues": 0,
+    "sample_issues": []
+  },
+  "rootcause_analysis": {
+    "file": "rootcause_analysis",
+    "path": "C:\\Users\\Admin\\Research\\research-draft\\results_rootcause\\rootcause_analysis.json",
+    "exists": true,
+    "file_size_bytes": 2180,
+    "top_level_type": "dict",
+    "num_top_level_keys": 6,
+    "top_level_keys": [
+      "llama3-8b-base",
+      "llama3-8b-instruct",
+      "mistral-7b-base",
+      "mistral-7b-instruct",
+      "gemma2-2b-base",
+      "gemma2-2b-instruct"
+    ],
+    "probes_found": [
+      "score_id",
+      "rubric_order",
+      "reference_answer"
+    ],
+    "variant_names": [
+      "mean_delta",
+      "max_delta",
+      "mean_max_gap",
+      "max_gap",
+      "high_minus_low",
+      "high_minus_none",
+      "pct_affected",
+      "variance"
+    ],
+    "total_variant_entries": 48,
+    "missing_values": 0,
+    "numeric_summary": {
+      "count": 48,
+      "mean": 2.9917,
+      "stdev": 10.5389,
+      "min": -0.167,
+      "max": 43.3,
+      "range": 43.467,
+      "unique_values": 7
+    },
+    "outliers": {
+      "method": "IQR (1.5*IQR rule)",
+      "q1": 0.0,
+      "q3": 0.467,
+      "iqr": 0.467,
+      "lower_fence": -0.7005,
+      "upper_fence": 1.1675,
+      "num_outliers": 9,
+      "outlier_values": [
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        43.3,
+        43.3,
+        43.3
+      ]
+    },
+    "per_probe_stats": {
+      "reference_answer": {
+        "count": 12,
+        "mean": -0.0668,
+        "stdev": 0.074,
+        "min": -0.167,
+        "max": 0.0
+      },
+      "rubric_order": {
+        "count": 18,
+        "mean": 7.6278,
+        "stdev": 16.4317,
+        "min": 0.0,
+        "max": 43.3
+      },
+      "score_id": {
+        "count": 18,
+        "mean": 0.3945,
+        "stdev": 0.7516,
+        "min": 0,
+        "max": 2
+      }
+    },
+    "impossible_values": {
+      "count": 9,
+      "values": [
+        43.3,
+        -0.167,
+        -0.1,
+        43.3,
+        -0.167,
+        -0.1,
+        43.3,
+        -0.167,
+        -0.1
+      ],
+      "note": "Standard scoring scale is 1-5. Values <0 or >6 are suspicious."
+    },
+    "num_models": 6,
+    "naming_issues": 0,
+    "variant_structure_uniqueness": 3,
+    "variant_structures": {
+      "rubric_order:['max_delta', 'mean_delta', 'pct_affected']": 6,
+      "score_id:['max_gap', 'mean_max_gap', 'variance']": 6,
+      "reference_answer:['high_minus_low', 'high_minus_none']": 6
+    },
+    "num_issues": 9,
+    "sample_issues": [
+      [
+        "llama3-8b-instruct",
+        "rubric_order",
+        "pct_affected",
+        "above_max_scale"
+      ],
+      [
+        "llama3-8b-instruct",
+        "reference_answer",
+        "high_minus_low",
+        "negative_value"
+      ],
+      [
+        "llama3-8b-instruct",
+        "reference_answer",
+        "high_minus_none",
+        "negative_value"
+      ],
+      [
+        "mistral-7b-instruct",
+        "rubric_order",
+        "pct_affected",
+        "above_max_scale"
+      ],
+      [
+        "mistral-7b-instruct",
+        "reference_answer",
+        "high_minus_low",
+        "negative_value"
+      ],
+      [
+        "mistral-7b-instruct",
+        "reference_answer",
+        "high_minus_none",
+        "negative_value"
+      ],
+      [
+        "gemma2-2b-instruct",
+        "rubric_order",
+        "pct_affected",
+        "above_max_scale"
+      ],
+      [
+        "gemma2-2b-instruct",
+        "reference_answer",
+        "high_minus_low",
+        "negative_value"
+      ],
+      [
+        "gemma2-2b-instruct",
+        "reference_answer",
+        "high_minus_none",
+        "negative_value"
+      ]
+    ]
+  },
+  "cross_file_consistency": {
+    "study1_vs_max_scale": {
+      "models_in_both": 22,
+      "models_with_differences": 0,
+      "sample_differences": []
+    },
+    "t4_in_rootcause_analysis": {
+      "t4_models": 14,
+      "in_rc_analysis": 0,
+      "missing_from_rc": [
+        "Qwen2.5-1.5B-IT",
+        "StableLM-2-1.6B",
+        "Qwen2.5-7B",
+        "Llama-3.2-1B-IT",
+        "Llama-3.2-3B",
+        "Qwen2.5-1.5B",
+        "Llama-3.2-1B",
+        "Qwen2.5-0.5B",
+        "StableLM-2-1.6B-IT",
+        "Qwen2.5-7B-IT",
+        "Llama-3.2-3B-IT",
+        "Qwen2.5-0.5B-IT",
+        "Gemma-2-2B-IT",
+        "Gemma-2-2B"
+      ]
+    }
+  },
+  "overall_assessment": {
+    "grade": "REVIEW",
+    "summary": "Issues found: 49 potential outliers detected, 9 impossible values found",
+    "details": [
+      "49 potential outliers detected",
+      "9 impossible values found"
+    ]
+  }
+}
