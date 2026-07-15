@@ -8,7 +8,6 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC_BY_4.0-1a1a2e?style=flat-square" alt="License"></a>
   <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.11+-2b6cb0?style=flat-square" alt="Python 3.11+"></a>
-  <a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-2607.xxxxx-b31b1b?style=flat-square" alt="arXiv"></a>
   <a href="tests/test_all.py"><img src="https://img.shields.io/badge/Tests-11_passing-38a169?style=flat-square" alt="Tests"></a>
   <img src="https://img.shields.io/badge/Models-31_variants-4a5568?style=flat-square" alt="Models">
   <img src="https://img.shields.io/badge/Judgments-40,500+-blueviolet?style=flat-square" alt="Judgments">
@@ -16,7 +15,7 @@
 
 ---
 
-**LLMs deployed as automated judges exhibit systematic scoring biases but do these biases originate from pre-training or from instruction tuning?** We systematically compare base (pre-trained) and instruct (fine-tuned) variants across **31 model variants from 16 families** using three perturbation-based scoring bias probes. With **40,500+ judgments**, we find that instruction tuning has **opposite effects depending on bias type**: format-related biases decrease, while content-related biases increase in larger RLHF-trained models.
+**LLMs deployed as automated judges exhibit systematic scoring biases. But do these biases originate from pre-training or from instruction tuning?** We systematically compare base (pre-trained) and instruct (fine-tuned) variants across **31 model variants from 16 families** using three perturbation-based scoring bias probes. With **40,500+ judgments**, we find that instruction tuning has **opposite effects depending on bias type**: format-related biases decrease, while content-related biases increase in larger RLHF-trained models.
 
 ### Key Findings
 
@@ -33,7 +32,6 @@
 - [Motivation & Significance](#motivation--significance)
 - [Methodology](#methodology)
 - [Results Summary](#results-summary)
-- [Graphical Abstract](#graphical-abstract)
 - [Quick Start](#quick-start)
 - [Project Structure](#project-structure)
 - [Model Families](#model-families)
@@ -50,7 +48,7 @@ LLMs are increasingly used as automated judges to evaluate other LLMs in chatbot
 
 **Open question:** Do these biases originate from pre-training (the base model) or from instruction tuning (the fine-tuned model)?
 
-Prior work (Li et al., DASFAA 2026) documented scoring biases in 5 commercial models but could not isolate the source of bias because commercial APIs expose only the instruct-tuned version. By studying **open-weight models**, we compare base and instruct variants of the same architecture under identical conditions isolating instruction tuning's causal role.
+Prior work (Li et al., DASFAA 2026) documented scoring biases in 5 commercial models but could not isolate the source, because commercial APIs expose only the instruct-tuned version. By studying **open-weight models**, we compare base and instruct variants of the same architecture under identical conditions, isolating instruction tuning's causal role.
 
 ---
 
@@ -82,7 +80,7 @@ Each probe computes Δ = |score(original) − score(perturbed)|, measuring the m
 
 - **Small models (≤7B):** Kaggle T4 GPU (16 GB VRAM), greedy decoding, ~6 hours total for all families
 - **Large models (>7B):** OpenRouter API, temperature 0, max 5 tokens, 15s timeout per call
-- **Reproducibility:** All random seeds fixed (seed 42), all prompts and parameters logged in structured JSON
+- **Reproducibility:** All random seeds fixed (seed 42). All prompts, parameters, and model outputs logged in structured JSON. Full reproduction guide at [`REPLICATION.md`](REPLICATION.md).
 
 ---
 
@@ -109,7 +107,7 @@ Each probe computes Δ = |score(original) − score(perturbed)|, measuring the m
 
 Key insights:
 - **Format biases** (rubric order, score ID) consistently improve after instruction tuning across model sizes
-- **Content bias** (reference answer) increases specifically in larger (3B+) RLHF-trained models smaller models and non-RLHF models do not show this effect
+- **Content bias** (reference answer) increases specifically in larger (3B+) RLHF-trained models, while smaller and non-RLHF models do not show this effect
 - This creates a **differential effect**: instruction tuning is simultaneously beneficial and harmful depending on bias type
 
 ### Statistical Power
@@ -140,7 +138,7 @@ Target N=30 families for 80% power on all probes.
 ## Quick Start
 
 ```bash
-# 1. Clone and install
+# 1. Clone and install (Python 3.11+)
 git clone https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge
 cd Scoring-Bias-in-LLM-as-a-Judge
 pip install -r requirements.txt
@@ -169,7 +167,7 @@ Scoring-Bias-in-LLM-as-a-Judge/
 │   ├── interactive/                 # HTML-based interactive figures
 │   └── outreach/                    # Blog posts, press materials
 ├── data/                            # Experimental data
-│   ├── dataset.json                 # Unified structured dataset
+│   ├── dataset.json                 # Unified structured dataset (40,500+ judgments)
 │   ├── dataset_card.md              # Comprehensive dataset card
 │   ├── data_dictionary.md           # Field-level documentation
 │   ├── combined_80_items.json       # All 80 evaluation items
@@ -258,7 +256,7 @@ See [`data/model_cards/all_models.md`](data/model_cards/all_models.md) for compl
 
 This work builds on the perturbation-based scoring bias framework introduced by **Li et al. (2025)** ["Scoring Bias in LLM-as-a-Judge"](https://doi.org/10.1007/978-981-96-0957-6_11), DASFAA 2026. While Li et al. studied 5 commercial models (GPT-4o, DeepSeek-V3, etc.), we extend the analysis to **31 open-weight variants** and provide the first systematic comparison of **base vs instruct** models to isolate the effect of instruction tuning on scoring bias.
 
-This paper is part of a broader research portfolio on **Robust & Efficient AI** (see [researchmaxxing](https://github.com/ssamba1/researchmaxxing)), which investigates whether brain-inspired alternatives predictive coding, spiking neural networks, and sparse coding can address the reliability failures identified here.
+This paper is part of a broader research portfolio on **Robust & Efficient AI** (see [researchmaxxing](https://github.com/ssamba1/researchmaxxing)), which investigates whether brain-inspired alternatives (predictive coding, spiking neural networks, and sparse coding) can address the reliability failures identified here.
 
 ---
 
@@ -266,4 +264,4 @@ This paper is part of a broader research portfolio on **Robust & Efficient AI** 
 
 **License:** CC-BY 4.0. See [`LICENSE`](LICENSE).
 
-**Contact:** Sricharan Samba [srisamba09@gmail.com](mailto:srisamba09@gmail.com)
+**Contact:** Sricharan Samba &lt; [srisamba09@gmail.com](mailto:srisamba09@gmail.com) &gt;
