@@ -5,10 +5,10 @@ import json
 cells = []
 
 def md(src):
-    cells.append({"cell_type": "markdown", "metadata": {}, "source": src.split("\n")})
+    cells.append({"cell_type": "markdown", "metadata": None, "source": [l for l in src.split("\n")]})
 
 def code(src):
-    cells.append({"cell_type": "code", "metadata": {}, "source": [l + "\n" for l in src.split("\n")]})
+    cells.append({"cell_type": "code", "metadata": None, "source": [l + "\\n" for l in src.split("\n")]})
 
 md("""# Paper 1: Additional GPU Experiments
 **Fills all remaining GPU gaps for Scoring Bias paper**
