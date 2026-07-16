@@ -1,12 +1,10 @@
 ---
-title: "Where Does Scoring Bias Come From? A Base vs Instruct Comparison of LLM-as-a-Judge"
+title: "Scoring Bias in LLM-as-a-Judge Models: A 22-Model Landscape with Base-Instruct Comparison"
 authors:
-  - name: "Student A"
-  - name: "Student B"
+  - name: "Sricharan Samba"
 primary_class: "cs.CL"
 secondary_classes: ["cs.AI", "cs.LG", "stat.ML"]
 license: "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
 abstract: |
-  LLMs are increasingly deployed as automated judges in the LLM-as-a-Judge paradigm, yet they exhibit systematic scoring biases that compromise evaluation reliability. Li et al. documented three scoring bias types across five frontier models, but explicitly noted that "the underlying causes of these scoring biases remain to be validated." We present the first systematic investigation of whether scoring bias originates from pre-training or emerges during instruction tuning. Through controlled experiments spanning 3 model families (Llama 3 8B, Mistral 7B, Gemma 2 2B) with 6 total variants (base + instruct each) across 3 scoring bias probes and 3 variants per probe totaling 8,100 judgments on a free GPU, we find that instruction tuning has differential effects: format-related biases (rubric order, score ID) decrease by 44% and 77% respectively, while content-related bias (reference answer) increases by 35%. This pattern is consistent across all three families. Our flip rates are consistent with Li et al. (25-48%), validating our methodology.
-comments: "8 pages, 3 tables, 8 figures. Submitted to NeurIPS 2026 High School Projects Track."
----
+  LLMs deployed as automated judges exhibit systematic scoring biases, but whether these originate from pre-training or instruction tuning is unknown. We measure scoring bias across 22 instruct-tuned models (29,700 judgments) and compare base vs instruct variants across 9 families (24,300 judgments) using 3 perturbation probes. Score ID bias has the largest average effect (Delta=0.68) across instruct models. Instruction tuning reduces format bias but may increase content bias for RLHF families. The single SFT+DPO family shows a different pattern. Four alternative explanations are examined. Scoring bias is modulated by instruction tuning, not inherent to pre-training. A mechanistic framework (IIAR hypothesis) with five testable predictions is proposed, alongside the Format Efficiency Hypothesis supported by attention-weight evidence showing format token attention decreasing from 23.7% to 20.8%.
+comments: "20 pages, 8 tables, 20 figures. Code and data: https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
