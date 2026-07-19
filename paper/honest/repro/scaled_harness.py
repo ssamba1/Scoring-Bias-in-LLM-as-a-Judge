@@ -128,16 +128,27 @@ def _pick_device():
 
 DEVICE = _pick_device()
 
+import math
+
 @torch.no_grad()
 def score_logits(tok, model, prompt, answer_tokens):
+    """Return dict: expected score, discrete argmax score, entropy (bits) of the
+    score distribution, max prob (decisiveness), mass on answer tokens vs all vocab,
+    and the K-way probability vector. The distribution IS the mechanism signal."""
     ids = tok(prompt, return_tensors="pt").to(DEVICE)
-    logits = model(**ids).logits[0, -1].float()
+    full = torch.softmax(model(**ids).logits[0, -1].float(), dim=-1)
     tids = [(tok.encode(a, add_special_tokens=False) or tok.encode(" " + a, add_special_tokens=False))[0]
             for a in answer_tokens]
-    probs = torch.softmax(logits[tids], dim=-1)
+    mass = float(full[tids].sum())                       # P(answer set) vs whole vocab
+    probs = full[tids] / full[tids].sum()
     vals = token_values(answer_tokens)
     vt = torch.tensor(vals, dtype=probs.dtype, device=probs.device)
-    return float((probs * vt).sum()), int(vals[int(torch.argmax(probs))])
+    p = probs.tolist()
+    ent = -sum(pi * math.log2(pi) for pi in p if pi > 0)
+    return {"exp": round(float((probs * vt).sum()), 4),
+            "arg": int(vals[int(torch.argmax(probs))]),
+            "ent": round(ent, 4), "maxp": round(float(probs.max()), 4),
+            "mass": round(mass, 4), "dist": [round(x, 4) for x in p]}
 
 def score_one(name):
     tok = AutoTokenizer.from_pretrained(name, trust_remote_code=True)
@@ -148,12 +159,18 @@ def score_one(name):
     for probe, variants in PROBES.items():
         out[probe] = {}
         for variant, (scale, atok, header, ref) in variants.items():
-            exp, arg = [], []
+            exp, arg, ent, maxp, mass = [], [], [], [], []
             for instr, resp, _d in ITEMS:
-                e, a = score_logits(tok, model, build_prompt(instr, resp, scale, header, ref), atok)
-                exp.append(round(e, 4)); arg.append(a)
-            out[probe][variant] = {"per_item": exp, "per_item_argmax": arg,
-                                   "mean": round(sum(exp) / len(exp), 4)}
+                r = score_logits(tok, model, build_prompt(instr, resp, scale, header, ref), atok)
+                exp.append(r["exp"]); arg.append(r["arg"]); ent.append(r["ent"])
+                maxp.append(r["maxp"]); mass.append(r["mass"])
+            n = len(exp)
+            out[probe][variant] = {
+                "per_item": exp, "per_item_argmax": arg, "per_item_entropy": ent,
+                "mean": round(sum(exp) / n, 4),
+                "mean_entropy": round(sum(ent) / n, 4),   # decisiveness signal
+                "mean_maxprob": round(sum(maxp) / n, 4),
+                "mean_mass": round(sum(mass) / n, 4)}      # answer-format compliance
     del model, tok
     if DEVICE == "cuda":
         torch.cuda.empty_cache()
