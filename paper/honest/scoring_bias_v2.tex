@@ -160,6 +160,15 @@ $H(\sigma)=-\sum_k\sigma_k\log_2\sigma_k$ (decisiveness) and the mass $\sum_k\si
 on valid tokens before renormalization (format compliance). For each model and probe
 we summarise bias by $\Delta=\max_v \bar s_v-\min_v \bar s_v$ \citep{li2025scoring}.
 
+Expected-value scoring is not merely a convenient fix; it is the statistically correct
+readout. A judge that samples a written score returns a single draw from $\sigma$, an
+unbiased but high-variance estimate of the latent score $s=E_\sigma[v]$ whose sampling
+variance is exactly the $\mathrm{Var}_\sigma(v)$ of Proposition~\ref{prop:main};
+expected-value scoring returns $s$ itself, the minimum-variance estimate, deterministically
+and in one forward pass. It also exposes the entire distribution $\sigma$, without which
+neither the decisiveness statistic $H(\sigma)$ nor the mechanism could be measured. The
+same object thus repairs the measurement and enables the theory.
+
 \subsection{Statistics}
 The inferential unit is the model family (base $\Delta$ vs instruct $\Delta$ per
 probe). We report paired mean change, standardized effect $d_z$, percentile-bootstrap
@@ -219,9 +228,37 @@ families can thus move in opposite directions under the same tuning---which is w
 observe.
 \end{corollary}
 
+\paragraph{The worst-case nuisance.} The bound is tight: the perturbation that maximizes
+first-order bias is $\delta^\star \propto \nabla_\ell s = (\sigma_k(v_k-s))_k$, i.e.\ the
+nuisance that shifts logit mass from below-mean toward above-mean answer tokens in
+exactly the proportion the judge already assigns them. A perturbation orthogonal to
+$\nabla_\ell s$ induces no first-order bias regardless of its size. Thus \emph{which}
+nuisances bias a given judge is itself predicted by the geometry of $\sigma$, and a
+decisive judge shrinks $\nabla_\ell s$ uniformly, closing every direction at once.
+
+\paragraph{Beyond first order.} A common worry is that a first-order bound governs only
+infinitesimal perturbations. It does not, because decisiveness controls \emph{every}
+order. along the worst-case direction $\delta=t\,v$ the tilted score $s(\ell+tv)=E_{\sigma_t}[v]$
+with $\sigma_t\propto\sigma\,e^{tv}$ is the derivative of the cumulant generating function
+of $v$ under $\sigma$; its Taylor coefficients in $t$ are therefore the successive
+cumulants of $v$ under $\sigma$---variance, then the third and fourth cumulants, and so
+on---all of which vanish as $\sigma\!\to\!$ a point mass. Hence a
+maximally decisive judge is insensitive to a nuisance of \emph{any} magnitude, not merely
+a small one---strengthening Proposition~\ref{prop:main} from a local to a global
+statement in the decisive limit.
+
+\begin{corollary}[Bias is a calibration failure]\label{cor:calib}
+Define decisiveness $D(\sigma)=1-H(\sigma)/\log_2 K\in[0,1]$. A judge with $D=1$ (a point
+mass) has $\mathrm{Var}_\sigma(v)=0$ and hence zero nuisance-bias to all orders; a judge
+with $D=0$ (uniform) attains the maximal $\mathrm{Var}_\sigma(v)$ and the largest bias.
+Robustness to nuisance perturbations and confidence in the score are therefore the same
+axis: an over-hedging judge is not merely less informative, it is maximally
+manipulable.
+\end{corollary}
+
 \medskip
-Proposition~\ref{prop:main} and Corollary~\ref{cor:diff} yield falsifiable predictions,
-preregistered before
+Proposition~\ref{prop:main} and Corollaries~\ref{cor:diff}--\ref{cor:calib} yield
+falsifiable predictions, preregistered before
 analysis (see \texttt{PREREGISTRATION.md}) and tested in \S\ref{sec:mech}--\ref{sec:predict}.
 The load-bearing one is directional-agnostic: \textbf{(P2)} entropy $H(\sigma)$
 correlates positively with bias $\Delta$ across models, families, and bias types---so
@@ -353,8 +390,10 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         so the largest and closed frontier judges are out of scope.
   \item \textbf{Family as unit; greedy, English, single template.} Powered for large
         effects; deterministic scores give no within-model variance; one prompt style.
-  \item \textbf{First-order theory.} Proposition~\ref{prop:main} bounds the
-        first-order sensitivity; large perturbations add higher-order terms.
+  \item \textbf{Theory scope.} The all-order argument shows decisiveness controls every
+        cumulant in the decisive limit, but the finite-entropy regime is characterized
+        only up to the cumulants we compute; a closed form of the bias for arbitrary
+        $\sigma$ and perturbation $\delta$ is left open.
   \item \textbf{Expected-value vs sampled scores.} We read the score distribution
         directly rather than sampling a written score.
 \end{enumerate}
