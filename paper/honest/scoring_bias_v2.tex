@@ -81,9 +81,10 @@ also the right object for the mechanism.
         out-of-sample from one unperturbed forward pass.
   \item \textbf{Mechanism (theory).} Proposition~\ref{prop:main}: score-distribution
         variance bounds nuisance-sensitivity; decisive judges are provably less biased.
-  \item \textbf{Mechanism (measured + causal).} Instruction tuning sharpens the score
-        distribution; decisiveness predicts bias across families and probes; and
-        activation patching shows the instruct representation carries the reduction.
+  \item \textbf{Mechanism (measured + causal).} Decisiveness predicts bias across
+        families and bias types; where instruction tuning changes a bias it does so by
+        changing the score distribution's entropy; and activation patching shows the
+        instruct representation causally carries that change.
   \item \textbf{Measurement + mitigation.} Expected-value scoring removes the
         parse-failure confound; we quantify a simple bias mitigation.
   \item \textbf{Reproducibility.} One script regenerates every number from one file;
@@ -103,9 +104,10 @@ reproducible reporting---which our per-item, single-script protocol embodies.
 \paragraph{Origin of scoring bias.} \citet{li2025scoring} introduced the three
 scoring biases and called for root-cause analysis. \citet{thakur2024judging} found
 base and instruct judges differ, and \citet{pan2025user} used a base-vs-instruct
-design to show instruction tuning \emph{introduces} a user-deference bias. For scoring
-bias we find the opposite sign and, unlike prior work, give a measured, causal
-mechanism rather than a description.
+design to show instruction tuning \emph{introduces} a user-deference bias. Our
+contribution is orthogonal to the sign of any single effect: we show one quantity---
+score-distribution decisiveness---predicts bias across models and bias types, and give
+a measured, causal mechanism rather than a description.
 
 \section{Method}
 \subsection{Models, probes, items}
@@ -212,8 +214,10 @@ compliance) rises with tuning.}
 \PATCHPROSE{}
 \begin{figure}[t]\centering
 \includegraphics[width=0.66\linewidth]{fig_patch.pdf}
-\caption{Fraction of the base$\to$instruct score gap closed by patching the instruct
-model's residual representation into the base model at each layer (P3).}
+\caption{Causal localization (P3). Fraction of items in which patching the instruct
+model's residual representation into the base model at a given layer moves the base
+score \emph{toward} the instruct score. The fix is inert early and transfers fully from
+a mid-network band onward.}
 \label{fig:patch}\end{figure}
 
 \subsection{One law across five bias families}\label{sec:general}

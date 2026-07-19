@@ -111,7 +111,7 @@ def fig_main(pi):
             ax.text(i, max(base[i], inst[i]) + 0.03, "$*$", ha="center", fontsize=11)
     ax.set_xticks(list(x)); ax.set_xticklabels(labels)
     ax.set_ylabel(r"Mean bias $\Delta$"); ax.legend(frameon=False, loc="upper right")
-    ax.set_title(f"Instruction tuning reduces scoring bias ($n={pi['n_families']}$)")
+    ax.set_title(f"Scoring bias, base vs instruct ($n={pi['n_families']}$ families)")
     save(fig, "fig1_base_vs_instruct")
 
 
