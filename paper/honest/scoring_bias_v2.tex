@@ -425,6 +425,9 @@ A single scoring template could drive the effect. We re-run the Qwen2.5 families
 three surface-different templates (differing headers, delimiters, and phrasing;
 Appendix~\ref{app:prompts}). \MTPROSE{}
 
+\subsection{Replication on public-dataset items}\label{sec:dolly}
+\REPLPROSE{}
+
 \subsection{Flip rates, scale, recipe, and domain}
 \SECONDARYPROSE{}
 \begin{table}[t]\centering\footnotesize
@@ -533,8 +536,11 @@ Every statistic and figure is produced by \texttt{repro/analyze\_peritem.py},
 \texttt{repro/analyze\_robustness.py}, \texttt{repro/make\_mech\_figures.py}, and
 \texttt{repro/make\_concept\_figure.py} from the committed raw files
 (\texttt{results\_scaled.json}, \texttt{gold\_results.json}, \texttt{patch\_results.json},
-\texttt{results\_multitemplate.json}, \texttt{attn\_results.json}; collected by
-\texttt{repro/\{scaled,gold,patch,multitemplate,attention\}\_harness.py}), seed 42. No synthetic or
+\texttt{results\_multitemplate.json}, \texttt{attn\_results.json},
+\texttt{results\_dolly.json.gz}; collected by
+\texttt{repro/\{scaled,gold,patch,multitemplate,attention,dolly\}\_harness.py}), seed 42.
+A continuous-integration check reruns every analysis script on the committed raw files
+and fails on any numerical drift. No synthetic or
 simulated data is used; a full integrity audit of a prior, fabricated version is included
 as \texttt{DATA\_INTEGRITY\_AUDIT.md}.
 

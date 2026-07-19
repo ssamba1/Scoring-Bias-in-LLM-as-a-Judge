@@ -58,7 +58,14 @@ def tv(a, b):
 
 
 def load(name):
-    return json.loads((HERE / name).read_text())
+    path = HERE / name
+    if path.exists():
+        return json.loads(path.read_text())
+    gz = HERE / (name + ".gz")
+    if gz.exists():
+        import gzip
+        return json.loads(gzip.decompress(gz.read_bytes()).decode())
+    raise FileNotFoundError(name)
 
 
 def main():
@@ -264,6 +271,41 @@ def main():
             "wilcoxon_p": round(float(wt2.pvalue), 6)}
     except FileNotFoundError:
         out["C8_template_ensemble"] = {"note": "results_multitemplate.json absent"}
+
+    # ---- C5: replication on public-dataset items (results_dolly.json) ----
+    try:
+        dolly = load("results_dolly.json")["results"]
+        eff, xs2, ys2 = {}, [], []
+        probe_diff = {}
+        for fam, rec in dolly.items():
+            fb, fi = [], []
+            for kind, acc in (("base", fb), ("instruct", fi)):
+                kd = rec.get(kind, {})
+                for p, cv in CONTROL.items():
+                    if p not in kd:
+                        continue
+                    means = [v["mean"] for v in kd[p].values()]
+                    ent = float(np.mean([v["mean_entropy"] for v in kd[p].values()]))
+                    bias = max(means) - min(means)
+                    xs2.append(ent); ys2.append(bias)
+                    probe_diff.setdefault(p, {}).setdefault(kind, []).append(bias)
+                    acc.append(bias)
+            if fb and fi:
+                eff[fam] = round(float(np.mean(fi) - np.mean(fb)), 3)
+        e = np.array(list(eff.values()))
+        rr = stats.spearmanr(xs2, ys2)
+        out["C5_public_items"] = {
+            "source": "databricks-dolly-15k (open_qa/general_qa), 50 items, seed 42",
+            "n_families": len(eff), "mean_effect": round(float(e.mean()), 3),
+            "families_positive": f"{int((e > 0).sum())}/{len(e)}",
+            "entropy_bias_rho": round(float(rr.statistic), 3),
+            "entropy_bias_p": round(float(rr.pvalue), 6), "n_points": len(xs2),
+            "per_probe_delta": {p: round(float(np.mean(v["instruct"]) - np.mean(v["base"])), 3)
+                                for p, v in probe_diff.items()
+                                if "base" in v and "instruct" in v},
+            "per_family": eff}
+    except FileNotFoundError:
+        out["C5_public_items"] = {"note": "results_dolly.json absent"}
 
     (HERE / "results_robustness.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))

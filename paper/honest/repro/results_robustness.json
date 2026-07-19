@@ -84,5 +84,31 @@
     "mean_ensembled_bias": 0.527,
     "reduction_frac": 0.216,
     "wilcoxon_p": 6e-06
+  },
+  "C5_public_items": {
+    "source": "databricks-dolly-15k (open_qa/general_qa), 50 items, seed 42",
+    "n_families": 8,
+    "mean_effect": 0.132,
+    "families_positive": "7/8",
+    "entropy_bias_rho": -0.44,
+    "entropy_bias_p": 4.4e-05,
+    "n_points": 80,
+    "per_probe_delta": {
+      "rubric_order": -0.041,
+      "score_id": 0.161,
+      "reference_answer": 0.149,
+      "authority": 0.209,
+      "verbosity": 0.184
+    },
+    "per_family": {
+      "SmolLM2-135M": 0.19,
+      "SmolLM2-360M": 0.21,
+      "Qwen2.5-0.5B": 0.039,
+      "Falcon3-1B": 0.155,
+      "Qwen2.5-1.5B": 0.041,
+      "SmolLM2-1.7B": -0.023,
+      "Granite-3.1-2B": 0.412,
+      "Qwen2.5-3B": 0.035
+    }
   }
 }
