@@ -234,9 +234,21 @@ E1 (concept figure), E2 (evidence scale), E3 (terminology), F2 (numbers-match CI
 F3 (pinned requirements). Paper: 18 pages, clean build, CI-verified reproduction.
 
 REMAINING: C1 frontier judges (needs user API key), C3 human gold validation (needs
-humans), C4 14–32B quantized scale-up, C6 non-English, C7 circuit-level patching,
-D1-exact finite series, E5 venue-format branches, F1 (user: tokens/Zenodo/push),
-F4-F5 (arXiv, external reader).
+humans), C7 circuit-level patching (beyond span-patching), E5 venue-format branches,
+F1 (user: tokens/Zenodo/push), F4-F5 (arXiv, external reader).
+
+## Second status update (2026-07-19, night pass)
+
+Additionally DONE: exact sign-flip permutation (p=0.00098), 12-spec robustness sweep
+(argmax boundary found + reported), forest plot, split-half reliability 0.99, bound
+tightness 0.45x, explicit cumulant series, notation + compute-disclosure appendices,
+Broader Impact, README rewrite, REBUTTAL_FAQ.md (14 objections), variant-level
+decomposition (verbosity 99% padded; authority 2:1 novice-punishment), cross-dataset
+synthesis (26/30 positive, +0.23), D1-exact series appendix, CI-gate bug found+fixed.
+
+IN FLIGHT (all preregistered P10-P15, analyzers committed pre-data): sycophancy +
+anchoring probes (GPU), Chinese 5-probe suite (GPU), dose-response (CPU),
+ten-template breadth (CPU); queued: span-patching (P13), 14B retry, 32B gamble.
 
 ## Priority order (if time is short)
 
