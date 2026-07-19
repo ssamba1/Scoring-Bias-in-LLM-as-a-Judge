@@ -440,5 +440,66 @@
       "total_family_measurements": 30,
       "note": "n-weighted descriptive synthesis; datasets share model families"
     }
+  },
+  "H1_mass_validity": {
+    "mean_mass_base": 0.0028,
+    "mean_mass_instruct": 0.0003,
+    "diagnosis": "recorded mass covers BARE digit tokens; models put their mass on space-prefixed variants, so absolute mass is a tokenization artifact, not a validity measure",
+    "behavioral_validity": {
+      "gold_discrimination_unperturbed": 0.98,
+      "ev_flip_concordance_rho": 0.557,
+      "split_half_reliability": 0.993,
+      "note": "readout-variant robustness tested directly by P18 (tokvar_harness)"
+    }
+  },
+  "H2_trait_structure": {
+    "matrix": {
+      "rubric_order": {
+        "rubric_order": 1.0,
+        "score_id": -0.17,
+        "reference_answer": -0.08,
+        "authority": 0.24,
+        "verbosity": 0.13
+      },
+      "score_id": {
+        "rubric_order": -0.17,
+        "score_id": 1.0,
+        "reference_answer": 0.21,
+        "authority": 0.01,
+        "verbosity": -0.1
+      },
+      "reference_answer": {
+        "rubric_order": -0.08,
+        "score_id": 0.21,
+        "reference_answer": 1.0,
+        "authority": 0.42,
+        "verbosity": 0.3
+      },
+      "authority": {
+        "rubric_order": 0.24,
+        "score_id": 0.01,
+        "reference_answer": 0.42,
+        "authority": 1.0,
+        "verbosity": 0.6
+      },
+      "verbosity": {
+        "rubric_order": 0.13,
+        "score_id": -0.1,
+        "reference_answer": 0.3,
+        "authority": 0.6,
+        "verbosity": 1.0
+      }
+    },
+    "mean_offdiag_spearman": 0.156
+  },
+  "H3_anchoring_equivalence": {
+    "n_families": 13,
+    "mean_change": 0.015,
+    "ci90": [
+      -0.127,
+      0.141
+    ],
+    "note": "90% CI for TOST; equivalence at margin 0.15 if CI within [-0.15, 0.15]",
+    "within_pm_0p15": true
   }
 }

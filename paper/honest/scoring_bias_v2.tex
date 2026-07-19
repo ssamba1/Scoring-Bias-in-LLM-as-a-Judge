@@ -556,11 +556,13 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         $\sigma$ and perturbation $\delta$ is left open.
   \item \textbf{Expected-value vs sampled scores.} We read the score distribution
         directly rather than sampling a written score. The probability mass these
-        judges place on a bare score token is small (they often prefer to write a word
-        first), so expected-value scoring reads the \emph{conditional} distribution over
-        the valid answer tokens---the standard constrained-scoring readout, and exactly
-        why parse-based scoring fails, but it reflects the judge's relative preference
-        among valid scores rather than its unconstrained generation.
+        judges place on a bare score token is small (much of the numeric mass sits on
+        tokenizer variants such as space-prefixed digits), so expected-value scoring
+        reads the \emph{conditional} distribution over a valid-token subset---the
+        standard constrained-scoring readout, and exactly why parse-based scoring
+        fails. Its validity is behavioral rather than mass-based: near-perfect
+        unperturbed gold discrimination (\S\ref{sec:gold}), agreement with discrete
+        flip rates ($\rho=0.56$), and $0.99$ split-half reliability.
   \item \textbf{Ambiguity of the reversed-rubric ground-truth condition.} Under a
         \emph{reversed} rubric, a judge that correctly follows the instruction should
         rank the good answer \emph{below} the bad one; our accuracy metric scores it
