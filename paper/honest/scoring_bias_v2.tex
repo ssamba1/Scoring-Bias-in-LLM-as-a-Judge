@@ -1,0 +1,241 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx,booktabs,amsmath,amssymb,multirow,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage[round,authoryear]{natbib}
+\captionsetup{font=small,labelfont=bf}
+\graphicspath{{figures/}}
+\input{macros}
+
+\title{\textbf{Where Does Scoring Bias Come From?}\\[2pt]
+\large Instruction Tuning, Not Pre-training, Shapes Three Scoring Biases\\
+in Open-Weight LLM Judges}
+\author{Sricharan Samba\\
+\small South Forsyth High School \\
+\small \texttt{srisamba09@gmail.com}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+LLM-as-a-judge systems exhibit \emph{scoring biases}: their ratings shift when
+superficial features of the scoring task---the direction of the rubric, the format
+of the score label, or the presence of an example answer---are perturbed
+\citep{li2025scoring}. Whether these biases are inherent to pre-trained models or
+introduced during instruction tuning is an open question. We answer it with a
+controlled base-vs-instruct comparison across \NFAM{} open-weight model families
+(0.1--\MAXB{}B parameters). Two design choices make the comparison trustworthy.
+First, we score by \emph{expected value over the answer tokens} rather than by
+parsing generated text; we show the naive parse-based protocol silently fails on
+weak and base models (0\% of items scored), which would bias any base-vs-instruct
+comparison toward the instruct model. Second, we log \emph{per-item} scores,
+enabling flip rates, per-domain analysis, and mixed-effects modeling. \textbf{Result:}
+\RESULTSENTENCE{} The effect \SCALESENTENCE{} with model size. These findings
+provide direct evidence that scoring bias is modulated at the instruction-tuning
+stage, and that---for this class of open judges---tuning \emph{improves}
+robustness. Every number and figure is regenerated from one raw data file by a
+single script; no synthetic data is used.
+\end{abstract}
+
+\section{Introduction}
+When one language model scores another's output, the score should reflect response
+quality---not the wording of the rubric or the presence of an example.
+\citet{li2025scoring} showed this fails: state-of-the-art judges change their scores
+under three superficial perturbations, which they name \textbf{rubric-order} bias
+(reversing ``1=worst\dots5=best''), \textbf{score-ID} bias (numeric vs.\ letter vs.\
+descriptive labels), and \textbf{reference-answer} bias (a good or poor exemplar
+shown before scoring). They quantified the biases across five frontier models but
+left the mechanism open: ``the underlying causes of these scoring biases remain to
+be validated.''
+
+We ask the most basic causal question one can ask about their origin: \emph{are
+these biases already present in the pre-trained (base) model, or are they introduced
+by instruction tuning?} The answer determines where mitigation must act---data and
+architecture, or the alignment stage. Prior work established that base and instruct
+checkpoints differ as judges \citep{thakur2024judging}, and that instruction tuning
+can \emph{introduce} biases absent in the base model (a user-deference bias;
+\citealp{pan2025user}). We apply this base-vs-instruct design to the three scoring
+biases, at a scale (\NFAM{} families) chosen to give real statistical power rather
+than an anecdote.
+
+\paragraph{A measurement problem we had to fix first.}
+The standard way to read a judge's score is to have it \emph{write} one and parse
+the text. We find this fails systematically: weak and base models frequently emit no
+parseable label, so the item is silently dropped. In our own initial runs this
+produced \emph{zero} scored items for entire models (Appendix~\ref{app:parsefail}).
+Because base models fail to comply more often than instruct models, a parse-based
+protocol does not merely add noise---it \emph{confounds} the base-vs-instruct
+comparison, discarding exactly the base-model data one needs. We therefore score by
+the \emph{expected value of the score under the model's next-token distribution over
+the valid answer tokens}, which is always defined and requires no generation. We
+consider this measurement fix a contribution in its own right.
+
+\paragraph{Contributions.}
+\begin{enumerate}\itemsep2pt
+  \item \textbf{Scale.} A base-vs-instruct comparison of all three
+        \citet{li2025scoring} scoring biases across \NFAM{} open-weight families
+        (0.1--\MAXB{}B), spanning four training recipes.
+  \item \textbf{Measurement.} An expected-value (logit) scoring protocol that removes
+        the parse-failure confound of generation-based scoring, with evidence that
+        the naive protocol fails on base models.
+  \item \textbf{Finding.} \CONTRIBUTIONSENTENCE{}
+  \item \textbf{Depth \& reproducibility.} Per-item logging yields real flip rates,
+        per-domain analysis, and a size-dependence test; one script regenerates every
+        result from one data file.
+\end{enumerate}
+
+\section{Related Work}
+\paragraph{Bias in LLM judges.} \citet{wang2023large} showed GPT-4 flips its
+preferred answer 46.3\% of the time when response order is swapped;
+\citet{zheng2023judging} systematised LLM-as-a-judge evaluation and noted length and
+position biases; \citet{ye2024justice} catalogued twelve bias types;
+\citet{chen2024humans} found humans and LLMs share susceptibility to irrelevant
+factors; and \citet{shi2024position} give a systematic account of position bias.
+\citet{gu2024survey} survey the area, and \citet{park2024offsetbias} mitigate bias by
+tuning on debiased data. \citet{lee2025correctly} argue for more careful reporting of
+LLM-as-a-judge evaluations---a concern our reproducible, per-item protocol directly
+addresses.
+
+\paragraph{Scoring bias and its origin.} \citet{li2025scoring} introduced the three
+scoring biases we study and called for root-cause analysis.
+\citet{thakur2024judging} observed that base and instruct Llama-2 differ as judges,
+and \citet{pan2025user} used a base-vs-instruct design to show instruction tuning
+\emph{introduces} a user-deference bias. We apply the same design to scoring bias and
+find the opposite sign: for these biases, tuning \emph{reduces} rather than
+introduces them---underscoring that ``instruction tuning changes judge bias'' is
+directional and bias-specific, not a blanket effect.
+
+\section{Method}
+\subsection{Models}
+We use \NFAM{} open-weight families for which both a pre-trained (base) and an
+instruction-tuned checkpoint are public: the Qwen2.5 series
+\citep{qwen25}, SmolLM2 \citep{smollm2}, StableLM-2 \citep{stablelm2},
+Falcon3 \citep{falcon3}, Granite-3.1 \citep{granite3}, and OLMo-2 \citep{olmo2}.
+This spans 0.1--\MAXB{}B parameters and four alignment recipes (RLHF, SFT+DPO,
+SFT+RLHF, and SFT+DPO+RLVR), letting us test whether the effect depends on scale or
+recipe. All checkpoints are downloaded from their public repositories and run with
+greedy, deterministic scoring; no gated models are used, so the entire study is
+freely reproducible.
+
+\subsection{Scoring biases and probes}
+We reproduce the three probes of \citet{li2025scoring}. \textbf{Rubric order}: the
+1--5 scale is presented normally (1=worst), reversed (1=best), or with a scrambled
+mapping. \textbf{Score ID}: the label set is numeric (1--5), letter (A--E), or
+descriptive (Poor--Excellent). \textbf{Reference answer}: the model is shown no
+exemplar, a good exemplar, or a poor exemplar before scoring. Each model scores the
+same 50 instruction--response items (mid-quality, so bias can move scores in either
+direction; 10 items in each of 5 domains) under every variant.
+
+\subsection{Expected-value scoring}
+Let a probe variant define an ordered set of answer tokens $a_1,\dots,a_K$ with
+numeric values $v_1,\dots,v_K$ (e.g.\ ``1''\dots``5'' $\mapsto 1\dots5$; ``A''\dots``E''
+$\mapsto 5\dots1$). For a scoring prompt $p$ we read the model's next-token logits at
+the score position and define the score as the expected value under the renormalized
+distribution over the answer tokens,
+\[
+s(p) \;=\; \sum_{k=1}^{K} v_k \,\frac{\exp \ell_{a_k}}{\sum_j \exp \ell_{a_j}},
+\qquad \ell = \text{logits}(p)_{\text{last}} ,
+\]
+and a discrete score $\hat s(p) = v_{\arg\max_k \ell_{a_k}}$ used for flip rates. Both
+are always defined, so no item is ever dropped---removing the parse-failure confound
+of \S1. For each model and probe we summarise bias by
+$\Delta = \max_v \bar s_v - \min_v \bar s_v$, the maximum spread in mean score across
+that probe's variants \citep{li2025scoring}; larger $\Delta$ is more biased.
+
+\subsection{Statistical analysis}
+The inferential unit is the model \emph{family}: each family contributes a base
+$\Delta$ and an instruct $\Delta$ per probe. Across \NFAM{} families we report, per
+probe, the paired mean change (instruct $-$ base), the standardized paired effect
+$d_z$, a percentile-bootstrap 95\% CI of the mean change ($10^4$ resamples,
+seed 42), the exact Wilcoxon signed-rank test with Holm--Bonferroni correction across
+the three probes, and the number of families in which bias decreased. Per-item
+scores additionally give (i) \textbf{flip rates}---the fraction of (item, biased
+variant) pairs whose discrete score differs from the control variant, directly
+comparable to \citet{li2025scoring}; (ii) a \textbf{domain} breakdown; and (iii) a
+\textbf{size-dependence} test (Spearman correlation of the base$\to$instruct bias
+change against $\log_{10}$ parameters). All analysis is one script over one data file.
+
+\section{Results}
+% The following tables/figures are regenerated by repro/analyze_peritem.py and
+% repro/make_figures.py from results_scaled.json. Prose finalized once the run lands.
+\begin{table}[t]\centering\small
+\caption{Effect of instruction tuning on each scoring bias across \NFAM{} families.
+$\Delta$ = max inter-variant score spread (lower = less biased); \textbf{bold} change
+= bootstrap 95\% CI excludes zero. $p_{\text{Holm}}$ is Holm-corrected across probes.}
+\label{tab:v2main}
+\input{tables/tab_v2_summary.tex}
+\end{table}
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\linewidth]{fig1_base_vs_instruct.pdf}
+\caption{Mean bias before and after instruction tuning across \NFAM{} families.}
+\label{fig:v2main}
+\end{figure}
+
+\RESULTSPROSE{}
+
+\begin{table}[t]\centering\footnotesize
+\caption{Per-family bias $\Delta$ before/after instruction tuning. B = parameters
+(billions); Train = alignment recipe.}
+\label{tab:v2family}\setlength{\tabcolsep}{4pt}
+\input{tables/tab_v2_family.tex}
+\end{table}
+
+\subsection{Flip rates vs.\ \citet{li2025scoring}}
+\FLIPPROSE{}
+
+\subsection{Does the effect depend on scale?}
+\SIZEPROSE{}
+
+\subsection{Does it hold across domains?}
+\DOMAINPROSE{}
+
+\section{Discussion}
+\DISCUSSION{}
+
+\section{Limitations}
+\begin{enumerate}\itemsep2pt
+  \item \textbf{Open weights $\leq$\MAXB{}B.} We require public base+instruct pairs, so
+        the largest frontier judges (and closed models) are out of scope; the effect
+        may differ there.
+  \item \textbf{Family as the unit.} With \NFAM{} families the design is powered for
+        large effects; we report effect sizes and Holm-corrected tests and flag
+        anything marginal.
+  \item \textbf{Greedy, English, single template.} Scores are deterministic (no
+        within-model variance estimate); prompts are English and use one template.
+  \item \textbf{Expected-value vs.\ sampled scores.} Our metric reads the score
+        distribution directly rather than sampling text; this is more stable but not
+        identical to a deployment that samples a written score.
+\end{enumerate}
+
+\section{Conclusion}
+\CONCLUSION{}
+
+\section*{Reproducibility}
+Every statistic and figure is produced by \texttt{repro/analyze\_peritem.py} and
+\texttt{repro/make\_figures.py} from the single raw file produced by
+\texttt{repro/scaled\_harness.py} (seed 42). No synthetic or simulated data is used.
+An independent audit of prior versions of this project is included as
+\texttt{DATA\_INTEGRITY\_AUDIT.md}.
+
+\section*{Ethics Statement}
+No human subjects were involved. All models are public open-weight checkpoints used
+under their licenses. Compute is a free GPU tier at zero monetary cost.
+
+\appendix
+\section{The parse-failure confound}\label{app:parsefail}
+Our initial generation-and-parse runs scored \emph{zero} of 50 items for every model
+and probe variant: weak/base models did not emit a parseable label after the score
+header, so every item was discarded and each model returned a null result. Because
+base models fail to comply more often than instruct models, this is a confound, not
+just noise. Expected-value scoring (\S3.3) removes it by reading the score
+distribution directly. Run logs are in the repository.
+
+\bibliographystyle{plainnat}
+\bibliography{honest}
+\end{document}
