@@ -41,8 +41,11 @@ bias factorizes into a \emph{decisiveness} term (the distribution's variance) an
 trims the first but inflates the second, and the second wins
 (Proposition~\ref{prop:main}, Corollary~\ref{cor:diff}). A causal activation-patching
 experiment localizes where this is written into the network (\PATCHSENTENCE{}), a
-ground-truth test shows the bias corrupts real judgments (\GOLDSENTENCE{}), and a
-marginalization mitigation cuts bias by 59\% where raising confidence cannot. We also
+preregistered stage ablation localizes it in the pipeline (SFT installs the
+responsiveness, 84--99\% of the total rise; preference tuning installs the
+confidence), a ground-truth test shows the bias corrupts real judgments
+(\GOLDSENTENCE{}), and a marginalization mitigation cuts bias by 59\% where raising
+confidence cannot. We also
 expose a measurement confound---naive parse-based scoring silently drops all items on
 weak judges---and remove it with the standard distribution-based readout. Every number and figure regenerates from committed raw files by committed scripts,
 verified in continuous integration; no synthetic data is used, and a full audit of a
@@ -114,7 +117,9 @@ also the right object for the mechanism.
         \emph{which nuisances} bias a given judge (within judges), and their first-order
         product predicts the per-cell direction of bias change under tuning (75\% sign
         accuracy over 65 cells). Activation patching shows the instruct representation
-        causally carries the change in a localized network band.
+        causally carries the change in a localized network band, and a preregistered
+        alignment-stage ablation shows SFT installs the responsiveness (84--99\% of the
+        rise) while preference tuning installs the confidence.
   \item \textbf{Measurement + mitigation.} We show the standard parse-based readout
         \emph{confounds} base-vs-instruct comparisons (weak judges are silently dropped)
         and remove the confound by adopting the established distribution-based readout
@@ -425,6 +430,17 @@ A single scoring template could drive the effect. We re-run the Qwen2.5 families
 three surface-different templates (differing headers, delimiters, and phrasing;
 Appendix~\ref{app:prompts}). \MTPROSE{}
 
+\subsection{Which alignment stage installs the bias?}\label{sec:stages}
+\STAGEPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.98\linewidth]{fig_stages.pdf}
+\caption{Alignment-stage ablation (preregistered P7--P9). \textbf{(a)} Every stage
+sharpens the score distribution, preference stages most. \textbf{(b)} Responsiveness
+rises almost entirely at the \emph{SFT} step (84--99\% of the total rise).
+\textbf{(c)} Bias follows responsiveness, jumping at SFT and flat thereafter. SFT
+installs the bias; DPO/RLVR install the confidence.}
+\label{fig:stages}\end{figure}
+
 \subsection{Replication on public-dataset items}\label{sec:dolly}
 \REPLPROSE{}
 
@@ -537,8 +553,8 @@ Every statistic and figure is produced by \texttt{repro/analyze\_peritem.py},
 \texttt{repro/make\_concept\_figure.py} from the committed raw files
 (\texttt{results\_scaled.json}, \texttt{gold\_results.json}, \texttt{patch\_results.json},
 \texttt{results\_multitemplate.json}, \texttt{attn\_results.json},
-\texttt{results\_dolly.json.gz}; collected by
-\texttt{repro/\{scaled,gold,patch,multitemplate,attention,dolly\}\_harness.py}), seed 42.
+\texttt{results\_dolly.json.gz}, \texttt{results\_stages.json.gz}; collected by
+\texttt{repro/\{scaled,gold,patch,multitemplate,attention,dolly,stage\}\_harness.py}), seed 42.
 A continuous-integration check reruns every analysis script on the committed raw files
 and fails on any numerical drift. No synthetic or
 simulated data is used; a full integrity audit of a prior, fabricated version is included

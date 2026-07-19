@@ -50,6 +50,16 @@ was committed before results arrived.
 
 Failure of any of P7–P9 is reported as a failure.
 
+**Outcomes (recorded 2026-07-19 after the run completed; commit history shows
+the predictions and analyzer predate the data):**
+- P7 **confirmed**: SFT raises responsiveness in 10/10 family×probe cells; the
+  SFT step accounts for 84% (OLMo-2-1B) and 99% (OLMo-2-7B) of the total
+  base→RLVR responsiveness rise.
+- P8 **confirmed**: entropy falls at every stage (preference stages most);
+  DPO/RLVR add far less responsiveness than SFT (OLMo-7B: −0.01/+0.01 vs +0.06).
+- P9 **7/8 transitions** sign-agree (binomial p = 0.07; marginal at n = 8,
+  reported as such).
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as

@@ -26,6 +26,7 @@ jobs:
           python analyze_mechanism.py
           python analyze_gold.py
           python analyze_robustness.py
+          python analyze_stages.py
       - name: Derived outputs must match committed versions
         run: |
           git diff --exit-code -- \
@@ -33,4 +34,5 @@ jobs:
             paper/honest/repro/results_mechanism.json \
             paper/honest/repro/results_gold.json \
             paper/honest/repro/results_robustness.json \
+            paper/honest/repro/results_stages_analysis.json \
             paper/honest/tables/

@@ -41,7 +41,12 @@ def cell_feats(d, cv):
 
 def main():
     src = HERE / (sys.argv[1] if len(sys.argv) > 1 else "results_stages.json")
-    payload = json.loads(src.read_text())
+    if src.exists():
+        payload = json.loads(src.read_text())
+    else:
+        import gzip
+        payload = json.loads(gzip.decompress(
+            (HERE / (src.name + ".gz")).read_bytes()).decode())
     res = payload["results"]
 
     # per (family, stage, probe) features
