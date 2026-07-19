@@ -472,6 +472,18 @@
     "spearman_p": 0.0,
     "n": 130
   },
+  "responsiveness_within_group": {
+    "base": {
+      "spearman_rho": 0.798,
+      "spearman_p": 0.0,
+      "n": 65
+    },
+    "instruct": {
+      "spearman_rho": 0.813,
+      "spearman_p": 0.0,
+      "n": 65
+    }
+  },
   "responsiveness_per_family": {
     "SmolLM2-135M": {
       "base": 0.0982,

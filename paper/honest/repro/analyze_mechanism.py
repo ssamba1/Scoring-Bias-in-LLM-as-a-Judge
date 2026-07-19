@@ -203,6 +203,14 @@ def main():
         rr, rp = stats.spearmanr(rx, ry)
         out["responsiveness_bias_link"] = {"spearman_rho": round(float(rr), 3),
                                            "spearman_p": round(float(rp), 4), "n": len(rx)}
+        rkinds = [k for f in fams for k in ("base", "instruct") for _ in PROBES]
+        for grp in ("base", "instruct"):
+            gx = [rx[i] for i in range(len(rx)) if rkinds[i] == grp]
+            gy = [ry[i] for i in range(len(ry)) if rkinds[i] == grp]
+            if len(gx) > 3:
+                r2, p2 = stats.spearmanr(gx, gy)
+                out.setdefault("responsiveness_within_group", {})[grp] = {
+                    "spearman_rho": round(float(r2), 3), "spearman_p": round(float(p2), 4), "n": len(gx)}
         out["responsiveness_per_family"] = {f: {"base": round(responsiveness(pairs[f]["base"]), 4),
                                                 "instruct": round(responsiveness(pairs[f]["instruct"]), 4)} for f in fams}
         out["responsiveness_link_points"] = {"resp": [round(x, 4) for x in rx], "delta": [round(y, 4) for y in ry]}
