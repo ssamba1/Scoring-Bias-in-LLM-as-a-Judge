@@ -60,6 +60,30 @@ the predictions and analyzer predate the data):**
 - P9 **7/8 transitions** sign-agree (binomial p = 0.07; marginal at n = 8,
   reported as such).
 
+## Addendum 2 (registered 2026-07-19, before any of these runs completed)
+
+Four further experiments launched 2026-07-19 (`repro/probes2_harness.py`,
+`repro/zh_harness.py`, `repro/q14b_harness.py`, `repro/spanpatch_harness.py`);
+predictions written before any results were read.
+
+- **P10 (new bias types).** Two content perturbations not in the original suite —
+  sycophancy (user states an opinion before scoring) and anchoring (a numeric
+  anchor is stated) — show the same pattern: instruct Δ > base Δ in a majority
+  of the 13 families, for both probes.
+- **P11 (language generality).** On a fully Chinese version of the 5-probe suite
+  (Qwen2.5 0.5–7B), (a) instruct Δ > base Δ on average, and (b) the pooled
+  entropy–bias correlation is negative.
+- **P12 (scale).** Qwen2.5-14B (NF4 4-bit) continues the pattern: instruct mean
+  Δ > base mean Δ.
+- **P13 (locus of responsiveness).** Overwriting the instruct model's residual
+  stream at the nuisance-span positions with the base model's activations
+  (Qwen2.5-1.5B; expert-authority and good-exemplar probes) reduces the
+  instruct bias toward the base level by more than 50% in at least one layer
+  band; i.e., the instruct encoding of the nuisance span causally carries the
+  extra responsiveness.
+
+Failure of any of P10–P13 is reported as a failure.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as
