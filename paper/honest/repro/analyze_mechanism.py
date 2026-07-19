@@ -110,6 +110,28 @@ def main():
                                 "spearman_p": round(float(pv), 4), "n": len(xs)}
     # per-point + per-family data for figures
     out["link_points"] = {"entropy": [round(x, 4) for x in xs], "delta": [round(y, 4) for y in ys]}
+
+    # same test using sqrt(Var_sigma(v)) directly (the exact quantity in Prop. 1)
+    def sqrt_var(dist):
+        vals = list(range(1, len(dist) + 1))
+        mean = sum(p * v for p, v in zip(dist, vals))
+        return (sum(p * (v - mean) ** 2 for p, v in zip(dist, vals))) ** 0.5
+    vx, vy = [], []
+    try:
+        for f in fams:
+            for kind in ("base", "instruct"):
+                d = pairs[f][kind]
+                for p in PROBES:
+                    md = [d[p][v].get("mean_dist") for v in d[p]]
+                    if any(m is None for m in md):
+                        raise KeyError
+                    vx.append(sum(sqrt_var(m) for m in md) / len(md))
+                    vy.append(delta({v: d[p][v]["mean"] for v in d[p]}))
+        vr, vp = stats.spearmanr(vx, vy)
+        out["var_bias_link"] = {"spearman_rho": round(float(vr), 3),
+                                "spearman_p": round(float(vp), 4), "n": len(vx)}
+    except (KeyError, TypeError):
+        out["var_bias_link"] = {"note": "mean_dist not in data"}
     out["decisiveness_per_family"] = {
         f: {"base": round(ctrl_stat(pairs[f]["base"], "mean_entropy"), 4),
             "instruct": round(ctrl_stat(pairs[f]["instruct"], "mean_entropy"), 4)} for f in fams}

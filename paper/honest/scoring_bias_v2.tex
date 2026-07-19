@@ -182,11 +182,14 @@ $\delta$,
 \qquad
 \|\nabla_\ell s\|_2 \;\le\; \sqrt{\mathrm{Var}_\sigma(v)} .
 \]
-$\mathrm{Var}_\sigma(v)=\sum_k\sigma_k(v_k-s)^2$ is $0$ when $\sigma$ is a point mass
-and maximal when $\sigma$ is uniform; it increases monotonically with the entropy
-$H(\sigma)$ over the family of distributions concentrated on a mode. Hence a more
-decisive (lower-entropy) judge is, to first order, less sensitive to every nuisance
-perturbation---less biased.
+The bound is exact and assumption-free. $\mathrm{Var}_\sigma(v)=\sum_k\sigma_k(v_k-s)^2$
+vanishes when $\sigma$ is a point mass and is maximal when $\sigma$ is uniform: a judge
+that concentrates its answer distribution is, to first order, insensitive to \emph{every}
+nuisance perturbation. We use the entropy $H(\sigma)$ as the empirical decisiveness
+statistic; $H$ and $\mathrm{Var}_\sigma(v)$ share the same extremes and, in our data, are
+tightly correlated (\S\ref{sec:mech}), so the prediction is robust to which is used. We
+report the entropy--bias relationship as the primary test and verify it also holds for
+$\sqrt{\mathrm{Var}_\sigma(v)}$ directly.
 \end{proposition}
 
 \noindent\emph{Proof sketch.} $\partial s/\partial \ell_j=\sum_k v_k\,\sigma_k(\delta_{kj}-\sigma_j)
@@ -377,6 +380,34 @@ and probe: weak/base models emitted no parseable label after the score header, s
 every item was discarded and each model returned null. Because base models comply less
 than instruct models, this is a confound, not noise. Expected-value scoring
 (\S\ref{sec:evs}) removes it. Run logs are in the repository.
+
+\section{Exact prompts}\label{app:prompts}
+All probes share the template below; a variant changes only the italic slot(s). Answer
+tokens are $\{1,\dots,5\}$ (numeric), $\{A,\dots,E\}$ (letter, mapped $A\!=\!5$), or
+$\{$Poor,\dots,Excellent$\}$ (descriptive).
+\begin{quote}\ttfamily\small
+\{\emph{prefix}\}Evaluate the following response to the instruction \emph{\{scale\}}.\\
+\#\#\# Instruction: \{item\}\\
+\#\#\# Response: \{\emph{transform}(response)\}\\
+\#\#\# \{header\}:
+\end{quote}
+\textbf{Rubric order} varies \emph{scale}: ``\dots 1 is worst and 5 is best'' (control) /
+``\dots 1 is best and 5 is worst'' (reversed) / a scrambled mapping. \textbf{Score ID}
+varies the answer-token set and header (Score/Grade/Rating). \textbf{Reference answer}
+and \textbf{authority} vary \emph{prefix} (empty / good / poor exemplar; expert / novice
+framing). \textbf{Verbosity} varies \emph{transform} (identity / padded / first-sentence).
+
+\section{Practical recommendations}\label{app:practice}
+For practitioners deploying an LLM judge: \textbf{(1)}~read the score as an expected
+value over the answer tokens, never by parsing free text---parsing silently discards the
+hardest cases and biases comparisons. \textbf{(2)}~Log the score-distribution entropy; it
+is a one-call, label-free estimate of the judge's bias risk (\S\ref{sec:predict}), and a
+high-entropy judge should be distrusted or its scores thresholded on confidence.
+\textbf{(3)}~To reduce format biases, prefer decisive judges and numeric labels; to
+reduce content biases (exemplars, framing, length), remove or average over the content
+dimension rather than relying on a ``better'' judge, since tuning can \emph{raise}
+content responsiveness (Corollary~\ref{cor:diff}). \textbf{(4)}~Report bias per channel
+(format vs content); a single aggregate hides the differential effect.
 
 \bibliographystyle{plainnat}
 \bibliography{honest}
