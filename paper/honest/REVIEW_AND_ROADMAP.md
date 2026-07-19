@@ -221,6 +221,23 @@ a per-family theory test, not just a pooled correlation.
 6. Camera-ready checklist: acknowledgments, compute statement (already have),
    license table for the 13 model families.
 
+## Status update (2026-07-19, evening pass)
+
+DONE since the morning review: B1 (within-checkpoint + LMM; found and reported the
+within-judge entropy null and the within-judge responsiveness ρ=+0.64), B2 (clustered
+bootstrap; predictor downgraded to rank signal), B3 (leave-one-family/vendor/size),
+B4 (EV/flip concordance ρ=0.56), C2 (stage ablation, preregistered P7–P9: SFT installs
+the responsiveness 84–99%, preference tuning the confidence), C5 (Dolly-15k public-items
+replication: 7/8 families, ρ=−0.44), C8 (template ensembling −22%), D1 (cumulant
+appendix), D2 (TV→logit-displacement lemma), D3 (per-cell test, 75% sign accuracy),
+E1 (concept figure), E2 (evidence scale), E3 (terminology), F2 (numbers-match CI),
+F3 (pinned requirements). Paper: 18 pages, clean build, CI-verified reproduction.
+
+REMAINING: C1 frontier judges (needs user API key), C3 human gold validation (needs
+humans), C4 14–32B quantized scale-up, C6 non-English, C7 circuit-level patching,
+D1-exact finite series, E5 venue-format branches, F1 (user: tokens/Zenodo/push),
+F4-F5 (arXiv, external reader).
+
 ## Priority order (if time is short)
 
 1. C1 frontier judges — converts the biggest weakness into a headline.
