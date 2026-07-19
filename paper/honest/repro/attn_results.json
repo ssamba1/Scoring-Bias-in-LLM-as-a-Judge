@@ -1,0 +1,36 @@
+{
+  "metric": "mean attention from score position to nuisance-prefix tokens",
+  "errors": {},
+  "results": {
+    "Qwen2.5-0.5B": {
+      "base": {
+        "authority_expert": 0.38255,
+        "reference_good": 0.37865
+      },
+      "instruct": {
+        "authority_expert": 0.37777,
+        "reference_good": 0.37721
+      }
+    },
+    "Qwen2.5-1.5B": {
+      "base": {
+        "authority_expert": 0.37682,
+        "reference_good": 0.37434
+      },
+      "instruct": {
+        "authority_expert": 0.36282,
+        "reference_good": 0.35783
+      }
+    },
+    "Qwen2.5-3B": {
+      "base": {
+        "authority_expert": 0.43979,
+        "reference_good": 0.4131
+      },
+      "instruct": {
+        "authority_expert": 0.42203,
+        "reference_good": 0.39293
+      }
+    }
+  }
+}

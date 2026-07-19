@@ -52,7 +52,7 @@ def nuisance_attention(tok, model, instr, resp, prefix):
 
 def run(name):
     tok=AutoTokenizer.from_pretrained(name)
-    m=AutoModelForCausalLM.from_pretrained(name, torch_dtype=torch.float16 if DEVICE=="cuda" else torch.float32,
+    m=AutoModelForCausalLM.from_pretrained(name, torch_dtype=torch.float32,
                                            attn_implementation="eager").to(DEVICE); m.eval()
     out={}
     for label,prefix in NUIS.items():
