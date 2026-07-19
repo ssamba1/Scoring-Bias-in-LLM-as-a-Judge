@@ -84,6 +84,14 @@ predictions written before any results were read.
 
 Failure of any of P10–P13 is reported as a failure.
 
+**P10 outcome (recorded 2026-07-19 after the run):** SPLIT.
+- Sycophancy: **confirmed** — instruct Δ > base Δ in 11/13 families, mean change
+  +0.46 (Wilcoxon p = 0.027); the instruct-side bias (1.37) is the largest of any
+  probe measured in this project.
+- Anchoring: **not supported** — 9/13 families positive (nominal majority) but the
+  mean change is +0.015 (p = 0.54), i.e., null in magnitude. Reported as a failure
+  of the "both probes" clause.
+
 ## Addendum 3 (registered 2026-07-19, before these CPU runs launched)
 
 Two further experiments on Kaggle CPU (`repro/dose_harness.py`,

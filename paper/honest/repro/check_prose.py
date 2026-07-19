@@ -85,6 +85,16 @@ close("authority novice share", 0.67, g1["authority"]["novice"], 0.006)
 g2 = rob["G2_cross_dataset"]["_combined"]
 close("cross-dataset weighted mean", 0.23, g2["weighted_mean_effect"], 0.006)
 
+# ---- P10 new probes ----
+p2path = HERE / "results_probes2_analysis.json"
+if p2path.exists():
+    p2 = json.loads(p2path.read_text())["per_probe"]
+    close("sycophancy change", 0.46, p2["sycophancy"]["mean_change"], 0.006)
+    close("sycophancy instruct level", 1.37, p2["sycophancy"]["mean_instruct"], 0.006)
+    if p2["sycophancy"]["families_positive"] != "11/13":
+        FAILS.append("sycophancy 11/13 stale")
+    close("anchoring null", 0.015, p2["anchoring"]["mean_change"], 0.003)
+
 # ---- stages ----
 if stages["P7"]["sft_resp_up_cells"] != "10/10":
     FAILS.append("P7 10/10 stale")

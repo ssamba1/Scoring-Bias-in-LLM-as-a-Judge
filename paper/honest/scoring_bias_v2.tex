@@ -424,6 +424,9 @@ relation should not be specific to the format-level scoring biases. We test it o
 two additional bias types (authority, verbosity), which perturb content rather than
 label format. \GENPROSE{}
 
+\subsection{Two preregistered probes: sycophancy confirms, anchoring refuses}\label{sec:newprobes}
+\NEWPROBEPROSE{}
+
 \subsection{Bias is predictable from decisiveness---with the sign reversed}\label{sec:predict}
 Can a judge's bias be estimated from \emph{one unperturbed forward pass}---its
 control-condition score entropy? We test this out-of-sample with leave-one-family-out
@@ -586,8 +589,9 @@ Every statistic and figure is produced by \texttt{repro/analyze\_peritem.py},
 \texttt{repro/make\_concept\_figure.py} from the committed raw files
 (\texttt{results\_scaled.json}, \texttt{gold\_results.json}, \texttt{patch\_results.json},
 \texttt{results\_multitemplate.json}, \texttt{attn\_results.json},
-\texttt{results\_dolly.json.gz}, \texttt{results\_stages.json.gz}; collected by
-\texttt{repro/\{scaled,gold,patch,multitemplate,attention,dolly,stage\}\_harness.py}), seed 42.
+\texttt{results\_dolly.json.gz}, \texttt{results\_stages.json.gz},
+\texttt{results\_probes2.json}; collected by
+\texttt{repro/\{scaled,gold,patch,multitemplate,attention,dolly,stage,probes2\}\_harness.py}), seed 42.
 A continuous-integration check reruns every analysis script on the committed raw files
 and fails on any numerical drift. No synthetic or
 simulated data is used; a full integrity audit of a prior, fabricated version is included

@@ -27,6 +27,7 @@ jobs:
           python analyze_gold.py
           python analyze_robustness.py
           python analyze_stages.py
+          python analyze_newprobes.py results_probes2.json
       - name: Paper prose numbers must match derived results
         working-directory: paper/honest/repro
         run: python check_prose.py
@@ -38,4 +39,5 @@ jobs:
             paper/honest/repro/results_gold.json \
             paper/honest/repro/results_robustness.json \
             paper/honest/repro/results_stages_analysis.json \
+            paper/honest/repro/results_probes2_analysis.json \
             paper/honest/tables/
