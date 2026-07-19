@@ -113,6 +113,20 @@ Two further experiments on Kaggle CPU (`repro/dose_harness.py`,
 
 Failure of either is reported as a failure.
 
+## Addendum 4 (registered 2026-07-19, before these CPU runs launched)
+
+- **P16 (sampled readout).** Scoring by actually sampling written scores
+  (temperature 1, k=8, parse-first-digit; `repro/sampled_harness.py`): (a) parse
+  failure is much higher for base than instruct checkpoints (the confound,
+  now quantified); (b) among parseable items, the sampled-score bias Δ
+  correlates positively with the expected-value Δ across cells.
+- **P17 (scale granularity).** With rating scales of 3, 5, and 10 points
+  (`repro/granularity_harness.py`), measured bias grows with the value range
+  of the scale (as Var_σ(v) scaling predicts), and instruct Δ > base Δ at
+  every granularity.
+
+Failure of any clause is reported as a failure.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as
