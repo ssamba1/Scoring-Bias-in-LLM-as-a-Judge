@@ -3,7 +3,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC_BY_4.0-1a1a2e?style=flat-square" alt="License"></a>
-  <img src="https://img.shields.io/badge/Families-9_(base%2Binstruct)-4a5568?style=flat-square" alt="Families">
+  <img src="https://img.shields.io/badge/Families-13_(base%2Binstruct)-4a5568?style=flat-square" alt="Families">
   <img src="https://img.shields.io/badge/Bias_types-5-2b6cb0?style=flat-square" alt="5 bias types">
   <img src="https://img.shields.io/badge/data-real_only-38a169?style=flat-square" alt="real data">
 </p>
@@ -33,23 +33,36 @@ We study whether a stronger, more instruction-tuned LLM judge is a fairer one. I
 
 ## Finding
 
-Across **13 open-weight families (0.1–8B)** and **five bias types** (rubric order, score ID,
-reference answer, plus **authority** and **verbosity** from outside the scoring-bias literature),
-scored by the **expected value of the answer-token distribution** (which fixes the parse-failure
-confound):
+Across **13 open-weight families (0.1-8B; 26 checkpoints; 13,000 per-item scores)** and
+**5 bias types** (rubric order, score ID, reference answer + authority, verbosity):
 
-- Instruction tuning **sharpens** the score distribution (entropy 2.04 → 1.45 bits, 11/13 families)…
-- …yet **increases** bias across **all 5** types (linear mixed-effects instruct coef **+0.16, p<10⁻³**).
-- So decisiveness correlates **negatively** with bias (ρ = −0.41, p<10⁻³; the exact √Var term ρ = −0.25).
-- Decisiveness even **predicts** bias out-of-sample (leave-one-family-out R² = 0.27) — but **inverted**: the more confident judge is the more biased one.
-- **Theory:** bias = *decisiveness* × *responsiveness* (Prop 1 + Corollary 1); tuning inflates
-  responsiveness faster than it trims decisiveness, so the sign flips.
-- **Causal:** activation-patching the instruct representation into the base model transfers the shift
-  in a single mid-network layer band (Qwen2.5-1.5B, n=35 items).
-- **Ground truth:** nuisances wreck real good-vs-bad discrimination (rubric reversal: accuracy 0.98→0);
-  tuning does not protect it.
-- **Mitigation:** marginalizing over nuisance formats cuts bias **60%**, where a more confident
-  readout makes it worse.
+- Instruction tuning **sharpens** the score distribution (entropy 2.04 -> 1.45 bits, 11/13 families)...
+- ...yet **increases** bias (mixed-effects instruct coef **+0.16, p<1e-3**; exact sign-flip
+  permutation over all 2^13 family patterns **p=0.00098**; stable under leave-one-family,
+  leave-one-vendor, and >=1B-only sensitivity checks, and under all six expected-value
+  analysis specifications).
+- Decisiveness correlates **negatively** with bias (rho=-0.41 pooled; -0.38 partialling out
+  model size; holds within base-only and within instruct-only judges) - the confident judge
+  is the more biased one. Within a single judge, **responsiveness** - not confidence - ranks
+  which nuisances hurt (mean within-judge rho=+0.64, 24/26 judges).
+- **Theory:** bias = *decisiveness* x *responsiveness* (Prop 1 + corollaries + a TV->logit
+  lemma). Measured directly, tuning trims decisiveness a little and inflates responsiveness a
+  lot (TV 0.15->0.26, d_z=1.44); the first-order product predicts the per-cell direction of
+  bias change in 75% of 65 cells.
+- **Causal (2 ways):** activation patching transfers the shift in a mid-network layer band;
+  a **preregistered stage ablation** (OLMo-2 1B/7B, Tulu-3-8B ladders) shows **SFT installs
+  the responsiveness (84-99% of the rise); DPO/RLVR install the confidence**.
+- **Replications:** public Dolly-15k items (7/8 families, rho=-0.44); three prompt templates;
+  more in flight (new bias types, Chinese, 14B - preregistered P10-P13).
+- **Ground truth:** nuisances wreck real good-vs-bad discrimination (rubric reversal:
+  accuracy 0.98->0); tuning does not protect it.
+- **Mitigations:** marginalizing over score formats cuts bias **59%**; template ensembling
+  cuts **22%**; a *more decisive* readout (argmax) makes it **worse** (1.09 -> 1.88).
+- **Honest boundaries** (reported, not hidden): the out-of-sample predictor is a rank signal
+  (rho=0.58) whose R^2 CI spans zero at n=13; the increase attaches to the continuous
+  expected-value readout (argmax quantization hides it except for content probes); the
+  entropy-bias relation is flat in the small >3B subsample; attention to nuisance tokens is
+  an explicit null (refutes the fabricated "IIAR" mechanism of the retracted version).
 
 **Confidence is not robustness.**
 
@@ -57,24 +70,35 @@ confound):
 
 ```bash
 cd paper/honest/repro
-python analyze_peritem.py   results_scaled.json    # deltas, flip rates, domain, mixed-effects, tables
-python analyze_mechanism.py results_scaled.json    # entropy↔bias, generality, predictor, mitigation
-python analyze_gold.py      gold_results.json       # ground-truth discrimination
-python make_mech_figures.py                         # all figures from real data
+pip install -r requirements-repro.txt
+python analyze_peritem.py       # deltas, flip rates, domain, mixed-effects, tables
+python analyze_mechanism.py     # entropy<->bias, generality, predictor, mitigation, size control
+python analyze_gold.py          # ground-truth discrimination
+python analyze_robustness.py    # clustered stats, spec curve, permutation, forest, anatomy
+python analyze_stages.py        # preregistered stage ablation (P7-P9)
+python make_mech_figures.py && python make_concept_figure.py && python make_forest_figure.py
+python make_stage_figure.py && python make_exact_figure.py
 cd .. && pdflatex scoring_bias_v2 && bibtex scoring_bias_v2 && pdflatex scoring_bias_v2 && pdflatex scoring_bias_v2
 ```
 
-Every number and figure regenerates from the committed raw files
-(`repro/results_scaled.json`, `repro/gold_results.json`, `repro/patch_results.json`), seed 42.
-**No synthetic or simulated data is used.**
+**CI-enforced:** `.github/workflows/repro.yml` reruns every analyzer on the committed raw
+files and fails on any numerical drift. **No synthetic or simulated data is used.**
 
 ## Real data of record
 
-- ✅ `paper/honest/repro/results_scaled.json` — 9 families × 5 bias types, per-item scores + entropy (logit scoring).
-- ✅ `paper/honest/repro/gold_results.json` — 12 gold good/bad pairs × 5 families.
-- ✅ `paper/honest/repro/patch_results.json` — causal activation-patching (Qwen2.5-1.5B, per layer).
-- 🗄️ `RETRACTED/` — fabricated / synthetic artifacts from prior versions; **not for use or citation**.
-- Data-collection harnesses that produced these: `paper/honest/repro/{scaled_harness,gold_harness,patch_harness}.py` (Kaggle).
+| Raw file (committed) | Experiment | Harness |
+|---|---|---|
+| `repro/results_scaled.json` | 13 families x 5 bias types, per-item + distributions | `scaled_harness.py` |
+| `repro/gold_results.json` | 20 gold good/bad pairs | `gold_harness.py` |
+| `repro/patch_results.json` | activation patching (per layer) | `patch_harness.py` |
+| `repro/results_multitemplate.json` | 3 prompt templates x 3 families | `multitemplate_harness.py` |
+| `repro/attn_results.json` | attention-to-nuisance null | `attention_harness.py` |
+| `repro/results_dolly.json.gz` | public-items replication (Dolly-15k) | `dolly_harness.py` |
+| `repro/results_stages.json.gz` | alignment-stage ablation (preregistered) | `stage_harness.py` |
+
+Preregistrations (predictions committed before data): `paper/honest/PREREGISTRATION.md`
+(P1-P6 main, P7-P9 stages, P10-P13 in-flight). Prior fabricated artifacts:
+quarantined in `RETRACTED/`, audited in `DATA_INTEGRITY_AUDIT.md`.
 
 ## How to cite
 

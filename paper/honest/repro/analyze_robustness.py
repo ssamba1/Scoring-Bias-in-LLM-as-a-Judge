@@ -399,6 +399,116 @@ def main():
                         "first_order": [round(x, 4) for x in linear]}
     out["E4_exact_vs_first_order"] = curves
 
+    # ---- F1: exact sign-flip permutation test for the headline effect ----
+    # Under H0 (tuning direction exchangeable within family), each family's effect
+    # has a random sign. n=13 -> enumerate all 2^13 = 8192 patterns exactly.
+    effs2 = np.array(list(fam_effect.values()))
+    obs = abs(effs2.mean())
+    n = len(effs2)
+    count = 0
+    for mask in range(1 << n):
+        signs = np.array([1 if mask >> i & 1 else -1 for i in range(n)])
+        if abs((signs * effs2).mean()) >= obs - 1e-12:
+            count += 1
+    out["F1_exact_permutation"] = {
+        "observed_mean_effect": round(float(effs2.mean()), 3),
+        "exact_p_two_sided": round(count / (1 << n), 5),
+        "n_patterns": 1 << n}
+
+    # ---- F2: per-family effects with probe-resampled bootstrap CIs (forest) ----
+    forest = {}
+    for fam in fams:
+        b = np.array([r["bias"] for r in recs if r["family"] == fam and r["kind"] == "base"])
+        i = np.array([r["bias"] for r in recs if r["family"] == fam and r["kind"] == "instruct"])
+        if len(b) != len(i) or not len(b):
+            continue
+        diff = i - b
+        bs = [float(rng.choice(diff, len(diff), replace=True).mean()) for _ in range(10_000)]
+        lo, hi = np.percentile(bs, [2.5, 97.5])
+        forest[fam] = {"effect": round(float(diff.mean()), 3),
+                       "ci": [round(float(lo), 3), round(float(hi), 3)],
+                       "params_b": scaled[fam].get("params_b")}
+    out["F2_forest"] = forest
+
+    # ---- F3: specification curve -- 12 analysis specifications ----
+    def cell_bias(d, cv, readout, metric):
+        if readout == "ev":
+            means = {v: d[v]["mean"] for v in d}
+        else:
+            means = {v: float(np.mean(d[v]["per_item_argmax"])) for v in d}
+        if metric == "maxmin":
+            return max(means.values()) - min(means.values())
+        return float(np.mean([abs(means[v] - means[cv]) for v in means if v != cv]))
+    FORMAT_P, CONTENT_P = ["rubric_order", "score_id"], ["reference_answer", "authority", "verbosity"]
+    spec_out = {}
+    for readout in ("ev", "argmax"):
+        for metric in ("maxmin", "meandev"):
+            for pset_name, pset in (("all", PROBES), ("format", FORMAT_P), ("content", CONTENT_P)):
+                effs3 = []
+                for fam in fams:
+                    fb, fi = [], []
+                    for kind, acc in (("base", fb), ("instruct", fi)):
+                        kd = scaled[fam].get(kind)
+                        if not isinstance(kd, dict):
+                            continue
+                        for p in pset:
+                            if p in kd:
+                                acc.append(cell_bias(kd[p], CONTROL[p], readout, metric))
+                    if fb and fi:
+                        effs3.append(float(np.mean(fi) - np.mean(fb)))
+                e3 = np.array(effs3)
+                spec_out[f"{readout}|{metric}|{pset_name}"] = {
+                    "mean_effect": round(float(e3.mean()), 3),
+                    "families_positive": f"{int((e3 > 0).sum())}/{len(e3)}"}
+    out["F3_specification_curve"] = {
+        "specs": spec_out,
+        "n_specs_positive_mean": sum(1 for v in spec_out.values() if v["mean_effect"] > 0),
+        "n_specs": len(spec_out)}
+
+    # ---- F4: split-half reliability of the bias estimator ----
+    d_even, d_odd = [], []
+    for fam in fams:
+        for kind in ("base", "instruct"):
+            kd = scaled[fam].get(kind)
+            if not isinstance(kd, dict):
+                continue
+            for p in PROBES:
+                if p not in kd:
+                    continue
+                halves = []
+                for sl in (slice(0, None, 2), slice(1, None, 2)):
+                    means = {v: float(np.mean(kd[p][v]["per_item"][sl])) for v in kd[p]}
+                    halves.append(max(means.values()) - min(means.values()))
+                d_even.append(halves[0]); d_odd.append(halves[1])
+    r_half = stats.spearmanr(d_even, d_odd).statistic
+    out["F4_split_half"] = {
+        "split_half_spearman": round(float(r_half), 3),
+        "spearman_brown": round(float(2 * r_half / (1 + r_half)), 3),
+        "n_cells": len(d_even)}
+
+    # ---- F5: empirical tightness of the gradient-norm bound ----
+    ratios = []
+    for fam in fams:
+        for kind in ("base", "instruct"):
+            kd = scaled[fam].get(kind)
+            if not isinstance(kd, dict):
+                continue
+            for p in PROBES:
+                if p not in kd:
+                    continue
+                md = np.array(kd[p][CONTROL[p]]["mean_dist"], dtype=float)
+                md = md / md.sum()
+                vals = np.arange(1, 6, dtype=float)
+                s0 = float((md * vals).sum())
+                grad = math.sqrt(float((md ** 2 * (vals - s0) ** 2).sum()))
+                sv = math.sqrt(float((md * (vals - s0) ** 2).sum()))
+                if sv > 1e-9:
+                    ratios.append(grad / sv)
+    out["F5_bound_tightness"] = {
+        "mean_gradnorm_over_sqrtvar": round(float(np.mean(ratios)), 3),
+        "min": round(float(np.min(ratios)), 3), "max": round(float(np.max(ratios)), 3),
+        "n": len(ratios)}
+
     (HERE / "results_robustness.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 

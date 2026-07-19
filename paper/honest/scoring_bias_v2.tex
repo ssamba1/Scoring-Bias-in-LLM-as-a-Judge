@@ -234,7 +234,10 @@ linear mixed-effects model with random intercepts for family and item. Because p
 correlations mix points from the same checkpoint, every pooled correlation in \S5 is
 accompanied by a cluster-respecting counterpart: within-checkpoint correlations, a
 family-random-intercept regression, a size-partialled correlation, and a
-family-clustered bootstrap for the out-of-sample predictor.
+family-clustered bootstrap for the out-of-sample predictor. The headline effect is
+additionally subjected to an \emph{exact} sign-flip permutation test enumerating all
+$2^{13}$ family sign patterns, and to a twelve-specification robustness sweep
+(\S\ref{sec:spec}); the bias estimator's split-half reliability is $0.99$.
 
 \section{Decomposing bias: decisiveness and responsiveness}\label{sec:theory}
 Bias is the change in the score $s$ when a nuisance perturbation shifts the logits
@@ -264,6 +267,13 @@ $\sqrt{\mathrm{Var}_\sigma(v)}$ directly.
 \noindent\emph{Proof sketch.} $\partial s/\partial \ell_j=\sum_k v_k\,\sigma_k(\delta_{kj}-\sigma_j)
 =\sigma_j(v_j-s)$; the norm bound is Cauchy--Schwarz with
 $\sum_j\sigma_j^2(v_j-s)^2\le\sum_j\sigma_j(v_j-s)^2=\mathrm{Var}_\sigma(v)$. $\square$
+
+\smallskip
+\noindent The bound's empirical slack is modest and stable: computing
+$\|\nabla_\ell s\|$ exactly from the measured control distributions gives
+$\|\nabla_\ell s\|/\sqrt{\mathrm{Var}_\sigma(v)} = 0.45$ on average (range
+$0.38$--$0.57$ across all 130 cells), so true first-order sensitivities run at about
+half the worst-case bound, uniformly across judges.
 
 \medskip
 The bound factorizes the bias into two terms with distinct causes. Writing the
@@ -363,6 +373,15 @@ rate is discrete-score disagreement with the control variant.}
 \label{fig:v2main}\end{figure}
 \RESULTSPROSE{}
 
+\subsection{Robustness of the headline: twelve specifications, one exact test}\label{sec:spec}
+\SPECPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.6\linewidth]{fig_forest.pdf}
+\caption{Per-family change in mean bias under instruction tuning (probe-resampled
+95\% CIs), ordered by model size. Red dashed line: cross-family mean, with the exact
+sign-flip permutation $p$ over all $2^{13}$ sign patterns.}
+\label{fig:forest}\end{figure}
+
 \subsection{Mechanism: sharper, but more biased}\label{sec:mech}
 \MECHPROSE{}
 \begin{figure*}[t]\centering
@@ -448,7 +467,7 @@ installs the bias; DPO/RLVR install the confidence.}
 \subsection{Replication on public-dataset items}\label{sec:dolly}
 \REPLPROSE{}
 
-\subsection{Flip rates, scale, recipe, and domain}
+\subsection{Flip rates, scale, recipe, and domain}\label{sec:secondary}
 \SECONDARYPROSE{}
 \begin{table}[t]\centering\footnotesize
 \caption{Per-family bias $\Delta$ before/after instruction tuning. B = parameters
@@ -459,7 +478,7 @@ installs the bias; DPO/RLVR install the confidence.}
 \subsection{The anatomy of bias variance}\label{sec:anatomy}
 \ANATPROSE{}
 
-\subsection{Mixed-effects confirmation and mitigation}
+\subsection{Mixed-effects confirmation and mitigation}\label{sec:lmm}
 \LMMPROSE{} \MITIGPROSE{}
 
 \section{Discussion}
@@ -542,6 +561,11 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         upper bound on pure length bias; the padded-vs-control contrast alone, which is
         quality-preserving, shows the same direction (mean $|\Delta|$
         $0.29\!\to\!0.53$ after tuning, 11/13 families).
+  \item \textbf{Readout dependence of the increase.} The tuning-induced \emph{increase}
+        is a property of the continuous expected-value score; after quantizing to the
+        argmax the increase survives only for the content probes
+        (\S\ref{sec:spec}). Claims about the increase therefore attach to the
+        distributional readout we recommend, not to every scoring pipeline.
   \item \textbf{Attention metric.} Our null (\S\ref{sec:attn}) uses raw attention mass
         from the score position to the nuisance span, averaged over layers and heads.
         Attention weights are an imperfect proxy for information flow; a finer-grained
@@ -567,9 +591,20 @@ and fails on any numerical drift. No synthetic or
 simulated data is used; a full integrity audit of a prior, fabricated version is included
 as \texttt{DATA\_INTEGRITY\_AUDIT.md}.
 
-\section*{Ethics Statement}
+\section*{Ethics and Broader Impact}
 No human subjects. All models are public open-weight checkpoints used under their
-licenses. Compute is a free tier at zero monetary cost.
+licenses. Compute is a free tier at zero monetary cost (Appendix~\ref{app:compute}).
+Two deployment implications deserve emphasis. First, LLM judges gate real decisions
+---which models ship, which responses are rewarded in RLHF---and our results say the
+natural heuristic of trusting the most confident judge selects the most biased one;
+evaluation pipelines should audit judges with perturbation suites rather than
+confidence. Second, responsiveness is an attack surface: an adversary who controls
+any part of the judged context (an ``expert'' framing, an exemplar, padding) can
+steer a responsive judge's scores; the marginalization and nuisance-removal defenses
+of \S\ref{sec:lmm} are also hardening measures. We release everything needed to
+reproduce and to audit, including the record of a prior fabricated version of this
+project, because evaluation research that cannot be audited invites exactly the
+failure it studies.
 
 \appendix
 \section{The parse-failure confound}\label{app:parsefail}
@@ -591,6 +626,16 @@ rescuing the naive prediction: no order of the decisiveness expansion can explai
 increase, so the responsiveness term must---and, measured directly
 (\S\ref{sec:mech}), does---carry it.
 
+The full series is explicit. Along the tilt direction $\delta=t\,v$ the score is the
+derivative of the cumulant generating function $K(t)=\log E_\sigma[e^{tv}]$, so
+\[
+s(\ell+t v)-s(\ell) \;=\; \kappa_2\,t \;+\; \tfrac{\kappa_3}{2}\,t^2 \;+\;
+\tfrac{\kappa_4}{6}\,t^3 \;+\; O(t^4),
+\]
+with $\kappa_n$ the cumulants of $v$ under $\sigma$. Plugging in the measured mean
+cumulants gives $1.80\,t - 0.52\,t^2 - 0.63\,t^3$ for base and
+$0.99\,t - 0.28\,t^2 - 0.05\,t^3$ for instruct judges: the negative higher cumulants
+are what bends the exact response below the linear term.
 Figure~\ref{fig:exact} compares the \emph{exact} tilted score change
 $s(\ell+tv)-s(\ell)$ (computable in closed form as the derivative of the cumulant
 generating function) against the first-order term $t\,\mathrm{Var}_\sigma(v)$, for the
@@ -620,6 +665,35 @@ $\{$Poor,\dots,Excellent$\}$ (descriptive).
 varies the answer-token set and header (Score/Grade/Rating). \textbf{Reference answer}
 and \textbf{authority} vary \emph{prefix} (empty / good / poor exemplar; expert / novice
 framing). \textbf{Verbosity} varies \emph{transform} (identity / padded / first-sentence).
+
+\section{Notation}\label{app:notation}
+\begin{table}[h]\centering\small
+\begin{tabular}{ll}
+\toprule
+$a_k, v_k$ & answer tokens and their numeric values ($K=5$ throughout) \\
+$\ell$ & next-token logits at the score position \\
+$\sigma_k(\ell)$ & renormalized softmax over answer tokens \\
+$s = E_\sigma[v]$ & expected-value score \\
+$\hat s$ & discrete (argmax) score \\
+$H(\sigma)$ & score-distribution entropy (bits); decisiveness statistic \\
+$\mathrm{Var}_\sigma(v)$, $\kappa_n$ & variance and higher cumulants of $v$ under $\sigma$ \\
+$\delta_\pi$ & logit displacement induced by nuisance perturbation $\pi$ \\
+$\|\delta_\pi\|$ & responsiveness; measured as mean TV shift of $\sigma$ \\
+$\Delta$ & bias: max inter-variant spread of mean scores \citep{li2025scoring} \\
+$D(\sigma)$ & normalized decisiveness $1-H(\sigma)/\log_2 K$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Compute disclosure}\label{app:compute}
+All experiments ran on a single free-tier Kaggle GPU (NVIDIA P100, 16\,GB); total
+{\raise.17ex\hbox{$\scriptstyle\sim$}}17 GPU-hours at zero monetary cost. Approximate
+per-experiment cost: 13-family main run $\sim$3\,h; stage ablation $\sim$3\,h; new
+bias types $\sim$2\,h; multi-template $\sim$1.5\,h; public-items replication
+$\sim$1.5\,h; Chinese replication $\sim$1.5\,h; activation patching, span patching,
+14B (4-bit), ground-truth, and attention runs $\sim$0.5--1\,h each. The environment is
+pinned (torch 2.6.0+cu124, transformers 4.49.0); all analysis is CPU-only and pinned
+in \texttt{repro/requirements-repro.txt}.
 
 \section{Practical recommendations}\label{app:practice}
 For practitioners deploying an LLM judge: \textbf{(1)}~read the score as an expected
