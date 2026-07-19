@@ -182,7 +182,7 @@ def score_one(name):
     qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
                             bnb_4bit_compute_dtype=torch.float16)
     model = AutoModelForCausalLM.from_pretrained(name, quantization_config=qc,
-                                                 device_map="auto", trust_remote_code=True)
+                                                 device_map={"": 0}, trust_remote_code=True)
     model.eval()
     def measure(prompts, atok):
         exp, arg, ent, maxp, mass, dists = [], [], [], [], [], []
