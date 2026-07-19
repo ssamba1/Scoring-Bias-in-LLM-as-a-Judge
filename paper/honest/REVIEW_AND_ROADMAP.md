@@ -246,9 +246,11 @@ Broader Impact, README rewrite, REBUTTAL_FAQ.md (14 objections), variant-level
 decomposition (verbosity 99% padded; authority 2:1 novice-punishment), cross-dataset
 synthesis (26/30 positive, +0.23), D1-exact series appendix, CI-gate bug found+fixed.
 
-IN FLIGHT (all preregistered P10-P15, analyzers committed pre-data): sycophancy +
-anchoring probes (GPU), Chinese 5-probe suite (GPU), dose-response (CPU),
-ten-template breadth (CPU); queued: span-patching (P13), 14B retry, 32B gamble.
+PREREGISTRATION SCOREBOARD: P1-P6 adjudicated in the main paper; P7-P8 confirmed,
+P9 7/8 (marginal); P10 split (sycophancy CONFIRMED - largest effect in study;
+anchoring FAILED, reported); P11 CONFIRMED (Chinese, 4/4). IN FLIGHT: P12 (14B
+retry), P13 (span-patching), P14 (dose-response), P15 (ten templates); 32B gamble
+queued.
 
 ## Priority order (if time is short)
 

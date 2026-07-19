@@ -45,7 +45,10 @@ preregistered stage ablation localizes it in the pipeline (SFT installs the
 responsiveness, 84--99\% of the total rise; preference tuning installs the
 confidence), a ground-truth test shows the bias corrupts real judgments
 (\GOLDSENTENCE{}), and a marginalization mitigation cuts bias by 59\% where raising
-confidence cannot. We also
+confidence cannot. The findings replicate on public-dataset items and in Chinese, and
+two preregistered extension probes sharpen the picture: judge-side \emph{sycophancy}
+shows the largest tuning effect we measure, while numeric \emph{anchoring} stays
+null---tuning inflates responsiveness to social framing, not to every signal. We also
 expose a measurement confound---naive parse-based scoring silently drops all items on
 weak judges---and remove it with the standard distribution-based readout. Every number and figure regenerates from committed raw files by committed scripts,
 verified in continuous integration; no synthetic data is used, and a full audit of a
@@ -175,7 +178,7 @@ Ye et al.\ \citeyearpar{ye2024justice}     & 12 types           & 6  & --       
 Li et al.\ \citeyearpar{li2025scoring}     & 3 scoring          & 5  & --          & --  & -- \\
 Pan et al.\ \citeyearpar{pan2025user}      & user-deference     & 8  & partial     & --  & -- \\
 \midrule
-\textbf{This work} & \textbf{5 (2 new)} & \textbf{\NFAM} & \boldmath$\checkmark$ & \boldmath$\checkmark$ & \boldmath$\checkmark$ \\
+\textbf{This work} & \textbf{7 (4 new)} & \textbf{\NFAM} & \boldmath$\checkmark$ & \boldmath$\checkmark$ & \boldmath$\checkmark$ \\
 \bottomrule
 \end{tabular}
 \end{table}
