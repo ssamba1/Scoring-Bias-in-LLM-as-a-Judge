@@ -27,26 +27,42 @@ def save(fig, name):
     plt.close(fig)
 
 
-def fig_mech(m):
-    fig, ax = plt.subplots(1, 2, figsize=(6.6, 2.9))
-    # (a) entropy base->instruct per family (tuning sharpens)
-    df = m["decisiveness_per_family"]
-    for f in df:
-        ax[0].plot([0, 1], [df[f]["base"], df[f]["instruct"]], "-o", color="0.6", ms=4)
-    ax[0].scatter([0]*len(df), [df[f]["base"] for f in df], color=C_BASE, zorder=3, label="base")
-    ax[0].scatter([1]*len(df), [df[f]["instruct"] for f in df], color=C_INST, zorder=3, label="instruct")
-    ax[0].set_xticks([0, 1]); ax[0].set_xticklabels(["base", "instruct"]); ax[0].set_xlim(-0.3, 1.3)
-    ax[0].set_ylabel("score entropy (bits)"); ax[0].set_title("(a) tuning sharpens (P1)")
-    ax[0].legend(frameon=False, fontsize=7)
-    # (b) entropy vs bias scatter + fit -- NEGATIVE
-    lp = m["link_points"]; x = np.array(lp["entropy"]); y = np.array(lp["delta"])
-    ax[1].scatter(x, y, s=13, alpha=0.55, color=C_ACC)
+def _paired_panel(ax, per_fam, ylabel, title):
+    for f in per_fam:
+        ax.plot([0, 1], [per_fam[f]["base"], per_fam[f]["instruct"]], "-o", color="0.6", ms=3.5)
+    ax.scatter([0]*len(per_fam), [per_fam[f]["base"] for f in per_fam], color=C_BASE, zorder=3, s=22, label="base")
+    ax.scatter([1]*len(per_fam), [per_fam[f]["instruct"] for f in per_fam], color=C_INST, zorder=3, s=22, label="instruct")
+    ax.set_xticks([0, 1]); ax.set_xticklabels(["base", "instruct"]); ax.set_xlim(-0.3, 1.3)
+    ax.set_ylabel(ylabel); ax.set_title(title, fontsize=8)
+
+
+def _scatter_panel(ax, x, y, rho, xlabel, title, col):
+    x, y = np.array(x), np.array(y)
+    ax.scatter(x, y, s=11, alpha=0.5, color=col)
     if len(x) > 2:
         b, a = np.polyfit(x, y, 1); xs = np.linspace(x.min(), x.max(), 20)
-        ax[1].plot(xs, a + b*xs, color="0.2", lw=1.3)
-    r = m["entropy_bias_link"]
-    ax[1].set_xlabel("score entropy (bits)"); ax[1].set_ylabel(r"bias $\Delta$")
-    ax[1].set_title(f"(b) decisive $\\Rightarrow$ MORE biased\n$\\rho={r['spearman_rho']}$, $p<10^{{-3}}$")
+        ax.plot(xs, a + b*xs, color="0.2", lw=1.2)
+    ax.set_xlabel(xlabel); ax.set_ylabel(r"bias $\Delta$")
+    ax.set_title(title + f"\n$\\rho={rho}$", fontsize=8)
+
+
+def fig_mech(m):
+    """Four-panel decomposition: both terms (base->instruct) and both bias correlations."""
+    has_resp = "responsiveness_per_family" in m
+    n = 4 if has_resp else 2
+    fig, ax = plt.subplots(1, n, figsize=(2.4 * n, 2.7))
+    _paired_panel(ax[0], m["decisiveness_per_family"], "score entropy (bits)",
+                  "(a) tuning sharpens\n(decisiveness $\\downarrow$)")
+    ax[0].legend(frameon=False, fontsize=6, loc="lower left")
+    lp = m["link_points"]
+    _scatter_panel(ax[1], lp["entropy"], lp["delta"], m["entropy_bias_link"]["spearman_rho"],
+                   "score entropy (bits)", "(b) decisive $\\Rightarrow$ more biased", C_ACC)
+    if has_resp:
+        _paired_panel(ax[2], m["responsiveness_per_family"], "distribution shift (TV)",
+                      "(c) tuning raises\nresponsiveness $\\uparrow$")
+        rp = m["responsiveness_link_points"]
+        _scatter_panel(ax[3], rp["resp"], rp["delta"], m["responsiveness_bias_link"]["spearman_rho"],
+                       "responsiveness (TV)", "(d) responsive $\\Rightarrow$ more biased", "#C44E52")
     fig.tight_layout()
     save(fig, "fig_mech")
 

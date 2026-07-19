@@ -157,6 +157,44 @@ def main():
             out["generality"][gname] = {"probes": glist, "spearman_rho": round(float(r), 3),
                                         "spearman_p": round(float(pv), 4), "n": len(gx)}
 
+    # ---- Direct measurement of the RESPONSIVENESS term (Corollary 1) ----
+    # responsiveness = how far a nuisance moves the answer distribution from control,
+    # measured as mean total-variation distance between control and perturbed mean_dist.
+    # The theory says bias = decisiveness x responsiveness; we test (a) that tuning
+    # raises responsiveness, and (b) that responsiveness correlates POSITIVELY with bias.
+    def has_dist(d):
+        return all("mean_dist" in d[p][v] for p in PROBES for v in d[p])
+    if all(has_dist(pairs[f]["base"]) and has_dist(pairs[f]["instruct"]) for f in fams):
+        def responsiveness(model):
+            tvs = []
+            for p in PROBES:
+                c = model[p][CONTROL[p]]["mean_dist"]
+                for v in model[p]:
+                    if v == CONTROL[p]:
+                        continue
+                    d = model[p][v]["mean_dist"]
+                    tvs.append(0.5 * sum(abs(a - b) for a, b in zip(c, d)))  # total variation
+            return float(np.mean(tvs))
+        rb = [responsiveness(pairs[f]["base"]) for f in fams]
+        ri = [responsiveness(pairs[f]["instruct"]) for f in fams]
+        out["responsiveness"] = paired(rb, ri)
+        # responsiveness vs bias, per (family, kind, probe)
+        rx, ry = [], []
+        for f in fams:
+            for kind in ("base", "instruct"):
+                d = pairs[f][kind]
+                for p in PROBES:
+                    c = d[p][CONTROL[p]]["mean_dist"]
+                    resp = np.mean([0.5 * sum(abs(a - b) for a, b in zip(c, d[p][v]["mean_dist"]))
+                                    for v in d[p] if v != CONTROL[p]])
+                    rx.append(resp); ry.append(delta({v: d[p][v]["mean"] for v in d[p]}))
+        rr, rp = stats.spearmanr(rx, ry)
+        out["responsiveness_bias_link"] = {"spearman_rho": round(float(rr), 3),
+                                           "spearman_p": round(float(rp), 4), "n": len(rx)}
+        out["responsiveness_per_family"] = {f: {"base": round(responsiveness(pairs[f]["base"]), 4),
+                                                "instruct": round(responsiveness(pairs[f]["instruct"]), 4)} for f in fams}
+        out["responsiveness_link_points"] = {"resp": [round(x, 4) for x in rx], "delta": [round(y, 4) for y in ry]}
+
     # ---- Predictive tool: predict a model's bias from ONE unperturbed forward
     # pass (its control-condition entropy), validated leave-one-family-out ----
     out["predictor"] = loo_predictor(pairs, fams)
@@ -272,6 +310,13 @@ def _report(out):
               f"change={s['mean_change']:+.3f}  dz={s['dz']}  {s['n_decreased']}/{s['n']}  p={s['wilcoxon_p']}")
     el = out["entropy_bias_link"]
     print(f"\nH-link: entropy vs bias  Spearman rho={el['spearman_rho']}  p={el['spearman_p']}  n={el['n']}")
+    if "responsiveness" in out:
+        r = out["responsiveness"]
+        print(f"\nRESPONSIVENESS (nuisance-induced distribution shift, TV):")
+        print(f"  base={r['base_mean']:.3f}  instruct={r['instruct_mean']:.3f}  change={r['mean_change']:+.3f}"
+              f"  dz={r['dz']}  {r['n_decreased']}/{r['n']} decreased  p={r['wilcoxon_p']}")
+        rl = out.get("responsiveness_bias_link", {})
+        print(f"  responsiveness vs bias: rho={rl.get('spearman_rho')} p={rl.get('spearman_p')} n={rl.get('n')}")
     print(f"\nGenerality (entropy->bias by bias type): {out.get('generality')}")
     print(f"Predictor (leave-one-family-out): {out.get('predictor')}")
     print(f"\nMitigation (score-ID bias by scoring rule): {out['mitigation']}")

@@ -309,15 +309,18 @@ rate is discrete-score disagreement with the control variant.}
 
 \subsection{Mechanism: sharper, but more biased}\label{sec:mech}
 \MECHPROSE{}
-\begin{figure}[t]\centering
-\includegraphics[width=0.66\linewidth]{fig_mech.pdf}
-\caption{(a) Instruction tuning lowers score-distribution entropy---judges become more
-decisive (P1 holds). (b) Yet across all \NFAM{} families, five bias types, and both
-checkpoints ($n=90$), entropy correlates \emph{negatively} with bias
-($\rho=-0.51$)---decisive judges are more biased, refuting the naive reading of
-Proposition~\ref{prop:main} and implicating the responsiveness term
-(Corollary~\ref{cor:diff}).}
-\label{fig:mech}\end{figure}
+\begin{figure*}[t]\centering
+\includegraphics[width=0.98\linewidth]{fig_mech.pdf}
+\caption{The decomposition, both terms measured ($n=\NFAM$ families). \textbf{(a)}
+Instruction tuning lowers score entropy---judges become more decisive. \textbf{(b)} Yet
+across all families, five bias types, and both checkpoints ($n=130$), decisiveness
+correlates \emph{negatively} with bias ($\rho=-0.41$)---the naive reading of
+Proposition~\ref{prop:main} is refuted. \textbf{(c)} Instruction tuning \emph{raises} the
+responsiveness term (nuisance-induced distribution shift; $d_z=1.44$). \textbf{(d)}
+Responsiveness correlates strongly and \emph{positively} with bias ($\rho=+0.82$)---it is
+the dominant driver (Corollary~\ref{cor:diff}). Tuning trims (a) a little but inflates (c)
+a lot, so bias rises.}
+\label{fig:mech}\end{figure*}
 
 \subsection{Causal test: patching localizes the fix}\label{sec:patch}
 \PATCHPROSE{}
