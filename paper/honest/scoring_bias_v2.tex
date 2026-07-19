@@ -332,6 +332,14 @@ score \emph{toward} the instruct score. The fix is inert early and transfers ful
 a mid-network band onward.}
 \label{fig:patch}\end{figure}
 
+\subsection{Where responsiveness comes from: attention to nuisance tokens}\label{sec:attn}
+The responsiveness term rises with tuning (\S\ref{sec:mech}), but why? A natural
+hypothesis is that instruction tuning teaches the judge to \emph{attend} to injected
+context---including the nuisance. We test this directly: for the two content
+perturbations that inject text (a good exemplar; an ``expert'' authority framing), we
+measure the attention the score-position token pays to the injected nuisance tokens,
+averaged over layers and heads, base vs instruct. \ATTNPROSE{}
+
 \subsection{The same relation across five bias families}\label{sec:general}
 The decomposition applies to \emph{any} nuisance, so the negative decisiveness--bias
 relation should not be specific to the format-level scoring biases. We test it on the
