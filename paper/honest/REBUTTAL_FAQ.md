@@ -78,3 +78,30 @@ and the honest version is CI-enforced: a GitHub Action rerun of every analyzer m
 reproduce every committed number byte-for-byte. Ten of the sixteen predictions were
 preregistered with git timestamps before their data existed. This paper is *more*
 auditable than the field's norm, precisely because of its history.
+
+**"Does bias scale with how strong the nuisance is?"**
+No — and we preregistered the opposite and report the failure (§5, dose–response):
+the shift is a step function of the nuisance's presence. This constrains mechanism
+stories: the nuisance is a categorical feature, consistent with the span-encoding
+result.
+
+**"Instruct models are out-of-distribution in your raw completion format."**
+Preregistered P19 tests exactly this: instruct checkpoints scored under their own
+chat template vs raw format, with base-raw as the effect baseline.
+
+**"The renormalized readout ignores most of the digit probability mass."**
+Preregistered P18 (v2) compares the bare-token readout against the full vocab-scan
+union of all tokens decoding to each digit. (The v1 space-prefixed variant was
+degenerate — a tokenization subtlety we caught via an impossible mass value and
+disclosed.)
+
+**"Does the increase survive at larger scale?"**
+Partially: 14B (4-bit) is nominally positive (+0.06) but strongly attenuated vs the
+≤8B panel (+0.26), consistent with the >3B flattening of the entropy–bias relation.
+The paper scopes the headline to the studied regime and says the attenuation out
+loud.
+
+**"Is the entropy–bias relation universal?"**
+No, and the paper scopes it three ways: absent within checkpoints, absent across
+the 11 stage-ladder checkpoints, flat in the >3B band. It is a between-family
+regularity of the full panel — stated, not hidden.

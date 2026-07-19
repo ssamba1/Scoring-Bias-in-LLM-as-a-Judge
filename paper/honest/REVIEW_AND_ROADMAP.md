@@ -247,10 +247,13 @@ decomposition (verbosity 99% padded; authority 2:1 novice-punishment), cross-dat
 synthesis (26/30 positive, +0.23), D1-exact series appendix, CI-gate bug found+fixed.
 
 PREREGISTRATION SCOREBOARD: P1-P6 adjudicated in the main paper; P7-P8 confirmed,
-P9 7/8 (marginal); P10 split (sycophancy CONFIRMED - largest effect in study;
-anchoring FAILED, reported); P11 CONFIRMED (Chinese, 4/4). IN FLIGHT: P12 (14B
-retry), P13 (span-patching), P14 (dose-response), P15 (ten templates); 32B gamble
-queued.
+P9 7/8 (marginal); P10 split (sycophancy CONFIRMED - largest effect; anchoring
+FAILED + equivalence-bounded); P11 CONFIRMED (Chinese 4/4); P12 met nominally but
+ATTENUATED at 14B (+0.06 vs +0.26); P13 split (authority span-encoding CONFIRMED
+layers 3-14, exemplar clause FAILED); P14 FAILED both clauses (step function, not
+dose-scaled). 32B: OOM on P100, dead. IN FLIGHT: P15 (ten templates), P16
+(sampled readout), P17 (granularity), P18v2 (readout variants; v1 invalid --
+tokenization bug caught pre-integration), P19 (chat template).
 
 ## Priority order (if time is short)
 

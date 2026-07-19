@@ -535,6 +535,24 @@ mitigation is therefore not to make the judge sharper but to remove the nuisance
 dimension (e.g.\ average over label formats, withhold exemplars), which we show cuts bias
 by 59\% where a more decisive readout makes it worse.
 
+\paragraph{What kind of thing is judge bias?} The preregistered extensions,
+including their failures, converge on a characterization. Bias is
+\emph{presence-triggered}, not dose-scaled (\S\ref{sec:dose}): the nuisance acts as
+a categorical feature, not a graded stimulus. For the authority channel it is
+\emph{encoded, not attended}: carried by what the early-to-mid layers write into the
+nuisance span (\S\ref{sec:spanpatch}) while attention stays flat
+(\S\ref{sec:attn})---though the exemplar channel is distributed, so channels differ.
+It is a property of the \emph{judge--perturbation pair}, not of the judge (trait
+correlations near zero, the dominant ANOVA share in the interaction;
+\S\ref{sec:anatomy}) nor of the item (item profiles uncorrelated across judges). It
+is \emph{selectively social}: tuning inflates responsiveness to opinions and
+framings (sycophancy, the largest effect) but not to numeric priors (anchoring,
+null; \S\ref{sec:newprobes}). And it \emph{attenuates with scale}
+(\S\ref{sec:secondary}). Together these point at a specific origin: instruction
+tuning teaches small judges to treat socially-marked context as evidence, and each
+probe is a different socially-marked feature---not a taxonomy of separate defects,
+and not a single scalar disposition either.
+
 \paragraph{Connection to calibration.} Decisiveness is the judge's confidence in its own
 score, so the decisiveness term is a calibration quantity in the sense of
 \citet{guo2017calibration,kadavath2022know}. In isolation
