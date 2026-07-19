@@ -312,6 +312,18 @@
       1.7522
     ]
   },
+  "within_group_link": {
+    "base": {
+      "spearman_rho": -0.252,
+      "spearman_p": 0.0427,
+      "n": 65
+    },
+    "instruct": {
+      "spearman_rho": -0.326,
+      "spearman_p": 0.008,
+      "n": 65
+    }
+  },
   "var_bias_link": {
     "spearman_rho": -0.248,
     "spearman_p": 0.0044,

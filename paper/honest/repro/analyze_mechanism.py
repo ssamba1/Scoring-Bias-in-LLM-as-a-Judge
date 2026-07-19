@@ -113,6 +113,18 @@ def main():
     # per-point + per-family data for figures
     out["link_points"] = {"entropy": [round(x, 4) for x in xs], "delta": [round(y, 4) for y in ys]}
 
+    # within-group test: does the entropy->bias relation hold WITHIN base-only and
+    # WITHIN instruct-only (not just across the base/instruct split)? kinds aligns
+    # with xs/ys in family,kind,probe order.
+    kinds_seq = [k for f in fams for k in ("base", "instruct") for _ in PROBES]
+    for grp in ("base", "instruct"):
+        gx = [xs[i] for i in range(len(xs)) if kinds_seq[i] == grp]
+        gy = [ys[i] for i in range(len(ys)) if kinds_seq[i] == grp]
+        if len(gx) > 3:
+            r, p = stats.spearmanr(gx, gy)
+            out.setdefault("within_group_link", {})[grp] = {
+                "spearman_rho": round(float(r), 3), "spearman_p": round(float(p), 4), "n": len(gx)}
+
     # same test using sqrt(Var_sigma(v)) directly (the exact quantity in Prop. 1)
     def sqrt_var(dist):
         vals = list(range(1, len(dist) + 1))
