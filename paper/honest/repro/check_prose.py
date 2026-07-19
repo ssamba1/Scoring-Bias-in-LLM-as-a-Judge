@@ -114,6 +114,17 @@ if dp.exists():
     if d14["P14b_slope"]["instruct_steeper"] != "3/8":
         FAILS.append("P14b 3/8 stale")
 
+# ---- P17 granularity (confirmed) ----
+gp = HERE / "results_gran_analysis.json"
+if gp.exists():
+    g17 = json.loads(gp.read_text())
+    for kind in ("base", "instruct"):
+        if not g17["P17a_growth"][kind]["monotone_increasing"]:
+            FAILS.append(f"P17a {kind} monotone claim stale")
+    if not all(g17["P17b_instruct_gt_base"].values()):
+        FAILS.append("P17b instruct>base at every K stale")
+    close("gran K10 instruct", 0.664, g17["per_scale"]["K10"]["mean_bias_instruct"], 0.006)
+
 # ---- P13 span patching ----
 sp = HERE / "spanpatch_analysis.json"
 if sp.exists():

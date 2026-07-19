@@ -1,0 +1,726 @@
+{
+  "n_items": 20,
+  "errors": {},
+  "results": {
+    "SmolLM2-135M": {
+      "base": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 1.5962,
+                "mean_entropy": 1.3155
+              },
+              "reversed": {
+                "mean": 1.6105,
+                "mean_entropy": 1.3286
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 1.5962,
+                "mean_entropy": 1.3155
+              },
+              "expert": {
+                "mean": 1.6303,
+                "mean_entropy": 1.3002
+              },
+              "novice": {
+                "mean": 1.6284,
+                "mean_entropy": 1.3022
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 2.9038,
+                "mean_entropy": 2.0614
+              },
+              "reversed": {
+                "mean": 2.9102,
+                "mean_entropy": 2.0618
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 2.9038,
+                "mean_entropy": 2.0614
+              },
+              "expert": {
+                "mean": 2.8523,
+                "mean_entropy": 2.056
+              },
+              "novice": {
+                "mean": 2.9662,
+                "mean_entropy": 2.0518
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 4.1628,
+                "mean_entropy": 3.1177
+              },
+              "reversed": {
+                "mean": 4.1939,
+                "mean_entropy": 3.1221
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 4.1628,
+                "mean_entropy": 3.1177
+              },
+              "expert": {
+                "mean": 3.8039,
+                "mean_entropy": 3.0586
+              },
+              "novice": {
+                "mean": 3.9429,
+                "mean_entropy": 3.0965
+              }
+            }
+          }
+        }
+      },
+      "instruct": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 2.051,
+                "mean_entropy": 1.3519
+              },
+              "reversed": {
+                "mean": 2.0884,
+                "mean_entropy": 1.3621
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 2.051,
+                "mean_entropy": 1.3519
+              },
+              "expert": {
+                "mean": 1.7053,
+                "mean_entropy": 1.2209
+              },
+              "novice": {
+                "mean": 1.638,
+                "mean_entropy": 1.16
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 3.9983,
+                "mean_entropy": 1.7794
+              },
+              "reversed": {
+                "mean": 3.9768,
+                "mean_entropy": 1.7988
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 3.9983,
+                "mean_entropy": 1.7794
+              },
+              "expert": {
+                "mean": 3.3781,
+                "mean_entropy": 1.942
+              },
+              "novice": {
+                "mean": 3.3931,
+                "mean_entropy": 1.92
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 5.1167,
+                "mean_entropy": 2.9754
+              },
+              "reversed": {
+                "mean": 4.9803,
+                "mean_entropy": 2.9877
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 5.1167,
+                "mean_entropy": 2.9754
+              },
+              "expert": {
+                "mean": 4.5251,
+                "mean_entropy": 2.9316
+              },
+              "novice": {
+                "mean": 4.2579,
+                "mean_entropy": 2.9323
+              }
+            }
+          }
+        }
+      }
+    },
+    "SmolLM2-360M": {
+      "base": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 2.3218,
+                "mean_entropy": 1.3519
+              },
+              "reversed": {
+                "mean": 2.3818,
+                "mean_entropy": 1.2868
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 2.3218,
+                "mean_entropy": 1.3519
+              },
+              "expert": {
+                "mean": 2.4109,
+                "mean_entropy": 1.2996
+              },
+              "novice": {
+                "mean": 2.2981,
+                "mean_entropy": 1.393
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 3.4612,
+                "mean_entropy": 2.128
+              },
+              "reversed": {
+                "mean": 3.5579,
+                "mean_entropy": 2.0897
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 3.4612,
+                "mean_entropy": 2.128
+              },
+              "expert": {
+                "mean": 3.6576,
+                "mean_entropy": 2.0578
+              },
+              "novice": {
+                "mean": 3.482,
+                "mean_entropy": 2.1058
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 4.6209,
+                "mean_entropy": 3.1659
+              },
+              "reversed": {
+                "mean": 4.8322,
+                "mean_entropy": 3.1513
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 4.6209,
+                "mean_entropy": 3.1659
+              },
+              "expert": {
+                "mean": 4.9276,
+                "mean_entropy": 3.1833
+              },
+              "novice": {
+                "mean": 4.3132,
+                "mean_entropy": 3.213
+              }
+            }
+          }
+        }
+      },
+      "instruct": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 2.3103,
+                "mean_entropy": 1.4158
+              },
+              "reversed": {
+                "mean": 2.4945,
+                "mean_entropy": 1.2299
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 2.3103,
+                "mean_entropy": 1.4158
+              },
+              "expert": {
+                "mean": 2.272,
+                "mean_entropy": 1.3993
+              },
+              "novice": {
+                "mean": 2.1824,
+                "mean_entropy": 1.449
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 3.1835,
+                "mean_entropy": 2.2774
+              },
+              "reversed": {
+                "mean": 3.4571,
+                "mean_entropy": 2.2037
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 3.1835,
+                "mean_entropy": 2.2774
+              },
+              "expert": {
+                "mean": 3.1945,
+                "mean_entropy": 2.2277
+              },
+              "novice": {
+                "mean": 3.0477,
+                "mean_entropy": 2.2345
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 3.6434,
+                "mean_entropy": 3.1024
+              },
+              "reversed": {
+                "mean": 4.063,
+                "mean_entropy": 3.1063
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 3.6434,
+                "mean_entropy": 3.1024
+              },
+              "expert": {
+                "mean": 3.0574,
+                "mean_entropy": 2.9662
+              },
+              "novice": {
+                "mean": 2.7814,
+                "mean_entropy": 2.9215
+              }
+            }
+          }
+        }
+      }
+    },
+    "Qwen2.5-0.5B": {
+      "base": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 1.7016,
+                "mean_entropy": 1.4142
+              },
+              "reversed": {
+                "mean": 1.7266,
+                "mean_entropy": 1.4343
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 1.7016,
+                "mean_entropy": 1.4142
+              },
+              "expert": {
+                "mean": 1.6106,
+                "mean_entropy": 1.3341
+              },
+              "novice": {
+                "mean": 1.539,
+                "mean_entropy": 1.2995
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 3.025,
+                "mean_entropy": 2.1028
+              },
+              "reversed": {
+                "mean": 3.0347,
+                "mean_entropy": 2.1069
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 3.025,
+                "mean_entropy": 2.1028
+              },
+              "expert": {
+                "mean": 2.9576,
+                "mean_entropy": 2.1066
+              },
+              "novice": {
+                "mean": 2.7078,
+                "mean_entropy": 2.1051
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 5.951,
+                "mean_entropy": 2.9089
+              },
+              "reversed": {
+                "mean": 5.891,
+                "mean_entropy": 2.9284
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 5.951,
+                "mean_entropy": 2.9089
+              },
+              "expert": {
+                "mean": 5.5855,
+                "mean_entropy": 3.0234
+              },
+              "novice": {
+                "mean": 5.4051,
+                "mean_entropy": 3.0809
+              }
+            }
+          }
+        }
+      },
+      "instruct": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 1.8512,
+                "mean_entropy": 1.4281
+              },
+              "reversed": {
+                "mean": 1.894,
+                "mean_entropy": 1.4467
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 1.8512,
+                "mean_entropy": 1.4281
+              },
+              "expert": {
+                "mean": 1.7171,
+                "mean_entropy": 1.4794
+              },
+              "novice": {
+                "mean": 1.5884,
+                "mean_entropy": 1.3402
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 3.1262,
+                "mean_entropy": 2.1129
+              },
+              "reversed": {
+                "mean": 3.1613,
+                "mean_entropy": 2.0946
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 3.1262,
+                "mean_entropy": 2.1129
+              },
+              "expert": {
+                "mean": 3.0101,
+                "mean_entropy": 2.2392
+              },
+              "novice": {
+                "mean": 2.6327,
+                "mean_entropy": 2.2164
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 6.2527,
+                "mean_entropy": 2.6954
+              },
+              "reversed": {
+                "mean": 6.2934,
+                "mean_entropy": 2.6654
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 6.2527,
+                "mean_entropy": 2.6954
+              },
+              "expert": {
+                "mean": 5.9063,
+                "mean_entropy": 2.931
+              },
+              "novice": {
+                "mean": 5.5815,
+                "mean_entropy": 3.0217
+              }
+            }
+          }
+        }
+      }
+    },
+    "Qwen2.5-1.5B": {
+      "base": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 1.8483,
+                "mean_entropy": 1.1245
+              },
+              "reversed": {
+                "mean": 1.7672,
+                "mean_entropy": 1.1277
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 1.8483,
+                "mean_entropy": 1.1245
+              },
+              "expert": {
+                "mean": 1.7941,
+                "mean_entropy": 1.173
+              },
+              "novice": {
+                "mean": 1.6757,
+                "mean_entropy": 1.1341
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 3.3677,
+                "mean_entropy": 1.8414
+              },
+              "reversed": {
+                "mean": 3.2493,
+                "mean_entropy": 1.9281
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 3.3677,
+                "mean_entropy": 1.8414
+              },
+              "expert": {
+                "mean": 2.9656,
+                "mean_entropy": 2.0523
+              },
+              "novice": {
+                "mean": 2.5293,
+                "mean_entropy": 2.0328
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 5.6101,
+                "mean_entropy": 3.0393
+              },
+              "reversed": {
+                "mean": 5.4313,
+                "mean_entropy": 3.0966
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 5.6101,
+                "mean_entropy": 3.0393
+              },
+              "expert": {
+                "mean": 4.8121,
+                "mean_entropy": 3.0599
+              },
+              "novice": {
+                "mean": 3.4852,
+                "mean_entropy": 3.0452
+              }
+            }
+          }
+        }
+      },
+      "instruct": {
+        "K3": {
+          "range": 2,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 1.8173,
+                "mean_entropy": 1.169
+              },
+              "reversed": {
+                "mean": 1.8375,
+                "mean_entropy": 1.1446
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 1.8173,
+                "mean_entropy": 1.169
+              },
+              "expert": {
+                "mean": 1.7804,
+                "mean_entropy": 1.3223
+              },
+              "novice": {
+                "mean": 1.3654,
+                "mean_entropy": 1.0027
+              }
+            }
+          }
+        },
+        "K5": {
+          "range": 4,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 2.7568,
+                "mean_entropy": 2.0058
+              },
+              "reversed": {
+                "mean": 2.8921,
+                "mean_entropy": 2.1029
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 2.7568,
+                "mean_entropy": 2.0058
+              },
+              "expert": {
+                "mean": 2.7647,
+                "mean_entropy": 2.1129
+              },
+              "novice": {
+                "mean": 1.9079,
+                "mean_entropy": 1.722
+              }
+            }
+          }
+        },
+        "K10": {
+          "range": 9,
+          "probes": {
+            "rubric_reversal": {
+              "control": {
+                "mean": 4.2214,
+                "mean_entropy": 3.2599
+              },
+              "reversed": {
+                "mean": 4.3781,
+                "mean_entropy": 3.2739
+              }
+            },
+            "authority": {
+              "none": {
+                "mean": 4.2214,
+                "mean_entropy": 3.2599
+              },
+              "expert": {
+                "mean": 4.4106,
+                "mean_entropy": 3.1988
+              },
+              "novice": {
+                "mean": 2.2439,
+                "mean_entropy": 2.7645
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

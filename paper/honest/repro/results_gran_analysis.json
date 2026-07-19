@@ -1,0 +1,48 @@
+{
+  "per_scale": {
+    "K3": {
+      "range": 2,
+      "mean_bias_base": 0.083,
+      "mean_bias_instruct": 0.193,
+      "bias_per_unit_range_base": 0.0414,
+      "bias_per_unit_range_instruct": 0.0963
+    },
+    "K5": {
+      "range": 4,
+      "mean_bias_base": 0.212,
+      "mean_bias_instruct": 0.323,
+      "bias_per_unit_range_base": 0.053,
+      "bias_per_unit_range_instruct": 0.0807
+    },
+    "K10": {
+      "range": 9,
+      "mean_bias_base": 0.516,
+      "mean_bias_instruct": 0.664,
+      "bias_per_unit_range_base": 0.0573,
+      "bias_per_unit_range_instruct": 0.0738
+    }
+  },
+  "P17a_growth": {
+    "base": {
+      "biases_by_scale": [
+        0.083,
+        0.212,
+        0.516
+      ],
+      "monotone_increasing": true
+    },
+    "instruct": {
+      "biases_by_scale": [
+        0.193,
+        0.323,
+        0.664
+      ],
+      "monotone_increasing": true
+    }
+  },
+  "P17b_instruct_gt_base": {
+    "K3": true,
+    "K5": true,
+    "K10": true
+  }
+}

@@ -131,6 +131,12 @@ Two further experiments on Kaggle CPU (`repro/dose_harness.py`,
 
 Failure of either is reported as a failure.
 
+**P17 outcome (recorded 2026-07-19 after the run):** CONFIRMED, both clauses.
+Bias grows monotonically with the rating scale's value range for both
+checkpoints (base 0.083 → 0.212 → 0.516; instruct 0.193 → 0.323 → 0.664 across
+1–3 / 1–5 / 0–9), with bias per unit range roughly constant — the Var_σ(v)
+scaling the theory predicts. Instruct > base at every granularity.
+
 **P14 outcome (recorded 2026-07-19 after the run):** FAILED, both clauses.
 Mean dose-Spearman of |shift| vs dose is 0.06 (8/16 cells positive); instruct
 slopes are not steeper (3/8 pairs, Wilcoxon p = 0.74). The observed pattern is a
