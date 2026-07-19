@@ -49,9 +49,12 @@ this project is included.
 \end{abstract}
 
 \section{Introduction}
-When one language model scores another's output, the score should track quality---not
-the wording of the rubric or the presence of an example. \citet{li2025scoring} showed
-this fails: judges change scores under three superficial perturbations---\textbf{rubric
+LLM judges now sit at the center of model development---as reward models in RLHF, as
+automatic graders on public leaderboards, and as scalable stand-ins for human evaluation.
+A bias in the judge propagates into which models are trained, shipped, and ranked, so a
+bias that \emph{grows} with the judge's capability is especially pernicious. When one
+language model scores another's output, the score should track quality---not the wording
+of the rubric or the presence of an example. \citet{li2025scoring} showed this fails: judges change scores under three superficial perturbations---\textbf{rubric
 order} (reversing ``1=worst\dots5=best''), \textbf{score ID} (numeric vs.\ letter vs.\
 descriptive labels), and \textbf{reference answer} (a good/poor exemplar shown before
 scoring). They quantified the biases across five models but left the mechanism open:
