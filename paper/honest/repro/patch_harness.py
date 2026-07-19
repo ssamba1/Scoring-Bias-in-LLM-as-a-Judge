@@ -10,9 +10,9 @@ import os, json, math
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-BASE = "Qwen/Qwen2.5-0.5B"
-INST = "Qwen/Qwen2.5-0.5B-Instruct"
-N_ITEMS = int(os.environ.get("N_ITEMS", "20"))
+BASE = "Qwen/Qwen2.5-1.5B"
+INST = "Qwen/Qwen2.5-1.5B-Instruct"
+N_ITEMS = int(os.environ.get("N_ITEMS", "30"))
 NUM = ["1", "2", "3", "4", "5"]; LET = ["A", "B", "C", "D", "E"]
 
 ITEMS = [
@@ -38,10 +38,11 @@ ITEMS = [
     ("What is a derivative?", "The rate at which a function changes at a point."),
 ][:N_ITEMS]
 
-# score_id probe: numeric (control) vs letter (biased). Big, clean format bias.
+# rubric-order probe: normal (control) vs reversed. Largest base<->instruct gap --
+# base models follow the scale literally and flip; instruct models resist.
 SCALES = {
-    "numeric": ("on a scale of 1 to 5, where 1 is worst and 5 is best", NUM, "Score"),
-    "letter":  ("with a letter grade A to E, where A is best and E is worst", LET, "Grade"),
+    "control":  ("on a scale of 1 to 5, where 1 is worst and 5 is best", NUM, "Score"),
+    "reversed": ("on a scale of 1 to 5, where 1 is best and 5 is worst", NUM, "Score"),
 }
 def vals(atok): return list(range(5, 0, -1)) if atok is LET else [1, 2, 3, 4, 5]
 def prompt(instr, resp, scale, header):

@@ -225,6 +225,18 @@ entropy), leave-one-family-out. Each point is a model; base models (higher bias)
 instruct models (lower) both fall on the diagonal.}
 \label{fig:predictor}\end{figure}
 
+\subsection{Bias corrupts real quality judgments---and tuning protects them}\label{sec:gold}
+Does scoring bias actually matter, or is it cosmetic score jitter? We test it against
+ground truth: for 12 questions we write a genuinely good and a genuinely bad answer, so
+a competent judge scores good above bad. We then apply nuisance perturbations and ask
+whether the judge still ranks them correctly. \GOLDPROSE{}
+\begin{table}[t]\centering\small
+\caption{Ground-truth discrimination under nuisance perturbations. \emph{Accuracy under
+bias} = fraction of good/bad gold pairs still ranked correctly; \emph{margin drop} =
+loss of the good$-$bad score margin relative to the unperturbed control.}
+\label{tab:gold}\input{tables/tab_gold.tex}
+\end{table}
+
 \subsection{Flip rates, scale, recipe, and domain}
 \SECONDARYPROSE{}
 \begin{table}[t]\centering\footnotesize
