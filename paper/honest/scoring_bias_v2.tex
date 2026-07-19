@@ -687,6 +687,18 @@ signal, exactly the variance the expected-value readout eliminates
 stated, and the correct summary is the weaker, more precise one: parse-based
 scoring is either confounded (strict) or noise-dominated (lenient).
 
+A second preregistered check (P18) closes the token-mass question. A full vocab
+scan shows these tokenizers have \emph{no} space-prefixed digit tokens: the bare
+digits are the complete digit-token set at the score position, and the bulk of the
+numeric mass ($0.91$--$0.96$) sits one position later, after the space token.
+Scoring at that space-appended position---the high-mass readout---agrees with the
+bare-token conditional cell-by-cell ($\rho=0.79$, above the preregistered $0.7$
+bar), and the instruct$>$base effect holds under the union readout (4/4 families).
+One residual is reported honestly: at the high-mass position the effect is positive
+on average ($+0.06$) but in only 2/4 of these smallest families. The conditional
+readout thus tracks the model's true high-mass score preference; the paper's
+findings are not an artifact of reading low-mass tokens.
+
 \section{All-order check: cumulants under tuning}\label{app:cumulants}
 The ``beyond first order'' argument (\S\ref{sec:theory}) says decisiveness controls
 every cumulant of $v$ under $\sigma$, all of which vanish in the decisive limit. The

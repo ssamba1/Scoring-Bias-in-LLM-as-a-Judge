@@ -22,6 +22,8 @@ def main():
     cells = {r: [] for r in READOUTS}
     masses = {r: {"base": [], "instruct": []} for r in READOUTS}
     eff_union = {}
+    eff_by_readout = {r: {} for r in READOUTS}
+    fam_acc = {r: {} for r in READOUTS}
     for fam, rec in res.items():
         fb, fi = [], []
         for kind in ("base", "instruct"):
@@ -41,6 +43,7 @@ def main():
                 if len(per_r) == len(READOUTS):
                     for r in READOUTS:
                         cells[r].append(per_r[r])
+                        fam_acc[r].setdefault(fam, {}).setdefault(kind, []).append(per_r[r])
                     if kind == "base":
                         fb.append(per_r["union"])
                     else:
@@ -59,6 +62,16 @@ def main():
         "per_family": eff_union,
         "mean_effect": round(float(ev.mean()), 3) if len(ev) else None,
         "families_positive": f"{int((ev>0).sum())}/{len(ev)}" if len(ev) else None}
+    out["P18c_effect_by_readout"] = {}
+    for r in READOUTS:
+        effs = []
+        for fam, kk in fam_acc[r].items():
+            if "base" in kk and "instruct" in kk:
+                effs.append(float(np.mean(kk["instruct"]) - np.mean(kk["base"])))
+        ea = np.array(effs)
+        out["P18c_effect_by_readout"][r] = {
+            "mean_effect": round(float(ea.mean()), 3) if len(ea) else None,
+            "families_positive": f"{int((ea>0).sum())}/{len(ea)}" if len(ea) else None}
     (HERE / "results_tokvar_analysis.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 

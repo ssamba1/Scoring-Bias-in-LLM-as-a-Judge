@@ -20,6 +20,10 @@
             "union": {
               "mean": 2.9038,
               "mean_mass": 0.00143
+            },
+            "space_appended": {
+              "mean": 2.8124,
+              "mean_mass": 0.67253
             }
           },
           "reversed": {
@@ -30,6 +34,10 @@
             "union": {
               "mean": 2.9102,
               "mean_mass": 0.00145
+            },
+            "space_appended": {
+              "mean": 2.8261,
+              "mean_mass": 0.66763
             }
           },
           "random": {
@@ -40,6 +48,10 @@
             "union": {
               "mean": 2.9088,
               "mean_mass": 0.00227
+            },
+            "space_appended": {
+              "mean": 2.824,
+              "mean_mass": 0.68437
             }
           }
         },
@@ -52,6 +64,10 @@
             "union": {
               "mean": 2.9038,
               "mean_mass": 0.00143
+            },
+            "space_appended": {
+              "mean": 2.8124,
+              "mean_mass": 0.67253
             }
           },
           "expert": {
@@ -62,6 +78,10 @@
             "union": {
               "mean": 2.8523,
               "mean_mass": 0.00172
+            },
+            "space_appended": {
+              "mean": 2.7415,
+              "mean_mass": 0.74243
             }
           },
           "novice": {
@@ -72,6 +92,10 @@
             "union": {
               "mean": 2.9662,
               "mean_mass": 0.0017
+            },
+            "space_appended": {
+              "mean": 2.6397,
+              "mean_mass": 0.74828
             }
           }
         }
@@ -93,6 +117,10 @@
             "union": {
               "mean": 3.9983,
               "mean_mass": 0.00045
+            },
+            "space_appended": {
+              "mean": 2.7221,
+              "mean_mass": 0.89922
             }
           },
           "reversed": {
@@ -103,6 +131,10 @@
             "union": {
               "mean": 3.9768,
               "mean_mass": 0.00049
+            },
+            "space_appended": {
+              "mean": 2.9652,
+              "mean_mass": 0.89389
             }
           },
           "random": {
@@ -113,6 +145,10 @@
             "union": {
               "mean": 3.8185,
               "mean_mass": 0.00092
+            },
+            "space_appended": {
+              "mean": 2.703,
+              "mean_mass": 0.88524
             }
           }
         },
@@ -125,6 +161,10 @@
             "union": {
               "mean": 3.9983,
               "mean_mass": 0.00045
+            },
+            "space_appended": {
+              "mean": 2.7221,
+              "mean_mass": 0.89922
             }
           },
           "expert": {
@@ -135,6 +175,10 @@
             "union": {
               "mean": 3.3781,
               "mean_mass": 0.00049
+            },
+            "space_appended": {
+              "mean": 2.2083,
+              "mean_mass": 0.9003
             }
           },
           "novice": {
@@ -145,6 +189,10 @@
             "union": {
               "mean": 3.3931,
               "mean_mass": 0.00045
+            },
+            "space_appended": {
+              "mean": 2.0482,
+              "mean_mass": 0.91143
             }
           }
         }
@@ -168,6 +216,10 @@
             "union": {
               "mean": 3.4612,
               "mean_mass": 0.00372
+            },
+            "space_appended": {
+              "mean": 2.8852,
+              "mean_mass": 0.9456
             }
           },
           "reversed": {
@@ -178,6 +230,10 @@
             "union": {
               "mean": 3.5579,
               "mean_mass": 0.00364
+            },
+            "space_appended": {
+              "mean": 3.1871,
+              "mean_mass": 0.95535
             }
           },
           "random": {
@@ -188,6 +244,10 @@
             "union": {
               "mean": 3.3472,
               "mean_mass": 0.00527
+            },
+            "space_appended": {
+              "mean": 2.9357,
+              "mean_mass": 0.95849
             }
           }
         },
@@ -200,6 +260,10 @@
             "union": {
               "mean": 3.4612,
               "mean_mass": 0.00372
+            },
+            "space_appended": {
+              "mean": 2.8852,
+              "mean_mass": 0.9456
             }
           },
           "expert": {
@@ -210,6 +274,10 @@
             "union": {
               "mean": 3.6576,
               "mean_mass": 0.00289
+            },
+            "space_appended": {
+              "mean": 2.7666,
+              "mean_mass": 0.96309
             }
           },
           "novice": {
@@ -220,6 +288,10 @@
             "union": {
               "mean": 3.482,
               "mean_mass": 0.00317
+            },
+            "space_appended": {
+              "mean": 2.4938,
+              "mean_mass": 0.95054
             }
           }
         }
@@ -241,6 +313,10 @@
             "union": {
               "mean": 3.1835,
               "mean_mass": 0.0002
+            },
+            "space_appended": {
+              "mean": 1.7721,
+              "mean_mass": 0.93726
             }
           },
           "reversed": {
@@ -251,6 +327,10 @@
             "union": {
               "mean": 3.4571,
               "mean_mass": 0.00022
+            },
+            "space_appended": {
+              "mean": 2.2842,
+              "mean_mass": 0.91397
             }
           },
           "random": {
@@ -261,6 +341,10 @@
             "union": {
               "mean": 3.1914,
               "mean_mass": 0.00041
+            },
+            "space_appended": {
+              "mean": 1.8324,
+              "mean_mass": 0.94019
             }
           }
         },
@@ -273,6 +357,10 @@
             "union": {
               "mean": 3.1835,
               "mean_mass": 0.0002
+            },
+            "space_appended": {
+              "mean": 1.7721,
+              "mean_mass": 0.93726
             }
           },
           "expert": {
@@ -283,6 +371,10 @@
             "union": {
               "mean": 3.1945,
               "mean_mass": 0.00022
+            },
+            "space_appended": {
+              "mean": 1.6856,
+              "mean_mass": 0.92964
             }
           },
           "novice": {
@@ -293,6 +385,10 @@
             "union": {
               "mean": 3.0477,
               "mean_mass": 0.0002
+            },
+            "space_appended": {
+              "mean": 1.5436,
+              "mean_mass": 0.90888
             }
           }
         }
@@ -316,6 +412,10 @@
             "union": {
               "mean": 3.025,
               "mean_mass": 0.00016
+            },
+            "space_appended": {
+              "mean": 3.5964,
+              "mean_mass": 0.98247
             }
           },
           "reversed": {
@@ -326,6 +426,10 @@
             "union": {
               "mean": 3.0347,
               "mean_mass": 0.00015
+            },
+            "space_appended": {
+              "mean": 3.5229,
+              "mean_mass": 0.98567
             }
           },
           "random": {
@@ -336,6 +440,10 @@
             "union": {
               "mean": 3.1379,
               "mean_mass": 0.00011
+            },
+            "space_appended": {
+              "mean": 3.4821,
+              "mean_mass": 0.99144
             }
           }
         },
@@ -348,6 +456,10 @@
             "union": {
               "mean": 3.025,
               "mean_mass": 0.00016
+            },
+            "space_appended": {
+              "mean": 3.5964,
+              "mean_mass": 0.98247
             }
           },
           "expert": {
@@ -358,6 +470,10 @@
             "union": {
               "mean": 2.9576,
               "mean_mass": 0.00023
+            },
+            "space_appended": {
+              "mean": 3.5423,
+              "mean_mass": 0.97303
             }
           },
           "novice": {
@@ -368,6 +484,10 @@
             "union": {
               "mean": 2.7078,
               "mean_mass": 0.00024
+            },
+            "space_appended": {
+              "mean": 3.2421,
+              "mean_mass": 0.98252
             }
           }
         }
@@ -389,6 +509,10 @@
             "union": {
               "mean": 3.1262,
               "mean_mass": 9e-05
+            },
+            "space_appended": {
+              "mean": 3.3978,
+              "mean_mass": 0.99419
             }
           },
           "reversed": {
@@ -399,6 +523,10 @@
             "union": {
               "mean": 3.1613,
               "mean_mass": 9e-05
+            },
+            "space_appended": {
+              "mean": 3.4134,
+              "mean_mass": 0.99506
             }
           },
           "random": {
@@ -409,6 +537,10 @@
             "union": {
               "mean": 3.1333,
               "mean_mass": 0.00013
+            },
+            "space_appended": {
+              "mean": 3.4688,
+              "mean_mass": 0.99794
             }
           }
         },
@@ -421,6 +553,10 @@
             "union": {
               "mean": 3.1262,
               "mean_mass": 9e-05
+            },
+            "space_appended": {
+              "mean": 3.3978,
+              "mean_mass": 0.99419
             }
           },
           "expert": {
@@ -431,6 +567,10 @@
             "union": {
               "mean": 3.0101,
               "mean_mass": 0.00023
+            },
+            "space_appended": {
+              "mean": 3.4635,
+              "mean_mass": 0.99406
             }
           },
           "novice": {
@@ -441,6 +581,10 @@
             "union": {
               "mean": 2.6327,
               "mean_mass": 0.00029
+            },
+            "space_appended": {
+              "mean": 3.2078,
+              "mean_mass": 0.99503
             }
           }
         }
@@ -464,6 +608,10 @@
             "union": {
               "mean": 3.3677,
               "mean_mass": 0.0001
+            },
+            "space_appended": {
+              "mean": 3.7815,
+              "mean_mass": 0.99827
             }
           },
           "reversed": {
@@ -474,6 +622,10 @@
             "union": {
               "mean": 3.2493,
               "mean_mass": 9e-05
+            },
+            "space_appended": {
+              "mean": 3.3291,
+              "mean_mass": 0.99756
             }
           },
           "random": {
@@ -484,6 +636,10 @@
             "union": {
               "mean": 3.2051,
               "mean_mass": 0.00016
+            },
+            "space_appended": {
+              "mean": 3.391,
+              "mean_mass": 0.99738
             }
           }
         },
@@ -496,6 +652,10 @@
             "union": {
               "mean": 3.3677,
               "mean_mass": 0.0001
+            },
+            "space_appended": {
+              "mean": 3.7815,
+              "mean_mass": 0.99827
             }
           },
           "expert": {
@@ -506,6 +666,10 @@
             "union": {
               "mean": 2.9656,
               "mean_mass": 0.0002
+            },
+            "space_appended": {
+              "mean": 3.2841,
+              "mean_mass": 0.99734
             }
           },
           "novice": {
@@ -516,6 +680,10 @@
             "union": {
               "mean": 2.5293,
               "mean_mass": 0.0003
+            },
+            "space_appended": {
+              "mean": 2.6423,
+              "mean_mass": 0.99678
             }
           }
         }
@@ -537,6 +705,10 @@
             "union": {
               "mean": 2.7568,
               "mean_mass": 6e-05
+            },
+            "space_appended": {
+              "mean": 3.1938,
+              "mean_mass": 0.99924
             }
           },
           "reversed": {
@@ -547,6 +719,10 @@
             "union": {
               "mean": 2.8921,
               "mean_mass": 6e-05
+            },
+            "space_appended": {
+              "mean": 3.1494,
+              "mean_mass": 0.99917
             }
           },
           "random": {
@@ -557,6 +733,10 @@
             "union": {
               "mean": 2.6761,
               "mean_mass": 0.00014
+            },
+            "space_appended": {
+              "mean": 3.235,
+              "mean_mass": 0.99896
             }
           }
         },
@@ -569,6 +749,10 @@
             "union": {
               "mean": 2.7568,
               "mean_mass": 6e-05
+            },
+            "space_appended": {
+              "mean": 3.1938,
+              "mean_mass": 0.99924
             }
           },
           "expert": {
@@ -579,6 +763,10 @@
             "union": {
               "mean": 2.7647,
               "mean_mass": 4e-05
+            },
+            "space_appended": {
+              "mean": 3.1444,
+              "mean_mass": 0.99945
             }
           },
           "novice": {
@@ -589,6 +777,10 @@
             "union": {
               "mean": 1.9079,
               "mean_mass": 7e-05
+            },
+            "space_appended": {
+              "mean": 1.8643,
+              "mean_mass": 0.99916
             }
           }
         }

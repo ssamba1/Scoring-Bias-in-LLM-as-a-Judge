@@ -152,6 +152,19 @@ if tp.exists():
     if t15["P15b_summary"] != "6/10 templates with instruct>base":
         FAILS.append("P15b 6/10 stale")
 
+# ---- P18 readout variants (confirmed) ----
+tv = HERE / "results_tokvar_analysis.json"
+if tv.exists():
+    t18 = json.loads(tv.read_text())
+    close("tokvar bare~space corr", 0.79,
+          t18["P18a_pairwise_delta_corr"]["bare~space_appended"], 0.006)
+    if t18["P18b_union_effect"]["families_positive"] != "4/4":
+        FAILS.append("P18b 4/4 stale")
+    close("tokvar space mass instruct", 0.955,
+          t18["mean_mass"]["space_appended"]["instruct"], 0.006)
+    close("tokvar space effect", 0.06,
+          t18["P18c_effect_by_readout"]["space_appended"]["mean_effect"], 0.006)
+
 # ---- P13 span patching ----
 sp = HERE / "spanpatch_analysis.json"
 if sp.exists():

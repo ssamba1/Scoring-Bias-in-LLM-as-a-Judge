@@ -178,6 +178,19 @@ parse-based scoring is either confounded (strict) or noise-dominated
 
 Failure of any clause is reported as a failure.
 
+**P18 outcome (recorded 2026-07-19 after the v3 run):** CONFIRMED as
+registered, with one honest residual. The v2/v3 vocab scan first established
+that these tokenizers have NO space-digit single tokens — the bare digits are
+the complete digit-token set at the score position (union ≡ bare, ρ = 1.0);
+the numeric mass (0.91–0.96) sits one position later, after the space token.
+At that space-appended position the per-cell bias Δ correlates with the
+bare-token readout at ρ = 0.79 (≥ the preregistered 0.7), and the
+instruct>base effect holds under the union readout (4/4 families, +0.11).
+Residual: at the high-mass position the effect is positive on average (+0.06)
+but in only 2/4 of these smallest families. Net: the conditional readout
+tracks the model's true high-mass score preference; the findings are not a
+bare-token artifact.
+
 - **P18 amendment (v2, recorded 2026-07-19 before the v2 run):** the v1
   space-prefixed readout was degenerate — " 4" tokenizes as [space][4] on all
   four tokenizers, so the "spaced" ids collapsed to the shared space token and

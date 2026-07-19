@@ -8,10 +8,16 @@
     "union": {
       "base": 0.0014,
       "instruct": 0.0003
+    },
+    "space_appended": {
+      "base": 0.9079,
+      "instruct": 0.9551
     }
   },
   "P18a_pairwise_delta_corr": {
-    "bare~union": 1.0
+    "bare~union": 1.0,
+    "bare~space_appended": 0.791,
+    "union~space_appended": 0.791
   },
   "P18b_union_effect": {
     "per_family": {
@@ -22,5 +28,19 @@
     },
     "mean_effect": 0.108,
     "families_positive": "4/4"
+  },
+  "P18c_effect_by_readout": {
+    "bare": {
+      "mean_effect": 0.108,
+      "families_positive": "4/4"
+    },
+    "union": {
+      "mean_effect": 0.108,
+      "families_positive": "4/4"
+    },
+    "space_appended": {
+      "mean_effect": 0.06,
+      "families_positive": "2/4"
+    }
   }
 }
