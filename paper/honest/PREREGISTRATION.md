@@ -84,6 +84,11 @@ predictions written before any results were read.
 
 Failure of any of P10–P13 is reported as a failure.
 
+**P11 outcome (recorded 2026-07-19 after the run):** CONFIRMED.
+Fully-Chinese 5-probe suite, Qwen2.5 0.5/1.5/3/7B, zero errors: (a) instruct Δ >
+base Δ in 4/4 families (mean +0.43; positive point estimate for all five probes);
+(b) pooled entropy–bias Spearman ρ = −0.36 (p = 0.024, n = 40).
+
 **P10 outcome (recorded 2026-07-19 after the run):** SPLIT.
 - Sycophancy: **confirmed** — instruct Δ > base Δ in 11/13 families, mean change
   +0.46 (Wilcoxon p = 0.027); the instruct-side bias (1.37) is the largest of any

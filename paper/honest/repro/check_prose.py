@@ -95,6 +95,17 @@ if p2path.exists():
         FAILS.append("sycophancy 11/13 stale")
     close("anchoring null", 0.015, p2["anchoring"]["mean_change"], 0.003)
 
+# ---- P11 Chinese replication ----
+zpath = HERE / "results_zh_analysis.json"
+if zpath.exists():
+    z = json.loads(zpath.read_text())
+    zeff = z["per_family_effect"]
+    mean_z = sum(zeff.values()) / len(zeff)
+    close("zh mean effect", 0.43, mean_z, 0.006)
+    if sum(v > 0 for v in zeff.values()) != 4:
+        FAILS.append("zh 4/4 stale")
+    close("zh entropy-bias rho", -0.36, z["entropy_bias_link"]["spearman_rho"], 0.006)
+
 # ---- stages ----
 if stages["P7"]["sft_resp_up_cells"] != "10/10":
     FAILS.append("P7 10/10 stale")

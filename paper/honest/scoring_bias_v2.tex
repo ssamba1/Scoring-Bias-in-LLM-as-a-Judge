@@ -470,6 +470,9 @@ installs the bias; DPO/RLVR install the confidence.}
 \subsection{Replication on public-dataset items}\label{sec:dolly}
 \REPLPROSE{}
 
+\subsection{Replication in Chinese}\label{sec:zh}
+\ZHPROSE{}
+
 \subsection{Flip rates, scale, recipe, and domain}\label{sec:secondary}
 \SECONDARYPROSE{}
 \begin{table}[t]\centering\footnotesize
@@ -535,10 +538,12 @@ because a mechanism claim is only as trustworthy as the measurement under it.
 \begin{enumerate}\itemsep2pt
   \item \textbf{Open weights $\leq$\MAXB{}B.} Public base+instruct pairs are required,
         so the largest and closed frontier judges are out of scope.
-  \item \textbf{Family as unit; greedy, English.} Powered for large effects; deterministic
-        scores give no within-model variance; prompts are English. The core relation is
-        robust to prompt wording (\S\ref{sec:template}, three templates) but all are
-        instruction-style; radically different scoring interfaces are untested.
+  \item \textbf{Family as unit; greedy decoding.} Powered for large effects; deterministic
+        scores give no within-model variance. The core relation is robust to prompt
+        wording (\S\ref{sec:template}, three templates) and replicates in Chinese
+        (\S\ref{sec:zh}), but all templates are instruction-style; radically different
+        scoring interfaces are untested, and the Chinese replication covers one
+        (natively bilingual) model series.
   \item \textbf{Theory scope.} The all-order argument shows decisiveness controls every
         cumulant in the decisive limit, but the finite-entropy regime is characterized
         only up to the cumulants we compute; a closed form of the bias for arbitrary
