@@ -144,6 +144,14 @@ if sp16.exists():
     close("sampled ev disagreement", -0.20,
           s16["P16b_delta_agreement"]["spearman_ev_vs_sampled_delta"], 0.006)
 
+# ---- P15 ten templates (split) ----
+tp = HERE / "results_t10_analysis.json"
+if tp.exists():
+    t15 = json.loads(tp.read_text())
+    close("t10 entropy-bias", -0.51, t15["P15a_entropy_bias"]["spearman_rho"], 0.006)
+    if t15["P15b_summary"] != "6/10 templates with instruct>base":
+        FAILS.append("P15b 6/10 stale")
+
 # ---- P13 span patching ----
 sp = HERE / "spanpatch_analysis.json"
 if sp.exists():

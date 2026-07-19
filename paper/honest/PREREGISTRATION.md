@@ -151,6 +151,14 @@ not scaled by its magnitude, for these probes and models.
   failure is much higher for base than instruct checkpoints (the confound,
   now quantified); (b) among parseable items, the sampled-score bias Δ
   correlates positively with the expected-value Δ across cells.
+**P15 outcome (recorded 2026-07-19 after the run):** SPLIT.
+- (a) **confirmed strongly**: pooled entropy–bias ρ = −0.51 (p < 10⁻⁶, n = 180)
+  across ten surface-distinct templates — the broadest template-robustness
+  evidence for the negative relation.
+- (b) **failed as stated**: instruct Δ > base Δ in only 6/10 templates (range
+  −0.25 to +0.18) on the three smallest families (135M–0.5B, 3 probes, 20
+  items) — the direction is template-sensitive at this scale and n.
+
 **P16 outcome (recorded 2026-07-19 after the run):** FAILED, both clauses —
 and the failure *corrects our own earlier framing*. (a) Under a lenient
 sampled protocol (temperature 1, k=8, first-digit regex) parse rates are
