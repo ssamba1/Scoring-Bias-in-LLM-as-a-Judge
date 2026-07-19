@@ -1,6 +1,16 @@
 # Multi-template robustness (C11): does the negative decisiveness<->bias relation
 # survive alternate prompt templates? Runs 3 templates x Qwen 0.5/1.5/3B x 5 probes.
-import os, json, math, time, traceback
+import os, sys, subprocess, json, math, time, traceback
+def _cuda_bad():
+    try:
+        import torch
+        if not torch.cuda.is_available(): return False
+        (torch.ones(4,device="cuda")@torch.ones(4,device="cuda")).item(); return False
+    except Exception: return True
+if os.environ.get("R")!="1" and _cuda_bad():
+    subprocess.run([sys.executable,"-m","pip","install","-q","torch==2.6.0","torchvision==0.21.0","--index-url","https://download.pytorch.org/whl/cu124"],check=False)
+    subprocess.run([sys.executable,"-m","pip","install","-q","transformers==4.49.0","tokenizers==0.21.0","accelerate==1.4.0"],check=False)
+    os.environ["R"]="1"; os.execv(sys.executable,[sys.executable]+sys.argv)
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
@@ -38,19 +48,19 @@ def tf_resp(probe,variant,resp):
     if probe=="verbosity" and variant=="terse": return (resp.split(".")[0] or resp).strip()+"."
     return resp
 def vals(a): return list(range(5,0,-1)) if a is LET else [1,2,3,4,5]
-DEVICE="cpu"
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 @torch.no_grad()
 def score(tok,model,prompt,atok):
     ids=tok(prompt,return_tensors="pt").to(DEVICE)
     full=torch.softmax(model(**ids).logits[0,-1].float(),dim=-1)
     tids=[(tok.encode(a,add_special_tokens=False) or tok.encode(" "+a,add_special_tokens=False))[0] for a in atok]
     p=(full[tids]/full[tids].sum()); v=vals(atok)
-    vt=torch.tensor(v,dtype=p.dtype)
+    vt=torch.tensor(v,dtype=p.dtype,device=p.device)
     ent=-sum(float(x)*math.log2(float(x)) for x in p if x>0)
     return float((p*vt).sum()), round(ent,4)
 def run(name,tmpl):
     tok=AutoTokenizer.from_pretrained(name)
-    m=AutoModelForCausalLM.from_pretrained(name,torch_dtype=torch.float32).to(DEVICE); m.eval()
+    m=AutoModelForCausalLM.from_pretrained(name,torch_dtype=torch.float16 if DEVICE=="cuda" else torch.float32).to(DEVICE); m.eval()
     out={}
     for probe,variants in PROBES.items():
         out[probe]={}

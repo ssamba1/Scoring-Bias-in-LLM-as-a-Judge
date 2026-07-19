@@ -427,8 +427,10 @@ because a mechanism claim is only as trustworthy as the measurement under it.
 \begin{enumerate}\itemsep2pt
   \item \textbf{Open weights $\leq$\MAXB{}B.} Public base+instruct pairs are required,
         so the largest and closed frontier judges are out of scope.
-  \item \textbf{Family as unit; greedy, English, single template.} Powered for large
-        effects; deterministic scores give no within-model variance; one prompt style.
+  \item \textbf{Family as unit; greedy, English.} Powered for large effects; deterministic
+        scores give no within-model variance; prompts are English. The core relation is
+        robust to prompt wording (\S\ref{sec:template}, three templates) but all are
+        instruction-style; radically different scoring interfaces are untested.
   \item \textbf{Theory scope.} The all-order argument shows decisiveness controls every
         cumulant in the decisive limit, but the finite-entropy regime is characterized
         only up to the cumulants we compute; a closed form of the bias for arbitrary
