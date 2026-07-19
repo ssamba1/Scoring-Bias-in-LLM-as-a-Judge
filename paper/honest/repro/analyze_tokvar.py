@@ -1,4 +1,4 @@
-"""Readout-variant analysis (P18). Committed before the CPU run completed.
+"""Readout-variant analysis (P18, v2: bare vs full vocab-scan union).
 
 Per (family, checkpoint, probe): bias Delta under bare / spaced / union
 readouts; pairwise per-cell Delta correlations; instruct>base effect under the
@@ -13,7 +13,7 @@ import numpy as np
 from scipy import stats
 
 HERE = Path(__file__).resolve().parent
-READOUTS = ("bare", "spaced", "union")
+READOUTS = ("bare", "union")
 
 
 def main():

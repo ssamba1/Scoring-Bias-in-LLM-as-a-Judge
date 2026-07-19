@@ -1,0 +1,542 @@
+{
+  "n_items": 20,
+  "errors": {},
+  "results": {
+    "SmolLM2-135M": {
+      "base": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 2.9038,
+              "mean_mass": 0.00143
+            },
+            "union": {
+              "mean": 2.9998,
+              "mean_mass": 2.10109
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 2.9102,
+              "mean_mass": 0.00145
+            },
+            "union": {
+              "mean": 2.9998,
+              "mean_mass": 2.11015
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 2.9088,
+              "mean_mass": 0.00227
+            },
+            "union": {
+              "mean": 2.9998,
+              "mean_mass": 2.00901
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 2.9038,
+              "mean_mass": 0.00143
+            },
+            "union": {
+              "mean": 2.9998,
+              "mean_mass": 2.10109
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 2.8523,
+              "mean_mass": 0.00172
+            },
+            "union": {
+              "mean": 2.9998,
+              "mean_mass": 2.39769
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 2.9662,
+              "mean_mass": 0.0017
+            },
+            "union": {
+              "mean": 2.9999,
+              "mean_mass": 2.35628
+            }
+          }
+        }
+      },
+      "instruct": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 3.9983,
+              "mean_mass": 0.00045
+            },
+            "union": {
+              "mean": 3.0002,
+              "mean_mass": 2.9611
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 3.9768,
+              "mean_mass": 0.00049
+            },
+            "union": {
+              "mean": 3.0002,
+              "mean_mass": 2.94365
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 3.8185,
+              "mean_mass": 0.00092
+            },
+            "union": {
+              "mean": 3.0003,
+              "mean_mass": 2.92909
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 3.9983,
+              "mean_mass": 0.00045
+            },
+            "union": {
+              "mean": 3.0002,
+              "mean_mass": 2.9611
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 3.3781,
+              "mean_mass": 0.00049
+            },
+            "union": {
+              "mean": 3.0001,
+              "mean_mass": 2.56946
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 3.3931,
+              "mean_mass": 0.00045
+            },
+            "union": {
+              "mean": 3.0001,
+              "mean_mass": 2.55244
+            }
+          }
+        }
+      }
+    },
+    "SmolLM2-360M": {
+      "base": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 3.4612,
+              "mean_mass": 0.00372
+            },
+            "union": {
+              "mean": 3.0004,
+              "mean_mass": 3.51241
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 3.5579,
+              "mean_mass": 0.00364
+            },
+            "union": {
+              "mean": 3.0005,
+              "mean_mass": 3.55765
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 3.3472,
+              "mean_mass": 0.00527
+            },
+            "union": {
+              "mean": 3.0005,
+              "mean_mass": 3.66193
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 3.4612,
+              "mean_mass": 0.00372
+            },
+            "union": {
+              "mean": 3.0004,
+              "mean_mass": 3.51241
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 3.6576,
+              "mean_mass": 0.00289
+            },
+            "union": {
+              "mean": 3.0005,
+              "mean_mass": 3.50658
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 3.482,
+              "mean_mass": 0.00317
+            },
+            "union": {
+              "mean": 3.0004,
+              "mean_mass": 3.58052
+            }
+          }
+        }
+      },
+      "instruct": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 3.1835,
+              "mean_mass": 0.0002
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 2.85055
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 3.4571,
+              "mean_mass": 0.00022
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 3.10132
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 3.1914,
+              "mean_mass": 0.00041
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 3.23253
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 3.1835,
+              "mean_mass": 0.0002
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 2.85055
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 3.1945,
+              "mean_mass": 0.00022
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 3.22078
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 3.0477,
+              "mean_mass": 0.0002
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 3.25264
+            }
+          }
+        }
+      }
+    },
+    "Qwen2.5-0.5B": {
+      "base": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 3.025,
+              "mean_mass": 0.00016
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.45961
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 3.0347,
+              "mean_mass": 0.00015
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.46855
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 3.1379,
+              "mean_mass": 0.00011
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.51526
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 3.025,
+              "mean_mass": 0.00016
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.45961
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 2.9576,
+              "mean_mass": 0.00023
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.51127
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 2.7078,
+              "mean_mass": 0.00024
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.45454
+            }
+          }
+        }
+      },
+      "instruct": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 3.1262,
+              "mean_mass": 9e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.85365
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 3.1613,
+              "mean_mass": 9e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.85751
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 3.1333,
+              "mean_mass": 0.00013
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.92382
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 3.1262,
+              "mean_mass": 9e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.85365
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 3.0101,
+              "mean_mass": 0.00023
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.87701
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 2.6327,
+              "mean_mass": 0.00029
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.86714
+            }
+          }
+        }
+      }
+    },
+    "Qwen2.5-1.5B": {
+      "base": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 3.3677,
+              "mean_mass": 0.0001
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.42901
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 3.2493,
+              "mean_mass": 9e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.4313
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 3.2051,
+              "mean_mass": 0.00016
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.48854
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 3.3677,
+              "mean_mass": 0.0001
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.42901
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 2.9656,
+              "mean_mass": 0.0002
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.68471
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 2.5293,
+              "mean_mass": 0.0003
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.68543
+            }
+          }
+        }
+      },
+      "instruct": {
+        "rubric_order": {
+          "control": {
+            "bare": {
+              "mean": 2.7568,
+              "mean_mass": 6e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.8517
+            }
+          },
+          "reversed": {
+            "bare": {
+              "mean": 2.8921,
+              "mean_mass": 6e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.83439
+            }
+          },
+          "random": {
+            "bare": {
+              "mean": 2.6761,
+              "mean_mass": 0.00014
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.8404
+            }
+          }
+        },
+        "authority": {
+          "none": {
+            "bare": {
+              "mean": 2.7568,
+              "mean_mass": 6e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.8517
+            }
+          },
+          "expert": {
+            "bare": {
+              "mean": 2.7647,
+              "mean_mass": 4e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.93846
+            }
+          },
+          "novice": {
+            "bare": {
+              "mean": 1.9079,
+              "mean_mass": 7e-05
+            },
+            "union": {
+              "mean": 3.0,
+              "mean_mass": 4.92629
+            }
+          }
+        }
+      }
+    }
+  }
+}

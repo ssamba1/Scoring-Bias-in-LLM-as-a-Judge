@@ -75,6 +75,14 @@ predictions written before any results were read.
   entropy–bias correlation is negative.
 - **P12 (scale).** Qwen2.5-14B (NF4 4-bit) continues the pattern: instruct mean
   Δ > base mean Δ.
+
+**P12 outcome (recorded 2026-07-19 after the retry run):** MET NOMINALLY,
+ATTENUATED. Instruct mean Δ − base mean Δ = +0.055 (> 0; positive for 3/5
+probes: rubric +0.13, score-ID +0.31, reference +0.04; authority −0.16,
+verbosity −0.04). Far below the ≤8B panel mean (+0.26), consistent with the
+>3B attenuation band; 4-bit quantization is an additional caveat. First run
+failed on a CPU-dispatch error (base scored only) and was retried with fixed
+device placement.
 - **P13 (locus of responsiveness).** Overwriting the instruct model's residual
   stream at the nuisance-span positions with the base model's activations
   (Qwen2.5-1.5B; expert-authority and good-exemplar probes) reduces the
@@ -144,6 +152,14 @@ not scaled by its magnitude, for these probes and models.
 
 Failure of any clause is reported as a failure.
 
+- **P18 amendment (v2, recorded 2026-07-19 before the v2 run):** the v1
+  space-prefixed readout was degenerate — " 4" tokenizes as [space][4] on all
+  four tokenizers, so the "spaced" ids collapsed to the shared space token and
+  v1 produced no valid comparison (bug caught in analysis; v1 result discarded
+  as invalid, not as unfavorable). v2 replaces it with a vocab-scan union:
+  every single token that decodes to each digit. Prediction unchanged: bare and
+  union per-cell Δ correlate ≥ 0.7 and the instruct>base effect holds under the
+  union readout.
 - **P18 (readout-variant robustness).** The recorded answer-token mass turns out
   to be over *bare* digit tokens while models place their mass on space-prefixed
   variants — a tokenization artifact discovered 2026-07-19. Prediction, registered

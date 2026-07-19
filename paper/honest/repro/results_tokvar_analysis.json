@@ -1,0 +1,24 @@
+{
+  "n_cells": 0,
+  "mean_mass": {
+    "bare": {
+      "base": 0.0014,
+      "instruct": 0.0003
+    },
+    "spaced": {},
+    "union": {
+      "base": 3.6843,
+      "instruct": 3.9125
+    }
+  },
+  "P18a_pairwise_delta_corr": {
+    "bare~spaced": NaN,
+    "bare~union": NaN,
+    "spaced~union": NaN
+  },
+  "P18b_union_effect": {
+    "per_family": {},
+    "mean_effect": null,
+    "families_positive": null
+  }
+}

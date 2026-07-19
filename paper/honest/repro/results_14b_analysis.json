@@ -1,5 +1,48 @@
 {
   "source": "results_14b.json",
-  "per_probe": {},
-  "per_family_effect": {}
+  "per_probe": {
+    "authority": {
+      "n_families": 1,
+      "mean_base": 0.343,
+      "mean_instruct": 0.187,
+      "mean_change": -0.156,
+      "families_positive": "0/1"
+    },
+    "reference_answer": {
+      "n_families": 1,
+      "mean_base": 0.508,
+      "mean_instruct": 0.549,
+      "mean_change": 0.041,
+      "families_positive": "1/1"
+    },
+    "rubric_order": {
+      "n_families": 1,
+      "mean_base": 0.478,
+      "mean_instruct": 0.608,
+      "mean_change": 0.13,
+      "families_positive": "1/1"
+    },
+    "score_id": {
+      "n_families": 1,
+      "mean_base": 0.403,
+      "mean_instruct": 0.707,
+      "mean_change": 0.305,
+      "families_positive": "1/1"
+    },
+    "verbosity": {
+      "n_families": 1,
+      "mean_base": 0.078,
+      "mean_instruct": 0.035,
+      "mean_change": -0.043,
+      "families_positive": "0/1"
+    }
+  },
+  "per_family_effect": {
+    "Qwen2.5-14B": 0.055
+  },
+  "entropy_bias_link": {
+    "spearman_rho": -0.273,
+    "p": 0.445838,
+    "n": 10
+  }
 }

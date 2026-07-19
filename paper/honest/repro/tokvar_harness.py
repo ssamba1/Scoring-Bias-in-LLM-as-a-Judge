@@ -1,6 +1,7 @@
 # Readout-variant harness (P18, CPU) -- is the measured bias robust to WHICH
 # answer-token variant the readout uses? Three readouts from the same logits:
-# bare digits ("1".."5"), space-prefixed (" 1".." 5"), and their union (summed).
+# bare digits ("1".."5") vs the FULL union of vocab tokens decoding to each digit
+# (v2: vocab scan; the v1 space-prefixed readout was degenerate on these tokenizers).
 # If bias Delta and the base-vs-instruct effect agree across readouts, the
 # "tiny bare-token mass" objection to expected-value scoring is closed.
 import os, sys, subprocess, json, time, shutil, glob, math
@@ -66,33 +67,40 @@ def build(instr, resp, scale, prefix):
     return (f"{prefix}Evaluate the following response to the instruction {scale}.\n"
             f"### Instruction: {instr}\n### Response: {resp}\n### Score:")
 
+_DIGIT_SETS = {}
+
+def digit_token_sets(tok, name):
+    """All single vocab tokens that decode (after strip) to each digit.
+    v2 fix: ' 4' tokenizes as [space][4] on these tokenizers, so the v1
+    space-prefixed readout was degenerate; the vocab scan gets the true set."""
+    if name in _DIGIT_SETS:
+        return _DIGIT_SETS[name]
+    sets = {a: [] for a in NUM}
+    for i in range(len(tok)):
+        s = tok.decode([i]).strip()
+        if s in sets:
+            sets[s].append(i)
+    _DIGIT_SETS[name] = sets
+    return sets
+
 @torch.no_grad()
-def score_variants(tok, model, prompt):
+def score_variants(tok, model, prompt, dsets):
     ids = tok(prompt, return_tensors="pt")
     full = torch.softmax(model(**ids).logits[0, -1].float(), dim=-1)
     vt = torch.tensor([1., 2., 3., 4., 5.])
     outp = {}
-    bare, spaced = [], []
-    for a in NUM:
-        eb = tok.encode(a, add_special_tokens=False)
-        es = tok.encode(" " + a, add_special_tokens=False)
-        bare.append(eb[0] if eb else None)
-        spaced.append(es[0] if es and (not eb or es[0] != eb[0]) else None)
-    for label, tids in (("bare", bare), ("spaced", spaced)):
-        if any(t is None for t in tids) or len(set(tids)) < 5:
-            outp[label] = None
-            continue
-        pr = full[tids]
+    bare = [(tok.encode(a, add_special_tokens=False) or [None])[0] for a in NUM]
+    if all(t is not None for t in bare) and len(set(bare)) == 5:
+        pr = full[bare]
         mass = float(pr.sum())
         pr = pr / pr.sum()
-        outp[label] = {"exp": round(float((pr * vt).sum()), 4), "mass": round(mass, 5)}
-    if all(t is not None for t in bare) and all(t is not None for t in spaced):
-        pu = full[bare] + full[spaced]
-        mass = float(pu.sum())
-        pu = pu / pu.sum()
-        outp["union"] = {"exp": round(float((pu * vt).sum()), 4), "mass": round(mass, 5)}
+        outp["bare"] = {"exp": round(float((pr * vt).sum()), 4), "mass": round(mass, 5)}
     else:
-        outp["union"] = None
+        outp["bare"] = None
+    pu = torch.stack([full[dsets[a]].sum() for a in NUM])
+    mass = float(pu.sum())
+    pu = pu / pu.sum()
+    outp["union"] = {"exp": round(float((pu * vt).sum()), 4), "mass": round(mass, 5)}
     return outp
 
 def run_model(name):
@@ -100,14 +108,15 @@ def run_model(name):
     model = AutoModelForCausalLM.from_pretrained(name, torch_dtype=torch.float32,
                                                  trust_remote_code=True)
     model.eval()
-    out = {}
+    dsets = digit_token_sets(tok, name)
+    out = {"digit_set_sizes": {a: len(v) for a, v in dsets.items()}}
     for probe, variants in PROBES.items():
         out[probe] = {}
         for variant, (scale, prefix) in variants.items():
-            per = {"bare": [], "spaced": [], "union": []}
-            masses = {"bare": [], "spaced": [], "union": []}
+            per = {"bare": [], "union": []}
+            masses = {"bare": [], "union": []}
             for instr, resp in ITEMS:
-                sv = score_variants(tok, model, build(instr, resp, scale, prefix))
+                sv = score_variants(tok, model, build(instr, resp, scale, prefix), dsets)
                 for k in per:
                     if sv.get(k):
                         per[k].append(sv[k]["exp"]); masses[k].append(sv[k]["mass"])
