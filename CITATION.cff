@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: "Where Does Scoring Bias Come From? A Base-vs-Instruct Study of Three Scoring Biases in Small Open-Weight LLM Judges"
+title: "Confidence Is Not Robustness: Instruction Tuning Makes LLM-as-a-Judge Sharper and More Biased"
 authors:
   - family-names: Samba
     given-names: Sricharan

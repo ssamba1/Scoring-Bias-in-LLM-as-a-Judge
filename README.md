@@ -1,86 +1,85 @@
-<h1 align="center">Where Does Scoring Bias Come From?</h1>
-<p align="center"><b>A base-vs-instruct study of three scoring biases in small open-weight LLM judges</b></p>
+<h1 align="center">Confidence Is Not Robustness</h1>
+<p align="center"><b>Instruction tuning makes LLM-as-a-judge sharper <i>and</i> more biased</b></p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC_BY_4.0-1a1a2e?style=flat-square" alt="License"></a>
-  <img src="https://img.shields.io/badge/Families-7_(base%2Binstruct)-4a5568?style=flat-square" alt="Families">
-  <img src="https://img.shields.io/badge/Analysis-family--level_n%3D7-2b6cb0?style=flat-square" alt="n=7">
+  <img src="https://img.shields.io/badge/Families-9_(base%2Binstruct)-4a5568?style=flat-square" alt="Families">
+  <img src="https://img.shields.io/badge/Bias_types-5-2b6cb0?style=flat-square" alt="5 bias types">
+  <img src="https://img.shields.io/badge/data-real_only-38a169?style=flat-square" alt="real data">
 </p>
 
 ---
 
 > ### ⚠️ Correction notice (2026-07)
-> **Earlier versions of this repository and paper reported a 22-model / 31-variant / 40,500-judgment
-> "landscape" and a "content bias increases after instruction tuning" finding. Those claims were not
-> supported by real data.** An independent audit found that the 22-model results, the domain
-> breakdown, the flip-rate comparison, and the attention/"IIAR" evidence were synthetic, placeholder,
-> or fabricated. Those artifacts have been moved to [`RETRACTED/`](RETRACTED/) and must not be cited.
-> The only provenance-verified data is the 7-family Kaggle T4 run (`results_rootcause/t4fam_results.json`).
-> See [`DATA_INTEGRITY_AUDIT.md`](DATA_INTEGRITY_AUDIT.md) and [`paper/PROVENANCE_AUDIT.md`](paper/PROVENANCE_AUDIT.md).
+> **Earlier versions of this project reported a 22-model / 40,500-judgment "landscape", a
+> "content bias increases" finding, and an "IIAR" attention mechanism. Those were synthetic,
+> placeholder, or fabricated** — see the full audit in [`DATA_INTEGRITY_AUDIT.md`](DATA_INTEGRITY_AUDIT.md)
+> and [`paper/PROVENANCE_AUDIT.md`](paper/PROVENANCE_AUDIT.md). Those artifacts are quarantined in
+> [`RETRACTED/`](RETRACTED/) and must not be cited. The Zenodo DOI `10.5281/zenodo.21361920`
+> archives that retracted version.
+>
+> An intermediate honest paper (`superseded/scoring_bias_honest.*`, 7 tiny models) used
+> **parse-based** scoring, which we later show is a measurement confound (it silently drops items on
+> weak judges — Appendix A of the current paper). It is superseded and should not be cited.
 
 ---
 
-## What this repository now contains
+## The paper
 
-A small, honest, fully reproducible study of the open question raised by
-Li et al. (2026, DASFAA), *"Evaluating Scoring Bias in LLM-as-a-Judge"*: **do scoring biases originate
-in pre-training, or are they shaped by instruction tuning?**
+**[`paper/honest/scoring_bias_v2.pdf`](paper/honest/scoring_bias_v2.pdf)** — *Confidence Is Not
+Robustness.* Source: `paper/honest/scoring_bias_v2.tex` (+ `macros.tex`, `honest.bib`).
 
-We compare the **base** and **instruct** checkpoints of **seven open-weight families ≤7B** under the
-three perturbation probes of Li et al. (rubric order, score ID, reference answer), on a free Kaggle T4
-GPU. Because only per-variant **mean** scores were retained (not per-item scores), the unit of analysis
-is the model **family** (n = 7 paired observations).
+We study whether a stronger, more instruction-tuned LLM judge is a fairer one. It is not.
 
-### Finding
+## Finding
 
-**Instruction tuning *reduces* all three scoring biases in this regime.** The reduction is large and
-robust for two of the three probes:
+Across **9 open-weight families (0.1–3B)** and **five bias types** (rubric order, score ID,
+reference answer, plus **authority** and **verbosity** from outside the scoring-bias literature),
+scored by the **expected value of the answer-token distribution** (which fixes the parse-failure
+confound):
 
-| Probe | Base Δ | Instruct Δ | Change | Effect size | Robustness |
-|---|---|---|---|---|---|
-| Score ID | 2.41 | 1.44 | −0.97 (−40%) | dz = −1.08 | **robust** — 6/7 families, 95% CI [−1.54, −0.33] |
-| Reference answer | 2.76 | 1.93 | −0.83 (−30%) | dz = −1.18 | **robust** — 6/7 families, 95% CI [−1.27, −0.31] |
-| Rubric order | 0.69 | 0.29 | −0.40 | dz = −0.38 | inconclusive — CI crosses 0, outlier-driven |
+- Instruction tuning **sharpens** the score distribution (entropy 2.06 → 1.61 bits, 7/9 families)…
+- …yet **increases** bias across **4 of 5** types (linear mixed-effects instruct coef **+0.15, p<10⁻³**).
+- So decisiveness correlates **negatively** with bias (ρ = −0.51, p<10⁻³; the exact √Var term ρ = −0.33).
+- Bias is **not** predictable from decisiveness alone (leave-one-family-out R² = −0.60).
+- **Theory:** bias = *decisiveness* × *responsiveness* (Prop 1 + Corollary 1); tuning inflates
+  responsiveness faster than it trims decisiveness, so the sign flips.
+- **Causal:** activation-patching the instruct representation into the base model transfers the shift
+  in a single mid-network layer band (Qwen2.5-1.5B, n=35 items).
+- **Ground truth:** nuisances wreck real good-vs-bad discrimination (rubric reversal: accuracy 0.98→0);
+  tuning does not protect it.
+- **Mitigation:** marginalizing over nuisance formats cuts bias **60%**, where a more confident
+  readout makes it worse.
 
-Δ = max inter-variant spread in mean score (Li et al.'s metric); lower = less biased. This is
-*directional* evidence that these biases are shaped during instruction tuning rather than fixed at
-pre-training, at least for small models. We do **not** reproduce a "content bias increases" pattern.
-Full scope and limitations are in the paper.
+**Confidence is not robustness.**
 
-## Paper
-
-- **[`paper/honest/scoring_bias_honest.pdf`](paper/honest/scoring_bias_honest.pdf)** — the current, honest paper.
-- Source: `paper/honest/scoring_bias_honest.tex` + `paper/honest/honest.bib`.
-
-## Reproduce (zero cost, seconds)
+## Reproduce (from the committed raw data, seconds)
 
 ```bash
-cd paper/honest
-python repro/analyze.py       # reads results_rootcause/t4fam_results.json -> results.json + LaTeX tables
-python repro/make_figures.py  # -> figures/fig1..3 (pdf + png)
-# build the PDF:
-pdflatex scoring_bias_honest && bibtex scoring_bias_honest && pdflatex scoring_bias_honest && pdflatex scoring_bias_honest
+cd paper/honest/repro
+python analyze_peritem.py   results_scaled.json    # deltas, flip rates, domain, mixed-effects, tables
+python analyze_mechanism.py results_scaled.json    # entropy↔bias, generality, predictor, mitigation
+python analyze_gold.py      gold_results.json       # ground-truth discrimination
+python make_mech_figures.py                         # all figures from real data
+cd .. && pdflatex scoring_bias_v2 && bibtex scoring_bias_v2 && pdflatex scoring_bias_v2 && pdflatex scoring_bias_v2
 ```
 
-Independent check of what is real vs not:
-
-```bash
-python _verify_claims.py      # recomputes every Δ and prints real-vs-claimed
-```
-
-Everything derives from the single file `results_rootcause/t4fam_results.json` (seed 42).
+Every number and figure regenerates from the committed raw files
+(`repro/results_scaled.json`, `repro/gold_results.json`, `repro/patch_results.json`), seed 42.
 **No synthetic or simulated data is used.**
 
-## Data
+## Real data of record
 
-- ✅ `results_rootcause/t4fam_results.json` — **real.** 7 families ≤7B, base+instruct, per-variant means (Kaggle T4, greedy decode).
-- ✅ `results_rootcause/rootcause_results.json` — real 3-family, 8-item pilot (raw per-item scores).
-- 🗄️ `RETRACTED/` — synthetic / placeholder / fabricated artifacts kept for transparency; **not for use or citation**.
-- Other files under `results_rootcause/` are derived analyses that depended on retracted inputs and are **not** relied on by the current paper.
+- ✅ `paper/honest/repro/results_scaled.json` — 9 families × 5 bias types, per-item scores + entropy (logit scoring).
+- ✅ `paper/honest/repro/gold_results.json` — 12 gold good/bad pairs × 5 families.
+- ✅ `paper/honest/repro/patch_results.json` — causal activation-patching (Qwen2.5-1.5B, per layer).
+- 🗄️ `RETRACTED/` — fabricated / synthetic artifacts from prior versions; **not for use or citation**.
+- Data-collection harnesses that produced these: `paper/honest/repro/{scaled_harness,gold_harness,patch_harness}.py` (Kaggle).
 
 ## How to cite
 
-Please cite only the honest paper (see `CITATION.cff`). Do not cite the retracted 22-model claims.
+Cite only `scoring_bias_v2` (see `CITATION.cff`). Do **not** cite the retracted 22-model claims or
+the superseded 7-model paper.
 
 ## License
 

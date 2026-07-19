@@ -424,10 +424,12 @@ because a mechanism claim is only as trustworthy as the measurement under it.
 
 \section*{Reproducibility}
 Every statistic and figure is produced by \texttt{repro/analyze\_peritem.py},
-\texttt{repro/analyze\_mechanism.py}, and \texttt{repro/make\_figures.py} from the raw
-files of \texttt{repro/scaled\_harness.py} and \texttt{repro/patch\_harness.py}
-(seed 42). No synthetic or simulated data is used; a full integrity audit of a prior
-version is included as \texttt{DATA\_INTEGRITY\_AUDIT.md}.
+\texttt{repro/analyze\_mechanism.py}, \texttt{repro/analyze\_gold.py}, and
+\texttt{repro/make\_mech\_figures.py} from the committed raw files
+(\texttt{results\_scaled.json}, \texttt{gold\_results.json}, \texttt{patch\_results.json};
+collected by \texttt{repro/\{scaled,gold,patch\}\_harness.py}), seed 42. No synthetic or
+simulated data is used; a full integrity audit of a prior, fabricated version is included
+as \texttt{DATA\_INTEGRITY\_AUDIT.md}.
 
 \section*{Ethics Statement}
 No human subjects. All models are public open-weight checkpoints used under their

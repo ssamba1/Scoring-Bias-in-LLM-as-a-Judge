@@ -88,3 +88,5 @@ results_rootcause/*.csv
 Thumbs.db
 venv/
 .hermes/
+paper/honest/*.pdf
+paper/honest/superseded/*.pdf
