@@ -84,6 +84,22 @@ predictions written before any results were read.
 
 Failure of any of P10–P13 is reported as a failure.
 
+## Addendum 3 (registered 2026-07-19, before these CPU runs launched)
+
+Two further experiments on Kaggle CPU (`repro/dose_harness.py`,
+`repro/template10_harness.py`); predictions written before launch.
+
+- **P14 (dose–response).** Bias increases monotonically with nuisance magnitude
+  (verbosity: 0/1/2/4/8 filler units; authority: 5 graded framing strengths), and
+  the instruct checkpoint's dose–response slope exceeds the base checkpoint's in
+  a majority of family×probe cells — the dose-level form of the responsiveness
+  claim.
+- **P15 (template breadth).** Across ten surface-distinct prompt templates
+  (SmolLM2-135M/360M, Qwen2.5-0.5B), the pooled entropy–bias correlation remains
+  negative, and instruct Δ > base Δ on average in each template.
+
+Failure of either is reported as a failure.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as
