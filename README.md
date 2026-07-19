@@ -33,15 +33,15 @@ We study whether a stronger, more instruction-tuned LLM judge is a fairer one. I
 
 ## Finding
 
-Across **9 open-weight families (0.1–3B)** and **five bias types** (rubric order, score ID,
+Across **13 open-weight families (0.1–8B)** and **five bias types** (rubric order, score ID,
 reference answer, plus **authority** and **verbosity** from outside the scoring-bias literature),
 scored by the **expected value of the answer-token distribution** (which fixes the parse-failure
 confound):
 
-- Instruction tuning **sharpens** the score distribution (entropy 2.06 → 1.61 bits, 7/9 families)…
-- …yet **increases** bias across **4 of 5** types (linear mixed-effects instruct coef **+0.15, p<10⁻³**).
-- So decisiveness correlates **negatively** with bias (ρ = −0.51, p<10⁻³; the exact √Var term ρ = −0.33).
-- Bias is **not** predictable from decisiveness alone (leave-one-family-out R² = −0.60).
+- Instruction tuning **sharpens** the score distribution (entropy 2.04 → 1.45 bits, 11/13 families)…
+- …yet **increases** bias across **all 5** types (linear mixed-effects instruct coef **+0.16, p<10⁻³**).
+- So decisiveness correlates **negatively** with bias (ρ = −0.41, p<10⁻³; the exact √Var term ρ = −0.25).
+- Decisiveness even **predicts** bias out-of-sample (leave-one-family-out R² = 0.27) — but **inverted**: the more confident judge is the more biased one.
 - **Theory:** bias = *decisiveness* × *responsiveness* (Prop 1 + Corollary 1); tuning inflates
   responsiveness faster than it trims decisiveness, so the sign flips.
 - **Causal:** activation-patching the instruct representation into the base model transfers the shift

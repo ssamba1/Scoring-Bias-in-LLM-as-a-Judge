@@ -87,10 +87,11 @@ also the right object for the mechanism.
 
 \paragraph{Contributions.}
 \begin{enumerate}\itemsep2pt
-  \item \textbf{A counterintuitive empirical finding.} Instruction tuning makes small
-        LLM judges sharper yet more biased across \NFAM{} families and five bias types;
-        decisiveness correlates \emph{negatively} with bias, and bias is not predictable
-        from decisiveness alone.
+  \item \textbf{A counterintuitive empirical finding.} Instruction tuning makes LLM
+        judges sharper yet more biased across \NFAM{} families ($0.1$--$\MAXB$B) and five
+        bias types; decisiveness correlates \emph{negatively} with bias and predicts it
+        out-of-sample with the sign reversed---the more confident judge is the more
+        biased one.
   \item \textbf{Mechanism (theory).} A decomposition of bias into a decisiveness term
         (score-distribution variance) and a responsiveness term (Proposition~\ref{prop:main},
         Corollary~\ref{cor:diff}), which explains why sharpening a judge need not---and in
@@ -286,9 +287,10 @@ decisiveness~$\times$~responsiveness, and when responsiveness rises with capabil
 sign flips. We further test \textbf{(P1)} instruction tuning lowers $H(\sigma)$ (it
 does); \textbf{(P3)} transplanting the instruct score-position representation into the
 base model shifts its score in a localized band (it does); and \textbf{(P5)} whether
-$H(\sigma)$ predicts bias out-of-sample (it does not---confirming a second factor is
-required). A refuted prediction is the point: the theory is a decomposition of bias,
-not a promise that decisiveness wins.
+$H(\sigma)$ predicts bias out-of-sample (it does---but with the \emph{opposite} sign to
+the naive P2$_0$, so the predictive content is ``more confident, more biased''). A
+refuted \emph{sign} is the point: the theory is a decomposition of bias, not a promise
+that decisiveness wins.
 
 \section{Results}
 \subsection{Instruction tuning increases scoring bias}
@@ -333,15 +335,16 @@ relation should not be specific to the format-level scoring biases. We test it o
 two additional bias families (authority, verbosity), which perturb content rather than
 label format. \GENPROSE{}
 
-\subsection{Can bias be predicted from decisiveness alone? No.}\label{sec:predict}
-If decisiveness alone governed bias, a judge's bias would be estimable from \emph{one
-unperturbed forward pass}---its control-condition score entropy. We test this
-out-of-sample with leave-one-family-out cross-validation. \PREDPROSE{}
+\subsection{Bias is predictable from decisiveness---with the sign reversed}\label{sec:predict}
+Can a judge's bias be estimated from \emph{one unperturbed forward pass}---its
+control-condition score entropy? We test this out-of-sample with leave-one-family-out
+cross-validation. \PREDPROSE{}
 \begin{figure}[t]\centering
 \includegraphics[width=0.5\linewidth]{fig_predictor.pdf}
-\caption{Predicting bias out-of-sample from control-condition entropy alone fails
-(leave-one-family-out $R^2<0$): decisiveness is one factor of bias, not the whole of it.
-Each point is a model.}
+\caption{Bias predicted out-of-sample from control-condition entropy alone
+(leave-one-family-out $R^2=0.27$). Prediction works, but because the entropy--bias
+relation is negative, it says the more confident judges are the more biased---an
+inverted screen. Each point is a model.}
 \label{fig:predictor}\end{figure}
 
 \subsection{Bias corrupts real quality judgments---and tuning does not protect them}\label{sec:gold}
@@ -383,13 +386,12 @@ what our data refute: because responsiveness rises with capability, more decisiv
 end up \emph{more} manipulable. The value of the decomposition is not a debiasing recipe
 via confidence, but a correct diagnosis of which term to attack.
 
-\paragraph{Confidence is the wrong screen.} A tempting shortcut would be to audit a
-judge's bias from a single unperturbed call by reading its score entropy. Our predictor
-experiment (\S\ref{sec:predict}) shows this fails ($R^2<0$): entropy alone does not
-predict bias, precisely because the responsiveness term is unobserved in a single
-unperturbed pass. Screening judges by confidence is therefore not only insufficient but
-misleading---the most confident judges were often the most biased. \GOLDSENTENCE{}
-\DISCUSSION{}
+\paragraph{Confidence is an inverted screen.} One can audit a judge's bias from a single
+unperturbed call by reading its score entropy---our predictor (\S\ref{sec:predict})
+estimates held-out bias at $R^2=0.27$. But the screen runs \emph{backwards}: because the
+entropy--bias relation is negative, low entropy (high confidence) flags high bias. A
+practitioner who trusts the more confident judge, as intuition suggests, would
+systematically pick the more biased one. \GOLDSENTENCE{} \DISCUSSION{}
 
 \paragraph{Reconciling opposite prior claims.} Reports disagree on whether instruction
 tuning helps or harms judge reliability: \citet{pan2025user} find it \emph{introduces} a

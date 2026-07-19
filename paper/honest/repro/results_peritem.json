@@ -2,186 +2,224 @@
   "source": "results_scaled.json",
   "seed": 42,
   "n_bootstrap": 10000,
-  "n_families": 9,
+  "n_families": 13,
   "families": [
     "SmolLM2-135M",
     "SmolLM2-360M",
     "Qwen2.5-0.5B",
     "Falcon3-1B",
     "Qwen2.5-1.5B",
+    "StableLM-2-1.6B",
     "SmolLM2-1.7B",
     "Granite-3.1-2B",
     "Qwen2.5-3B",
-    "Falcon3-3B"
+    "Falcon3-3B",
+    "Qwen2.5-7B",
+    "OLMo-2-7B",
+    "Granite-3.1-8B"
   ],
   "per_family": {
     "SmolLM2-135M": {
       "params_b": 0.135,
       "training": "SFT+DPO",
       "rubric_order": {
-        "base_delta": 0.03,
-        "instruct_delta": 0.128,
-        "base_flip": 0.0,
-        "instruct_flip": 0.208
+        "base_delta": 0.011,
+        "instruct_delta": 0.165,
+        "base_flip": 0.05,
+        "instruct_flip": 0.16
       },
       "score_id": {
-        "base_delta": 1.677,
-        "instruct_delta": 2.677,
-        "base_flip": 0.625,
-        "instruct_flip": 0.583
+        "base_delta": 1.609,
+        "instruct_delta": 2.612,
+        "base_flip": 0.71,
+        "instruct_flip": 0.55
       },
       "reference_answer": {
-        "base_delta": 0.245,
-        "instruct_delta": 0.355,
-        "base_flip": 0.083,
-        "instruct_flip": 0.167
+        "base_delta": 0.217,
+        "instruct_delta": 0.419,
+        "base_flip": 0.17,
+        "instruct_flip": 0.23
       },
       "authority": {
-        "base_delta": 0.108,
-        "instruct_delta": 0.515,
-        "base_flip": 0.208,
-        "instruct_flip": 0.167
+        "base_delta": 0.093,
+        "instruct_delta": 0.577,
+        "base_flip": 0.1,
+        "instruct_flip": 0.27
       },
       "verbosity": {
-        "base_delta": 0.239,
-        "instruct_delta": 0.292,
-        "base_flip": 0.208,
-        "instruct_flip": 0.083
+        "base_delta": 0.224,
+        "instruct_delta": 0.263,
+        "base_flip": 0.16,
+        "instruct_flip": 0.07
       }
     },
     "SmolLM2-360M": {
       "params_b": 0.36,
       "training": "SFT+DPO",
       "rubric_order": {
-        "base_delta": 0.229,
-        "instruct_delta": 0.307,
-        "base_flip": 0.333,
-        "instruct_flip": 0.458
+        "base_delta": 0.198,
+        "instruct_delta": 0.27,
+        "base_flip": 0.3,
+        "instruct_flip": 0.59
       },
       "score_id": {
-        "base_delta": 1.633,
-        "instruct_delta": 2.378,
-        "base_flip": 0.5,
-        "instruct_flip": 0.667
+        "base_delta": 1.638,
+        "instruct_delta": 2.367,
+        "base_flip": 0.46,
+        "instruct_flip": 0.65
       },
       "reference_answer": {
-        "base_delta": 0.155,
-        "instruct_delta": 0.021,
-        "base_flip": 0.0,
-        "instruct_flip": 0.333
+        "base_delta": 0.15,
+        "instruct_delta": 0.048,
+        "base_flip": 0.02,
+        "instruct_flip": 0.34
       },
       "authority": {
-        "base_delta": 0.156,
-        "instruct_delta": 0.081,
-        "base_flip": 0.0,
-        "instruct_flip": 0.375
+        "base_delta": 0.208,
+        "instruct_delta": 0.146,
+        "base_flip": 0.02,
+        "instruct_flip": 0.39
       },
       "verbosity": {
-        "base_delta": 0.144,
-        "instruct_delta": 0.282,
-        "base_flip": 0.0,
-        "instruct_flip": 0.167
+        "base_delta": 0.087,
+        "instruct_delta": 0.261,
+        "base_flip": 0.01,
+        "instruct_flip": 0.23
       }
     },
     "Qwen2.5-0.5B": {
       "params_b": 0.5,
       "training": "RLHF",
       "rubric_order": {
-        "base_delta": 0.086,
+        "base_delta": 0.067,
         "instruct_delta": 0.052,
-        "base_flip": 0.458,
-        "instruct_flip": 0.208
+        "base_flip": 0.44,
+        "instruct_flip": 0.28
       },
       "score_id": {
-        "base_delta": 1.655,
-        "instruct_delta": 0.966,
-        "base_flip": 0.792,
-        "instruct_flip": 1.0
+        "base_delta": 1.711,
+        "instruct_delta": 1.018,
+        "base_flip": 0.87,
+        "instruct_flip": 0.96
       },
       "reference_answer": {
-        "base_delta": 0.196,
-        "instruct_delta": 0.06,
-        "base_flip": 0.083,
-        "instruct_flip": 0.0
+        "base_delta": 0.216,
+        "instruct_delta": 0.031,
+        "base_flip": 0.28,
+        "instruct_flip": 0.05
       },
       "authority": {
-        "base_delta": 0.277,
-        "instruct_delta": 0.475,
-        "base_flip": 0.125,
-        "instruct_flip": 0.25
+        "base_delta": 0.316,
+        "instruct_delta": 0.48,
+        "base_flip": 0.35,
+        "instruct_flip": 0.31
       },
       "verbosity": {
-        "base_delta": 0.138,
-        "instruct_delta": 0.414,
-        "base_flip": 0.208,
-        "instruct_flip": 0.0
+        "base_delta": 0.093,
+        "instruct_delta": 0.434,
+        "base_flip": 0.12,
+        "instruct_flip": 0.03
       }
     },
     "Falcon3-1B": {
       "params_b": 1.0,
       "training": "SFT+DPO",
       "rubric_order": {
-        "base_delta": 0.271,
-        "instruct_delta": 0.038,
-        "base_flip": 0.5,
-        "instruct_flip": 0.0
+        "base_delta": 0.308,
+        "instruct_delta": 0.074,
+        "base_flip": 0.48,
+        "instruct_flip": 0.04
       },
       "score_id": {
-        "base_delta": 1.019,
-        "instruct_delta": 1.227,
-        "base_flip": 0.958,
-        "instruct_flip": 0.958
+        "base_delta": 1.021,
+        "instruct_delta": 1.27,
+        "base_flip": 0.95,
+        "instruct_flip": 0.88
       },
       "reference_answer": {
-        "base_delta": 0.488,
-        "instruct_delta": 0.587,
-        "base_flip": 0.125,
-        "instruct_flip": 0.333
+        "base_delta": 0.441,
+        "instruct_delta": 0.607,
+        "base_flip": 0.05,
+        "instruct_flip": 0.34
       },
       "authority": {
-        "base_delta": 0.224,
-        "instruct_delta": 0.369,
-        "base_flip": 0.0,
-        "instruct_flip": 0.25
+        "base_delta": 0.226,
+        "instruct_delta": 0.394,
+        "base_flip": 0.02,
+        "instruct_flip": 0.39
       },
       "verbosity": {
-        "base_delta": 0.326,
-        "instruct_delta": 0.356,
+        "base_delta": 0.228,
+        "instruct_delta": 0.379,
         "base_flip": 0.0,
-        "instruct_flip": 0.083
+        "instruct_flip": 0.18
       }
     },
     "Qwen2.5-1.5B": {
       "params_b": 1.5,
       "training": "RLHF",
       "rubric_order": {
-        "base_delta": 0.185,
-        "instruct_delta": 0.247,
-        "base_flip": 0.042,
-        "instruct_flip": 0.292
+        "base_delta": 0.164,
+        "instruct_delta": 0.207,
+        "base_flip": 0.13,
+        "instruct_flip": 0.35
       },
       "score_id": {
-        "base_delta": 0.823,
-        "instruct_delta": 1.426,
-        "base_flip": 0.958,
-        "instruct_flip": 0.667
+        "base_delta": 0.623,
+        "instruct_delta": 1.107,
+        "base_flip": 0.9,
+        "instruct_flip": 0.76
       },
       "reference_answer": {
-        "base_delta": 0.393,
-        "instruct_delta": 0.71,
+        "base_delta": 0.373,
+        "instruct_delta": 0.691,
         "base_flip": 0.0,
-        "instruct_flip": 0.875
+        "instruct_flip": 0.89
       },
       "authority": {
-        "base_delta": 0.869,
-        "instruct_delta": 0.868,
-        "base_flip": 0.542,
-        "instruct_flip": 0.708
+        "base_delta": 0.837,
+        "instruct_delta": 0.875,
+        "base_flip": 0.6,
+        "instruct_flip": 0.66
       },
       "verbosity": {
-        "base_delta": 0.678,
-        "instruct_delta": 0.381,
+        "base_delta": 0.689,
+        "instruct_delta": 0.323,
         "base_flip": 0.0,
+        "instruct_flip": 0.25
+      }
+    },
+    "StableLM-2-1.6B": {
+      "params_b": 1.6,
+      "training": "SFT+DPO",
+      "rubric_order": {
+        "base_delta": 0.318,
+        "instruct_delta": 0.647,
+        "base_flip": 0.43,
+        "instruct_flip": 0.32
+      },
+      "score_id": {
+        "base_delta": 0.326,
+        "instruct_delta": 0.544,
+        "base_flip": 0.77,
+        "instruct_flip": 0.72
+      },
+      "reference_answer": {
+        "base_delta": 0.193,
+        "instruct_delta": 0.028,
+        "base_flip": 0.41,
+        "instruct_flip": 0.28
+      },
+      "authority": {
+        "base_delta": 0.523,
+        "instruct_delta": 0.867,
+        "base_flip": 0.55,
+        "instruct_flip": 0.53
+      },
+      "verbosity": {
+        "base_delta": 0.299,
+        "instruct_delta": 0.398,
+        "base_flip": 0.21,
         "instruct_flip": 0.25
       }
     },
@@ -189,271 +227,385 @@
       "params_b": 1.7,
       "training": "SFT+DPO",
       "rubric_order": {
-        "base_delta": 0.124,
-        "instruct_delta": 0.083,
-        "base_flip": 0.5,
-        "instruct_flip": 0.333
+        "base_delta": 0.142,
+        "instruct_delta": 0.079,
+        "base_flip": 0.44,
+        "instruct_flip": 0.26
       },
       "score_id": {
-        "base_delta": 0.151,
-        "instruct_delta": 0.153,
-        "base_flip": 0.708,
-        "instruct_flip": 0.667
+        "base_delta": 0.187,
+        "instruct_delta": 0.081,
+        "base_flip": 0.63,
+        "instruct_flip": 0.68
       },
       "reference_answer": {
-        "base_delta": 0.438,
-        "instruct_delta": 0.233,
-        "base_flip": 0.25,
-        "instruct_flip": 0.792
+        "base_delta": 0.443,
+        "instruct_delta": 0.226,
+        "base_flip": 0.3,
+        "instruct_flip": 0.76
       },
       "authority": {
-        "base_delta": 0.363,
-        "instruct_delta": 0.316,
+        "base_delta": 0.371,
+        "instruct_delta": 0.31,
         "base_flip": 0.25,
-        "instruct_flip": 0.75
+        "instruct_flip": 0.67
       },
       "verbosity": {
-        "base_delta": 0.021,
-        "instruct_delta": 0.385,
-        "base_flip": 0.125,
-        "instruct_flip": 0.458
+        "base_delta": 0.022,
+        "instruct_delta": 0.393,
+        "base_flip": 0.08,
+        "instruct_flip": 0.47
       }
     },
     "Granite-3.1-2B": {
       "params_b": 2.0,
       "training": "SFT+RLHF",
       "rubric_order": {
-        "base_delta": 0.875,
-        "instruct_delta": 0.699,
-        "base_flip": 0.292,
-        "instruct_flip": 0.417
+        "base_delta": 0.846,
+        "instruct_delta": 0.725,
+        "base_flip": 0.31,
+        "instruct_flip": 0.33
       },
       "score_id": {
-        "base_delta": 1.112,
-        "instruct_delta": 0.606,
-        "base_flip": 0.833,
-        "instruct_flip": 0.5
+        "base_delta": 1.076,
+        "instruct_delta": 0.622,
+        "base_flip": 0.83,
+        "instruct_flip": 0.45
       },
       "reference_answer": {
-        "base_delta": 0.131,
-        "instruct_delta": 0.792,
-        "base_flip": 0.0,
-        "instruct_flip": 0.417
+        "base_delta": 0.133,
+        "instruct_delta": 0.747,
+        "base_flip": 0.02,
+        "instruct_flip": 0.26
       },
       "authority": {
-        "base_delta": 0.468,
-        "instruct_delta": 1.443,
-        "base_flip": 0.0,
-        "instruct_flip": 0.583
+        "base_delta": 0.421,
+        "instruct_delta": 1.468,
+        "base_flip": 0.02,
+        "instruct_flip": 0.49
       },
       "verbosity": {
-        "base_delta": 0.315,
-        "instruct_delta": 1.087,
+        "base_delta": 0.378,
+        "instruct_delta": 1.104,
         "base_flip": 0.0,
-        "instruct_flip": 0.375
+        "instruct_flip": 0.33
       }
     },
     "Qwen2.5-3B": {
       "params_b": 3.0,
       "training": "RLHF",
       "rubric_order": {
-        "base_delta": 0.675,
-        "instruct_delta": 0.573,
+        "base_delta": 0.635,
+        "instruct_delta": 0.463,
         "base_flip": 0.5,
-        "instruct_flip": 0.333
+        "instruct_flip": 0.29
       },
       "score_id": {
-        "base_delta": 0.618,
-        "instruct_delta": 1.132,
-        "base_flip": 0.667,
-        "instruct_flip": 0.792
+        "base_delta": 0.587,
+        "instruct_delta": 1.239,
+        "base_flip": 0.67,
+        "instruct_flip": 0.85
       },
       "reference_answer": {
-        "base_delta": 0.082,
-        "instruct_delta": 1.5,
-        "base_flip": 0.083,
-        "instruct_flip": 0.583
+        "base_delta": 0.022,
+        "instruct_delta": 1.541,
+        "base_flip": 0.07,
+        "instruct_flip": 0.65
       },
       "authority": {
-        "base_delta": 0.284,
-        "instruct_delta": 0.288,
-        "base_flip": 0.083,
-        "instruct_flip": 0.292
+        "base_delta": 0.244,
+        "instruct_delta": 0.378,
+        "base_flip": 0.05,
+        "instruct_flip": 0.39
       },
       "verbosity": {
-        "base_delta": 0.239,
-        "instruct_delta": 0.573,
-        "base_flip": 0.042,
-        "instruct_flip": 0.292
+        "base_delta": 0.285,
+        "instruct_delta": 0.392,
+        "base_flip": 0.02,
+        "instruct_flip": 0.24
       }
     },
     "Falcon3-3B": {
       "params_b": 3.0,
       "training": "SFT+DPO",
       "rubric_order": {
-        "base_delta": 0.223,
-        "instruct_delta": 0.549,
-        "base_flip": 0.5,
-        "instruct_flip": 0.292
+        "base_delta": 0.228,
+        "instruct_delta": 0.531,
+        "base_flip": 0.54,
+        "instruct_flip": 0.29
       },
       "score_id": {
-        "base_delta": 1.238,
-        "instruct_delta": 2.26,
-        "base_flip": 0.833,
-        "instruct_flip": 0.792
+        "base_delta": 1.124,
+        "instruct_delta": 1.947,
+        "base_flip": 0.95,
+        "instruct_flip": 0.74
       },
       "reference_answer": {
-        "base_delta": 0.712,
-        "instruct_delta": 0.919,
-        "base_flip": 0.875,
-        "instruct_flip": 0.917
+        "base_delta": 0.697,
+        "instruct_delta": 1.009,
+        "base_flip": 0.88,
+        "instruct_flip": 0.81
       },
       "authority": {
-        "base_delta": 0.791,
-        "instruct_delta": 1.503,
-        "base_flip": 0.708,
-        "instruct_flip": 1.0
+        "base_delta": 0.813,
+        "instruct_delta": 1.631,
+        "base_flip": 0.74,
+        "instruct_flip": 0.98
       },
       "verbosity": {
-        "base_delta": 0.551,
-        "instruct_delta": 0.843,
-        "base_flip": 0.375,
-        "instruct_flip": 0.25
+        "base_delta": 0.486,
+        "instruct_delta": 0.674,
+        "base_flip": 0.35,
+        "instruct_flip": 0.24
+      }
+    },
+    "Qwen2.5-7B": {
+      "params_b": 7.0,
+      "training": "RLHF",
+      "rubric_order": {
+        "base_delta": 0.113,
+        "instruct_delta": 3.126,
+        "base_flip": 0.12,
+        "instruct_flip": 0.6
+      },
+      "score_id": {
+        "base_delta": 0.612,
+        "instruct_delta": 0.905,
+        "base_flip": 0.82,
+        "instruct_flip": 0.76
+      },
+      "reference_answer": {
+        "base_delta": 0.216,
+        "instruct_delta": 0.105,
+        "base_flip": 0.18,
+        "instruct_flip": 0.04
+      },
+      "authority": {
+        "base_delta": 0.19,
+        "instruct_delta": 0.063,
+        "base_flip": 0.17,
+        "instruct_flip": 0.05
+      },
+      "verbosity": {
+        "base_delta": 0.526,
+        "instruct_delta": 0.174,
+        "base_flip": 0.39,
+        "instruct_flip": 0.02
+      }
+    },
+    "OLMo-2-7B": {
+      "params_b": 7.0,
+      "training": "SFT+DPO+RLVR",
+      "rubric_order": {
+        "base_delta": 0.804,
+        "instruct_delta": 0.298,
+        "base_flip": 0.05,
+        "instruct_flip": 0.07
+      },
+      "score_id": {
+        "base_delta": 0.823,
+        "instruct_delta": 1.787,
+        "base_flip": 0.5,
+        "instruct_flip": 0.74
+      },
+      "reference_answer": {
+        "base_delta": 0.126,
+        "instruct_delta": 0.231,
+        "base_flip": 0.0,
+        "instruct_flip": 0.04
+      },
+      "authority": {
+        "base_delta": 0.555,
+        "instruct_delta": 0.449,
+        "base_flip": 0.0,
+        "instruct_flip": 0.09
+      },
+      "verbosity": {
+        "base_delta": 0.278,
+        "instruct_delta": 0.332,
+        "base_flip": 0.48,
+        "instruct_flip": 0.43
+      }
+    },
+    "Granite-3.1-8B": {
+      "params_b": 8.0,
+      "training": "SFT+RLHF",
+      "rubric_order": {
+        "base_delta": 0.324,
+        "instruct_delta": 0.496,
+        "base_flip": 0.77,
+        "instruct_flip": 0.12
+      },
+      "score_id": {
+        "base_delta": 0.357,
+        "instruct_delta": 1.068,
+        "base_flip": 0.65,
+        "instruct_flip": 0.51
+      },
+      "reference_answer": {
+        "base_delta": 0.409,
+        "instruct_delta": 0.645,
+        "base_flip": 0.51,
+        "instruct_flip": 0.18
+      },
+      "authority": {
+        "base_delta": 0.362,
+        "instruct_delta": 0.55,
+        "base_flip": 0.28,
+        "instruct_flip": 0.18
+      },
+      "verbosity": {
+        "base_delta": 0.169,
+        "instruct_delta": 1.752,
+        "base_flip": 0.34,
+        "instruct_flip": 0.33
       }
     }
   },
   "summary": {
     "rubric_order": {
       "label": "Rubric order",
-      "n_families": 9,
-      "base_mean_delta": 0.3,
-      "instruct_mean_delta": 0.297,
-      "mean_change": -0.002,
-      "cohen_dz": -0.015,
+      "n_families": 13,
+      "base_mean_delta": 0.32,
+      "instruct_mean_delta": 0.549,
+      "mean_change": 0.229,
+      "cohen_dz": 0.264,
       "boot_ci95": [
-        -0.099,
-        0.103
+        -0.093,
+        0.746
       ],
       "ci_excludes_zero": false,
-      "wilcoxon_p": 0.9102,
-      "n_decreased": 5,
-      "base_mean_flip": 0.347,
-      "instruct_mean_flip": 0.282,
-      "wilcoxon_p_holm": 0.9102
+      "wilcoxon_p": 0.6003,
+      "n_decreased": 6,
+      "base_mean_flip": 0.351,
+      "instruct_mean_flip": 0.285,
+      "wilcoxon_p_holm": 0.6003
     },
     "score_id": {
       "label": "Score ID",
-      "n_families": 9,
-      "base_mean_delta": 1.103,
-      "instruct_mean_delta": 1.425,
-      "mean_change": 0.322,
-      "cohen_dz": 0.52,
+      "n_families": 13,
+      "base_mean_delta": 0.9,
+      "instruct_mean_delta": 1.274,
+      "mean_change": 0.375,
+      "cohen_dz": 0.707,
       "boot_ci95": [
-        -0.081,
-        0.682
+        0.081,
+        0.637
       ],
-      "ci_excludes_zero": false,
-      "wilcoxon_p": 0.1289,
-      "n_decreased": 2,
-      "base_mean_flip": 0.764,
-      "instruct_mean_flip": 0.736,
-      "wilcoxon_p_holm": 0.3908
+      "ci_excludes_zero": true,
+      "wilcoxon_p": 0.0266,
+      "n_decreased": 3,
+      "base_mean_flip": 0.747,
+      "instruct_mean_flip": 0.712,
+      "wilcoxon_p_holm": 0.133
     },
     "reference_answer": {
       "label": "Reference answer",
-      "n_families": 9,
-      "base_mean_delta": 0.316,
-      "instruct_mean_delta": 0.575,
-      "mean_change": 0.26,
-      "cohen_dz": 0.509,
+      "n_families": 13,
+      "base_mean_delta": 0.28,
+      "instruct_mean_delta": 0.487,
+      "mean_change": 0.207,
+      "cohen_dz": 0.446,
       "boot_ci95": [
-        -0.013,
-        0.601
+        -0.0,
+        0.473
       ],
       "ci_excludes_zero": false,
-      "wilcoxon_p": 0.25,
-      "n_decreased": 3,
-      "base_mean_flip": 0.167,
-      "instruct_mean_flip": 0.491,
-      "wilcoxon_p_holm": 0.5
+      "wilcoxon_p": 0.1099,
+      "n_decreased": 5,
+      "base_mean_flip": 0.222,
+      "instruct_mean_flip": 0.375,
+      "wilcoxon_p_holm": 0.2198
     },
     "authority": {
       "label": "Authority",
-      "n_families": 9,
-      "base_mean_delta": 0.393,
-      "instruct_mean_delta": 0.651,
-      "mean_change": 0.258,
-      "cohen_dz": 0.696,
+      "n_families": 13,
+      "base_mean_delta": 0.397,
+      "instruct_mean_delta": 0.63,
+      "mean_change": 0.233,
+      "cohen_dz": 0.647,
       "boot_ci95": [
-        0.049,
-        0.502
+        0.056,
+        0.436
       ],
       "ci_excludes_zero": true,
-      "wilcoxon_p": 0.0977,
-      "n_decreased": 3,
-      "base_mean_flip": 0.213,
-      "instruct_mean_flip": 0.486,
-      "wilcoxon_p_holm": 0.3908
+      "wilcoxon_p": 0.0266,
+      "n_decreased": 4,
+      "base_mean_flip": 0.242,
+      "instruct_mean_flip": 0.415,
+      "wilcoxon_p_holm": 0.133
     },
     "verbosity": {
       "label": "Verbosity",
-      "n_families": 9,
-      "base_mean_delta": 0.295,
-      "instruct_mean_delta": 0.513,
-      "mean_change": 0.218,
-      "cohen_dz": 0.745,
+      "n_families": 13,
+      "base_mean_delta": 0.29,
+      "instruct_mean_delta": 0.529,
+      "mean_change": 0.24,
+      "cohen_dz": 0.486,
       "boot_ci95": [
-        0.044,
-        0.398
+        0.01,
+        0.517
       ],
       "ci_excludes_zero": true,
-      "wilcoxon_p": 0.0547,
-      "n_decreased": 1,
-      "base_mean_flip": 0.106,
-      "instruct_mean_flip": 0.218,
-      "wilcoxon_p_holm": 0.2735
+      "wilcoxon_p": 0.0681,
+      "n_decreased": 2,
+      "base_mean_flip": 0.166,
+      "instruct_mean_flip": 0.236,
+      "wilcoxon_p_holm": 0.2043
     }
   },
   "size_effect": {
     "rubric_order": {
-      "spearman_rho": -0.234,
-      "spearman_p": 0.544,
-      "ols_slope_per_decade": -0.032,
-      "n": 9
+      "spearman_rho": 0.066,
+      "spearman_p": 0.8301,
+      "ols_slope_per_decade": 0.464,
+      "n": 13
     },
     "score_id": {
-      "spearman_rho": -0.05,
-      "spearman_p": 0.8979,
-      "ols_slope_per_decade": -0.192,
-      "n": 9
+      "spearman_rho": 0.107,
+      "spearman_p": 0.7268,
+      "ols_slope_per_decade": 0.097,
+      "n": 13
     },
     "reference_answer": {
-      "spearman_rho": 0.544,
-      "spearman_p": 0.1301,
-      "ols_slope_per_decade": 0.583,
-      "n": 9
+      "spearman_rho": 0.229,
+      "spearman_p": 0.4524,
+      "ols_slope_per_decade": 0.172,
+      "n": 13
     },
     "authority": {
-      "spearman_rho": 0.234,
-      "spearman_p": 0.544,
-      "ols_slope_per_decade": 0.138,
-      "n": 9
+      "spearman_rho": -0.152,
+      "spearman_p": 0.6212,
+      "ols_slope_per_decade": -0.09,
+      "n": 13
     },
     "verbosity": {
-      "spearman_rho": 0.594,
-      "spearman_p": 0.0916,
-      "ols_slope_per_decade": 0.216,
-      "n": 9
+      "spearman_rho": 0.157,
+      "spearman_p": 0.6084,
+      "ols_slope_per_decade": 0.205,
+      "n": 13
     }
   },
   "domain": {
+    "daily_life": {
+      "base": 0.436,
+      "instruct": 0.703
+    },
+    "humanities": {
+      "base": 0.428,
+      "instruct": 0.69
+    },
+    "mathematics": {
+      "base": 0.464,
+      "instruct": 0.708
+    },
     "science": {
-      "base": 0.483,
-      "instruct": 0.691
+      "base": 0.461,
+      "instruct": 0.713
     },
     "technology": {
-      "base": 0.487,
-      "instruct": 0.721
+      "base": 0.442,
+      "instruct": 0.699
     }
   }
 }
