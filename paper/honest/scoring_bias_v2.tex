@@ -417,6 +417,14 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         $\sigma$ and perturbation $\delta$ is left open.
   \item \textbf{Expected-value vs sampled scores.} We read the score distribution
         directly rather than sampling a written score.
+  \item \textbf{Ambiguity of the reversed-rubric ground-truth condition.} Under a
+        \emph{reversed} rubric, a judge that correctly follows the instruction should
+        rank the good answer \emph{below} the bad one; our accuracy metric scores it
+        that way. A judge that instead ignores the (deliberately perverse) reversal and
+        keeps ranking good above bad is counted as ``wrong,'' though one could call it
+        robust. The verbosity and authority ground-truth conditions carry no such
+        ambiguity, and our central bias results (\S\ref{sec:mech}) do not depend on this
+        condition.
 \end{enumerate}
 
 \section{Conclusion}

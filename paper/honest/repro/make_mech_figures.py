@@ -92,17 +92,17 @@ PROBES = ["rubric_order", "score_id", "reference_answer"]
 
 
 def fig_main(pi):
-    """Main base-vs-instruct bar figure from the scaled per-item summary."""
-    s = pi["summary"]; labels = [s[p]["label"] for p in PROBES]
-    base = [s[p]["base_mean_delta"] for p in PROBES]
-    inst = [s[p]["instruct_mean_delta"] for p in PROBES]
-    fig, ax = plt.subplots(figsize=(4.4, 2.8)); x = range(len(PROBES)); w = 0.38
+    """Main base-vs-instruct bar figure from the scaled per-item summary (all probes)."""
+    s = pi["summary"]; probes = list(s.keys()); labels = [s[p]["label"] for p in probes]
+    base = [s[p]["base_mean_delta"] for p in probes]
+    inst = [s[p]["instruct_mean_delta"] for p in probes]
+    fig, ax = plt.subplots(figsize=(5.6, 2.8)); x = range(len(probes)); w = 0.38
     ax.bar([i - w/2 for i in x], base, w, label="Base", color=C_BASE)
     ax.bar([i + w/2 for i in x], inst, w, label="Instruct", color=C_INST)
-    for i, p in enumerate(PROBES):
+    for i, p in enumerate(probes):
         if s[p]["ci_excludes_zero"]:
             ax.text(i, max(base[i], inst[i]) + 0.03, "$*$", ha="center", fontsize=11)
-    ax.set_xticks(list(x)); ax.set_xticklabels(labels)
+    ax.set_xticks(list(x)); ax.set_xticklabels(labels, fontsize=8)
     ax.set_ylabel(r"Mean bias $\Delta$"); ax.legend(frameon=False, loc="upper right")
     ax.set_title(f"Scoring bias, base vs instruct ($n={pi['n_families']}$ families)")
     save(fig, "fig1_base_vs_instruct")
