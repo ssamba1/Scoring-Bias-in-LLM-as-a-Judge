@@ -9,7 +9,7 @@
 # Python
 # Temporary helper / check scripts
 *$py.class
-**/.cache/** 
+**/.cache/**
 **/huggingface/**
 *.acn
 *.acr
@@ -87,3 +87,4 @@ results/corrected_*.csv
 results_rootcause/*.csv
 Thumbs.db
 venv/
+.hermes/

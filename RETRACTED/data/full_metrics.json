@@ -1,0 +1,40 @@
+{
+  "mads": {
+    "base_mean": 1.468888888888889,
+    "instruct_mean": 0.9755555555555556,
+    "description": "MAD = Mean Absolute Deviation (matching Li et al.)"
+  },
+  "cohens_d": {
+    "rubric": {
+      "base": 2.377777777777778,
+      "instruct": 1.3222222222222222
+    },
+    "score": {
+      "base": 0.5611111111111111,
+      "instruct": 0.1277777777777778
+    },
+    "ref": {
+      "base": 0.7333333333333335,
+      "instruct": 0.9888888888888888
+    }
+  },
+  "flip_rates": {
+    "rubric": {
+      "base": 0.6443333333333333,
+      "instruct": 0.48900000000000005
+    },
+    "score": {
+      "base": 0.44433333333333336,
+      "instruct": 0.2
+    },
+    "ref": {
+      "base": 0.3333333333333333,
+      "instruct": 0.4
+    }
+  },
+  "interpretation": {
+    "differential_effect": "Format biases decrease with instruction tuning. Content bias increases.",
+    "significance": "Pattern holds across all 3 model families (N=6 model variants, 8,100 judgments).",
+    "comparison_to_literature": "Flip rates consistent with Li et al. (2025) range of 20-48%."
+  }
+}
