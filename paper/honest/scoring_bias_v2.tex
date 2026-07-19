@@ -429,7 +429,12 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         only up to the cumulants we compute; a closed form of the bias for arbitrary
         $\sigma$ and perturbation $\delta$ is left open.
   \item \textbf{Expected-value vs sampled scores.} We read the score distribution
-        directly rather than sampling a written score.
+        directly rather than sampling a written score. The probability mass these
+        judges place on a bare score token is small (they often prefer to write a word
+        first), so expected-value scoring reads the \emph{conditional} distribution over
+        the valid answer tokens---the standard constrained-scoring readout, and exactly
+        why parse-based scoring fails, but it reflects the judge's relative preference
+        among valid scores rather than its unconstrained generation.
   \item \textbf{Ambiguity of the reversed-rubric ground-truth condition.} Under a
         \emph{reversed} rubric, a judge that correctly follows the instruction should
         rank the good answer \emph{below} the bad one; our accuracy metric scores it
