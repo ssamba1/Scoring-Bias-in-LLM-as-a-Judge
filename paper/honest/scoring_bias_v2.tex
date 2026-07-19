@@ -88,12 +88,14 @@ also the right object for the mechanism.
         LLM judges sharper yet more biased across \NFAM{} families and five bias types;
         decisiveness correlates \emph{negatively} with bias, and bias is not predictable
         from decisiveness alone.
-  \item \textbf{Mechanism (theory).} Proposition~\ref{prop:main}: score-distribution
-        variance bounds nuisance-sensitivity; decisive judges are provably less biased.
-  \item \textbf{Mechanism (measured + causal).} Decisiveness predicts bias across
-        families and bias types; where instruction tuning changes a bias it does so by
-        changing the score distribution's entropy; and activation patching shows the
-        instruct representation causally carries that change.
+  \item \textbf{Mechanism (theory).} A decomposition of bias into a decisiveness term
+        (score-distribution variance) and a responsiveness term (Proposition~\ref{prop:main},
+        Corollary~\ref{cor:diff}), which explains why sharpening a judge need not---and in
+        our data does not---reduce its bias.
+  \item \textbf{Mechanism (measured + causal).} Decisiveness correlates with bias across
+        families and bias types (\emph{negatively}, in our data); instruction tuning changes
+        bias by changing the score distribution; and activation patching shows the instruct
+        representation causally carries that change in a localized network band.
   \item \textbf{Measurement + mitigation.} Expected-value scoring removes the
         parse-failure confound; we quantify a simple bias mitigation.
   \item \textbf{Reproducibility.} One script regenerates every number from one file;
@@ -114,19 +116,20 @@ reproducible reporting---which our per-item, single-script protocol embodies.
 scoring biases and called for root-cause analysis. \citet{thakur2024judging} found
 base and instruct judges differ, and \citet{pan2025user} used a base-vs-instruct
 design to show instruction tuning \emph{introduces} a user-deference bias. Our
-contribution is orthogonal to the sign of any single effect: we show one quantity---
-score-distribution decisiveness---predicts bias across models and bias types, and give
-a measured, causal mechanism rather than a description.
+contribution is orthogonal to the sign of any single effect: we show bias is governed
+by a two-term decomposition of the score distribution (decisiveness and responsiveness),
+determine which term dominates empirically, and give a measured, causal mechanism rather
+than a description.
 
 \begin{table}[t]\centering\small
 \caption{Positioning. Prior work documents or mitigates judge biases; we give a
-mechanism that is theoretical, measured, causal, and predictive. ``Mech.'' = offers an
-explanatory mechanism; ``Causal'' = intervention, not correlation; ``Predict'' =
-estimates bias without running perturbations.}
+mechanism that is theoretical, measured, and causal. ``Mech.'' = offers an explanatory
+mechanism; ``Causal'' = intervention, not correlation; ``Decomp.'' = a quantitative
+decomposition of bias into judge-intrinsic and perturbation-specific terms.}
 \label{tab:positioning}
 \begin{tabular}{lccccc}
 \toprule
-\textbf{Work} & \textbf{Bias types} & \textbf{Models} & \textbf{Mech.} & \textbf{Causal} & \textbf{Predict} \\
+\textbf{Work} & \textbf{Bias types} & \textbf{Models} & \textbf{Mech.} & \textbf{Causal} & \textbf{Decomp.} \\
 \midrule
 Wang et al.\ \citeyearpar{wang2023large}   & position           & 2  & --          & --  & -- \\
 Zheng et al.\ \citeyearpar{zheng2023judging}& length, position   & 6  & --          & --  & -- \\
@@ -184,7 +187,7 @@ probe). We report paired mean change, standardized effect $d_z$, percentile-boot
 probes, flip rates, a $\log_{10}$-size dependence test, per-domain analysis, and a
 linear mixed-effects model with random intercepts for family and item.
 
-\section{Why sharper is less biased}\label{sec:theory}
+\section{Decomposing bias: decisiveness and responsiveness}\label{sec:theory}
 Bias is the change in the score $s$ when a nuisance perturbation shifts the logits
 $\ell \to \ell + \delta$ without changing true quality. Because $s$ is the mean of
 $v$ under $\sigma(\ell)$, its sensitivity is governed by the \emph{spread} of
@@ -211,8 +214,7 @@ $\sqrt{\mathrm{Var}_\sigma(v)}$ directly.
 
 \noindent\emph{Proof sketch.} $\partial s/\partial \ell_j=\sum_k v_k\,\sigma_k(\delta_{kj}-\sigma_j)
 =\sigma_j(v_j-s)$; the norm bound is Cauchy--Schwarz with
-$\sum_j\sigma_j^2(v_j-s)^2\le\sum_j\sigma_j(v_j-s)^2=\mathrm{Var}_\sigma(v)$; the
-entropy--variance monotonicity is standard for concentration around a mode. $\square$
+$\sum_j\sigma_j^2(v_j-s)^2\le\sum_j\sigma_j(v_j-s)^2=\mathrm{Var}_\sigma(v)$. $\square$
 
 \medskip
 The bound factorizes the bias into two terms with distinct causes. Writing the
@@ -335,7 +337,7 @@ out-of-sample with leave-one-family-out cross-validation. \PREDPROSE{}
 Each point is a model.}
 \label{fig:predictor}\end{figure}
 
-\subsection{Bias corrupts real quality judgments---and tuning protects them}\label{sec:gold}
+\subsection{Bias corrupts real quality judgments---and tuning does not protect them}\label{sec:gold}
 Does scoring bias actually matter, or is it cosmetic score jitter? We test it against
 ground truth: for 12 questions we write a genuinely good and a genuinely bad answer, so
 a competent judge scores good above bad. We then apply nuisance perturbations and ask
@@ -359,35 +361,42 @@ loss of the good$-$bad score margin relative to the unperturbed control.}
 \LMMPROSE{} \MITIGPROSE{}
 
 \section{Discussion}
-\paragraph{Bias is one quantity, not a taxonomy.} A large literature enumerates judge
+\paragraph{Bias is one mechanism, not a taxonomy.} A large literature enumerates judge
 biases---position, verbosity, self-preference, authority, and the three scoring biases
 studied here---as if each were a separate defect. Proposition~\ref{prop:main} says they
-share a single cause: the score is a mean over a distribution, and any nuisance moves
-that mean in proportion to the distribution's variance. A judge that commits to a score
-(low entropy) cannot be pushed far by \emph{any} superficial change; a judge that hedges
-(high entropy) is manipulable by all of them at once. This reframes debiasing from
-patching individual symptoms to changing one geometric property.
+share a single form: the score is a mean over a distribution, and any nuisance moves that
+mean by an amount that factorizes into the judge's decisiveness and its responsiveness to
+that nuisance. The naive hope---that a decisive judge is thereby a robust one---is exactly
+what our data refute: because responsiveness rises with capability, more decisive judges
+end up \emph{more} manipulable. The value of the decomposition is not a debiasing recipe
+via confidence, but a correct diagnosis of which term to attack.
 
-\paragraph{A one-forward-pass bias audit.} The predictor (\S\ref{sec:predict}) turns the
-theory into practice: because bias tracks control-condition entropy, a practitioner can
-estimate a judge's bias risk from a single unperturbed scoring call, with no
-perturbation suite and no labeled data. \GOLDSENTENCE{} \DISCUSSION{}
+\paragraph{Confidence is the wrong screen.} A tempting shortcut would be to audit a
+judge's bias from a single unperturbed call by reading its score entropy. Our predictor
+experiment (\S\ref{sec:predict}) shows this fails ($R^2<0$): entropy alone does not
+predict bias, precisely because the responsiveness term is unobserved in a single
+unperturbed pass. Screening judges by confidence is therefore not only insufficient but
+misleading---the most confident judges were often the most biased. \GOLDSENTENCE{}
+\DISCUSSION{}
 
 \paragraph{Reconciling opposite prior claims.} Reports disagree on whether instruction
 tuning helps or harms judge reliability: \citet{pan2025user} find it \emph{introduces} a
-bias, while format biases are widely observed to shrink with capability.
-Corollary~\ref{cor:diff} shows both can be true of the same model---tuning lowers the
-decisiveness term for all perturbations but can raise the responsiveness term for those
-that exploit in-context content, so format and content biases move oppositely. The
-decomposition also names the right mitigation lever per bias type: sharpen the
-distribution for format biases; reduce content responsiveness (e.g.\ withhold
-exemplars, or average over them) for content biases.
+bias, whereas one might expect stronger judges to be fairer. Corollary~\ref{cor:diff}
+shows why a single model can look either way depending on the perturbation---tuning lowers
+the decisiveness term for all perturbations but raises the responsiveness term for those
+it engages with more, so different bias types need not move together. In our data the
+responsiveness rise dominates and bias increases across four of five types; the effective
+mitigation is therefore not to make the judge sharper but to remove the nuisance
+dimension (e.g.\ average over label formats, withhold exemplars), which we show cuts bias
+by 60\% where a more decisive readout makes it worse.
 
 \paragraph{Connection to calibration.} Decisiveness is the judge's confidence in its own
-score. Our result is thus a statement about calibration: an over-hedging judge is not
-merely less accurate, it is less \emph{robust}, and the two failure modes are governed
-by the same distribution. This suggests confidence-aware scoring (reporting or
-thresholding on entropy) as a deployable safeguard.
+score, so the decisiveness term is a calibration quantity. In isolation
+(Corollary~\ref{cor:calib}) it would make a hedging judge the more manipulable one; but
+empirically the responsiveness term reverses this, and the more confident,
+instruction-tuned judges are the more biased. Confidence and robustness, though linked
+through the score distribution, are \emph{not} aligned in the direction intuition
+suggests---so confidence-thresholding is not a safe debiasing screen.
 
 \paragraph{On honesty of measurement.} The parse-failure confound (\S1) is a cautionary
 tale: an intuitive protocol silently produced no data on exactly the models most prone
@@ -451,14 +460,15 @@ framing). \textbf{Verbosity} varies \emph{transform} (identity / padded / first-
 \section{Practical recommendations}\label{app:practice}
 For practitioners deploying an LLM judge: \textbf{(1)}~read the score as an expected
 value over the answer tokens, never by parsing free text---parsing silently discards the
-hardest cases and biases comparisons. \textbf{(2)}~Log the score-distribution entropy; it
-is a one-call, label-free estimate of the judge's bias risk (\S\ref{sec:predict}), and a
-high-entropy judge should be distrusted or its scores thresholded on confidence.
-\textbf{(3)}~To reduce format biases, prefer decisive judges and numeric labels; to
-reduce content biases (exemplars, framing, length), remove or average over the content
-dimension rather than relying on a ``better'' judge, since tuning can \emph{raise}
-content responsiveness (Corollary~\ref{cor:diff}). \textbf{(4)}~Report bias per channel
-(format vs content); a single aggregate hides the differential effect.
+hardest cases and biases comparisons. \textbf{(2)}~Do \emph{not} screen judges by
+confidence: a sharper (lower-entropy) judge is not a fairer one, and score entropy does
+not predict bias out-of-sample (\S\ref{sec:predict}). \textbf{(3)}~Do \emph{not} expect a
+stronger or more instruction-tuned judge to be less biased---in our data it is more
+biased; instead reduce bias by removing the nuisance dimension (average over label
+formats, withhold exemplars, control response length), the intervention that actually
+lowers measured bias. \textbf{(4)}~Measure bias directly with a small perturbation suite
+and report it per channel (format vs content); a single aggregate, or a confidence proxy,
+hides the effect.
 
 \bibliographystyle{plainnat}
 \bibliography{honest}
