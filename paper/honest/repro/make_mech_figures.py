@@ -108,19 +108,34 @@ PROBES = ["rubric_order", "score_id", "reference_answer"]
 
 
 def fig_main(pi):
-    """Main base-vs-instruct bar figure from the scaled per-item summary (all probes)."""
+    """Main base-vs-instruct bar figure: 5 primary probes plus the two
+    preregistered extension probes (sycophancy, anchoring) when available."""
     s = pi["summary"]; probes = list(s.keys()); labels = [s[p]["label"] for p in probes]
     base = [s[p]["base_mean_delta"] for p in probes]
     inst = [s[p]["instruct_mean_delta"] for p in probes]
-    fig, ax = plt.subplots(figsize=(5.6, 2.8)); x = range(len(probes)); w = 0.38
+    stars = [bool(s[p]["ci_excludes_zero"]) for p in probes]
+    n_primary = len(probes)
+    p2 = HERE / "results_probes2_analysis.json"
+    if p2.exists():
+        ext = json.loads(p2.read_text())["per_probe"]
+        for key, lab in (("sycophancy", "sycophancy$^\\dagger$"),
+                         ("anchoring", "anchoring$^\\dagger$")):
+            if key in ext:
+                probes.append(key); labels.append(lab)
+                base.append(ext[key]["mean_base"]); inst.append(ext[key]["mean_instruct"])
+                stars.append(ext[key].get("wilcoxon_p", 1.0) < 0.05)
+    fig, ax = plt.subplots(figsize=(6.4, 2.8)); x = range(len(probes)); w = 0.38
     ax.bar([i - w/2 for i in x], base, w, label="Base", color=C_BASE)
     ax.bar([i + w/2 for i in x], inst, w, label="Instruct", color=C_INST)
-    for i, p in enumerate(probes):
-        if s[p]["ci_excludes_zero"]:
+    for i in range(len(probes)):
+        if stars[i]:
             ax.text(i, max(base[i], inst[i]) + 0.03, "$*$", ha="center", fontsize=11)
-    ax.set_xticks(list(x)); ax.set_xticklabels(labels, fontsize=8)
-    ax.set_ylabel(r"Mean bias $\Delta$"); ax.legend(frameon=False, loc="upper right")
-    ax.set_title(f"Scoring bias, base vs instruct ($n={pi['n_families']}$ families)")
+    if len(probes) > n_primary:
+        ax.axvline(n_primary - 0.5, color="0.6", lw=0.8, ls=":")
+    ax.set_xticks(list(x)); ax.set_xticklabels(labels, fontsize=7.5)
+    ax.set_ylabel(r"Mean bias $\Delta$"); ax.legend(frameon=False, loc="upper left")
+    ax.set_title(f"Scoring bias, base vs instruct ($n={pi['n_families']}$ families; "
+                 "$\\dagger$ preregistered extension probes)")
     save(fig, "fig1_base_vs_instruct")
 
 
