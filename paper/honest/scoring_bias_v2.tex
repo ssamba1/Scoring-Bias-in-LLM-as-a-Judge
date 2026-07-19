@@ -110,7 +110,11 @@ catalogued twelve bias types; \citet{chen2024humans} found humans and LLMs share
 susceptibility to irrelevant factors; \citet{shi2024position} study position bias
 systematically; \citet{gu2024survey} survey the field; \citet{park2024offsetbias}
 mitigate via debiased tuning data; and \citet{lee2025correctly} argue for careful,
-reproducible reporting---which our per-item, single-script protocol embodies.
+reproducible reporting---which our per-item, single-script protocol embodies. Separately,
+a literature on neural-network \emph{calibration} \citep{guo2017calibration,kadavath2022know}
+studies how well a model's confidence matches its accuracy; we connect that quantity to
+judge bias---to our knowledge a link not previously drawn---and find, counterintuitively,
+that greater confidence accompanies greater bias.
 
 \paragraph{Origin of scoring bias.} \citet{li2025scoring} introduced the three
 scoring biases and called for root-cause analysis. \citet{thakur2024judging} found
@@ -396,7 +400,8 @@ dimension (e.g.\ average over label formats, withhold exemplars), which we show 
 by 60\% where a more decisive readout makes it worse.
 
 \paragraph{Connection to calibration.} Decisiveness is the judge's confidence in its own
-score, so the decisiveness term is a calibration quantity. In isolation
+score, so the decisiveness term is a calibration quantity in the sense of
+\citet{guo2017calibration,kadavath2022know}. In isolation
 (Corollary~\ref{cor:calib}) it would make a hedging judge the more manipulable one; but
 empirically the responsiveness term reverses this, and the more confident,
 instruction-tuned judges are the more biased. Confidence and robustness, though linked
