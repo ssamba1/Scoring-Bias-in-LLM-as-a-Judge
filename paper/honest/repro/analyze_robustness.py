@@ -307,6 +307,98 @@ def main():
     except FileNotFoundError:
         out["C5_public_items"] = {"note": "results_dolly.json absent"}
 
+    # ---- E: variance decomposition of bias across factors ----
+    try:
+        import pandas as pd
+        import statsmodels.formula.api as smf
+        df2 = pd.DataFrame(recs)
+        m_full = smf.ols("bias ~ C(family) + C(probe) + C(kind) + C(family):C(probe)",
+                         df2).fit()
+        import statsmodels.api as sm
+        an = sm.stats.anova_lm(m_full, typ=2)
+        ss = an["sum_sq"]
+        tot = float(ss.sum())
+        out["E_variance_decomposition"] = {
+            k.replace("C(", "").replace(")", ""): round(float(v) / tot, 3)
+            for k, v in ss.items()}
+    except Exception as e:  # noqa: BLE001
+        out["E_variance_decomposition"] = {"error": str(e)[:120]}
+
+    # ---- E2: are some ITEMS systematically bias-prone across judges? ----
+    # per-item |deviation from control| under each perturbed variant, averaged over
+    # variants, gives an item-bias profile per (checkpoint, probe); correlate the
+    # profiles across checkpoints.
+    item_prof = {}
+    for fam, rec in scaled.items():
+        for kind in ("base", "instruct"):
+            kd = rec.get(kind)
+            if not isinstance(kd, dict):
+                continue
+            for p in PROBES:
+                if p not in kd:
+                    continue
+                d = kd[p]
+                ctrl = d[CONTROL[p]]["per_item"]
+                devs = np.mean([[abs(a - c) for a, c in zip(d[v]["per_item"], ctrl)]
+                                for v in d if v != CONTROL[p]], axis=0)
+                item_prof[(fam, kind, p)] = devs
+    keys = list(item_prof)
+    cors = []
+    for i in range(len(keys)):
+        for j in range(i + 1, len(keys)):
+            if keys[i][2] == keys[j][2] and keys[i][:2] != keys[j][:2]:
+                r = stats.spearmanr(item_prof[keys[i]], item_prof[keys[j]]).statistic
+                if not math.isnan(r):
+                    cors.append(r)
+    out["E2_item_consistency"] = {
+        "mean_cross_judge_item_corr": round(float(np.mean(cors)), 3),
+        "n_pairs": len(cors),
+        "note": "same-probe item-bias profiles correlated across different checkpoints"}
+
+    # ---- E3: score collapse -- distribution shape before/after tuning ----
+    shape = {"base": {"top2_mass": [], "maxp": []}, "instruct": {"top2_mass": [], "maxp": []}}
+    for fam, rec in scaled.items():
+        for kind in ("base", "instruct"):
+            kd = rec.get(kind)
+            if not isinstance(kd, dict):
+                continue
+            mds = [kd[p][CONTROL[p]]["mean_dist"] for p in PROBES if p in kd]
+            for md in mds:
+                shape[kind]["top2_mass"].append(md[3] + md[4])
+                shape[kind]["maxp"].append(max(md))
+    out["E3_score_collapse"] = {
+        kind: {k: round(float(np.mean(v)), 3) for k, v in d.items()}
+        for kind, d in shape.items()}
+
+    # ---- E4: exact tilted score vs first-order bound (data for appendix fig) ----
+    def tilt_curve(dist, ts):
+        vals = np.arange(1, 6, dtype=float)
+        p = np.array(dist) / np.sum(dist)
+        s0 = float((p * vals).sum())
+        sd = math.sqrt(float((p * (vals - s0) ** 2).sum()))
+        exact, linear = [], []
+        for t in ts:
+            w = p * np.exp(t * vals)
+            w = w / w.sum()
+            exact.append(float((w * vals).sum()) - s0)
+            linear.append(t * sd ** 2)  # d/dt E[v] under tilt tv at t=0 is Var(v)
+        return s0, sd, exact, linear
+    mean_dist_of = {"base": [], "instruct": []}
+    for fam, rec in scaled.items():
+        for kind in ("base", "instruct"):
+            kd = rec.get(kind)
+            if isinstance(kd, dict) and "rubric_order" in kd:
+                mean_dist_of[kind].append(kd["rubric_order"]["control"]["mean_dist"])
+    ts = [round(x, 2) for x in np.linspace(0, 1.0, 11)]
+    curves = {}
+    for kind, dists in mean_dist_of.items():
+        avg = np.mean(dists, axis=0)
+        s0, sd, exact, linear = tilt_curve(avg, ts)
+        curves[kind] = {"s0": round(s0, 3), "sqrtvar": round(sd, 3),
+                        "t": ts, "exact": [round(x, 4) for x in exact],
+                        "first_order": [round(x, 4) for x in linear]}
+    out["E4_exact_vs_first_order"] = curves
+
     (HERE / "results_robustness.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 

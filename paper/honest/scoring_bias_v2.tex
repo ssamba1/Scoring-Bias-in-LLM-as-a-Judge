@@ -144,7 +144,11 @@ connect confidence to judge bias at the score-distribution level---to our knowle
 link not previously drawn---and find, counterintuitively, that greater confidence
 accompanies greater bias. A parallel line adopts the score \emph{distribution} as the
 readout \citep{liu2023geval,wang2025judgmentdist,trustjudge2025}; we use that readout
-and make the distribution itself the object of analysis.
+and make the distribution itself the object of analysis. Concurrently,
+\citet{tian2025overconfidence} diagnose judge overconfidence from the calibration side,
+and \citet{soumik2026judging} benchmark bias-mitigation strategies; our decomposition
+supplies the missing account of \emph{why} confidence-raising mitigations fail while
+nuisance-removal succeeds (\S\ref{sec:anatomy}--\ref{sec:predict}).
 
 \paragraph{Origin of scoring bias.} \citet{li2025scoring} introduced the three
 scoring biases and called for root-cause analysis. \citet{thakur2024judging} found
@@ -452,6 +456,9 @@ installs the bias; DPO/RLVR install the confidence.}
 \label{tab:v2family}\setlength{\tabcolsep}{4pt}\input{tables/tab_v2_family.tex}
 \end{table}
 
+\subsection{The anatomy of bias variance}\label{sec:anatomy}
+\ANATPROSE{}
+
 \subsection{Mixed-effects confirmation and mitigation}
 \LMMPROSE{} \MITIGPROSE{}
 
@@ -583,6 +590,20 @@ to $-0.29$---every measured cumulant moves toward the decisive limit. Yet bias
 rescuing the naive prediction: no order of the decisiveness expansion can explain the
 increase, so the responsiveness term must---and, measured directly
 (\S\ref{sec:mech}), does---carry it.
+
+Figure~\ref{fig:exact} compares the \emph{exact} tilted score change
+$s(\ell+tv)-s(\ell)$ (computable in closed form as the derivative of the cumulant
+generating function) against the first-order term $t\,\mathrm{Var}_\sigma(v)$, for the
+mean base and instruct control distributions. The exact response saturates while the
+first-order term grows linearly, so the first-order bound is \emph{conservative} at
+large perturbations: using it in the per-cell test (\S\ref{sec:crossover}) can only
+understate, not overstate, the decomposition's fit.
+\begin{figure}[t]\centering
+\includegraphics[width=0.55\linewidth]{fig_exact.pdf}
+\caption{Exact tilted score change vs.\ the first-order term along the worst-case
+direction, for the mean base and instruct control distributions. The exact curve
+saturates below the linear term: first-order analysis is conservative.}
+\label{fig:exact}\end{figure}
 
 \section{Exact prompts}\label{app:prompts}
 All probes share the template below; a variant changes only the italic slot(s). Answer
