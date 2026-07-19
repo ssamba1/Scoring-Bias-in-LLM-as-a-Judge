@@ -20,7 +20,7 @@ from scipy import stats
 SEED = 42
 N_BOOT = 10_000
 HERE = Path(__file__).resolve().parent
-SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "results_full.json"
+SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "results_scaled.json"
 
 # master maps over all probe families (3 scoring + 2 content-perturbation)
 CONTROL = {"rubric_order": "control", "score_id": "numeric", "reference_answer": "none",
