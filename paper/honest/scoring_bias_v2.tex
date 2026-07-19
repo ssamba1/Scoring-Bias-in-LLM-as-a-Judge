@@ -63,9 +63,9 @@ scoring). They quantified the biases across five models but left the mechanism o
 One would hope that instruction tuning, which makes a judge more capable and more
 decisive, also makes it more robust. We find the opposite, and explain why. Empirically,
 instruction tuning \emph{sharpens} the score distribution (lower entropy) but
-\emph{increases} bias across four of five bias types---so, across our \NFAM{} families,
-more decisive judges are \emph{more} biased, not less (a negative decisiveness--bias
-correlation). The explanation is a small theory: a judge's score is the mean of its
+\emph{increases} bias across all five bias types---so, across our \NFAM{} families
+($0.1$--$\MAXB$B), more decisive judges are \emph{more} biased, not less (a negative
+decisiveness--bias correlation that persists up to the 7--8B models). The explanation is a small theory: a judge's score is the mean of its
 answer-token distribution, so its sensitivity to a nuisance factorizes into a
 \emph{decisiveness} term---the distribution's variance---and a \emph{responsiveness}
 term---how far the nuisance moves the logits (Proposition~\ref{prop:main},
@@ -349,7 +349,7 @@ inverted screen. Each point is a model.}
 
 \subsection{Bias corrupts real quality judgments---and tuning does not protect them}\label{sec:gold}
 Does scoring bias actually matter, or is it cosmetic score jitter? We test it against
-ground truth: for 12 questions we write a genuinely good and a genuinely bad answer, so
+ground truth: for 20 questions we write a genuinely good and a genuinely bad answer, so
 a competent judge scores good above bad. We then apply nuisance perturbations and ask
 whether the judge still ranks them correctly. \GOLDPROSE{}
 \begin{table}[t]\centering\small
