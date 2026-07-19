@@ -146,6 +146,14 @@ Failure of any clause is reported as a failure.
   captures the dominant mass), so the expected-value findings are not an artifact
   of the bare-token conditional.
 
+- **P19 (chat-template confound).** Instruct checkpoints are scored in raw
+  completion format throughout; they are trained on chat templates, so the bias
+  increase could in principle be an out-of-distribution-format artifact.
+  Prediction, registered before `repro/chattemplate_harness.py` runs: (a) bias
+  Δ under the model's own chat template remains clearly positive; (b) per-cell
+  Δ correlates between raw and chat formats; (c) the instruct-vs-base effect
+  (instruct-chat Δ minus base-raw Δ) remains positive on average.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as

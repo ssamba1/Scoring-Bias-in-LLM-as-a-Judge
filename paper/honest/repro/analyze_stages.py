@@ -123,6 +123,17 @@ def main():
                  "sign_agreement": f"{int(np.sum(agree))}/{len(agree)}",
                  "binom_p": round(float(bt.pvalue), 5) if bt else None}
 
+    # cross-checkpoint entropy-bias relation WITHIN the stage ladder (exploratory):
+    # does the between-family negative relation reappear across the 11 ladder
+    # checkpoints? (reported however it comes out)
+    xs2, ys2 = [], []
+    for r in rows:
+        xs2.append(r["entropy"]); ys2.append(r["bias"])
+    lr = stats.spearmanr(xs2, ys2)
+    out["ladder_entropy_bias_link"] = {
+        "spearman_rho": round(float(lr.statistic), 3),
+        "p": round(float(lr.pvalue), 4), "n": len(xs2)}
+
     (HERE / "results_stages_analysis.json").write_text(json.dumps(out, indent=2) + "\n")
     for fam in fams:
         t = traj[fam]

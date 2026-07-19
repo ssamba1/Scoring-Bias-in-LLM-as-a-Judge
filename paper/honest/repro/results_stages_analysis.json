@@ -652,5 +652,10 @@
     "transitions": 8,
     "sign_agreement": "7/8",
     "binom_p": 0.07031
+  },
+  "ladder_entropy_bias_link": {
+    "spearman_rho": 0.015,
+    "p": 0.9155,
+    "n": 55
   }
 }

@@ -126,6 +126,8 @@ if stages["P7"]["sft_resp_up_cells"] != "10/10":
 shares = stages["P7"]["sft_share_of_total_rise"]
 if not (0.83 <= shares[0] <= 0.85 and 0.98 <= shares[1] <= 1.0):
     FAILS.append(f"84%/99% SFT-share stale: {shares}")
+lel = stages.get("ladder_entropy_bias_link", {})
+close("ladder entropy-bias null", 0.01, lel.get("spearman_rho"), 0.006)
 if stages["P9"]["sign_agreement"] != "7/8":
     FAILS.append("P9 7/8 stale")
 
