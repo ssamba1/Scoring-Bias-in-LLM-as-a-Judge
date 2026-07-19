@@ -183,6 +183,16 @@ Failure of any clause is reported as a failure.
   Δ correlates between raw and chat formats; (c) the instruct-vs-base effect
   (instruct-chat Δ minus base-raw Δ) remains positive on average.
 
+**P19 outcome (recorded 2026-07-19 after the run):** SPLIT.
+- (a) **confirmed**: bias under the model's own chat template is substantial in
+  every cell (mean Δ 0.38; all cells > 0.1; chat ≥ raw in 4/6 cells, e.g.
+  Qwen-0.5B rubric 0.035 raw → 0.477 chat). The increase is not an
+  out-of-distribution-format artifact.
+- (b) **inconclusive**: raw~chat per-cell correlation ρ = 0.49, p = 0.33 at
+  n = 6 — directionally positive, underpowered.
+- (c) **weakly met**: instruct-chat minus base-raw = +0.07 on average, but
+  positive in only 1/3 families (driven by Qwen-0.5B).
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as

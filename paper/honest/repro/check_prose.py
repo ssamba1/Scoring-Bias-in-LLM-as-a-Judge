@@ -125,6 +125,16 @@ if gp.exists():
         FAILS.append("P17b instruct>base at every K stale")
     close("gran K10 instruct", 0.664, g17["per_scale"]["K10"]["mean_bias_instruct"], 0.006)
 
+# ---- P19 chat-template control ----
+cpth = HERE / "results_chat_analysis.json"
+if cpth.exists():
+    c19 = json.loads(cpth.read_text())
+    close("chat mean delta", 0.38, c19["P19a"]["mean_chat_delta"], 0.006)
+    if c19["P19a"]["chat_ge_raw_cells"] != "4/6":
+        FAILS.append("chat 4/6 stale")
+    close("chat raw corr", 0.49, c19["P19b"]["raw_chat_spearman"], 0.006)
+    close("chat minus base", 0.07, c19["P19c"]["mean_chat_minus_base"], 0.006)
+
 # ---- P13 span patching ----
 sp = HERE / "spanpatch_analysis.json"
 if sp.exists():
