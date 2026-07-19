@@ -265,7 +265,7 @@ def main():
     except FileNotFoundError:
         out["C8_template_ensemble"] = {"note": "results_multitemplate.json absent"}
 
-    (HERE / "results_robustness.json").write_text(json.dumps(out, indent=2))
+    (HERE / "results_robustness.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 
 

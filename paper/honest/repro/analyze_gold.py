@@ -58,7 +58,7 @@ def main():
         row["instruct_more_robust_p"] = p
         out["degradation"][cond] = row
 
-    (HERE / "results_gold.json").write_text(json.dumps(out, indent=2))
+    (HERE / "results_gold.json").write_text(json.dumps(out, indent=2) + "\n")
     _tables(out)
     _report(out)
 
@@ -86,7 +86,7 @@ def _tables(out):
                  f"{r['instruct']['accuracy_under_bias']:.2f} & {r['base']['margin_drop']:.2f} & "
                  f"{r['instruct']['margin_drop']:.2f} \\\\")
     L += [r"\bottomrule", r"\end{tabular}"]
-    (tdir / "tab_gold.tex").write_text("\n".join(L))
+    (tdir / "tab_gold.tex").write_text("\n".join(L) + "\n")
 
 
 if __name__ == "__main__":

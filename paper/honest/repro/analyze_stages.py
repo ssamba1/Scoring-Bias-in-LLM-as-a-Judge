@@ -118,7 +118,7 @@ def main():
                  "sign_agreement": f"{int(np.sum(agree))}/{len(agree)}",
                  "binom_p": round(float(bt.pvalue), 5) if bt else None}
 
-    (HERE / "results_stages_analysis.json").write_text(json.dumps(out, indent=2))
+    (HERE / "results_stages_analysis.json").write_text(json.dumps(out, indent=2) + "\n")
     for fam in fams:
         t = traj[fam]
         print(fam, {s: (t[s]["entropy"], t[s]["resp"], t[s]["bias"]) for s in t})

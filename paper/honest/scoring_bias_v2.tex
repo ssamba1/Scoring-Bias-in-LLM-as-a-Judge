@@ -44,9 +44,9 @@ experiment localizes where this is written into the network (\PATCHSENTENCE{}), 
 ground-truth test shows the bias corrupts real judgments (\GOLDSENTENCE{}), and a
 marginalization mitigation cuts bias by 59\% where raising confidence cannot. We also
 expose a measurement confound---naive parse-based scoring silently drops all items on
-weak judges---and remove it with the standard distribution-based readout. Every number and figure regenerates from one raw file by one
-script; no synthetic data is used, and a full audit of a prior, unreliable version of
-this project is included.
+weak judges---and remove it with the standard distribution-based readout. Every number and figure regenerates from committed raw files by committed scripts,
+verified in continuous integration; no synthetic data is used, and a full audit of a
+prior, unreliable version of this project is included.
 \end{abstract}
 
 \section{Introduction}
@@ -177,7 +177,7 @@ We use \NFAM{} open-weight families with public base and instruct checkpoints: t
 Qwen2.5 series \citep{qwen25}, SmolLM2 \citep{smollm2}, StableLM-2 \citep{stablelm2},
 Falcon3 \citep{falcon3}, Granite-3.1 \citep{granite3}, and OLMo-2 \citep{olmo2},
 spanning 0.1--\MAXB{}B and four recipes (RLHF, SFT+DPO, SFT+RLHF, SFT+DPO+RLVR). We
-use \emph{five} bias families, each with a control and two perturbed variants. Three
+use \emph{five} bias types, each probed with a control and two perturbed variants. Three
 are the scoring biases of \citet{li2025scoring} (rubric order; score ID; reference
 answer); two more test the theory beyond scoring biases and come from the broader
 judge-bias literature: \textbf{authority} bias (response framed as written by an expert
@@ -390,10 +390,10 @@ perturbations that inject text (a good exemplar; an ``expert'' authority framing
 measure the attention the score-position token pays to the injected nuisance tokens,
 averaged over layers and heads, base vs instruct. \ATTNPROSE{}
 
-\subsection{The same relation across five bias families}\label{sec:general}
+\subsection{The same relation across five bias types}\label{sec:general}
 The decomposition applies to \emph{any} nuisance, so the negative decisiveness--bias
 relation should not be specific to the format-level scoring biases. We test it on the
-two additional bias families (authority, verbosity), which perturb content rather than
+two additional bias types (authority, verbosity), which perturb content rather than
 label format. \GENPROSE{}
 
 \subsection{Bias is predictable from decisiveness---with the sign reversed}\label{sec:predict}

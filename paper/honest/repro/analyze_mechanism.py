@@ -252,7 +252,7 @@ def main():
     # ---- Mixed-effects model on per-item deviation from control ----
     out["lmm"] = lmm(pairs)
 
-    (HERE / "results_mechanism.json").write_text(json.dumps(out, indent=2))
+    (HERE / "results_mechanism.json").write_text(json.dumps(out, indent=2) + "\n")
     _report(out)
 
 

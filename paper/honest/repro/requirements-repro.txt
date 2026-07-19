@@ -1,0 +1,8 @@
+# Pinned analysis stack for the numbers-match CI (see .github/workflows/repro.yml).
+# GPU harnesses run separately on Kaggle with: torch==2.6.0+cu124,
+# torchvision==0.21.0, transformers==4.49.0, tokenizers==0.21.0, accelerate==1.4.0.
+numpy==2.4.4
+scipy==1.17.1
+statsmodels==0.14.6
+pandas==3.0.3
+matplotlib==3.11.0

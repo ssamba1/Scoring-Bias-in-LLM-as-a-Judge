@@ -145,7 +145,7 @@ def main() -> None:
            "n_families": len(per_family), "families": list(per_family),
            "per_family": per_family, "summary": summary,
            "size_effect": size_effect, "domain": domain_summary}
-    (HERE / "results_peritem.json").write_text(json.dumps(out, indent=2))
+    (HERE / "results_peritem.json").write_text(json.dumps(out, indent=2) + "\n")
     write_tables(out)
 
     print(f"Source: {SRC.name}   families with base+instruct pairs: {len(per_family)}")
@@ -200,7 +200,7 @@ def write_tables(out: dict) -> None:
                  f"{bold}{{{x['mean_change']:+.2f} ({pct}\\%)}} & {x['cohen_dz']:+.2f} & {ci} & {phs} & "
                  f"{x['base_mean_flip']:.2f}$\\to${x['instruct_mean_flip']:.2f} \\\\")
     L += [r"\bottomrule", r"\end{tabular}"]
-    (tdir / "tab_v2_summary.tex").write_text("\n".join(L))
+    (tdir / "tab_v2_summary.tex").write_text("\n".join(L) + "\n")
 
     # per-family delta table
     L = [r"% AUTO-GENERATED", r"\begin{tabular}{lcc" + "cc" * len(PROBES) + "}", r"\toprule",
@@ -212,7 +212,7 @@ def write_tables(out: dict) -> None:
         cells = " & ".join(f"{r[p]['base_delta']:.1f} & {r[p]['instruct_delta']:.1f}" for p in PROBES)
         L.append(f"{fam} & {pb:g} & {tr} & {cells} \\\\" if pb else f"{fam} & -- & {tr} & {cells} \\\\")
     L += [r"\bottomrule", r"\end{tabular}"]
-    (tdir / "tab_v2_family.tex").write_text("\n".join(L))
+    (tdir / "tab_v2_family.tex").write_text("\n".join(L) + "\n")
 
     # domain table (if present)
     if out.get("domain"):
@@ -221,7 +221,7 @@ def write_tables(out: dict) -> None:
         for dom, v in out["domain"].items():
             L.append(f"{dom.replace('_',' ').title()} & {v['base']:.2f} & {v['instruct']:.2f} \\\\")
         L += [r"\bottomrule", r"\end{tabular}"]
-        (tdir / "tab_v2_domain.tex").write_text("\n".join(L))
+        (tdir / "tab_v2_domain.tex").write_text("\n".join(L) + "\n")
 
 
 def holm_bonferroni(pvals: dict) -> dict:
