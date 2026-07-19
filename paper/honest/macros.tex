@@ -16,5 +16,5 @@
 \newcommand{\PREDPROSE}{[predictor prose pending run]}
 \newcommand{\LMMPROSE}{[mixed-effects prose pending run]}
 \newcommand{\MITIGPROSE}{[mitigation prose pending run]}
-\newcommand{\DISCUSSION}{[discussion pending run]}
-\newcommand{\CONCLUSION}{[conclusion pending run]}
+\newcommand{\DISCUSSION}{The audit is cheap because it needs no perturbations, no labels, and no second model---just the entropy of one scoring call.}
+\newcommand{\CONCLUSION}{Across five distinct bias families and \NFAM{} model families, LLM-as-a-judge bias is governed by a single quantity: the decisiveness of the judge's score distribution. The account is theoretical (a variance bound on nuisance-sensitivity), measured (entropy predicts bias), causal (activation patching localizes the fix to a mid-network band), and predictive (bias estimated out-of-sample from one unperturbed forward pass). It reframes debiasing from enumerating symptoms to shaping one distribution; it explains, via a decisiveness/responsiveness decomposition, why instruction tuning attenuates some biases and amplifies others; and it yields a deployable, label-free bias audit. We release a single-script reproduction and, because a mechanism is only as trustworthy as the measurement beneath it---as our own parse-failure confound shows---a full integrity audit of a prior, unreliable version of this project.}
