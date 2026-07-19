@@ -1,24 +1,26 @@
 {
-  "n_cells": 0,
+  "n_cells": 16,
   "mean_mass": {
     "bare": {
       "base": 0.0014,
       "instruct": 0.0003
     },
-    "spaced": {},
     "union": {
-      "base": 3.6843,
-      "instruct": 3.9125
+      "base": 0.0014,
+      "instruct": 0.0003
     }
   },
   "P18a_pairwise_delta_corr": {
-    "bare~spaced": NaN,
-    "bare~union": NaN,
-    "spaced~union": NaN
+    "bare~union": 1.0
   },
   "P18b_union_effect": {
-    "per_family": {},
-    "mean_effect": null,
-    "families_positive": null
+    "per_family": {
+      "SmolLM2-135M": 0.34,
+      "SmolLM2-360M": 0.007,
+      "Qwen2.5-0.5B": 0.049,
+      "Qwen2.5-1.5B": 0.036
+    },
+    "mean_effect": 0.108,
+    "families_positive": "4/4"
   }
 }

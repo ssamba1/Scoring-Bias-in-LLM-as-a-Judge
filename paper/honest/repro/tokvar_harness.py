@@ -101,6 +101,18 @@ def score_variants(tok, model, prompt, dsets):
     mass = float(pu.sum())
     pu = pu / pu.sum()
     outp["union"] = {"exp": round(float((pu * vt).sum()), 4), "mass": round(mass, 5)}
+    # v3: the space-appended position -- prompt + " " puts the digit choice at the
+    # immediate next token, where the bulk of the numeric mass lives.
+    ids2 = tok(prompt + " ", return_tensors="pt")
+    full2 = torch.softmax(model(**ids2).logits[0, -1].float(), dim=-1)
+    if all(t_ is not None for t_ in bare) and len(set(bare)) == 5:
+        pr2 = full2[bare]
+        mass2 = float(pr2.sum())
+        pr2 = pr2 / pr2.sum()
+        outp["space_appended"] = {"exp": round(float((pr2 * vt).sum()), 4),
+                                  "mass": round(mass2, 5)}
+    else:
+        outp["space_appended"] = None
     return outp
 
 def run_model(name):
@@ -113,8 +125,8 @@ def run_model(name):
     for probe, variants in PROBES.items():
         out[probe] = {}
         for variant, (scale, prefix) in variants.items():
-            per = {"bare": [], "union": []}
-            masses = {"bare": [], "union": []}
+            per = {"bare": [], "union": [], "space_appended": []}
+            masses = {"bare": [], "union": [], "space_appended": []}
             for instr, resp in ITEMS:
                 sv = score_variants(tok, model, build(instr, resp, scale, prefix), dsets)
                 for k in per:

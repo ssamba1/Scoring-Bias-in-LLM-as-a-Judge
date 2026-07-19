@@ -50,8 +50,9 @@ confidence cannot. The findings replicate on public-dataset items and in Chinese
 two preregistered extension probes sharpen the picture: judge-side \emph{sycophancy}
 shows the largest tuning effect we measure, while numeric \emph{anchoring} stays
 null---tuning inflates responsiveness to social framing, not to every signal. We also
-expose a measurement confound---naive parse-based scoring silently drops all items on
-weak judges---and remove it with the standard distribution-based readout. Every number and figure regenerates from committed raw files by committed scripts,
+show that parse-based scoring is protocol-fragile---strict parsing silently drops
+weak judges (a confound), lenient sampling drowns the signal in noise---and use the
+standard distribution-based readout instead. Every number and figure regenerates from committed raw files by committed scripts,
 verified in continuous integration; no synthetic data is used, and a full audit of a
 prior, unreliable version of this project is included.
 \end{abstract}
@@ -95,11 +96,15 @@ bias rises ($\times 1.59$): the responsiveness term wins.}
 \label{fig:concept}\end{figure}
 
 \paragraph{The measurement confound.} The standard way to read a judge's score is to
-have it \emph{write} one and parse the text. This fails systematically: weak and base
-models often emit no parseable label, so the item is silently dropped---in our initial
-runs, \emph{zero} of 50 items scored for entire models (Appendix~\ref{app:parsefail}).
-Because base models comply less than instruct models, a parse-based protocol does not
-merely add noise; it \emph{confounds} the base-vs-instruct comparison. We instead read
+have it \emph{write} one and parse the text. This is protocol-fragile in two ways
+(Appendix~\ref{app:parsefail}). Under strict deterministic parsing, weak and base
+models emit no parseable label and are silently dropped---in our initial runs,
+\emph{zero} of 50 items scored for entire models---which \emph{confounds} the
+base-vs-instruct comparison, because compliance differs by checkpoint. Under a
+lenient sampled protocol most items parse for both checkpoints, but the resulting
+bias estimates are dominated by sampling noise (a preregistered comparison,
+Appendix~\ref{app:parsefail}). Parse-based scoring is thus either confounded or
+noise-dominated. We instead read
 the score as the \emph{expected value under the model's next-token distribution over
 the valid answer tokens}, which is always defined and, as \S\ref{sec:theory} shows, is
 also the right object for the mechanism.
@@ -663,10 +668,24 @@ failure it studies.
 \appendix
 \section{The parse-failure confound}\label{app:parsefail}
 Our initial generation-and-parse runs scored \emph{zero} of 50 items for every model
-and probe: weak/base models emitted no parseable label after the score header, so
-every item was discarded and each model returned null. Because base models comply less
-than instruct models, this is a confound, not noise. Expected-value scoring
-(\S\ref{sec:evs}) removes it. Run logs are in the repository.
+and probe: under strict deterministic parsing, weak/base models emitted no parseable
+label after the score header, so every item was discarded and each model returned
+null. Because base models comply less than instruct models, this is a confound, not
+noise. Expected-value scoring (\S\ref{sec:evs}) removes it. Run logs are in the
+repository.
+
+A preregistered comparison (P16) sharpens---and partly \emph{corrects}---this story.
+Under a lenient sampled protocol (temperature 1, $k=8$ samples, first-digit regex),
+parse rates are nearly equal across checkpoints (base $0.80$, instruct $0.83$ on
+three small families): the zero-parse result above was a property of the strict
+protocol, not an inability of base models to emit digits. But the rescue is
+illusory: the sampled bias estimates do not recover the expected-value ordering
+($\rho=-0.20$, $p=0.53$, $n=12$ cells)---at practical sample counts the sampled
+estimator's own variance ($\mathrm{Var}_\sigma(v)/k$ per item) swamps the bias
+signal, exactly the variance the expected-value readout eliminates
+(\S\ref{sec:evs}). Both preregistered clauses of P16 therefore \emph{failed} as
+stated, and the correct summary is the weaker, more precise one: parse-based
+scoring is either confounded (strict) or noise-dominated (lenient).
 
 \section{All-order check: cumulants under tuning}\label{app:cumulants}
 The ``beyond first order'' argument (\S\ref{sec:theory}) says decisiveness controls

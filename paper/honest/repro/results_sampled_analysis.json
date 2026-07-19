@@ -1,0 +1,11 @@
+{
+  "P16a_parse_rate": {
+    "base": 0.802,
+    "instruct": 0.833
+  },
+  "P16b_delta_agreement": {
+    "n_cells": 12,
+    "spearman_ev_vs_sampled_delta": -0.203,
+    "p": 0.5273
+  }
+}

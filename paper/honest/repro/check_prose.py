@@ -135,6 +135,15 @@ if cpth.exists():
     close("chat raw corr", 0.49, c19["P19b"]["raw_chat_spearman"], 0.006)
     close("chat minus base", 0.07, c19["P19c"]["mean_chat_minus_base"], 0.006)
 
+# ---- P16 sampled readout (failed; corrects confound framing) ----
+sp16 = HERE / "results_sampled_analysis.json"
+if sp16.exists():
+    s16 = json.loads(sp16.read_text())
+    close("sampled parse base", 0.80, s16["P16a_parse_rate"]["base"], 0.006)
+    close("sampled parse instruct", 0.83, s16["P16a_parse_rate"]["instruct"], 0.006)
+    close("sampled ev disagreement", -0.20,
+          s16["P16b_delta_agreement"]["spearman_ev_vs_sampled_delta"], 0.006)
+
 # ---- P13 span patching ----
 sp = HERE / "spanpatch_analysis.json"
 if sp.exists():

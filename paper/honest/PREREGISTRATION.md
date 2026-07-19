@@ -151,6 +151,18 @@ not scaled by its magnitude, for these probes and models.
   failure is much higher for base than instruct checkpoints (the confound,
   now quantified); (b) among parseable items, the sampled-score bias Δ
   correlates positively with the expected-value Δ across cells.
+**P16 outcome (recorded 2026-07-19 after the run):** FAILED, both clauses —
+and the failure *corrects our own earlier framing*. (a) Under a lenient
+sampled protocol (temperature 1, k=8, first-digit regex) parse rates are
+nearly equal (base 0.80, instruct 0.83): the zero-parse result of Appendix A
+was a property of the strict deterministic protocol, not of base models'
+inability to emit digits. The confound claim is accordingly re-scoped to
+"protocol-dependent." (b) Sampled-score bias estimates do not recover the
+expected-value ordering (ρ = −0.20, p = 0.53, n = 12): at practical sample
+counts the sampled estimator is dominated by its own sampling variance. Net:
+parse-based scoring is either confounded (strict) or noise-dominated
+(lenient); the paper's text is updated to say exactly this.
+
 - **P17 (scale granularity).** With rating scales of 3, 5, and 10 points
   (`repro/granularity_harness.py`), measured bias grows with the value range
   of the scale (as Var_σ(v) scaling predicts), and instruct Δ > base Δ at

@@ -13,7 +13,7 @@ import numpy as np
 from scipy import stats
 
 HERE = Path(__file__).resolve().parent
-READOUTS = ("bare", "union")
+READOUTS = ("bare", "union", "space_appended")
 
 
 def main():
@@ -29,6 +29,8 @@ def main():
             if not isinstance(kd, dict):
                 continue
             for probe, variants in kd.items():
+                if probe == "digit_set_sizes" or not isinstance(variants, dict):
+                    continue
                 per_r = {}
                 for r in READOUTS:
                     if any(r not in v or v[r] is None for v in variants.values()):
