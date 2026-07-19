@@ -106,6 +106,14 @@ if zpath.exists():
         FAILS.append("zh 4/4 stale")
     close("zh entropy-bias rho", -0.36, z["entropy_bias_link"]["spearman_rho"], 0.006)
 
+# ---- P14 dose-response (failed) ----
+dp = HERE / "results_dose_analysis.json"
+if dp.exists():
+    d14 = json.loads(dp.read_text())
+    close("dose monotonic null", 0.06, d14["P14a_monotonic"]["mean_dose_spearman"], 0.006)
+    if d14["P14b_slope"]["instruct_steeper"] != "3/8":
+        FAILS.append("P14b 3/8 stale")
+
 # ---- P13 span patching ----
 sp = HERE / "spanpatch_analysis.json"
 if sp.exists():

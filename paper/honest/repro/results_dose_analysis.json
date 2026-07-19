@@ -1,0 +1,240 @@
+{
+  "per_cell": [
+    {
+      "family": "SmolLM2-135M",
+      "kind": "base",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.2193,
+        0.2125,
+        0.2704,
+        0.2428
+      ],
+      "dose_spearman": 0.6,
+      "slope": 0.0537
+    },
+    {
+      "family": "SmolLM2-135M",
+      "kind": "base",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.1117,
+        0.0249,
+        0.0035,
+        0.0099
+      ],
+      "dose_spearman": -0.8,
+      "slope": -0.0088
+    },
+    {
+      "family": "SmolLM2-135M",
+      "kind": "instruct",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.2537,
+        0.2564,
+        0.33,
+        0.2025
+      ],
+      "dose_spearman": -0.2,
+      "slope": 0.0481
+    },
+    {
+      "family": "SmolLM2-135M",
+      "kind": "instruct",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.7518,
+        0.6081,
+        0.5693,
+        0.7215
+      ],
+      "dose_spearman": -0.4,
+      "slope": 0.126
+    },
+    {
+      "family": "SmolLM2-360M",
+      "kind": "base",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.0613,
+        0.1028,
+        0.5176,
+        1.0943
+      ],
+      "dose_spearman": 1.0,
+      "slope": 0.2645
+    },
+    {
+      "family": "SmolLM2-360M",
+      "kind": "base",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.0153,
+        0.0235,
+        0.1498,
+        0.1752
+      ],
+      "dose_spearman": 1.0,
+      "slope": 0.0485
+    },
+    {
+      "family": "SmolLM2-360M",
+      "kind": "instruct",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.4113,
+        0.2437,
+        0.3571,
+        0.4146
+      ],
+      "dose_spearman": 0.4,
+      "slope": 0.0775
+    },
+    {
+      "family": "SmolLM2-360M",
+      "kind": "instruct",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.1266,
+        0.0286,
+        0.0515,
+        0.2509
+      ],
+      "dose_spearman": 0.4,
+      "slope": 0.0427
+    },
+    {
+      "family": "Qwen2.5-0.5B",
+      "kind": "base",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.1165,
+        0.1615,
+        0.3503,
+        0.2442
+      ],
+      "dose_spearman": 0.8,
+      "slope": 0.0722
+    },
+    {
+      "family": "Qwen2.5-0.5B",
+      "kind": "base",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.2322,
+        0.153,
+        0.2018,
+        0.1351
+      ],
+      "dose_spearman": -0.8,
+      "slope": 0.024
+    },
+    {
+      "family": "Qwen2.5-0.5B",
+      "kind": "instruct",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.1308,
+        0.4778,
+        0.9155,
+        0.7249
+      ],
+      "dose_spearman": 0.8,
+      "slope": 0.2235
+    },
+    {
+      "family": "Qwen2.5-0.5B",
+      "kind": "instruct",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.1353,
+        0.0943,
+        0.1807,
+        0.0328
+      ],
+      "dose_spearman": -0.4,
+      "slope": 0.0111
+    },
+    {
+      "family": "Qwen2.5-1.5B",
+      "kind": "base",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.5249,
+        0.6792,
+        0.7985,
+        0.6809
+      ],
+      "dose_spearman": 0.8,
+      "slope": 0.1635
+    },
+    {
+      "family": "Qwen2.5-1.5B",
+      "kind": "base",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.6131,
+        0.3856,
+        0.3573,
+        0.1833
+      ],
+      "dose_spearman": -1.0,
+      "slope": 0.0111
+    },
+    {
+      "family": "Qwen2.5-1.5B",
+      "kind": "instruct",
+      "probe": "verbosity",
+      "shifts": [
+        0.0,
+        0.6881,
+        0.3371,
+        0.4809,
+        0.0303
+      ],
+      "dose_spearman": -0.8,
+      "slope": -0.0147
+    },
+    {
+      "family": "Qwen2.5-1.5B",
+      "kind": "instruct",
+      "probe": "authority",
+      "shifts": [
+        0.0,
+        0.2818,
+        0.3121,
+        0.2875,
+        0.2612
+      ],
+      "dose_spearman": -0.4,
+      "slope": 0.0528
+    }
+  ],
+  "P14a_monotonic": {
+    "mean_dose_spearman": 0.062,
+    "frac_positive": 0.5,
+    "n_cells": 16
+  },
+  "P14b_slope": {
+    "n_pairs": 8,
+    "instruct_steeper": "3/8",
+    "mean_base_slope": 0.0786,
+    "mean_instruct_slope": 0.0709,
+    "wilcoxon_p": 0.74219
+  }
+}

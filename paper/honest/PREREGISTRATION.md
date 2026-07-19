@@ -123,6 +123,13 @@ Two further experiments on Kaggle CPU (`repro/dose_harness.py`,
 
 Failure of either is reported as a failure.
 
+**P14 outcome (recorded 2026-07-19 after the run):** FAILED, both clauses.
+Mean dose-Spearman of |shift| vs dose is 0.06 (8/16 cells positive); instruct
+slopes are not steeper (3/8 pairs, Wilcoxon p = 0.74). The observed pattern is a
+step function: most of the score shift appears at the first dose unit and then
+plateaus or wobbles. Responsiveness is triggered by the nuisance's *presence*,
+not scaled by its magnitude, for these probes and models.
+
 ## Addendum 4 (registered 2026-07-19, before these CPU runs launched)
 
 - **P16 (sampled readout).** Scoring by actually sampling written scores
