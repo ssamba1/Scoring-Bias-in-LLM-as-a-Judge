@@ -27,6 +27,9 @@ jobs:
           python analyze_gold.py
           python analyze_robustness.py
           python analyze_stages.py
+      - name: Paper prose numbers must match derived results
+        working-directory: paper/honest/repro
+        run: python check_prose.py
       - name: Derived outputs must match committed versions
         run: |
           git diff --exit-code -- \
