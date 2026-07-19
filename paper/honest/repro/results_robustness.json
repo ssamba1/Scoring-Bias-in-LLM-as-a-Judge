@@ -1,0 +1,88 @@
+{
+  "B1_within_checkpoint": {
+    "n_checkpoints": 26,
+    "mean_within_rho": -0.046,
+    "frac_negative": 0.5,
+    "wilcoxon_p": 0.69286
+  },
+  "B1_within_checkpoint_responsiveness": {
+    "n_checkpoints": 26,
+    "mean_within_rho": 0.638,
+    "frac_positive": 0.923,
+    "wilcoxon_p": 1.5e-05
+  },
+  "B1_lmm": {
+    "entropy_coef": -0.4623,
+    "entropy_p": 7e-06,
+    "n": 130
+  },
+  "B2_predictor_bootstrap": {
+    "loo_r2": 0.273,
+    "r2_ci95": [
+      -0.618,
+      0.566
+    ],
+    "spearman_pred_actual": 0.579,
+    "n_boot": 10000
+  },
+  "B3_sensitivity": {
+    "full_mean_effect": 0.257,
+    "n_families_positive": 11,
+    "n_families": 13,
+    "loo_range": [
+      0.23,
+      0.285
+    ],
+    "excl_qwen_mean": 0.258,
+    "excl_qwen_positive": "8/9",
+    "only_ge1B_mean": 0.288,
+    "only_ge1B_positive": "9/10",
+    "per_family": {
+      "Falcon3-1B": 0.1,
+      "Falcon3-3B": 0.489,
+      "Granite-3.1-2B": 0.362,
+      "Granite-3.1-8B": 0.578,
+      "OLMo-2-7B": 0.102,
+      "Qwen2.5-0.5B": -0.078,
+      "Qwen2.5-1.5B": 0.103,
+      "Qwen2.5-3B": 0.448,
+      "Qwen2.5-7B": 0.544,
+      "SmolLM2-1.7B": -0.015,
+      "SmolLM2-135M": 0.376,
+      "SmolLM2-360M": 0.162,
+      "StableLM-2-1.6B": 0.165
+    }
+  },
+  "B4_readout_concordance": {
+    "spearman_evbias_fliprate": 0.557,
+    "p": 0.0,
+    "n": 130
+  },
+  "D1_cumulants": {
+    "base": {
+      "k2": 1.801,
+      "k3": -1.031,
+      "k4": -3.787
+    },
+    "instruct": {
+      "k2": 0.987,
+      "k3": -0.559,
+      "k4": -0.294
+    },
+    "k2_drop_families": "11/13"
+  },
+  "D3_crossover": {
+    "n_cells": 65,
+    "sign_accuracy": 0.754,
+    "binom_p": 5.1e-05,
+    "spearman_dlogpred_dlogact": 0.641,
+    "spearman_p": 0.0
+  },
+  "C8_template_ensemble": {
+    "n_cells": 30,
+    "mean_single_template_bias": 0.672,
+    "mean_ensembled_bias": 0.527,
+    "reduction_frac": 0.216,
+    "wilcoxon_p": 6e-06
+  }
+}

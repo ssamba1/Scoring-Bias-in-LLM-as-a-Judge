@@ -30,6 +30,26 @@ and the metric definitions were fixed in advance; only the raw scores were pendi
 - **P6 (validity).** Nuisance perturbations reduce ground-truth good-vs-bad
   discrimination (accuracy and margin), and instruction tuning reduces this loss.
 
+## Addendum (registered 2026-07-19, before stage-ablation data arrived)
+
+The alignment-stage ablation (`repro/stage_harness.py`: OLMo-2 1B and 7B
+base → SFT → DPO → RLVR; Tülu-3-8B SFT → DPO → RLVR) was launched on
+2026-07-19; these predictions were written while the run was in progress and
+before any of its results were read. Analysis code (`repro/analyze_stages.py`)
+was committed before results arrived.
+
+- **P7 (stage of onset).** The responsiveness rise (mean TV shift of the answer
+  distribution under nuisance) appears at the **SFT** stage: SFT responsiveness >
+  base responsiveness in a majority of family×probe cells, and SFT accounts for
+  more than half of the total base→final responsiveness rise.
+- **P8 (preference stages).** DPO/RLVR further sharpen the distribution (entropy
+  drops at each stage) but add less responsiveness than SFT did.
+- **P9 (bias follows).** Measured bias Δ increases at whichever stage
+  responsiveness increases (per-stage sign agreement above chance), consistent
+  with the per-cell decomposition test (§5.3 of the paper).
+
+Failure of any of P7–P9 is reported as a failure.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as

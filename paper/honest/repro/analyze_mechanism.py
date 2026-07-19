@@ -125,6 +125,33 @@ def main():
             out.setdefault("within_group_link", {})[grp] = {
                 "spearman_rho": round(float(r), 3), "spearman_p": round(float(p), 4), "n": len(gx)}
 
+    # size-confound control: does the entropy->bias relation survive partialling out
+    # model size? (rank partial correlation given log10 params, plus size bands)
+    sizes_seq = [pairs[f].get("_meta", {}).get("params_b")
+                 for f in fams for _k in ("base", "instruct") for _p in PROBES]
+    if all(s is not None for s in sizes_seq):
+        ls = np.log10(np.array(sizes_seq, dtype=float))
+        rE, rB, rS = (stats.rankdata(v) for v in (xs, ys, ls))
+
+        def _resid(y, x):
+            b = np.polyfit(x, y, 1)
+            return y - np.polyval(b, x)
+        pr, pp = stats.pearsonr(_resid(rE, rS), _resid(rB, rS))
+        sb = stats.spearmanr(ls, ys)
+        bands = {}
+        for lo, hi, lab in [(0, 1, "<1B"), (1, 3.01, "1-3B"), (3.01, 1e9, ">3B")]:
+            m = (10 ** ls >= lo) & (10 ** ls < hi)
+            if m.sum() > 5:
+                br = stats.spearmanr(np.array(xs)[m], np.array(ys)[m])
+                bands[lab] = {"n": int(m.sum()), "spearman_rho": round(float(br.statistic), 3),
+                              "spearman_p": round(float(br.pvalue), 4)}
+        out["size_confound_control"] = {
+            "partial_rank_rho_given_log10_params": round(float(pr), 3),
+            "partial_p": round(float(pp), 6),
+            "size_bias_spearman_rho": round(float(sb.statistic), 3),
+            "size_bias_p": round(float(sb.pvalue), 4),
+            "bands": bands}
+
     # same test using sqrt(Var_sigma(v)) directly (the exact quantity in Prop. 1)
     def sqrt_var(dist):
         vals = list(range(1, len(dist) + 1))

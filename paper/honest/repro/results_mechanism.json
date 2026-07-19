@@ -324,6 +324,29 @@
       "n": 65
     }
   },
+  "size_confound_control": {
+    "partial_rank_rho_given_log10_params": -0.382,
+    "partial_p": 8e-06,
+    "size_bias_spearman_rho": 0.184,
+    "size_bias_p": 0.0359,
+    "bands": {
+      "<1B": {
+        "n": 30,
+        "spearman_rho": -0.506,
+        "spearman_p": 0.0044
+      },
+      "1-3B": {
+        "n": 70,
+        "spearman_rho": -0.424,
+        "spearman_p": 0.0003
+      },
+      ">3B": {
+        "n": 30,
+        "spearman_rho": -0.015,
+        "spearman_p": 0.9377
+      }
+    }
+  },
   "var_bias_link": {
     "spearman_rho": -0.248,
     "spearman_p": 0.0044,
