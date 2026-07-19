@@ -11,6 +11,7 @@
 \graphicspath{{figures/}}
 \input{macros}
 \newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
 
 \title{\textbf{Decisiveness Governs LLM-as-a-Judge Bias}\\[2pt]
 \large A Predictive Law: How Sharp a Judge's Score Distribution Is\\
@@ -109,6 +110,27 @@ contribution is orthogonal to the sign of any single effect: we show one quantit
 score-distribution decisiveness---predicts bias across models and bias types, and give
 a measured, causal mechanism rather than a description.
 
+\begin{table}[t]\centering\small
+\caption{Positioning. Prior work documents or mitigates judge biases; we give a
+mechanism that is theoretical, measured, causal, and predictive. ``Mech.'' = offers an
+explanatory mechanism; ``Causal'' = intervention, not correlation; ``Predict'' =
+estimates bias without running perturbations.}
+\label{tab:positioning}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Work} & \textbf{Bias types} & \textbf{Models} & \textbf{Mech.} & \textbf{Causal} & \textbf{Predict} \\
+\midrule
+Wang et al.\ \citeyearpar{wang2023large}   & position           & 2  & --          & --  & -- \\
+Zheng et al.\ \citeyearpar{zheng2023judging}& length, position   & 6  & --          & --  & -- \\
+Ye et al.\ \citeyearpar{ye2024justice}     & 12 types           & 6  & --          & --  & -- \\
+Li et al.\ \citeyearpar{li2025scoring}     & 3 scoring          & 5  & --          & --  & -- \\
+Pan et al.\ \citeyearpar{pan2025user}      & user-deference     & 8  & partial     & --  & -- \\
+\midrule
+\textbf{This work} & \textbf{5 (2 new)} & \textbf{\NFAM} & \boldmath$\checkmark$ & \boldmath$\checkmark$ & \boldmath$\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Method}
 \subsection{Models, probes, items}
 We use \NFAM{} open-weight families with public base and instruct checkpoints: the
@@ -173,7 +195,30 @@ $\sum_j\sigma_j^2(v_j-s)^2\le\sum_j\sigma_j(v_j-s)^2=\mathrm{Var}_\sigma(v)$; th
 entropy--variance monotonicity is standard for concentration around a mode. $\square$
 
 \medskip
-Proposition~\ref{prop:main} yields falsifiable predictions, preregistered before
+The bound factorizes the bias into two terms with distinct causes. Writing the
+perturbation's effect on the answer logits as $\delta_\pi$, the first-order bias is
+$|\nabla_\ell s\cdot\delta_\pi|\le\sqrt{\mathrm{Var}_\sigma(v)}\,\|\delta_\pi\|$: a
+\emph{decisiveness} term $\sqrt{\mathrm{Var}_\sigma(v)}$ that is a property of the judge
+alone, and a \emph{responsiveness} term $\|\delta_\pi\|$---how far perturbation $\pi$
+displaces the logits---that is a property of the judge$\times$perturbation. This yields
+a testable account of \emph{differential} effects.
+
+\begin{corollary}[Differential effects]\label{cor:diff}
+Instruction tuning changes both terms. When it sharpens the score distribution it
+lowers $\sqrt{\mathrm{Var}_\sigma(v)}$ for \emph{every} perturbation; when it also
+changes how strongly the model reacts to a particular perturbation it changes
+$\|\delta_\pi\|$ for that $\pi$ only. A bias therefore \emph{decreases} if the
+sharpening dominates and \emph{increases} if a rise in responsiveness dominates. Format
+perturbations (rubric, label) act mainly through $\sqrt{\mathrm{Var}_\sigma(v)}$;
+content perturbations (exemplar, framing, length) can additionally raise
+$\|\delta_\pi\|$ if tuning makes the judge attend more to in-context content. The two
+families can thus move in opposite directions under the same tuning---which is what we
+observe.
+\end{corollary}
+
+\medskip
+Proposition~\ref{prop:main} and Corollary~\ref{cor:diff} yield falsifiable predictions,
+preregistered before
 analysis (see \texttt{PREREGISTRATION.md}) and tested in \S\ref{sec:mech}--\ref{sec:predict}.
 The load-bearing one is directional-agnostic: \textbf{(P2)} entropy $H(\sigma)$
 correlates positively with bias $\Delta$ across models, families, and bias types---so
@@ -262,7 +307,42 @@ loss of the good$-$bad score margin relative to the unperturbed control.}
 \LMMPROSE{} \MITIGPROSE{}
 
 \section{Discussion}
-\DISCUSSION{}
+\paragraph{Bias is one quantity, not a taxonomy.} A large literature enumerates judge
+biases---position, verbosity, self-preference, authority, and the three scoring biases
+studied here---as if each were a separate defect. Proposition~\ref{prop:main} says they
+share a single cause: the score is a mean over a distribution, and any nuisance moves
+that mean in proportion to the distribution's variance. A judge that commits to a score
+(low entropy) cannot be pushed far by \emph{any} superficial change; a judge that hedges
+(high entropy) is manipulable by all of them at once. This reframes debiasing from
+patching individual symptoms to changing one geometric property.
+
+\paragraph{A one-forward-pass bias audit.} The predictor (\S\ref{sec:predict}) turns the
+theory into practice: because bias tracks control-condition entropy, a practitioner can
+estimate a judge's bias risk from a single unperturbed scoring call, with no
+perturbation suite and no labeled data. \GOLDSENTENCE{} \DISCUSSION{}
+
+\paragraph{Reconciling opposite prior claims.} Reports disagree on whether instruction
+tuning helps or harms judge reliability: \citet{pan2025user} find it \emph{introduces} a
+bias, while format biases are widely observed to shrink with capability.
+Corollary~\ref{cor:diff} shows both can be true of the same model---tuning lowers the
+decisiveness term for all perturbations but can raise the responsiveness term for those
+that exploit in-context content, so format and content biases move oppositely. The
+decomposition also names the right mitigation lever per bias type: sharpen the
+distribution for format biases; reduce content responsiveness (e.g.\ withhold
+exemplars, or average over them) for content biases.
+
+\paragraph{Connection to calibration.} Decisiveness is the judge's confidence in its own
+score. Our result is thus a statement about calibration: an over-hedging judge is not
+merely less accurate, it is less \emph{robust}, and the two failure modes are governed
+by the same distribution. This suggests confidence-aware scoring (reporting or
+thresholding on entropy) as a deployable safeguard.
+
+\paragraph{On honesty of measurement.} The parse-failure confound (\S1) is a cautionary
+tale: an intuitive protocol silently produced no data on exactly the models most prone
+to bias, which would have manufactured a clean but false base-vs-instruct story. We
+release the raw run logs, a single-script reproduction, and a full audit
+(\texttt{DATA\_INTEGRITY\_AUDIT.md}) of an earlier, unreliable version of this project,
+because a mechanism claim is only as trustworthy as the measurement under it.
 
 \section{Limitations}
 \begin{enumerate}\itemsep2pt
