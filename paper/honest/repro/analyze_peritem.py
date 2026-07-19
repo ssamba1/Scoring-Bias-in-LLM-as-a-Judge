@@ -69,8 +69,9 @@ def main() -> None:
         return isinstance(d, dict) and "rubric_order" in d
     fams: dict[str, dict] = {}
     meta: dict[str, dict] = {}
-    if results and all(("base" in v or "instruct" in v) and not is_probes(v)
-                       for v in results.values()):
+    layout_a = any(isinstance(v, dict) and ("params_b" in v or "base" in v or "instruct" in v)
+                   and not is_probes(v) for v in results.values())
+    if results and layout_a:
         for fam, rec in results.items():                       # layout A
             fams[fam] = {k: rec[k] for k in ("base", "instruct") if k in rec}
             meta[fam] = {"params_b": rec.get("params_b"), "training": rec.get("training")}

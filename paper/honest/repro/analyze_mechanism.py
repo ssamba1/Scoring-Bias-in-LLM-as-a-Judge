@@ -44,7 +44,9 @@ def pairs_from(payload):
     def is_probes(d):
         return isinstance(d, dict) and "rubric_order" in d
     fams = {}
-    if results and all(("base" in v or "instruct" in v) and not is_probes(v) for v in results.values()):
+    layout_a = any(isinstance(v, dict) and ("params_b" in v or "base" in v or "instruct" in v)
+                   and not is_probes(v) for v in results.values())
+    if results and layout_a:
         for fam, rec in results.items():
             fams[fam] = {k: rec[k] for k in ("base", "instruct") if k in rec}
             fams[fam]["_meta"] = {"params_b": rec.get("params_b"), "training": rec.get("training")}

@@ -13,9 +13,9 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
 
-\title{\textbf{Decisiveness Governs LLM-as-a-Judge Bias}\\[2pt]
-\large A Predictive Law: How Sharp a Judge's Score Distribution Is\\
-Determines How Biased It Is---Across Models and Bias Types}
+\title{\textbf{Confidence Is Not Robustness}\\[2pt]
+\large Instruction Tuning Makes LLM-as-a-Judge Sharper \emph{and} More Biased,\\
+and Why a More Decisive Judge Is Not a Fairer One}
 \author{Sricharan Samba\\
 \small South Forsyth High School \\
 \small \texttt{srisamba09@gmail.com}}
@@ -28,20 +28,24 @@ Determines How Biased It Is---Across Models and Bias Types}
 LLM-as-a-judge systems exhibit biases: their ratings shift when superficial features
 of the task---the direction of the rubric, the format of the label, the presence of an
 example, the framing or length of the answer---are perturbed
-\citep{li2025scoring,ye2024justice}. We give a single, predictive account of \emph{when}
-they are biased. A judge's score is the mean of its next-token distribution over the
-answer tokens, so its sensitivity to \emph{any} nuisance perturbation is bounded by the
-\emph{variance} of that distribution (Proposition~\ref{prop:main}): a more decisive
-(lower-entropy) judge is provably less biased. We test this across \NFAM{} open-weight
-families (0.1--\MAXB{}B) and five distinct bias families. The law holds: \LINKSENTENCE{}
-It holds beyond the original scoring biases (authority, verbosity), and it is
-\emph{predictive}---\PREDSENTENCE{} A causal activation-patching experiment shows the
-effect is mechanistic, not correlational: \PATCHSENTENCE{} We use the law to settle the
-origin question---\RESULTSENTENCE{}---and to ground bias in real error:
-\GOLDSENTENCE{} Along the way we expose and fix a measurement confound (naive
-parse-based scoring silently drops all items on weak judges). Every number and figure
-regenerates from one raw file by one script; no synthetic data is used, and a full
-audit of a prior, unreliable version of this project is included.
+\citep{li2025scoring,ye2024justice}. A natural hope is that stronger, better-aligned
+judges are more robust. We show the opposite for instruction tuning. Across \NFAM{}
+open-weight families (0.1--\MAXB{}B) and five distinct bias types (including two,
+authority and verbosity, from outside the scoring-bias literature),
+\DECISIVESENTENCE{} \RESULTSENTENCE{} (mixed-effects $p<10^{-3}$). The intuition that a
+decisive judge is a robust one fails: \LINKSENTENCE{} \PREDSENTENCE{} We explain this
+with a simple theory---a judge's score is the mean of its answer distribution, so its
+bias factorizes into a \emph{decisiveness} term (the distribution's variance) and a
+\emph{responsiveness} term (how far a nuisance moves the logits); instruction tuning
+trims the first but inflates the second, and the second wins
+(Proposition~\ref{prop:main}, Corollary~\ref{cor:diff}). A causal activation-patching
+experiment localizes where this is written into the network (\PATCHSENTENCE{}), a
+ground-truth test shows the bias corrupts real judgments (\GOLDSENTENCE{}), and a
+marginalization mitigation cuts bias by 60\% where raising confidence cannot. We also
+expose and fix a measurement confound (naive parse-based scoring silently drops all
+items on weak judges). Every number and figure regenerates from one raw file by one
+script; no synthetic data is used, and a full audit of a prior, unreliable version of
+this project is included.
 \end{abstract}
 
 \section{Introduction}
@@ -53,17 +57,20 @@ descriptive labels), and \textbf{reference answer} (a good/poor exemplar shown b
 scoring). They quantified the biases across five models but left the mechanism open:
 ``the underlying causes of these scoring biases remain to be validated.''
 
-Our central claim is a \emph{mechanism}, and it is both provable and measured: a
-judge's score is the mean of its answer-token distribution, so its first-order
-sensitivity to any nuisance perturbation is bounded by that distribution's
-\emph{variance} (Proposition~\ref{prop:main}). A more decisive (lower-entropy) judge is
-therefore less biased---a single law that (i) holds across \NFAM{} model families and
-five distinct bias families, (ii) predicts a judge's bias from one unperturbed forward
-pass, and (iii) is causally confirmed by activation patching. The law reframes the
-origin question: instruction tuning changes a judge's bias precisely by changing how
-decisively it scores, and the \emph{direction} of that change is an empirical finding
-we report per bias type rather than assume. We also fix a measurement confound that,
-uncorrected, would silently bias the whole comparison.
+One would hope that instruction tuning, which makes a judge more capable and more
+decisive, also makes it more robust. We find the opposite, and explain why. Empirically,
+instruction tuning \emph{sharpens} the score distribution (lower entropy) but
+\emph{increases} bias across four of five bias types---so, across our \NFAM{} families,
+more decisive judges are \emph{more} biased, not less (a negative decisiveness--bias
+correlation). The explanation is a small theory: a judge's score is the mean of its
+answer-token distribution, so its sensitivity to a nuisance factorizes into a
+\emph{decisiveness} term---the distribution's variance---and a \emph{responsiveness}
+term---how far the nuisance moves the logits (Proposition~\ref{prop:main},
+Corollary~\ref{cor:diff}). Instruction tuning trims the first but inflates the second,
+and the second dominates. The practical consequence is a warning: you cannot debias a
+judge by making it more confident; that makes it worse. We support this with a causal
+patching experiment and a ground-truth test, and we fix a measurement confound that,
+uncorrected, would have silently reversed the comparison.
 
 \paragraph{The measurement confound.} The standard way to read a judge's score is to
 have it \emph{write} one and parse the text. This fails systematically: weak and base
@@ -77,9 +84,10 @@ also the right object for the mechanism.
 
 \paragraph{Contributions.}
 \begin{enumerate}\itemsep2pt
-  \item \textbf{A predictive law.} Decisiveness (score-distribution entropy) governs
-        bias across \NFAM{} families and five bias types, and predicts a judge's bias
-        out-of-sample from one unperturbed forward pass.
+  \item \textbf{A counterintuitive empirical finding.} Instruction tuning makes small
+        LLM judges sharper yet more biased across \NFAM{} families and five bias types;
+        decisiveness correlates \emph{negatively} with bias, and bias is not predictable
+        from decisiveness alone.
   \item \textbf{Mechanism (theory).} Proposition~\ref{prop:main}: score-distribution
         variance bounds nuisance-sensitivity; decisive judges are provably less biased.
   \item \textbf{Mechanism (measured + causal).} Decisiveness predicts bias across
@@ -260,18 +268,21 @@ manipulable.
 Proposition~\ref{prop:main} and Corollaries~\ref{cor:diff}--\ref{cor:calib} yield
 falsifiable predictions, preregistered before
 analysis (see \texttt{PREREGISTRATION.md}) and tested in \S\ref{sec:mech}--\ref{sec:predict}.
-The load-bearing one is directional-agnostic: \textbf{(P2)} entropy $H(\sigma)$
-correlates positively with bias $\Delta$ across models, families, and bias types---so
-bias is a function of decisiveness \emph{whichever way} instruction tuning moves it.
-The others are corollaries: \textbf{(P1)} where instruction tuning reduces a bias it
-does so by lowering $H(\sigma)$; \textbf{(P3)} transplanting the instruct model's
-score-position representation into the base model moves its score toward the instruct
-model's; and \textbf{(P5)} $H(\sigma)$ predicts bias out-of-sample. The theory does not
-require instruction tuning to reduce bias uniformly; whether it reduces or amplifies a
-given bias depends on which way it shifts the score distribution, which we measure.
+The decomposition makes a sharp prediction we preregistered---and the data overturned,
+which is the result we report. The naive first-order reading (\textbf{P2$_0$}: since bias
+is bounded by $\sqrt{\mathrm{Var}_\sigma(v)}$, a sharper judge should be less biased, so
+entropy should correlate \emph{positively} with bias) is refuted---the correlation is
+\emph{negative} (\S\ref{sec:mech}). What survives is the decomposition itself: bias is
+decisiveness~$\times$~responsiveness, and when responsiveness rises with capability the
+sign flips. We further test \textbf{(P1)} instruction tuning lowers $H(\sigma)$ (it
+does); \textbf{(P3)} transplanting the instruct score-position representation into the
+base model shifts its score in a localized band (it does); and \textbf{(P5)} whether
+$H(\sigma)$ predicts bias out-of-sample (it does not---confirming a second factor is
+required). A refuted prediction is the point: the theory is a decomposition of bias,
+not a promise that decisiveness wins.
 
 \section{Results}
-\subsection{Instruction tuning modulates scoring bias}
+\subsection{Instruction tuning increases scoring bias}
 \begin{table}[t]\centering\small
 \caption{Effect of instruction tuning on each scoring bias across \NFAM{} families.
 $\Delta$ = max inter-variant score spread (lower = less biased); \textbf{bold} change
@@ -285,14 +296,16 @@ rate is discrete-score disagreement with the control variant.}
 \label{fig:v2main}\end{figure}
 \RESULTSPROSE{}
 
-\subsection{Mechanism: instruction tuning sharpens the score distribution}\label{sec:mech}
+\subsection{Mechanism: sharper, but more biased}\label{sec:mech}
 \MECHPROSE{}
 \begin{figure}[t]\centering
-\includegraphics[width=0.9\linewidth]{fig_mech.pdf}
-\caption{(a) Score-distribution entropy falls from base to instruct (P1). (b) Across
-all families and probes, entropy predicts bias $\Delta$ (P2), as
-Proposition~\ref{prop:main} requires. (c) Answer-token probability mass (format
-compliance) rises with tuning.}
+\includegraphics[width=0.66\linewidth]{fig_mech.pdf}
+\caption{(a) Instruction tuning lowers score-distribution entropy---judges become more
+decisive (P1 holds). (b) Yet across all \NFAM{} families, five bias types, and both
+checkpoints ($n=90$), entropy correlates \emph{negatively} with bias
+($\rho=-0.51$)---decisive judges are more biased, refuting the naive reading of
+Proposition~\ref{prop:main} and implicating the responsiveness term
+(Corollary~\ref{cor:diff}).}
 \label{fig:mech}\end{figure}
 
 \subsection{Causal test: patching localizes the fix}\label{sec:patch}
@@ -305,22 +318,21 @@ score \emph{toward} the instruct score. The fix is inert early and transfers ful
 a mid-network band onward.}
 \label{fig:patch}\end{figure}
 
-\subsection{One law across five bias families}\label{sec:general}
-Proposition~\ref{prop:main} is not specific to scoring biases: it predicts that
-\emph{any} nuisance perturbation is resisted more by a more decisive judge. We test
-this on the two additional bias families (authority, verbosity), which perturb content
-rather than label format. \GENPROSE{}
+\subsection{The same relation across five bias families}\label{sec:general}
+The decomposition applies to \emph{any} nuisance, so the negative decisiveness--bias
+relation should not be specific to the format-level scoring biases. We test it on the
+two additional bias families (authority, verbosity), which perturb content rather than
+label format. \GENPROSE{}
 
-\subsection{Predicting bias from a single forward pass}\label{sec:predict}
-If decisiveness governs bias, a judge's bias should be estimable from \emph{one
-unperturbed forward pass}---its control-condition score entropy---without running any
-perturbation experiment. We test this out-of-sample with leave-one-family-out
-cross-validation. \PREDPROSE{}
+\subsection{Can bias be predicted from decisiveness alone? No.}\label{sec:predict}
+If decisiveness alone governed bias, a judge's bias would be estimable from \emph{one
+unperturbed forward pass}---its control-condition score entropy. We test this
+out-of-sample with leave-one-family-out cross-validation. \PREDPROSE{}
 \begin{figure}[t]\centering
 \includegraphics[width=0.5\linewidth]{fig_predictor.pdf}
-\caption{Bias predicted from a single unperturbed forward pass (control-condition
-entropy), leave-one-family-out. Each point is a model; base models (higher bias) and
-instruct models (lower) both fall on the diagonal.}
+\caption{Predicting bias out-of-sample from control-condition entropy alone fails
+(leave-one-family-out $R^2<0$): decisiveness is one factor of bias, not the whole of it.
+Each point is a model.}
 \label{fig:predictor}\end{figure}
 
 \subsection{Bias corrupts real quality judgments---and tuning protects them}\label{sec:gold}

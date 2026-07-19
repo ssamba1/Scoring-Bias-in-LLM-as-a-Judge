@@ -1,0 +1,459 @@
+{
+  "source": "results_scaled.json",
+  "seed": 42,
+  "n_bootstrap": 10000,
+  "n_families": 9,
+  "families": [
+    "SmolLM2-135M",
+    "SmolLM2-360M",
+    "Qwen2.5-0.5B",
+    "Falcon3-1B",
+    "Qwen2.5-1.5B",
+    "SmolLM2-1.7B",
+    "Granite-3.1-2B",
+    "Qwen2.5-3B",
+    "Falcon3-3B"
+  ],
+  "per_family": {
+    "SmolLM2-135M": {
+      "params_b": 0.135,
+      "training": "SFT+DPO",
+      "rubric_order": {
+        "base_delta": 0.03,
+        "instruct_delta": 0.128,
+        "base_flip": 0.0,
+        "instruct_flip": 0.208
+      },
+      "score_id": {
+        "base_delta": 1.677,
+        "instruct_delta": 2.677,
+        "base_flip": 0.625,
+        "instruct_flip": 0.583
+      },
+      "reference_answer": {
+        "base_delta": 0.245,
+        "instruct_delta": 0.355,
+        "base_flip": 0.083,
+        "instruct_flip": 0.167
+      },
+      "authority": {
+        "base_delta": 0.108,
+        "instruct_delta": 0.515,
+        "base_flip": 0.208,
+        "instruct_flip": 0.167
+      },
+      "verbosity": {
+        "base_delta": 0.239,
+        "instruct_delta": 0.292,
+        "base_flip": 0.208,
+        "instruct_flip": 0.083
+      }
+    },
+    "SmolLM2-360M": {
+      "params_b": 0.36,
+      "training": "SFT+DPO",
+      "rubric_order": {
+        "base_delta": 0.229,
+        "instruct_delta": 0.307,
+        "base_flip": 0.333,
+        "instruct_flip": 0.458
+      },
+      "score_id": {
+        "base_delta": 1.633,
+        "instruct_delta": 2.378,
+        "base_flip": 0.5,
+        "instruct_flip": 0.667
+      },
+      "reference_answer": {
+        "base_delta": 0.155,
+        "instruct_delta": 0.021,
+        "base_flip": 0.0,
+        "instruct_flip": 0.333
+      },
+      "authority": {
+        "base_delta": 0.156,
+        "instruct_delta": 0.081,
+        "base_flip": 0.0,
+        "instruct_flip": 0.375
+      },
+      "verbosity": {
+        "base_delta": 0.144,
+        "instruct_delta": 0.282,
+        "base_flip": 0.0,
+        "instruct_flip": 0.167
+      }
+    },
+    "Qwen2.5-0.5B": {
+      "params_b": 0.5,
+      "training": "RLHF",
+      "rubric_order": {
+        "base_delta": 0.086,
+        "instruct_delta": 0.052,
+        "base_flip": 0.458,
+        "instruct_flip": 0.208
+      },
+      "score_id": {
+        "base_delta": 1.655,
+        "instruct_delta": 0.966,
+        "base_flip": 0.792,
+        "instruct_flip": 1.0
+      },
+      "reference_answer": {
+        "base_delta": 0.196,
+        "instruct_delta": 0.06,
+        "base_flip": 0.083,
+        "instruct_flip": 0.0
+      },
+      "authority": {
+        "base_delta": 0.277,
+        "instruct_delta": 0.475,
+        "base_flip": 0.125,
+        "instruct_flip": 0.25
+      },
+      "verbosity": {
+        "base_delta": 0.138,
+        "instruct_delta": 0.414,
+        "base_flip": 0.208,
+        "instruct_flip": 0.0
+      }
+    },
+    "Falcon3-1B": {
+      "params_b": 1.0,
+      "training": "SFT+DPO",
+      "rubric_order": {
+        "base_delta": 0.271,
+        "instruct_delta": 0.038,
+        "base_flip": 0.5,
+        "instruct_flip": 0.0
+      },
+      "score_id": {
+        "base_delta": 1.019,
+        "instruct_delta": 1.227,
+        "base_flip": 0.958,
+        "instruct_flip": 0.958
+      },
+      "reference_answer": {
+        "base_delta": 0.488,
+        "instruct_delta": 0.587,
+        "base_flip": 0.125,
+        "instruct_flip": 0.333
+      },
+      "authority": {
+        "base_delta": 0.224,
+        "instruct_delta": 0.369,
+        "base_flip": 0.0,
+        "instruct_flip": 0.25
+      },
+      "verbosity": {
+        "base_delta": 0.326,
+        "instruct_delta": 0.356,
+        "base_flip": 0.0,
+        "instruct_flip": 0.083
+      }
+    },
+    "Qwen2.5-1.5B": {
+      "params_b": 1.5,
+      "training": "RLHF",
+      "rubric_order": {
+        "base_delta": 0.185,
+        "instruct_delta": 0.247,
+        "base_flip": 0.042,
+        "instruct_flip": 0.292
+      },
+      "score_id": {
+        "base_delta": 0.823,
+        "instruct_delta": 1.426,
+        "base_flip": 0.958,
+        "instruct_flip": 0.667
+      },
+      "reference_answer": {
+        "base_delta": 0.393,
+        "instruct_delta": 0.71,
+        "base_flip": 0.0,
+        "instruct_flip": 0.875
+      },
+      "authority": {
+        "base_delta": 0.869,
+        "instruct_delta": 0.868,
+        "base_flip": 0.542,
+        "instruct_flip": 0.708
+      },
+      "verbosity": {
+        "base_delta": 0.678,
+        "instruct_delta": 0.381,
+        "base_flip": 0.0,
+        "instruct_flip": 0.25
+      }
+    },
+    "SmolLM2-1.7B": {
+      "params_b": 1.7,
+      "training": "SFT+DPO",
+      "rubric_order": {
+        "base_delta": 0.124,
+        "instruct_delta": 0.083,
+        "base_flip": 0.5,
+        "instruct_flip": 0.333
+      },
+      "score_id": {
+        "base_delta": 0.151,
+        "instruct_delta": 0.153,
+        "base_flip": 0.708,
+        "instruct_flip": 0.667
+      },
+      "reference_answer": {
+        "base_delta": 0.438,
+        "instruct_delta": 0.233,
+        "base_flip": 0.25,
+        "instruct_flip": 0.792
+      },
+      "authority": {
+        "base_delta": 0.363,
+        "instruct_delta": 0.316,
+        "base_flip": 0.25,
+        "instruct_flip": 0.75
+      },
+      "verbosity": {
+        "base_delta": 0.021,
+        "instruct_delta": 0.385,
+        "base_flip": 0.125,
+        "instruct_flip": 0.458
+      }
+    },
+    "Granite-3.1-2B": {
+      "params_b": 2.0,
+      "training": "SFT+RLHF",
+      "rubric_order": {
+        "base_delta": 0.875,
+        "instruct_delta": 0.699,
+        "base_flip": 0.292,
+        "instruct_flip": 0.417
+      },
+      "score_id": {
+        "base_delta": 1.112,
+        "instruct_delta": 0.606,
+        "base_flip": 0.833,
+        "instruct_flip": 0.5
+      },
+      "reference_answer": {
+        "base_delta": 0.131,
+        "instruct_delta": 0.792,
+        "base_flip": 0.0,
+        "instruct_flip": 0.417
+      },
+      "authority": {
+        "base_delta": 0.468,
+        "instruct_delta": 1.443,
+        "base_flip": 0.0,
+        "instruct_flip": 0.583
+      },
+      "verbosity": {
+        "base_delta": 0.315,
+        "instruct_delta": 1.087,
+        "base_flip": 0.0,
+        "instruct_flip": 0.375
+      }
+    },
+    "Qwen2.5-3B": {
+      "params_b": 3.0,
+      "training": "RLHF",
+      "rubric_order": {
+        "base_delta": 0.675,
+        "instruct_delta": 0.573,
+        "base_flip": 0.5,
+        "instruct_flip": 0.333
+      },
+      "score_id": {
+        "base_delta": 0.618,
+        "instruct_delta": 1.132,
+        "base_flip": 0.667,
+        "instruct_flip": 0.792
+      },
+      "reference_answer": {
+        "base_delta": 0.082,
+        "instruct_delta": 1.5,
+        "base_flip": 0.083,
+        "instruct_flip": 0.583
+      },
+      "authority": {
+        "base_delta": 0.284,
+        "instruct_delta": 0.288,
+        "base_flip": 0.083,
+        "instruct_flip": 0.292
+      },
+      "verbosity": {
+        "base_delta": 0.239,
+        "instruct_delta": 0.573,
+        "base_flip": 0.042,
+        "instruct_flip": 0.292
+      }
+    },
+    "Falcon3-3B": {
+      "params_b": 3.0,
+      "training": "SFT+DPO",
+      "rubric_order": {
+        "base_delta": 0.223,
+        "instruct_delta": 0.549,
+        "base_flip": 0.5,
+        "instruct_flip": 0.292
+      },
+      "score_id": {
+        "base_delta": 1.238,
+        "instruct_delta": 2.26,
+        "base_flip": 0.833,
+        "instruct_flip": 0.792
+      },
+      "reference_answer": {
+        "base_delta": 0.712,
+        "instruct_delta": 0.919,
+        "base_flip": 0.875,
+        "instruct_flip": 0.917
+      },
+      "authority": {
+        "base_delta": 0.791,
+        "instruct_delta": 1.503,
+        "base_flip": 0.708,
+        "instruct_flip": 1.0
+      },
+      "verbosity": {
+        "base_delta": 0.551,
+        "instruct_delta": 0.843,
+        "base_flip": 0.375,
+        "instruct_flip": 0.25
+      }
+    }
+  },
+  "summary": {
+    "rubric_order": {
+      "label": "Rubric order",
+      "n_families": 9,
+      "base_mean_delta": 0.3,
+      "instruct_mean_delta": 0.297,
+      "mean_change": -0.002,
+      "cohen_dz": -0.015,
+      "boot_ci95": [
+        -0.099,
+        0.103
+      ],
+      "ci_excludes_zero": false,
+      "wilcoxon_p": 0.9102,
+      "n_decreased": 5,
+      "base_mean_flip": 0.347,
+      "instruct_mean_flip": 0.282,
+      "wilcoxon_p_holm": 0.9102
+    },
+    "score_id": {
+      "label": "Score ID",
+      "n_families": 9,
+      "base_mean_delta": 1.103,
+      "instruct_mean_delta": 1.425,
+      "mean_change": 0.322,
+      "cohen_dz": 0.52,
+      "boot_ci95": [
+        -0.081,
+        0.682
+      ],
+      "ci_excludes_zero": false,
+      "wilcoxon_p": 0.1289,
+      "n_decreased": 2,
+      "base_mean_flip": 0.764,
+      "instruct_mean_flip": 0.736,
+      "wilcoxon_p_holm": 0.3908
+    },
+    "reference_answer": {
+      "label": "Reference answer",
+      "n_families": 9,
+      "base_mean_delta": 0.316,
+      "instruct_mean_delta": 0.575,
+      "mean_change": 0.26,
+      "cohen_dz": 0.509,
+      "boot_ci95": [
+        -0.013,
+        0.601
+      ],
+      "ci_excludes_zero": false,
+      "wilcoxon_p": 0.25,
+      "n_decreased": 3,
+      "base_mean_flip": 0.167,
+      "instruct_mean_flip": 0.491,
+      "wilcoxon_p_holm": 0.5
+    },
+    "authority": {
+      "label": "Authority",
+      "n_families": 9,
+      "base_mean_delta": 0.393,
+      "instruct_mean_delta": 0.651,
+      "mean_change": 0.258,
+      "cohen_dz": 0.696,
+      "boot_ci95": [
+        0.049,
+        0.502
+      ],
+      "ci_excludes_zero": true,
+      "wilcoxon_p": 0.0977,
+      "n_decreased": 3,
+      "base_mean_flip": 0.213,
+      "instruct_mean_flip": 0.486,
+      "wilcoxon_p_holm": 0.3908
+    },
+    "verbosity": {
+      "label": "Verbosity",
+      "n_families": 9,
+      "base_mean_delta": 0.295,
+      "instruct_mean_delta": 0.513,
+      "mean_change": 0.218,
+      "cohen_dz": 0.745,
+      "boot_ci95": [
+        0.044,
+        0.398
+      ],
+      "ci_excludes_zero": true,
+      "wilcoxon_p": 0.0547,
+      "n_decreased": 1,
+      "base_mean_flip": 0.106,
+      "instruct_mean_flip": 0.218,
+      "wilcoxon_p_holm": 0.2735
+    }
+  },
+  "size_effect": {
+    "rubric_order": {
+      "spearman_rho": -0.234,
+      "spearman_p": 0.544,
+      "ols_slope_per_decade": -0.032,
+      "n": 9
+    },
+    "score_id": {
+      "spearman_rho": -0.05,
+      "spearman_p": 0.8979,
+      "ols_slope_per_decade": -0.192,
+      "n": 9
+    },
+    "reference_answer": {
+      "spearman_rho": 0.544,
+      "spearman_p": 0.1301,
+      "ols_slope_per_decade": 0.583,
+      "n": 9
+    },
+    "authority": {
+      "spearman_rho": 0.234,
+      "spearman_p": 0.544,
+      "ols_slope_per_decade": 0.138,
+      "n": 9
+    },
+    "verbosity": {
+      "spearman_rho": 0.594,
+      "spearman_p": 0.0916,
+      "ols_slope_per_decade": 0.216,
+      "n": 9
+    }
+  },
+  "domain": {
+    "science": {
+      "base": 0.483,
+      "instruct": 0.691
+    },
+    "technology": {
+      "base": 0.487,
+      "instruct": 0.721
+    }
+  }
+}

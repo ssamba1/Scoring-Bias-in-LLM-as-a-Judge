@@ -28,32 +28,25 @@ def save(fig, name):
 
 
 def fig_mech(m):
-    fig, ax = plt.subplots(1, 3, figsize=(9.2, 2.8))
-    # (a) entropy base->instruct per family
+    fig, ax = plt.subplots(1, 2, figsize=(6.6, 2.9))
+    # (a) entropy base->instruct per family (tuning sharpens)
     df = m["decisiveness_per_family"]
-    for j, f in enumerate(df):
+    for f in df:
         ax[0].plot([0, 1], [df[f]["base"], df[f]["instruct"]], "-o", color="0.6", ms=4)
     ax[0].scatter([0]*len(df), [df[f]["base"] for f in df], color=C_BASE, zorder=3, label="base")
     ax[0].scatter([1]*len(df), [df[f]["instruct"] for f in df], color=C_INST, zorder=3, label="instruct")
-    ax[0].set_xticks([0, 1]); ax[0].set_xticklabels(["base", "instruct"])
+    ax[0].set_xticks([0, 1]); ax[0].set_xticklabels(["base", "instruct"]); ax[0].set_xlim(-0.3, 1.3)
     ax[0].set_ylabel("score entropy (bits)"); ax[0].set_title("(a) tuning sharpens (P1)")
-    # (b) entropy vs bias scatter + fit
+    ax[0].legend(frameon=False, fontsize=7)
+    # (b) entropy vs bias scatter + fit -- NEGATIVE
     lp = m["link_points"]; x = np.array(lp["entropy"]); y = np.array(lp["delta"])
-    ax[1].scatter(x, y, s=12, alpha=0.5, color=C_ACC)
+    ax[1].scatter(x, y, s=13, alpha=0.55, color=C_ACC)
     if len(x) > 2:
         b, a = np.polyfit(x, y, 1); xs = np.linspace(x.min(), x.max(), 20)
-        ax[1].plot(xs, a + b*xs, color="0.2", lw=1.2)
+        ax[1].plot(xs, a + b*xs, color="0.2", lw=1.3)
     r = m["entropy_bias_link"]
     ax[1].set_xlabel("score entropy (bits)"); ax[1].set_ylabel(r"bias $\Delta$")
-    ax[1].set_title(f"(b) entropy predicts bias (P2)\n$\\rho$={r['spearman_rho']}, p={r['spearman_p']}")
-    # (c) compliance mass base->instruct
-    cf = m["compliance_per_family"]
-    for f in cf:
-        ax[2].plot([0, 1], [cf[f]["base"], cf[f]["instruct"]], "-o", color="0.6", ms=4)
-    ax[2].scatter([0]*len(cf), [cf[f]["base"] for f in cf], color=C_BASE, zorder=3)
-    ax[2].scatter([1]*len(cf), [cf[f]["instruct"] for f in cf], color=C_INST, zorder=3)
-    ax[2].set_xticks([0, 1]); ax[2].set_xticklabels(["base", "instruct"])
-    ax[2].set_ylabel("answer-token mass"); ax[2].set_title("(c) compliance rises")
+    ax[1].set_title(f"(b) decisive $\\Rightarrow$ MORE biased\n$\\rho={r['spearman_rho']}$, $p<10^{{-3}}$")
     fig.tight_layout()
     save(fig, "fig_mech")
 
