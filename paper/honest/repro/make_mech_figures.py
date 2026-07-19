@@ -75,13 +75,33 @@ def fig_patch(p):
     save(fig, "fig_patch")
 
 
+PROBES = ["rubric_order", "score_id", "reference_answer"]
+
+
+def fig_main(pi):
+    """Main base-vs-instruct bar figure from the scaled per-item summary."""
+    s = pi["summary"]; labels = [s[p]["label"] for p in PROBES]
+    base = [s[p]["base_mean_delta"] for p in PROBES]
+    inst = [s[p]["instruct_mean_delta"] for p in PROBES]
+    fig, ax = plt.subplots(figsize=(4.4, 2.8)); x = range(len(PROBES)); w = 0.38
+    ax.bar([i - w/2 for i in x], base, w, label="Base", color=C_BASE)
+    ax.bar([i + w/2 for i in x], inst, w, label="Instruct", color=C_INST)
+    for i, p in enumerate(PROBES):
+        if s[p]["ci_excludes_zero"]:
+            ax.text(i, max(base[i], inst[i]) + 0.03, "$*$", ha="center", fontsize=11)
+    ax.set_xticks(list(x)); ax.set_xticklabels(labels)
+    ax.set_ylabel(r"Mean bias $\Delta$"); ax.legend(frameon=False, loc="upper right")
+    ax.set_title(f"Instruction tuning reduces scoring bias ($n={pi['n_families']}$)")
+    save(fig, "fig1_base_vs_instruct")
+
+
 if __name__ == "__main__":
+    pj = HERE / "results_peritem.json"
+    if pj.exists():
+        fig_main(json.loads(pj.read_text())); print("wrote fig1_base_vs_instruct")
     m = HERE / "results_mechanism.json"
-    p = HERE / "results_mechanism.json"  # placeholder guard
     if m.exists():
-        fig_mech(json.loads(m.read_text()))
-        print("wrote fig_mech")
+        fig_mech(json.loads(m.read_text())); print("wrote fig_mech")
     pp = HERE / "patch_results.json"
     if pp.exists():
-        fig_patch(json.loads(pp.read_text()))
-        print("wrote fig_patch")
+        fig_patch(json.loads(pp.read_text())); print("wrote fig_patch")
