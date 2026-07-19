@@ -137,6 +137,15 @@ Failure of either is reported as a failure.
 
 Failure of any clause is reported as a failure.
 
+- **P18 (readout-variant robustness).** The recorded answer-token mass turns out
+  to be over *bare* digit tokens while models place their mass on space-prefixed
+  variants — a tokenization artifact discovered 2026-07-19. Prediction, registered
+  before `repro/tokvar_harness.py` completes: bias Δ computed from the bare,
+  space-prefixed, and union readouts agree (pairwise correlation of per-cell Δ
+  ≥ 0.7), and the instruct>base effect holds under the union readout (which
+  captures the dominant mass), so the expected-value findings are not an artifact
+  of the bare-token conditional.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as

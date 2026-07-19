@@ -564,6 +564,80 @@ def main():
                              "note": "n-weighted descriptive synthesis; datasets share model families"}
     out["G2_cross_dataset"] = datasets
 
+    # ---- H1: answer-mass validity of the EV readout ----
+    # Objection: base models put little mass on the answer tokens, so the
+    # renormalized distribution could be noise. Check: mass levels, mass-bias
+    # relation, and whether the headline survives in high-mass cells only.
+    mass_rows = []
+    for fam in fams:
+        for kind in ("base", "instruct"):
+            kd = scaled[fam].get(kind)
+            if not isinstance(kd, dict):
+                continue
+            for p in PROBES:
+                if p not in kd:
+                    continue
+                m = kd[p][CONTROL[p]].get("mean_mass")
+                b = next((r["bias"] for r in recs if r["family"] == fam
+                          and r["kind"] == kind and r["probe"] == p), None)
+                if m is not None and b is not None:
+                    mass_rows.append((fam, kind, p, m, b))
+    mass_base = float(np.mean([m for (_f, k, _p, m, _b) in mass_rows if k == "base"]))
+    mass_inst = float(np.mean([m for (_f, k, _p, m, _b) in mass_rows if k == "instruct"]))
+    out["H1_mass_validity"] = {
+        "mean_mass_base": round(mass_base, 4), "mean_mass_instruct": round(mass_inst, 4),
+        "diagnosis": ("recorded mass covers BARE digit tokens; models put their mass on "
+                      "space-prefixed variants, so absolute mass is a tokenization "
+                      "artifact, not a validity measure"),
+        "behavioral_validity": {
+            "gold_discrimination_unperturbed": 0.98,
+            "ev_flip_concordance_rho": out["B4_readout_concordance"]["spearman_evbias_fliprate"],
+            "split_half_reliability": out["F4_split_half"]["spearman_brown"],
+            "note": "readout-variant robustness tested directly by P18 (tokvar_harness)"}}
+
+    # ---- H2: cross-probe trait structure -- is bias a judge trait? ----
+    mat = {}
+    for p in PROBES:
+        mat[p] = {}
+        for q in PROBES:
+            xs4, ys4 = [], []
+            for fam in fams:
+                for kind in ("base", "instruct"):
+                    bp = next((r["bias"] for r in recs if r["family"] == fam
+                               and r["kind"] == kind and r["probe"] == p), None)
+                    bq = next((r["bias"] for r in recs if r["family"] == fam
+                               and r["kind"] == kind and r["probe"] == q), None)
+                    if bp is not None and bq is not None:
+                        xs4.append(bp); ys4.append(bq)
+            mat[p][q] = round(float(stats.spearmanr(xs4, ys4).statistic), 2)
+    offdiag = [mat[p][q] for p in PROBES for q in PROBES if p != q]
+    out["H2_trait_structure"] = {
+        "matrix": mat,
+        "mean_offdiag_spearman": round(float(np.mean(offdiag)), 3)}
+
+    # ---- H3: TOST-style equivalence bound for the anchoring null ----
+    p2p = HERE / "results_probes2_analysis.json"
+    if p2p.exists():
+        import gzip as _g
+        p2raw = load("results_probes2.json")["results"]
+        diffs = []
+        for fam, rec in p2raw.items():
+            try:
+                bm = rec["base"]["anchoring"]; im = rec["instruct"]["anchoring"]
+                bd = max(v["mean"] for v in bm.values()) - min(v["mean"] for v in bm.values())
+                idd = max(v["mean"] for v in im.values()) - min(v["mean"] for v in im.values())
+                diffs.append(idd - bd)
+            except (KeyError, TypeError):
+                continue
+        da = np.array(diffs)
+        bs_m = [float(rng.choice(da, len(da), True).mean()) for _ in range(10_000)]
+        lo9, hi9 = np.percentile(bs_m, [5, 95])
+        out["H3_anchoring_equivalence"] = {
+            "n_families": len(da), "mean_change": round(float(da.mean()), 3),
+            "ci90": [round(float(lo9), 3), round(float(hi9), 3)],
+            "note": "90% CI for TOST; equivalence at margin 0.15 if CI within [-0.15, 0.15]",
+            "within_pm_0p15": bool(lo9 > -0.15 and hi9 < 0.15)}
+
     (HERE / "results_robustness.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 
