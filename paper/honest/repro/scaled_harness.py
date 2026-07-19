@@ -2,14 +2,32 @@
 # 13 open-license base/instruct families, 0.13B-8B. Fixes the P100+cu128 GPU by
 # reinstalling a compatible torch+transformers, then restarting. Incremental save;
 # HF cache is purged per model to avoid disk fill. No synthetic data.
-import os, json, time, traceback, shutil, glob
+import os, sys, subprocess, json, time, traceback, shutil, glob
+# ---- enable GPU: the stock cu128 torch can't run the P100 (sm_60); pin a stack that
+# can (torch 2.6 cu124 + matching torchvision + transformers 4.49), then restart. ----
+def _cuda_bad():
+    try:
+        import torch
+        if not torch.cuda.is_available():
+            return False
+        (torch.ones(4, device="cuda") @ torch.ones(4, device="cuda")).item()
+        return False
+    except Exception:
+        return True
+if os.environ.get("R") != "1" and _cuda_bad():
+    print("Pinning GPU stack (torch2.6/cu124 + transformers4.49)...", flush=True)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "torch==2.6.0",
+                    "torchvision==0.21.0", "--index-url",
+                    "https://download.pytorch.org/whl/cu124"], check=False)
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "transformers==4.49.0",
+                    "tokenizers==0.21.0", "accelerate==1.4.0"], check=False)
+    os.environ["R"] = "1"
+    os.execv(sys.executable, [sys.executable] + sys.argv)
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
-# Stock Kaggle env (torch 2.10 / transformers 5.0). Uses GPU only if it can run a
-# kernel (T4/sm_75 works; P100/sm_60 cannot with cu128 torch -> falls back to CPU).
 
 SMOKE = os.environ.get("SMOKE", "0") == "1"
-OUT_PATH = "/kaggle/working/results_scaled.json"
+OUT_PATH = "/kaggle/working/results_gpu.json"
 
 # (family_label, base_id, instruct_id, params_b, training_of_instruct)
 # ascending by size so the small families all complete + save before big ones
