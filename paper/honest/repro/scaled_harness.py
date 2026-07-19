@@ -109,6 +109,27 @@ PROBES = {
     },
 }
 
+# ---- content-perturbation probes (test the theory BEYOND the 3 scoring biases) ----
+# Each variant: (prefix_prepended, response_transform). Scored numeric 1-5.
+_FILLER = (" To elaborate, this is a rich topic worth considering carefully from "
+           "several complementary angles, each adding useful nuance and context.")
+def _id(r): return r
+def _verbose(r): return r + _FILLER + _FILLER
+def _terse(r): return (r.split(".")[0] or r).strip() + "."
+PERTURB = {
+    "authority": {   # prestige/authority bias -- framing must not change quality
+        "none":   ("", _id),
+        "expert": ("The following response was written by a leading domain expert.\n", _id),
+        "novice": ("The following response was written by a struggling beginner.\n", _id),
+    },
+    "verbosity": {   # verbosity/length bias -- padding must not change quality
+        "control": ("", _id),
+        "verbose": ("", _verbose),
+        "terse":   ("", _terse),
+    },
+}
+_NUM_SCALE = "on a scale of 1 to 5, where 1 is worst and 5 is best"
+
 def token_values(a):
     return list(range(5, 0, -1)) if a is LET else list(range(1, len(a) + 1))
 
@@ -155,22 +176,31 @@ def score_one(name):
     dtype = torch.float16 if DEVICE == "cuda" else torch.float32
     model = AutoModelForCausalLM.from_pretrained(name, torch_dtype=dtype, trust_remote_code=True).to(DEVICE)
     model.eval()
+    def measure(prompts, atok):
+        exp, arg, ent, maxp, mass, dists = [], [], [], [], [], []
+        for p in prompts:
+            r = score_logits(tok, model, p, atok)
+            exp.append(r["exp"]); arg.append(r["arg"]); ent.append(r["ent"])
+            maxp.append(r["maxp"]); mass.append(r["mass"]); dists.append(r["dist"])
+        n = len(exp)
+        md = [round(sum(d[k] for d in dists) / n, 4) for k in range(len(dists[0]))]
+        return {"per_item": exp, "per_item_argmax": arg, "per_item_entropy": ent,
+                "mean": round(sum(exp) / n, 4), "mean_entropy": round(sum(ent) / n, 4),
+                "mean_maxprob": round(sum(maxp) / n, 4), "mean_mass": round(sum(mass) / n, 4),
+                "mean_dist": md}
     out = {}
+    # format-perturbation probes (the 3 scoring biases)
     for probe, variants in PROBES.items():
         out[probe] = {}
         for variant, (scale, atok, header, ref) in variants.items():
-            exp, arg, ent, maxp, mass = [], [], [], [], []
-            for instr, resp, _d in ITEMS:
-                r = score_logits(tok, model, build_prompt(instr, resp, scale, header, ref), atok)
-                exp.append(r["exp"]); arg.append(r["arg"]); ent.append(r["ent"])
-                maxp.append(r["maxp"]); mass.append(r["mass"])
-            n = len(exp)
-            out[probe][variant] = {
-                "per_item": exp, "per_item_argmax": arg, "per_item_entropy": ent,
-                "mean": round(sum(exp) / n, 4),
-                "mean_entropy": round(sum(ent) / n, 4),   # decisiveness signal
-                "mean_maxprob": round(sum(maxp) / n, 4),
-                "mean_mass": round(sum(mass) / n, 4)}      # answer-format compliance
+            out[probe][variant] = measure(
+                [build_prompt(i, r, scale, header, ref) for i, r, _d in ITEMS], atok)
+    # content-perturbation probes (authority, verbosity) -- generality test
+    for probe, variants in PERTURB.items():
+        out[probe] = {}
+        for variant, (prefix, tf) in variants.items():
+            out[probe][variant] = measure(
+                [build_prompt(i, tf(r), _NUM_SCALE, "Score", prefix) for i, r, _d in ITEMS], NUM)
     del model, tok
     if DEVICE == "cuda":
         torch.cuda.empty_cache()

@@ -110,9 +110,13 @@ We use \NFAM{} open-weight families with public base and instruct checkpoints: t
 Qwen2.5 series \citep{qwen25}, SmolLM2 \citep{smollm2}, StableLM-2 \citep{stablelm2},
 Falcon3 \citep{falcon3}, Granite-3.1 \citep{granite3}, and OLMo-2 \citep{olmo2},
 spanning 0.1--\MAXB{}B and four recipes (RLHF, SFT+DPO, SFT+RLHF, SFT+DPO+RLVR). We
-reproduce the three probes of \citet{li2025scoring} (rubric order; score ID; reference
-answer), each with a control and two perturbed variants, and score the same 50
-mid-quality instruction--response items (10 in each of 5 domains) under every variant.
+use \emph{five} bias families, each with a control and two perturbed variants. Three
+are the scoring biases of \citet{li2025scoring} (rubric order; score ID; reference
+answer); two more test the theory beyond scoring biases and come from the broader
+judge-bias literature: \textbf{authority} bias (response framed as written by an expert
+vs.\ a beginner) and \textbf{verbosity} bias (response padded vs.\ shortened). No
+perturbation changes true quality, so any score change is bias. Every model scores the
+same 50 mid-quality items (10 in each of 5 domains) under every variant.
 
 \subsection{Expected-value scoring}\label{sec:evs}
 A probe variant defines ordered answer tokens $a_1,\dots,a_K$ with values
@@ -202,6 +206,24 @@ compliance) rises with tuning.}
 \caption{Fraction of the base$\to$instruct score gap closed by patching the instruct
 model's residual representation into the base model at each layer (P3).}
 \label{fig:patch}\end{figure}
+
+\subsection{One law across five bias families}\label{sec:general}
+Proposition~\ref{prop:main} is not specific to scoring biases: it predicts that
+\emph{any} nuisance perturbation is resisted more by a more decisive judge. We test
+this on the two additional bias families (authority, verbosity), which perturb content
+rather than label format. \GENPROSE{}
+
+\subsection{Predicting bias from a single forward pass}\label{sec:predict}
+If decisiveness governs bias, a judge's bias should be estimable from \emph{one
+unperturbed forward pass}---its control-condition score entropy---without running any
+perturbation experiment. We test this out-of-sample with leave-one-family-out
+cross-validation. \PREDPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.5\linewidth]{fig_predictor.pdf}
+\caption{Bias predicted from a single unperturbed forward pass (control-condition
+entropy), leave-one-family-out. Each point is a model; base models (higher bias) and
+instruct models (lower) both fall on the diagonal.}
+\label{fig:predictor}\end{figure}
 
 \subsection{Flip rates, scale, recipe, and domain}
 \SECONDARYPROSE{}

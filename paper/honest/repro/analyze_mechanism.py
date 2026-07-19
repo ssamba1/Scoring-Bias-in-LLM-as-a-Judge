@@ -30,8 +30,11 @@ from scipy import stats
 
 HERE = Path(__file__).resolve().parent
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "results_scaled.json"
-PROBES = ["rubric_order", "score_id", "reference_answer"]
-CONTROL = {"rubric_order": "control", "score_id": "numeric", "reference_answer": "none"}
+CONTROL = {"rubric_order": "control", "score_id": "numeric", "reference_answer": "none",
+           "authority": "none", "verbosity": "control"}
+FORMAT_PROBES = ["rubric_order", "score_id"]
+CONTENT_PROBES = ["reference_answer", "authority", "verbosity"]
+PROBES = ["rubric_order", "score_id", "reference_answer"]  # reset in main() from data
 INSTRUCT_SUFFIXES = ("-Instruct", "-instruct", "-IT", "-it", "-chat", "-Chat", "-Base", "-base")
 
 
@@ -79,7 +82,10 @@ def main():
     payload = json.loads(SRC.read_text())
     pairs = pairs_from(payload)
     fams = list(pairs)
-    out = {"source": SRC.name, "n_families": len(fams), "families": fams}
+    global PROBES
+    sample = next(iter(pairs.values()))["base"]
+    PROBES = [p for p in CONTROL if p in sample]
+    out = {"source": SRC.name, "n_families": len(fams), "families": fams, "probes": PROBES}
 
     # ---- H-sharp: control-variant entropy, base vs instruct ----
     def ctrl_stat(d, key):
@@ -111,6 +117,26 @@ def main():
         f: {"base": round(ctrl_stat(pairs[f]["base"], "mean_mass"), 4),
             "instruct": round(ctrl_stat(pairs[f]["instruct"], "mean_mass"), 4)} for f in fams}
 
+    # ---- Generality: entropy->bias law within each bias-type group ----
+    out["generality"] = {}
+    for gname, glist in [("format", [p for p in FORMAT_PROBES if p in PROBES]),
+                         ("content", [p for p in CONTENT_PROBES if p in PROBES])]:
+        gx, gy = [], []
+        for f in fams:
+            for kind in ("base", "instruct"):
+                d = pairs[f][kind]
+                for p in glist:
+                    gx.append(np.mean([d[p][v]["mean_entropy"] for v in d[p]]))
+                    gy.append(delta({v: d[p][v]["mean"] for v in d[p]}))
+        if len(gx) > 3:
+            r, pv = stats.spearmanr(gx, gy)
+            out["generality"][gname] = {"probes": glist, "spearman_rho": round(float(r), 3),
+                                        "spearman_p": round(float(pv), 4), "n": len(gx)}
+
+    # ---- Predictive tool: predict a model's bias from ONE unperturbed forward
+    # pass (its control-condition entropy), validated leave-one-family-out ----
+    out["predictor"] = loo_predictor(pairs, fams)
+
     # ---- Mitigation: score-ID bias measured 3 ways ----
     out["mitigation"] = mitigation(pairs)
 
@@ -119,6 +145,41 @@ def main():
 
     (HERE / "results_mechanism.json").write_text(json.dumps(out, indent=2))
     _report(out)
+
+
+def loo_predictor(pairs, fams):
+    """Can we predict a model's overall bias from ONE unperturbed forward pass?
+    Feature x = mean control-condition score entropy (over probes); target
+    y = mean bias Delta (over probes). Leave-one-family-out: fit a line on the
+    other models, predict the held-out one. Reports out-of-sample correlation/R2."""
+    def feats(model):
+        d = model
+        x = np.mean([d[p][CONTROL[p]]["mean_entropy"] for p in PROBES])
+        y = np.mean([delta({v: d[p][v]["mean"] for v in d[p]}) for p in PROBES])
+        return float(x), float(y)
+    pts = []
+    for f in fams:
+        for kind in ("base", "instruct"):
+            pts.append(feats(pairs[f][kind]))
+    if len(pts) < 5:
+        return {"note": "need >=5 models", "n": len(pts)}
+    X = np.array([p[0] for p in pts]); Y = np.array([p[1] for p in pts])
+    preds = np.zeros_like(Y)
+    for i in range(len(X)):
+        m = np.ones(len(X), bool); m[i] = False
+        b, a = np.polyfit(X[m], Y[m], 1)
+        preds[i] = a + b * X[i]
+    ss_res = float(np.sum((Y - preds) ** 2)); ss_tot = float(np.sum((Y - Y.mean()) ** 2))
+    r2 = 1 - ss_res / ss_tot if ss_tot else float("nan")
+    r, pv = stats.pearsonr(preds, Y)
+    kinds = [k for f in fams for k in ("base", "instruct")]
+    return {"loo_r2": round(r2, 3), "loo_pearson_r": round(float(r), 3),
+            "loo_p": round(float(pv), 5), "n_models": len(X),
+            "points": {"entropy": [round(v, 4) for v in X.tolist()],
+                       "actual": [round(v, 4) for v in Y.tolist()],
+                       "predicted": [round(v, 4) for v in preds.tolist()],
+                       "kind": kinds},
+            "note": "predict bias from one unperturbed forward pass (control entropy)"}
 
 
 def mitigation(pairs):
@@ -187,8 +248,10 @@ def _report(out):
               f"change={s['mean_change']:+.3f}  dz={s['dz']}  {s['n_decreased']}/{s['n']}  p={s['wilcoxon_p']}")
     el = out["entropy_bias_link"]
     print(f"\nH-link: entropy vs bias  Spearman rho={el['spearman_rho']}  p={el['spearman_p']}  n={el['n']}")
+    print(f"\nGenerality (entropy->bias by bias type): {out.get('generality')}")
+    print(f"Predictor (leave-one-family-out): {out.get('predictor')}")
     print(f"\nMitigation (score-ID bias by scoring rule): {out['mitigation']}")
-    print(f"\nMixed-effects: {out['lmm']}")
+    print(f"Mixed-effects: {out['lmm']}")
 
 
 if __name__ == "__main__":

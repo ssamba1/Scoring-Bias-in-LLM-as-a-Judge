@@ -22,9 +22,14 @@ N_BOOT = 10_000
 HERE = Path(__file__).resolve().parent
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "results_full.json"
 
-PROBES = ["rubric_order", "score_id", "reference_answer"]
-CONTROL = {"rubric_order": "control", "score_id": "numeric", "reference_answer": "none"}
-LABEL = {"rubric_order": "Rubric order", "score_id": "Score ID", "reference_answer": "Reference answer"}
+# master maps over all probe families (3 scoring + 2 content-perturbation)
+CONTROL = {"rubric_order": "control", "score_id": "numeric", "reference_answer": "none",
+           "authority": "none", "verbosity": "control"}
+LABEL = {"rubric_order": "Rubric order", "score_id": "Score ID", "reference_answer": "Reference answer",
+         "authority": "Authority", "verbosity": "Verbosity"}
+FORMAT_PROBES = ["rubric_order", "score_id"]
+CONTENT_PROBES = ["reference_answer", "authority", "verbosity"]
+PROBES = ["rubric_order", "score_id", "reference_answer"]  # reset in main() from data
 INSTRUCT_SUFFIXES = ("-Instruct", "-instruct", "-IT", "-it", "-chat", "-Chat")
 
 
@@ -77,6 +82,11 @@ def main() -> None:
             if fam in fmeta:
                 meta[fam] = {"params_b": fmeta[fam][0], "training": fmeta[fam][1]}
     pairs = {f: d for f, d in fams.items() if "base" in d and "instruct" in d}
+
+    # detect which probe families are present in the data (keep master order)
+    global PROBES
+    sample = next(iter(pairs.values()))["base"]
+    PROBES = [p for p in CONTROL if p in sample]
 
     per_family = {}
     for fam, d in pairs.items():

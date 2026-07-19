@@ -71,23 +71,26 @@ def main():
     report = {"model": BASE, "n_layers": nL, "n_items": len(ITEMS), "variants": list(SCALES),
               "per_layer_gap_closed": {}, "raw": []}
 
-    # accumulators: gap_closed[layer] over items x variants
-    acc = {L: [] for L in range(nL)}
+    GAP_MIN = 0.3   # only items where base and instruct meaningfully disagree
+    import statistics as st
+    toward = {L: [] for L in range(nL)}      # 1 if patch moves base score toward instruct
+    recov = {L: [] for L in range(nL)}       # clipped fraction of gap recovered
+    n_used = 0
     for instr, resp in ITEMS:
         for vname, (scale, atok, header) in SCALES.items():
             ids = tok(prompt(instr, resp, scale, header), return_tensors="pt")
             with torch.no_grad():
                 s_base = expected(base, ids, atok)
                 out_i = inst(**ids, output_hidden_states=True)
-                # cached[L] = output hidden of layer L, last token
                 cached = [out_i.hidden_states[L + 1][0, -1].clone() for L in range(nL)]
                 logits_i = out_i.logits[0, -1].float()
                 tids = [tok.encode(a, add_special_tokens=False)[0] for a in atok]
                 pi = torch.softmax(logits_i[tids], dim=-1)
                 s_inst = float((pi * torch.tensor(vals(atok), dtype=pi.dtype)).sum())
             gap = s_inst - s_base
-            if abs(gap) < 1e-6:
+            if abs(gap) < GAP_MIN:
                 continue
+            n_used += 1
             for L in range(nL):
                 vec = cached[L]
                 def hook(mod, inp, out, v=vec):
@@ -98,14 +101,20 @@ def main():
                 with torch.no_grad():
                     s_patched = expected(base, ids, atok)
                 hd.remove()
-                acc[L].append((s_patched - s_base) / gap)   # fraction of gap closed
-    report["per_layer_gap_closed"] = {L: round(float(sum(v) / len(v)), 4) for L, v in acc.items() if v}
-    best = max(report["per_layer_gap_closed"].items(), key=lambda kv: kv[1]) if report["per_layer_gap_closed"] else None
-    report["best_layer"] = {"layer": best[0], "gap_closed": best[1]} if best else None
+                shift = s_patched - s_base
+                toward[L].append(1.0 if (shift > 0) == (gap > 0) and abs(shift) > 1e-3 else 0.0)
+                recov[L].append(max(-1.0, min(2.0, shift / gap)))
+    report["n_items_used"] = n_used
+    report["frac_toward_instruct"] = {L: round(st.mean(v), 4) for L, v in toward.items() if v}
+    report["median_recovery"] = {L: round(st.median(v), 4) for L, v in recov.items() if v}
+    ft = report["frac_toward_instruct"]
+    best = max(ft.items(), key=lambda kv: kv[1]) if ft else None
+    report["best_layer"] = {"layer": best[0], "frac_toward": best[1]} if best else None
     with open("/kaggle/working/patch_results.json", "w") as f:
         json.dump(report, f, indent=2)
+    print("n_items_used:", report["n_items_used"], flush=True)
     print("best layer:", report["best_layer"], flush=True)
-    print("per-layer gap closed:", report["per_layer_gap_closed"], flush=True)
+    print("frac_toward_instruct:", report["frac_toward_instruct"], flush=True)
 
 if __name__ == "__main__":
     main()

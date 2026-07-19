@@ -59,20 +59,40 @@ def fig_mech(m):
 
 
 def fig_patch(p):
-    gc = p["per_layer_gap_closed"]
+    gc = p.get("frac_toward_instruct") or p.get("per_layer_gap_closed")
     layers = sorted(int(k) for k in gc)
     vals = [gc[str(L)] if str(L) in gc else gc[L] for L in layers]
     fig, ax = plt.subplots(figsize=(4.6, 2.6))
-    ax.axhline(0, color="0.7", lw=0.8); ax.axhline(1, color="0.7", lw=0.8, ls=":")
+    ax.axhline(0.5, color="0.7", lw=0.8, ls=":")
     ax.plot(layers, vals, "-o", color=C_ACC, ms=4)
     if p.get("best_layer"):
-        bl = p["best_layer"]
-        ax.scatter([bl["layer"]], [bl["gap_closed"]], color="#C44E52", zorder=4,
-                   label=f"best: L{bl['layer']} ({bl['gap_closed']:.0%})")
+        bl = p["best_layer"]; y = bl.get("frac_toward", bl.get("gap_closed"))
+        ax.scatter([bl["layer"]], [y], color="#C44E52", zorder=4,
+                   label=f"peak: layer {bl['layer']}")
         ax.legend(frameon=False, fontsize=8)
-    ax.set_xlabel("patched layer"); ax.set_ylabel("base$\\to$instruct gap closed")
+    ax.set_xlabel("patched layer")
+    ax.set_ylabel("frac. moved toward instruct")
+    ax.set_ylim(0, 1)
     ax.set_title("Causal patching localizes the fix (P3)")
     save(fig, "fig_patch")
+
+
+def fig_predictor(m):
+    pr = m.get("predictor", {})
+    pts = pr.get("points")
+    if not pts:
+        return
+    fig, ax = plt.subplots(figsize=(3.6, 3.2))
+    col = [C_BASE if k == "base" else C_INST for k in pts["kind"]]
+    ax.scatter(pts["actual"], pts["predicted"], c=col, s=28, zorder=3)
+    lo = min(min(pts["actual"]), min(pts["predicted"]))
+    hi = max(max(pts["actual"]), max(pts["predicted"]))
+    ax.plot([lo, hi], [lo, hi], "--", color="0.5", lw=1)
+    ax.scatter([], [], color=C_BASE, label="base"); ax.scatter([], [], color=C_INST, label="instruct")
+    ax.legend(frameon=False, fontsize=7, loc="upper left")
+    ax.set_xlabel(r"actual bias $\bar\Delta$"); ax.set_ylabel(r"predicted $\bar\Delta$")
+    ax.set_title(f"Predicting bias from one forward pass\nLOO $R^2$={pr.get('loo_r2')}, r={pr.get('loo_pearson_r')}")
+    save(fig, "fig_predictor")
 
 
 PROBES = ["rubric_order", "score_id", "reference_answer"]
@@ -101,7 +121,9 @@ if __name__ == "__main__":
         fig_main(json.loads(pj.read_text())); print("wrote fig1_base_vs_instruct")
     m = HERE / "results_mechanism.json"
     if m.exists():
-        fig_mech(json.loads(m.read_text())); print("wrote fig_mech")
+        md = json.loads(m.read_text())
+        fig_mech(md); print("wrote fig_mech")
+        fig_predictor(md); print("wrote fig_predictor")
     pp = HERE / "patch_results.json"
     if pp.exists():
         fig_patch(json.loads(pp.read_text())); print("wrote fig_patch")
