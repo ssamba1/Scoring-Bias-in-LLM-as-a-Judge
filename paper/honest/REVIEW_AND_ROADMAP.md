@@ -246,14 +246,20 @@ Broader Impact, README rewrite, REBUTTAL_FAQ.md (14 objections), variant-level
 decomposition (verbosity 99% padded; authority 2:1 novice-punishment), cross-dataset
 synthesis (26/30 positive, +0.23), D1-exact series appendix, CI-gate bug found+fixed.
 
-PREREGISTRATION SCOREBOARD: P1-P6 adjudicated in the main paper; P7-P8 confirmed,
-P9 7/8 (marginal); P10 split (sycophancy CONFIRMED - largest effect; anchoring
-FAILED + equivalence-bounded); P11 CONFIRMED (Chinese 4/4); P12 met nominally but
-ATTENUATED at 14B (+0.06 vs +0.26); P13 split (authority span-encoding CONFIRMED
-layers 3-14, exemplar clause FAILED); P14 FAILED both clauses (step function, not
-dose-scaled). 32B: OOM on P100, dead. IN FLIGHT: P15 (ten templates), P16
-(sampled readout), P17 (granularity), P18v2 (readout variants; v1 invalid --
-tokenization bug caught pre-integration), P19 (chat template).
+PREREGISTRATION SCOREBOARD (FINAL, all 19 adjudicated 2026-07-19):
+CONFIRMED: P1 sharpening; P3 patching; P4 generality; P7 SFT installs
+responsiveness (84-99%); P8 preference tuning sharpens; P10a sycophancy
+(largest effect, +0.46); P11 Chinese (4/4); P13a authority span-encoding
+(layers 3-14); P15a entropy-bias across 10 templates (rho=-0.51, n=180);
+P17 range scaling (both clauses); P18 readout robustness (rho=0.79, mass
+question closed); P19a chat-template control (bias survives, often larger).
+FAILED (reported): P2 original sign prediction (the paper's central inversion);
+P10b anchoring (+equivalence-bounded); P13b exemplar span-locality; P14 dose
+monotonicity + slopes (step function found); P16 both clauses (corrected our
+own confound framing); P15b tiny-scale per-template direction.
+SCOPED/MARGINAL: P5 predictor (rank signal only); P9 7/8; P12 met nominally,
+attenuated at 14B; P19b/c underpowered/mixed.
+32B: OOM, dead. Queue empty; autonomous experimental program complete.
 
 ## Priority order (if time is short)
 
