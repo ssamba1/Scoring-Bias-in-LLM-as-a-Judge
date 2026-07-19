@@ -106,6 +106,20 @@ if zpath.exists():
         FAILS.append("zh 4/4 stale")
     close("zh entropy-bias rho", -0.36, z["entropy_bias_link"]["spearman_rho"], 0.006)
 
+# ---- P13 span patching ----
+sp = HERE / "spanpatch_analysis.json"
+if sp.exists():
+    s13 = json.loads(sp.read_text())["probes"]
+    auth = s13["authority_expert"]
+    if not auth["p13_met"]:
+        FAILS.append("P13 authority confirmed claim stale")
+    band = auth["layers_with_reduction_ge_50pct"]
+    if not (band and band[0] == 3 and band[-1] == 14):
+        FAILS.append(f"span-patch layer band 3-14 stale: {band}")
+    ref = s13["reference_good"]
+    if ref["max_reduction"] > 0.10:
+        FAILS.append(f"reference span-patch null stale: max {ref['max_reduction']}")
+
 # ---- stages ----
 if stages["P7"]["sft_resp_up_cells"] != "10/10":
     FAILS.append("P7 10/10 stale")

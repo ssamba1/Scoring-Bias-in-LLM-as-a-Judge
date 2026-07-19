@@ -84,6 +84,16 @@ predictions written before any results were read.
 
 Failure of any of P10–P13 is reported as a failure.
 
+**P13 outcome (recorded 2026-07-19 after the run):** SPLIT.
+- Authority framing: **confirmed** — overwriting the instruct model's residual
+  stream at the nuisance-span positions with the base model's activations reduces
+  the instruct-vs-base response gap by ≥50% across layers 3–14 (peak ≈100% at
+  layers 6–11, Qwen2.5-1.5B, n=20). The differential response is causally carried
+  by the span's encoding.
+- Good-exemplar framing: **failed** — per-layer reductions ≈0 (max 7%); the
+  exemplar's effect is not span-local at any single layer. Reported as a failure
+  of that clause; the mechanism for exemplar responsiveness is distributed.
+
 **P11 outcome (recorded 2026-07-19 after the run):** CONFIRMED.
 Fully-Chinese 5-probe suite, Qwen2.5 0.5/1.5/3/7B, zero errors: (a) instruct Δ >
 base Δ in 4/4 families (mean +0.43; positive point estimate for all five probes);

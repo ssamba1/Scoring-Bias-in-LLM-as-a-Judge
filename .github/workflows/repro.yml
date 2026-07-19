@@ -29,6 +29,7 @@ jobs:
           python analyze_stages.py
           python analyze_newprobes.py results_probes2.json
           python analyze_newprobes.py results_zh.json
+          python analyze_spanpatch.py
       - name: Paper prose numbers must match derived results
         working-directory: paper/honest/repro
         run: python check_prose.py
@@ -42,4 +43,5 @@ jobs:
             paper/honest/repro/results_stages_analysis.json \
             paper/honest/repro/results_probes2_analysis.json \
             paper/honest/repro/results_zh_analysis.json \
+            paper/honest/repro/spanpatch_analysis.json \
             paper/honest/tables/
