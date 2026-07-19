@@ -396,5 +396,49 @@
     "min": 0.375,
     "max": 0.566,
     "n": 130
+  },
+  "G1_variant_decomposition": {
+    "rubric_order": {
+      "reversed": 0.516,
+      "random": 0.484
+    },
+    "score_id": {
+      "letter": 0.49,
+      "descriptive": 0.51
+    },
+    "reference_answer": {
+      "good": 0.519,
+      "poor": 0.481
+    },
+    "authority": {
+      "expert": 0.326,
+      "novice": 0.674
+    },
+    "verbosity": {
+      "verbose": 0.989,
+      "terse": 0.011
+    }
+  },
+  "G2_cross_dataset": {
+    "main_items": {
+      "mean_effect": 0.257,
+      "families_positive": "11/13",
+      "n_families": 13
+    },
+    "public_items": {
+      "mean_effect": 0.132,
+      "families_positive": "7/8",
+      "n_families": 8
+    },
+    "alt_templates": {
+      "mean_effect": 0.267,
+      "families_positive": "8/9",
+      "n_families": 9
+    },
+    "_combined": {
+      "weighted_mean_effect": 0.227,
+      "total_family_measurements": 30,
+      "note": "n-weighted descriptive synthesis; datasets share model families"
+    }
   }
 }

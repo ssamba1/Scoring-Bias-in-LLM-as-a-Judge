@@ -509,6 +509,61 @@ def main():
         "min": round(float(np.min(ratios)), 3), "max": round(float(np.max(ratios)), 3),
         "n": len(ratios)}
 
+    # ---- G1: variant-level decomposition -- which variant carries each bias ----
+    var_share = {}
+    for p in PROBES:
+        acc = {}
+        for fam in fams:
+            for kind in ("base", "instruct"):
+                kd = scaled[fam].get(kind)
+                if not isinstance(kd, dict) or p not in kd:
+                    continue
+                ctrl = kd[p][CONTROL[p]]["mean"]
+                for v in kd[p]:
+                    if v != CONTROL[p]:
+                        acc.setdefault(v, []).append(abs(kd[p][v]["mean"] - ctrl))
+        tot = sum(float(np.mean(a)) for a in acc.values())
+        var_share[p] = {v: round(float(np.mean(a)) / tot, 3) for v, a in acc.items()}
+    out["G1_variant_decomposition"] = var_share
+
+    # ---- G2: cross-dataset synthesis (main, public items, templates) ----
+    datasets = {}
+    datasets["main_items"] = {"mean_effect": round(float(np.array(list(fam_effect.values())).mean()), 3),
+                              "families_positive": f"{int((np.array(list(fam_effect.values()))>0).sum())}/{len(fam_effect)}",
+                              "n_families": len(fam_effect)}
+    if "C5_public_items" in out and "mean_effect" in out["C5_public_items"]:
+        c5 = out["C5_public_items"]
+        datasets["public_items"] = {"mean_effect": c5["mean_effect"],
+                                    "families_positive": c5["families_positive"],
+                                    "n_families": c5["n_families"]}
+    try:
+        mt = load("results_multitemplate.json")["results"]
+        effs_mt = []
+        for key, rec in mt.items():
+            fb, fi = [], []
+            for kind, acc2 in (("base", fb), ("instruct", fi)):
+                kd = rec.get(kind)
+                if not isinstance(kd, dict):
+                    continue
+                for p, cv in CONTROL.items():
+                    if p in kd:
+                        means = [v["mean"] for v in kd[p].values()]
+                        acc2.append(max(means) - min(means))
+            if fb and fi:
+                effs_mt.append(float(np.mean(fi) - np.mean(fb)))
+        em = np.array(effs_mt)
+        datasets["alt_templates"] = {"mean_effect": round(float(em.mean()), 3),
+                                     "families_positive": f"{int((em>0).sum())}/{len(em)}",
+                                     "n_families": len(em)}
+    except FileNotFoundError:
+        pass
+    ws = np.array([d["n_families"] for d in datasets.values()], dtype=float)
+    es_ = np.array([d["mean_effect"] for d in datasets.values()])
+    datasets["_combined"] = {"weighted_mean_effect": round(float((ws * es_).sum() / ws.sum()), 3),
+                             "total_family_measurements": int(ws.sum()),
+                             "note": "n-weighted descriptive synthesis; datasets share model families"}
+    out["G2_cross_dataset"] = datasets
+
     (HERE / "results_robustness.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 
