@@ -59,12 +59,14 @@ The attention account is an honest *null* (§5.5), explicitly contrasted with th
 fabricated mechanism of the retracted prior version.
 
 **"No frontier models."**
-True and stated first in Limitations. Requires paid API access; the harness
-(`closed_harness.py`) is committed and ready. The studied regime (0.1–14B open
-weights) is the regime where base/instruct pairs exist, which the causal comparison
-requires — frontier judges have no public base checkpoint, so the *within-family
-causal contrast* is impossible there in principle; only the correlational
-entropy–bias screen can be tested on frontier models.
+Now tested (preregistered P20, §frontier): GPT-4o-mini, GPT-4o, and Llama-3.1-70B
+via API logprobs are biased on 5/5 probes each — the largest biases in the study
+(rubric-order Δ up to 2.02) — and pooling them *strengthens* the confidence–bias
+law to ρ=−0.45 (n=145). Two clauses failed and are reported: deployed judges are
+*more* biased than small open models, and the within-trio direction at n=3 is
+positive. The honest residual: no causal base-vs-instruct contrast is possible at
+the frontier in principle (no public base checkpoints), and Claude/Gemini expose
+no logprobs.
 
 **"n=13 families is small."**
 The inferential unit is honest (families, not items), effects are reported with
