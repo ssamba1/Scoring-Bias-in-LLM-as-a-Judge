@@ -246,7 +246,7 @@ Broader Impact, README rewrite, REBUTTAL_FAQ.md (14 objections), variant-level
 decomposition (verbosity 99% padded; authority 2:1 novice-punishment), cross-dataset
 synthesis (26/30 positive, +0.23), D1-exact series appendix, CI-gate bug found+fixed.
 
-PREREGISTRATION SCOREBOARD (FINAL, all 19 adjudicated 2026-07-19):
+PREREGISTRATION SCOREBOARD (FINAL, all 20 adjudicated 2026-07-19/20):
 CONFIRMED: P1 sharpening; P3 patching; P4 generality; P7 SFT installs
 responsiveness (84-99%); P8 preference tuning sharpens; P10a sycophancy
 (largest effect, +0.46); P11 Chinese (4/4); P13a authority span-encoding
@@ -259,7 +259,12 @@ monotonicity + slopes (step function found); P16 both clauses (corrected our
 own confound framing); P15b tiny-scale per-template direction.
 SCOPED/MARGINAL: P5 predictor (rank signal only); P9 7/8; P12 met nominally,
 attenuated at 14B; P19b/c underpowered/mixed.
-32B: OOM, dead. Queue empty; autonomous experimental program complete.
+P20 frontier (OpenRouter logprobs, <$2): (a) CONFIRMED — GPT-4o-mini/GPT-4o/
+Llama-70B biased on 5/5 probes, largest biases in study; (b) failed within-trio
+(n=3) but pooled law STRENGTHENS to rho=-0.45 (n=145); (c) FAILED — deployed
+judges MORE biased than small open models; Qwen-72B unobtainable (no logprob
+provider). 32B: OOM on P100, dead. Queue empty; program complete; main merged;
+tags v2.0-honest + v2.1-frontier.
 
 ## Priority order (if time is short)
 
