@@ -239,6 +239,22 @@ bare-token artifact.
 
 Failure of any clause is reported as a failure.
 
+**P20 outcome (recorded 2026-07-20 after the run):** SPLIT — and the failures
+are the interesting part.
+- (a) **confirmed decisively**: all three obtainable judges (gpt-4o-mini,
+  gpt-4o, Llama-3.1-70B) are biased on 5/5 probes; rubric-order Δ 1.48–2.02,
+  the largest biases measured anywhere in this project.
+- (b) **failed as registered**: within the frontier trio the entropy–bias
+  direction is positive (ρ = +0.50, n = 3 — descriptive). But pooled with the
+  open panel the law *strengthens*: ρ = −0.41 → −0.45 (n = 145, p ≈ 10⁻⁸);
+  frontier judges land exactly where the between-family law predicts (lowest
+  entropy 0.64 bits, highest bias 0.89).
+- (c) **failed**: frontier mean Δ (0.89) exceeds the ≤8B open-instruct mean
+  (0.69) — deployed judges are *more* biased, not less; the attenuation seen in
+  the tuning *delta* (P12) does not extend to absolute bias levels.
+- Qwen2.5-72B: **excluded as unobtainable** — no OpenRouter provider serves
+  logprobs for it (404 with require_parameters); recorded, not substituted.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as

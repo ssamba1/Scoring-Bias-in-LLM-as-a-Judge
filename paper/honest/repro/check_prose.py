@@ -179,6 +179,18 @@ if sp.exists():
     if ref["max_reduction"] > 0.10:
         FAILS.append(f"reference span-patch null stale: max {ref['max_reduction']}")
 
+# ---- P20 frontier judges ----
+fp = HERE / "results_closed_analysis.json"
+if fp.exists():
+    f20 = json.loads(fp.read_text())
+    if not f20["P20a"]["all_judges_ge_half_probes"]:
+        FAILS.append("P20a stale")
+    close("frontier pooled rho", -0.45, f20["pooled"]["pooled_rho"], 0.006)
+    close("frontier mean delta", 0.89, f20["P20c"]["frontier_mean_delta"], 0.006)
+    close("frontier mean entropy", 0.64, f20["pooled"]["frontier_mean_entropy"], 0.006)
+    if f20["P20c"]["frontier_below_open"]:
+        FAILS.append("P20c framing stale (frontier now below open?)")
+
 # ---- stages ----
 if stages["P7"]["sft_resp_up_cells"] != "10/10":
     FAILS.append("P7 10/10 stale")

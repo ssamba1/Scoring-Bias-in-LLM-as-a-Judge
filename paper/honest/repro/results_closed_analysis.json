@@ -1,0 +1,75 @@
+{
+  "judges": {
+    "gpt-4o-mini": {
+      "delta_by_probe": {
+        "rubric_order": 1.483,
+        "score_id": 0.488,
+        "reference_answer": 0.944,
+        "authority": 0.493,
+        "verbosity": 0.808
+      },
+      "mean_delta": 0.843,
+      "mean_entropy": 0.439,
+      "probes_delta_gt_0.1": 5
+    },
+    "gpt-4o": {
+      "delta_by_probe": {
+        "rubric_order": 1.792,
+        "score_id": 0.875,
+        "reference_answer": 0.705,
+        "authority": 0.17,
+        "verbosity": 0.56
+      },
+      "mean_delta": 0.82,
+      "mean_entropy": 0.508,
+      "probes_delta_gt_0.1": 5
+    },
+    "llama-3.1-70b-instruct": {
+      "delta_by_probe": {
+        "rubric_order": 2.019,
+        "score_id": 1.16,
+        "reference_answer": 0.585,
+        "authority": 0.539,
+        "verbosity": 0.733
+      },
+      "mean_delta": 1.007,
+      "mean_entropy": 0.968,
+      "probes_delta_gt_0.1": 5
+    }
+  },
+  "excluded": [
+    {
+      "model": "qwen-2.5-72b-instruct",
+      "reason": "incomplete/no logprob provider",
+      "cells": 0
+    }
+  ],
+  "P20a": {
+    "all_judges_ge_half_probes": true,
+    "detail": {
+      "gpt-4o-mini": "5/5",
+      "gpt-4o": "5/5",
+      "llama-3.1-70b-instruct": "5/5"
+    }
+  },
+  "P20b": {
+    "within_frontier_rho": 0.5,
+    "n_judges": 3,
+    "registered_direction_negative_observed": false
+  },
+  "P20c": {
+    "frontier_mean_delta": 0.89,
+    "open_instruct_mean_delta": 0.694,
+    "frontier_below_open": false
+  },
+  "pooled": {
+    "open_only_rho": -0.413,
+    "pooled_rho": -0.452,
+    "pooled_p": 1.13e-08,
+    "n_pooled": 145,
+    "frontier_mean_entropy": 0.64,
+    "frontier_mean_delta_cells": 0.89,
+    "open_mean_entropy": 1.77,
+    "open_mean_delta_cells": 0.57
+  }
+}

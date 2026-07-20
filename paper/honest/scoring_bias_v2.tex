@@ -46,10 +46,12 @@ preregistered stage ablation localizes it in the pipeline (SFT installs the
 responsiveness, 84--99\% of the total rise; preference tuning installs the
 confidence), a ground-truth test shows the bias corrupts real judgments
 (\GOLDSENTENCE{}), and a marginalization mitigation cuts bias by 59\% where raising
-confidence cannot. The findings replicate on public-dataset items and in Chinese, and
-two preregistered extension probes sharpen the picture: judge-side \emph{sycophancy}
-shows the largest tuning effect we measure, while numeric \emph{anchoring} stays
-null---tuning inflates responsiveness to social framing, not to every signal. We also
+confidence cannot. The findings replicate on public-dataset items and in Chinese; judge-side
+\emph{sycophancy} shows the largest tuning effect we measure while numeric
+\emph{anchoring} stays null; and the law survives its sharpest test: three deployed
+frontier judges (GPT-4o among them), probed via API logprobs, are the most confident
+\emph{and} most biased judges in the study, strengthening the pooled confidence--bias
+relation to $\rho=-0.45$ ($n=145$). We also
 show that parse-based scoring is protocol-fragile---strict parsing silently drops
 weak judges (a confound), lenient sampling drowns the signal in noise---and use the
 standard distribution-based readout instead. Every number and figure regenerates from committed raw files by committed scripts,
@@ -515,6 +517,16 @@ installs the bias; DPO/RLVR install the confidence.}
 \subsection{Mixed-effects confirmation and mitigation}\label{sec:lmm}
 \LMMPROSE{} \MITIGPROSE{}
 
+\subsection{Frontier judges: the law's sharpest test}\label{sec:frontier}
+\FRONTIERPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.7\linewidth]{fig_frontier.pdf}
+\caption{The confidence--bias law extended to deployed judges (preregistered P20).
+Frontier judges (colored markers; 15 judge$\times$probe cells via API logprobs)
+occupy the low-entropy, high-bias corner the open-panel law predicts; pooling them
+strengthens the negative relation to $\rho=-0.45$ ($n=145$).}
+\label{fig:frontier}\end{figure}
+
 \section{Discussion}
 \paragraph{Bias is one mechanism, not a taxonomy.} A large literature enumerates judge
 biases---position, verbosity, self-preference, authority, and the three scoring biases
@@ -582,8 +594,13 @@ because a mechanism claim is only as trustworthy as the measurement under it.
 
 \section{Limitations}
 \begin{enumerate}\itemsep2pt
-  \item \textbf{Open weights $\leq$\MAXB{}B.} Public base+instruct pairs are required,
-        so the largest and closed frontier judges are out of scope.
+  \item \textbf{The causal contrast stops at open weights.} Public base+instruct
+        pairs are required for the base-vs-instruct comparison, so the causal claims
+        are scoped to $\leq$14B open models. The cross-sectional law \emph{was}
+        tested on three frontier judges via API logprobs (\S\ref{sec:frontier}) and
+        held; but that test covers only logprob-exposing APIs (Claude and Gemini
+        expose none; Qwen-72B had no logprob provider), three judges, and no causal
+        contrast.
   \item \textbf{Family as unit; greedy decoding.} Powered for large effects; deterministic
         scores give no within-model variance. The core relation is robust to prompt
         wording (\S\ref{sec:template}, three templates) and replicates in Chinese
@@ -643,7 +660,7 @@ Every statistic and figure is produced by \texttt{repro/analyze\_peritem.py},
 (\texttt{results\_scaled.json}, \texttt{gold\_results.json}, \texttt{patch\_results.json},
 \texttt{results\_multitemplate.json}, \texttt{attn\_results.json},
 \texttt{results\_dolly.json.gz}, \texttt{results\_stages.json.gz},
-\texttt{results\_probes2.json}; collected by
+\texttt{results\_probes2.json}, \texttt{results\_closed.json}; collected by
 \texttt{repro/\{scaled,gold,patch,multitemplate,attention,dolly,stage,probes2\}\_harness.py}), seed 42.
 A continuous-integration check reruns every analysis script on the committed raw files
 and fails on any numerical drift. No synthetic or
@@ -776,7 +793,9 @@ All experiments ran on a single free-tier Kaggle GPU (NVIDIA P100, 16\,GB); tota
 per-experiment cost: 13-family main run $\sim$3\,h; stage ablation $\sim$3\,h; new
 bias types $\sim$2\,h; multi-template $\sim$1.5\,h; public-items replication
 $\sim$1.5\,h; Chinese replication $\sim$1.5\,h; activation patching, span patching,
-14B (4-bit), ground-truth, and attention runs $\sim$0.5--1\,h each. The environment is
+14B (4-bit), ground-truth, and attention runs $\sim$0.5--1\,h each. The
+frontier-judge run (\S\ref{sec:frontier}) used the OpenRouter API: $\sim$4{,}500
+single-token logprob calls, under US\$2 total. The environment is
 pinned (torch 2.6.0+cu124, transformers 4.49.0); all analysis is CPU-only and pinned
 in \texttt{repro/requirements-repro.txt}.
 

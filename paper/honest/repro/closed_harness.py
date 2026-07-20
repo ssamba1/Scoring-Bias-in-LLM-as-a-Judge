@@ -71,7 +71,8 @@ def build(instr, resp, scale, prefix):
 def score_api(model, prompt, answer_tokens):
     r = requests.post(BASE_URL, headers={"Authorization": f"Bearer {API_KEY}"},
                       json={"model": model, "messages": [{"role": "user", "content": prompt}],
-                            "max_tokens": 1, "temperature": 0, "logprobs": True, "top_logprobs": 20},
+                            "max_tokens": 1, "temperature": 0, "logprobs": True, "top_logprobs": 20,
+                            "provider": {"require_parameters": True}},
                       timeout=30)
     r.raise_for_status()
     top = r.json()["choices"][0]["logprobs"]["content"][0]["top_logprobs"]
@@ -88,9 +89,18 @@ def score_api(model, prompt, answer_tokens):
 
 
 def main():
+    import sys
+    global MODELS
+    if len(sys.argv) > 1:
+        MODELS = sys.argv[1:]
     if not API_KEY:
         raise SystemExit("Set OPENROUTER_API_KEY. This harness spends money; run it deliberately.")
-    payload = {"models": MODELS, "errors": {}, "results": {}}
+    out_path = HERE / "results_closed.json"
+    if out_path.exists():
+        payload = json.loads(out_path.read_text())
+        payload["errors"] = {}
+    else:
+        payload = {"models": MODELS, "errors": {}, "results": {}}
     for model in MODELS:
         rec = {"instruct": {}}   # closed models are instruct-only
         for probe, variants in PROBES.items():

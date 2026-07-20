@@ -36,6 +36,7 @@ jobs:
           python analyze_sampled.py
           python analyze_t10.py
           python analyze_tokvar.py
+          python analyze_closed.py
       - name: Paper prose numbers must match derived results
         working-directory: paper/honest/repro
         run: python check_prose.py
@@ -56,4 +57,5 @@ jobs:
             paper/honest/repro/results_sampled_analysis.json \
             paper/honest/repro/results_t10_analysis.json \
             paper/honest/repro/results_tokvar_analysis.json \
+            paper/honest/repro/results_closed_analysis.json \
             paper/honest/tables/
