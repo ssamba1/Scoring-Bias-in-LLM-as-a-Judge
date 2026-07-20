@@ -90,10 +90,14 @@ Preregistered P19 tests exactly this: instruct checkpoints scored under their ow
 chat template vs raw format, with base-raw as the effect baseline.
 
 **"The renormalized readout ignores most of the digit probability mass."**
-Preregistered P18 (v2) compares the bare-token readout against the full vocab-scan
-union of all tokens decoding to each digit. (The v1 space-prefixed variant was
-degenerate — a tokenization subtlety we caught via an impossible mass value and
-disclosed.)
+Closed by preregistered P18 (confirmed): a vocab scan shows the bare digits are the
+*complete* digit-token set at the score position (no space-digit tokens exist); the
+mass (0.91–0.96) sits one position later, and scoring at that high-mass position
+agrees with the bare readout per cell (ρ=0.79 ≥ the preregistered 0.7 bar), with
+the effect 4/4 families under the union. Honest residual: at the high-mass
+position the effect is +0.06 but 2/4 of the smallest families. (The v1 variant was
+degenerate — a tokenization bug we caught via an impossible mass value and
+disclosed as invalid, not unfavorable.)
 
 **"Does the increase survive at larger scale?"**
 Partially: 14B (4-bit) is nominally positive (+0.06) but strongly attenuated vs the
