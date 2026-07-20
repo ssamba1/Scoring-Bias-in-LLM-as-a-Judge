@@ -226,6 +226,19 @@ bare-token artifact.
 - (c) **weakly met**: instruct-chat minus base-raw = +0.07 on average, but
   positive in only 1/3 families (driven by Qwen-0.5B).
 
+## Addendum 5 (registered 2026-07-20, before the frontier run)
+
+- **P20 (frontier judges).** Via OpenRouter logprobs (`repro/closed_harness.py`,
+  4 models: gpt-4o-mini, gpt-4o, Llama-3.1-70B-Instruct, Qwen2.5-72B-Instruct;
+  cross-sectional only — no base checkpoints exist at the frontier):
+  (a) every frontier judge exhibits nonzero scoring bias (Δ > 0.1 on at least
+  half the probes); (b) among these judges the entropy–bias relation is
+  directionally negative (n=4 — descriptive, no significance claim);
+  (c) consistent with the >3B attenuation, their mean Δ is below the ≤8B
+  open-instruct mean.
+
+Failure of any clause is reported as a failure.
+
 ## Reporting rules
 - Report all five bias families and all families run, including failures.
 - Report effect sizes and CIs as primary evidence; treat any single p-value as
