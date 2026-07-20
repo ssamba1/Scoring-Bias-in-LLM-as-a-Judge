@@ -1,10 +1,13 @@
 cff-version: 1.2.0
-title: "Scoring Bias in LLM-as-a-Judge Models: A 22-Model Landscape with Base-Instruct Comparison"
+title: "Confidence Is Not Robustness: Instruction Tuning Makes LLM-as-a-Judge Sharper and More Biased"
 authors:
   - family-names: Samba
     given-names: Sricharan
 orcid: ""
-doi: 10.5281/zenodo.21361920
+# NOTE: the prior Zenodo DOI (10.5281/zenodo.21361920) archives a retracted version
+# with unsupported claims and is intentionally not referenced here.
 repository-code: "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
 license: MIT
-message: "If you use this work, please cite it."
+version: "2.0"
+date-released: "2026-07-19"
+message: "If you use this work, please cite version 2.0 (the honest rewrite); do not cite the retracted Zenodo version."

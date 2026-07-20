@@ -1,0 +1,505 @@
+{
+  "B1_within_checkpoint": {
+    "n_checkpoints": 26,
+    "mean_within_rho": -0.046,
+    "frac_negative": 0.5,
+    "wilcoxon_p": 0.69286
+  },
+  "B1_within_checkpoint_responsiveness": {
+    "n_checkpoints": 26,
+    "mean_within_rho": 0.638,
+    "frac_positive": 0.923,
+    "wilcoxon_p": 1.5e-05
+  },
+  "B1_lmm": {
+    "entropy_coef": -0.4623,
+    "entropy_p": 7e-06,
+    "n": 130
+  },
+  "B2_predictor_bootstrap": {
+    "loo_r2": 0.273,
+    "r2_ci95": [
+      -0.618,
+      0.566
+    ],
+    "spearman_pred_actual": 0.579,
+    "n_boot": 10000
+  },
+  "B3_sensitivity": {
+    "full_mean_effect": 0.257,
+    "n_families_positive": 11,
+    "n_families": 13,
+    "loo_range": [
+      0.23,
+      0.285
+    ],
+    "excl_qwen_mean": 0.258,
+    "excl_qwen_positive": "8/9",
+    "only_ge1B_mean": 0.288,
+    "only_ge1B_positive": "9/10",
+    "per_family": {
+      "Falcon3-1B": 0.1,
+      "Falcon3-3B": 0.489,
+      "Granite-3.1-2B": 0.362,
+      "Granite-3.1-8B": 0.578,
+      "OLMo-2-7B": 0.102,
+      "Qwen2.5-0.5B": -0.078,
+      "Qwen2.5-1.5B": 0.103,
+      "Qwen2.5-3B": 0.448,
+      "Qwen2.5-7B": 0.544,
+      "SmolLM2-1.7B": -0.015,
+      "SmolLM2-135M": 0.376,
+      "SmolLM2-360M": 0.162,
+      "StableLM-2-1.6B": 0.165
+    }
+  },
+  "B4_readout_concordance": {
+    "spearman_evbias_fliprate": 0.557,
+    "p": 0.0,
+    "n": 130
+  },
+  "D1_cumulants": {
+    "base": {
+      "k2": 1.801,
+      "k3": -1.031,
+      "k4": -3.787
+    },
+    "instruct": {
+      "k2": 0.987,
+      "k3": -0.559,
+      "k4": -0.294
+    },
+    "k2_drop_families": "11/13"
+  },
+  "D3_crossover": {
+    "n_cells": 65,
+    "sign_accuracy": 0.754,
+    "binom_p": 5.1e-05,
+    "spearman_dlogpred_dlogact": 0.641,
+    "spearman_p": 0.0
+  },
+  "C8_template_ensemble": {
+    "n_cells": 30,
+    "mean_single_template_bias": 0.672,
+    "mean_ensembled_bias": 0.527,
+    "reduction_frac": 0.216,
+    "wilcoxon_p": 6e-06
+  },
+  "C5_public_items": {
+    "source": "databricks-dolly-15k (open_qa/general_qa), 50 items, seed 42",
+    "n_families": 8,
+    "mean_effect": 0.132,
+    "families_positive": "7/8",
+    "entropy_bias_rho": -0.44,
+    "entropy_bias_p": 4.4e-05,
+    "n_points": 80,
+    "per_probe_delta": {
+      "rubric_order": -0.041,
+      "score_id": 0.161,
+      "reference_answer": 0.149,
+      "authority": 0.209,
+      "verbosity": 0.184
+    },
+    "per_family": {
+      "SmolLM2-135M": 0.19,
+      "SmolLM2-360M": 0.21,
+      "Qwen2.5-0.5B": 0.039,
+      "Falcon3-1B": 0.155,
+      "Qwen2.5-1.5B": 0.041,
+      "SmolLM2-1.7B": -0.023,
+      "Granite-3.1-2B": 0.412,
+      "Qwen2.5-3B": 0.035
+    }
+  },
+  "E_variance_decomposition": {
+    "family": 0.084,
+    "probe": 0.236,
+    "kind": 0.056,
+    "family:probe": 0.368,
+    "Residual": 0.256
+  },
+  "E2_item_consistency": {
+    "mean_cross_judge_item_corr": 0.006,
+    "n_pairs": 1625,
+    "note": "same-probe item-bias profiles correlated across different checkpoints"
+  },
+  "E3_score_collapse": {
+    "base": {
+      "top2_mass": 0.541,
+      "maxp": 0.395
+    },
+    "instruct": {
+      "top2_mass": 0.509,
+      "maxp": 0.525
+    }
+  },
+  "E4_exact_vs_first_order": {
+    "base": {
+      "s0": 3.343,
+      "sqrtvar": 1.383,
+      "t": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "exact": [
+        0.0,
+        0.1845,
+        0.3537,
+        0.5062,
+        0.6416,
+        0.7607,
+        0.8647,
+        0.9552,
+        1.0339,
+        1.1025,
+        1.1623
+      ],
+      "first_order": [
+        0.0,
+        0.1912,
+        0.3825,
+        0.5737,
+        0.765,
+        0.9562,
+        1.1475,
+        1.3387,
+        1.53,
+        1.7212,
+        1.9124
+      ]
+    },
+    "instruct": {
+      "s0": 3.359,
+      "sqrtvar": 1.286,
+      "t": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "exact": [
+        0.0,
+        0.16,
+        0.3084,
+        0.4443,
+        0.5676,
+        0.6787,
+        0.7784,
+        0.8675,
+        0.9471,
+        1.0181,
+        1.0815
+      ],
+      "first_order": [
+        0.0,
+        0.1654,
+        0.3308,
+        0.4962,
+        0.6616,
+        0.827,
+        0.9924,
+        1.1578,
+        1.3232,
+        1.4887,
+        1.6541
+      ]
+    }
+  },
+  "F1_exact_permutation": {
+    "observed_mean_effect": 0.257,
+    "exact_p_two_sided": 0.00098,
+    "n_patterns": 8192
+  },
+  "F2_forest": {
+    "Falcon3-1B": {
+      "effect": 0.1,
+      "ci": [
+        -0.074,
+        0.213
+      ],
+      "params_b": 1.0
+    },
+    "Falcon3-3B": {
+      "effect": 0.489,
+      "ci": [
+        0.259,
+        0.719
+      ],
+      "params_b": 3.0
+    },
+    "Granite-3.1-2B": {
+      "effect": 0.362,
+      "ci": [
+        -0.151,
+        0.832
+      ],
+      "params_b": 2.0
+    },
+    "Granite-3.1-8B": {
+      "effect": 0.578,
+      "ci": [
+        0.192,
+        1.127
+      ],
+      "params_b": 8.0
+    },
+    "OLMo-2-7B": {
+      "effect": 0.102,
+      "ci": [
+        -0.272,
+        0.578
+      ],
+      "params_b": 7.0
+    },
+    "Qwen2.5-0.5B": {
+      "effect": -0.078,
+      "ci": [
+        -0.388,
+        0.199
+      ],
+      "params_b": 0.5
+    },
+    "Qwen2.5-1.5B": {
+      "effect": 0.103,
+      "ci": [
+        -0.148,
+        0.33
+      ],
+      "params_b": 1.5
+    },
+    "Qwen2.5-3B": {
+      "effect": 0.448,
+      "ci": [
+        0.001,
+        1.008
+      ],
+      "params_b": 3.0
+    },
+    "Qwen2.5-7B": {
+      "effect": 0.544,
+      "ci": [
+        -0.213,
+        1.796
+      ],
+      "params_b": 7.0
+    },
+    "SmolLM2-1.7B": {
+      "effect": -0.015,
+      "ci": [
+        -0.155,
+        0.19
+      ],
+      "params_b": 1.7
+    },
+    "SmolLM2-135M": {
+      "effect": 0.376,
+      "ci": [
+        0.117,
+        0.707
+      ],
+      "params_b": 0.135
+    },
+    "SmolLM2-360M": {
+      "effect": 0.162,
+      "ci": [
+        -0.051,
+        0.452
+      ],
+      "params_b": 0.36
+    },
+    "StableLM-2-1.6B": {
+      "effect": 0.165,
+      "ci": [
+        -0.01,
+        0.313
+      ],
+      "params_b": 1.6
+    }
+  },
+  "F3_specification_curve": {
+    "specs": {
+      "ev|maxmin|all": {
+        "mean_effect": 0.257,
+        "families_positive": "11/13"
+      },
+      "ev|maxmin|format": {
+        "mean_effect": 0.302,
+        "families_positive": "10/13"
+      },
+      "ev|maxmin|content": {
+        "mean_effect": 0.227,
+        "families_positive": "11/13"
+      },
+      "ev|meandev|all": {
+        "mean_effect": 0.141,
+        "families_positive": "11/13"
+      },
+      "ev|meandev|format": {
+        "mean_effect": 0.148,
+        "families_positive": "10/13"
+      },
+      "ev|meandev|content": {
+        "mean_effect": 0.136,
+        "families_positive": "9/13"
+      },
+      "argmax|maxmin|all": {
+        "mean_effect": 0.042,
+        "families_positive": "7/13"
+      },
+      "argmax|maxmin|format": {
+        "mean_effect": -0.065,
+        "families_positive": "7/13"
+      },
+      "argmax|maxmin|content": {
+        "mean_effect": 0.112,
+        "families_positive": "7/13"
+      },
+      "argmax|meandev|all": {
+        "mean_effect": -0.041,
+        "families_positive": "6/13"
+      },
+      "argmax|meandev|format": {
+        "mean_effect": -0.149,
+        "families_positive": "7/13"
+      },
+      "argmax|meandev|content": {
+        "mean_effect": 0.03,
+        "families_positive": "7/13"
+      }
+    },
+    "n_specs_positive_mean": 9,
+    "n_specs": 12
+  },
+  "F4_split_half": {
+    "split_half_spearman": 0.986,
+    "spearman_brown": 0.993,
+    "n_cells": 130
+  },
+  "F5_bound_tightness": {
+    "mean_gradnorm_over_sqrtvar": 0.451,
+    "min": 0.375,
+    "max": 0.566,
+    "n": 130
+  },
+  "G1_variant_decomposition": {
+    "rubric_order": {
+      "reversed": 0.516,
+      "random": 0.484
+    },
+    "score_id": {
+      "letter": 0.49,
+      "descriptive": 0.51
+    },
+    "reference_answer": {
+      "good": 0.519,
+      "poor": 0.481
+    },
+    "authority": {
+      "expert": 0.326,
+      "novice": 0.674
+    },
+    "verbosity": {
+      "verbose": 0.989,
+      "terse": 0.011
+    }
+  },
+  "G2_cross_dataset": {
+    "main_items": {
+      "mean_effect": 0.257,
+      "families_positive": "11/13",
+      "n_families": 13
+    },
+    "public_items": {
+      "mean_effect": 0.132,
+      "families_positive": "7/8",
+      "n_families": 8
+    },
+    "alt_templates": {
+      "mean_effect": 0.267,
+      "families_positive": "8/9",
+      "n_families": 9
+    },
+    "_combined": {
+      "weighted_mean_effect": 0.227,
+      "total_family_measurements": 30,
+      "note": "n-weighted descriptive synthesis; datasets share model families"
+    }
+  },
+  "H1_mass_validity": {
+    "mean_mass_base": 0.0028,
+    "mean_mass_instruct": 0.0003,
+    "diagnosis": "recorded mass covers BARE digit tokens; models put their mass on space-prefixed variants, so absolute mass is a tokenization artifact, not a validity measure",
+    "behavioral_validity": {
+      "gold_discrimination_unperturbed": 0.98,
+      "ev_flip_concordance_rho": 0.557,
+      "split_half_reliability": 0.993,
+      "note": "readout-variant robustness tested directly by P18 (tokvar_harness)"
+    }
+  },
+  "H2_trait_structure": {
+    "matrix": {
+      "rubric_order": {
+        "rubric_order": 1.0,
+        "score_id": -0.17,
+        "reference_answer": -0.08,
+        "authority": 0.24,
+        "verbosity": 0.13
+      },
+      "score_id": {
+        "rubric_order": -0.17,
+        "score_id": 1.0,
+        "reference_answer": 0.21,
+        "authority": 0.01,
+        "verbosity": -0.1
+      },
+      "reference_answer": {
+        "rubric_order": -0.08,
+        "score_id": 0.21,
+        "reference_answer": 1.0,
+        "authority": 0.42,
+        "verbosity": 0.3
+      },
+      "authority": {
+        "rubric_order": 0.24,
+        "score_id": 0.01,
+        "reference_answer": 0.42,
+        "authority": 1.0,
+        "verbosity": 0.6
+      },
+      "verbosity": {
+        "rubric_order": 0.13,
+        "score_id": -0.1,
+        "reference_answer": 0.3,
+        "authority": 0.6,
+        "verbosity": 1.0
+      }
+    },
+    "mean_offdiag_spearman": 0.156
+  },
+  "H3_anchoring_equivalence": {
+    "n_families": 13,
+    "mean_change": 0.015,
+    "ci90": [
+      -0.127,
+      0.141
+    ],
+    "note": "90% CI for TOST; equivalence at margin 0.15 if CI within [-0.15, 0.15]",
+    "within_pm_0p15": true
+  }
+}

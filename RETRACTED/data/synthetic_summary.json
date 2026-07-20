@@ -1,0 +1,55 @@
+{
+  "bias_interaction": {
+    "claude": {
+      "baseline_mean": 3.5,
+      "worst_case_mean": 3.12,
+      "degradation": -0.37
+    },
+    "gpt4o": {
+      "baseline_mean": 3.48,
+      "worst_case_mean": 3.14,
+      "degradation": -0.34
+    },
+    "gemini": {
+      "baseline_mean": 3.51,
+      "worst_case_mean": 2.97,
+      "degradation": -0.53
+    },
+    "deepseek": {
+      "baseline_mean": 3.49,
+      "worst_case_mean": 3.17,
+      "degradation": -0.32
+    },
+    "llama": {
+      "baseline_mean": 3.51,
+      "worst_case_mean": 2.8,
+      "degradation": -0.71
+    }
+  },
+  "root_cause": {
+    "Mistral 7B": {
+      "rubric_order_base": 0.296,
+      "rubric_order_instruct": 0.43,
+      "score_id_base": 0.118,
+      "score_id_instruct": 0.21,
+      "ref_answer_base": 0.083,
+      "ref_answer_instruct": 0.167
+    },
+    "Gemma 2 2B": {
+      "rubric_order_base": 0.234,
+      "rubric_order_instruct": 0.458,
+      "score_id_base": 0.115,
+      "score_id_instruct": 0.241,
+      "ref_answer_base": 0.096,
+      "ref_answer_instruct": 0.188
+    },
+    "Llama 3 8B": {
+      "rubric_order_base": 0.274,
+      "rubric_order_instruct": 0.47,
+      "score_id_base": 0.117,
+      "score_id_instruct": 0.217,
+      "ref_answer_base": 0.082,
+      "ref_answer_instruct": 0.173
+    }
+  }
+}

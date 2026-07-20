@@ -1,0 +1,59 @@
+name: numbers-match
+
+# Reproducibility gate: rerun every analysis script on the committed raw data
+# and fail if any derived number, table, or JSON differs from what is committed.
+# This is the mechanical form of the paper's reproducibility claim.
+
+on:
+  push:
+    branches: [honest-rewrite, main]
+  pull_request:
+
+jobs:
+  regenerate-and-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pinned analysis stack
+        run: pip install -r paper/honest/repro/requirements-repro.txt
+      - name: Regenerate all derived results from committed raw data
+        working-directory: paper/honest/repro
+        run: |
+          python analyze_peritem.py
+          python analyze_mechanism.py
+          python analyze_gold.py
+          python analyze_robustness.py
+          python analyze_stages.py
+          python analyze_newprobes.py results_probes2.json
+          python analyze_newprobes.py results_zh.json
+          python analyze_spanpatch.py
+          python analyze_dose.py
+          python analyze_gran.py
+          python analyze_chat.py
+          python analyze_sampled.py
+          python analyze_t10.py
+          python analyze_tokvar.py
+      - name: Paper prose numbers must match derived results
+        working-directory: paper/honest/repro
+        run: python check_prose.py
+      - name: Derived outputs must match committed versions
+        run: |
+          git diff --exit-code -- \
+            paper/honest/repro/results_peritem.json \
+            paper/honest/repro/results_mechanism.json \
+            paper/honest/repro/results_gold.json \
+            paper/honest/repro/results_robustness.json \
+            paper/honest/repro/results_stages_analysis.json \
+            paper/honest/repro/results_probes2_analysis.json \
+            paper/honest/repro/results_zh_analysis.json \
+            paper/honest/repro/spanpatch_analysis.json \
+            paper/honest/repro/results_dose_analysis.json \
+            paper/honest/repro/results_gran_analysis.json \
+            paper/honest/repro/results_chat_analysis.json \
+            paper/honest/repro/results_sampled_analysis.json \
+            paper/honest/repro/results_t10_analysis.json \
+            paper/honest/repro/results_tokvar_analysis.json \
+            paper/honest/tables/

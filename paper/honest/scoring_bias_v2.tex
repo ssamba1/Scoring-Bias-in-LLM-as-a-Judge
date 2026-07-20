@@ -1,0 +1,801 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx,booktabs,amsmath,amssymb,multirow,array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage[round,authoryear]{natbib}
+\usepackage{mdframed}
+\captionsetup{font=small,labelfont=bf}
+\graphicspath{{figures/}}
+\input{macros}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\title{\textbf{Confidence Is Not Robustness}\\[2pt]
+\large Instruction Tuning Makes LLM-as-a-Judge Sharper \emph{and} More Biased,\\
+and Why a More Decisive Judge Is Not a Fairer One}
+\author{Sricharan Samba\\
+\small South Forsyth High School \\
+\small \texttt{srisamba09@gmail.com}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}\noindent
+LLM-as-a-judge systems exhibit biases: their ratings shift when superficial features
+of the task---the direction of the rubric, the format of the label, the presence of an
+example, the framing or length of the answer---are perturbed
+\citep{li2025scoring,ye2024justice}. A natural hope is that stronger, better-aligned
+judges are more robust. We show the opposite for instruction tuning. Across \NFAM{}
+open-weight families (0.1--\MAXB{}B; 26 checkpoints; over 56{,}000 scored judgments
+across all datasets) and five
+distinct bias types (including two, authority and verbosity, from outside the
+scoring-bias literature),
+\DECISIVESENTENCE{} \RESULTSENTENCE{} (mixed-effects $p<10^{-3}$). The intuition that a
+decisive judge is a robust one fails: \LINKSENTENCE{} \PREDSENTENCE{} We explain this
+with a simple theory---a judge's score is the mean of its answer distribution, so its
+bias factorizes into a \emph{decisiveness} term (the distribution's variance) and a
+\emph{responsiveness} term (how far a nuisance moves the logits); instruction tuning
+trims the first but inflates the second, and the second wins
+(Proposition~\ref{prop:main}, Corollary~\ref{cor:diff}). A causal activation-patching
+experiment localizes where this is written into the network (\PATCHSENTENCE{}), a
+preregistered stage ablation localizes it in the pipeline (SFT installs the
+responsiveness, 84--99\% of the total rise; preference tuning installs the
+confidence), a ground-truth test shows the bias corrupts real judgments
+(\GOLDSENTENCE{}), and a marginalization mitigation cuts bias by 59\% where raising
+confidence cannot. The findings replicate on public-dataset items and in Chinese, and
+two preregistered extension probes sharpen the picture: judge-side \emph{sycophancy}
+shows the largest tuning effect we measure, while numeric \emph{anchoring} stays
+null---tuning inflates responsiveness to social framing, not to every signal. We also
+show that parse-based scoring is protocol-fragile---strict parsing silently drops
+weak judges (a confound), lenient sampling drowns the signal in noise---and use the
+standard distribution-based readout instead. Every number and figure regenerates from committed raw files by committed scripts,
+verified in continuous integration; no synthetic data is used, and a full audit of a
+prior, unreliable version of this project is included.
+\end{abstract}
+
+\section{Introduction}
+LLM judges now sit at the center of model development---as reward models in RLHF, as
+automatic graders on public leaderboards, and as scalable stand-ins for human evaluation.
+A bias in the judge propagates into which models are trained, shipped, and ranked, so a
+bias that \emph{grows} with the judge's capability is especially pernicious. When one
+language model scores another's output, the score should track quality---not the wording
+of the rubric or the presence of an example. \citet{li2025scoring} showed this fails: judges change scores under three superficial perturbations---\textbf{rubric
+order} (reversing ``1=worst\dots5=best''), \textbf{score ID} (numeric vs.\ letter vs.\
+descriptive labels), and \textbf{reference answer} (a good/poor exemplar shown before
+scoring). They quantified the biases across five models but left the mechanism open:
+``the underlying causes of these scoring biases remain to be validated.''
+
+One would hope that instruction tuning, which makes a judge more capable and more
+decisive, also makes it more robust. We find the opposite, and explain why. Empirically,
+instruction tuning \emph{sharpens} the score distribution (lower entropy) but
+\emph{increases} bias across all five bias types---so, across our \NFAM{} families
+($0.1$--$\MAXB$B), more decisive judges are \emph{more} biased, not less (a negative
+decisiveness--bias correlation that persists up to the 7--8B models). The explanation is a small theory: a judge's score is the mean of its
+answer-token distribution, so its sensitivity to a nuisance factorizes into a
+\emph{decisiveness} term---the distribution's variance---and a \emph{responsiveness}
+term---how far the nuisance moves the logits (Proposition~\ref{prop:main},
+Corollary~\ref{cor:diff}; Fig.~\ref{fig:concept}). Instruction tuning trims the first but inflates the second,
+and the second dominates. The practical consequence is a warning: you cannot debias a
+judge by making it more confident; that makes it worse. We support this with a causal
+patching experiment and a ground-truth test, and we fix a measurement confound that,
+uncorrected, would have silently reversed the comparison.
+
+\begin{figure}[t]\centering
+\includegraphics[width=0.98\linewidth]{fig_concept.pdf}
+\caption{The decomposition, schematically. \textbf{(a)} A judge's score is the mean of
+its distribution over answer tokens; the distribution's spread is its
+\emph{decisiveness}. \textbf{(b)} A nuisance perturbation shifts that distribution; how
+far, is the judge's \emph{responsiveness} to it; the induced movement of the mean is the
+bias. \textbf{(c)} Empirically (\S\ref{sec:mech}), instruction tuning sharpens the
+distribution (entropy $\times 0.71$) but inflates responsiveness ($\times 1.73$), and
+bias rises ($\times 1.59$): the responsiveness term wins.}
+\label{fig:concept}\end{figure}
+
+\paragraph{The measurement confound.} The standard way to read a judge's score is to
+have it \emph{write} one and parse the text. This is protocol-fragile in two ways
+(Appendix~\ref{app:parsefail}). Under strict deterministic parsing, weak and base
+models emit no parseable label and are silently dropped---in our initial runs,
+\emph{zero} of 50 items scored for entire models---which \emph{confounds} the
+base-vs-instruct comparison, because compliance differs by checkpoint. Under a
+lenient sampled protocol most items parse for both checkpoints, but the resulting
+bias estimates are dominated by sampling noise (a preregistered comparison,
+Appendix~\ref{app:parsefail}). Parse-based scoring is thus either confounded or
+noise-dominated. We instead read
+the score as the \emph{expected value under the model's next-token distribution over
+the valid answer tokens}, which is always defined and, as \S\ref{sec:theory} shows, is
+also the right object for the mechanism.
+
+\paragraph{Contributions.}
+\begin{enumerate}\itemsep2pt
+  \item \textbf{A counterintuitive empirical finding.} Instruction tuning makes LLM
+        judges sharper yet more biased across \NFAM{} families ($0.1$--$\MAXB$B) and five
+        bias types; decisiveness correlates \emph{negatively} with bias and rank-predicts
+        it out-of-sample with the sign reversed---the more confident judge is the more
+        biased one.
+  \item \textbf{Mechanism (theory).} A decomposition of bias into a decisiveness term
+        (score-distribution variance) and a responsiveness term (Proposition~\ref{prop:main},
+        Corollary~\ref{cor:diff}), which explains why sharpening a judge need not---and in
+        our data does not---reduce its bias.
+  \item \textbf{Mechanism (measured + causal).} Both terms of the decomposition are
+        measured directly and operate at their predicted levels: decisiveness tracks
+        \emph{which judges} are biased (negatively, between judges), responsiveness tracks
+        \emph{which nuisances} bias a given judge (within judges), and their first-order
+        product predicts the per-cell direction of bias change under tuning (75\% sign
+        accuracy over 65 cells). Activation patching shows the instruct representation
+        causally carries the change in a localized network band, and a preregistered
+        alignment-stage ablation shows SFT installs the responsiveness (84--99\% of the
+        rise) while preference tuning installs the confidence.
+  \item \textbf{Measurement + mitigation.} We show the standard parse-based readout
+        \emph{confounds} base-vs-instruct comparisons (weak judges are silently dropped)
+        and remove the confound by adopting the established distribution-based readout
+        \citep{liu2023geval,wang2025judgmentdist}; we quantify a simple bias mitigation.
+  \item \textbf{Reproducibility.} One script regenerates every number from one file;
+        an audit of a prior, unreliable version of this project is included.
+\end{enumerate}
+
+\section{Related Work}
+\paragraph{Bias in LLM judges.} \citet{wang2023large} showed GPT-4 flips its
+preferred answer 46.3\% of the time under order swaps; \citet{zheng2023judging}
+systematised MT-Bench judging and noted length/position bias; \citet{ye2024justice}
+catalogued twelve bias types; \citet{chen2024humans} found humans and LLMs share
+susceptibility to irrelevant factors; \citet{shi2024position} study position bias
+systematically; \citet{gu2024survey} survey the field; \citet{park2024offsetbias}
+mitigate via debiased tuning data; and \citet{lee2025correctly} argue for careful,
+reproducible reporting---which our per-item, single-script protocol embodies. Separately,
+a literature on neural-network \emph{calibration} \citep{guo2017calibration,kadavath2022know}
+studies how well a model's confidence matches its accuracy, and \citet{saferluckier2025}
+show that high human-agreement does not imply artifact-robustness in safety judges; we
+connect confidence to judge bias at the score-distribution level---to our knowledge a
+link not previously drawn---and find, counterintuitively, that greater confidence
+accompanies greater bias. A parallel line adopts the score \emph{distribution} as the
+readout \citep{liu2023geval,wang2025judgmentdist,trustjudge2025}; we use that readout
+and make the distribution itself the object of analysis. Concurrently,
+\citet{tian2025overconfidence} diagnose judge overconfidence from the calibration side,
+and \citet{soumik2026judging} benchmark bias-mitigation strategies; our decomposition
+supplies the missing account of \emph{why} confidence-raising mitigations fail while
+nuisance-removal succeeds (\S\ref{sec:anatomy}--\ref{sec:predict}).
+
+\paragraph{Origin of scoring bias.} \citet{li2025scoring} introduced the three
+scoring biases and called for root-cause analysis. \citet{thakur2024judging} found
+base and instruct judges differ, and \citet{pan2025user} used a base-vs-instruct
+design to show instruction tuning \emph{introduces} a user-deference bias. Our
+contribution is orthogonal to the sign of any single effect: we show bias is governed
+by a two-term decomposition of the score distribution (decisiveness and responsiveness),
+determine which term dominates empirically, and give a measured, causal mechanism rather
+than a description.
+
+\begin{table}[t]\centering\small
+\caption{Positioning. Prior work documents or mitigates judge biases; we give a
+mechanism that is theoretical, measured, and causal. ``Mech.'' = offers an explanatory
+mechanism; ``Causal'' = intervention, not correlation; ``Decomp.'' = a quantitative
+decomposition of bias into judge-intrinsic and perturbation-specific terms.}
+\label{tab:positioning}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Work} & \textbf{Bias types} & \textbf{Models} & \textbf{Mech.} & \textbf{Causal} & \textbf{Decomp.} \\
+\midrule
+Wang et al.\ \citeyearpar{wang2023large}   & position           & 2  & --          & --  & -- \\
+Zheng et al.\ \citeyearpar{zheng2023judging}& length, position   & 6  & --          & --  & -- \\
+Ye et al.\ \citeyearpar{ye2024justice}     & 12 types           & 6  & --          & --  & -- \\
+Li et al.\ \citeyearpar{li2025scoring}     & 3 scoring          & 5  & --          & --  & -- \\
+Pan et al.\ \citeyearpar{pan2025user}      & user-deference     & 8  & partial     & --  & -- \\
+\midrule
+\textbf{This work} & \textbf{7 (4 new)} & \textbf{\NFAM} & \boldmath$\checkmark$ & \boldmath$\checkmark$ & \boldmath$\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Method}
+\subsection{Models, probes, items}
+We use \NFAM{} open-weight families with public base and instruct checkpoints: the
+Qwen2.5 series \citep{qwen25}, SmolLM2 \citep{smollm2}, StableLM-2 \citep{stablelm2},
+Falcon3 \citep{falcon3}, Granite-3.1 \citep{granite3}, and OLMo-2 \citep{olmo2},
+spanning 0.1--\MAXB{}B and four recipes (RLHF, SFT+DPO, SFT+RLHF, SFT+DPO+RLVR). We
+use \emph{five} bias types, each probed with a control and two perturbed variants. Three
+are the scoring biases of \citet{li2025scoring} (rubric order; score ID; reference
+answer); two more test the theory beyond scoring biases and come from the broader
+judge-bias literature: \textbf{authority} bias (response framed as written by an expert
+vs.\ a beginner) and \textbf{verbosity} bias (response padded vs.\ shortened). No
+perturbation changes true quality, so any score change is bias. Every model scores the
+same 50 mid-quality items (10 in each of 5 domains) under every variant.
+
+\subsection{Expected-value scoring}\label{sec:evs}
+A probe variant defines ordered answer tokens $a_1,\dots,a_K$ with values
+$v_1,\dots,v_K$. Reading the next-token logits $\ell$ at the score position, we score
+by the expected value under the renormalized answer distribution
+$\sigma_k = e^{\ell_{a_k}}/\sum_j e^{\ell_{a_j}}$:
+\[
+s \;=\; \textstyle\sum_k v_k\,\sigma_k, \qquad
+\hat s \;=\; v_{\arg\max_k \sigma_k}\ \text{(discrete, for flip rates)} .
+\]
+Both are always defined, so no item is dropped---removing the parse-failure confound
+(\S1, Appendix~\ref{app:parsefail}). We also record the distribution's entropy
+$H(\sigma)=-\sum_k\sigma_k\log_2\sigma_k$ (decisiveness) and the mass $\sum_k\sigma_k$
+on valid tokens before renormalization (format compliance). For each model and probe
+we summarise bias by $\Delta=\max_v \bar s_v-\min_v \bar s_v$ \citep{li2025scoring}.
+
+Expected-value (distribution-based) scoring is an established readout for LLM judges:
+\citet{liu2023geval} introduced probability-weighted scores, \citet{wang2025judgmentdist}
+show the distribution mean outperforms the mode across judging settings, and
+\citet{trustjudge2025} use distribution-sensitive scoring to reduce inconsistency. We
+claim no novelty for the readout itself. Our contributions here are (i) the demonstration
+that the parse-based alternative is not merely noisier but \emph{confounded} for
+base-vs-instruct comparisons (Appendix~\ref{app:parsefail}), and (ii) the use of the full
+distribution $\sigma$ as the measured object of the theory. Expected-value scoring is
+also the statistically correct readout. A judge that samples a written score returns a single draw from $\sigma$, an
+unbiased but high-variance estimate of the latent score $s=E_\sigma[v]$ whose sampling
+variance is exactly the $\mathrm{Var}_\sigma(v)$ of Proposition~\ref{prop:main};
+expected-value scoring returns $s$ itself, the minimum-variance estimate, deterministically
+and in one forward pass. It also exposes the entire distribution $\sigma$, without which
+neither the decisiveness statistic $H(\sigma)$ nor the mechanism could be measured. The
+same object thus repairs the measurement and enables the theory.
+
+\subsection{Statistics}
+The inferential unit is the model family (base $\Delta$ vs instruct $\Delta$ per
+probe). We report paired mean change, standardized effect $d_z$, percentile-bootstrap
+95\% CIs ($10^4$ resamples, seed 42), exact Wilcoxon tests with Holm correction across
+probes, flip rates, a $\log_{10}$-size dependence test, per-domain analysis, and a
+linear mixed-effects model with random intercepts for family and item. Because pooled
+correlations mix points from the same checkpoint, every pooled correlation in \S5 is
+accompanied by a cluster-respecting counterpart: within-checkpoint correlations, a
+family-random-intercept regression, a size-partialled correlation, and a
+family-clustered bootstrap for the out-of-sample predictor. The headline effect is
+additionally subjected to an \emph{exact} sign-flip permutation test enumerating all
+$2^{13}$ family sign patterns, and to a twelve-specification robustness sweep
+(\S\ref{sec:spec}); the bias estimator's split-half reliability is $0.99$.
+
+\section{Decomposing bias: decisiveness and responsiveness}\label{sec:theory}
+Bias is the change in the score $s$ when a nuisance perturbation shifts the logits
+$\ell \to \ell + \delta$ without changing true quality. Because $s$ is the mean of
+$v$ under $\sigma(\ell)$, its sensitivity is governed by the \emph{spread} of
+$\sigma$.
+
+\begin{proposition}\label{prop:main}
+Let $s(\ell)=\sum_k v_k\,\sigma_k(\ell)$ with $\sigma$ the softmax over answer tokens.
+Then $\nabla_\ell s = \big(\sigma_k(v_k-s)\big)_k$, and for any logit perturbation
+$\delta$,
+\[
+|s(\ell+\delta)-s(\ell)| \;\le\; \|\nabla_\ell s\|_2\,\|\delta\|_2 + O(\|\delta\|^2),
+\qquad
+\|\nabla_\ell s\|_2 \;\le\; \sqrt{\mathrm{Var}_\sigma(v)} .
+\]
+The bound is exact and assumption-free. $\mathrm{Var}_\sigma(v)=\sum_k\sigma_k(v_k-s)^2$
+vanishes when $\sigma$ is a point mass and is maximal when $\sigma$ is uniform: a judge
+that concentrates its answer distribution is, to first order, insensitive to \emph{every}
+nuisance perturbation. We use the entropy $H(\sigma)$ as the empirical decisiveness
+statistic; $H$ and $\mathrm{Var}_\sigma(v)$ share the same extremes and, in our data, are
+tightly correlated (\S\ref{sec:mech}), so the prediction is robust to which is used. We
+report the entropy--bias relationship as the primary test and verify it also holds for
+$\sqrt{\mathrm{Var}_\sigma(v)}$ directly.
+\end{proposition}
+
+\noindent\emph{Proof sketch.} $\partial s/\partial \ell_j=\sum_k v_k\,\sigma_k(\delta_{kj}-\sigma_j)
+=\sigma_j(v_j-s)$; the norm bound is Cauchy--Schwarz with
+$\sum_j\sigma_j^2(v_j-s)^2\le\sum_j\sigma_j(v_j-s)^2=\mathrm{Var}_\sigma(v)$. $\square$
+
+\smallskip
+\noindent The bound's empirical slack is modest and stable: computing
+$\|\nabla_\ell s\|$ exactly from the measured control distributions gives
+$\|\nabla_\ell s\|/\sqrt{\mathrm{Var}_\sigma(v)} = 0.45$ on average (range
+$0.38$--$0.57$ across all 130 cells), so true first-order sensitivities run at about
+half the worst-case bound, uniformly across judges.
+
+\medskip
+The bound factorizes the bias into two terms with distinct causes. Writing the
+perturbation's effect on the answer logits as $\delta_\pi$, the first-order bias is
+$|\nabla_\ell s\cdot\delta_\pi|\le\sqrt{\mathrm{Var}_\sigma(v)}\,\|\delta_\pi\|$: a
+\emph{decisiveness} term $\sqrt{\mathrm{Var}_\sigma(v)}$ that is a property of the judge
+alone, and a \emph{responsiveness} term $\|\delta_\pi\|$---how far perturbation $\pi$
+displaces the logits---that is a property of the judge$\times$perturbation. This yields
+a testable account of \emph{differential} effects.
+
+\paragraph{Measuring responsiveness.} We measure responsiveness as the total-variation
+shift $\mathrm{TV}(\sigma(\ell),\sigma(\ell+\delta))$ of the answer distribution. This
+is not a loose proxy for $\|\delta_\pi\|$ but a certified lower bound on it: writing
+$\mathrm{osc}(\delta)=\max_k\delta_k-\min_k\delta_k \le 2\|\delta\|_\infty$, the
+post-perturbation probabilities satisfy $\sigma'_k/\sigma_k = e^{\delta_k}/E_\sigma[e^{\delta}]
+\in [e^{-\mathrm{osc}(\delta)},\, e^{\mathrm{osc}(\delta)}]$, whence
+$\mathrm{TV} \le \tfrac{1}{2}\big(e^{\mathrm{osc}(\delta)}-1\big)$ and, inverting,
+$\mathrm{osc}(\delta) \ge \log\!\big(1+2\,\mathrm{TV}\big)$. A measured TV shift
+therefore certifies a minimum logit displacement, so the responsiveness rise we report
+in \S\ref{sec:mech} is a statement about the perturbation's effect on the logits
+themselves, not an artifact of the probability readout.
+
+\begin{corollary}[Differential effects]\label{cor:diff}
+Instruction tuning changes both terms. When it sharpens the score distribution it
+lowers $\sqrt{\mathrm{Var}_\sigma(v)}$ for \emph{every} perturbation; when it also
+changes how strongly the model reacts to a particular perturbation it changes
+$\|\delta_\pi\|$ for that $\pi$ only. A bias therefore \emph{decreases} if the
+sharpening dominates and \emph{increases} if a rise in responsiveness dominates. Format
+perturbations (rubric, label) act mainly through $\sqrt{\mathrm{Var}_\sigma(v)}$;
+content perturbations (exemplar, framing, length) can additionally raise
+$\|\delta_\pi\|$ if tuning makes the judge attend more to in-context content. The two
+families can thus move in opposite directions under the same tuning---which is what we
+observe.
+\end{corollary}
+
+\paragraph{The worst-case nuisance.} The bound is tight: the perturbation that maximizes
+first-order bias is $\delta^\star \propto \nabla_\ell s = (\sigma_k(v_k-s))_k$, i.e.\ the
+nuisance that shifts logit mass from below-mean toward above-mean answer tokens in
+exactly the proportion the judge already assigns them. A perturbation orthogonal to
+$\nabla_\ell s$ induces no first-order bias regardless of its size. Thus \emph{which}
+nuisances bias a given judge is itself predicted by the geometry of $\sigma$, and a
+decisive judge shrinks $\nabla_\ell s$ uniformly, closing every direction at once.
+
+\paragraph{Beyond first order.} A common worry is that a first-order bound governs only
+infinitesimal perturbations. It does not, because decisiveness controls \emph{every}
+order: along the tilt direction $\delta=t\,v$ the tilted score $s(\ell+tv)=E_{\sigma_t}[v]$
+with $\sigma_t\propto\sigma\,e^{tv}$ is the derivative of the cumulant generating function
+of $v$ under $\sigma$; its Taylor coefficients in $t$ are therefore the successive
+cumulants of $v$ under $\sigma$---variance, then the third and fourth cumulants, and so
+on---all of which vanish as $\sigma\!\to\!$ a point mass. Hence a
+maximally decisive judge is insensitive to a nuisance of \emph{any} magnitude, not merely
+a small one---strengthening Proposition~\ref{prop:main} from a local to a global
+statement in the decisive limit.
+
+\begin{corollary}[Bias is a calibration failure]\label{cor:calib}
+Define decisiveness $D(\sigma)=1-H(\sigma)/\log_2 K\in[0,1]$. A judge with $D=1$ (a point
+mass) has $\mathrm{Var}_\sigma(v)=0$ and hence zero nuisance-bias to all orders; a judge
+with $D=0$ (uniform) attains the maximal $\mathrm{Var}_\sigma(v)$ and the largest bias.
+Robustness to nuisance perturbations and confidence in the score are therefore the same
+axis: an over-hedging judge is not merely less informative, it is maximally
+manipulable. This holds \emph{at fixed responsiveness} $\|\delta_\pi\|$; empirically,
+responsiveness co-varies with decisiveness under instruction tuning
+(\S\ref{sec:mech}), which is exactly why the naive reading of this corollary fails in
+the data.
+\end{corollary}
+
+\medskip
+Proposition~\ref{prop:main} and Corollaries~\ref{cor:diff}--\ref{cor:calib} yield
+falsifiable predictions, preregistered before
+analysis (see \texttt{PREREGISTRATION.md}) and tested in \S\ref{sec:mech}--\ref{sec:predict}.
+The decomposition makes a sharp prediction we preregistered---and the data overturned,
+which is the result we report. The naive first-order reading (\textbf{P2$_0$}: since bias
+is bounded by $\sqrt{\mathrm{Var}_\sigma(v)}$, a sharper judge should be less biased, so
+entropy should correlate \emph{positively} with bias) is refuted---the correlation is
+\emph{negative} (\S\ref{sec:mech}). What survives is the decomposition itself: bias is
+decisiveness~$\times$~responsiveness, and when responsiveness rises with capability the
+sign flips. We further test \textbf{(P1)} instruction tuning lowers $H(\sigma)$ (it
+does); \textbf{(P3)} transplanting the instruct score-position representation into the
+base model shifts its score in a localized band (it does); and \textbf{(P5)} whether
+$H(\sigma)$ predicts bias out-of-sample (it does---but with the \emph{opposite} sign to
+the naive P2$_0$, so the predictive content is ``more confident, more biased''). A
+refuted \emph{sign} is the point: the theory is a decomposition of bias, not a promise
+that decisiveness wins.
+
+\section{Results}
+\subsection{Instruction tuning increases scoring bias}
+\begin{table}[t]\centering\small
+\caption{Effect of instruction tuning on each scoring bias across \NFAM{} families.
+$\Delta$ = max inter-variant score spread (lower = less biased); \textbf{bold} change
+= bootstrap 95\% CI excludes zero. $p_{\text{Holm}}$ corrected across probes; flip
+rate is discrete-score disagreement with the control variant.}
+\label{tab:v2main}\input{tables/tab_v2_summary.tex}
+\end{table}
+\begin{figure}[t]\centering
+\includegraphics[width=0.72\linewidth]{fig1_base_vs_instruct.pdf}
+\caption{Mean bias before/after instruction tuning across \NFAM{} families.}
+\label{fig:v2main}\end{figure}
+\RESULTSPROSE{}
+
+\subsection{Robustness of the headline: twelve specifications, one exact test}\label{sec:spec}
+\SPECPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.6\linewidth]{fig_forest.pdf}
+\caption{Per-family change in mean bias under instruction tuning (probe-resampled
+95\% CIs), ordered by model size. Red dashed line: cross-family mean, with the exact
+sign-flip permutation $p$ over all $2^{13}$ sign patterns.}
+\label{fig:forest}\end{figure}
+
+\subsection{Mechanism: sharper, but more biased}\label{sec:mech}
+\MECHPROSE{}
+\begin{figure*}[t]\centering
+\includegraphics[width=0.98\linewidth]{fig_mech.pdf}
+\caption{The decomposition, both terms measured ($n=\NFAM$ families). \textbf{(a)}
+Instruction tuning lowers score entropy---judges become more decisive. \textbf{(b)} Yet
+across all families, five bias types, and both checkpoints ($n=130$), decisiveness
+correlates \emph{negatively} with bias ($\rho=-0.41$)---the naive reading of
+Proposition~\ref{prop:main} is refuted. \textbf{(c)} Instruction tuning \emph{raises} the
+responsiveness term (nuisance-induced distribution shift; $d_z=1.44$). \textbf{(d)}
+Responsiveness correlates strongly and \emph{positively} with bias ($\rho=+0.82$)---it is
+the dominant driver (Corollary~\ref{cor:diff}). Tuning trims (a) a little but inflates (c)
+a lot, so bias rises.}
+\label{fig:mech}\end{figure*}
+
+\subsection{The decomposition predicts cell-by-cell}\label{sec:crossover}
+\CROSSPROSE{}
+
+\subsection{Causal test: patching localizes the fix}\label{sec:patch}
+\PATCHPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.66\linewidth]{fig_patch.pdf}
+\caption{Causal localization (P3). Fraction of items in which patching the instruct
+model's residual representation into the base model at a given layer moves the base
+score \emph{toward} the instruct score. The fix is inert early and transfers fully from
+a mid-network band onward.}
+\label{fig:patch}\end{figure}
+
+\subsection{Where responsiveness comes from: attention to nuisance tokens}\label{sec:attn}
+The responsiveness term rises with tuning (\S\ref{sec:mech}), but why? A natural
+hypothesis is that instruction tuning teaches the judge to \emph{attend} to injected
+context---including the nuisance. We test this directly: for the two content
+perturbations that inject text (a good exemplar; an ``expert'' authority framing), we
+measure the attention the score-position token pays to the injected nuisance tokens,
+averaged over layers and heads, base vs instruct. \ATTNPROSE{}
+
+\subsection{Where the nuisance is encoded: span patching}\label{sec:spanpatch}
+\SPANPROSE{}
+
+\subsection{The same relation across five bias types}\label{sec:general}
+The decomposition applies to \emph{any} nuisance, so the negative decisiveness--bias
+relation should not be specific to the format-level scoring biases. We test it on the
+two additional bias types (authority, verbosity), which perturb content rather than
+label format. \GENPROSE{}
+
+\subsection{Two preregistered probes: sycophancy confirms, anchoring refuses}\label{sec:newprobes}
+\NEWPROBEPROSE{}
+
+\subsection{Dose--response: a preregistered failure}\label{sec:dose}
+\DOSEPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.85\linewidth]{fig_dose.pdf}
+\caption{Dose--response (preregistered P14; \emph{failed}). $|$Score shift$|$ vs.\
+nuisance dose for every family$\times$checkpoint cell. The shift appears at the
+first dose unit and then plateaus or wobbles---a step function of presence, not a
+graded function of magnitude.}
+\label{fig:dose}\end{figure}
+
+\subsection{Scale granularity: the range term turns as predicted}\label{sec:gran}
+\GRANPROSE{}
+
+\subsection{Bias is predictable from decisiveness---with the sign reversed}\label{sec:predict}
+Can a judge's bias be estimated from \emph{one unperturbed forward pass}---its
+control-condition score entropy? We test this out-of-sample with leave-one-family-out
+cross-validation. \PREDPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.5\linewidth]{fig_predictor.pdf}
+\caption{Bias predicted out-of-sample from control-condition entropy alone
+(leave-one-family-out $R^2=0.27$). Prediction works, but because the entropy--bias
+relation is negative, it says the more confident judges are the more biased---an
+inverted screen. Each point is a model.}
+\label{fig:predictor}\end{figure}
+
+\subsection{Bias corrupts real quality judgments---and tuning does not protect them}\label{sec:gold}
+Does scoring bias actually matter, or is it cosmetic score jitter? We test it against
+ground truth: for 20 questions we write a genuinely good and a genuinely bad answer, so
+a competent judge scores good above bad. We then apply nuisance perturbations and ask
+whether the judge still ranks them correctly. \GOLDPROSE{}
+\begin{table}[t]\centering\small
+\caption{Ground-truth discrimination under nuisance perturbations. \emph{Accuracy under
+bias} = fraction of good/bad gold pairs still ranked correctly; \emph{margin drop} =
+loss of the good$-$bad score margin relative to the unperturbed control.}
+\label{tab:gold}\input{tables/tab_gold.tex}
+\end{table}
+
+\subsection{Chat-template control}\label{sec:chat}
+\CHATPROSE{}
+
+\subsection{Robustness to prompt template}\label{sec:template}
+A single scoring template could drive the effect. We re-run the Qwen2.5 families under
+three surface-different templates (differing headers, delimiters, and phrasing;
+Appendix~\ref{app:prompts}). \MTPROSE{}
+
+\subsection{Which alignment stage installs the bias?}\label{sec:stages}
+\STAGEPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.98\linewidth]{fig_stages.pdf}
+\caption{Alignment-stage ablation (preregistered P7--P9). \textbf{(a)} Every stage
+sharpens the score distribution, preference stages most. \textbf{(b)} Responsiveness
+rises almost entirely at the \emph{SFT} step (84--99\% of the total rise).
+\textbf{(c)} Bias follows responsiveness, jumping at SFT and flat thereafter. SFT
+installs the bias; DPO/RLVR install the confidence.}
+\label{fig:stages}\end{figure}
+
+\subsection{Replication on public-dataset items}\label{sec:dolly}
+\REPLPROSE{}
+
+\subsection{Replication in Chinese}\label{sec:zh}
+\ZHPROSE{}
+
+\subsection{Flip rates, scale, recipe, and domain}\label{sec:secondary}
+\SECONDARYPROSE{}
+\begin{table}[t]\centering\footnotesize
+\caption{Per-family bias $\Delta$ before/after instruction tuning. B = parameters
+(billions); Train = alignment recipe.}
+\label{tab:v2family}\setlength{\tabcolsep}{4pt}\input{tables/tab_v2_family.tex}
+\end{table}
+
+\subsection{The anatomy of bias variance}\label{sec:anatomy}
+\ANATPROSE{}
+
+\subsection{Mixed-effects confirmation and mitigation}\label{sec:lmm}
+\LMMPROSE{} \MITIGPROSE{}
+
+\section{Discussion}
+\paragraph{Bias is one mechanism, not a taxonomy.} A large literature enumerates judge
+biases---position, verbosity, self-preference, authority, and the three scoring biases
+studied here---as if each were a separate defect. Proposition~\ref{prop:main} says they
+share a single form: the score is a mean over a distribution, and any nuisance moves that
+mean by an amount that factorizes into the judge's decisiveness and its responsiveness to
+that nuisance. The naive hope---that a decisive judge is thereby a robust one---is exactly
+what our data refute: because responsiveness rises with capability, more decisive judges
+end up \emph{more} manipulable. The value of the decomposition is not a debiasing recipe
+via confidence, but a correct diagnosis of which term to attack.
+
+\paragraph{Confidence is an inverted screen.} One can audit a judge's bias risk from a
+single unperturbed call by reading its score entropy---our predictor
+(\S\ref{sec:predict}) rank-orders held-out judges by bias ($\rho=0.58$; the quantitative
+$R^2$ is not yet established at 13 families). And the screen runs \emph{backwards}:
+because the entropy--bias relation is negative, low entropy (high confidence) flags
+high bias. A
+practitioner who trusts the more confident judge, as intuition suggests, would
+systematically pick the more biased one. \GOLDSENTENCE{} \DISCUSSION{}
+
+\paragraph{Reconciling opposite prior claims.} Reports disagree on whether instruction
+tuning helps or harms judge reliability: \citet{pan2025user} find it \emph{introduces} a
+bias, whereas one might expect stronger judges to be fairer. Corollary~\ref{cor:diff}
+shows why a single model can look either way depending on the perturbation---tuning lowers
+the decisiveness term for all perturbations but raises the responsiveness term for those
+it engages with more, so different bias types need not move together. In our data the
+responsiveness rise dominates and bias increases across all five types; the effective
+mitigation is therefore not to make the judge sharper but to remove the nuisance
+dimension (e.g.\ average over label formats, withhold exemplars), which we show cuts bias
+by 59\% where a more decisive readout makes it worse.
+
+\paragraph{What kind of thing is judge bias?} The preregistered extensions,
+including their failures, converge on a characterization. Bias is
+\emph{presence-triggered}, not dose-scaled (\S\ref{sec:dose}): the nuisance acts as
+a categorical feature, not a graded stimulus. For the authority channel it is
+\emph{encoded, not attended}: carried by what the early-to-mid layers write into the
+nuisance span (\S\ref{sec:spanpatch}) while attention stays flat
+(\S\ref{sec:attn})---though the exemplar channel is distributed, so channels differ.
+It is a property of the \emph{judge--perturbation pair}, not of the judge (trait
+correlations near zero, the dominant ANOVA share in the interaction;
+\S\ref{sec:anatomy}) nor of the item (item profiles uncorrelated across judges). It
+is \emph{selectively social}: tuning inflates responsiveness to opinions and
+framings (sycophancy, the largest effect) but not to numeric priors (anchoring,
+null; \S\ref{sec:newprobes}). And it \emph{attenuates with scale}
+(\S\ref{sec:secondary}). Together these point at a specific origin: instruction
+tuning teaches small judges to treat socially-marked context as evidence, and each
+probe is a different socially-marked feature---not a taxonomy of separate defects,
+and not a single scalar disposition either.
+
+\paragraph{Connection to calibration.} Decisiveness is the judge's confidence in its own
+score, so the decisiveness term is a calibration quantity in the sense of
+\citet{guo2017calibration,kadavath2022know}. In isolation
+(Corollary~\ref{cor:calib}) it would make a hedging judge the more manipulable one; but
+empirically the responsiveness term reverses this, and the more confident,
+instruction-tuned judges are the more biased. Confidence and robustness, though linked
+through the score distribution, are \emph{not} aligned in the direction intuition
+suggests---so confidence-thresholding is not a safe debiasing screen.
+
+\paragraph{On honesty of measurement.} The parse-failure confound (\S1) is a cautionary
+tale: an intuitive protocol silently produced no data on exactly the models most prone
+to bias, which would have manufactured a clean but false base-vs-instruct story. We
+release the raw run logs, a single-script reproduction, and a full audit
+(\texttt{DATA\_INTEGRITY\_AUDIT.md}) of an earlier, unreliable version of this project,
+because a mechanism claim is only as trustworthy as the measurement under it.
+
+\section{Limitations}
+\begin{enumerate}\itemsep2pt
+  \item \textbf{Open weights $\leq$\MAXB{}B.} Public base+instruct pairs are required,
+        so the largest and closed frontier judges are out of scope.
+  \item \textbf{Family as unit; greedy decoding.} Powered for large effects; deterministic
+        scores give no within-model variance. The core relation is robust to prompt
+        wording (\S\ref{sec:template}, three templates) and replicates in Chinese
+        (\S\ref{sec:zh}), but all templates are instruction-style; radically different
+        scoring interfaces are untested, and the Chinese replication covers one
+        (natively bilingual) model series.
+  \item \textbf{Theory scope.} The all-order argument shows decisiveness controls every
+        cumulant in the decisive limit, but the finite-entropy regime is characterized
+        only up to the cumulants we compute; a closed form of the bias for arbitrary
+        $\sigma$ and perturbation $\delta$ is left open.
+  \item \textbf{Expected-value vs sampled scores.} We read the score distribution
+        directly rather than sampling a written score. The probability mass these
+        judges place on a bare score token is small (much of the numeric mass sits on
+        tokenizer variants such as space-prefixed digits), so expected-value scoring
+        reads the \emph{conditional} distribution over a valid-token subset---the
+        standard constrained-scoring readout, and exactly why parse-based scoring
+        fails. Its validity is behavioral rather than mass-based: near-perfect
+        unperturbed gold discrimination (\S\ref{sec:gold}), agreement with discrete
+        flip rates ($\rho=0.56$), and $0.99$ split-half reliability.
+  \item \textbf{Ambiguity of the reversed-rubric ground-truth condition.} Under a
+        \emph{reversed} rubric, a judge that correctly follows the instruction should
+        rank the good answer \emph{below} the bad one; our accuracy metric scores it
+        that way. A judge that instead ignores the (deliberately perverse) reversal and
+        keeps ranking good above bad is counted as ``wrong,'' though one could call it
+        robust. The verbosity and authority ground-truth conditions carry no such
+        ambiguity, and our central bias results (\S\ref{sec:mech}) do not depend on this
+        condition.
+  \item \textbf{Verbosity's terse variant.} The padded variant adds content-free
+        filler and cannot change true quality; the terse variant truncates to the first
+        sentence, which can remove information. The verbosity $\Delta$ is therefore an
+        upper bound on pure length bias; the padded-vs-control contrast alone, which is
+        quality-preserving, shows the same direction (mean $|\Delta|$
+        $0.29\!\to\!0.53$ after tuning, 11/13 families). Empirically the concern is
+        immaterial: a variant-level decomposition attributes $99\%$ of the measured
+        verbosity bias to the padded variant and $1\%$ to the terse one.
+  \item \textbf{Readout dependence of the increase.} The tuning-induced \emph{increase}
+        is a property of the continuous expected-value score; after quantizing to the
+        argmax the increase survives only for the content probes
+        (\S\ref{sec:spec}). Claims about the increase therefore attach to the
+        distributional readout we recommend, not to every scoring pipeline.
+  \item \textbf{Attention metric.} Our null (\S\ref{sec:attn}) uses raw attention mass
+        from the score position to the nuisance span, averaged over layers and heads.
+        Attention weights are an imperfect proxy for information flow; a finer-grained
+        attribution (e.g.\ attention rollout or path patching) could yet reveal an
+        attention-mediated route. The null rules out the coarse version of the
+        hypothesis, not every version.
+\end{enumerate}
+
+\section{Conclusion}
+\CONCLUSION{}
+
+\section*{Reproducibility}
+Every statistic and figure is produced by \texttt{repro/analyze\_peritem.py},
+\texttt{repro/analyze\_mechanism.py}, \texttt{repro/analyze\_gold.py},
+\texttt{repro/analyze\_robustness.py}, \texttt{repro/make\_mech\_figures.py}, and
+\texttt{repro/make\_concept\_figure.py} from the committed raw files
+(\texttt{results\_scaled.json}, \texttt{gold\_results.json}, \texttt{patch\_results.json},
+\texttt{results\_multitemplate.json}, \texttt{attn\_results.json},
+\texttt{results\_dolly.json.gz}, \texttt{results\_stages.json.gz},
+\texttt{results\_probes2.json}; collected by
+\texttt{repro/\{scaled,gold,patch,multitemplate,attention,dolly,stage,probes2\}\_harness.py}), seed 42.
+A continuous-integration check reruns every analysis script on the committed raw files
+and fails on any numerical drift. No synthetic or
+simulated data is used; a full integrity audit of a prior, fabricated version is included
+as \texttt{DATA\_INTEGRITY\_AUDIT.md}.
+
+\section*{Ethics and Broader Impact}
+No human subjects. All models are public open-weight checkpoints used under their
+licenses. Compute is a free tier at zero monetary cost (Appendix~\ref{app:compute}).
+Two deployment implications deserve emphasis. First, LLM judges gate real decisions
+---which models ship, which responses are rewarded in RLHF---and our results say the
+natural heuristic of trusting the most confident judge selects the most biased one;
+evaluation pipelines should audit judges with perturbation suites rather than
+confidence. Second, responsiveness is an attack surface: an adversary who controls
+any part of the judged context (an ``expert'' framing, an exemplar, padding) can
+steer a responsive judge's scores; the marginalization and nuisance-removal defenses
+of \S\ref{sec:lmm} are also hardening measures. We release everything needed to
+reproduce and to audit, including the record of a prior fabricated version of this
+project, because evaluation research that cannot be audited invites exactly the
+failure it studies.
+
+\appendix
+\section{The parse-failure confound}\label{app:parsefail}
+Our initial generation-and-parse runs scored \emph{zero} of 50 items for every model
+and probe: under strict deterministic parsing, weak/base models emitted no parseable
+label after the score header, so every item was discarded and each model returned
+null. Because base models comply less than instruct models, this is a confound, not
+noise. Expected-value scoring (\S\ref{sec:evs}) removes it. Run logs are in the
+repository.
+
+A preregistered comparison (P16) sharpens---and partly \emph{corrects}---this story.
+Under a lenient sampled protocol (temperature 1, $k=8$ samples, first-digit regex),
+parse rates are nearly equal across checkpoints (base $0.80$, instruct $0.83$ on
+three small families): the zero-parse result above was a property of the strict
+protocol, not an inability of base models to emit digits. But the rescue is
+illusory: the sampled bias estimates do not recover the expected-value ordering
+($\rho=-0.20$, $p=0.53$, $n=12$ cells)---at practical sample counts the sampled
+estimator's own variance ($\mathrm{Var}_\sigma(v)/k$ per item) swamps the bias
+signal, exactly the variance the expected-value readout eliminates
+(\S\ref{sec:evs}). Both preregistered clauses of P16 therefore \emph{failed} as
+stated, and the correct summary is the weaker, more precise one: parse-based
+scoring is either confounded (strict) or noise-dominated (lenient).
+
+A second preregistered check (P18) closes the token-mass question. A full vocab
+scan shows these tokenizers have \emph{no} space-prefixed digit tokens: the bare
+digits are the complete digit-token set at the score position, and the bulk of the
+numeric mass ($0.91$--$0.96$) sits one position later, after the space token.
+Scoring at that space-appended position---the high-mass readout---agrees with the
+bare-token conditional cell-by-cell ($\rho=0.79$, above the preregistered $0.7$
+bar), and the instruct$>$base effect holds under the union readout (4/4 families).
+One residual is reported honestly: at the high-mass position the effect is positive
+on average ($+0.06$) but in only 2/4 of these smallest families. The conditional
+readout thus tracks the model's true high-mass score preference; the paper's
+findings are not an artifact of reading low-mass tokens.
+
+\section{All-order check: cumulants under tuning}\label{app:cumulants}
+The ``beyond first order'' argument (\S\ref{sec:theory}) says decisiveness controls
+every cumulant of $v$ under $\sigma$, all of which vanish in the decisive limit. The
+data agree on the distribution side: instruction tuning shrinks the control-condition
+variance $\kappa_2$ from $1.80$ to $0.99$ ($11/13$ families), the third cumulant
+$|\kappa_3|$ from $1.03$ to $0.56$, and the excess kurtosis $\kappa_4$ from $-3.79$
+to $-0.29$---every measured cumulant moves toward the decisive limit. Yet bias
+\emph{rises}. The all-order argument thus sharpens the paper's point rather than
+rescuing the naive prediction: no order of the decisiveness expansion can explain the
+increase, so the responsiveness term must---and, measured directly
+(\S\ref{sec:mech}), does---carry it.
+
+The full series is explicit. Along the tilt direction $\delta=t\,v$ the score is the
+derivative of the cumulant generating function $K(t)=\log E_\sigma[e^{tv}]$, so
+\[
+s(\ell+t v)-s(\ell) \;=\; \kappa_2\,t \;+\; \tfrac{\kappa_3}{2}\,t^2 \;+\;
+\tfrac{\kappa_4}{6}\,t^3 \;+\; O(t^4),
+\]
+with $\kappa_n$ the cumulants of $v$ under $\sigma$. Plugging in the measured mean
+cumulants gives $1.80\,t - 0.52\,t^2 - 0.63\,t^3$ for base and
+$0.99\,t - 0.28\,t^2 - 0.05\,t^3$ for instruct judges: the negative higher cumulants
+are what bends the exact response below the linear term.
+Figure~\ref{fig:exact} compares the \emph{exact} tilted score change
+$s(\ell+tv)-s(\ell)$ (computable in closed form as the derivative of the cumulant
+generating function) against the first-order term $t\,\mathrm{Var}_\sigma(v)$, for the
+mean base and instruct control distributions. The exact response saturates while the
+first-order term grows linearly, so the first-order bound is \emph{conservative} at
+large perturbations: using it in the per-cell test (\S\ref{sec:crossover}) can only
+understate, not overstate, the decomposition's fit.
+\begin{figure}[t]\centering
+\includegraphics[width=0.55\linewidth]{fig_exact.pdf}
+\caption{Exact tilted score change vs.\ the first-order term along the worst-case
+direction, for the mean base and instruct control distributions. The exact curve
+saturates below the linear term: first-order analysis is conservative.}
+\label{fig:exact}\end{figure}
+
+\section{Exact prompts}\label{app:prompts}
+All probes share the template below; a variant changes only the italic slot(s). Answer
+tokens are $\{1,\dots,5\}$ (numeric), $\{A,\dots,E\}$ (letter, mapped $A\!=\!5$), or
+$\{$Poor,\dots,Excellent$\}$ (descriptive).
+\begin{quote}\ttfamily\small
+\{\emph{prefix}\}Evaluate the following response to the instruction \emph{\{scale\}}.\\
+\#\#\# Instruction: \{item\}\\
+\#\#\# Response: \{\emph{transform}(response)\}\\
+\#\#\# \{header\}:
+\end{quote}
+\textbf{Rubric order} varies \emph{scale}: ``\dots 1 is worst and 5 is best'' (control) /
+``\dots 1 is best and 5 is worst'' (reversed) / a scrambled mapping. \textbf{Score ID}
+varies the answer-token set and header (Score/Grade/Rating). \textbf{Reference answer}
+and \textbf{authority} vary \emph{prefix} (empty / good / poor exemplar; expert / novice
+framing). \textbf{Verbosity} varies \emph{transform} (identity / padded / first-sentence).
+
+\section{Notation}\label{app:notation}
+\begin{table}[h]\centering\small
+\begin{tabular}{ll}
+\toprule
+$a_k, v_k$ & answer tokens and their numeric values ($K=5$ throughout) \\
+$\ell$ & next-token logits at the score position \\
+$\sigma_k(\ell)$ & renormalized softmax over answer tokens \\
+$s = E_\sigma[v]$ & expected-value score \\
+$\hat s$ & discrete (argmax) score \\
+$H(\sigma)$ & score-distribution entropy (bits); decisiveness statistic \\
+$\mathrm{Var}_\sigma(v)$, $\kappa_n$ & variance and higher cumulants of $v$ under $\sigma$ \\
+$\delta_\pi$ & logit displacement induced by nuisance perturbation $\pi$ \\
+$\|\delta_\pi\|$ & responsiveness; measured as mean TV shift of $\sigma$ \\
+$\Delta$ & bias: max inter-variant spread of mean scores \citep{li2025scoring} \\
+$D(\sigma)$ & normalized decisiveness $1-H(\sigma)/\log_2 K$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Compute disclosure}\label{app:compute}
+All experiments ran on a single free-tier Kaggle GPU (NVIDIA P100, 16\,GB); total
+{\raise.17ex\hbox{$\scriptstyle\sim$}}17 GPU-hours at zero monetary cost. Approximate
+per-experiment cost: 13-family main run $\sim$3\,h; stage ablation $\sim$3\,h; new
+bias types $\sim$2\,h; multi-template $\sim$1.5\,h; public-items replication
+$\sim$1.5\,h; Chinese replication $\sim$1.5\,h; activation patching, span patching,
+14B (4-bit), ground-truth, and attention runs $\sim$0.5--1\,h each. The environment is
+pinned (torch 2.6.0+cu124, transformers 4.49.0); all analysis is CPU-only and pinned
+in \texttt{repro/requirements-repro.txt}.
+
+\section{Practical recommendations}\label{app:practice}
+For practitioners deploying an LLM judge: \textbf{(1)}~read the score as an expected
+value over the answer tokens, never by parsing free text---parsing silently discards the
+hardest cases and biases comparisons. \textbf{(2)}~Do \emph{not} screen judges by
+confidence: score entropy carries out-of-sample \emph{rank} signal for bias
+(\S\ref{sec:predict}), but with the sign reversed---the sharper (lower-entropy)
+judge is the \emph{more} biased one, so selecting the most confident judge is
+anti-calibrated. (With 13 families the quantitative predictor is suggestive, not
+established; use it as a red flag, not a measurement.) \textbf{(3)}~Do \emph{not} expect a
+stronger or more instruction-tuned judge to be less biased---in our data it is more
+biased; instead reduce bias by removing the nuisance dimension (average over label
+formats, withhold exemplars, control response length), the intervention that actually
+lowers measured bias. \textbf{(4)}~Measure bias directly with a small perturbation suite
+and report it per channel (format vs content); a single aggregate, or a confidence proxy,
+hides the effect.
+
+\bibliographystyle{plainnat}
+\bibliography{honest}
+\end{document}

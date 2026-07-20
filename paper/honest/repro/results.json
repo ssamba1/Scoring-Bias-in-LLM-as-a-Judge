@@ -1,0 +1,204 @@
+{
+  "dataset": "results_rootcause\\t4fam_results.json",
+  "provenance": "Per-variant mean scores from Kaggle T4 greedy-decode runs; hand-transcribed via build_t4fam_from_output.py. Family-level only.",
+  "n_families": 7,
+  "seed": 42,
+  "n_bootstrap": 10000,
+  "per_family": {
+    "Qwen2.5-0.5B": {
+      "params_b": 0.5,
+      "training": "RLHF",
+      "rubric_order": {
+        "base": 0.1,
+        "instruct": 0.2,
+        "change": 0.1
+      },
+      "score_id": {
+        "base": 1.3,
+        "instruct": 0.4,
+        "change": -0.9
+      },
+      "reference_answer": {
+        "base": 2.6,
+        "instruct": 1.2,
+        "change": -1.4
+      }
+    },
+    "Qwen2.5-1.5B": {
+      "params_b": 1.5,
+      "training": "RLHF",
+      "rubric_order": {
+        "base": 0.1,
+        "instruct": 0.4,
+        "change": 0.3
+      },
+      "score_id": {
+        "base": 3.1,
+        "instruct": 1.8,
+        "change": -1.3
+      },
+      "reference_answer": {
+        "base": 2.6,
+        "instruct": 1.8,
+        "change": -0.8
+      }
+    },
+    "Llama-3.2-1B": {
+      "params_b": 1.0,
+      "training": "RLHF",
+      "rubric_order": {
+        "base": 0.0,
+        "instruct": 0.2,
+        "change": 0.2
+      },
+      "score_id": {
+        "base": 1.3,
+        "instruct": 2.0,
+        "change": 0.7
+      },
+      "reference_answer": {
+        "base": 2.2,
+        "instruct": 2.6,
+        "change": 0.4
+      }
+    },
+    "Llama-3.2-3B": {
+      "params_b": 3.0,
+      "training": "RLHF",
+      "rubric_order": {
+        "base": 3.5,
+        "instruct": 0.8,
+        "change": -2.7
+      },
+      "score_id": {
+        "base": 3.7,
+        "instruct": 2.4,
+        "change": -1.3
+      },
+      "reference_answer": {
+        "base": 3.1,
+        "instruct": 2.5,
+        "change": -0.6
+      }
+    },
+    "Gemma-2-2B": {
+      "params_b": 2.0,
+      "training": "RLHF",
+      "rubric_order": {
+        "base": 0.1,
+        "instruct": 0.1,
+        "change": 0.0
+      },
+      "score_id": {
+        "base": 2.1,
+        "instruct": 0.6,
+        "change": -1.5
+      },
+      "reference_answer": {
+        "base": 2.6,
+        "instruct": 1.1,
+        "change": -1.5
+      }
+    },
+    "StableLM-2-1.6B": {
+      "params_b": 1.6,
+      "training": "SFT",
+      "rubric_order": {
+        "base": 0.4,
+        "instruct": 0.3,
+        "change": -0.1
+      },
+      "score_id": {
+        "base": 2.9,
+        "instruct": 2.5,
+        "change": -0.4
+      },
+      "reference_answer": {
+        "base": 3.8,
+        "instruct": 3.4,
+        "change": -0.4
+      }
+    },
+    "Qwen2.5-7B": {
+      "params_b": 7.0,
+      "training": "RLHF",
+      "rubric_order": {
+        "base": 0.6,
+        "instruct": 0.0,
+        "change": -0.6
+      },
+      "score_id": {
+        "base": 2.5,
+        "instruct": 0.4,
+        "change": -2.1
+      },
+      "reference_answer": {
+        "base": 2.4,
+        "instruct": 0.9,
+        "change": -1.5
+      }
+    }
+  },
+  "summary": {
+    "rubric_order": {
+      "label": "Rubric order",
+      "base_mean": 0.686,
+      "base_median": 0.1,
+      "instruct_mean": 0.286,
+      "instruct_median": 0.2,
+      "mean_change": -0.4,
+      "pct_change": -58.3,
+      "cohen_dz": -0.379,
+      "boot_ci95": [
+        -1.214,
+        0.129
+      ],
+      "ci_excludes_zero": false,
+      "wilcoxon_stat": 8.0,
+      "wilcoxon_p": 0.6875,
+      "n_families_decreased": 3,
+      "n_families_nonzero": 6,
+      "n_families": 7
+    },
+    "score_id": {
+      "label": "Score ID",
+      "base_mean": 2.414,
+      "base_median": 2.5,
+      "instruct_mean": 1.443,
+      "instruct_median": 1.8,
+      "mean_change": -0.971,
+      "pct_change": -40.2,
+      "cohen_dz": -1.076,
+      "boot_ci95": [
+        -1.543,
+        -0.328
+      ],
+      "ci_excludes_zero": true,
+      "wilcoxon_stat": 2.0,
+      "wilcoxon_p": 0.0469,
+      "n_families_decreased": 6,
+      "n_families_nonzero": 7,
+      "n_families": 7
+    },
+    "reference_answer": {
+      "label": "Reference answer",
+      "base_mean": 2.757,
+      "base_median": 2.6,
+      "instruct_mean": 1.929,
+      "instruct_median": 1.8,
+      "mean_change": -0.829,
+      "pct_change": -30.1,
+      "cohen_dz": -1.177,
+      "boot_ci95": [
+        -1.271,
+        -0.314
+      ],
+      "ci_excludes_zero": true,
+      "wilcoxon_stat": 1.5,
+      "wilcoxon_p": 0.0469,
+      "n_families_decreased": 6,
+      "n_families_nonzero": 7,
+      "n_families": 7
+    }
+  }
+}

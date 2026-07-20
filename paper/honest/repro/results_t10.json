@@ -1,0 +1,2676 @@
+{
+  "templates": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10"
+  ],
+  "n_items": 20,
+  "errors": {},
+  "results": {
+    "SmolLM2-135M": {
+      "base": {
+        "T01": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.9038,
+              "mean_entropy": 2.0614
+            },
+            "reversed": {
+              "mean": 2.9102,
+              "mean_entropy": 2.0618
+            },
+            "random": {
+              "mean": 2.9088,
+              "mean_entropy": 2.1115
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.9038,
+              "mean_entropy": 2.0614
+            },
+            "letter": {
+              "mean": 4.553,
+              "mean_entropy": 1.112
+            },
+            "descriptive": {
+              "mean": 2.9286,
+              "mean_entropy": 1.7949
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.9038,
+              "mean_entropy": 2.0614
+            },
+            "expert": {
+              "mean": 2.8523,
+              "mean_entropy": 2.056
+            },
+            "novice": {
+              "mean": 2.9662,
+              "mean_entropy": 2.0518
+            }
+          }
+        },
+        "T02": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.267,
+              "mean_entropy": 1.7913
+            },
+            "reversed": {
+              "mean": 2.3003,
+              "mean_entropy": 1.8014
+            },
+            "random": {
+              "mean": 2.3257,
+              "mean_entropy": 1.9067
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.267,
+              "mean_entropy": 1.7913
+            },
+            "letter": {
+              "mean": 4.3144,
+              "mean_entropy": 1.5286
+            },
+            "descriptive": {
+              "mean": 1.9351,
+              "mean_entropy": 1.3256
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.267,
+              "mean_entropy": 1.7913
+            },
+            "expert": {
+              "mean": 2.3378,
+              "mean_entropy": 1.7996
+            },
+            "novice": {
+              "mean": 2.3466,
+              "mean_entropy": 1.7921
+            }
+          }
+        },
+        "T03": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.4087,
+              "mean_entropy": 2.1009
+            },
+            "reversed": {
+              "mean": 2.4072,
+              "mean_entropy": 2.0992
+            },
+            "random": {
+              "mean": 2.4045,
+              "mean_entropy": 2.1156
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.4087,
+              "mean_entropy": 2.1009
+            },
+            "letter": {
+              "mean": 4.6115,
+              "mean_entropy": 0.9784
+            },
+            "descriptive": {
+              "mean": 3.1787,
+              "mean_entropy": 2.2075
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.4087,
+              "mean_entropy": 2.1009
+            },
+            "expert": {
+              "mean": 2.5621,
+              "mean_entropy": 2.0449
+            },
+            "novice": {
+              "mean": 2.4919,
+              "mean_entropy": 2.0389
+            }
+          }
+        },
+        "T04": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.8893,
+              "mean_entropy": 2.1045
+            },
+            "reversed": {
+              "mean": 2.8941,
+              "mean_entropy": 2.1056
+            },
+            "random": {
+              "mean": 2.8727,
+              "mean_entropy": 2.1243
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.8893,
+              "mean_entropy": 2.1045
+            },
+            "letter": {
+              "mean": 4.4893,
+              "mean_entropy": 1.3065
+            },
+            "descriptive": {
+              "mean": 2.3541,
+              "mean_entropy": 1.6427
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.8893,
+              "mean_entropy": 2.1045
+            },
+            "expert": {
+              "mean": 2.9389,
+              "mean_entropy": 2.1336
+            },
+            "novice": {
+              "mean": 2.9299,
+              "mean_entropy": 2.1053
+            }
+          }
+        },
+        "T05": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.3794,
+              "mean_entropy": 2.1182
+            },
+            "reversed": {
+              "mean": 3.3963,
+              "mean_entropy": 2.1051
+            },
+            "random": {
+              "mean": 3.3578,
+              "mean_entropy": 2.144
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.3794,
+              "mean_entropy": 2.1182
+            },
+            "letter": {
+              "mean": 4.6751,
+              "mean_entropy": 0.9188
+            },
+            "descriptive": {
+              "mean": 3.1751,
+              "mean_entropy": 1.4467
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.3794,
+              "mean_entropy": 2.1182
+            },
+            "expert": {
+              "mean": 3.4232,
+              "mean_entropy": 2.1122
+            },
+            "novice": {
+              "mean": 3.4064,
+              "mean_entropy": 2.0955
+            }
+          }
+        },
+        "T06": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.4556,
+              "mean_entropy": 1.7574
+            },
+            "reversed": {
+              "mean": 2.4919,
+              "mean_entropy": 1.7672
+            },
+            "random": {
+              "mean": 2.4875,
+              "mean_entropy": 1.8209
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.4556,
+              "mean_entropy": 1.7574
+            },
+            "letter": {
+              "mean": 4.488,
+              "mean_entropy": 1.3102
+            },
+            "descriptive": {
+              "mean": 3.9602,
+              "mean_entropy": 1.3275
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.4556,
+              "mean_entropy": 1.7574
+            },
+            "expert": {
+              "mean": 2.19,
+              "mean_entropy": 1.5352
+            },
+            "novice": {
+              "mean": 2.1603,
+              "mean_entropy": 1.493
+            }
+          }
+        },
+        "T07": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.6328,
+              "mean_entropy": 2.0682
+            },
+            "reversed": {
+              "mean": 3.6548,
+              "mean_entropy": 2.0594
+            },
+            "random": {
+              "mean": 3.5037,
+              "mean_entropy": 2.1752
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.6328,
+              "mean_entropy": 2.0682
+            },
+            "letter": {
+              "mean": 4.021,
+              "mean_entropy": 1.8926
+            },
+            "descriptive": {
+              "mean": 1.8545,
+              "mean_entropy": 1.385
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.6328,
+              "mean_entropy": 2.0682
+            },
+            "expert": {
+              "mean": 3.3883,
+              "mean_entropy": 2.0933
+            },
+            "novice": {
+              "mean": 3.3609,
+              "mean_entropy": 2.084
+            }
+          }
+        },
+        "T08": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.1254,
+              "mean_entropy": 2.1579
+            },
+            "reversed": {
+              "mean": 3.1388,
+              "mean_entropy": 2.1551
+            },
+            "random": {
+              "mean": 3.0614,
+              "mean_entropy": 2.2326
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.1254,
+              "mean_entropy": 2.1579
+            },
+            "letter": {
+              "mean": 4.3959,
+              "mean_entropy": 1.4311
+            },
+            "descriptive": {
+              "mean": 2.4622,
+              "mean_entropy": 1.7641
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.1254,
+              "mean_entropy": 2.1579
+            },
+            "expert": {
+              "mean": 3.362,
+              "mean_entropy": 2.16
+            },
+            "novice": {
+              "mean": 3.2624,
+              "mean_entropy": 2.1556
+            }
+          }
+        },
+        "T09": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.051,
+              "mean_entropy": 2.0567
+            },
+            "reversed": {
+              "mean": 3.0868,
+              "mean_entropy": 2.052
+            },
+            "random": {
+              "mean": 3.0039,
+              "mean_entropy": 2.1347
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.051,
+              "mean_entropy": 2.0567
+            },
+            "letter": {
+              "mean": 4.2074,
+              "mean_entropy": 1.6919
+            },
+            "descriptive": {
+              "mean": 2.6163,
+              "mean_entropy": 1.7034
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.051,
+              "mean_entropy": 2.0567
+            },
+            "expert": {
+              "mean": 2.3563,
+              "mean_entropy": 1.8549
+            },
+            "novice": {
+              "mean": 2.5179,
+              "mean_entropy": 1.9495
+            }
+          }
+        },
+        "T10": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.2904,
+              "mean_entropy": 2.0376
+            },
+            "reversed": {
+              "mean": 3.2951,
+              "mean_entropy": 2.0325
+            },
+            "random": {
+              "mean": 3.1464,
+              "mean_entropy": 2.1449
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.2904,
+              "mean_entropy": 2.0376
+            },
+            "letter": {
+              "mean": 4.5294,
+              "mean_entropy": 1.2396
+            },
+            "descriptive": {
+              "mean": 2.1374,
+              "mean_entropy": 1.4897
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.2904,
+              "mean_entropy": 2.0376
+            },
+            "expert": {
+              "mean": 3.2249,
+              "mean_entropy": 1.9963
+            },
+            "novice": {
+              "mean": 3.0935,
+              "mean_entropy": 2.0283
+            }
+          }
+        }
+      },
+      "instruct": {
+        "T01": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.9983,
+              "mean_entropy": 1.7794
+            },
+            "reversed": {
+              "mean": 3.9768,
+              "mean_entropy": 1.7988
+            },
+            "random": {
+              "mean": 3.8185,
+              "mean_entropy": 1.9295
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.9983,
+              "mean_entropy": 1.7794
+            },
+            "letter": {
+              "mean": 4.6353,
+              "mean_entropy": 0.7871
+            },
+            "descriptive": {
+              "mean": 2.0027,
+              "mean_entropy": 1.3993
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.9983,
+              "mean_entropy": 1.7794
+            },
+            "expert": {
+              "mean": 3.3781,
+              "mean_entropy": 1.942
+            },
+            "novice": {
+              "mean": 3.3931,
+              "mean_entropy": 1.92
+            }
+          }
+        },
+        "T02": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.816,
+              "mean_entropy": 1.8793
+            },
+            "reversed": {
+              "mean": 3.799,
+              "mean_entropy": 1.8826
+            },
+            "random": {
+              "mean": 3.6177,
+              "mean_entropy": 2.0535
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.816,
+              "mean_entropy": 1.8793
+            },
+            "letter": {
+              "mean": 4.3635,
+              "mean_entropy": 1.1557
+            },
+            "descriptive": {
+              "mean": 2.2731,
+              "mean_entropy": 1.5447
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.816,
+              "mean_entropy": 1.8793
+            },
+            "expert": {
+              "mean": 3.8771,
+              "mean_entropy": 1.8066
+            },
+            "novice": {
+              "mean": 3.9587,
+              "mean_entropy": 1.7598
+            }
+          }
+        },
+        "T03": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.2581,
+              "mean_entropy": 2.2034
+            },
+            "reversed": {
+              "mean": 3.3299,
+              "mean_entropy": 2.1908
+            },
+            "random": {
+              "mean": 3.2244,
+              "mean_entropy": 2.2256
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.2581,
+              "mean_entropy": 2.2034
+            },
+            "letter": {
+              "mean": 4.564,
+              "mean_entropy": 0.994
+            },
+            "descriptive": {
+              "mean": 2.3391,
+              "mean_entropy": 1.7842
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.2581,
+              "mean_entropy": 2.2034
+            },
+            "expert": {
+              "mean": 2.7944,
+              "mean_entropy": 2.1143
+            },
+            "novice": {
+              "mean": 2.5111,
+              "mean_entropy": 1.9958
+            }
+          }
+        },
+        "T04": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.5335,
+              "mean_entropy": 1.9251
+            },
+            "reversed": {
+              "mean": 3.5111,
+              "mean_entropy": 1.9316
+            },
+            "random": {
+              "mean": 3.3545,
+              "mean_entropy": 2.0248
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.5335,
+              "mean_entropy": 1.9251
+            },
+            "letter": {
+              "mean": 4.2361,
+              "mean_entropy": 1.6298
+            },
+            "descriptive": {
+              "mean": 2.2773,
+              "mean_entropy": 1.7483
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.5335,
+              "mean_entropy": 1.9251
+            },
+            "expert": {
+              "mean": 3.5669,
+              "mean_entropy": 1.9939
+            },
+            "novice": {
+              "mean": 3.6637,
+              "mean_entropy": 1.9194
+            }
+          }
+        },
+        "T05": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.6459,
+              "mean_entropy": 2.0101
+            },
+            "reversed": {
+              "mean": 3.588,
+              "mean_entropy": 2.0301
+            },
+            "random": {
+              "mean": 3.3497,
+              "mean_entropy": 2.1276
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.6459,
+              "mean_entropy": 2.0101
+            },
+            "letter": {
+              "mean": 4.612,
+              "mean_entropy": 0.8903
+            },
+            "descriptive": {
+              "mean": 2.9673,
+              "mean_entropy": 1.7962
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.6459,
+              "mean_entropy": 2.0101
+            },
+            "expert": {
+              "mean": 3.2297,
+              "mean_entropy": 2.0142
+            },
+            "novice": {
+              "mean": 3.3255,
+              "mean_entropy": 1.9907
+            }
+          }
+        },
+        "T06": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.8573,
+              "mean_entropy": 1.6871
+            },
+            "reversed": {
+              "mean": 2.8789,
+              "mean_entropy": 1.6945
+            },
+            "random": {
+              "mean": 2.7228,
+              "mean_entropy": 1.7807
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.8573,
+              "mean_entropy": 1.6871
+            },
+            "letter": {
+              "mean": 4.1736,
+              "mean_entropy": 1.6716
+            },
+            "descriptive": {
+              "mean": 3.8754,
+              "mean_entropy": 1.3702
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.8573,
+              "mean_entropy": 1.6871
+            },
+            "expert": {
+              "mean": 1.9642,
+              "mean_entropy": 1.1634
+            },
+            "novice": {
+              "mean": 1.9512,
+              "mean_entropy": 1.1557
+            }
+          }
+        },
+        "T07": {
+          "rubric_order": {
+            "control": {
+              "mean": 4.1665,
+              "mean_entropy": 1.7448
+            },
+            "reversed": {
+              "mean": 4.1516,
+              "mean_entropy": 1.7615
+            },
+            "random": {
+              "mean": 4.0681,
+              "mean_entropy": 1.8257
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 4.1665,
+              "mean_entropy": 1.7448
+            },
+            "letter": {
+              "mean": 3.5845,
+              "mean_entropy": 1.8078
+            },
+            "descriptive": {
+              "mean": 1.2572,
+              "mean_entropy": 0.6003
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 4.1665,
+              "mean_entropy": 1.7448
+            },
+            "expert": {
+              "mean": 4.1425,
+              "mean_entropy": 1.7687
+            },
+            "novice": {
+              "mean": 4.2255,
+              "mean_entropy": 1.6784
+            }
+          }
+        },
+        "T08": {
+          "rubric_order": {
+            "control": {
+              "mean": 4.3031,
+              "mean_entropy": 1.5657
+            },
+            "reversed": {
+              "mean": 4.2915,
+              "mean_entropy": 1.581
+            },
+            "random": {
+              "mean": 4.1702,
+              "mean_entropy": 1.7158
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 4.3031,
+              "mean_entropy": 1.5657
+            },
+            "letter": {
+              "mean": 4.3107,
+              "mean_entropy": 1.3837
+            },
+            "descriptive": {
+              "mean": 2.1383,
+              "mean_entropy": 1.5692
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 4.3031,
+              "mean_entropy": 1.5657
+            },
+            "expert": {
+              "mean": 4.0929,
+              "mean_entropy": 1.7711
+            },
+            "novice": {
+              "mean": 4.1997,
+              "mean_entropy": 1.663
+            }
+          }
+        },
+        "T09": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.9751,
+              "mean_entropy": 1.8749
+            },
+            "reversed": {
+              "mean": 2.983,
+              "mean_entropy": 1.8809
+            },
+            "random": {
+              "mean": 2.9531,
+              "mean_entropy": 1.975
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.9751,
+              "mean_entropy": 1.8749
+            },
+            "letter": {
+              "mean": 4.2767,
+              "mean_entropy": 1.4406
+            },
+            "descriptive": {
+              "mean": 2.3111,
+              "mean_entropy": 1.6057
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.9751,
+              "mean_entropy": 1.8749
+            },
+            "expert": {
+              "mean": 2.8703,
+              "mean_entropy": 1.9012
+            },
+            "novice": {
+              "mean": 3.115,
+              "mean_entropy": 1.9856
+            }
+          }
+        },
+        "T10": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.7684,
+              "mean_entropy": 1.7254
+            },
+            "reversed": {
+              "mean": 3.7644,
+              "mean_entropy": 1.7419
+            },
+            "random": {
+              "mean": 3.7051,
+              "mean_entropy": 1.8701
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.7684,
+              "mean_entropy": 1.7254
+            },
+            "letter": {
+              "mean": 4.6506,
+              "mean_entropy": 0.8955
+            },
+            "descriptive": {
+              "mean": 2.5583,
+              "mean_entropy": 1.6634
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.7684,
+              "mean_entropy": 1.7254
+            },
+            "expert": {
+              "mean": 3.1926,
+              "mean_entropy": 1.7497
+            },
+            "novice": {
+              "mean": 3.4497,
+              "mean_entropy": 1.7294
+            }
+          }
+        }
+      }
+    },
+    "SmolLM2-360M": {
+      "base": {
+        "T01": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.4612,
+              "mean_entropy": 2.128
+            },
+            "reversed": {
+              "mean": 3.5579,
+              "mean_entropy": 2.0897
+            },
+            "random": {
+              "mean": 3.3472,
+              "mean_entropy": 2.1137
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.4612,
+              "mean_entropy": 2.128
+            },
+            "letter": {
+              "mean": 4.2175,
+              "mean_entropy": 1.5816
+            },
+            "descriptive": {
+              "mean": 2.5275,
+              "mean_entropy": 1.8155
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.4612,
+              "mean_entropy": 2.128
+            },
+            "expert": {
+              "mean": 3.6576,
+              "mean_entropy": 2.0578
+            },
+            "novice": {
+              "mean": 3.482,
+              "mean_entropy": 2.1058
+            }
+          }
+        },
+        "T02": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.5776,
+              "mean_entropy": 1.9551
+            },
+            "reversed": {
+              "mean": 2.6038,
+              "mean_entropy": 1.9391
+            },
+            "random": {
+              "mean": 2.7705,
+              "mean_entropy": 2.1369
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.5776,
+              "mean_entropy": 1.9551
+            },
+            "letter": {
+              "mean": 4.2971,
+              "mean_entropy": 1.4392
+            },
+            "descriptive": {
+              "mean": 1.7625,
+              "mean_entropy": 1.3734
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.5776,
+              "mean_entropy": 1.9551
+            },
+            "expert": {
+              "mean": 3.438,
+              "mean_entropy": 2.0819
+            },
+            "novice": {
+              "mean": 3.2701,
+              "mean_entropy": 2.1098
+            }
+          }
+        },
+        "T03": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.9575,
+              "mean_entropy": 2.2901
+            },
+            "reversed": {
+              "mean": 2.9756,
+              "mean_entropy": 2.293
+            },
+            "random": {
+              "mean": 2.8411,
+              "mean_entropy": 2.2891
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.9575,
+              "mean_entropy": 2.2901
+            },
+            "letter": {
+              "mean": 4.5768,
+              "mean_entropy": 1.07
+            },
+            "descriptive": {
+              "mean": 2.1077,
+              "mean_entropy": 1.8248
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.9575,
+              "mean_entropy": 2.2901
+            },
+            "expert": {
+              "mean": 3.2964,
+              "mean_entropy": 2.2531
+            },
+            "novice": {
+              "mean": 2.9962,
+              "mean_entropy": 2.3074
+            }
+          }
+        },
+        "T04": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.1351,
+              "mean_entropy": 2.1375
+            },
+            "reversed": {
+              "mean": 3.1837,
+              "mean_entropy": 2.1284
+            },
+            "random": {
+              "mean": 2.9623,
+              "mean_entropy": 2.1379
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.1351,
+              "mean_entropy": 2.1375
+            },
+            "letter": {
+              "mean": 4.0615,
+              "mean_entropy": 1.6764
+            },
+            "descriptive": {
+              "mean": 1.4773,
+              "mean_entropy": 1.178
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.1351,
+              "mean_entropy": 2.1375
+            },
+            "expert": {
+              "mean": 3.4632,
+              "mean_entropy": 2.1613
+            },
+            "novice": {
+              "mean": 3.2215,
+              "mean_entropy": 2.1957
+            }
+          }
+        },
+        "T05": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.0023,
+              "mean_entropy": 2.1549
+            },
+            "reversed": {
+              "mean": 3.0232,
+              "mean_entropy": 2.1497
+            },
+            "random": {
+              "mean": 2.9418,
+              "mean_entropy": 2.2363
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.0023,
+              "mean_entropy": 2.1549
+            },
+            "letter": {
+              "mean": 4.4293,
+              "mean_entropy": 1.1276
+            },
+            "descriptive": {
+              "mean": 2.3291,
+              "mean_entropy": 1.8458
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.0023,
+              "mean_entropy": 2.1549
+            },
+            "expert": {
+              "mean": 3.2913,
+              "mean_entropy": 2.0732
+            },
+            "novice": {
+              "mean": 3.0997,
+              "mean_entropy": 2.0644
+            }
+          }
+        },
+        "T06": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.4519,
+              "mean_entropy": 1.8886
+            },
+            "reversed": {
+              "mean": 2.4688,
+              "mean_entropy": 1.8914
+            },
+            "random": {
+              "mean": 2.5379,
+              "mean_entropy": 2.0493
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.4519,
+              "mean_entropy": 1.8886
+            },
+            "letter": {
+              "mean": 4.5122,
+              "mean_entropy": 1.2616
+            },
+            "descriptive": {
+              "mean": 1.9163,
+              "mean_entropy": 1.4516
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.4519,
+              "mean_entropy": 1.8886
+            },
+            "expert": {
+              "mean": 2.8913,
+              "mean_entropy": 2.0668
+            },
+            "novice": {
+              "mean": 2.871,
+              "mean_entropy": 1.9935
+            }
+          }
+        },
+        "T07": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.4397,
+              "mean_entropy": 2.1844
+            },
+            "reversed": {
+              "mean": 3.4526,
+              "mean_entropy": 2.185
+            },
+            "random": {
+              "mean": 3.1255,
+              "mean_entropy": 2.1645
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.4397,
+              "mean_entropy": 2.1844
+            },
+            "letter": {
+              "mean": 3.8619,
+              "mean_entropy": 1.9658
+            },
+            "descriptive": {
+              "mean": 2.6369,
+              "mean_entropy": 2.0526
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.4397,
+              "mean_entropy": 2.1844
+            },
+            "expert": {
+              "mean": 3.4416,
+              "mean_entropy": 2.1839
+            },
+            "novice": {
+              "mean": 3.1669,
+              "mean_entropy": 2.2017
+            }
+          }
+        },
+        "T08": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.3936,
+              "mean_entropy": 2.167
+            },
+            "reversed": {
+              "mean": 3.4209,
+              "mean_entropy": 2.1586
+            },
+            "random": {
+              "mean": 3.0492,
+              "mean_entropy": 2.1888
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.3936,
+              "mean_entropy": 2.167
+            },
+            "letter": {
+              "mean": 3.9041,
+              "mean_entropy": 1.6772
+            },
+            "descriptive": {
+              "mean": 2.7978,
+              "mean_entropy": 2.0567
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.3936,
+              "mean_entropy": 2.167
+            },
+            "expert": {
+              "mean": 3.6592,
+              "mean_entropy": 2.0305
+            },
+            "novice": {
+              "mean": 3.5425,
+              "mean_entropy": 2.0579
+            }
+          }
+        },
+        "T09": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.5257,
+              "mean_entropy": 2.1379
+            },
+            "reversed": {
+              "mean": 2.532,
+              "mean_entropy": 2.1406
+            },
+            "random": {
+              "mean": 2.5325,
+              "mean_entropy": 2.1579
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.5257,
+              "mean_entropy": 2.1379
+            },
+            "letter": {
+              "mean": 3.8704,
+              "mean_entropy": 1.9622
+            },
+            "descriptive": {
+              "mean": 3.0645,
+              "mean_entropy": 1.8513
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.5257,
+              "mean_entropy": 2.1379
+            },
+            "expert": {
+              "mean": 3.3776,
+              "mean_entropy": 2.137
+            },
+            "novice": {
+              "mean": 3.068,
+              "mean_entropy": 2.1859
+            }
+          }
+        },
+        "T10": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.8068,
+              "mean_entropy": 2.0691
+            },
+            "reversed": {
+              "mean": 2.8688,
+              "mean_entropy": 2.0661
+            },
+            "random": {
+              "mean": 2.9085,
+              "mean_entropy": 2.1783
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.8068,
+              "mean_entropy": 2.0691
+            },
+            "letter": {
+              "mean": 4.3277,
+              "mean_entropy": 1.1871
+            },
+            "descriptive": {
+              "mean": 2.5189,
+              "mean_entropy": 2.0108
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.8068,
+              "mean_entropy": 2.0691
+            },
+            "expert": {
+              "mean": 2.9319,
+              "mean_entropy": 2.1258
+            },
+            "novice": {
+              "mean": 2.9056,
+              "mean_entropy": 2.1076
+            }
+          }
+        }
+      },
+      "instruct": {
+        "T01": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.1835,
+              "mean_entropy": 2.2774
+            },
+            "reversed": {
+              "mean": 3.4571,
+              "mean_entropy": 2.2037
+            },
+            "random": {
+              "mean": 3.1914,
+              "mean_entropy": 2.1395
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.1835,
+              "mean_entropy": 2.2774
+            },
+            "letter": {
+              "mean": 3.9178,
+              "mean_entropy": 1.2113
+            },
+            "descriptive": {
+              "mean": 1.5953,
+              "mean_entropy": 1.3889
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.1835,
+              "mean_entropy": 2.2774
+            },
+            "expert": {
+              "mean": 3.1945,
+              "mean_entropy": 2.2277
+            },
+            "novice": {
+              "mean": 3.0477,
+              "mean_entropy": 2.2345
+            }
+          }
+        },
+        "T02": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.7809,
+              "mean_entropy": 1.8834
+            },
+            "reversed": {
+              "mean": 3.7846,
+              "mean_entropy": 1.9069
+            },
+            "random": {
+              "mean": 3.575,
+              "mean_entropy": 2.0709
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.7809,
+              "mean_entropy": 1.8834
+            },
+            "letter": {
+              "mean": 2.7833,
+              "mean_entropy": 1.3944
+            },
+            "descriptive": {
+              "mean": 2.1128,
+              "mean_entropy": 1.6287
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.7809,
+              "mean_entropy": 1.8834
+            },
+            "expert": {
+              "mean": 3.8493,
+              "mean_entropy": 2.0216
+            },
+            "novice": {
+              "mean": 3.1711,
+              "mean_entropy": 2.2523
+            }
+          }
+        },
+        "T03": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.9618,
+              "mean_entropy": 2.202
+            },
+            "reversed": {
+              "mean": 3.2206,
+              "mean_entropy": 2.1837
+            },
+            "random": {
+              "mean": 2.9846,
+              "mean_entropy": 2.0224
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.9618,
+              "mean_entropy": 2.202
+            },
+            "letter": {
+              "mean": 4.2048,
+              "mean_entropy": 1.5327
+            },
+            "descriptive": {
+              "mean": 2.1518,
+              "mean_entropy": 1.6906
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.9618,
+              "mean_entropy": 2.202
+            },
+            "expert": {
+              "mean": 3.7446,
+              "mean_entropy": 1.8383
+            },
+            "novice": {
+              "mean": 2.5019,
+              "mean_entropy": 2.1179
+            }
+          }
+        },
+        "T04": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.7793,
+              "mean_entropy": 2.0538
+            },
+            "reversed": {
+              "mean": 3.7912,
+              "mean_entropy": 2.0605
+            },
+            "random": {
+              "mean": 3.3899,
+              "mean_entropy": 2.0842
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.7793,
+              "mean_entropy": 2.0538
+            },
+            "letter": {
+              "mean": 3.4965,
+              "mean_entropy": 1.45
+            },
+            "descriptive": {
+              "mean": 2.1282,
+              "mean_entropy": 1.7228
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.7793,
+              "mean_entropy": 2.0538
+            },
+            "expert": {
+              "mean": 3.7493,
+              "mean_entropy": 2.108
+            },
+            "novice": {
+              "mean": 3.524,
+              "mean_entropy": 2.1886
+            }
+          }
+        },
+        "T05": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.3776,
+              "mean_entropy": 2.1829
+            },
+            "reversed": {
+              "mean": 3.6015,
+              "mean_entropy": 2.1121
+            },
+            "random": {
+              "mean": 3.1917,
+              "mean_entropy": 2.1713
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.3776,
+              "mean_entropy": 2.1829
+            },
+            "letter": {
+              "mean": 3.996,
+              "mean_entropy": 1.1202
+            },
+            "descriptive": {
+              "mean": 2.7674,
+              "mean_entropy": 1.9736
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.3776,
+              "mean_entropy": 2.1829
+            },
+            "expert": {
+              "mean": 3.329,
+              "mean_entropy": 2.0793
+            },
+            "novice": {
+              "mean": 3.1802,
+              "mean_entropy": 2.1497
+            }
+          }
+        },
+        "T06": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.0435,
+              "mean_entropy": 2.1465
+            },
+            "reversed": {
+              "mean": 3.1413,
+              "mean_entropy": 2.1512
+            },
+            "random": {
+              "mean": 2.996,
+              "mean_entropy": 2.1991
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.0435,
+              "mean_entropy": 2.1465
+            },
+            "letter": {
+              "mean": 3.9374,
+              "mean_entropy": 1.9115
+            },
+            "descriptive": {
+              "mean": 1.5853,
+              "mean_entropy": 1.0562
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.0435,
+              "mean_entropy": 2.1465
+            },
+            "expert": {
+              "mean": 3.6718,
+              "mean_entropy": 2.0845
+            },
+            "novice": {
+              "mean": 3.241,
+              "mean_entropy": 2.2407
+            }
+          }
+        },
+        "T07": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.9481,
+              "mean_entropy": 1.9667
+            },
+            "reversed": {
+              "mean": 3.9874,
+              "mean_entropy": 1.939
+            },
+            "random": {
+              "mean": 3.6281,
+              "mean_entropy": 2.0693
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.9481,
+              "mean_entropy": 1.9667
+            },
+            "letter": {
+              "mean": 3.7068,
+              "mean_entropy": 1.6271
+            },
+            "descriptive": {
+              "mean": 1.8939,
+              "mean_entropy": 1.6317
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.9481,
+              "mean_entropy": 1.9667
+            },
+            "expert": {
+              "mean": 3.8229,
+              "mean_entropy": 2.0495
+            },
+            "novice": {
+              "mean": 3.6018,
+              "mean_entropy": 2.1604
+            }
+          }
+        },
+        "T08": {
+          "rubric_order": {
+            "control": {
+              "mean": 4.1981,
+              "mean_entropy": 1.6944
+            },
+            "reversed": {
+              "mean": 4.2289,
+              "mean_entropy": 1.6822
+            },
+            "random": {
+              "mean": 3.7227,
+              "mean_entropy": 1.8964
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 4.1981,
+              "mean_entropy": 1.6944
+            },
+            "letter": {
+              "mean": 3.1141,
+              "mean_entropy": 1.4507
+            },
+            "descriptive": {
+              "mean": 3.3557,
+              "mean_entropy": 2.1644
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 4.1981,
+              "mean_entropy": 1.6944
+            },
+            "expert": {
+              "mean": 4.2903,
+              "mean_entropy": 1.5698
+            },
+            "novice": {
+              "mean": 4.1587,
+              "mean_entropy": 1.708
+            }
+          }
+        },
+        "T09": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.2028,
+              "mean_entropy": 2.2117
+            },
+            "reversed": {
+              "mean": 3.225,
+              "mean_entropy": 2.2056
+            },
+            "random": {
+              "mean": 2.988,
+              "mean_entropy": 2.2316
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.2028,
+              "mean_entropy": 2.2117
+            },
+            "letter": {
+              "mean": 3.4702,
+              "mean_entropy": 2.027
+            },
+            "descriptive": {
+              "mean": 2.5453,
+              "mean_entropy": 1.8362
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.2028,
+              "mean_entropy": 2.2117
+            },
+            "expert": {
+              "mean": 3.9339,
+              "mean_entropy": 1.9343
+            },
+            "novice": {
+              "mean": 3.6432,
+              "mean_entropy": 2.1161
+            }
+          }
+        },
+        "T10": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.7408,
+              "mean_entropy": 1.8552
+            },
+            "reversed": {
+              "mean": 3.7225,
+              "mean_entropy": 1.9118
+            },
+            "random": {
+              "mean": 3.627,
+              "mean_entropy": 2.0549
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.7408,
+              "mean_entropy": 1.8552
+            },
+            "letter": {
+              "mean": 3.1426,
+              "mean_entropy": 1.6232
+            },
+            "descriptive": {
+              "mean": 2.306,
+              "mean_entropy": 2.0263
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.7408,
+              "mean_entropy": 1.8552
+            },
+            "expert": {
+              "mean": 3.9152,
+              "mean_entropy": 1.8504
+            },
+            "novice": {
+              "mean": 3.6316,
+              "mean_entropy": 2.0255
+            }
+          }
+        }
+      }
+    },
+    "Qwen2.5-0.5B": {
+      "base": {
+        "T01": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.025,
+              "mean_entropy": 2.1028
+            },
+            "reversed": {
+              "mean": 3.0347,
+              "mean_entropy": 2.1069
+            },
+            "random": {
+              "mean": 3.1379,
+              "mean_entropy": 2.0842
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.025,
+              "mean_entropy": 2.1028
+            },
+            "letter": {
+              "mean": 4.1751,
+              "mean_entropy": 1.5719
+            },
+            "descriptive": {
+              "mean": 2.3501,
+              "mean_entropy": 1.9862
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.025,
+              "mean_entropy": 2.1028
+            },
+            "expert": {
+              "mean": 2.9576,
+              "mean_entropy": 2.1066
+            },
+            "novice": {
+              "mean": 2.7078,
+              "mean_entropy": 2.1051
+            }
+          }
+        },
+        "T02": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.8358,
+              "mean_entropy": 2.2465
+            },
+            "reversed": {
+              "mean": 2.8503,
+              "mean_entropy": 2.2513
+            },
+            "random": {
+              "mean": 2.9652,
+              "mean_entropy": 2.0721
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.8358,
+              "mean_entropy": 2.2465
+            },
+            "letter": {
+              "mean": 3.3812,
+              "mean_entropy": 2.0056
+            },
+            "descriptive": {
+              "mean": 2.9808,
+              "mean_entropy": 2.0001
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.8358,
+              "mean_entropy": 2.2465
+            },
+            "expert": {
+              "mean": 2.6099,
+              "mean_entropy": 2.1579
+            },
+            "novice": {
+              "mean": 2.6142,
+              "mean_entropy": 2.1847
+            }
+          }
+        },
+        "T03": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.4996,
+              "mean_entropy": 2.0838
+            },
+            "reversed": {
+              "mean": 3.4612,
+              "mean_entropy": 2.0948
+            },
+            "random": {
+              "mean": 3.4755,
+              "mean_entropy": 1.986
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.4996,
+              "mean_entropy": 2.0838
+            },
+            "letter": {
+              "mean": 3.6224,
+              "mean_entropy": 1.8131
+            },
+            "descriptive": {
+              "mean": 4.7012,
+              "mean_entropy": 0.7379
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.4996,
+              "mean_entropy": 2.0838
+            },
+            "expert": {
+              "mean": 3.1192,
+              "mean_entropy": 2.2535
+            },
+            "novice": {
+              "mean": 3.2171,
+              "mean_entropy": 2.2087
+            }
+          }
+        },
+        "T04": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.5136,
+              "mean_entropy": 2.0956
+            },
+            "reversed": {
+              "mean": 2.545,
+              "mean_entropy": 2.103
+            },
+            "random": {
+              "mean": 2.8643,
+              "mean_entropy": 2.2102
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.5136,
+              "mean_entropy": 2.0956
+            },
+            "letter": {
+              "mean": 3.8535,
+              "mean_entropy": 1.9364
+            },
+            "descriptive": {
+              "mean": 2.7863,
+              "mean_entropy": 2.0208
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.5136,
+              "mean_entropy": 2.0956
+            },
+            "expert": {
+              "mean": 2.4569,
+              "mean_entropy": 2.042
+            },
+            "novice": {
+              "mean": 2.3898,
+              "mean_entropy": 2.0432
+            }
+          }
+        },
+        "T05": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.1318,
+              "mean_entropy": 2.1382
+            },
+            "reversed": {
+              "mean": 3.0806,
+              "mean_entropy": 2.1622
+            },
+            "random": {
+              "mean": 3.3714,
+              "mean_entropy": 2.0546
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.1318,
+              "mean_entropy": 2.1382
+            },
+            "letter": {
+              "mean": 2.0977,
+              "mean_entropy": 1.7225
+            },
+            "descriptive": {
+              "mean": 3.5838,
+              "mean_entropy": 1.3357
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.1318,
+              "mean_entropy": 2.1382
+            },
+            "expert": {
+              "mean": 2.9266,
+              "mean_entropy": 2.17
+            },
+            "novice": {
+              "mean": 2.9192,
+              "mean_entropy": 2.2009
+            }
+          }
+        },
+        "T06": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.3682,
+              "mean_entropy": 1.904
+            },
+            "reversed": {
+              "mean": 2.3707,
+              "mean_entropy": 1.8954
+            },
+            "random": {
+              "mean": 2.4884,
+              "mean_entropy": 2.0282
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.3682,
+              "mean_entropy": 1.904
+            },
+            "letter": {
+              "mean": 3.7198,
+              "mean_entropy": 2.0613
+            },
+            "descriptive": {
+              "mean": 3.4363,
+              "mean_entropy": 1.795
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.3682,
+              "mean_entropy": 1.904
+            },
+            "expert": {
+              "mean": 2.1142,
+              "mean_entropy": 1.7225
+            },
+            "novice": {
+              "mean": 2.1447,
+              "mean_entropy": 1.7868
+            }
+          }
+        },
+        "T07": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.2545,
+              "mean_entropy": 1.9286
+            },
+            "reversed": {
+              "mean": 2.2091,
+              "mean_entropy": 1.8822
+            },
+            "random": {
+              "mean": 2.5221,
+              "mean_entropy": 2.0684
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.2545,
+              "mean_entropy": 1.9286
+            },
+            "letter": {
+              "mean": 3.2701,
+              "mean_entropy": 2.1487
+            },
+            "descriptive": {
+              "mean": 2.5652,
+              "mean_entropy": 2.067
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.2545,
+              "mean_entropy": 1.9286
+            },
+            "expert": {
+              "mean": 2.4419,
+              "mean_entropy": 2.0139
+            },
+            "novice": {
+              "mean": 2.4521,
+              "mean_entropy": 2.0294
+            }
+          }
+        },
+        "T08": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.9612,
+              "mean_entropy": 2.2192
+            },
+            "reversed": {
+              "mean": 2.9604,
+              "mean_entropy": 2.2174
+            },
+            "random": {
+              "mean": 3.0112,
+              "mean_entropy": 1.7354
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.9612,
+              "mean_entropy": 2.2192
+            },
+            "letter": {
+              "mean": 2.7821,
+              "mean_entropy": 2.0519
+            },
+            "descriptive": {
+              "mean": 2.9207,
+              "mean_entropy": 1.7358
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.9612,
+              "mean_entropy": 2.2192
+            },
+            "expert": {
+              "mean": 2.9069,
+              "mean_entropy": 2.1468
+            },
+            "novice": {
+              "mean": 2.8912,
+              "mean_entropy": 2.1889
+            }
+          }
+        },
+        "T09": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.7813,
+              "mean_entropy": 2.0738
+            },
+            "reversed": {
+              "mean": 2.7725,
+              "mean_entropy": 2.0636
+            },
+            "random": {
+              "mean": 2.7701,
+              "mean_entropy": 2.1792
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.7813,
+              "mean_entropy": 2.0738
+            },
+            "letter": {
+              "mean": 3.3968,
+              "mean_entropy": 2.1619
+            },
+            "descriptive": {
+              "mean": 3.4543,
+              "mean_entropy": 1.8007
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.7813,
+              "mean_entropy": 2.0738
+            },
+            "expert": {
+              "mean": 2.9392,
+              "mean_entropy": 2.0665
+            },
+            "novice": {
+              "mean": 2.776,
+              "mean_entropy": 2.1026
+            }
+          }
+        },
+        "T10": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.3927,
+              "mean_entropy": 1.9144
+            },
+            "reversed": {
+              "mean": 2.3877,
+              "mean_entropy": 1.8943
+            },
+            "random": {
+              "mean": 2.7843,
+              "mean_entropy": 1.9255
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.3927,
+              "mean_entropy": 1.9144
+            },
+            "letter": {
+              "mean": 3.3734,
+              "mean_entropy": 1.9567
+            },
+            "descriptive": {
+              "mean": 3.2865,
+              "mean_entropy": 1.9972
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.3927,
+              "mean_entropy": 1.9144
+            },
+            "expert": {
+              "mean": 2.1599,
+              "mean_entropy": 1.7964
+            },
+            "novice": {
+              "mean": 2.1291,
+              "mean_entropy": 1.769
+            }
+          }
+        }
+      },
+      "instruct": {
+        "T01": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.1262,
+              "mean_entropy": 2.1129
+            },
+            "reversed": {
+              "mean": 3.1613,
+              "mean_entropy": 2.0946
+            },
+            "random": {
+              "mean": 3.1333,
+              "mean_entropy": 2.0813
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.1262,
+              "mean_entropy": 2.1129
+            },
+            "letter": {
+              "mean": 3.7923,
+              "mean_entropy": 1.4105
+            },
+            "descriptive": {
+              "mean": 2.7623,
+              "mean_entropy": 2.0852
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.1262,
+              "mean_entropy": 2.1129
+            },
+            "expert": {
+              "mean": 3.0101,
+              "mean_entropy": 2.2392
+            },
+            "novice": {
+              "mean": 2.6327,
+              "mean_entropy": 2.2164
+            }
+          }
+        },
+        "T02": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.3721,
+              "mean_entropy": 1.8011
+            },
+            "reversed": {
+              "mean": 3.399,
+              "mean_entropy": 1.7932
+            },
+            "random": {
+              "mean": 3.4567,
+              "mean_entropy": 1.6698
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.3721,
+              "mean_entropy": 1.8011
+            },
+            "letter": {
+              "mean": 3.616,
+              "mean_entropy": 1.4235
+            },
+            "descriptive": {
+              "mean": 2.7548,
+              "mean_entropy": 1.9602
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.3721,
+              "mean_entropy": 1.8011
+            },
+            "expert": {
+              "mean": 3.2608,
+              "mean_entropy": 2.0332
+            },
+            "novice": {
+              "mean": 2.9819,
+              "mean_entropy": 2.1404
+            }
+          }
+        },
+        "T03": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.9828,
+              "mean_entropy": 2.0623
+            },
+            "reversed": {
+              "mean": 3.0057,
+              "mean_entropy": 2.0735
+            },
+            "random": {
+              "mean": 3.0015,
+              "mean_entropy": 1.9593
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.9828,
+              "mean_entropy": 2.0623
+            },
+            "letter": {
+              "mean": 3.9291,
+              "mean_entropy": 1.3573
+            },
+            "descriptive": {
+              "mean": 4.7087,
+              "mean_entropy": 0.6998
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.9828,
+              "mean_entropy": 2.0623
+            },
+            "expert": {
+              "mean": 2.8296,
+              "mean_entropy": 2.1363
+            },
+            "novice": {
+              "mean": 2.8739,
+              "mean_entropy": 2.0121
+            }
+          }
+        },
+        "T04": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.143,
+              "mean_entropy": 2.2425
+            },
+            "reversed": {
+              "mean": 3.171,
+              "mean_entropy": 2.2342
+            },
+            "random": {
+              "mean": 3.1426,
+              "mean_entropy": 2.1742
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.143,
+              "mean_entropy": 2.2425
+            },
+            "letter": {
+              "mean": 3.1722,
+              "mean_entropy": 2.1025
+            },
+            "descriptive": {
+              "mean": 3.2325,
+              "mean_entropy": 2.0419
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.143,
+              "mean_entropy": 2.2425
+            },
+            "expert": {
+              "mean": 3.2112,
+              "mean_entropy": 2.2685
+            },
+            "novice": {
+              "mean": 2.9657,
+              "mean_entropy": 2.2918
+            }
+          }
+        },
+        "T05": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.7712,
+              "mean_entropy": 1.3497
+            },
+            "reversed": {
+              "mean": 3.7576,
+              "mean_entropy": 1.3867
+            },
+            "random": {
+              "mean": 3.7186,
+              "mean_entropy": 1.5873
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.7712,
+              "mean_entropy": 1.3497
+            },
+            "letter": {
+              "mean": 1.5517,
+              "mean_entropy": 1.346
+            },
+            "descriptive": {
+              "mean": 3.1866,
+              "mean_entropy": 0.6563
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.7712,
+              "mean_entropy": 1.3497
+            },
+            "expert": {
+              "mean": 3.5914,
+              "mean_entropy": 1.4786
+            },
+            "novice": {
+              "mean": 3.6023,
+              "mean_entropy": 1.5184
+            }
+          }
+        },
+        "T06": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.286,
+              "mean_entropy": 2.113
+            },
+            "reversed": {
+              "mean": 3.3012,
+              "mean_entropy": 2.1088
+            },
+            "random": {
+              "mean": 3.1724,
+              "mean_entropy": 2.153
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.286,
+              "mean_entropy": 2.113
+            },
+            "letter": {
+              "mean": 3.9079,
+              "mean_entropy": 1.8857
+            },
+            "descriptive": {
+              "mean": 3.8129,
+              "mean_entropy": 1.7106
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.286,
+              "mean_entropy": 2.113
+            },
+            "expert": {
+              "mean": 3.2071,
+              "mean_entropy": 2.0749
+            },
+            "novice": {
+              "mean": 3.1193,
+              "mean_entropy": 2.1332
+            }
+          }
+        },
+        "T07": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.0276,
+              "mean_entropy": 2.2855
+            },
+            "reversed": {
+              "mean": 3.0403,
+              "mean_entropy": 2.2812
+            },
+            "random": {
+              "mean": 2.6878,
+              "mean_entropy": 2.1621
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.0276,
+              "mean_entropy": 2.2855
+            },
+            "letter": {
+              "mean": 2.1986,
+              "mean_entropy": 1.6573
+            },
+            "descriptive": {
+              "mean": 2.8627,
+              "mean_entropy": 1.9816
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.0276,
+              "mean_entropy": 2.2855
+            },
+            "expert": {
+              "mean": 3.0819,
+              "mean_entropy": 2.2369
+            },
+            "novice": {
+              "mean": 2.5684,
+              "mean_entropy": 2.1813
+            }
+          }
+        },
+        "T08": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.5389,
+              "mean_entropy": 1.8409
+            },
+            "reversed": {
+              "mean": 3.5487,
+              "mean_entropy": 1.852
+            },
+            "random": {
+              "mean": 3.2077,
+              "mean_entropy": 1.8083
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.5389,
+              "mean_entropy": 1.8409
+            },
+            "letter": {
+              "mean": 2.6085,
+              "mean_entropy": 1.7366
+            },
+            "descriptive": {
+              "mean": 2.6402,
+              "mean_entropy": 1.4202
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.5389,
+              "mean_entropy": 1.8409
+            },
+            "expert": {
+              "mean": 3.3756,
+              "mean_entropy": 1.994
+            },
+            "novice": {
+              "mean": 3.2743,
+              "mean_entropy": 2.0088
+            }
+          }
+        },
+        "T09": {
+          "rubric_order": {
+            "control": {
+              "mean": 3.5643,
+              "mean_entropy": 2.088
+            },
+            "reversed": {
+              "mean": 3.5907,
+              "mean_entropy": 2.0748
+            },
+            "random": {
+              "mean": 3.4749,
+              "mean_entropy": 2.1163
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 3.5643,
+              "mean_entropy": 2.088
+            },
+            "letter": {
+              "mean": 4.0136,
+              "mean_entropy": 1.7195
+            },
+            "descriptive": {
+              "mean": 3.6512,
+              "mean_entropy": 1.5335
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 3.5643,
+              "mean_entropy": 2.088
+            },
+            "expert": {
+              "mean": 3.3354,
+              "mean_entropy": 2.144
+            },
+            "novice": {
+              "mean": 3.0166,
+              "mean_entropy": 2.2258
+            }
+          }
+        },
+        "T10": {
+          "rubric_order": {
+            "control": {
+              "mean": 2.5542,
+              "mean_entropy": 2.0773
+            },
+            "reversed": {
+              "mean": 2.5734,
+              "mean_entropy": 2.086
+            },
+            "random": {
+              "mean": 2.7103,
+              "mean_entropy": 2.0246
+            }
+          },
+          "score_id": {
+            "numeric": {
+              "mean": 2.5542,
+              "mean_entropy": 2.0773
+            },
+            "letter": {
+              "mean": 4.0942,
+              "mean_entropy": 1.7113
+            },
+            "descriptive": {
+              "mean": 3.6402,
+              "mean_entropy": 1.9645
+            }
+          },
+          "authority": {
+            "none": {
+              "mean": 2.5542,
+              "mean_entropy": 2.0773
+            },
+            "expert": {
+              "mean": 2.6834,
+              "mean_entropy": 2.1569
+            },
+            "novice": {
+              "mean": 2.441,
+              "mean_entropy": 2.1184
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "source": "results_probes2.json",
+  "per_probe": {
+    "anchoring": {
+      "n_families": 13,
+      "mean_base": 0.799,
+      "mean_instruct": 0.813,
+      "mean_change": 0.015,
+      "families_positive": "9/13",
+      "wilcoxon_p": 0.54175
+    },
+    "sycophancy": {
+      "n_families": 13,
+      "mean_base": 0.91,
+      "mean_instruct": 1.366,
+      "mean_change": 0.457,
+      "families_positive": "11/13",
+      "wilcoxon_p": 0.02661
+    }
+  },
+  "per_family_effect": {
+    "SmolLM2-135M": 0.038,
+    "SmolLM2-360M": 0.18,
+    "Qwen2.5-0.5B": 0.451,
+    "Falcon3-1B": 0.135,
+    "Qwen2.5-1.5B": 0.456,
+    "StableLM-2-1.6B": 0.985,
+    "SmolLM2-1.7B": -0.169,
+    "Granite-3.1-2B": 0.683,
+    "Qwen2.5-3B": 0.328,
+    "Falcon3-3B": 0.207,
+    "Qwen2.5-7B": -0.808,
+    "OLMo-2-7B": 0.05,
+    "Granite-3.1-8B": 0.528
+  },
+  "entropy_bias_link": {
+    "spearman_rho": -0.264,
+    "p": 0.058539,
+    "n": 52
+  }
+}

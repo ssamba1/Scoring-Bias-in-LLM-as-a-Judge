@@ -1,0 +1,61 @@
+{
+  "source": "gold_results.json",
+  "n_gold": 20,
+  "n_families": 5,
+  "conditions": [
+    "reversed",
+    "novice",
+    "verbose"
+  ],
+  "control": {
+    "base": {
+      "mean_accuracy": 0.98,
+      "mean_margin": 0.7448
+    },
+    "instruct": {
+      "mean_accuracy": 0.98,
+      "mean_margin": 1.2607
+    }
+  },
+  "degradation": {
+    "reversed": {
+      "base": {
+        "margin_drop": 1.3254,
+        "accuracy_drop": 0.96,
+        "accuracy_under_bias": 0.02
+      },
+      "instruct": {
+        "margin_drop": 2.4319,
+        "accuracy_drop": 0.98,
+        "accuracy_under_bias": 0.0
+      },
+      "instruct_more_robust_p": 0.0625
+    },
+    "novice": {
+      "base": {
+        "margin_drop": 0.1136,
+        "accuracy_drop": 0.01,
+        "accuracy_under_bias": 0.97
+      },
+      "instruct": {
+        "margin_drop": 0.095,
+        "accuracy_drop": 0.01,
+        "accuracy_under_bias": 0.97
+      },
+      "instruct_more_robust_p": 0.8125
+    },
+    "verbose": {
+      "base": {
+        "margin_drop": 0.7111,
+        "accuracy_drop": 0.28,
+        "accuracy_under_bias": 0.7
+      },
+      "instruct": {
+        "margin_drop": 0.9655,
+        "accuracy_drop": 0.25,
+        "accuracy_under_bias": 0.73
+      },
+      "instruct_more_robust_p": 0.0625
+    }
+  }
+}

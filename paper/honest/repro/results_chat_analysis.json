@@ -1,0 +1,21 @@
+{
+  "n_cells": 6,
+  "P19a": {
+    "mean_chat_delta": 0.379,
+    "all_cells_gt_0p1": true,
+    "chat_ge_raw_cells": "4/6"
+  },
+  "P19b": {
+    "raw_chat_spearman": 0.486,
+    "p": 0.329
+  },
+  "P19c": {
+    "mean_chat_minus_base": 0.072,
+    "per_family": {
+      "Qwen2.5-0.5B": 0.284,
+      "Qwen2.5-1.5B": -0.051,
+      "SmolLM2-360M": -0.016
+    },
+    "families_positive": "1/3"
+  }
+}

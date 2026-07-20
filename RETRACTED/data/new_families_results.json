@@ -1,0 +1,72 @@
+{
+  "Granite-3B": {
+    "rubric_order": 1.92,
+    "score_id": 3.64,
+    "reference_answer": 1.62
+  },
+  "Granite-3B-IT": {
+    "rubric_order": 0.68,
+    "score_id": 1.20,
+    "reference_answer": 3.32
+  },
+  "Falcon-1B": {
+    "rubric_order": 1.13,
+    "score_id": 3.73,
+    "reference_answer": 0.95
+  },
+  "TinyLlama-1.1B": {
+    "rubric_order": 1.24,
+    "score_id": 0.52,
+    "reference_answer": 1.80
+  },
+  "TinyLlama-1.1B-IT": {
+    "rubric_order": 0.16,
+    "score_id": 2.97,
+    "reference_answer": 1.58
+  },
+  "Gemma2-2B": {
+    "rubric_order": 1.80,
+    "score_id": 1.50,
+    "reference_answer": 1.36
+  },
+  "Gemma2-2B-IT": {
+    "rubric_order": 0.26,
+    "score_id": 1.11,
+    "reference_answer": 0.22
+  },
+  "Qwen2.5-0.5B": {
+    "rubric_order": 0.34,
+    "score_id": 2.18,
+    "reference_answer": 1.88
+  },
+  "Mistral-7B-v0.3": {
+    "rubric_order": null,
+    "score_id": 3.88,
+    "reference_answer": null
+  },
+  "Mistral-7B-v0.3-IT": {
+    "rubric_order": null,
+    "score_id": 2.34,
+    "reference_answer": null
+  },
+  "DeepSeek-7B": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "DeepSeek-7B-IT": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Qwen2.5-0.5B-IT": {
+    "rubric_order": null,
+    "score_id": 1.58,
+    "reference_answer": null
+  },
+  "Qwen2.5-3B": {
+    "rubric_order": null,
+    "score_id": 3.56,
+    "reference_answer": null
+  }
+}

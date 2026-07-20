@@ -9,9 +9,16 @@ import json, statistics
 from pathlib import Path
 
 BASE = Path("results_rootcause")
+RETRACTED = Path("RETRACTED/data")
 
 def load(fname):
-    return json.loads((BASE / fname).read_text())
+    """Load a data file, transparently resolving retracted files to RETRACTED/data."""
+    p = BASE / fname
+    if not p.exists():
+        alt = RETRACTED / Path(fname).name
+        if alt.exists():
+            p = alt
+    return json.loads(p.read_text())
 
 t4 = load("t4fam_results.json")
 s1 = load("study1_results.json")
