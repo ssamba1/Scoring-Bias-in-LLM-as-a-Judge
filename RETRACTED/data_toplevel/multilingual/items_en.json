@@ -1,0 +1,252 @@
+[
+  {
+    "instr": "Explain how photosynthesis works.",
+    "resp": "Plants use sunlight to convert CO2 and water into glucose and oxygen.",
+    "item_id": 0
+  },
+  {
+    "instr": "What is the theory of relativity?",
+    "resp": "Einstein's theory says space and time are relative to the observer's frame.",
+    "item_id": 1
+  },
+  {
+    "instr": "Describe the water cycle.",
+    "resp": "Water evaporates from oceans, forms clouds, and returns as precipitation.",
+    "item_id": 2
+  },
+  {
+    "instr": "What causes earthquakes?",
+    "resp": "Tectonic plates shift along fault lines, releasing energy as seismic waves.",
+    "item_id": 3
+  },
+  {
+    "instr": "Explain how vaccines work.",
+    "resp": "Vaccines train the immune system to recognize pathogens.",
+    "item_id": 4
+  },
+  {
+    "instr": "What is DNA?",
+    "resp": "DNA carries genetic instructions for growth, development, and reproduction.",
+    "item_id": 5
+  },
+  {
+    "instr": "Describe the solar system.",
+    "resp": "The solar system has 8 planets orbiting the Sun.",
+    "item_id": 6
+  },
+  {
+    "instr": "What is entropy?",
+    "resp": "Entropy measures disorder. The second law says entropy always increases.",
+    "item_id": 7
+  },
+  {
+    "instr": "How do batteries work?",
+    "resp": "Chemical reactions create electron flow between electrodes.",
+    "item_id": 8
+  },
+  {
+    "instr": "What is a black hole?",
+    "resp": "A region where gravity prevents anything, even light, from escaping.",
+    "item_id": 9
+  },
+  {
+    "instr": "Explain how photosynthesis works.",
+    "resp": "Plants use sunlight to convert CO2 and water into glucose and oxygen.",
+    "item_id": 10
+  },
+  {
+    "instr": "What is the theory of relativity?",
+    "resp": "Einstein's theory says space and time are relative to the observer's frame.",
+    "item_id": 11
+  },
+  {
+    "instr": "Describe the water cycle.",
+    "resp": "Water evaporates from oceans, forms clouds, and returns as precipitation.",
+    "item_id": 12
+  },
+  {
+    "instr": "What causes earthquakes?",
+    "resp": "Tectonic plates shift along fault lines, releasing energy as seismic waves.",
+    "item_id": 13
+  },
+  {
+    "instr": "Explain how vaccines work.",
+    "resp": "Vaccines train the immune system to recognize pathogens.",
+    "item_id": 14
+  },
+  {
+    "instr": "What is DNA?",
+    "resp": "DNA carries genetic instructions for growth, development, and reproduction.",
+    "item_id": 15
+  },
+  {
+    "instr": "Describe the solar system.",
+    "resp": "The solar system has 8 planets orbiting the Sun.",
+    "item_id": 16
+  },
+  {
+    "instr": "What is entropy?",
+    "resp": "Entropy measures disorder. The second law says entropy always increases.",
+    "item_id": 17
+  },
+  {
+    "instr": "How do batteries work?",
+    "resp": "Chemical reactions create electron flow between electrodes.",
+    "item_id": 18
+  },
+  {
+    "instr": "What is a black hole?",
+    "resp": "A region where gravity prevents anything, even light, from escaping.",
+    "item_id": 19
+  },
+  {
+    "instr": "Explain how photosynthesis works.",
+    "resp": "Plants use sunlight to convert CO2 and water into glucose and oxygen.",
+    "item_id": 20
+  },
+  {
+    "instr": "What is the theory of relativity?",
+    "resp": "Einstein's theory says space and time are relative to the observer's frame.",
+    "item_id": 21
+  },
+  {
+    "instr": "Describe the water cycle.",
+    "resp": "Water evaporates from oceans, forms clouds, and returns as precipitation.",
+    "item_id": 22
+  },
+  {
+    "instr": "What causes earthquakes?",
+    "resp": "Tectonic plates shift along fault lines, releasing energy as seismic waves.",
+    "item_id": 23
+  },
+  {
+    "instr": "Explain how vaccines work.",
+    "resp": "Vaccines train the immune system to recognize pathogens.",
+    "item_id": 24
+  },
+  {
+    "instr": "What is DNA?",
+    "resp": "DNA carries genetic instructions for growth, development, and reproduction.",
+    "item_id": 25
+  },
+  {
+    "instr": "Describe the solar system.",
+    "resp": "The solar system has 8 planets orbiting the Sun.",
+    "item_id": 26
+  },
+  {
+    "instr": "What is entropy?",
+    "resp": "Entropy measures disorder. The second law says entropy always increases.",
+    "item_id": 27
+  },
+  {
+    "instr": "How do batteries work?",
+    "resp": "Chemical reactions create electron flow between electrodes.",
+    "item_id": 28
+  },
+  {
+    "instr": "What is a black hole?",
+    "resp": "A region where gravity prevents anything, even light, from escaping.",
+    "item_id": 29
+  },
+  {
+    "instr": "Explain how photosynthesis works.",
+    "resp": "Plants use sunlight to convert CO2 and water into glucose and oxygen.",
+    "item_id": 30
+  },
+  {
+    "instr": "What is the theory of relativity?",
+    "resp": "Einstein's theory says space and time are relative to the observer's frame.",
+    "item_id": 31
+  },
+  {
+    "instr": "Describe the water cycle.",
+    "resp": "Water evaporates from oceans, forms clouds, and returns as precipitation.",
+    "item_id": 32
+  },
+  {
+    "instr": "What causes earthquakes?",
+    "resp": "Tectonic plates shift along fault lines, releasing energy as seismic waves.",
+    "item_id": 33
+  },
+  {
+    "instr": "Explain how vaccines work.",
+    "resp": "Vaccines train the immune system to recognize pathogens.",
+    "item_id": 34
+  },
+  {
+    "instr": "What is DNA?",
+    "resp": "DNA carries genetic instructions for growth, development, and reproduction.",
+    "item_id": 35
+  },
+  {
+    "instr": "Describe the solar system.",
+    "resp": "The solar system has 8 planets orbiting the Sun.",
+    "item_id": 36
+  },
+  {
+    "instr": "What is entropy?",
+    "resp": "Entropy measures disorder. The second law says entropy always increases.",
+    "item_id": 37
+  },
+  {
+    "instr": "How do batteries work?",
+    "resp": "Chemical reactions create electron flow between electrodes.",
+    "item_id": 38
+  },
+  {
+    "instr": "What is a black hole?",
+    "resp": "A region where gravity prevents anything, even light, from escaping.",
+    "item_id": 39
+  },
+  {
+    "instr": "Explain how photosynthesis works.",
+    "resp": "Plants use sunlight to convert CO2 and water into glucose and oxygen.",
+    "item_id": 40
+  },
+  {
+    "instr": "What is the theory of relativity?",
+    "resp": "Einstein's theory says space and time are relative to the observer's frame.",
+    "item_id": 41
+  },
+  {
+    "instr": "Describe the water cycle.",
+    "resp": "Water evaporates from oceans, forms clouds, and returns as precipitation.",
+    "item_id": 42
+  },
+  {
+    "instr": "What causes earthquakes?",
+    "resp": "Tectonic plates shift along fault lines, releasing energy as seismic waves.",
+    "item_id": 43
+  },
+  {
+    "instr": "Explain how vaccines work.",
+    "resp": "Vaccines train the immune system to recognize pathogens.",
+    "item_id": 44
+  },
+  {
+    "instr": "What is DNA?",
+    "resp": "DNA carries genetic instructions for growth, development, and reproduction.",
+    "item_id": 45
+  },
+  {
+    "instr": "Describe the solar system.",
+    "resp": "The solar system has 8 planets orbiting the Sun.",
+    "item_id": 46
+  },
+  {
+    "instr": "What is entropy?",
+    "resp": "Entropy measures disorder. The second law says entropy always increases.",
+    "item_id": 47
+  },
+  {
+    "instr": "How do batteries work?",
+    "resp": "Chemical reactions create electron flow between electrodes.",
+    "item_id": 48
+  },
+  {
+    "instr": "What is a black hole?",
+    "resp": "A region where gravity prevents anything, even light, from escaping.",
+    "item_id": 49
+  }
+]

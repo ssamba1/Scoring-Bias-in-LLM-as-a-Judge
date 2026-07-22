@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Quick Sweep",
+    "description": "Test 3 bias interactions with 2 judges and 100 items. Fastest path to results.",
+    "biases_tested": [
+      "position",
+      "verbosity",
+      "sentiment"
+    ],
+    "items_needed": 100,
+    "judges_needed": 2,
+    "conditions_per_item": 8,
+    "total_api_calls": 4800,
+    "estimated_cost": 5.0,
+    "timeline_weeks": 2,
+    "difficulty": "Easy",
+    "notes": "Minimum viable experiment. Good for pilot data or tight deadlines."
+  },
+  {
+    "name": "Standard (Recommended)",
+    "description": "Full design: 3 bias types \u00d7 5 judges \u00d7 400 items. Publication-ready.",
+    "biases_tested": [
+      "position",
+      "verbosity",
+      "sentiment"
+    ],
+    "items_needed": 400,
+    "judges_needed": 5,
+    "conditions_per_item": 8,
+    "total_api_calls": 48000,
+    "estimated_cost": 28.0,
+    "timeline_weeks": 4,
+    "difficulty": "Medium",
+    "notes": "Balances comprehensiveness with cost. Our main proposal."
+  },
+  {
+    "name": "Comprehensive",
+    "description": "5 bias types (adds authority, bandwagon) \u00d7 7 judges \u00d7 1000 items.",
+    "biases_tested": [
+      "position",
+      "verbosity",
+      "sentiment",
+      "authority",
+      "bandwagon"
+    ],
+    "items_needed": 1000,
+    "judges_needed": 7,
+    "conditions_per_item": 32,
+    "total_api_calls": 672000,
+    "estimated_cost": 350.0,
+    "timeline_weeks": 8,
+    "difficulty": "Hard",
+    "notes": "Full factorial with 5 binary factors. High cost but most comprehensive."
+  },
+  {
+    "name": "Budget",
+    "description": "2 bias types (position, verbosity) \u00d7 3 judges \u00d7 200 items.",
+    "biases_tested": [
+      "position",
+      "verbosity"
+    ],
+    "items_needed": 200,
+    "judges_needed": 3,
+    "conditions_per_item": 4,
+    "total_api_calls": 7200,
+    "estimated_cost": 4.0,
+    "timeline_weeks": 2,
+    "difficulty": "Easy",
+    "notes": "Only tests position \u00d7 verbosity interaction. Loses sentiment analysis."
+  },
+  {
+    "name": "Cross-Domain",
+    "description": "3 biases \u00d7 3 judges \u00d7 5 domains (code, creative, technical, reasoning, business).",
+    "biases_tested": [
+      "position",
+      "verbosity",
+      "sentiment"
+    ],
+    "items_needed": 500,
+    "judges_needed": 3,
+    "conditions_per_item": 8,
+    "total_api_calls": 36000,
+    "estimated_cost": 18.0,
+    "timeline_weeks": 5,
+    "difficulty": "Medium",
+    "notes": "Adds domain as a factor. Tests whether bias interactions generalize across domains."
+  },
+  {
+    "name": "Model Size Scaling",
+    "description": "3 biases \u00d7 same-family models at 3 sizes (e.g., Llama 3 8B, 70B, 405B).",
+    "biases_tested": [
+      "position",
+      "verbosity",
+      "sentiment"
+    ],
+    "items_needed": 200,
+    "judges_needed": 3,
+    "conditions_per_item": 8,
+    "total_api_calls": 14400,
+    "estimated_cost": 15.0,
+    "timeline_weeks": 4,
+    "difficulty": "Medium",
+    "notes": "Tests whether bias interaction patterns change with model scale."
+  },
+  {
+    "name": "Mitigation Validation",
+    "description": "3 biases \u00d7 5 judges \u00d7 2 conditions (with/without debiasing).",
+    "biases_tested": [
+      "position",
+      "verbosity",
+      "sentiment"
+    ],
+    "items_needed": 400,
+    "judges_needed": 5,
+    "conditions_per_item": 16,
+    "total_api_calls": 96000,
+    "estimated_cost": 55.0,
+    "timeline_weeks": 6,
+    "difficulty": "Hard",
+    "notes": "Tests whether standard debiasing (swap-and-average, etc.) works when multiple biases co-occur."
+  }
+]

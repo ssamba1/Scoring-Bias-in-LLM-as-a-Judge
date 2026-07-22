@@ -1,0 +1,15 @@
+{
+  "id": "sricharansamba/cuda-test-kaggle",
+  "title": "Cuda-Test-Kaggle",
+  "code_file": "cuda-test-kaggle.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

@@ -1,0 +1,15 @@
+{
+  "id": "sricharansamba/scoring-bias-run-11",
+  "title": "Scoring-Bias-Run-11",
+  "code_file": "scoring-bias-run-11.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

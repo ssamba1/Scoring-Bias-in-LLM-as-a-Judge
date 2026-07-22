@@ -1,0 +1,42 @@
+{
+  "Mistral-7B-v0.3": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Mistral-7B-v0.3-IT": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "DeepSeek-7B": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "DeepSeek-7B-IT": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Qwen2.5-0.5B": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Qwen2.5-0.5B-IT": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Qwen2.5-3B": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Qwen2.5-3B-IT": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  }
+}

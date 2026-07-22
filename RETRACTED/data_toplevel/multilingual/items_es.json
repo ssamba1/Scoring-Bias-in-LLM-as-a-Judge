@@ -1,0 +1,302 @@
+[
+  {
+    "instr": "Explica c\u00f3mo funciona la fotos\u00edntesis.",
+    "resp": "Las plantas usan la luz solar para convertir CO2 y agua en glucosa y ox\u00edgeno.",
+    "en_instr": "Explain how photosynthesis works.",
+    "item_id": 0
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la teor\u00eda de la relatividad?",
+    "resp": "La teor\u00eda de Einstein dice que el espacio y el tiempo son relativos al observador.",
+    "en_instr": "What is the theory of relativity?",
+    "item_id": 1
+  },
+  {
+    "instr": "Describe el ciclo del agua.",
+    "resp": "El agua se evapora de los oc\u00e9anos, forma nubes y regresa como precipitaci\u00f3n.",
+    "en_instr": "Describe the water cycle.",
+    "item_id": 2
+  },
+  {
+    "instr": "\u00bfQu\u00e9 causa los terremotos?",
+    "resp": "Las placas tect\u00f3nicas se desplazan a lo largo de fallas, liberando energ\u00eda.",
+    "en_instr": "What causes earthquakes?",
+    "item_id": 3
+  },
+  {
+    "instr": "Explica c\u00f3mo funcionan las vacunas.",
+    "resp": "Las vacunas entrenan al sistema inmune para reconocer pat\u00f3genos.",
+    "en_instr": "Explain how vaccines work.",
+    "item_id": 4
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es el ADN?",
+    "resp": "El ADN transporta instrucciones gen\u00e9ticas para el crecimiento y la reproducci\u00f3n.",
+    "en_instr": "What is DNA?",
+    "item_id": 5
+  },
+  {
+    "instr": "Describe el sistema solar.",
+    "resp": "El sistema solar tiene 8 planetas orbitando el Sol.",
+    "en_instr": "Describe the solar system.",
+    "item_id": 6
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la entrop\u00eda?",
+    "resp": "La entrop\u00eda mide el desorden. La segunda ley dice que siempre aumenta.",
+    "en_instr": "What is entropy?",
+    "item_id": 7
+  },
+  {
+    "instr": "\u00bfC\u00f3mo funcionan las bater\u00edas?",
+    "resp": "Reacciones qu\u00edmicas crean flujo de electrones entre electrodos.",
+    "en_instr": "How do batteries work?",
+    "item_id": 8
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es un agujero negro?",
+    "resp": "Una regi\u00f3n donde la gravedad impide que incluso la luz escape.",
+    "en_instr": "What is a black hole?",
+    "item_id": 9
+  },
+  {
+    "instr": "Explica c\u00f3mo funciona la fotos\u00edntesis.",
+    "resp": "Las plantas usan la luz solar para convertir CO2 y agua en glucosa y ox\u00edgeno.",
+    "en_instr": "Explain how photosynthesis works.",
+    "item_id": 10
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la teor\u00eda de la relatividad?",
+    "resp": "La teor\u00eda de Einstein dice que el espacio y el tiempo son relativos al observador.",
+    "en_instr": "What is the theory of relativity?",
+    "item_id": 11
+  },
+  {
+    "instr": "Describe el ciclo del agua.",
+    "resp": "El agua se evapora de los oc\u00e9anos, forma nubes y regresa como precipitaci\u00f3n.",
+    "en_instr": "Describe the water cycle.",
+    "item_id": 12
+  },
+  {
+    "instr": "\u00bfQu\u00e9 causa los terremotos?",
+    "resp": "Las placas tect\u00f3nicas se desplazan a lo largo de fallas, liberando energ\u00eda.",
+    "en_instr": "What causes earthquakes?",
+    "item_id": 13
+  },
+  {
+    "instr": "Explica c\u00f3mo funcionan las vacunas.",
+    "resp": "Las vacunas entrenan al sistema inmune para reconocer pat\u00f3genos.",
+    "en_instr": "Explain how vaccines work.",
+    "item_id": 14
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es el ADN?",
+    "resp": "El ADN transporta instrucciones gen\u00e9ticas para el crecimiento y la reproducci\u00f3n.",
+    "en_instr": "What is DNA?",
+    "item_id": 15
+  },
+  {
+    "instr": "Describe el sistema solar.",
+    "resp": "El sistema solar tiene 8 planetas orbitando el Sol.",
+    "en_instr": "Describe the solar system.",
+    "item_id": 16
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la entrop\u00eda?",
+    "resp": "La entrop\u00eda mide el desorden. La segunda ley dice que siempre aumenta.",
+    "en_instr": "What is entropy?",
+    "item_id": 17
+  },
+  {
+    "instr": "\u00bfC\u00f3mo funcionan las bater\u00edas?",
+    "resp": "Reacciones qu\u00edmicas crean flujo de electrones entre electrodos.",
+    "en_instr": "How do batteries work?",
+    "item_id": 18
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es un agujero negro?",
+    "resp": "Una regi\u00f3n donde la gravedad impide que incluso la luz escape.",
+    "en_instr": "What is a black hole?",
+    "item_id": 19
+  },
+  {
+    "instr": "Explica c\u00f3mo funciona la fotos\u00edntesis.",
+    "resp": "Las plantas usan la luz solar para convertir CO2 y agua en glucosa y ox\u00edgeno.",
+    "en_instr": "Explain how photosynthesis works.",
+    "item_id": 20
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la teor\u00eda de la relatividad?",
+    "resp": "La teor\u00eda de Einstein dice que el espacio y el tiempo son relativos al observador.",
+    "en_instr": "What is the theory of relativity?",
+    "item_id": 21
+  },
+  {
+    "instr": "Describe el ciclo del agua.",
+    "resp": "El agua se evapora de los oc\u00e9anos, forma nubes y regresa como precipitaci\u00f3n.",
+    "en_instr": "Describe the water cycle.",
+    "item_id": 22
+  },
+  {
+    "instr": "\u00bfQu\u00e9 causa los terremotos?",
+    "resp": "Las placas tect\u00f3nicas se desplazan a lo largo de fallas, liberando energ\u00eda.",
+    "en_instr": "What causes earthquakes?",
+    "item_id": 23
+  },
+  {
+    "instr": "Explica c\u00f3mo funcionan las vacunas.",
+    "resp": "Las vacunas entrenan al sistema inmune para reconocer pat\u00f3genos.",
+    "en_instr": "Explain how vaccines work.",
+    "item_id": 24
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es el ADN?",
+    "resp": "El ADN transporta instrucciones gen\u00e9ticas para el crecimiento y la reproducci\u00f3n.",
+    "en_instr": "What is DNA?",
+    "item_id": 25
+  },
+  {
+    "instr": "Describe el sistema solar.",
+    "resp": "El sistema solar tiene 8 planetas orbitando el Sol.",
+    "en_instr": "Describe the solar system.",
+    "item_id": 26
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la entrop\u00eda?",
+    "resp": "La entrop\u00eda mide el desorden. La segunda ley dice que siempre aumenta.",
+    "en_instr": "What is entropy?",
+    "item_id": 27
+  },
+  {
+    "instr": "\u00bfC\u00f3mo funcionan las bater\u00edas?",
+    "resp": "Reacciones qu\u00edmicas crean flujo de electrones entre electrodos.",
+    "en_instr": "How do batteries work?",
+    "item_id": 28
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es un agujero negro?",
+    "resp": "Una regi\u00f3n donde la gravedad impide que incluso la luz escape.",
+    "en_instr": "What is a black hole?",
+    "item_id": 29
+  },
+  {
+    "instr": "Explica c\u00f3mo funciona la fotos\u00edntesis.",
+    "resp": "Las plantas usan la luz solar para convertir CO2 y agua en glucosa y ox\u00edgeno.",
+    "en_instr": "Explain how photosynthesis works.",
+    "item_id": 30
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la teor\u00eda de la relatividad?",
+    "resp": "La teor\u00eda de Einstein dice que el espacio y el tiempo son relativos al observador.",
+    "en_instr": "What is the theory of relativity?",
+    "item_id": 31
+  },
+  {
+    "instr": "Describe el ciclo del agua.",
+    "resp": "El agua se evapora de los oc\u00e9anos, forma nubes y regresa como precipitaci\u00f3n.",
+    "en_instr": "Describe the water cycle.",
+    "item_id": 32
+  },
+  {
+    "instr": "\u00bfQu\u00e9 causa los terremotos?",
+    "resp": "Las placas tect\u00f3nicas se desplazan a lo largo de fallas, liberando energ\u00eda.",
+    "en_instr": "What causes earthquakes?",
+    "item_id": 33
+  },
+  {
+    "instr": "Explica c\u00f3mo funcionan las vacunas.",
+    "resp": "Las vacunas entrenan al sistema inmune para reconocer pat\u00f3genos.",
+    "en_instr": "Explain how vaccines work.",
+    "item_id": 34
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es el ADN?",
+    "resp": "El ADN transporta instrucciones gen\u00e9ticas para el crecimiento y la reproducci\u00f3n.",
+    "en_instr": "What is DNA?",
+    "item_id": 35
+  },
+  {
+    "instr": "Describe el sistema solar.",
+    "resp": "El sistema solar tiene 8 planetas orbitando el Sol.",
+    "en_instr": "Describe the solar system.",
+    "item_id": 36
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la entrop\u00eda?",
+    "resp": "La entrop\u00eda mide el desorden. La segunda ley dice que siempre aumenta.",
+    "en_instr": "What is entropy?",
+    "item_id": 37
+  },
+  {
+    "instr": "\u00bfC\u00f3mo funcionan las bater\u00edas?",
+    "resp": "Reacciones qu\u00edmicas crean flujo de electrones entre electrodos.",
+    "en_instr": "How do batteries work?",
+    "item_id": 38
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es un agujero negro?",
+    "resp": "Una regi\u00f3n donde la gravedad impide que incluso la luz escape.",
+    "en_instr": "What is a black hole?",
+    "item_id": 39
+  },
+  {
+    "instr": "Explica c\u00f3mo funciona la fotos\u00edntesis.",
+    "resp": "Las plantas usan la luz solar para convertir CO2 y agua en glucosa y ox\u00edgeno.",
+    "en_instr": "Explain how photosynthesis works.",
+    "item_id": 40
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la teor\u00eda de la relatividad?",
+    "resp": "La teor\u00eda de Einstein dice que el espacio y el tiempo son relativos al observador.",
+    "en_instr": "What is the theory of relativity?",
+    "item_id": 41
+  },
+  {
+    "instr": "Describe el ciclo del agua.",
+    "resp": "El agua se evapora de los oc\u00e9anos, forma nubes y regresa como precipitaci\u00f3n.",
+    "en_instr": "Describe the water cycle.",
+    "item_id": 42
+  },
+  {
+    "instr": "\u00bfQu\u00e9 causa los terremotos?",
+    "resp": "Las placas tect\u00f3nicas se desplazan a lo largo de fallas, liberando energ\u00eda.",
+    "en_instr": "What causes earthquakes?",
+    "item_id": 43
+  },
+  {
+    "instr": "Explica c\u00f3mo funcionan las vacunas.",
+    "resp": "Las vacunas entrenan al sistema inmune para reconocer pat\u00f3genos.",
+    "en_instr": "Explain how vaccines work.",
+    "item_id": 44
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es el ADN?",
+    "resp": "El ADN transporta instrucciones gen\u00e9ticas para el crecimiento y la reproducci\u00f3n.",
+    "en_instr": "What is DNA?",
+    "item_id": 45
+  },
+  {
+    "instr": "Describe el sistema solar.",
+    "resp": "El sistema solar tiene 8 planetas orbitando el Sol.",
+    "en_instr": "Describe the solar system.",
+    "item_id": 46
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es la entrop\u00eda?",
+    "resp": "La entrop\u00eda mide el desorden. La segunda ley dice que siempre aumenta.",
+    "en_instr": "What is entropy?",
+    "item_id": 47
+  },
+  {
+    "instr": "\u00bfC\u00f3mo funcionan las bater\u00edas?",
+    "resp": "Reacciones qu\u00edmicas crean flujo de electrones entre electrodos.",
+    "en_instr": "How do batteries work?",
+    "item_id": 48
+  },
+  {
+    "instr": "\u00bfQu\u00e9 es un agujero negro?",
+    "resp": "Una regi\u00f3n donde la gravedad impide que incluso la luz escape.",
+    "en_instr": "What is a black hole?",
+    "item_id": 49
+  }
+]

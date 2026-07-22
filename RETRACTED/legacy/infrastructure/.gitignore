@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+*.so
+.env
+.venv
+venv/
+env/
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.lof
+*.lot
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*-blx.bib
+*.bcf
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.maf
+*.mtc
+*.mtc0
+*.slg
+*.syg
+*.syf
+*.synctex(busy)
+*.pdfsync
+
+# OS
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# Data artifacts
+results/bias_interaction_synthetic_v2.csv
+results/corrected_*.csv
+results_rootcause/*.csv
+checkpoint.json
+ckpt.json
+*.ckpt
+*.bin
+*.pth
+
+# Cache & large model weights
+**/.cache/**
+**/huggingface/**
+*.safetensors
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_*

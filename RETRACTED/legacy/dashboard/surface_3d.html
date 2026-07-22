@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>3D Bias Surface  Interactive Visualization</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;padding:30px;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+h1{font-size:1.2rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.sub{color:#64748b;font-size:0.85rem;margin-bottom:20px}
+.surface-container{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:25px;max-width:900px;width:100%}
+.controls{display:flex;gap:10px;margin:15px 0;justify-content:center;flex-wrap:wrap}
+.controls button{padding:8px 16px;background:#1e293b;border:1px solid #334155;border-radius:6px;color:#e2e8f0;cursor:pointer;font-size:0.8rem}
+.controls button.active{background:#3b82f6;border-color:#3b82f6}
+.surface-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:15px}
+.surface-card{text-align:center;padding:15px;background:#0f172a;border-radius:8px}
+.surface-card canvas{max-height:150px}
+.surface-card .label{font-size:0.75rem;color:#94a3b8;margin-top:6px}
+.legend{display:flex;gap:15px;justify-content:center;margin:10px 0;font-size:0.75rem;color:#94a3b8}
+.legend-item{display:flex;align-items:center;gap:4px}
+.legend-dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+.finding{background:#1e3a5f;border-left:3px solid #60a5fa;padding:10px 15px;margin:15px 0;border-radius:0 6px 6px 0;font-size:0.85rem;max-width:900px}
+.finding strong{color:#fbbf24}
+</style>
+</head>
+<body>
+<h1>3D Bias Surface</h1>
+<p class="sub">Bias as a function of model size × probe type × training type</p>
+
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot" style="background:#60a5fa"></span> Base models</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Instruct models</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Improvement (format)</span>
+  <span class="legend-item"><span class="legend-dot" style="background:#ef4444"></span> Worsening (content)</span>
+</div>
+
+<div class="controls">
+  <button class="active" onclick="setView('all')">All Probes</button>
+  <button onclick="setView('rubric')">Rubric Order</button>
+  <button onclick="setView('score')">Score ID</button>
+  <button onclick="setView('ref')">Ref Answer</button>
+</div>
+
+<div class="surface-container">
+  <canvas id="surface-3d" height="300"></canvas>
+</div>
+
+<div class="surface-grid">
+  <div class="surface-card">
+    <div style="font-size:0.85rem;color:#60a5fa;font-weight:600" id="small-val"></div>
+    <canvas id="small-chart"></canvas>
+    <div class="label">Small models (≤3B)</div>
+  </div>
+  <div class="surface-card">
+    <div style="font-size:0.85rem;color:#f59e0b;font-weight:600" id="mid-val"></div>
+    <canvas id="mid-chart"></canvas>
+    <div class="label">Mid models (7B)</div>
+  </div>
+  <div class="surface-card">
+    <div style="font-size:0.85rem;color:#22c55e;font-weight:600" id="large-val"></div>
+    <canvas id="large-chart"></canvas>
+    <div class="label">Large models (8-9B)</div>
+  </div>
+</div>
+
+<div class="finding" id="finding-text">
+  <strong>Key pattern:</strong> The differential effect holds across ALL model sizes. Format biases (rubric, score ID) consistently decrease after instruction tuning. Content bias (ref answer) consistently increases. This confirms the IIAR hypothesis.
+</div>
+
+<script>
+const DATA = {
+  small: {
+    base: {rubric: [1.6, 3.0, 3.0, 4.34], score: [1.06, 3.0, 2.5, 3.0], ref: [0.0, 2.0, 2.0, 1.72]},
+    inst: {rubric: [0.34, 3.0, 3.0, 4.04], score: [0.16, 2.8, 2.8, 2.8], ref: [0.7, 3.0, 3.0, 2.98]}
+  },
+  mid: {
+    base: {rubric: [2.96, 2.5, 2.0, 3.0], score: [0.94, 2.0, 1.5, 2.44], ref: [2.24, 1.5, 2.5, 4.14]},
+    inst: {rubric: [3.62, 2.0, 1.5, 3.02], score: [0.1, 1.5, 1.2, 3.44], ref: [0.88, 2.5, 3.0, 4.86]}
+  },
+  large: {
+    base: {rubric: [4.0, 3.8, 1.2, 3.5], score: [0.02, 0.1, 0.8, 0.3], ref: [0.4, 0.5, 0.3, 0.6]},
+    inst: {rubric: [0.8, 0.9, 0.5, 1.2], score: [0.2, 0.15, 0.2, 0.25], ref: [1.98, 1.9, 1.0, 1.5]}
+  }
+};
+
+const COLORS = {base: 'rgba(96,165,250,0.7)', inst: 'rgba(245,158,11,0.7)'};
+const BORDERS = {base: '#60a5fa', inst: '#f59e0b'};
+
+let charts = {};
+
+function createBarChart(id, data, label) {
+  const ctx = document.getElementById(id).getContext('2d');
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Rubric', 'Score ID', 'Ref Ans'],
+      datasets: [
+        {label: 'Base', data: data.base, backgroundColor: COLORS.base, borderColor: BORDERS.base, borderWidth: 1},
+        {label: 'Instruct', data: data.inst, backgroundColor: COLORS.inst, borderColor: BORDERS.inst, borderWidth: 1}
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {legend: {display: false}},
+      scales: {y: {beginAtZero: true, max: 5, ticks: {font: {size: 9}}}, x: {ticks: {font: {size: 8}}}}
+    }
+  });
+}
+
+function init() {
+  charts.small = createBarChart('small-chart', DATA.small, 'Small');
+  charts.mid = createBarChart('mid-chart', DATA.mid, 'Mid');
+  charts.large = createBarChart('large-chart', DATA.large, 'Large');
+
+  // Update average values
+  const avg = (arr) => arr.reduce((a,b) => a+b, 0) / arr.length;
+  document.getElementById('small-val').textContent = `Avg Δ: ${(avg(DATA.small.inst.rubric) + avg(DATA.small.inst.score) + avg(DATA.small.inst.ref)).toFixed(2)}`;
+  document.getElementById('mid-val').textContent = `Avg Δ: ${(avg(DATA.mid.inst.rubric) + avg(DATA.mid.inst.score) + avg(DATA.mid.inst.ref)).toFixed(2)}`;
+  document.getElementById('large-val').textContent = `Avg Δ: ${(avg(DATA.large.inst.rubric) + avg(DATA.large.inst.score) + avg(DATA.large.inst.ref)).toFixed(2)}`;
+
+  renderMain('all');
+}
+
+function renderMain(view) {
+  const ctx = document.getElementById('surface-3d').getContext('2d');
+  if (window.mainChart) window.mainChart.destroy();
+
+  let labels, ds1, ds2;
+
+  if (view === 'all') {
+    labels = ['Rubric (base)', 'Rubric (inst)', 'Score (base)', 'Score (inst)', 'Ref (base)', 'Ref (inst)'];
+    ds1 = [DATA.large.base.rubric[0], DATA.large.inst.rubric[0], DATA.large.base.score[0],
+           DATA.large.inst.score[0], DATA.large.base.ref[0], DATA.large.inst.ref[0]];
+    ds2 = [DATA.mid.base.rubric[0], DATA.mid.inst.rubric[0], DATA.mid.base.score[0],
+           DATA.mid.inst.score[0], DATA.mid.base.ref[0], DATA.mid.inst.ref[0]];
+  } else {
+    const key = view === 'rubric' ? 'rubric' : view === 'score' ? 'score' : 'ref';
+    labels = ['Small base', 'Small inst', 'Mid base', 'Mid inst', 'Large base', 'Large inst'];
+    ds1 = [DATA.small.base[key][0], DATA.small.inst[key][0], DATA.mid.base[key][0],
+           DATA.mid.inst[key][0], DATA.large.base[key][0], DATA.large.inst[key][0]];
+    ds2 = [DATA.small.base[key][1], DATA.small.inst[key][1], DATA.mid.base[key][1],
+           DATA.mid.inst[key][1], DATA.large.base[key][1], DATA.large.inst[key][1]];
+  }
+
+  window.mainChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {label: 'Sample 1', data: ds1, backgroundColor: labels.map((_,i) => i%2===0 ? 'rgba(96,165,250,0.6)' : 'rgba(245,158,11,0.6)'), borderRadius: 3},
+        {label: 'Sample 2', data: ds2, backgroundColor: labels.map((_,i) => i%2===0 ? 'rgba(96,165,250,0.3)' : 'rgba(245,158,11,0.3)'), borderRadius: 3}
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {legend: {display: false}},
+      scales: {y: {beginAtZero: true, max: 5, title: {display: true, text: 'Bias (Δ)'}}}
+    }
+  });
+}
+
+function setView(view) {
+  document.querySelectorAll('.controls button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderMain(view);
+}
+
+init();
+</script>
+</body>
+</html>

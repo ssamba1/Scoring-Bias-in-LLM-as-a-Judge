@@ -4,8 +4,10 @@ authors:
   - family-names: Samba
     given-names: Sricharan
 orcid: ""
-# NOTE: the prior Zenodo DOI (10.5281/zenodo.21361920) archives a retracted version
-# with unsupported claims and is intentionally not referenced here.
+doi: 10.5281/zenodo.21499823
+# NOTE: a prior Zenodo record (10.5281/zenodo.21361920) archived an earlier version
+# whose results were fabricated; it was removed at the author's request prior to any
+# dissemination. Cite only the DOI above. Full audit: DATA_INTEGRITY_AUDIT.md.
 repository-code: "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
 license: MIT
 version: "2.0"

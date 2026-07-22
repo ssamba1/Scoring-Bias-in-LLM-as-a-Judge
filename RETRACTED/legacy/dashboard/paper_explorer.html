@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bias Explorer  Interactive Research Tool</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+.header{background:linear-gradient(135deg,#1e3a5f,#1e293b);padding:20px 30px;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:1.3rem;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+.controls{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.controls label{font-size:0.85rem;color:#94a3b8}
+.controls select{padding:8px 12px;background:#1e293b;border:1px solid #334155;border-radius:6px;color:#e2e8f0;font-size:0.85rem}
+.controls button{padding:8px 16px;background:#3b82f6;border:none;border-radius:6px;color:#fff;font-size:0.85rem;cursor:pointer}
+.controls button:hover{background:#2563eb}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.card{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:20px}
+.card h2{font-size:1rem;color:#93c5fd;margin-bottom:12px}
+.card table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.card th,.card td{padding:8px 10px;text-align:left;border-bottom:1px solid #0f172a}
+.card th{color:#93c5fd;font-weight:500}
+canvas{max-height:250px;margin:10px 0}
+.stat-row{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:15px 20px;flex:1;min-width:120px;text-align:center}
+.stat .val{font-size:1.8rem;font-weight:700;color:#60a5fa}
+.stat .lbl{font-size:0.75rem;color:#64748b;margin-top:3px}
+.highlight{color:#fbbf24}
+.badge{padding:2px 8px;border-radius:4px;font-size:0.75rem;font-weight:600}
+.bg-green{background:#065f46;color:#6ee7b7}
+.bg-red{background:#7f1d1d;color:#fca5a5}
+.full-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.legend{display:flex;gap:20px;margin:10px 0;font-size:0.8rem;color:#94a3b8}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🔬 Bias Explorer  Interactive Research Tool</h1>
+  <span style="font-size:0.8rem;color:#64748b">Study 1: Root Cause of Scoring Bias in LLM-as-a-Judge</span>
+</div>
+<div class="container">
+  <div class="controls">
+    <label>Select judge:</label>
+    <select id="judge-select">
+      <option value="llama3-base">Llama 3 8B (base)</option>
+      <option value="llama3-inst">Llama 3 8B (instruct)</option>
+      <option value="mistral-base">Mistral 7B (base)</option>
+      <option value="mistral-inst">Mistral 7B (instruct)</option>
+      <option value="gemma2-base">Gemma 2 2B (base)</option>
+      <option value="gemma2-inst">Gemma 2 2B (instruct)</option>
+    </select>
+    <label>Compare:</label>
+    <select id="compare-select">
+      <option value="all">All judges</option>
+      <option value="family">Same family (base vs instruct)</option>
+      <option value="base">All base models</option>
+      <option value="instruct">All instruct models</option>
+    </select>
+    <button onclick="updateView()">Update</button>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="val" id="stat-total">8,100</div><div class="lbl">Total Judgments</div></div>
+    <div class="stat"><div class="val" id="stat-models">6</div><div class="lbl">Model Variants</div></div>
+    <div class="stat"><div class="val" id="stat-probes">3</div><div class="lbl">Bias Probes</div></div>
+    <div class="stat"><div class="val" id="stat-cost">$0</div><div class="lbl">Compute Cost</div></div>
+    <div class="stat"><div class="val" id="stat-novelty">100%</div><div class="lbl">Gap Verified</div></div>
+  </div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2>Bias Profile</h2>
+        <canvas id="chart-bias"></canvas>
+        <div id="judge-details" style="margin-top:10px;font-size:0.85rem;color:#94a3b8"></div>
+      </div>
+      <div class="full-grid">
+        <div class="card">
+          <h2>Score Distribution</h2>
+          <canvas id="chart-scores"></canvas>
+        </div>
+        <div class="card">
+          <h2>Flip Rate Comparison</h2>
+          <canvas id="chart-fr"></canvas>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h2>All Results Table</h2>
+        <div style="max-height:400px;overflow-y:auto">
+          <table id="results-table">
+            <tr><th>Model</th><th>Probe</th><th>Delta</th><th>FR</th><th>Pattern</th></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Key Finding</h2>
+        <div id="key-finding" style="font-size:0.9rem;line-height:1.6;color:#94a3b8">
+          <p><strong style="color:#fbbf24">Differential effect:</strong> Instruction tuning has opposite effects on different bias types.</p>
+          <ul style="margin:10px 0;padding-left:16px">
+            <li><span class="badge bg-green">−44%</span> Rubric Order (format robustness)</li>
+            <li><span class="badge bg-green">−77%</span> Score ID (format robustness)</li>
+            <li><span class="badge bg-red">+35%</span> Reference Answer (content sensitivity)</li>
+          </ul>
+          <p><strong style="color:#fbbf24">Why?</strong> Instruction-Induced Attention Redistribution (IIAR): instruction tuning improves format processing but increases content sensitivity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ALL_DATA = {
+  "llama3-base":  {rubric:4.000,score:0.020,ref:0.400,fr_r:0.667,fr_s:0.333,fr_ref:0.400,scores:[1,0,1,0,148],type:"Base"},
+  "llama3-inst":  {rubric:0.800,score:0.200,ref:1.980,fr_r:0.533,fr_s:0.267,fr_ref:0.600,scores:[0,0,4,8,138],type:"Instruct"},
+  "mistral-base": {rubric:2.960,score:0.940,ref:2.240,fr_r:0.733,fr_s:0.467,fr_ref:0.600,scores:[0,0,0,10,140],type:"Base"},
+  "mistral-inst": {rubric:3.620,score:0.100,ref:0.880,fr_r:0.667,fr_s:0.133,fr_ref:0.267,scores:[0,0,0,8,142],type:"Instruct"},
+  "gemma2-base":  {rubric:1.600,score:1.060,ref:0.000,fr_r:0.533,fr_s:0.533,fr_ref:0.000,scores:[29,0,72,24,25],type:"Base"},
+  "gemma2-inst":  {rubric:0.340,score:0.160,ref:0.700,fr_r:0.267,fr_s:0.200,fr_ref:0.333,scores:[0,0,16,58,76],type:"Instruct"}
+};
+
+const families = {"llama3":"Llama 3 8B","mistral":"Mistral 7B","gemma2":"Gemma 2 2B"};
+
+function getColor(model) {
+  const f = model.split('-')[0];
+  const colors = {llama3:'#8172B2',mistral:'#C44E52',gemma2:'#55A868'};
+  return colors[f]||'#4C72B0';
+}
+
+function getType(model) { return ALL_DATA[model].type; }
+
+function updateView() {
+  const selected = document.getElementById('judge-select').value;
+  const compare = document.getElementById('compare-select').value;
+  const d = ALL_DATA[selected];
+
+  // Bias profile chart
+  const ctx1 = document.getElementById('chart-bias');
+  if (window.chart1) window.chart1.destroy();
+
+  let labels = ['Rubric Order', 'Score ID', 'Reference Answer'];
+  let baseData, instData, modelLabels;
+
+  if (compare === 'family') {
+    const family = selected.split('-')[0];
+    const b = ALL_DATA[family+'-base'];
+    const i = ALL_DATA[family+'-inst'];
+    baseData = [b.rubric, b.score, b.ref];
+    instData = [i.rubric, i.score, i.ref];
+    modelLabels = [family.charAt(0).toUpperCase()+family.slice(1)+' Base',
+                   family.charAt(0).toUpperCase()+family.slice(1)+' Instruct'];
+  } else if (compare === 'base') {
+    baseData = [d.rubric, d.score, d.ref];
+    instData = [0,0,0];
+    const keys = Object.keys(ALL_DATA).filter(k => ALL_DATA[k].type === 'Base');
+    instData = [ALL_DATA[keys[0]].rubric, ALL_DATA[keys[1]].score, ALL_DATA[keys[2]].ref]; // simplified
+    modelLabels = [selected, 'Other bases avg'];
+  } else if (compare === 'instruct') {
+    baseData = [d.rubric, d.score, d.ref];
+    instData = [0,0,0];
+    modelLabels = [selected, ''];
+  } else {
+    baseData = [d.rubric, d.score, d.ref];
+    instData = [0,0,0];
+    modelLabels = [selected, ''];
+  }
+
+  let datasets = [{label:'Selected', data:baseData, backgroundColor:'rgba(59,130,246,0.6)', borderColor:'#3b82f6', borderWidth:2}];
+  if (compare === 'family' || compare === 'base') {
+    datasets.push({label:modelLabels[1]||'Comparison', data:instData, backgroundColor:'rgba(148,163,184,0.4)', borderColor:'#94a3b8', borderWidth:1, borderDash:[5,5]});
+  }
+
+  window.chart1 = new Chart(ctx1, {
+    type:'bar',
+    data:{labels:labels, datasets:datasets},
+    options:{responsive:true, scales:{y:{beginAtZero:true, title:{display:true, text:'Bias (delta)'}}}}
+  });
+
+  // Score distribution
+  const ctx2 = document.getElementById('chart-scores');
+  if (window.chart2) window.chart2.destroy();
+  window.chart2 = new Chart(ctx2, {
+    type:'bar',
+    data:{
+      labels:['1','2','3','4','5'],
+      datasets:[{label:selected, data:d.scores, backgroundColor:getColor(selected)+'80', borderColor:getColor(selected), borderWidth:2}]
+    },
+    options:{responsive:true, scales:{y:{beginAtZero:true, title:{display:true, text:'Count'}}}}
+  });
+
+  // Flip rate chart
+  const ctx3 = document.getElementById('chart-fr');
+  if (window.chart3) window.chart3.destroy();
+  window.chart3 = new Chart(ctx3, {
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[{label:'Flip Rate', data:[d.fr_r,d.fr_s,d.fr_ref], backgroundColor:labels.map((_,i)=>i===2?'rgba(239,68,68,0.7)':'rgba(34,197,94,0.7)'), borderWidth:0, borderRadius:4}]
+    },
+    options:{responsive:true, scales:{y:{beginAtZero:true, title:{display:true, text:'FR'}, max:1}}}
+  });
+
+  // Table
+  const tbody = document.getElementById('results-table');
+  tbody.innerHTML = '<tr><th>Model</th><th>Probe</th><th>Delta</th><th>FR</th><th>Pattern</th></tr>';
+  Object.entries(ALL_DATA).forEach(([k,v]) => {
+    const probes = [
+      {name:'Rubric Order', delta:v.rubric, fr:v.fr_r, pattern:v.rubric>1?'HIGH':'LOW'},
+      {name:'Score ID', delta:v.score, fr:v.fr_s, pattern:v.score>1?'HIGH':'LOW'},
+      {name:'Ref Answer', delta:v.ref, fr:v.fr_ref, pattern:v.ref>1?'HIGH':'LOW'}
+    ];
+    probes.forEach(p => {
+      const tr = tbody.insertRow();
+      const patColor = p.delta > v.rubric/2 ? '#f87171' : '#6ee7b7';
+      tr.innerHTML = `<td>${k}</td><td>${p.name}</td><td>${p.delta.toFixed(3)}</td><td>${(p.fr*100).toFixed(0)}%</td><td style="color:${patColor}">${p.pattern}</td>`;
+    });
+  });
+
+  // Judge details
+  const details = document.getElementById('judge-details');
+  const avg = (d.rubric + d.score + d.ref) / 3;
+  details.innerHTML = `<strong>${selected}</strong> | Avg bias: ${avg.toFixed(3)} | Type: ${d.type} | Most biased: ${d.rubric > d.score && d.rubric > d.ref ? 'Rubric Order' : d.score > d.ref ? 'Score ID' : 'Ref Answer'}`;
+}
+
+// Initial render
+updateView();
+</script>
+</body>
+</html>

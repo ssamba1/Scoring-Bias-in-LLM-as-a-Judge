@@ -90,3 +90,8 @@ venv/
 .hermes/
 paper/honest/*.pdf
 paper/honest/superseded/*.pdf
+
+# Zenodo upload artifacts (archived at DOI 10.5281/zenodo.21499823)
+zenodo/
+__pycache__/
+*.pyc

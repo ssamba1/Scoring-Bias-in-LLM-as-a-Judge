@@ -35,3 +35,13 @@ pages that advertised the retracted numbers.
 
 **The replacement, honest study lives in [`../paper/honest/`](../paper/honest/)** and uses only the
 provenance-verified `results_rootcause/t4fam_results.json`.
+
+## legacy/ (added 2026-07-20)
+
+`legacy/` holds the remaining scaffolding of the retracted-era project (docs,
+citation guide, blog draft, dashboards, pipelines, synthetic-data generators,
+tests, extensions). Quarantined wholesale when the deleted Zenodo record was
+replaced: several files instructed readers to cite the removed DOI
+(10.5281/zenodo.21361920) or described fabricated results. Nothing in `legacy/`
+is part of the paper of record. The retracted-era `data/`, `docs/`,
+`appendices/`, and `outreach/` trees moved here likewise.

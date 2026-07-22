@@ -1,0 +1,22 @@
+{
+  "OLMo-7B": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "OLMo-7B-IT": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Qwen2.5-3B": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  },
+  "Qwen2.5-3B-IT": {
+    "rubric_order": null,
+    "score_id": null,
+    "reference_answer": null
+  }
+}

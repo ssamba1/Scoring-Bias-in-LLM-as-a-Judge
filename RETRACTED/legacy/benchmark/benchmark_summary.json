@@ -1,0 +1,12 @@
+{
+  "benchmark_name": "Scoring Bias Benchmark v1.0",
+  "total_items": 950,
+  "probes": {
+    "rubric_order": 150,
+    "score_id": 150,
+    "reference_answer": 250,
+    "position": 100,
+    "verbosity": 150,
+    "sentiment": 150
+  }
+}

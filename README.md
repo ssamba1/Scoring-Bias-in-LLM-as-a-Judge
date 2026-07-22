@@ -2,6 +2,7 @@
 <p align="center"><b>Instruction tuning makes LLM-as-a-judge sharper <i>and</i> more biased</b></p>
 
 <p align="center">
+  <a href="https://doi.org/10.5281/zenodo.21499823"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21499823-2b6cb0?style=flat-square" alt="DOI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC_BY_4.0-1a1a2e?style=flat-square" alt="License"></a>
   <img src="https://img.shields.io/badge/Families-13_(base%2Binstruct)-4a5568?style=flat-square" alt="Families">
   <img src="https://img.shields.io/badge/Bias_types-5-2b6cb0?style=flat-square" alt="5 bias types">
@@ -15,8 +16,10 @@
 > "content bias increases" finding, and an "IIAR" attention mechanism. Those were synthetic,
 > placeholder, or fabricated** — see the full audit in [`DATA_INTEGRITY_AUDIT.md`](DATA_INTEGRITY_AUDIT.md)
 > and [`paper/PROVENANCE_AUDIT.md`](paper/PROVENANCE_AUDIT.md). Those artifacts are quarantined in
-> [`RETRACTED/`](RETRACTED/) and must not be cited. The Zenodo DOI `10.5281/zenodo.21361920`
-> archives that retracted version.
+> [`RETRACTED/`](RETRACTED/) and must not be cited. The Zenodo record that archived
+> that version (`10.5281/zenodo.21361920`) was removed at the author's request prior
+> to any dissemination. The verified version is archived at
+> [`10.5281/zenodo.21499823`](https://doi.org/10.5281/zenodo.21499823).
 >
 > An intermediate honest paper (`superseded/scoring_bias_honest.*`, 7 tiny models) used
 > **parse-based** scoring, which we later show is a measurement confound (it silently drops items on

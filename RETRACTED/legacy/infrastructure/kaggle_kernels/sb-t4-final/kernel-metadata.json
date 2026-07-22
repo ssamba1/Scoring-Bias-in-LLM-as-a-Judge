@@ -1,0 +1,15 @@
+{
+  "id": "sricharansamba/sb-t4-final",
+  "title": "sb-t4-final",
+  "code_file": "sb-t4-final.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
