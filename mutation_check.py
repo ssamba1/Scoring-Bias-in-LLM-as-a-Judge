@@ -497,6 +497,108 @@ MUTATIONS = [
         "tests/test_citations_are_well_formed.py",
         "cited work left with nothing a reader can follow",
     ),
+    # ---- one per retraction signature ---------------------------------------
+    # The sweep carries eleven patterns, each naming a specific artefact from
+    # the fabricated version. Two of them were exercised; a pattern that has
+    # never caught anything is indistinguishable from one that no longer can.
+    # Each entry below puts that signature's own artefact back into a live page
+    # -- the exact regression each pattern exists to stop -- and requires the
+    # sweep to find it. They share an anchor because they are applied one at a
+    # time and restored between runs.
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        "<h2>Base vs Instruct (DeepSeek-V4-Flash)</h2>",
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: DeepSeek-V4 returns",
+    ),
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        '<h2>Base vs Instruct</h2><!-- name:"Qwen3-14B" -->',
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: Qwen3-* returns",
+    ),
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        "<h2>Base vs Instruct (Llama-4-Scout)</h2>",
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: Llama-4* returns",
+    ),
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        "<h2>Base vs Instruct</h2><!-- Science 0.52 & 0.65 & 0.38 -->",
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: 22-model domain table returns",
+    ),
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        "<h2>Base vs Instruct across the 22-model landscape</h2>",
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: 22-model landscape claim returns",
+    ),
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        "<h2>Base vs Instruct</h2><p>40,500 judgments</p>",
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: inflated judgment count returns",
+    ),
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        "<h2>Base vs Instruct</h2><p>across 31 variants</p>",
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: 31-variant claim returns",
+    ),
+    (
+        "paper/interactive/index.html",
+        "<h2>Base vs Instruct</h2>",
+        "<h2>Base vs Instruct</h2><!-- Student A, Student B -->",
+        "tests/test_no_fabricated_artefacts.py",
+        "signature: placeholder authorship returns",
+    ),
+    (
+        # The licence changes in the file while the badge and citation record
+        # keep advertising the old one -- the same disagreement as before, but
+        # arriving from the other direction.
+        "LICENSE",
+        "MIT License",
+        "Apache License",
+        "tests/test_release_surfaces_agree.py",
+        "LICENSE changes, badge and record do not",
+    ),
+    (
+        # The citation record gains a key the CFF schema does not define, which
+        # is what made it invalid before: additionalProperties is false.
+        "CITATION.cff",
+        "cff-version: 1.2.0",
+        "cffversion: 1.2.0",
+        "tests/test_citation_metadata_is_valid.py",
+        "citation record gains an unschema'd key",
+    ),
+    (
+        # A second small-n correlation drifts into the band where the choice of
+        # p-value method decides the verdict. The first such mutation covers one
+        # correlation; the scan is meant to cover every one of them.
+        "paper/honest/repro/results_peritem.json",
+        '"spearman_p": 0.7268',
+        '"spearman_p": 0.062',
+        "tests/test_small_n_statistics.py",
+        "a second small-n correlation drifts near 0.05",
+    ),
+    (
+        # The ethics statement keeps the word "proprietary" but stops naming
+        # which judges are proprietary, so a reader cannot tell what was used.
+        "paper/honest/scoring_bias_v2.tex",
+        "two proprietary models (GPT-4o-mini, GPT-4o)",
+        "two proprietary models (names withheld)",
+        "tests/test_ethics_matches_the_experiments.py",
+        "ethics stops naming the closed-weight judges",
+    ),
     (
         # Most entries stop parsing, so the bibliography checks would run on a
         # nearly empty set and pass without examining anything.
