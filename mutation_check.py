@@ -599,6 +599,43 @@ MUTATIONS = [
         "tests/test_ethics_matches_the_experiments.py",
         "ethics stops naming the closed-weight judges",
     ),
+    # ---- reaching the "is this reading real data" guards ---------------------
+    # These exist to fail when a parse silently returns less than it should, and
+    # none had ever been made to do it. Dropping one scored item from the panel,
+    # and renaming one frontier judge, is enough -- and both anchors carry \r\n
+    # because these files are CRLF in the working tree.
+    (
+        "paper/honest/repro/results_scaled.json",
+        "\r\n              2.3313,",
+        "",
+        "tests/test_effects_recompute_from_raw.py",
+        "a scored item vanishes from the panel",
+    ),
+    (
+        "paper/honest/repro/results_scaled.json",
+        "\r\n              2.3313,",
+        "",
+        "tests/test_release_surfaces_agree.py",
+        "panel shrinks below the count the README states",
+    ),
+    (
+        # Every closed judge has to be renamed, not one: with gpt-4o still in
+        # the roster the study is still using a proprietary judge, so the guard
+        # was right to stay green on the first attempt at this.
+        "paper/honest/repro/results_closed_analysis.json",
+        '"gpt-4o',
+        '"open-4o',
+        "tests/test_ethics_matches_the_experiments.py",
+        "roster no longer contains any closed judge",
+        True,
+    ),
+    (
+        "paper/honest/repro/results_closed_analysis.json",
+        '"gpt-4o-mini"',
+        '"open-4o-mini"',
+        "tests/test_replication_arms_recompute.py",
+        "a frontier judge drops out of the arm",
+    ),
     (
         # Most entries stop parsing, so the bibliography checks would run on a
         # nearly empty set and pass without examining anything.
