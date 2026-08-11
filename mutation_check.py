@@ -1037,6 +1037,16 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # The measured sensitivity exceeds the bound the paper proves for it.
+        # Either the measurement or the proposition would be wrong, and nothing
+        # checked the inequality -- only the number summarising its slack.
+        "paper/honest/repro/results_robustness.json",
+        '"max": 0.566',
+        '"max": 1.166',
+        "tests/test_the_theory_holds_in_its_own_data.py",
+        "measurement violates the paper's own bound",
+    ),
+    (
         # A checker admits it cannot run and returns success in the same block.
         # This is the shape the guard does catch; the success-path variant it
         # cannot catch is documented in the test rather than registered here.
