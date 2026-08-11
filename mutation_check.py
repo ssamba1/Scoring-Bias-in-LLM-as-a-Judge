@@ -183,6 +183,29 @@ MUTATIONS = [
         "tests/test_ethics_matches_the_experiments.py",
         "ethics claims every model is open-weight",
     ),
+    (
+        # A registered prediction stops being mentioned. This is the regression
+        # that had already happened: P4 was registered, its result computed, and
+        # the paper never connected the two.
+        # Every mention has to go: the first attempt replaced only the "preregistered
+        # P4" clause and the guard correctly stayed green, because the very next
+        # clause still says "so P4 holds". replace_all is the point here.
+        "paper/honest/macros.tex",
+        "P4",
+        "P4x",
+        "tests/test_preregistration_is_reported.py",
+        "registered prediction loses its reported outcome",
+        True,
+    ),
+    (
+        # The registered grouping stops being reported, leaving only the wider
+        # one the analysis uses -- so P4 has no verdict on its own terms.
+        "paper/honest/macros.tex",
+        "authority and verbosity alone; restricted to those two probes as registered,",
+        "these probes; restricted to them,",
+        "tests/test_preregistration_is_reported.py",
+        "registered grouping replaced by the wider one",
+    ),
 ]
 
 

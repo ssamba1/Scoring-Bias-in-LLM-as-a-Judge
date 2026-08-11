@@ -200,8 +200,14 @@ def main():
 
     # ---- Generality: entropy->bias law within each bias-type group ----
     out["generality"] = {}
+    # P4 registered the content group as (authority, verbosity) specifically. The
+    # analysis groups reference_answer with them, which is defensible -- it injects
+    # text too -- but it is not the registered set, so compute both and let the
+    # paper report the registered one beside it.
     for gname, glist in [("format", [p for p in FORMAT_PROBES if p in PROBES]),
-                         ("content", [p for p in CONTENT_PROBES if p in PROBES])]:
+                         ("content", [p for p in CONTENT_PROBES if p in PROBES]),
+                         ("content_as_registered_P4",
+                          [p for p in ("authority", "verbosity") if p in PROBES])]:
         gx, gy = [], []
         for f in fams:
             for kind in ("base", "instruct"):

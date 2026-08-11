@@ -487,6 +487,15 @@
       "spearman_rho": -0.294,
       "spearman_p": 0.0089,
       "n": 78
+    },
+    "content_as_registered_P4": {
+      "probes": [
+        "authority",
+        "verbosity"
+      ],
+      "spearman_rho": -0.351,
+      "spearman_p": 0.0108,
+      "n": 52
     }
   },
   "responsiveness": {
