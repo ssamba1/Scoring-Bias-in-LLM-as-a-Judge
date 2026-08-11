@@ -1,5 +1,5 @@
-.PHONY: help install test lint figures paper archive ci setup clean reproduce-all download-data pre-commit \
-        install-package run-api run-dashboard export-data check-credentials health-check \
+.PHONY: help install test lint figures paper archive ci setup clean reproduce-all pre-commit \
+        install-package run-api run-dashboard check-credentials health-check \
         validate docs integrity verify-clean arxiv-package
 
 help:  # Show available targets
@@ -26,9 +26,6 @@ help:  # Show available targets
 	@echo ""
 	@echo "── Data & Validation ──────────────────────────────────────────"
 	@printf "  \033[36m%-22s\033[0m %s\n" "make validate" "Run data validation pipeline"
-	@printf "  \033[36m%-22s\033[0m %s\n" "make export-data" "Export results to CSV"
-	@printf "  \033[36m%-22s\033[0m %s\n" "make export-all" "Export to CSV + JSON + Excel + Parquet"
-	@printf "  \033[36m%-22s\033[0m %s\n" "make download-data" "Instructions for downloading experiment data"
 	@echo ""
 	@echo "── Infrastructure ─────────────────────────────────────────────"
 	@printf "  \033[36m%-22s\033[0m %s\n" "make docs" "Build project documentation"
@@ -63,9 +60,9 @@ test-cov:  # Run tests with coverage report
 
 lint:  # Run code quality checks (flake8 + black)
 	pip install flake8 black -q
-	flake8 src/scoring_bias/ cli.py tests/*.py scripts/*.py api/app.py \
+	flake8 src/scoring_bias/ cli.py tests/*.py api.py \
 		--max-line-length=100 --count --statistics
-	black --check --diff src/scoring_bias/ cli.py tests/*.py scripts/*.py api/app.py
+	black --check --diff src/scoring_bias/ cli.py tests/*.py api.py
 
 figures:  # Regenerate the paper's figures from the committed data
 	cd paper/honest/repro && for f in make_*.py; do python $$f; done
@@ -90,8 +87,7 @@ docs:  # Build project documentation
 		@echo "See README.md and paper/ for project documentation."; \
 	fi
 
-archive:  # Generate arXiv submission package
-	python paper/arxiv_package.py
+archive: arxiv-package  # Generate arXiv submission package (alias)
 
 ci: test lint  # Run all CI checks (test + lint)
 
@@ -101,26 +97,12 @@ run-api:  # Start the FastAPI server
 	uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
 
 run-dashboard:  # Start the Streamlit dashboard
-	streamlit run dashboard/app.py
+	streamlit run dashboard.py
 
-export-data:  # Export analysis results to CSV
-	python scripts/export_data.py --format csv
+check-credentials:  # Scan every commit for credentials
+	python scan_secrets.py
 
-export-all:  # Export to all formats
-	python scripts/export_data.py --format csv
-	python scripts/export_data.py --format json
-	python scripts/export_data.py --format excel
-	python scripts/export_data.py --format parquet
-
-check-credentials:  # Scan for accidentally committed credentials
-	python scripts/check_credentials.py
-
-health-check:  # Verify project integrity
-	python scripts/health_check.py
-
-download-data:  # Download experiment results from remote
-	@echo "See notebooks/reproduce_colab.ipynb for Colab reproduction"
-	@echo "Results JSON should be placed at results_rootcause/study1_results.json"
+health-check: integrity  # Verify project integrity (alias)
 
 clean:  # Remove all build artifacts, caches, and temp files
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
