@@ -277,6 +277,40 @@ close("predictor LOO R^2", 0.27, pred["loo_r2"], 0.006)
 if abs(pred["loo_p"] - pred["loo_spearman_p"]) < 1e-9:
     FAILS.append("predictor Pearson and Spearman p are identical; one is not being computed")
 
+# ---- every statement of a figure, not merely one -----------------------------
+# `check()` asks whether a value appears somewhere in the paper. Most headline
+# figures are stated in two to five places, so drifting one of them leaves the
+# others satisfying it -- a mutation drifted the entropy pair, both correlations
+# and the predictor statistics, and this file caught none of them.
+#
+# Worse, several count claims were compared only against a literal written into
+# this checker ("12/13", "24/26"). Those verify that the data still says what we
+# expect; they never look at the paper, so the prose could say anything at all.
+#
+# `states()` closes both: it pins how many times the paper makes each claim, so
+# a drifted statement changes the count and fails, and it reads the paper's text
+# rather than this file's expectations.
+def states(desc, literal, expected_count):
+    seen = text.count(literal)
+    if seen != expected_count:
+        FAILS.append(
+            f"{desc}: the paper states {literal!r} {seen} time(s), expected "
+            f"{expected_count} -- a statement drifted, or one was added without "
+            f"updating this pin"
+        )
+
+
+states("entropy before tuning", "2.04", 2)
+states("entropy after tuning", "1.45", 2)
+states("entropy-bias correlation", r"\rho=-0.41", 5)
+states("variance-term correlation", r"\rho=-0.25", 3)
+states("decisiveness family count", "11/13", 5)
+states("responsiveness family count", "12/13", 1)
+states("within-checkpoint checkpoint count", "24/26", 1)
+states("predictor rank correlation", r"\rho=0.58", 3)
+states("predictor R^2", "R^2=0.27", 2)
+states("control-variant correlation", r"\rho=-0.34", 1)
+
 # ---- count claims ("8/9 families", "24/26 checkpoints") ----------------------
 # Fractions are the easiest claim to leave behind: they are typed as literals,
 # they change whenever a family is added or an exclusion is revised, and nothing

@@ -636,6 +636,102 @@ MUTATIONS = [
         "tests/test_replication_arms_recompute.py",
         "a frontier judge drops out of the arm",
     ),
+    # ---- one per published headline number -----------------------------------
+    # The prose gate compares each of these against the derived JSON. Until it
+    # was wrapped in a test it could not be reached by this harness at all, so
+    # no drifted headline number had ever been demonstrated to be caught. Each
+    # entry drifts one published figure in the paper's own text.
+    (
+        "paper/honest/macros.tex",
+        "entropy $2.04\\!\\to\\!1.45$ bits",
+        "entropy $2.14\\!\\to\\!1.45$ bits",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: entropy before tuning drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "falls from $2.04$ to $1.45$ bits",
+        "falls from $2.04$ to $1.35$ bits",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: entropy after tuning drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "with bias ($\\rho=-0.41$",
+        "with bias ($\\rho=-0.51$",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: entropy-bias correlation drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "$\\sqrt{\\mathrm{Var}_\\sigma(v)}$ ($\\rho=-0.25$",
+        "$\\sqrt{\\mathrm{Var}_\\sigma(v)}$ ($\\rho=-0.35$",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: variance-term correlation drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "11/13 families; Fig.~\\ref{fig:mech}a",
+        "12/13 families; Fig.~\\ref{fig:mech}a",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: decisiveness family count drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "$d_z=1.44$, 12/13 families",
+        "$d_z=1.44$, 13/13 families",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: responsiveness family count drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "positive in 24/26 checkpoints",
+        "positive in 25/26 checkpoints",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: within-checkpoint count drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "rank correlation $\\rho=0.58$",
+        "rank correlation $\\rho=0.68$",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: predictor rank correlation drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "gives $R^2=0.27$",
+        "gives $R^2=0.37$",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: predictor R^2 drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "(positive in 8/9 remaining families)",
+        "(positive in 9/9 remaining families)",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: excluding-Qwen count drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "gives $+0.29$ (9/10)",
+        "gives $+0.29$ (10/10)",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: >=1B family count drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "a majority (12/20) of the cells",
+        "a majority (14/20) of the cells",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: decrease-cell count drifts",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "recomputed on the control variant alone it is $\\rho=-0.34$",
+        "recomputed on the control variant alone it is $\\rho=-0.44$",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: control-variant correlation drifts",
+    ),
     (
         # Most entries stop parsing, so the bibliography checks would run on a
         # nearly empty set and pass without examining anything.

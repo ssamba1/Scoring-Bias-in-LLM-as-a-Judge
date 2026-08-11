@@ -35,6 +35,13 @@ jobs:
         run: python mutation_check.py
       - name: No credential anywhere in the history
         run: python scan_secrets.py
+      - name: Paper prose must match the committed derived results
+        # Also run in regenerate-and-diff, against freshly regenerated JSON.
+        # Here it runs against the committed JSON with no analysis stack
+        # installed, so prose drift is caught even when that job is skipped or
+        # its dependency install fails. check_prose.py is stdlib-only.
+        working-directory: paper/honest/repro
+        run: python check_prose.py
 
   regenerate-and-diff:
     runs-on: ubuntu-latest
