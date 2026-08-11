@@ -428,6 +428,43 @@ MUTATIONS = [
         "tests/test_preregistration_is_reported.py",
         "paper invents a preregistration id",
     ),
+    # ---- replication arms, one per arm so each guard is exercised -----------
+    (
+        # The deployed-judge arm: the largest biases the project reports.
+        "paper/honest/repro/results_closed_analysis.json",
+        '"rubric_order": 1.483',
+        '"rubric_order": 2.483',
+        "tests/test_replication_arms_recompute.py",
+        "frontier judge delta diverges from raw scores",
+    ),
+    (
+        "paper/honest/repro/results_zh_analysis.json",
+        '"mean_base": 0.415',
+        '"mean_base": 0.915',
+        "tests/test_replication_arms_recompute.py",
+        "Chinese replication diverges from raw scores",
+    ),
+    (
+        "paper/honest/repro/results_probes2_analysis.json",
+        '"mean_base": 0.799',
+        '"mean_base": 0.299',
+        "tests/test_replication_arms_recompute.py",
+        "new-probe suite diverges from raw scores",
+    ),
+    (
+        "paper/honest/repro/results_14b_analysis.json",
+        '"mean_base": 0.343',
+        '"mean_base": 0.843',
+        "tests/test_replication_arms_recompute.py",
+        "14B extension diverges from raw scores",
+    ),
+    (
+        "paper/honest/repro/results_robustness.json",
+        '"SmolLM2-135M": 0.19,',
+        '"SmolLM2-135M": 0.59,',
+        "tests/test_replication_arms_recompute.py",
+        "public-item effect diverges from raw scores",
+    ),
 ]
 
 
