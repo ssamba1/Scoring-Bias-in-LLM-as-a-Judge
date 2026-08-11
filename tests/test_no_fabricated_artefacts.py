@@ -7,18 +7,18 @@ The manuscripts were retracted into `RETRACTED/`.
 
 The retraction moved the manuscripts and the fabricated data files. It did not
 move what was built from them, and 44 artefacts stayed in the live tree for two
-weeks -- including a public dashboard that ranked `Qwen3-14B`, a model that has
-never existed, with precise per-probe scores. A reader browsing the repository
-would have taken them for current results.
+weeks -- among them a public dashboard ranking a model that has never existed,
+with precise per-probe scores. A reader browsing the repository would have taken
+them for current results.
 
 This is the guard that makes a repeat detectable. It sweeps every tracked file
-outside `RETRACTED/` for the signatures the audit identified, and fails if any
+outside `RETRACTED/` for the signatures the audit identified, and fails if one
 reappears. It is deliberately the first test in this suite: for this repository,
 "is anything fabricated still on display" outranks every other question.
 
-Two files match by design and are exempt: the audit documents exist to name this
-material. The exemption is by exact path, not by pattern, so a new file cannot
-quietly inherit it.
+The strings themselves live in `fabricated_signatures.py`, because a guard that
+spells them out trips the sweep that looks for them -- which happened twice while
+these tests were being written.
 """
 
 import re
@@ -27,32 +27,9 @@ from pathlib import Path
 
 import pytest
 
+from fabricated_signatures import PATTERNS, SAMPLES, SWEEP_EXEMPT
+
 ROOT = Path(__file__).resolve().parents[1]
-
-# Exempt by exact path: naming the fabricated material is the point of these.
-ALLOWED = {
-    "DATA_INTEGRITY_AUDIT.md",
-    "paper/PROVENANCE_AUDIT.md",
-    "RETRACTED/README.md",
-    "tests/test_no_fabricated_artefacts.py",
-}
-
-# Each signature is something the audit established does not exist or was never
-# measured. Keep the comment: it is why the pattern is here.
-SIGNATURES = {
-    # Models that do not exist, presented as evaluated.
-    "DeepSeek-V4": r"DeepSeek-V4",
-    "GLM-4.7": r"GLM-4\.7",
-    "Qwen3-*": r"\bQwen3-\d",
-    "Llama-4*": r"\bLlama-4[\-\.]",
-    # The fabricated per-domain bias table, by its values.
-    "domain table 3-family": r"1\.52\s*&\s*0\.98",
-    "domain table 22-model": r"0\.52\s*&\s*0\.65",
-    # Scale claims the audit found unsupported.
-    "22-model landscape": r"22[- ]model landscape",
-    "40,500 judgments": r"40,?500\s+judgments",
-    "31 variants": r"\b31\s+variants",
-}
 
 
 def _tracked_files():
@@ -71,15 +48,15 @@ def live_files():
     files = [
         f
         for f in _tracked_files()
-        if not f.startswith("RETRACTED/") and f not in ALLOWED
+        if not f.startswith("RETRACTED/") and f not in SWEEP_EXEMPT
     ]
     assert files, "no live files found -- the sweep would pass vacuously"
     return files
 
 
-@pytest.mark.parametrize("label", sorted(SIGNATURES))
+@pytest.mark.parametrize("label", sorted(PATTERNS))
 def test_signature_absent_from_live_tree(label, live_files):
-    pattern = re.compile(SIGNATURES[label])
+    pattern = re.compile(PATTERNS[label])
     offenders = []
     for rel in live_files:
         path = ROOT / rel
@@ -105,33 +82,18 @@ def test_the_exemptions_still_exist():
     it is committed, and failing on that would make the suite unrunnable exactly
     when someone is adding a guard.
     """
-    for rel in sorted(ALLOWED):
+    for rel in sorted(SWEEP_EXEMPT):
         assert (ROOT / rel).exists(), (
             f"{rel} is exempt from the fabrication sweep but does not exist; "
             f"remove the exemption or restore the file"
         )
 
 
-def test_the_sweep_can_actually_fail(tmp_path):
-    """A sweep that matches nothing would pass for the wrong reason.
-
-    Feeds each pattern a string it must catch. Without this, a regex broken by a
-    later edit would leave every check above green and protecting nothing.
-    """
-    samples = {
-        "DeepSeek-V4": "DeepSeek-V4-Flash",
-        "GLM-4.7": "Zhipu GLM-4.7 & 9B",
-        "Qwen3-*": "name:\"Qwen3-14B\"",
-        "Llama-4*": "Llama-4-Scout",
-        "domain table 3-family": "Science & 1.52 & 0.98 \\\\",
-        "domain table 22-model": "Science & 0.52 & 0.65 & 0.38 \\\\",
-        "22-model landscape": "the 22-model landscape",
-        "40,500 judgments": "40,500 judgments",
-        "31 variants": "across 31 variants",
-    }
-    assert set(samples) == set(SIGNATURES), "every signature needs a sample"
-    for label, sample in samples.items():
-        assert re.search(SIGNATURES[label], sample), (
+def test_the_sweep_can_actually_fail():
+    """A pattern that matches nothing would pass for the wrong reason."""
+    assert set(SAMPLES) == set(PATTERNS), "every signature needs a sample"
+    for label, sample in SAMPLES.items():
+        assert re.search(PATTERNS[label], sample), (
             f"pattern for {label!r} no longer matches its own example; the sweep "
             f"is not checking what it claims to check"
         )

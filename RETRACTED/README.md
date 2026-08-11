@@ -30,6 +30,16 @@ Two files that match the same signatures are deliberately **not** here: `DATA_IN
 to the dashboard built on verified data, and no longer advertises "36 models" or "22 instruct models
 ranked". `paper/interactive/base_vs_instruct.html` also stays — it names only real, measured models.
 
+### Third sweep (2026-08-11) -- placeholder-authored drafts
+
+Extending the sweep with the retracted submission's placeholder author names found five more
+drafts of the fabricated bias-interaction study still live: `paper/auto_generated/auto_paper.tex`
+(its own header records "16000 judgments, 5 judges, 400 items" -- the synthetic record set),
+`paper/archive/formal_framework.tex`, `paper/archive/theoretical_appendix.tex`,
+`paper/monograph.md` and `paper/unified_theory.md`. None carried the fabricated model names, which
+is why the earlier sweeps missed them; all describe the study the audit retracted, under authorship
+that was never filled in.
+
 ## `data/` — fabricated or unusable result files
 
 | File | Why retracted |

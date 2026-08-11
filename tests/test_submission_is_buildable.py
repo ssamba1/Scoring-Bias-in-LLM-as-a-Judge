@@ -29,18 +29,14 @@ from pathlib import Path
 
 import pytest
 
+from fabricated_signatures import PATTERNS
+
 ROOT = Path(__file__).resolve().parents[1]
 HONEST = ROOT / "paper" / "honest"
 ARCHIVE = HONEST / "arxiv_submission.tar.gz"
 LOG = HONEST / "scoring_bias_v2.log"
 
-RETRACTED_SIGNATURES = [
-    r"DeepSeek-V4",
-    r"GLM-4\.7",
-    r"\bQwen3-\d",
-    r"1\.52\s*&\s*0\.98",
-    r"Student A",
-]
+RETRACTED_SIGNATURES = list(PATTERNS.values())
 
 
 @pytest.fixture(scope="module")

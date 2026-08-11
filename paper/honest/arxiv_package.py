@@ -2,9 +2,13 @@
 """Build the arXiv submission for the honest study, and verify it.
 
 The previous packager (`paper/arxiv_package.py`, now retracted) built from
-`camera_ready.tex`, carried "Student A, Student B" as the author list, and
-described the retracted finding in its abstract metadata. Running it would have
-rebuilt a fabricated submission. It is quarantined; this replaces it.
+`camera_ready.tex`, carried placeholder names as the author list, and described
+the retracted finding in its abstract metadata. Running it would have rebuilt a
+fabricated submission. It is quarantined; this replaces it.
+
+(The placeholder names are not spelled out here on purpose: the fabrication
+sweep in `tests/` searches for them, and a file that quotes them trips it. The
+strings live in `tests/fabricated_signatures.py`, which is the one file exempt.)
 
 Two properties matter more than convenience here, both learned the hard way in
 this project:
