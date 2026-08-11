@@ -63,6 +63,15 @@ jobs:
           python analyze_t10.py
           python analyze_tokvar.py
           python analyze_closed.py
+      - name: Committed figures must show what the current data produces
+        # Content, not bytes: a PDF embeds a creation timestamp, so regenerating
+        # always changes the bytes. This compares the text drawn into each figure
+        # and its geometry, which is stack-independent -- unlike a raster
+        # comparison, which lapses exactly when someone changes environment.
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+          python check_figures.py
+        working-directory: paper/honest/repro
       - name: Paper prose numbers must match derived results
         working-directory: paper/honest/repro
         run: python check_prose.py
