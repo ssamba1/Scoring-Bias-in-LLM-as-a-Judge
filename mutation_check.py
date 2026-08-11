@@ -93,27 +93,43 @@ MUTATIONS = [
         "tests/test_small_n_statistics.py",
         "small-n correlation drifts near 0.05",
     ),
+    (
+        # The paper claims more evidence than the release contains. This is the
+        # defect class the audit found in the fabricated version -- inflated
+        # scale -- and until now nothing connected the prose to the data.
+        "paper/honest/scoring_bias_v2.tex",
+        "over 56{,}000 scored judgments",
+        "over 560{,}000 scored judgments",
+        "tests/test_scale_claims_match_the_data.py",
+        "paper overstates how many judgments exist",
+    ),
+    (
+        # The family count drifts away from the panel actually run. \NFAM is a
+        # macro, so this is written once -- but a macro is only single-source,
+        # not verified.
+        "paper/honest/macros.tex",
+        "\\newcommand{\\NFAM}{13}",
+        "\\newcommand{\\NFAM}{19}",
+        "tests/test_scale_claims_match_the_data.py",
+        "family count drifts from the panel",
+    ),
+    (
+        # The checkpoint count drifts in one of the three places it is written.
+        # Mutating the body copy leaves the two in macros.tex correct, so this
+        # also proves the guard reads more than the first occurrence.
+        "paper/honest/scoring_bias_v2.tex",
+        "26 checkpoints",
+        "40 checkpoints",
+        "tests/test_scale_claims_match_the_data.py",
+        "checkpoint count drifts in one place of three",
+    ),
 ]
 
 
-def _read(path: Path):
-    try:
-        return path.read_text(encoding="utf-8"), True
-    except UnicodeDecodeError:
-        return path.read_bytes(), False
-
-
-def _write(path: Path, data, is_text: bool):
-    if is_text:
-        path.write_text(data, encoding="utf-8", newline="")
-    else:
-        path.write_bytes(data)
-
-
-def _stash(rel: str, data, is_text: bool):
+def _stash(rel: str, data: bytes):
     STASH.mkdir(exist_ok=True)
     target = STASH / rel.replace("/", "__")
-    _write(target, data, is_text)
+    target.write_bytes(data)
     MANIFEST.write_text(json.dumps({"file": rel, "stash": target.name}), encoding="utf-8")
 
 
@@ -147,22 +163,27 @@ def main(verbose=False):
         if not path.exists():
             stale.append(f"{label}: {rel} absent")
             continue
-        original, is_text = _read(path)
-        if not is_text or find not in original:
+        # Bytes throughout. Reading as text and writing it back rewrites CRLF
+        # line endings as LF, which leaves the tree dirty after a run that is
+        # supposed to restore it exactly -- a mutation harness that edits the
+        # files it restores is not one to trust.
+        original = path.read_bytes()
+        find_b, replace_b = find.encode("utf-8"), replace.encode("utf-8")
+        if find_b not in original:
             stale.append(f"{label}: anchor not found in {rel}")
             print(f"{label:46s} {'-':>5} {'-':>5}  ** STALE ANCHOR **")
             continue
-        if original.count(find) > 1 and not replace_all:
-            print(f"  (note: {label} anchor occurs {original.count(find)}x; first is mutated)")
+        if original.count(find_b) > 1 and not replace_all:
+            print(f"  (note: {label} anchor occurs {original.count(find_b)}x; first is mutated)")
 
         base_rc = _run(test_file)
-        _stash(rel, original, is_text)
+        _stash(rel, original)
         try:
-            mutated = original.replace(find, replace) if replace_all else original.replace(find, replace, 1)
-            _write(path, mutated, is_text)
+            count = -1 if replace_all else 1
+            path.write_bytes(original.replace(find_b, replace_b, count))
             mutated_rc = _run(test_file)
         finally:
-            _write(path, original, is_text)
+            path.write_bytes(original)
             _clear_stash()
 
         caught = base_rc == 0 and mutated_rc != 0
