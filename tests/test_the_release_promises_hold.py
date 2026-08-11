@@ -46,6 +46,37 @@ def test_the_paper_still_makes_these_promises():
     assert re.search(r"integrity audit", text), "the paper no longer promises an integrity audit"
 
 
+def test_the_paper_does_not_claim_a_single_input_file():
+    """The contributions list said "every number from one file". It is not one.
+
+    That wording is a survivor of the earlier seven-family study, where the
+    t4fam run really was a single file. The paper of record derives its numbers
+    from sixteen committed inputs across the panel, the stage ablation, the
+    replications, the frontier judges and the patching runs. "One command" is
+    true and checkable; "one file" was neither.
+    """
+    text = _paper_text()
+    assert not re.search(r"every number from one file", text), (
+        "the paper claims every number comes from one file; the analyses read "
+        "sixteen committed inputs"
+    )
+
+    repro = REPO / "paper" / "honest" / "repro"
+    if not repro.is_dir():
+        pytest.skip("[repro] directory not present")
+    inputs = set()
+    for script in repro.glob("analyze_*.py"):
+        body = script.read_text(encoding="utf-8", errors="replace")
+        for match in re.finditer(r"[\"']([\w.-]+\.json(?:\.gz)?)[\"']", body):
+            name = match.group(1)
+            if "analysis" not in name and (repro / name).exists():
+                inputs.add(name)
+    assert len(inputs) > 1, (
+        f"only {inputs} found as analysis inputs; if the release really has "
+        f"collapsed to one file the sentence above should say so again"
+    )
+
+
 def test_the_single_script_reproduction_exists_and_targets_the_paper_of_record():
     assert RUN_ALL.exists(), "the paper promises a single-script reproduction; run_all.sh is absent"
     body = RUN_ALL.read_text(encoding="utf-8", errors="replace")
