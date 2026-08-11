@@ -206,6 +206,16 @@ MUTATIONS = [
         "tests/test_preregistration_is_reported.py",
         "registered grouping replaced by the wider one",
     ),
+    (
+        # A local regeneration overwrites CI's value for a tie-prone entry. This
+        # is the exact byte that turned the reproduction gate red for five
+        # consecutive commits.
+        "paper/honest/repro/results_mechanism.json",
+        "      0.6995,",
+        "      0.6996,",
+        "tests/test_analysis_stack_matches_the_pins.py",
+        "local regeneration overwrites CI's rounding",
+    ),
 ]
 
 
