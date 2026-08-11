@@ -3,7 +3,7 @@
 
 <p align="center">
   <a href="https://doi.org/10.5281/zenodo.21499823"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21499823-2b6cb0?style=flat-square" alt="DOI"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-CC_BY_4.0-1a1a2e?style=flat-square" alt="License"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-1a1a2e?style=flat-square" alt="License"></a>
   <img src="https://img.shields.io/badge/Families-13_(base%2Binstruct)-4a5568?style=flat-square" alt="Families">
   <img src="https://img.shields.io/badge/Bias_types-5-2b6cb0?style=flat-square" alt="5 bias types">
   <img src="https://img.shields.io/badge/data-real_only-38a169?style=flat-square" alt="real data">
@@ -36,7 +36,8 @@ We study whether a stronger, more instruction-tuned LLM judge is a fairer one. I
 
 ## Finding
 
-Across **13 open-weight families (0.1-8B; 26 checkpoints; 13,000 per-item scores)** and
+Across **13 open-weight families (0.1-8B; 26 checkpoints; 19,500 per-item scores in the
+main panel, over 56,000 across all datasets)** and
 **5 bias types** (rubric order, score ID, reference answer + authority, verbosity):
 
 - Instruction tuning **sharpens** the score distribution (entropy 2.04 -> 1.45 bits, 11/13 families)...

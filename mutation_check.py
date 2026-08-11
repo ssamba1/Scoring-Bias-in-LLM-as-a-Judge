@@ -242,6 +242,22 @@ MUTATIONS = [
         "tests/test_citation_metadata_is_valid.py",
         "citation record points at the retracted archive",
     ),
+    (
+        # The badge advertises a licence the repository does not carry.
+        "README.md",
+        "badge/License-MIT-1a1a2e",
+        "badge/License-CC_BY_4.0-1a1a2e",
+        "tests/test_release_surfaces_agree.py",
+        "readme badge contradicts the LICENSE file",
+    ),
+    (
+        # The README's scale reverts to the model's row count.
+        "README.md",
+        "19,500 per-item scores",
+        "13,000 per-item scores",
+        "tests/test_release_surfaces_agree.py",
+        "readme scale stops matching the released panel",
+    ),
 ]
 
 
