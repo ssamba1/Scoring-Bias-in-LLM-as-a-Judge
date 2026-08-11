@@ -321,6 +321,35 @@ MUTATIONS = [
         "tests/test_summary_tables_are_pinned.py",
         "ground-truth table cell drifts",
     ),
+    (
+        # A stored condition mean stops matching the per-item scores it was
+        # computed from. Every analysis reads these `mean` fields rather than
+        # the arrays, so a wrong one propagates into every table and headline
+        # with nothing downstream able to notice.
+        "paper/honest/repro/results_scaled.json",
+        '"mean": 2.8754',
+        '"mean": 3.4754',
+        "tests/test_effects_recompute_from_raw.py",
+        "stored mean contradicts its own per-item scores",
+    ),
+    (
+        # A per-family effect in the sensitivity analysis diverges from what the
+        # raw scores give.
+        "paper/honest/repro/results_robustness.json",
+        '"Falcon3-3B": 0.489',
+        '"Falcon3-3B": 0.589',
+        "tests/test_effects_recompute_from_raw.py",
+        "per-family effect diverges from the raw scores",
+    ),
+    (
+        # The forest plot's point estimate stops matching the recomputation --
+        # and lands outside its own confidence interval.
+        "paper/honest/repro/results_robustness.json",
+        '"effect": 0.578',
+        '"effect": 1.578',
+        "tests/test_effects_recompute_from_raw.py",
+        "forest point estimate leaves its own interval",
+    ),
 ]
 
 
