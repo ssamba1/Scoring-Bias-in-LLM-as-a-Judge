@@ -1037,6 +1037,38 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # A checker admits it cannot run and returns success in the same block.
+        # This is the shape the guard does catch; the success-path variant it
+        # cannot catch is documented in the test rather than registered here.
+        "paper/honest/repro/check_figures.py",
+        '  macOS:         brew install poppler"\n        )\n        return 1',
+        '  macOS:         brew install poppler"\n        )\n        return 0',
+        "tests/test_checks_do_not_pass_quietly.py",
+        "a checker reports success when its tooling is missing",
+    ),
+    (
+        # A test in the suite becomes vacuous. The guard's inputs are the test
+        # files themselves, so the mutation necessarily lands in tests/ -- but
+        # in a *different* file from the guard being exercised, which is no more
+        # circular than mutating any other source the guard reads.
+        "tests/test_small_n_statistics.py",
+        "assert not risky, (",
+        "assert isinstance(risky, list), (",
+        "tests/test_no_test_is_vacuous.py",
+        "a test in the suite becomes vacuous",
+    ),
+    (
+        # A README figure drifts from the result it quotes. I said last commit
+        # that this guard would need the harness to mutate the test suite; that
+        # was wrong. It reads the README and the derived JSON, both tracked, so
+        # it is mutable like any other.
+        "README.md",
+        "rho=-0.44",
+        "rho=-0.54",
+        "tests/test_readme_figures_match_the_data.py",
+        "a README figure drifts from its source",
+    ),
+    (
         # An unfinished note reaches the paper's sources. Previously only the
         # archive was checked, which no string swap can reach -- so this guard
         # had my word for it and nothing else.
