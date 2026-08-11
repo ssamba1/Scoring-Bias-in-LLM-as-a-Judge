@@ -1037,6 +1037,16 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # An unfinished note reaches the paper's sources. Previously only the
+        # archive was checked, which no string swap can reach -- so this guard
+        # had my word for it and nothing else.
+        "paper/honest/scoring_bias_v2.tex",
+        "\\section{Related Work}",
+        "\\section{Related Work}\\paragraph{TODO: finish the survey}",
+        "tests/test_no_draft_markers_reach_the_reader.py",
+        "a draft marker reaches the paper sources",
+    ),
+    (
         # The audit's trail to its evidence breaks. Verified by hand when the
         # guard was written; registered here so it stays verified.
         "DATA_INTEGRITY_AUDIT.md",

@@ -17,6 +17,14 @@ Each was individually small and collectively the same thing: the apparatus is
 worth exactly what it refuses to pass. This test looks for the shape rather than
 the instances -- a print whose text admits an inability, followed by a success
 exit in the same breath.
+
+What it does *not* catch, stated so the coverage is not overread: an admission
+on the success path of a script that exits non-zero somewhere else. Injecting
+`print("cannot verify")` just above check_prose's final success line is invisible
+here, because check_prose does call sys.exit(1) -- inside `if FAILS:`. Deciding
+that requires following which exit each path reaches, which this does not do. A
+mutation for that case was registered, found to be uncaught, and removed rather
+than left as a failing entry or a passing illusion.
 """
 
 import ast
@@ -119,6 +127,31 @@ def test_no_admission_is_followed_by_a_success_exit(rel):
                 elif result == 0:
                     offenders.append(f"{rel}:{statement.lineno}: {said[:80]}")
                     said = None
+
+    # Falling off the end of a module is an implicit exit 0, and the block walk
+    # above only sees explicit ones. A script that prints "cannot verify" and
+    # then simply finishes is the same defect wearing no return statement -- a
+    # registered mutation proved this guard missed exactly that.
+    module_admissions = []
+    for statement in tree.body:
+        if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            continue
+        said = admission(statement)
+        if said:
+            module_admissions.append((statement.lineno, said))
+    if module_admissions:
+        exits_nonzero = any(
+            (isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+             and n.func.attr == "exit" and n.args
+             and isinstance(n.args[0], ast.Constant) and n.args[0].value not in (0, None))
+            or isinstance(n, ast.Raise)
+            for statement in tree.body
+            for n in ast.walk(statement)
+            if not isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+        )
+        if not exits_nonzero:
+            line, said = module_admissions[0]
+            offenders.append(f"{rel}:{line}: {said[:80]} (module ends without a non-zero exit)")
 
     assert not offenders, (
         "a check says it could not verify something and then reports success: "

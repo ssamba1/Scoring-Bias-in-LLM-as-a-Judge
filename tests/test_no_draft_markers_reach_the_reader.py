@@ -48,6 +48,37 @@ def _archive_sources():
     return "\n".join(text)
 
 
+def _working_tree_sources():
+    """The sources as they are now, which is what the next packaging will ship.
+
+    Checking only the archive means a marker introduced today is invisible until
+    someone reruns arxiv_package.py -- and the archive is a tarball, so no
+    mutation can reach it either. These are tracked text files, so the guard is
+    exercisable rather than merely asserted.
+    """
+    parts = []
+    for name in ("scoring_bias_v2.tex", "macros.tex"):
+        path = HONEST / name
+        if path.exists():
+            parts.append(path.read_text(encoding="utf-8", errors="replace"))
+    if not parts:
+        pytest.skip("[paper] sources not present")
+    return "\n".join(parts)
+
+
+@pytest.mark.parametrize("label", sorted(MARKERS))
+def test_the_working_sources_carry_no_draft_marker(label):
+    pattern = MARKERS[label][0]
+    body = "\n".join(
+        re.sub(r"(?<!\\)%.*", "", line) for line in _working_tree_sources().splitlines()
+    )
+    found = [
+        " ".join(body[max(0, m.start() - 60): m.end() + 40].split())
+        for m in re.finditer(pattern, body)
+    ]
+    assert not found, f"{label} appears in the paper sources: {found[:3]}"
+
+
 @pytest.mark.parametrize("label", sorted(MARKERS))
 def test_the_submission_sources_carry_no_draft_marker(label):
     pattern = MARKERS[label][0]
