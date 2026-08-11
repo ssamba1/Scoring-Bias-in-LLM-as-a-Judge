@@ -4,7 +4,7 @@
   "sources": {
     "scoring_bias_v2.tex": "378edc3b0751d31d593832badb4915db67c88059b882df077ca0918ae9018ed1",
     "macros.tex": "0743238e2bde0190d86685893820a266d1316a801085f4d5776ca98988b6e62a",
-    "honest.bib": "b2f7b83b11602a03af6b556ba33be742a9cf770741fd0574d4ba84e0400286fc"
+    "honest.bib": "a921c0df5372144f3379fb574966e6ab2f1a9d4652f296410daea3d1cc0a2b91"
   },
   "note": "Digests are of the paper sources at packaging time, line-ending normalised. If they no longer match, this archive is stale: rebuild before submitting."
 }

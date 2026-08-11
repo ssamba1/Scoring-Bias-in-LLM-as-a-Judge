@@ -143,6 +143,17 @@ MUTATIONS = [
         "tests/test_every_derived_file_is_reproduced.py",
         "derived file diffed but never regenerated",
     ),
+    (
+        # A citation points at an identifier that resolves to nothing. The
+        # retracted version cited works that did not exist, and a bad identifier
+        # compiles silently -- LaTeX reports an undefined key, never a key
+        # pointing somewhere false.
+        "paper/honest/honest.bib",
+        "eprint    = {2411.15594}",
+        "eprint    = {2413.15594}",
+        "tests/test_citations_are_well_formed.py",
+        "citation points at a nonexistent arXiv id",
+    ),
 ]
 
 
