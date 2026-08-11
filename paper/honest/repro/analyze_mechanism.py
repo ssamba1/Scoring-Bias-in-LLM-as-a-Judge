@@ -281,9 +281,16 @@ def loo_predictor(pairs, fams):
     ss_res = float(np.sum((Y - preds) ** 2)); ss_tot = float(np.sum((Y - Y.mean()) ** 2))
     r2 = 1 - ss_res / ss_tot if ss_tot else float("nan")
     r, pv = stats.pearsonr(preds, Y)
+    # The paper reports the *rank* correlation between predicted and actual bias,
+    # because with 13 families the linear fit is not the claim -- the ordering is.
+    # Emit it and its own p-value: reporting the rank coefficient beside the
+    # Pearson p-value pairs a statistic with a test it did not come from.
+    srho, sp = stats.spearmanr(preds, Y)
     kinds = [k for f in fams for k in ("base", "instruct")]
     return {"loo_r2": round(r2, 3), "loo_pearson_r": round(float(r), 3),
-            "loo_p": round(float(pv), 5), "n_models": len(X),
+            "loo_p": round(float(pv), 5),
+            "loo_spearman_rho": round(float(srho), 3),
+            "loo_spearman_p": round(float(sp), 5), "n_models": len(X),
             "points": {"entropy": [round(v, 4) for v in X.tolist()],
                        "actual": [round(v, 4) for v in Y.tolist()],
                        "predicted": [round(v, 4) for v in preds.tolist()],

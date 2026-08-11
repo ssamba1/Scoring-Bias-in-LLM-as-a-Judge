@@ -144,7 +144,11 @@ def verify():
     with tempfile.TemporaryDirectory(prefix="arxiv-verify-") as tmp:
         work = Path(tmp)
         with tarfile.open(ARCHIVE, "r:gz") as tar:
-            tar.extractall(work)
+            # filter="data" refuses absolute paths, ".." escapes and unsafe
+            # metadata. It becomes the default in 3.14; setting it explicitly
+            # keeps this verification step working the same way on both sides of
+            # that change instead of warning now and altering behaviour later.
+            tar.extractall(work, filter="data")
 
         if not (work / "main.bbl").exists():
             raise SystemExit("no main.bbl in the archive; arXiv does not run BibTeX")

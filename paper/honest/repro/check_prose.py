@@ -237,6 +237,63 @@ if f"{dec['n_decreased']}/{dec['n']}" != "11/13":
 resp = mech["responsiveness_bias_link"]
 close("responsiveness-bias rho", 0.82, resp["spearman_rho"], 0.006)
 
+# The responsiveness claim is a *count* of families, not only a correlation:
+# "12/13 families". The analysis records how many decreased, so the count the
+# prose states must be the complement.
+resp_fam = mech["responsiveness"]
+rose = resp_fam["n"] - resp_fam["n_decreased"]
+if f"{rose}/{resp_fam['n']}" != "12/13":
+    FAILS.append(
+        f"responsiveness rose in {rose}/{resp_fam['n']} families, prose says 12/13"
+    )
+
+# The predictor sentence quotes a rank correlation. It previously quoted the
+# *Pearson* p-value beside it (0.004 rather than 0.002) -- the coefficient and
+# the p-value came from two different tests, and neither the analysis nor this
+# checker emitted the rank p at all, so nothing could notice. Both are pinned
+# now, each to its own statistic.
+pred = mech["predictor"]
+close("predictor rank rho", 0.58, pred["loo_spearman_rho"], 0.006)
+check("predictor rank rho in prose", r"\rho=0.58", pred["loo_spearman_rho"])
+close("predictor rank p", 0.002, pred["loo_spearman_p"], 0.0006)
+check("predictor rank p in prose", "p=0.002", pred["loo_spearman_p"])
+close("predictor LOO R^2", 0.27, pred["loo_r2"], 0.006)
+if abs(pred["loo_p"] - pred["loo_spearman_p"]) < 1e-9:
+    FAILS.append("predictor Pearson and Spearman p are identical; one is not being computed")
+
+# ---- count claims ("8/9 families", "24/26 checkpoints") ----------------------
+# Fractions are the easiest claim to leave behind: they are typed as literals,
+# they change whenever a family is added or an exclusion is revised, and nothing
+# about a stale one looks wrong on the page. Each is pinned to the value the
+# analysis emits. Where the analysis stored only a proportion (the within-
+# checkpoint counts), the count is reconstructed from it rather than trusted.
+b3 = rob["B3_sensitivity"]
+for label, quoted, actual in [
+    ("families positive (headline)", "11/13",
+     f"{b3['n_families_positive']}/{b3['n_families']}"),
+    ("families positive excluding Qwen", "8/9", b3["excl_qwen_positive"]),
+    ("families positive at >=1B", "9/10", b3["only_ge1B_positive"]),
+    ("families positive on public items", "7/8", rob["C5_public_items"]["families_positive"]),
+    ("families positive on alt templates", "8/9",
+     rob["G2_cross_dataset"]["alt_templates"]["families_positive"]),
+    ("decrease cells the decomposition catches", "12/20",
+     rob["D3_crossover"]["decrease_cells_caught"]),
+]:
+    if quoted != actual:
+        FAILS.append(f"{label}: data says {actual}, prose says {quoted}")
+    elif quoted not in text:
+        FAILS.append(f"{label}: prose no longer contains '{quoted}' (data says {actual})")
+
+wcr = rob["B1_within_checkpoint_responsiveness"]
+n_pos = round(wcr["frac_positive"] * wcr["n_checkpoints"])
+if f"{n_pos}/{wcr['n_checkpoints']}" != "24/26":
+    FAILS.append(
+        f"responsiveness ranks probes in {n_pos}/{wcr['n_checkpoints']} checkpoints, "
+        f"prose says 24/26"
+    )
+close("within-checkpoint responsiveness rho", 0.64, wcr["mean_within_rho"], 0.006)
+close("within-checkpoint entropy rho", -0.05, rob["B1_within_checkpoint"]["mean_within_rho"], 0.006)
+
 if FAILS:
     print("PROSE-CONSISTENCY FAILURES:")
     for f in FAILS:

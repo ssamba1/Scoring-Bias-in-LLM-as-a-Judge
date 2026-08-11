@@ -231,8 +231,16 @@ def main():
     sign_acc = float(np.mean(np.sign(pred_a) == np.sign(act_a)))
     mag = stats.spearmanr(pred_a, act_a)
     bt = stats.binomtest(int(np.sum(np.sign(pred_a) == np.sign(act_a))), len(pred_a))
+    # The paper's sharper claim is about the cells where bias *falls*: overall
+    # sign accuracy could be carried entirely by the majority that rise, so the
+    # decrease subset is where the decomposition is actually tested. It was
+    # quoted in the prose without being emitted here, which left it unverifiable
+    # from the release.
+    fell = act_a < 0
+    caught = int(np.sum(np.sign(pred_a[fell]) == np.sign(act_a[fell])))
     out["D3_crossover"] = {
         "n_cells": pairs_used, "sign_accuracy": round(sign_acc, 3),
+        "decrease_cells_caught": f"{caught}/{int(fell.sum())}",
         "binom_p": round(float(bt.pvalue), 6),
         "spearman_dlogpred_dlogact": round(float(mag.statistic), 3),
         "spearman_p": round(float(mag.pvalue), 6)}

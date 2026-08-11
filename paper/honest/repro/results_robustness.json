@@ -74,6 +74,7 @@
   "D3_crossover": {
     "n_cells": 65,
     "sign_accuracy": 0.754,
+    "decrease_cells_caught": "12/20",
     "binom_p": 5.1e-05,
     "spearman_dlogpred_dlogact": 0.641,
     "spearman_p": 0.0
