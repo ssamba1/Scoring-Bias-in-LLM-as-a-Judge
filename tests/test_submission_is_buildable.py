@@ -58,11 +58,64 @@ def test_the_archive_ships_a_bbl(archive_members):
 
 
 def test_the_archive_contains_the_paper_and_its_assets(archive_members):
+    """Exactly the assets the paper draws -- not "at least eight".
+
+    A floor passes while a figure is missing, as long as enough others are
+    present, and the paper would then build on my machine (where the file is in
+    the working tree) and fail on arXiv (where only the archive exists). What
+    matters is correspondence: every \\includegraphics and every \\input
+    resolves inside the archive, and nothing rides along that the paper does not
+    draw.
+    """
     assert "main.tex" in archive_members
-    figures = [n for n in archive_members if n.startswith("figures/")]
-    tables = [n for n in archive_members if n.startswith("tables/")]
-    assert len(figures) >= 8, f"only {len(figures)} figures bundled"
-    assert len(tables) >= 3, f"only {len(tables)} tables bundled"
+    tex = archive_members["main.tex"].decode("utf-8", "replace")
+
+    drawn = set()
+    for match in re.finditer(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}", tex):
+        name = Path(match.group(1)).name
+        drawn.add(name if "." in name else name + ".pdf")
+    inputs = {
+        (n if n.endswith(".tex") else n + ".tex")
+        for n in (Path(m.group(1)).name for m in re.finditer(r"\\input\{([^}]*)\}", tex))
+    }
+
+    shipped_figures = {Path(n).name for n in archive_members if n.startswith("figures/")}
+    shipped_tables = {Path(n).name for n in archive_members if n.startswith("tables/")}
+    top_level = {Path(n).name for n in archive_members if "/" not in n}
+
+    assert drawn, "the archive's main.tex draws no figures at all"
+    missing = sorted(drawn - shipped_figures)
+    assert not missing, f"the paper draws {missing}, which the archive does not carry"
+
+    stowaways = sorted(shipped_figures - drawn)
+    assert not stowaways, (
+        f"the archive carries {stowaways}, which the paper never draws -- an "
+        f"arXiv submission should not ship figures from a different version"
+    )
+
+    unresolved = sorted(n for n in inputs if n not in shipped_tables and n not in top_level)
+    assert not unresolved, f"the paper inputs {unresolved}, which the archive does not carry"
+
+
+def test_the_archived_assets_match_the_working_tree(archive_members):
+    """What ships must be the figures I have been checking, not older copies."""
+    import hashlib
+
+    differing = []
+    for name, data in archive_members.items():
+        if not name.startswith(("figures/", "tables/")):
+            continue
+        live = HONEST / name
+        if not live.exists():
+            differing.append(f"{name}: not in the working tree")
+        elif hashlib.sha256(live.read_bytes()).hexdigest() != hashlib.sha256(data).hexdigest():
+            differing.append(f"{name}: archive copy differs")
+    assert not differing, (
+        f"the archive's assets are not the ones in the working tree: {differing}. "
+        f"check_figures verifies the working tree against the data; if the "
+        f"archive holds different bytes, that verification does not cover what "
+        f"would be submitted."
+    )
 
 
 def test_nothing_retracted_is_inside_the_archive(archive_members):
