@@ -674,15 +674,14 @@ because a mechanism claim is only as trustworthy as the measurement under it.
 \CONCLUSION{}
 
 \section*{Reproducibility}
-Every statistic and figure is produced by \path{repro/analyze_peritem.py},
-\path{repro/analyze_mechanism.py}, \path{repro/analyze_gold.py},
-\path{repro/analyze_robustness.py}, \path{repro/make_mech_figures.py}, and
-\path{repro/make_concept_figure.py} from the committed raw files
-(\path{results_scaled.json}, \path{gold_results.json}, \path{patch_results.json},
-\path{results_multitemplate.json}, \path{attn_results.json},
-\path{results_dolly.json.gz}, \path{results_stages.json.gz},
-\path{results_probes2.json}, \path{results_closed.json}; collected by the
-matching \path{repro/*_harness.py} scripts), seed 42.
+Every statistic and figure is produced by the fourteen \path{repro/analyze_*.py}
+scripts and seven \path{repro/make_*.py} figure generators, from the nineteen
+committed raw run files in \path{repro/}---\path{results_scaled.json} for the
+main panel, \path{results_closed.json} for the frontier judges,
+\path{results_stages.json.gz} for the stage ablation, \path{results_probes2.json}
+for the new probes, \path{gold_results.json} for the ground-truth test, and the
+rest---each collected by the matching \path{repro/*_harness.py} script, seed 42.
+\path{run_all.sh} runs all of them in order.
 A continuous-integration check reruns every analysis script on the committed raw files
 and fails on any numerical drift. The repository snapshot, paper, and all raw data are
 archived at \href{https://doi.org/10.5281/zenodo.21499823}{DOI 10.5281/zenodo.21499823}. No synthetic or
