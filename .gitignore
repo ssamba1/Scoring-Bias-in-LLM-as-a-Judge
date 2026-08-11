@@ -93,5 +93,13 @@ paper/honest/superseded/*.pdf
 
 # Zenodo upload artifacts (archived at DOI 10.5281/zenodo.21499823)
 zenodo/
+
+# Working directories the repo's own tooling creates in the root. Both are
+# transient and both are removed on a clean exit -- which is exactly why they
+# need to be here: after an interrupted run they survive, and `git add -A`
+# would commit stashed copies of the paper's sources (.mutation_stash) or an
+# entire virtualenv (.verify-venv).
+.mutation_stash/
+.verify-venv/
 __pycache__/
 *.pyc

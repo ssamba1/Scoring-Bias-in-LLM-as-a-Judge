@@ -20,6 +20,7 @@ in a `finally`.
 """
 
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -1107,6 +1108,22 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A tool starts using a scratch path inside the repo that .gitignore
+        # does not cover. Such a directory survives an interrupted run, and
+        # `git add -A` would then commit an entire virtualenv.
+        #
+        # The mutation moves the tool's path rather than editing .gitignore:
+        # un-ignoring .mutation_stash mid-run exposes this checker's own stash
+        # of pre-mutation sources to every guard that walks the working tree,
+        # which aborted the run and left two mutations applied the first time
+        # it was tried.
+        "verify_like_ci.py",
+        'REPO / ".verify-venv"',
+        'REPO / ".verify-venv-2"',
+        "tests/test_tooling_scratch_is_ignored.py",
+        "a tooling scratch directory stops being ignored",
+    ),
+    (
         # The disclosure attached to the frontier group comparison goes stale.
         # A stated exception with a wrong count reads as checked and is not.
         "paper/honest/repro/results_closed_analysis.json",
@@ -1350,6 +1367,9 @@ MUTATIONS = [
 ]
 
 
+LOCK = STASH / "lock.json"
+
+
 def _stash(rel: str, data: bytes):
     STASH.mkdir(exist_ok=True)
     target = STASH / rel.replace("/", "__")
@@ -1358,7 +1378,72 @@ def _stash(rel: str, data: bytes):
 
 
 def _clear_stash():
+    """Remove the stash, keeping the lock: the run is not over until it is."""
+    for path in STASH.glob("*"):
+        if path.name != LOCK.name:
+            path.unlink(missing_ok=True)
+
+
+def _recover():
+    """Restore a file left mutated by a run that was killed mid-mutation.
+
+    The restore in main() sits in a `finally`, so an exception restores. A kill
+    -- a CI timeout, a closed terminal -- does not, and what survives is a
+    source file of the paper with a deliberate error in it. Twice today that
+    was macros.tex, carrying an invented preregistration id and a wrong n.
+    """
+    if not MANIFEST.exists():
+        return None
+    record = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    saved = STASH / record["stash"]
+    target = BASE / record["file"]
+    if not saved.exists() or not target.exists():
+        return None
+    if saved.read_bytes() == target.read_bytes():
+        return None
+    target.write_bytes(saved.read_bytes())
+    return record["file"]
+
+
+def _take_lock(force: bool):
+    """One run at a time. Concurrent runs corrupt the tree, silently.
+
+    Two runs overlapping is not a hypothetical: verify_like_ci.py invokes this
+    checker, so running it beside a direct invocation is enough. The second run
+    reads an already-mutated file as its "original" and writes that back as the
+    restore -- the mutation becomes permanent and the tree looks clean.
+    """
+    if LOCK.exists() and not force:
+        held = LOCK.read_text(encoding="utf-8", errors="replace").strip()
+        raise SystemExit(
+            f"another mutation run holds the lock ({held}).\n"
+            f"Two runs share one working tree: the second reads a mutated file "
+            f"as its original and makes the mutation permanent.\n"
+            f"If no run is active, that lock is from an interrupted one -- "
+            f"rerun with --force, which restores any half-applied mutation first."
+        )
+    restored = _recover() if force or LOCK.exists() else None
     shutil.rmtree(STASH, ignore_errors=True)
+    STASH.mkdir(exist_ok=True)
+    LOCK.write_text(json.dumps({"pid": os.getpid()}), encoding="utf-8")
+    global _HOLDS_LOCK
+    _HOLDS_LOCK = True
+    return restored
+
+
+_HOLDS_LOCK = False
+
+
+def _release_lock():
+    """Only the holder clears the stash.
+
+    Releasing unconditionally means a run that was *refused* deletes the stash
+    of the run it refused to disturb -- taking with it the only copy of the
+    file that run is currently holding mutated. The refusal would cause exactly
+    the damage it exists to prevent.
+    """
+    if _HOLDS_LOCK:
+        shutil.rmtree(STASH, ignore_errors=True)
 
 
 def _run(test_file: str):
@@ -1372,9 +1457,13 @@ def _run(test_file: str):
     return result.returncode
 
 
-def main(verbose=False):
+def main(verbose=False, force=False):
     if not (BASE / "tests").is_dir():
         raise SystemExit("no tests/ directory")
+
+    restored = _take_lock(force)
+    if restored:
+        print(f"restored {restored} from an interrupted run before starting\n")
 
     print(f"{'mutation':46s} {'BASE':>5} {'MUT':>5}  verdict")
     print("-" * 72)
@@ -1451,4 +1540,7 @@ def main(verbose=False):
 
 
 if __name__ == "__main__":
-    sys.exit(main("-v" in sys.argv))
+    try:
+        sys.exit(main("-v" in sys.argv, "--force" in sys.argv))
+    finally:
+        _release_lock()
