@@ -496,8 +496,9 @@ Appendix~\ref{app:prompts}). \MTPROSE{}
 \STAGEPROSE{}
 \begin{figure}[t]\centering
 \includegraphics[width=0.98\linewidth]{fig_stages.pdf}
-\caption{Alignment-stage ablation (preregistered P7--P9). \textbf{(a)} Every stage
-sharpens the score distribution, preference stages most. \textbf{(b)} Responsiveness
+\caption{Alignment-stage ablation (preregistered P7--P9). \textbf{(a)} Entropy falls at seven of the eight stage transitions, and the
+largest fall is at a preference stage in two of the three families; the exception
+is T\"ulu-3-8B's RLVR step, where entropy rises ($0.92\!\to\!1.11$). \textbf{(b)} Responsiveness
 rises almost entirely at the \emph{SFT} step (84--99\% of the total rise).
 \textbf{(c)} Bias follows responsiveness, jumping at SFT and flat thereafter. SFT
 installs the bias; DPO/RLVR install the confidence.}

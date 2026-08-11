@@ -1108,6 +1108,18 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The stage-ablation exception disappears from the data while the paper
+        # still states it -- or, run the other way, the paper's "seven of eight"
+        # stops matching the transitions. A universal claim in a caption is
+        # falsified by one counterexample, and nothing was counting them.
+        "paper/honest/repro/results_stages_analysis.json",
+        "1.1061",
+        "0.9061",
+        "tests/test_prose_matches_derived_values.py",
+        "the stage-ablation exception stops matching the data",
+        True,  # the value appears in both the trajectory table and P8_paths
+    ),
+    (
         # The Reproducibility section's count of analysis scripts drifts from the
         # directory. The section is what a replicator follows; an undercount
         # sends them away having reproduced part of the paper.

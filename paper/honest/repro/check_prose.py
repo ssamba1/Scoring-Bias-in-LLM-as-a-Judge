@@ -505,6 +505,48 @@ if by_stage:
     if len(ladder) != 4:
         FAILS.append(f"the OLMo-1B ladder has {len(ladder)} stages; the prose quotes four")
 
+# The caption asserted that every stage sharpens the distribution. Seven of the
+# eight transitions do; Tulu-3-8B's RLVR step raises entropy. A universal claim
+# is falsified by one counterexample and nothing was counting them, so the count
+# and the exception are both recomputed here.
+paths = stages["P8_paths"]
+falls, rises = 0, []
+for family, rec in paths.items():
+    path = rec["entropy_path"]
+    for before, after, stage in zip(path, path[1:], rec["stages"][1:]):
+        if after < before:
+            falls += 1
+        else:
+            rises.append((family, stage, before, after))
+total = falls + len(rises)
+if f"seven of the eight stage transitions" in text and (falls, total) != (7, 8):
+    FAILS.append(
+        f"the paper says entropy falls at seven of eight stage transitions; "
+        f"the data give {falls} of {total}"
+    )
+for family, stage, before, after in rises:
+    # Naming the family proves nothing -- every family is named somewhere in the
+    # section. The exception is pinned to its numbers, which appear nowhere else.
+    quoted = f"${before:.2f}\\!\\to\\!{after:.2f}$"
+    if quoted not in text:
+        FAILS.append(
+            f"entropy rises at {family}'s {stage} step and the paper does not "
+            f"state it as {quoted}"
+        )
+
+# "the largest fall is at a preference stage in two of the three families"
+preference_largest = 0
+for rec in paths.values():
+    path, names = rec["entropy_path"], rec["stages"]
+    drops = {names[i + 1]: path[i] - path[i + 1] for i in range(len(path) - 1)}
+    if drops and max(drops, key=drops.get) in ("DPO", "RLVR"):
+        preference_largest += 1
+if "in two of the three families" in text and (preference_largest, len(paths)) != (2, 3):
+    FAILS.append(
+        f"the paper says the largest fall is at a preference stage in two of "
+        f"three families; the data give {preference_largest} of {len(paths)}"
+    )
+
 # Concentration, not leniency: the top-token probability rises while the mass on
 # the top scores is flat. Both halves matter -- the second is what rules out the
 # deflationary reading, and it is the one nobody would notice going stale.

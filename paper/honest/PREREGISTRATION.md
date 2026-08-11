@@ -105,6 +105,15 @@ the predictions and analyzer predate the data):**
   base→RLVR responsiveness rise.
 - P8 **confirmed**: entropy falls at every stage (preference stages most);
   DPO/RLVR add far less responsiveness than SFT (OLMo-7B: −0.01/+0.01 vs +0.06).
+  **Correction (2026-08-11):** that outcome overstates the first clause and is
+  left standing rather than rewritten, since silently editing a recorded
+  outcome is the practice this project is recovering from. Entropy falls at
+  **seven of the eight** stage transitions, not all eight: Tülu-3-8B's RLVR step
+  raises it (0.921 → 1.106). "Preference stages most" also holds in only two of
+  the three families — in OLMo-2-7B the SFT step falls further (0.435) than DPO
+  (0.240). The second clause, on responsiveness, is unaffected. The paper's
+  figure caption and prose asserted the unqualified version; both now state the
+  exception, and a check recomputes it from `results_stages_analysis.json`.
 - P9 **7/8 transitions** sign-agree (binomial p = 0.07; marginal at n = 8,
   reported as such).
 
