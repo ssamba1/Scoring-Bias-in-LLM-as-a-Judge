@@ -630,6 +630,24 @@ if gold_reversed["base"]["accuracy_under_bias"] == gold_reversed["instruct"]["ac
 if not re.search(r"0\.98.{0,12}to.{0,12}0[^.\d]", text):
     FAILS.append("prose no longer states the 0.98 -> 0 discrimination collapse")
 
+# ---- the per-domain claim ----------------------------------------------------
+# "The effect is not domain-specific: instruct bias exceeds base bias in every
+# one of the five item domains." Unchecked until now, which is a poor place to
+# leave a gap: the audit's FABRICATED verdict was on a per-domain table, whose
+# split was invented because the pipeline could not compute it. A per-domain
+# claim in this paper is the one a sceptical reader should reach for first.
+domains = json.loads((HERE / "results_peritem.json").read_text())["domain"]
+if len(domains) != 5:
+    FAILS.append(f"prose says five item domains, the data has {len(domains)}")
+not_higher = [d for d, v in domains.items() if v["instruct"] <= v["base"]]
+if not_higher:
+    FAILS.append(
+        f"prose says instruct bias exceeds base bias in every domain; it does not "
+        f"in {not_higher}"
+    )
+if not re.search(r"(?i)every one of the five item domains", text):
+    FAILS.append("prose no longer states the per-domain claim; update this check with it")
+
 # ---- count claims ("8/9 families", "24/26 checkpoints") ----------------------
 # Fractions are the easiest claim to leave behind: they are typed as literals,
 # they change whenever a family is added or an exclusion is revised, and nothing
