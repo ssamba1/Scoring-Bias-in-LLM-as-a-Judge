@@ -365,6 +365,43 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- stage trajectory and the concentration arrows ---------------------------
+# A four-step trajectory is four claims sharing one sentence, so a single stale
+# step hides among three correct ones. Recomputed per stage from the per-cell
+# table rather than read from a summary field.
+stages = json.loads((HERE / "results_stages_analysis.json").read_text())
+by_stage = {}
+for cell in stages["per_cell"]:
+    if cell["family"] == "OLMo-2-1B":
+        by_stage.setdefault(cell["stage"], []).append(cell)
+
+if by_stage:
+    ladder = sorted(by_stage, key=lambda s: by_stage[s][0]["order"])
+    ent = [sum(c["entropy"] for c in by_stage[s]) / len(by_stage[s]) for s in ladder]
+    bias = [sum(c["bias"] for c in by_stage[s]) / len(by_stage[s]) for s in ladder]
+    for measured, quoted in zip(ent, (2.21, 1.80, 1.04, 0.99)):
+        close(f"OLMo-1B entropy ladder step {quoted}", quoted, measured, 0.006)
+    close("OLMo-1B bias at base", 0.24, bias[0], 0.006)
+    close("OLMo-1B bias at SFT", 0.80, bias[1], 0.006)
+    if len(ladder) != 4:
+        FAILS.append(f"the OLMo-1B ladder has {len(ladder)} stages; the prose quotes four")
+
+# Concentration, not leniency: the top-token probability rises while the mass on
+# the top scores is flat. Both halves matter -- the second is what rules out the
+# deflationary reading, and it is the one nobody would notice going stale.
+collapse = rob["E3_score_collapse"]
+close("max answer-token probability (base)", 0.40, collapse["base"]["maxp"], 0.006)
+close("max answer-token probability (instruct)", 0.53, collapse["instruct"]["maxp"], 0.006)
+close("top-score mass (base)", 0.54, collapse["base"]["top2_mass"], 0.006)
+close("top-score mass (instruct)", 0.51, collapse["instruct"]["top2_mass"], 0.006)
+
+# Template ensembling: the percentage and the two means it comes from.
+ens = rob["C8_template_ensemble"]
+close("single-template bias", 0.67, ens["mean_single_template_bias"], 0.006)
+close("ensembled bias", 0.53, ens["mean_ensembled_bias"], 0.006)
+if round(ens["reduction_frac"] * 100) != 22:
+    FAILS.append(f"prose says ensembling cuts bias by 22%, data give {ens['reduction_frac']:.3f}")
+
 # ---- stated ranges must contain their data -----------------------------------
 # Twice now a range has been quoted with an endpoint that excludes the value it
 # is meant to bound: the frontier means began at 0.84 with a judge at 0.820, and
