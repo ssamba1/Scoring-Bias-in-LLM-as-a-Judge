@@ -1037,6 +1037,16 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # A runner stops rerunning one of the analyses. This is the historical
+        # defect exactly: results_14b_analysis.json was committed and cited
+        # while no runner regenerated it.
+        "run_all.sh",
+        "analyze_closed.py",
+        "analyze_closed_DISABLED.py",
+        "tests/test_every_analysis_is_run_everywhere.py",
+        "a runner stops rerunning an analysis",
+    ),
+    (
         # One of the four copies of the bias measure drifts to a different
         # statistic. Every file would still emit plausible numbers; only the
         # cross-file comparisons would stop meaning the same thing.
