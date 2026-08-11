@@ -10,6 +10,32 @@ on:
   pull_request:
 
 jobs:
+  # Nothing fabricated may be on display, and no credential may be in the
+  # history. Both are checked here because both have actually gone wrong in this
+  # repository, and neither was covered by any automated check until now: the
+  # test suite had never run in CI at all.
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The secret scan reads every commit. actions/checkout defaults to
+          # depth 1, and a scan of one commit reports clean forever -- which is
+          # worse than no scan, because it is believed. scan_secrets.py refuses
+          # a shallow clone rather than pass one, so this must be 0.
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pytest
+        run: pip install pytest
+      - name: No fabricated artefact outside RETRACTED/, submission intact
+        run: python -m pytest tests/ -q -rs
+      - name: The guards must be able to fail
+        run: python mutation_check.py
+      - name: No credential anywhere in the history
+        run: python scan_secrets.py
+
   regenerate-and-diff:
     runs-on: ubuntu-latest
     steps:

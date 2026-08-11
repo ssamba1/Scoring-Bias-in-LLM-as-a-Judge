@@ -1,6 +1,6 @@
 .PHONY: help install test lint figures paper archive ci setup clean reproduce-all download-data pre-commit \
         install-package run-api run-dashboard export-data check-credentials health-check \
-        validate docs
+        validate docs integrity verify-clean arxiv-package
 
 help:  # Show available targets
 	@echo "╔══════════════════════════════════════════════════════════════╗"
@@ -131,3 +131,14 @@ clean:  # Remove all build artifacts, caches, and temp files
 	find . -type f -name '*.blg' -delete
 	find . -type f -name '*.pyc' -delete
 	rm -rf build/ dist/ *.egg-info/
+
+integrity:  # Fabrication sweep, guard mutations, and history secret scan
+	python -m pytest tests/ -q -rs
+	python mutation_check.py
+	python scan_secrets.py
+
+verify-clean:  # Run the suite in a fresh clone of HEAD
+	python verify_clean_clone.py
+
+arxiv-package:  # Build and verify the honest paper's submission archive
+	cd paper/honest && python arxiv_package.py
