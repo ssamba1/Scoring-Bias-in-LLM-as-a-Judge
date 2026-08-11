@@ -202,6 +202,41 @@ close("ladder entropy-bias null", 0.01, lel.get("spearman_rho"), 0.006)
 if stages["P9"]["sign_agreement"] != "7/8":
     FAILS.append("P9 7/8 stale")
 
+# ---- headline statistics quoted in the abstract-level macros ----
+#
+# These were the gap. Everything above verifies structural claims -- fractions,
+# monotonicity flags, sign agreement -- against the derived JSON, and does it
+# well. The continuous statistics the paper actually leads with were unchecked:
+# changing the headline correlation in macros.tex from -0.41 to -9.41 left this
+# script reporting "prose-consistency OK".
+#
+# Each is pinned to the specific key that produces it, not to "some value
+# somewhere". That distinction matters here: sixteen different derived values
+# round to 0.41, so a search of the whole result set would have accepted the
+# mutated number too.
+link = mech["entropy_bias_link"]
+close("entropy-bias rho (headline)", -0.41, link["spearman_rho"], 0.006)
+check("entropy-bias rho in prose", r"\rho=-0.41", link["spearman_rho"])
+if not link["spearman_p"] < 1e-3:
+    FAILS.append(f"headline rho p is {link['spearman_p']}, prose claims p<10^-3")
+
+var_link = mech["var_bias_link"]
+close("variance-term rho", -0.25, var_link["spearman_rho"], 0.006)
+check("variance-term rho in prose", r"\rho=-0.25", var_link["spearman_rho"])
+
+dec = mech["decisiveness"]
+close("entropy base mean", 2.04, dec["base_mean"], 0.006)
+close("entropy instruct mean", 1.45, dec["instruct_mean"], 0.006)
+check("entropy shift in prose", "2.04", dec["base_mean"])
+check("entropy shift in prose", "1.45", dec["instruct_mean"])
+if f"{dec['n_decreased']}/{dec['n']}" != "11/13":
+    FAILS.append(
+        f"decisiveness families is {dec['n_decreased']}/{dec['n']}, prose says 11/13"
+    )
+
+resp = mech["responsiveness_bias_link"]
+close("responsiveness-bias rho", 0.82, resp["spearman_rho"], 0.006)
+
 if FAILS:
     print("PROSE-CONSISTENCY FAILURES:")
     for f in FAILS:
