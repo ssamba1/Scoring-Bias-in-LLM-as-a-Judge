@@ -1107,6 +1107,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A full-panel statistic quietly drops cells. The range it reports stays
+        # correct for the cells it kept, which is why the paper's "across all
+        # 130 cells" would go on reading fine.
+        "paper/honest/repro/results_robustness.json",
+        '"max": 0.566,\n    "n": 130',
+        '"max": 0.566,\n    "n": 128',
+        "tests/test_full_panel_statistics_use_the_full_panel.py",
+        "a full-panel statistic stops covering the panel",
+    ),
+    (
         # One item changes domain, so the panel stops being ten per domain.
         # Balance is what licenses reading the per-domain comparison as a
         # comparison of domains rather than of sample sizes.
