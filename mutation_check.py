@@ -974,6 +974,27 @@ MUTATIONS = [
         "tests/test_superseded_claims_are_not_asserted.py",
         "superseded direction asserted on a live page",
     ),
+    (
+        # Items go missing from a raw file. The reproduction gate cannot see
+        # this: the analyses would faithfully re-derive the result from the
+        # shortened data and it would match what was committed, because the
+        # gate compares derived JSON to derived JSON.
+        "paper/honest/repro/results_14b.json",
+        '"n_items": 50',
+        '"n_items": 60',
+        "tests/test_released_data_is_well_formed.py",
+        "raw arrays no longer match the declared item count",
+    ),
+    (
+        # The multiple-comparison column silently becomes Bonferroni. Every
+        # printed value would still look like a plausible corrected p-value,
+        # and the header would still say Holm. 5 x 0.0681 = 0.3405.
+        "paper/honest/tables/tab_v2_summary.tex",
+        "0.204 &",
+        "0.341 &",
+        "tests/test_holm_correction_is_correct.py",
+        "Holm column becomes Bonferroni",
+    ),
 ]
 
 
