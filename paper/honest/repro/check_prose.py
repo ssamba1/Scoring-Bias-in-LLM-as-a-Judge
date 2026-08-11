@@ -365,6 +365,31 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- stated ranges must contain their data -----------------------------------
+# Twice now a range has been quoted with an endpoint that excludes the value it
+# is meant to bound: the frontier means began at 0.84 with a judge at 0.820, and
+# the bound-tightness range began at 0.38 with a cell at 0.375. Rounding an
+# endpoint inward is the failure -- it always narrows the reported spread, and
+# it always looks tidier than the truth. Endpoints are rounded outward here.
+bound = rob["F5_bound_tightness"]
+stated_lo, stated_hi = 0.37, 0.57
+if bound["min"] < stated_lo - 1e-9:
+    FAILS.append(f"bound-tightness range starts at {stated_lo}, data reach {bound['min']}")
+if bound["max"] > stated_hi + 1e-9:
+    FAILS.append(f"bound-tightness range ends at {stated_hi}, data reach {bound['max']}")
+check("bound-tightness range in prose", f"${stated_lo}$--${stated_hi}$", bound["min"])
+close("bound-tightness mean", 0.45, bound["mean_gradnorm_over_sqrtvar"], 0.006)
+
+# Granularity: bias per unit of rating range, quoted as two ranges.
+gran = json.loads((HERE / "results_gran_analysis.json").read_text())["per_scale"]
+for arm, lo, hi in (("base", 0.04, 0.06), ("instruct", 0.07, 0.10)):
+    vals = [s[f"bias_per_unit_range_{arm}"] for s in gran.values()]
+    if min(vals) < lo - 1e-9 or max(vals) > hi + 1e-9:
+        FAILS.append(
+            f"prose bounds {arm} bias-per-unit-range at [{lo}, {hi}]; data span "
+            f"[{min(vals):.4f}, {max(vals):.4f}]"
+        )
+
 # ---- frontier judges: the stated range must bracket the measured means -------
 # The prose quoted "mean Delta of 0.84--1.01" while the judges' means are 0.820,
 # 0.843 and 1.007. The low end was the second-smallest value, not the smallest.
