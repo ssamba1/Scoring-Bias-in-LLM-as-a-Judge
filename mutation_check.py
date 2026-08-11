@@ -1037,6 +1037,17 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # A specification-curve entry stops following from the panel. The curve
+        # is the paper's answer to "did you pick the analysis that worked?", so
+        # a stored verdict that no longer follows from the data is the one place
+        # a reader is least able to check by hand.
+        "paper/honest/repro/results_robustness.json",
+        '"ev|maxmin|format": {\n        "mean_effect": 0.302',
+        '"ev|maxmin|format": {\n        "mean_effect": 0.402',
+        "tests/test_specification_curve_recomputes.py",
+        "a specification-curve entry drifts from the panel",
+    ),
+    (
         # A preregistered probe's adjudication stops following from its run.
         # "sycophancy confirms, anchoring refuses" is read from this summary,
         # and until now nothing recomputed it from the measurements.
