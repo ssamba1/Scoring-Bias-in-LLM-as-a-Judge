@@ -1037,6 +1037,16 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # A preregistered probe's adjudication stops following from its run.
+        # "sycophancy confirms, anchoring refuses" is read from this summary,
+        # and until now nothing recomputed it from the measurements.
+        "paper/honest/repro/results_probes2_analysis.json",
+        '"families_positive": "11/13"',
+        '"families_positive": "13/13"',
+        "tests/test_new_probe_counts_recompute_from_raw.py",
+        "a probe's adjudication stops matching its raw run",
+    ),
+    (
         # A per-family effect flips sign while the "8/9" summary above it does
         # not. The paper quotes the summary; nothing recomputed it from the
         # values in the same file until now.
