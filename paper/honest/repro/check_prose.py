@@ -315,7 +315,16 @@ states("control-variant correlation", r"\rho=-0.34", 1)
 # these is a number a reader could quote; leaving any of them unpinned means the
 # gate covers the claims that happened to get attention rather than the claims
 # the paper makes.
-states("responsiveness rise", r"0.15\!\to\!0.26", 1)
+# The responsiveness pair is compared against the data, not merely counted.
+# It was published as 0.15 -> 0.26 while the mean is 0.1446, which rounds to
+# 0.14; states() counted the statement happily because counting a claim is not
+# checking it. Every figure pinned only by occurrence has this limitation, and
+# the ones that are also derivable are compared numerically as well.
+resp_pair = mech["responsiveness"]
+close("responsiveness before tuning", 0.14, resp_pair["base_mean"], 0.006)
+close("responsiveness after tuning", 0.26, resp_pair["instruct_mean"], 0.006)
+check("responsiveness rise in prose", r"0.14\!\to\!0.26", resp_pair["base_mean"])
+states("responsiveness rise", r"0.14\!\to\!0.26", 1)
 states("responsiveness effect size", "d_z=1.44", 2)
 states("responsiveness-bias correlation", r"\rho=+0.82", 2)
 states("mixed-model coefficient", "+0.16", 2)

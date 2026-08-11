@@ -736,7 +736,9 @@ MUTATIONS = [
     # only the numbers that happened to get attention is a gate with a shape
     # nobody chose.
     (
-        "paper/honest/macros.tex", "0.15\\!\\to\\!0.26", "0.15\\!\\to\\!0.36",
+        # The published value was 0.15 and the data give 0.1446; corrected to
+        # 0.14, so the anchor moves with it.
+        "paper/honest/macros.tex", "0.14\\!\\to\\!0.26", "0.14\\!\\to\\!0.36",
         "tests/test_prose_matches_derived_values.py", "headline: responsiveness rise drifts",
     ),
     (

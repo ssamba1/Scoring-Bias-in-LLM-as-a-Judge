@@ -51,7 +51,7 @@ main panel, over 56,000 across all datasets)** and
   which nuisances hurt (mean within-judge rho=+0.64, 24/26 judges).
 - **Theory:** bias = *decisiveness* x *responsiveness* (Prop 1 + corollaries + a TV->logit
   lemma). Measured directly, tuning trims decisiveness a little and inflates responsiveness a
-  lot (TV 0.15->0.26, d_z=1.44); the first-order product predicts the per-cell direction of
+  lot (TV 0.14->0.26, d_z=1.44); the first-order product predicts the per-cell direction of
   bias change in 75% of 65 cells.
 - **Causal (2 ways):** activation patching transfers the shift in a mid-network layer band;
   a **preregistered stage ablation** (OLMo-2 1B/7B, Tulu-3-8B ladders) shows **SFT installs
