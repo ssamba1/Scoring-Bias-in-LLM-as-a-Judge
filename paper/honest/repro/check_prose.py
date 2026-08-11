@@ -311,6 +311,33 @@ states("predictor rank correlation", r"\rho=0.58", 3)
 states("predictor R^2", "R^2=0.27", 2)
 states("control-variant correlation", r"\rho=-0.34", 1)
 
+# The rest of the paper's published figures, pinned the same way. Every one of
+# these is a number a reader could quote; leaving any of them unpinned means the
+# gate covers the claims that happened to get attention rather than the claims
+# the paper makes.
+states("responsiveness rise", r"0.15\!\to\!0.26", 1)
+states("responsiveness effect size", "d_z=1.44", 2)
+states("responsiveness-bias correlation", r"\rho=+0.82", 2)
+states("mixed-model coefficient", "+0.16", 2)
+states("mixed-model observations", "n=13{,}000", 2)
+states("size-partialled correlation", r"\rho=-0.38", 1)
+states("size-bias correlation", r"\rho=+0.18", 1)
+states("sub-1B band correlation", r"\rho=-0.51", 2)
+states("within-checkpoint responsiveness", r"\rho=+0.64", 2)
+states("within-checkpoint entropy", r"\rho=-0.05", 1)
+states("readout concordance", r"\rho=0.56", 2)
+states("exact permutation p", "0.00098", 1)
+states("marginalization mitigation", r"59\%", 3)
+states("argmax readout", "1.88", 2)
+states("frontier pooled correlation", r"\rho=-0.45", 2)
+states("frontier pooled n", "n=145", 3)
+states("14B attenuated effect", "+0.06", 3)
+states("14B probes positive", "3/5", 1)
+states("preregistered-analyzer families", "4/4", 2)
+states("SFT stage cells", "10/10", 1)
+states("public-item families", "7/8", 2)
+states("alt-template families", "8/9", 1)
+
 # ---- count claims ("8/9 families", "24/26 checkpoints") ----------------------
 # Fractions are the easiest claim to leave behind: they are typed as literals,
 # they change whenever a family is added or an exclusion is revised, and nothing

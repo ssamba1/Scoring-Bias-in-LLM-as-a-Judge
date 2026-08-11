@@ -732,6 +732,91 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py",
         "headline: control-variant correlation drifts",
     ),
+    # Every remaining published figure, one mutation each. A gate that covers
+    # only the numbers that happened to get attention is a gate with a shape
+    # nobody chose.
+    (
+        "paper/honest/macros.tex", "0.15\\!\\to\\!0.26", "0.15\\!\\to\\!0.36",
+        "tests/test_prose_matches_derived_values.py", "headline: responsiveness rise drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "d_z=1.44", "d_z=1.54",
+        "tests/test_prose_matches_derived_values.py", "headline: responsiveness effect size drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "\\rho=+0.82", "\\rho=+0.92",
+        "tests/test_prose_matches_derived_values.py", "headline: responsiveness-bias rho drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "coefficient $+0.16$", "coefficient $+0.26$",
+        "tests/test_prose_matches_derived_values.py", "headline: mixed-model coefficient drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "n=13{,}000", "n=14{,}000",
+        "tests/test_prose_matches_derived_values.py", "headline: mixed-model n drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "\\rho=-0.38", "\\rho=-0.48",
+        "tests/test_prose_matches_derived_values.py", "headline: size-partialled rho drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "\\rho=+0.18", "\\rho=+0.28",
+        "tests/test_prose_matches_derived_values.py", "headline: size-bias rho drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "\\rho=-0.51", "\\rho=-0.61",
+        "tests/test_prose_matches_derived_values.py", "headline: sub-1B band rho drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "\\rho=+0.64", "\\rho=+0.74",
+        "tests/test_prose_matches_derived_values.py", "headline: within-checkpoint responsiveness drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "\\rho=-0.05", "\\rho=-0.15",
+        "tests/test_prose_matches_derived_values.py", "headline: within-checkpoint entropy drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "\\rho=0.56", "\\rho=0.66",
+        "tests/test_prose_matches_derived_values.py", "headline: readout concordance drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "0.00098", "0.00198",
+        "tests/test_prose_matches_derived_values.py", "headline: exact permutation p drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "59\\%", "69\\%",
+        "tests/test_prose_matches_derived_values.py", "headline: marginalization mitigation drifts",
+        True,
+    ),
+    (
+        "paper/honest/macros.tex", "increases} it to $1.88$", "increases} it to $1.98$",
+        "tests/test_prose_matches_derived_values.py", "headline: argmax readout drifts",
+    ),
+    (
+        "paper/honest/scoring_bias_v2.tex", "\\rho=-0.45", "\\rho=-0.55",
+        "tests/test_prose_matches_derived_values.py", "headline: frontier pooled rho drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "n=145", "n=155",
+        "tests/test_prose_matches_derived_values.py", "headline: frontier pooled n drifts",
+        True,
+    ),
+    (
+        "paper/honest/macros.tex", "positive for 3/5 probes", "positive for 4/5 probes",
+        "tests/test_prose_matches_derived_values.py", "headline: 14B probe count drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "mean bias in 4/4 families", "mean bias in 3/4 families",
+        "tests/test_prose_matches_derived_values.py", "headline: prereg-analyzer family count drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "base to SFT in 10/10", "base to SFT in 9/10",
+        "tests/test_prose_matches_derived_values.py", "headline: SFT stage cell count drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "mean bias in 7/8 families", "mean bias in 6/8 families",
+        "tests/test_prose_matches_derived_values.py", "headline: public-item family count drifts",
+    ),
     (
         # Most entries stop parsing, so the bibliography checks would run on a
         # nearly empty set and pass without examining anything.
