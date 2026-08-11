@@ -1107,6 +1107,27 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The fourth cumulant after tuning grows instead of shrinking. The
+        # appendix's conclusion is that every measured cumulant moves toward the
+        # decisive limit, so this falsifies it -- and the recompute from the
+        # control distributions disagrees with the stored value either way.
+        "paper/honest/repro/results_robustness.json",
+        '"k4": -0.294',
+        '"k4": -4.294',
+        "tests/test_cumulants_recompute_from_raw.py",
+        "a cumulant moves away from the decisive limit",
+    ),
+    (
+        # The count of families whose control variance drops stops matching the
+        # families. "11/13" was pinned only as a string in the paper, which
+        # proves the sentence was not reworded, not that it is true.
+        "paper/honest/repro/results_robustness.json",
+        '"k2_drop_families": "11/13"',
+        '"k2_drop_families": "12/13"',
+        "tests/test_cumulants_recompute_from_raw.py",
+        "the cumulant family count stops matching the families",
+    ),
+    (
         # One domain stops supporting "instruct bias exceeds base bias in every
         # one of the five item domains". The audit's FABRICATED verdict was on a
         # per-domain table, so this is the claim a sceptical reader checks first.
