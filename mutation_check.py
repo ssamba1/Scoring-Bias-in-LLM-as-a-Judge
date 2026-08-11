@@ -269,6 +269,24 @@ MUTATIONS = [
         "tests/test_release_surfaces_agree.py",
         "readme scale stops matching the released panel",
     ),
+    (
+        # One cell of the main table stops matching the value it was generated
+        # from. The whole point of pinning per cell is that this names the cell.
+        "paper/honest/tables/tab_v2_family.tex",
+        "Granite-3.1-2B & 2 & SFT+RLHF & 0.8 & 0.7",
+        "Granite-3.1-2B & 2 & SFT+RLHF & 0.8 & 1.9",
+        "tests/test_cited_tables_are_pinned.py",
+        "a single table cell drifts from its source",
+    ),
+    (
+        # The table's metadata column disagrees with the data: this family's
+        # training recipe is what the base-vs-instruct claim rests on.
+        "paper/honest/tables/tab_v2_family.tex",
+        "OLMo-2-7B & 7 & SFT+DPO+RLVR",
+        "OLMo-2-7B & 7 & SFT",
+        "tests/test_cited_tables_are_pinned.py",
+        "table metadata disagrees with the data",
+    ),
 ]
 
 
