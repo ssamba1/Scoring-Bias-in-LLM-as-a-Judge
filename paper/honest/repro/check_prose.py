@@ -365,6 +365,42 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- the SFT share of the responsiveness rise --------------------------------
+# The 59% mitigation claim and its three inputs are already checked above. What
+# was not checked is the direction the claim depends on: "where raising
+# confidence cannot" only means anything while the argmax readout -- the
+# maximally confident one -- is the *more* biased of the two.
+if mech["mitigation"]["argmax"] <= mech["mitigation"]["expected"]:
+    FAILS.append(
+        "the mitigation claim contrasts marginalizing against raising confidence; "
+        f"argmax ({mech['mitigation']['argmax']}) is no longer the more biased readout"
+    )
+
+# "SFT installs 84--99% of the total rise." An integer percentage range, which
+# the earlier range sweep did not match -- it looked for decimals. Recomputed
+# per family from the stage table.
+shares = {}
+for fam in {c["family"] for c in stages["per_cell"]}:
+    cells = [c for c in stages["per_cell"] if c["family"] == fam]
+    by_stage = {}
+    for c in cells:
+        by_stage.setdefault(c["stage"], []).append(c["resp"])
+    means = {s: sum(v) / len(v) for s, v in by_stage.items()}
+    if "base" not in means:
+        continue  # Tulu-3 has no base checkpoint
+    last = max(by_stage, key=lambda s: next(c["order"] for c in cells if c["stage"] == s))
+    total = means[last] - means["base"]
+    if abs(total) > 1e-9 and "SFT" in means:
+        shares[fam] = (means["SFT"] - means["base"]) / total
+
+if shares:
+    lo, hi = min(shares.values()) * 100, max(shares.values()) * 100
+    if not (83.5 <= lo <= 84.5) or not (98.5 <= hi <= 99.5):
+        FAILS.append(
+            f"prose says SFT installs 84--99% of the responsiveness rise; measured "
+            f"{lo:.1f}--{hi:.1f}% over {sorted(shares)}"
+        )
+
 # ---- attention null ----------------------------------------------------------
 # The paper reports that attention to nuisance tokens does *not* explain the
 # responsiveness rise: the instruct/base ratio stays in 0.95--1.00 across all six
