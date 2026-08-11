@@ -24,6 +24,7 @@ temporary directory rather than the repository.
 
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -44,11 +45,18 @@ def _module():
 
 
 def test_a_second_run_is_refused_while_one_holds_the_lock(tmp_path):
+    """Runs against a stash of this test's own, not the default location.
+
+    Reading the default location would mean skipping whenever a mutation run is
+    in progress -- which is exactly when this guard is asked to prove itself,
+    since the harness exercising it holds a stash the whole time. A guard that
+    skips whenever it is being tested cannot be tested.
+    """
     module = _module()
-    stash = REPO / module.STASH.name
-    assert stash == module.STASH, "the stash is expected in the repository root"
+    name = ".mutation_stash_guard_probe"
+    stash = REPO / name
     if stash.exists():
-        pytest.skip("[tooling] a mutation run is in progress")
+        pytest.skip("[tooling] a previous probe left its directory behind")
 
     stash.mkdir()
     try:
@@ -56,6 +64,7 @@ def test_a_second_run_is_refused_while_one_holds_the_lock(tmp_path):
         result = subprocess.run(
             [sys.executable, str(CHECKER)], cwd=REPO,
             capture_output=True, text=True, timeout=300,
+            env={**os.environ, "MUTATION_STASH_DIR": name},
         )
         assert result.returncode != 0, (
             "a second run started while the lock was held; it would read a "

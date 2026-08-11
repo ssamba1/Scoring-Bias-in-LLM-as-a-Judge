@@ -27,7 +27,12 @@ import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-STASH = BASE / ".mutation_stash"
+# The stash location is overridable so the guards on the lock can exercise a run
+# of their own. Without it they cannot: a mutation run always holds a stash, so
+# a guard reading the default location sees one and skips -- and a guard that
+# skips whenever this checker is running is one this checker can never exercise.
+# Tests set it; nothing else should.
+STASH = BASE / os.environ.get("MUTATION_STASH_DIR", ".mutation_stash")
 MANIFEST = STASH / "manifest.json"
 
 # (file, find, replace, test file, label)
@@ -1106,6 +1111,27 @@ MUTATIONS = [
         '"boot_ci95": [\n        -0.081,',
         "tests/test_flags_agree_with_their_numbers.py",
         "a verdict flag disagrees with its own interval",
+    ),
+    (
+        # This checker releases a lock it does not hold, so a run refused for
+        # colliding with another deletes that run's stash -- the refusal causing
+        # the damage it exists to prevent.
+        #
+        # Mutating this file is safe only because the guard runs the checker as
+        # a fresh subprocess, which loads the mutated source; the parent has
+        # already imported its own. The guard points that subprocess at a stash
+        # of its own, so it does not have to skip while this run holds the real
+        # one. If a run is killed here, the recovery path restores this file
+        # like any other.
+        # The anchor is split across two literals on purpose. Written whole, it
+        # would occur twice in this file -- here and in the code -- and the
+        # registration comes first, so the checker would mutate its own entry
+        # and change no behaviour. It reported NOT CAUGHT, correctly.
+        "mutation_check.py",
+        "    if _HOLDS" "_LOCK:",
+        "    if True:",
+        "tests/test_mutation_runs_cannot_collide.py",
+        "a refused run deletes the holder's stash",
     ),
     (
         # The stage-ablation exception disappears from the data while the paper

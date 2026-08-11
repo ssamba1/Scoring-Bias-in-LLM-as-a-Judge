@@ -101,5 +101,8 @@ zenodo/
 # entire virtualenv (.verify-venv).
 .mutation_stash/
 .verify-venv/
+# the stash the lock guards run the checker against, so they do not have to
+# skip whenever a real mutation run is in progress
+.mutation_stash_guard_probe/
 __pycache__/
 *.pyc
