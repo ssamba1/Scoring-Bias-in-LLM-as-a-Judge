@@ -5,6 +5,31 @@ These files were part of earlier versions of this project. An audit (2026-07) fo
 here for transparency and accountability, not for reuse. See [`../DATA_INTEGRITY_AUDIT.md`](../DATA_INTEGRITY_AUDIT.md)
 and [`../paper/PROVENANCE_AUDIT.md`](../paper/PROVENANCE_AUDIT.md) for the full evidence.
 
+## Second sweep (2026-08-02) — artefacts the first retraction missed
+
+The 2026-07 retraction moved the manuscripts and the fabricated data files. It did not move the
+things *built* from them, which stayed in the live tree where a reader would reasonably take them
+for current results. A signature sweep over every tracked file outside this directory — searching
+for the fabricated per-domain values, the non-existent model names the audit identified
+(`DeepSeek-V4-Flash`, `GLM-4.7`, `Qwen3-*`, `Llama-4*`), and the retracted scale claims
+("22-model landscape", "40,500 judgments", "31 variants") — found **44** such files. All are now
+here, at their original paths.
+
+| Group | Files | What they were |
+|---|---|---|
+| `paper/tables/` | `tab_domain.tex`, `tab_models.tex`, `tab_per_model.tex` | The fabricated per-domain table and the model tables listing models that do not exist. |
+| `paper/figures/`, `paper/figures_advanced/` | 5 files incl. `study1/all_tables.tex`, `study1/tab6_domain.tex`, `infographic.svg`, the figure generators | Figure sources and generators over the retracted landscape. |
+| `paper/interactive/` | `bias_explorer.html`, `model_comparison.html`, `ranking_table.html` | Public dashboards. `ranking_table.html` ranked `Qwen3-14B` — a model that does not exist — with precise scores. |
+| `paper/archive/`, `paper/` | `camera_ready.tex`, `theoretical_monograph.tex`, `quantified_limitations.tex`, `supplementary_standalone.tex`, `apply_remaining.py` | Superseded manuscripts and a script that rewrites them. |
+| `results_rootcause/` | 26 files: `analysis_output/`, `validation/`, `archive/`, and the top-level analysis scripts and JSON | Every analysis computed over the fabricated 22-model data, including cross-validation, model rankings and "peer review defence" outputs. |
+
+Two files that match the same signatures are deliberately **not** here: `DATA_INTEGRITY_AUDIT.md` and
+`paper/PROVENANCE_AUDIT.md`. Naming this material is their purpose.
+
+`paper/interactive/index.html` stays live, rewritten: it now carries a retraction notice, links only
+to the dashboard built on verified data, and no longer advertises "36 models" or "22 instruct models
+ranked". `paper/interactive/base_vs_instruct.html` also stays — it names only real, measured models.
+
 ## `data/` — fabricated or unusable result files
 
 | File | Why retracted |

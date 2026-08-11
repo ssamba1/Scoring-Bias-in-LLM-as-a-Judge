@@ -115,84 +115,63 @@ body {
 <div class="container">
   <div class="header">
     <h1>Evaluation Bias in Language Models</h1>
-    <p class="subtitle">Interactive supplementary materials exploring how instruction tuning, model scale, and evaluation design choices affect LLM-as-a-judge bias across 14 model families.</p>
-    <span class="badge">36 models · 3 evaluation probes · 5 interactive tools</span>
+    <p class="subtitle">Interactive supplementary material for the scoring-bias study: how instruction tuning changes LLM-as-a-judge bias across the open-weight families measured on Kaggle T4.</p>
+    <span class="badge">7 families, base ↔ instruct · 3 evaluation probes</span>
   </div>
 
   <div class="stats-bar">
     <div class="stat-item">
-      <div class="number">36</div>
-      <div class="desc">Models evaluated</div>
+      <div class="number">7</div>
+      <div class="desc">Families, base ↔ instruct</div>
     </div>
     <div class="stat-item">
       <div class="number">3</div>
       <div class="desc">Bias probes</div>
     </div>
     <div class="stat-item">
-      <div class="number">7</div>
-      <div class="desc">Base↔Instruct families</div>
-    </div>
-    <div class="stat-item">
-      <div class="number">22</div>
-      <div class="desc">Instruct models ranked</div>
+      <div class="number">1</div>
+      <div class="desc">Dashboard (3 retracted)</div>
     </div>
   </div>
 
+  <div class="notice" style="background:rgba(210,153,34,0.08); border:1px solid rgba(210,153,34,0.4);
+       border-radius:8px; padding:16px 20px; margin-bottom:28px; line-height:1.6">
+    <strong style="color:#d29922">Three of the four dashboards here have been retracted.</strong>
+    <p style="margin:8px 0 0">
+      The Bias&nbsp;Explorer, Model&nbsp;Comparison and Model&nbsp;Ranking pages presented a
+      "22-model landscape" that a 2026-07 audit found was not supported by real data: it included
+      models that do not exist. Those pages are preserved, unaltered, under
+      <code>RETRACTED/paper/interactive/</code> for accountability rather than reuse. See
+      <a href="../../DATA_INTEGRITY_AUDIT.md">DATA_INTEGRITY_AUDIT.md</a> and
+      <a href="../../RETRACTED/README.md">RETRACTED/README.md</a>.
+    </p>
+    <p style="margin:8px 0 0">
+      The dashboard below is unaffected. It is built from the provenance-verified Kaggle&nbsp;T4
+      run over six open-weight families, which is the evidence the honest paper rests on.
+    </p>
+  </div>
+
   <div class="grid">
-    <a class="card" href="bias_explorer.html">
-      <div class="card-icon">🎯</div>
-      <h2>Bias Explorer</h2>
-      <p>Interactive exploration of evaluation bias across all 36 models. Select any model to see a radar chart of its 3 probe deltas, plus a fully sortable, color-coded table of all models.</p>
-      <div class="tags">
-        <span class="tag chart">radar chart</span>
-        <span class="tag">3 probes</span>
-        <span class="tag table">sortable table</span>
-        <span class="tag">36 models</span>
-      </div>
-    </a>
-
-    <a class="card" href="model_comparison.html">
-      <div class="card-icon">📊</div>
-      <h2>Model Comparison</h2>
-      <p>Compare 2–4 models side-by-side. Bar chart shows mean scores across rubric order, score ID, and reference answer conditions. Pairwise difference table highlights where models diverge.</p>
-      <div class="tags">
-        <span class="tag chart">bar chart</span>
-        <span class="tag compare">pairwise diff</span>
-        <span class="tag">2–4 models</span>
-      </div>
-    </a>
-
     <a class="card" href="base_vs_instruct.html">
       <div class="card-icon">🔄</div>
       <h2>Base vs Instruct</h2>
-      <p>Paired comparison of base and instruct models across 7 families. Toggle between probes, see effect size annotations, and explore how instruction tuning changes evaluation bias.</p>
+      <p>Paired comparison of base and instruct models from the verified Kaggle T4 run. It plots six of the seven families in <code>t4fam_results.json</code> — StableLM-2-1.6B is measured but not drawn here — so read the paper's tables for the complete set.</p>
       <div class="tags">
         <span class="tag chart">paired chart</span>
-        <span class="tag">7 families</span>
         <span class="tag compare">effect sizes</span>
-      </div>
-    </a>
-
-    <a class="card" href="ranking_table.html">
-      <div class="card-icon">🏆</div>
-      <h2>Model Ranking</h2>
-      <p>Searchable, sortable ranking of all 22 instruct models by mean probe Δ. Color-coded cells, horizontal bar chart overview, and Kendall's W concordance statistics.</p>
-      <div class="tags">
-        <span class="tag rank">ranking</span>
-        <span class="tag table">sortable</span>
-        <span class="tag">22 models</span>
-        <span class="tag">color-coded</span>
+        <span class="tag">6 of 7 families</span>
       </div>
     </a>
   </div>
 
   <div class="footer">
     <p>
-      <a href="../camera_ready_full.tex">📄 View Paper Source (LaTeX)</a>
+      <a href="../honest/">📄 View the current paper source</a>
       &nbsp;·&nbsp;
       <a href="../figures/">📈 View Paper Figures</a>
     </p>
-    <p style="margin-top:8px">Supplementary materials for "Evaluating Bias in LLM-as-a-Judge: A Systematic Analysis of Instruction Tuning and Scale Effects"</p>
+    <p style="margin-top:8px">Supplementary materials for the scoring-bias study. Earlier versions of this
+    page described a larger model set; see the retraction notice above.</p>
   </div>
 </div>
 </body>
