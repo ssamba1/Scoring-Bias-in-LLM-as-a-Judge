@@ -34,7 +34,12 @@ N_BOOT = 10_000
 ROOT = Path(__file__).resolve().parents[3]        # research-draft/
 DATA = ROOT / "results_rootcause" / "t4fam_results.json"
 OUT_DIR = Path(__file__).resolve().parent
-TAB_DIR = OUT_DIR.parent / "tables"
+# This analyzer belongs to the superseded draft and writes that draft's tables.
+# It used to sit in repro/ and resolve TAB_DIR as OUT_DIR.parent/"tables", which
+# is the *current* paper's table directory -- from here that expression would
+# still point there, so running the superseded analyzer would overwrite tables
+# the current paper ships. It writes beside itself instead.
+TAB_DIR = OUT_DIR / "tables"
 
 FAMILIES = [
     "Qwen2.5-0.5B", "Qwen2.5-1.5B", "Llama-3.2-1B", "Llama-3.2-3B",

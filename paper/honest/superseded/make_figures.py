@@ -20,7 +20,13 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager  # noqa: F401
 
 HERE = Path(__file__).resolve().parent
-FIG = HERE.parent / "figures"
+# Writes the superseded draft's figures, beside itself. This script used to live
+# in repro/, where HERE.parent/"figures" was the current paper's figure
+# directory -- and it draws fig1 with the title "Instruction tuning reduces
+# scoring bias (n=7 families)", the conclusion the 13-family panel overturned.
+# Moving the file without changing this line would have left it able to
+# overwrite the paper's Figure 1 from its new home.
+FIG = HERE / "figures"
 RESULTS = json.loads((HERE / "results.json").read_text())
 ROOT = HERE.resolve().parents[2]
 T4 = json.loads((ROOT / "results_rootcause" / "t4fam_results.json").read_text())
