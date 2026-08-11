@@ -1037,6 +1037,15 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # A variance decomposition loses a component, so the shares no longer
+        # sum to one. Every share still looks like a plausible proportion.
+        "paper/honest/repro/results_robustness.json",
+        '"family:probe": 0.368',
+        '"family:probe": 0.168',
+        "tests/test_stored_statistics_satisfy_their_identities.py",
+        "a decomposition's shares stop summing to one",
+    ),
+    (
         # A specification-curve entry stops following from the panel. The curve
         # is the paper's answer to "did you pick the analysis that worked?", so
         # a stored verdict that no longer follows from the data is the one place
