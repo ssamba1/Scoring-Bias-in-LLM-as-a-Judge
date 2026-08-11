@@ -817,6 +817,61 @@ MUTATIONS = [
         "paper/honest/macros.tex", "mean bias in 7/8 families", "mean bias in 6/8 families",
         "tests/test_prose_matches_derived_values.py", "headline: public-item family count drifts",
     ),
+    # Secondary and appendix figures: the ones a referee recomputes precisely
+    # because nobody is watching them.
+    (
+        "paper/honest/macros.tex", "0.75$/$0.71", "0.85$/$0.71",
+        "tests/test_prose_matches_derived_values.py", "secondary: score-ID flip rates drift",
+    ),
+    (
+        "paper/honest/macros.tex", "0.22\\!\\to\\!0.38", "0.22\\!\\to\\!0.48",
+        "tests/test_prose_matches_derived_values.py", "secondary: reference-answer flip rise drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "0.24\\!\\to\\!0.41", "0.24\\!\\to\\!0.51",
+        "tests/test_prose_matches_derived_values.py", "secondary: authority flip rise drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "and $2.02$", "and $2.12$",
+        "tests/test_prose_matches_derived_values.py", "secondary: frontier maximum drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "frontier mean bias ($0.89$)", "frontier mean bias ($0.99$)",
+        "tests/test_prose_matches_derived_values.py", "secondary: frontier mean bias drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "open-instruct mean ($0.69$)", "open-instruct mean ($0.79$)",
+        "tests/test_prose_matches_derived_values.py", "secondary: open-instruct mean drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "+0.26$", "+0.36$",
+        "tests/test_prose_matches_derived_values.py", "secondary: panel mean effect drifts",
+        True,
+    ),
+    (
+        "paper/honest/macros.tex", "[-0.62", "[-0.72",
+        "tests/test_prose_matches_derived_values.py", "secondary: predictor R^2 interval drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "(8/16 cells positive)", "(9/16 cells positive)",
+        "tests/test_prose_matches_derived_values.py", "secondary: dose-response cells drift",
+    ),
+    (
+        "paper/honest/macros.tex", "(3/8 pairs", "(4/8 pairs",
+        "tests/test_prose_matches_derived_values.py", "secondary: dose-response slope pairs drift",
+    ),
+    (
+        "paper/honest/macros.tex", "6/10 templates", "7/10 templates",
+        "tests/test_prose_matches_derived_values.py", "secondary: template direction drifts",
+    ),
+    (
+        "paper/honest/macros.tex", "raw in 4/6 cells", "raw in 5/6 cells",
+        "tests/test_prose_matches_derived_values.py", "secondary: chat-template cells drift",
+    ),
+    (
+        "paper/honest/macros.tex", "in only 1/3 families", "in only 2/3 families",
+        "tests/test_prose_matches_derived_values.py", "secondary: chat-vs-raw families drift",
+    ),
     (
         # Most entries stop parsing, so the bibliography checks would run on a
         # nearly empty set and pass without examining anything.

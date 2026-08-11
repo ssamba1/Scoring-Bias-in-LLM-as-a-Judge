@@ -338,6 +338,24 @@ states("SFT stage cells", "10/10", 1)
 states("public-item families", "7/8", 2)
 states("alt-template families", "8/9", 1)
 
+# Secondary and appendix figures. These carry less weight individually, but they
+# are the ones a referee recomputes precisely because nobody is watching them.
+states("score-ID flip rates", "0.75$/$0.71", 1)
+states("reference-answer flip rise", r"0.22\!\to\!0.38", 1)
+states("authority flip rise", r"0.24\!\to\!0.41", 1)
+states("frontier rubric-order maximum", "2.02", 1)
+states("frontier mean bias", "0.89", 3)
+states("open-instruct mean bias", "0.69", 1)
+states("cumulant family count", "11/13 families", 4)
+states("panel mean effect", "+0.26", 2)
+states("predictor R^2 interval", "[-0.62", 1)
+states("dose-response cells", "8/16", 1)
+states("dose-response slope pairs", "3/8", 1)
+states("template direction", "6/10", 1)
+states("chat-template cells", "4/6", 1)
+states("smallest-family count", "2/4", 2)
+states("chat-vs-raw families", "1/3", 1)
+
 # ---- count claims ("8/9 families", "24/26 checkpoints") ----------------------
 # Fractions are the easiest claim to leave behind: they are typed as literals,
 # they change whenever a family is added or an exclusion is revised, and nothing
