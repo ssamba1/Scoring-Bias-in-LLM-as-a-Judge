@@ -1107,6 +1107,15 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The disclosure attached to the frontier group comparison goes stale.
+        # A stated exception with a wrong count reads as checked and is not.
+        "paper/honest/repro/results_closed_analysis.json",
+        '"mean_entropy": 0.968',
+        '"mean_entropy": 1.968',
+        "tests/test_superlatives_are_true.py",
+        "a stated exception count drifts from the data",
+    ),
+    (
         # The probe the paper calls the panel's largest tuning effect stops
         # being it. A superlative is the one claim that goes false without its
         # own source changing, so it has to be recomputed, not stored.

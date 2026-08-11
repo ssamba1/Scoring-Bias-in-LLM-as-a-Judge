@@ -145,3 +145,31 @@ def test_the_frontier_maximum_is_the_maximum():
         f"the frontier maximum ({max(rubric.values())}) no longer exceeds the "
         f"panel's largest mean bias ({panel_max})"
     )
+
+
+def test_the_frontier_comparison_states_its_own_exceptions():
+    """"as a group the most confident ... a group comparison, not cell-by-cell."
+
+    The group means are true. Read as a claim about individual judges it is
+    not: the least decisive frontier judge is out-decisived by open cells. The
+    paper now says how many, and that count is recomputed here -- a disclosure
+    with a stale number attached is worse than none, because it looks checked.
+    """
+    prose = _prose()
+    judges = _load("results_closed_analysis.json")["judges"]
+    entropies = {name: j["mean_entropy"] for name, j in judges.items()}
+    open_cells = _load("results_mechanism.json")["link_points"]["entropy"]
+
+    least_decisive = max(entropies.values())
+    beating = sum(1 for e in open_cells if e < least_decisive)
+    assert f"{beating} of the {len(open_cells)} open cells" in prose, (
+        f"the paper states how many open cells are more decisive than the least "
+        f"decisive frontier judge; recomputed that is {beating} of "
+        f"{len(open_cells)}"
+    )
+
+    others = sorted(v for v in entropies.values() if v != least_decisive)
+    assert all(min(open_cells) > v for v in others), (
+        f"the paper says no open cell reaches the two GPT-4o judges "
+        f"({others}); the most decisive open cell is {min(open_cells)}"
+    )
