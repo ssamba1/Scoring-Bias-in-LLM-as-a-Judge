@@ -995,6 +995,17 @@ MUTATIONS = [
         "tests/test_holm_correction_is_correct.py",
         "Holm column becomes Bonferroni",
     ),
+    (
+        # The paper stops disclosing that one CI verdict depends on the
+        # bootstrap draw. Reference answer's lower bound is -0.000, so whether
+        # its interval excludes zero -- an asterisk in the summary table -- is
+        # decided by the seed.
+        "paper/honest/macros.tex",
+        "not stable across bootstrap seeds",
+        "stable across bootstrap seeds",
+        "tests/test_bootstrap_verdicts_are_seed_stable.py",
+        "seed-fragile CI verdict stops being disclosed",
+    ),
 ]
 
 
