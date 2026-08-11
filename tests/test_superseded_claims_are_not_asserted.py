@@ -70,6 +70,11 @@ EXEMPT_FILES = {
     "mutation_check.py",
     "tests/test_superseded_claims_are_not_asserted.py",
     "RETRACTED/README.md",
+    # Quotes the false figure title in order to explain which script draws it.
+    # This is the third time a guard has tripped the sweep by naming the thing it
+    # guards against; the exemption is by exact path so a new file cannot inherit
+    # the licence quietly.
+    "tests/test_superseded_scripts_stay_in_their_lane.py",
 }
 
 BINARY = {".png", ".pdf", ".gz", ".jpg", ".jpeg", ".ico", ".pyc", ".zip"}

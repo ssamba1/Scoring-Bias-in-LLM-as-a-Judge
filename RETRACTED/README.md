@@ -18,7 +18,7 @@ here, at their original paths.
 | Group | Files | What they were |
 |---|---|---|
 | `paper/tables/` | `tab_domain.tex`, `tab_models.tex`, `tab_per_model.tex` | The fabricated per-domain table and the model tables listing models that do not exist. |
-| `paper/figures/`, `paper/figures_advanced/` | 5 files incl. `study1/all_tables.tex`, `study1/tab6_domain.tex`, `infographic.svg`, the figure generators | Figure sources and generators over the retracted landscape. |
+| `paper/figures/`, `paper/figures_advanced/` | 5 files incl. `paper/figures/study1/all_tables.tex`, `paper/figures/study1/tab6_domain.tex`, `infographic.svg`, the figure generators | Figure sources and generators over the retracted landscape. |
 | `paper/interactive/` | `bias_explorer.html`, `model_comparison.html`, `ranking_table.html` | Public dashboards. `ranking_table.html` ranked `Qwen3-14B` — a model that does not exist — with precise scores. |
 | `paper/archive/`, `paper/` | `camera_ready.tex`, `theoretical_monograph.tex`, `quantified_limitations.tex`, `supplementary_standalone.tex`, `apply_remaining.py` | Superseded manuscripts and a script that rewrites them. |
 | `results_rootcause/` | 26 files: `analysis_output/`, `validation/`, `archive/`, and the top-level analysis scripts and JSON | Every analysis computed over the fabricated 22-model data, including cross-validation, model rankings and "peer review defence" outputs. |

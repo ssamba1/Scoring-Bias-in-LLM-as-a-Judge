@@ -38,7 +38,8 @@ match to 2 decimal places.
 | Score ID | 0.68 | 0.68 | ✓ |
 | Reference Answer | 0.41 | 0.41 | ✓ |
 
-**Source:** `results_rootcause/study1_results.json` (22 models)
+**Source:** `RETRACTED/data/study1_results.json` (22 models; quarantined from
+`results_rootcause/` when the fabricated material was moved)
 **Verification:** `statistics.mean(max(pd.values()) - min(pd.values()) for each model)`
 
 ### tab:bootstrapped — T4 Base (n=7)
@@ -147,7 +148,8 @@ Gemma3-4B/12B/27B, Phi-4, DeepSeek-V3, etc.).
 
 **Paper claims** this represents the full study's flip rates.
 
-**Data says** (`results_rootcause/full_metrics.json`):
+**Data says** (`RETRACTED/data/full_metrics.json`, quarantined from
+`results_rootcause/`):
 
 ```
 "interpretation": {
@@ -209,7 +211,7 @@ The paper reports (line 593):
 - κ values at 3B: Format=0.879, Content=1.035
 
 **Evidence found:**
-- `archive/attention_analysis_3b.py` — a real script that loads Llama-3.2-3B
+- `results_rootcause/archive/attention_analysis_3b.py` — a real script that loads Llama-3.2-3B
   models and computes attention
 - The κ values match `print()` statements at line 106 of this script
 - The attention percentages would be printed at runtime (lines 89–90)
