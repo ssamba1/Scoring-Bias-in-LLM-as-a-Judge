@@ -26,7 +26,10 @@ python 3.13:
 | `results_stages_analysis.json` | Tulu-3-8B DPO `resp` | 0.4863 | 0.4862 |
 | `results_stages_analysis.json` | OLMo-2-1B RLVR `resp` | 0.1967 | 0.1966 |
 | `results_stages_analysis.json` | P7 SFT share | 0.839 | 0.84 |
-| `results_mechanism.json` | 4 of 130 `link_points.resp` | e.g. 0.6995 | 0.6996 |
+| `results_mechanism.json` | `link_points.resp` | 0.6995 | 0.6996 |
+| `results_mechanism.json` | `link_points.resp` | 0.1083 | 0.1084 |
+| `results_mechanism.json` | `link_points.resp` | 0.3871 | 0.3872 |
+| `results_mechanism.json` | `link_points.resp` | 0.2231 | 0.2230 |
 
 Eight values in total, all in the fourth decimal place, all in the
 responsiveness term -- a mean of total-variation distances, where the summation

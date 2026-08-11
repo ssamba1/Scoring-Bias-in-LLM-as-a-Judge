@@ -1,6 +1,6 @@
 .PHONY: help install test lint figures paper archive ci setup clean reproduce-all pre-commit \
         install-package run-api run-dashboard check-credentials health-check \
-        validate docs integrity verify-clean arxiv-package
+        validate docs integrity verify-clean verify-like-ci arxiv-package
 
 help:  # Show available targets
 	@echo "╔══════════════════════════════════════════════════════════════╗"
@@ -120,6 +120,9 @@ integrity:  # Fabrication sweep, guard mutations, and history secret scan
 	python -m pytest tests/ -q -rs
 	python mutation_check.py
 	python scan_secrets.py
+
+verify-like-ci:  # Run everything CI runs, locally, under the pinned stack
+	python verify_like_ci.py
 
 verify-clean:  # Run the suite in a fresh clone of HEAD
 	python verify_clean_clone.py

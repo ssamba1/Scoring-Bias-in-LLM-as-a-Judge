@@ -1092,6 +1092,14 @@ def main(verbose=False):
         # files it restores is not one to trust.
         original = path.read_bytes()
         find_b, replace_b = find.encode("utf-8"), replace.encode("utf-8")
+        # An anchor that spans a line break is written here with \n, but git
+        # checks these files out with CRLF on Windows, so the anchor stops
+        # matching and the mutation is skipped -- reported as STALE, easy to read
+        # as "that guard was retired" rather than "that guard is no longer being
+        # exercised". Match the file's own line endings instead.
+        if find_b not in original and b"\n" in find_b and b"\r\n" in original:
+            find_b = find_b.replace(b"\n", b"\r\n")
+            replace_b = replace_b.replace(b"\n", b"\r\n")
         if find_b not in original:
             stale.append(f"{label}: anchor not found in {rel}")
             print(f"{label:46s} {'-':>5} {'-':>5}  ** STALE ANCHOR **")
