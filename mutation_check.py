@@ -217,6 +217,17 @@ MUTATIONS = [
         "local regeneration overwrites CI's rounding",
     ),
     (
+        # A second file's tie-prone value. Found by regenerating into a scratch
+        # copy and diffing, before CI ever saw it -- so this mutation proves the
+        # guard covers the values that have not yet gone wrong, not only the four
+        # that did.
+        "paper/honest/repro/results_stages_analysis.json",
+        '"resp": 0.4863,',
+        '"resp": 0.4862,',
+        "tests/test_analysis_stack_matches_the_pins.py",
+        "tie-prone value drifts in a second file",
+    ),
+    (
         # The external dataset loses its licence attribution. CC BY-SA asks for
         # it whether or not the text itself is redistributed.
         "paper/honest/macros.tex",
