@@ -109,7 +109,25 @@ def main():
                 xs.append(ent); ys.append(dl)
     rho, pv = stats.spearmanr(xs, ys)
     out["entropy_bias_link"] = {"spearman_rho": round(float(rho), 3),
-                                "spearman_p": round(float(pv), 4), "n": len(xs)}
+                                "spearman_p": round(float(pv), 4), "n": len(xs),
+                                "entropy_definition": "mean over the probe's variants"}
+
+    # The same word, "entropy", denotes two quantities in this analysis: the
+    # decisiveness result above uses the CONTROL variant only, while the link
+    # above averages over a probe's variants. Recomputing the link the other way
+    # is what a replicator reading the paper would do, so report it rather than
+    # leave them to discover the gap: the relation is weaker but holds.
+    xs_ctrl = []
+    for f in fams:
+        for kind in ("base", "instruct"):
+            d = pairs[f][kind]
+            for p in PROBES:
+                xs_ctrl.append(float(d[p][CONTROL[p]]["mean_entropy"]))
+    rho_c, pv_c = stats.spearmanr(xs_ctrl, ys)
+    out["entropy_bias_link_control_only"] = {
+        "spearman_rho": round(float(rho_c), 3), "spearman_p": round(float(pv_c), 6),
+        "n": len(xs_ctrl), "entropy_definition": "control variant only",
+        "note": "robustness: the headline link under the other reading of 'entropy'"}
     # per-point + per-family data for figures
     out["link_points"] = {"entropy": [round(x, 4) for x in xs], "delta": [round(y, 4) for y in ys]}
 

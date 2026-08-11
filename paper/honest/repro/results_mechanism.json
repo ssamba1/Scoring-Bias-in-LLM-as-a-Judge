@@ -44,7 +44,15 @@
   "entropy_bias_link": {
     "spearman_rho": -0.413,
     "spearman_p": 0.0,
-    "n": 130
+    "n": 130,
+    "entropy_definition": "mean over the probe's variants"
+  },
+  "entropy_bias_link_control_only": {
+    "spearman_rho": -0.343,
+    "spearman_p": 6.5e-05,
+    "n": 130,
+    "entropy_definition": "control variant only",
+    "note": "robustness: the headline link under the other reading of 'entropy'"
   },
   "link_points": {
     "entropy": [

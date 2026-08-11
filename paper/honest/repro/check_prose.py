@@ -220,6 +220,22 @@ check("entropy-bias rho in prose", r"\rho=-0.41", link["spearman_rho"])
 if not link["spearman_p"] < 1e-3:
     FAILS.append(f"headline rho p is {link['spearman_p']}, prose claims p<10^-3")
 
+# "Entropy" denotes two different quantities in this analysis -- the control
+# variant for the decisiveness shift, the mean over a probe's variants for the
+# link. Recomputing the link from raw scores under the reader's likely reading
+# gives -0.34, not -0.41, so the paper now names which one it means and quotes
+# both. Pin both, and pin that they still differ: if they ever coincide, one of
+# the two definitions has silently stopped being computed.
+ctrl_link = mech["entropy_bias_link_control_only"]
+close("entropy-bias rho (control-variant reading)", -0.34, ctrl_link["spearman_rho"], 0.006)
+check("control-variant rho in prose", r"\rho=-0.34", ctrl_link["spearman_rho"])
+if not ctrl_link["spearman_p"] < 1e-4:
+    FAILS.append(f"control-variant rho p is {ctrl_link['spearman_p']}, prose claims p<10^-4")
+if abs(ctrl_link["spearman_rho"] - link["spearman_rho"]) < 1e-9:
+    FAILS.append("the two entropy definitions give identical rho; one is not being computed")
+if "mean over a probe's variants" not in text:
+    FAILS.append("the paper no longer says which entropy the headline link uses")
+
 var_link = mech["var_bias_link"]
 close("variance-term rho", -0.25, var_link["spearman_rho"], 0.006)
 check("variance-term rho in prose", r"\rho=-0.25", var_link["spearman_rho"])
