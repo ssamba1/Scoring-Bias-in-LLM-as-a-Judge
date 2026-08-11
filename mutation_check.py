@@ -350,6 +350,84 @@ MUTATIONS = [
         "tests/test_effects_recompute_from_raw.py",
         "forest point estimate leaves its own interval",
     ),
+    # ---- guards that had never been exercised -------------------------------
+    # A file-level mutation proves the file can fail, not that each guard inside
+    # it can. Measuring per test FUNCTION showed 35 of 72 proven and 37 never
+    # touched; the entries below were written for the untouched ones.
+    (
+        "paper/honest/repro/dolly_harness.py",
+        "databricks-dolly-15k, CC BY-SA 3.0",
+        "databricks-dolly-15k, public domain",
+        "tests/test_third_party_data_is_attributed.py",
+        "harness stops recording the dataset licence",
+    ),
+    (
+        "CITATION.cff",
+        "license: MIT",
+        "license: Apache-2.0",
+        "tests/test_release_surfaces_agree.py",
+        "citation record contradicts the LICENSE file",
+    ),
+    (
+        "paper/honest/scoring_bias_v2.tex",
+        "two proprietary models (GPT-4o-mini, GPT-4o)",
+        "two hosted models (GPT-4o-mini, GPT-4o)",
+        "tests/test_ethics_matches_the_experiments.py",
+        "ethics stops disclosing closed-weight judges",
+    ),
+    (
+        "paper/honest/scoring_bias_v2.tex",
+        "plus under US\\$2 of API calls",
+        "plus a negligible amount of API usage",
+        "tests/test_ethics_matches_the_experiments.py",
+        "ethics drops the cost the appendix discloses",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "\\newcommand{\\MAXB}{8}",
+        "\\newcommand{\\MAXB}{4}",
+        "tests/test_scale_claims_match_the_data.py",
+        "parameter range excludes models actually run",
+    ),
+    (
+        "paper/honest/macros.tex",
+        "five bias types",
+        "six bias types",
+        "tests/test_scale_claims_match_the_data.py",
+        "bias-type count drifts from the probes run",
+        True,
+    ),
+    (
+        # A family disappears from the table: the per-cell cases would simply
+        # stop being generated, so only the completeness guard can catch it.
+        "paper/honest/tables/tab_v2_family.tex",
+        "SmolLM2-360M & 0.36 & SFT+DPO & 0.2 & 0.3 & 1.6 & 2.4 & 0.1 & 0.0 & 0.2 & 0.1 & 0.1 & 0.3 \\\\",
+        "",
+        "tests/test_cited_tables_are_pinned.py",
+        "family silently dropped from the table",
+    ),
+    (
+        "paper/honest/tables/tab_v2_domain.tex",
+        "Daily Life & 0.44 & 0.70 \\\\",
+        "",
+        "tests/test_summary_tables_are_pinned.py",
+        "domain silently dropped from the table",
+    ),
+    (
+        "paper/honest/repro/results_robustness.json",
+        '"full_mean_effect": 0.257',
+        '"full_mean_effect": 0.357',
+        "tests/test_effects_recompute_from_raw.py",
+        "headline effect diverges from the raw scores",
+    ),
+    (
+        # The paper claims a registration number that was never registered.
+        "paper/honest/macros.tex",
+        "This is preregistered P4",
+        "This is preregistered P25",
+        "tests/test_preregistration_is_reported.py",
+        "paper invents a preregistration id",
+    ),
 ]
 
 

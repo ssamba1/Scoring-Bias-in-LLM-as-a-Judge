@@ -180,12 +180,26 @@ def test_bias_type_count_matches_the_panel():
     }
     assert len(probe_sets) == 1, f"families disagree on which probes were run: {probe_sets}"
     probes = next(iter(probe_sets))
-    # The claim appears in the body and inside the prose macros, sometimes with
-    # markup between the word and the noun ("\emph{five} bias types").
+    # Every statement of the count, in the body and in the prose macros -- not
+    # merely one somewhere. Asking whether the right wording appears anywhere is
+    # satisfied by any single surviving occurrence, so a count that drifted in
+    # one file would pass on the strength of the other; a registered mutation
+    # demonstrated exactly that before this was tightened.
     text = _paper_text() + MACROS.read_text(encoding="utf-8", errors="replace")
-    assert re.search(r"five\}?\s*bias types", text), (
-        "the paper no longer says 'five bias types'; update this guard to match "
-        "the new wording rather than deleting it"
+    number_words = {
+        "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
+        "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+    }
+    claims = re.findall(r"(\w+)\}?\s*(?:distinct\s+)?bias types", text)
+    counted = [(word, number_words[word.lower()]) for word in claims if word.lower() in number_words]
+    assert counted, (
+        "the paper no longer states a bias-type count in words; update this "
+        "guard to match the new wording rather than deleting it"
+    )
+    wrong = sorted({word for word, value in counted if value != len(probes)})
+    assert not wrong, (
+        f"the paper says {wrong} bias types in {len(counted)} statement(s); the "
+        f"panel ran {len(probes)}: {sorted(probes)}"
     )
     assert len(probes) == 5, f"the paper claims five bias types; the data has {len(probes)}: {sorted(probes)}"
 
