@@ -172,13 +172,22 @@ def main(keep=False):
         return 1
 
     checked = len(required) - len(unverifiable)
-    print(f"figures match the current data ({checked}/{len(required)} checked, content compared)")
     if unverifiable:
+        # Reported and passed, until now. A figure the paper prints that no
+        # generator writes cannot be compared to the data at all, and saying so
+        # in a line above a zero exit code is how a shrinking check keeps
+        # looking like a passing one -- the same way a stale mutation anchor
+        # used to leave mutation_check reporting success with a smaller count.
+        print("FIGURES THAT CANNOT BE CHECKED AGAINST THE DATA:")
+        for name in unverifiable:
+            print(f" - {name}: no generator in this directory writes it")
         print(
-            "  no generator in this directory writes: "
-            + ", ".join(unverifiable)
-            + "\n  these are committed but cannot be checked against the data."
+            f"\nonly {checked}/{len(required)} of the paper's figures were verified. "
+            f"Commit the generator, or stop including the figure -- a published "
+            f"figure with no way back to the data is what this check exists for."
         )
+        return 1
+    print(f"figures match the current data ({checked}/{len(required)} checked, content compared)")
     return 0
 
 

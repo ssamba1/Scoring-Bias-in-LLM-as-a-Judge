@@ -1124,12 +1124,27 @@ def main(verbose=False):
         print(f"{label:46s} {base_rc:>5} {mutated_rc:>5}  {verdict}")
 
     print()
-    if stale:
-        print("mutations whose anchor no longer matches:", stale)
+    checked = len(MUTATIONS) - len(stale)
     if misses:
         print("guards that did NOT catch their mutation:", misses)
         return 1
-    checked = len(MUTATIONS) - len(stale)
+    if stale:
+        # A stale anchor is not a neutral event. The mutation does not run, so
+        # the guard it exercises is no longer known to work, and the run still
+        # printed a cheerful "every guard caught its mutation" with a quietly
+        # smaller number. That is the shape of defect this file exists to catch,
+        # applied to this file. A mutation that is genuinely obsolete should be
+        # deleted, which is visible in the diff; one that stopped matching by
+        # accident should be repaired. Neither is silence.
+        print(f"{len(stale)} mutation(s) did not run because their anchor no longer matches:")
+        for entry in stale:
+            print(f"  - {entry}")
+        print(
+            f"\nonly {checked}/{len(MUTATIONS)} mutations were exercised. Repair the "
+            f"anchor, or delete the entry if the mutation is obsolete -- a "
+            f"registered mutation that never runs is a guard nobody is checking."
+        )
+        return 1
     print(f"every guard caught its mutation ({checked} checked)")
     return 0
 
