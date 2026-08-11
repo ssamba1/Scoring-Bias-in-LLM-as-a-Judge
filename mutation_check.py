@@ -1107,6 +1107,25 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The probe the paper calls the panel's largest tuning effect stops
+        # being it. A superlative is the one claim that goes false without its
+        # own source changing, so it has to be recomputed, not stored.
+        "paper/honest/repro/results_probes2_analysis.json",
+        '"mean_change": 0.457',
+        '"mean_change": 0.157',
+        "tests/test_superlatives_are_true.py",
+        "the paper's largest-effect claim stops being the largest",
+    ),
+    (
+        # A run outside the superlative's scope grows past it and is not named.
+        # The sentence stays true as scoped and misleading as read.
+        "paper/honest/repro/results_zh_analysis.json",
+        '"mean_change": 0.763',
+        '"mean_change": 1.763',
+        "tests/test_superlatives_are_true.py",
+        "an out-of-scope effect outgrows the superlative undisclosed",
+    ),
+    (
         # A probe starts surviving the registered correction, so the paper's
         # disclosure that none does becomes false -- in the paper's own favour,
         # which is the direction nobody re-reads.
