@@ -1037,6 +1037,66 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # The audit's trail to its evidence breaks. Verified by hand when the
+        # guard was written; registered here so it stays verified.
+        "DATA_INTEGRITY_AUDIT.md",
+        "RETRACTED/data/study1_results.json",
+        "RETRACTED/data/study1_results_moved.json",
+        "tests/test_audit_evidence_paths_resolve.py",
+        "audit cites evidence that is not there",
+    ),
+    (
+        # The environment document drifts from the pins it documents.
+        "paper/honest/repro/ENVIRONMENT.md",
+        "scipy==1.17.1",
+        "scipy==1.17.0",
+        "tests/test_environment_doc_matches_the_pins.py",
+        "environment doc drifts from requirements-repro.txt",
+    ),
+    (
+        # A make target points at a file that does not exist. This is the state
+        # eight targets were actually in.
+        "Makefile",
+        "streamlit run dashboard.py",
+        "streamlit run dashboard/app.py",
+        "tests/test_make_targets_are_not_broken.py",
+        "make target names a missing file",
+    ),
+    (
+        # The superseded figure generator can reach the live tree again -- the
+        # defect that let it overwrite the paper's Figure 1.
+        "paper/honest/superseded/make_figures.py",
+        'FIG = HERE / "figures"',
+        'FIG = HERE.parent / "figures"',
+        "tests/test_superseded_scripts_stay_in_their_lane.py",
+        "superseded generator can write into the paper",
+    ),
+    (
+        # The promised single-script reproduction builds the retracted paper.
+        "run_all.sh",
+        "pdflatex -interaction=nonstopmode scoring_bias_v2.tex",
+        "pdflatex -interaction=nonstopmode camera_ready_full.tex",
+        "tests/test_the_release_promises_hold.py",
+        "the reproduction script rebuilds the retracted paper",
+    ),
+    (
+        # A number appears in the paper that no result file explains -- the
+        # inflated frontier call count, restored.
+        "paper/honest/scoring_bias_v2.tex",
+        "$2{,}250$",
+        "$4{,}500$",
+        "tests/test_every_number_is_accounted_for.py",
+        "an unexplained number returns to the paper",
+    ),
+    (
+        # A float label sits outside any float, so it numbers the section.
+        "paper/honest/scoring_bias_v2.tex",
+        "\\section{Related Work}",
+        "\\label{fig:orphan}\\section{Related Work}",
+        "tests/test_float_numbering_is_correct.py",
+        "a figure label numbers a section",
+    ),
+    (
         # A per-template correlation drifts. These were quoted in the prose while
         # no analysis emitted them, so nothing could compare them to the data;
         # they are emitted as C8b now and this proves the comparison bites.
