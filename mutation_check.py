@@ -1037,6 +1037,16 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # A per-family effect flips sign while the "8/9" summary above it does
+        # not. The paper quotes the summary; nothing recomputed it from the
+        # values in the same file until now.
+        "paper/honest/repro/results_robustness.json",
+        '"Granite-3.1-8B": 0.578',
+        '"Granite-3.1-8B": -0.578',
+        "tests/test_fraction_summaries_recompute.py",
+        "a fraction summary stops matching its per-family values",
+    ),
+    (
         # A recorded verdict stops agreeing with the numbers beside it. The
         # summary table's asterisks are read from this flag, not from the
         # interval, so the interval could move and the asterisk stay.
