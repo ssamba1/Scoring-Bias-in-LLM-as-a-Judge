@@ -365,6 +365,37 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- attention null ----------------------------------------------------------
+# The paper reports that attention to nuisance tokens does *not* explain the
+# responsiveness rise: the instruct/base ratio stays in 0.95--1.00 across all six
+# model x perturbation cells. This is the explicit null that refutes the
+# retracted version's fabricated "IIAR" attention mechanism, and it is computed
+# from raw attn_results.json by no analyzer at all -- so the ratios are derived
+# here rather than read from a summary that does not exist.
+attn = json.loads((HERE / "attn_results.json").read_text())["results"]
+ratios = []
+for model, arms in attn.items():
+    base, instruct = arms.get("base", {}), arms.get("instruct", {})
+    for cell in base:
+        if cell in instruct and base[cell]:
+            ratios.append((f"{model}/{cell}", instruct[cell] / base[cell]))
+
+if len(ratios) != 6:
+    FAILS.append(f"prose says six model x perturbation cells, attn_results has {len(ratios)}")
+if ratios:
+    lo = min(r for _, r in ratios)
+    hi = max(r for _, r in ratios)
+    if lo < 0.95 - 1e-9:
+        worst = min(ratios, key=lambda x: x[1])
+        FAILS.append(f"attention ratio range starts at 0.95; {worst[0]} is {worst[1]:.4f}")
+    if hi > 1.00 + 1e-9:
+        worst = max(ratios, key=lambda x: x[1])
+        FAILS.append(f"attention ratio range ends at 1.00; {worst[0]} is {worst[1]:.4f}")
+    # The claim is that attention does not rise with tuning. If any cell rose
+    # materially the null would be wrong regardless of the stated range.
+    if hi > 1.05:
+        FAILS.append(f"prose reports attention does not rise with tuning; a cell is at {hi:.4f}")
+
 # ---- per-template correlations -----------------------------------------------
 # Three rho values quoted for three prompt templates. They were computed once and
 # written into the prose; no analysis emitted them, so the release could not be
