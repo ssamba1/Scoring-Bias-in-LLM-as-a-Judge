@@ -73,7 +73,7 @@ of the rubric or the presence of an example. \citet{li2025scoring} showed this f
 order} (reversing ``1=worst\dots5=best''), \textbf{score ID} (numeric vs.\ letter vs.\
 descriptive labels), and \textbf{reference answer} (a good/poor exemplar shown before
 scoring). They quantified the biases across five models but left the mechanism open:
-``the underlying causes of these scoring biases remain to be validated.''
+``the underlying causes of scoring bias remain to be validated.''
 
 One would hope that instruction tuning, which makes a judge more capable and more
 decisive, also makes it more robust. We find the opposite, and explain why. Empirically,
@@ -166,9 +166,10 @@ supplies the missing account of \emph{why} confidence-raising mitigations fail w
 nuisance-removal succeeds (\S\ref{sec:anatomy}--\ref{sec:predict}).
 
 \paragraph{Origin of scoring bias.} \citet{li2025scoring} introduced the three
-scoring biases and called for root-cause analysis. \citet{thakur2024judging} found
-base and instruct judges differ, and \citet{pan2025user} used a base-vs-instruct
-design to show instruction tuning \emph{introduces} a user-deference bias. Our
+scoring biases and called for root-cause analysis. \citet{thakur2024judging} evaluated
+thirteen instruction-tuned judges on answers from both base and instruction-tuned
+exam-takers, and \citet{pan2025user} used a base-vs-instruct \emph{judge} design to
+show instruction tuning \emph{introduces} a user-deference bias. Our
 contribution is orthogonal to the sign of any single effect: we show bias is governed
 by a two-term decomposition of the score distribution (decisiveness and responsiveness),
 determine which term dominates empirically, and give a measured, causal mechanism rather

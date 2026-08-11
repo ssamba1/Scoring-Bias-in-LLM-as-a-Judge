@@ -154,6 +154,26 @@ MUTATIONS = [
         "tests/test_citations_are_well_formed.py",
         "citation points at a nonexistent arXiv id",
     ),
+    (
+        # The quotation drifts back to the inexact wording. The source says
+        # "scoring bias"; the paper had pluralised it and added "these". A
+        # quotation that still reads correctly is the kind nobody re-checks.
+        "paper/honest/scoring_bias_v2.tex",
+        "the underlying causes of scoring bias remain",
+        "the underlying causes of these scoring biases remain",
+        "tests/test_quotation_integrity.py",
+        "quotation drifts from its source wording",
+    ),
+    (
+        # The mischaracterisation returns: Thakur et al.'s judges are all
+        # instruction-tuned, and the claim that they compared base vs instruct
+        # judges describes this paper's design, not theirs.
+        "paper/honest/scoring_bias_v2.tex",
+        "thirteen instruction-tuned judges on answers from both base and instruction-tuned",
+        "base and instruct judges differ, and more besides",
+        "tests/test_quotation_integrity.py",
+        "cited work's design mischaracterised again",
+    ),
 ]
 
 
