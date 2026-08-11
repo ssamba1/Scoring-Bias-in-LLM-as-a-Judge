@@ -465,6 +465,94 @@ MUTATIONS = [
         "tests/test_replication_arms_recompute.py",
         "public-item effect diverges from raw scores",
     ),
+    # ---- bibliography and vacuity guards -----------------------------------
+    (
+        # A citation key that resolves to no entry. LaTeX reports this too, but
+        # only when the paper is rebuilt; the suite should not need a build.
+        "paper/honest/scoring_bias_v2.tex",
+        "\\citet{thakur2024judging} evaluated",
+        "\\citet{thakur2024judgingX} evaluated",
+        "tests/test_citations_are_well_formed.py",
+        "citation key resolves to no bibliography entry",
+    ),
+    (
+        # Two entries share a key: BibTeX silently keeps one, so a citation
+        # quietly resolves to the wrong work.
+        "paper/honest/honest.bib",
+        "@article{gu2024survey,",
+        "@article{li2025scoring,",
+        "tests/test_citations_are_well_formed.py",
+        "two bibliography entries share a key",
+    ),
+    (
+        # An entry loses its only identifier. falcon3 is cited as a release page
+        # with no arXiv id, DOI or venue, so its url is the single thing a
+        # reader can follow; howpublished names where it lives but resolves to
+        # nothing. (A multi-line anchor was tried first and went stale: this
+        # file is CRLF in the working tree, so "\n" matched nothing. Single-line
+        # anchors do not have that problem.)
+        "paper/honest/honest.bib",
+        "  url    = {https://huggingface.co/blog/falcon3}, month = {December}, year = {2024}",
+        "  month = {December}, year = {2024}",
+        "tests/test_citations_are_well_formed.py",
+        "cited work left with nothing a reader can follow",
+    ),
+    (
+        # Most entries stop parsing, so the bibliography checks would run on a
+        # nearly empty set and pass without examining anything.
+        "paper/honest/honest.bib",
+        "@inproceedings{",
+        "%inproceedings{",
+        "tests/test_citations_are_well_formed.py",
+        "bibliography parse collapses to a few entries",
+        True,
+    ),
+    (
+        # The retraction vocabulary stops matching its own example, which is the
+        # one thing that proves the sweep can still fire.
+        "tests/fabricated_signatures.py",
+        '"GLM-4.7": (r"GLM-4\\.7", "Zhipu GLM-4.7 & 9B")',
+        '"GLM-4.7": (r"GLM-4\\.8", "Zhipu GLM-4.7 & 9B")',
+        "tests/test_no_fabricated_artefacts.py",
+        "retraction pattern stops matching its own sample",
+    ),
+    (
+        # The pinned array grows, so the recorded indices no longer identify the
+        # values they were recorded for.
+        "paper/honest/repro/results_mechanism.json",
+        '"resp": [\n      0.0271,',
+        '"resp": [\n      0.0271,\n      0.0271,',
+        "tests/test_analysis_stack_matches_the_pins.py",
+        "pinned indices stop identifying their values",
+    ),
+    (
+        # The reproduction stack stops being pinned at all.
+        "paper/honest/repro/requirements-repro.txt",
+        "scipy==1.17.1",
+        "scipy",
+        "tests/test_analysis_stack_matches_the_pins.py",
+        "numeric stack no longer pinned",
+    ),
+    (
+        # Every registered prediction stops parsing, so the compliance check
+        # would run on an empty list and report success.
+        "paper/honest/PREREGISTRATION.md",
+        "- **P",
+        "- **Q",
+        "tests/test_preregistration_is_reported.py",
+        "prediction list stops parsing",
+        True,
+    ),
+    (
+        # The paper's quotations stop parsing, making the quotation checks
+        # vacuous rather than failing.
+        "paper/honest/scoring_bias_v2.tex",
+        "``",
+        "`",
+        "tests/test_quotation_integrity.py",
+        "quotation sweep collapses to nothing",
+        True,
+    ),
 ]
 
 
