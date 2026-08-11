@@ -77,10 +77,11 @@ def test_the_statistic_covers_every_cell(filename, keys, label):
     if not path.exists():
         pytest.skip(f"[repro] {filename} not present")
     stored = _dig(json.loads(path.read_text()), keys)
-    assert isinstance(stored, int), (
-        f"{label} records no n at {'/'.join(keys)}, so whether it covers the "
-        f"panel cannot be told from the release"
-    )
+    if stored is None or isinstance(stored, bool) or not isinstance(stored, int):
+        raise AssertionError(
+            f"{label} records no integer n at {'/'.join(keys)} (found {stored!r}), "
+            f"so whether it covers the panel cannot be told from the release"
+        )
     cells = _panel_cells()
     assert stored == cells, (
         f"{label} is fit on {stored} cells; the panel holds {cells}. The paper "

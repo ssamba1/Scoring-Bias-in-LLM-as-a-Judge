@@ -142,6 +142,11 @@ def test_no_released_cell_was_scored_on_a_truncated_panel(name):
     declared n_items is the file's own claim about its panel; every per-item
     vector in it has to be that long, which is the same check the analyzers
     would need before dividing by 50 and never make.
+
+    test_released_data_is_well_formed compares the *modal* array length against
+    the declared count, which passes if half the cells are short. This compares
+    every cell, which is the difference between catching a truncated write and
+    catching a truncated run.
     """
     path = REPRO / name
     blob = json.loads(path.read_text())
@@ -151,18 +156,13 @@ def test_no_released_cell_was_scored_on_a_truncated_panel(name):
 
     declared = blob.get("n_items")
     if not isinstance(declared, int):
-        # No declared panel size -- results_closed.json is one, and it is the
-        # file behind the frontier-judge section. Ragged cells are still a
-        # truncated run; the modal length is the only reference available.
-        lengths = collections.Counter(n for _, n in cells)
-        modal = lengths.most_common(1)[0][0]
-        odd = sorted(n for n in lengths if n != modal)
-        assert not odd, (
-            f"{name} declares no panel size and its cells are ragged: {dict(lengths)}. "
-            f"Without a declared size nothing else can tell a truncated run from "
-            f"a full one here."
-        )
-        return
+        # results_closed.json is the one that matters here, and raggedness in it
+        # is already caught by test_arrays_all_have_the_same_length, which
+        # compares cells against their modal length. Without a declared size
+        # that is the strongest available check, so this defers to it rather
+        # than restating it.
+        pytest.skip(f"[{name}] declares no panel size; raggedness is covered by "
+                    f"test_arrays_all_have_the_same_length")
 
     short = sorted({n for _, n in cells if n != declared})
     assert not short, (
