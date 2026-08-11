@@ -1107,6 +1107,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A probe starts surviving the registered correction, so the paper's
+        # disclosure that none does becomes false -- in the paper's own favour,
+        # which is the direction nobody re-reads.
+        "paper/honest/repro/results_peritem.json",
+        '"wilcoxon_p_holm": 0.133',
+        '"wilcoxon_p_holm": 0.013',
+        "tests/test_prose_matches_derived_values.py",
+        "a probe starts surviving the registered correction",
+    ),
+    (
         # The refuted core prediction loses its recorded outcome. P2 was
         # registered as a positive correlation, measured negative, and reported
         # in the paper under a different label -- which is exactly how a

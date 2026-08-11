@@ -630,6 +630,33 @@ if gold_reversed["base"]["accuracy_under_bias"] == gold_reversed["instruct"]["ac
 if not re.search(r"0\.98.{0,12}to.{0,12}0[^.\d]", text):
     FAILS.append("prose no longer states the 0.98 -> 0 discrimination collapse")
 
+# ---- the registered per-probe test -------------------------------------------
+# The paper now states that the registered analysis -- paired Wilcoxon,
+# Holm-corrected across the five probes -- is null for every probe. That
+# sentence has to keep matching the corrected p-values it summarises, in both
+# directions: if a probe ever does survive, the disclosure becomes false in the
+# paper's own favour, which is the direction that goes unnoticed.
+peritem = json.loads((HERE / "results_peritem.json").read_text())
+holm = {p: v["wilcoxon_p_holm"] for p, v in peritem["summary"].items()}
+survivors = sorted(p for p, v in holm.items() if v <= 0.05)
+if survivors:
+    FAILS.append(
+        f"the paper says the registered per-probe test is null for every probe; "
+        f"{survivors} now survive Holm correction"
+    )
+smallest = min(holm.values())
+if f"$p_{{\\text{{Holm}}}}={smallest:.2f}$" not in text:
+    FAILS.append(
+        f"the paper quotes a smallest Holm-corrected p that is not {smallest:.2f}"
+    )
+smallest_probes = sorted(peritem["summary"][p]["label"] for p, v in holm.items()
+                         if v == smallest)
+if len(smallest_probes) != 2:
+    FAILS.append(
+        f"the paper names two probes at the smallest corrected p; the data give "
+        f"{smallest_probes}"
+    )
+
 # ---- the per-domain claim ----------------------------------------------------
 # "The effect is not domain-specific: instruct bias exceeds base bias in every
 # one of the five item domains." Unchecked until now, which is a poor place to

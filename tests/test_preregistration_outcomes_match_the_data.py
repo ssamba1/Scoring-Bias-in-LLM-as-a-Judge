@@ -50,6 +50,10 @@ def _states(text, literal, what):
 def test_the_sharpening_outcome_matches_the_measurement():
     text = _text()
     dec = _load("results_mechanism.json")["decisiveness"]
+    assert dec["instruct_mean"] < dec["base_mean"], (
+        f"P1 is recorded as confirmed -- tuning lowers entropy -- but the "
+        f"released means are base {dec['base_mean']}, instruct {dec['instruct_mean']}"
+    )
     _states(text, f"{dec['base_mean']:.3f} → {dec['instruct_mean']:.3f}", "P1's entropy fall")
     _states(text, f"{dec['n_decreased']} of {dec['n']} families", "P1's family count")
     _states(text, f"p = {dec['wilcoxon_p']}", "P1's Wilcoxon p")
@@ -73,6 +77,11 @@ def test_the_generality_outcome_matches_the_measurement():
     text = _text()
     gen = _load("results_mechanism.json")["generality"]
     registered = gen["content_as_registered_P4"]
+    assert registered["spearman_rho"] < 0 and gen["format"]["spearman_rho"] < 0, (
+        f"P4 is recorded as holding with the same reversed sign as P2; the "
+        f"released correlations are {registered['spearman_rho']} (registered "
+        f"grouping) and {gen['format']['spearman_rho']} (format group)"
+    )
     _states(text, f"ρ = {registered['spearman_rho']}".replace("-", "−"),
             "P4 on the registered grouping")
     _states(text, f"p = {registered['spearman_p']}", "P4's p-value")
