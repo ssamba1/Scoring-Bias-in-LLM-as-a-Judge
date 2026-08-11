@@ -930,6 +930,19 @@ MUTATIONS = [
         "quotation sweep collapses to nothing",
         True,
     ),
+    (
+        # A generated table changes and the archive is not rebuilt, so the
+        # submission ships the previous numbers. The pinning tests catch a table
+        # that contradicts its JSON, but not one that was regenerated correctly
+        # and never repackaged -- there the tree is consistent and only the
+        # archive is behind. Until the tables were digested, SOURCE.json listed
+        # three top-level files and nothing compared the bundled tables at all.
+        "paper/honest/tables/tab_v2_summary.tex",
+        "+0.24 (+83",
+        "+0.99 (+83",
+        "tests/test_submission_is_buildable.py",
+        "regenerated table ships stale in the archive",
+    ),
 ]
 
 

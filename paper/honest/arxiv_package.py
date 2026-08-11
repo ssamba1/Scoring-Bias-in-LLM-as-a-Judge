@@ -42,8 +42,10 @@ MAIN = "scoring_bias_v2"
 STAGING = HERE / "arxiv_submission"
 ARCHIVE = HERE / "arxiv_submission.tar.gz"
 
-# Everything the paper reads, resolved from the source rather than listed by
-# hand: a hand-maintained list is how a figure goes missing from a submission.
+# The three top-level sources. Everything else the paper reads is resolved from
+# the source below rather than listed here -- a hand-maintained list is how a
+# figure goes missing from a submission, and it is how the generated tables went
+# undigested while this comment claimed otherwise.
 SOURCES = [f"{MAIN}.tex", "macros.tex", "honest.bib"]
 
 
@@ -114,10 +116,26 @@ def build():
         if src.parent.name == "tables":
             shutil.copy(src, STAGING / "tables" / src.name)
 
+    # The tables are \input by the paper and bundled above, but they were not
+    # digested, so a regenerated table shipped stale and silently: the analysis
+    # rewrites the numbers, the archive keeps the previous ones, and every check
+    # still passed. Digest whatever the paper actually pulls in, resolved from
+    # the source, rather than the three names someone typed here.
+    #
+    # Figures are deliberately excluded. They are PDFs carrying an embedded
+    # creation timestamp, so their bytes change on every regeneration even when
+    # the content is identical -- digesting them would report staleness that
+    # isn't real. check_figures.py compares their content instead.
+    digested = list(SOURCES)
+    for name in sorted(set(inputs)):
+        src = _resolve(name)
+        if src.parent.name == "tables":
+            digested.append(f"tables/{src.name}")
+
     manifest = {
         "main": "main.tex",
         "built_from": f"{MAIN}.tex",
-        "sources": {name: _digest(HERE / name) for name in SOURCES if (HERE / name).exists()},
+        "sources": {name: _digest(HERE / name) for name in digested if (HERE / name).exists()},
         "note": (
             "Digests are of the paper sources at packaging time, line-ending "
             "normalised. If they no longer match, this archive is stale: "
