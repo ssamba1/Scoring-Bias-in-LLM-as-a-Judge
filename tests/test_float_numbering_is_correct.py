@@ -85,9 +85,59 @@ def test_each_label_carries_its_own_floats_number(env):
     )
 
 
+def test_every_float_label_sits_after_its_caption():
+    r"""The structural form of the same check, which runs without a build.
+
+    The .aux comparison above is the strong check, and it skips wherever the
+    paper has not been compiled -- which is every CI run, since the workflow
+    installs no LaTeX and the build products are not tracked. A guard that only
+    runs on my machine protects nothing on anyone else's.
+
+    LaTeX numbers a \label by the most recent \refstepcounter, so a label placed
+    before its float's \caption takes the *previous* float's number, and one
+    placed outside the environment takes the enclosing section's. Both are
+    visible in the source alone. This catches the same defect without needing
+    the paper built.
+    """
+    if not TEX.exists():
+        pytest.skip("[paper] scoring_bias_v2.tex not present")
+    tex = TEX.read_text(encoding="utf-8", errors="replace")
+
+    misplaced = []
+    inside = set()
+    for env in ("figure", "table"):
+        pattern = re.compile(r"\\begin\{" + env + r"\*?\}(.*?)\\end\{" + env + r"\*?\}", re.S)
+        for match in pattern.finditer(tex):
+            body = match.group(1)
+            caption_at = body.find(r"\caption")
+            for label_match in re.finditer(r"\\label\{([^}]+)\}", body):
+                name = label_match.group(1)
+                inside.add(name)
+                if caption_at != -1 and label_match.start() < caption_at:
+                    misplaced.append(
+                        f"{name} is placed before its \\caption, so it takes the "
+                        f"previous {env}'s number"
+                    )
+
+    # A fig:/tab: label outside any float environment numbers the section.
+    for match in re.finditer(r"\\label\{((?:fig|tab):[^}]+)\}", tex):
+        name = match.group(1)
+        if name not in inside:
+            misplaced.append(f"{name} is not inside any float environment")
+
+    assert not misplaced, f"labels that would number the wrong object: {misplaced}"
+
+
 def test_the_floats_are_actually_found():
     """Vacuity guard: an environment rename would leave nothing compared."""
-    tex, aux = _sources()
+    if not TEX.exists():
+        pytest.skip("[paper] scoring_bias_v2.tex not present")
+    tex = TEX.read_text(encoding="utf-8", errors="replace")
+    if not AUX.exists():
+        # Still assert the part that does not need a build.
+        assert len(_floats(tex, "figure")) >= 8
+        pytest.skip("[aux] not compiled; the source-side count was still checked")
+    aux = AUX.read_text(encoding="utf-8", errors="replace")
     figures = _floats(tex, "figure")
     assert len(figures) >= 8, (
         f"only {len(figures)} figure environments parsed; the paper includes ten, "

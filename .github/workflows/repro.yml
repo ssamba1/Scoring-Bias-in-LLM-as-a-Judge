@@ -43,6 +43,45 @@ jobs:
         working-directory: paper/honest/repro
         run: python check_prose.py
 
+  # Does the thing we would actually submit compile? Nothing here checked that.
+  # The integrity job verifies the archive's digests match the sources and that
+  # its build log shows a clean run -- but the log is not tracked, so on a fresh
+  # checkout those assertions skipped, and a skip reads as a pass. The paper
+  # built cleanly only on my machine. arXiv compiles from the tarball.
+  submission-compiles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install a minimal TeX Live
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended texlive-science
+      - name: Compile the archive exactly as arXiv would
+        # From the tarball, not the working tree: arXiv gets the tarball, and a
+        # paper that builds in the repository but not in the archive is the
+        # failure this is here to catch. arXiv does not run BibTeX, so the
+        # bundled .bbl is what supplies the bibliography.
+        run: |
+          set -e
+          mkdir -p /tmp/arxiv && tar xzf paper/honest/arxiv_submission.tar.gz -C /tmp/arxiv
+          cd /tmp/arxiv
+          test -f main.bbl || { echo "no .bbl in the archive; arXiv would render no references"; exit 1; }
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex > pass1.log
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex > pass2.log
+          test -f main.pdf || { echo "no PDF produced"; exit 1; }
+      - name: The build must be clean
+        run: |
+          cd /tmp/arxiv
+          undefined=$(grep -c "Citation.*undefined\|Reference.*undefined" pass2.log || true)
+          overfull=$(grep -c "Overfull \\\\hbox" pass2.log || true)
+          missing=$(grep -c "File .* not found" pass2.log || true)
+          echo "undefined=$undefined overfull=$overfull missing=$missing"
+          test "$undefined" -eq 0 || { grep -n "undefined" pass2.log | head -20; exit 1; }
+          test "$missing" -eq 0 || { grep -n "not found" pass2.log | head -20; exit 1; }
+          test "$overfull" -eq 0 || { grep -n "Overfull" pass2.log | head -20; exit 1; }
+
   regenerate-and-diff:
     runs-on: ubuntu-latest
     steps:
