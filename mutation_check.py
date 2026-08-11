@@ -1107,6 +1107,26 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # One item changes domain, so the panel stops being ten per domain.
+        # Balance is what licenses reading the per-domain comparison as a
+        # comparison of domains rather than of sample sizes.
+        "paper/honest/repro/scaled_harness.py",
+        'to reduce resource consumption.", "daily_life"',
+        'to reduce resource consumption.", "science"',
+        "tests/test_the_item_panel_is_what_the_paper_says.py",
+        "the item panel stops being balanced across domains",
+    ),
+    (
+        # A released raw file's declared panel size stops matching the cells it
+        # holds. A smoke-truncated run looks like a real one in every respect
+        # except the denominator every per-item statistic divides by.
+        "paper/honest/repro/results_scaled.json",
+        '"n_items": 50',
+        '"n_items": 49',
+        "tests/test_the_item_panel_is_what_the_paper_says.py",
+        "a released file's panel size stops matching its cells",
+    ),
+    (
         # The fourth cumulant after tuning grows instead of shrinking. The
         # appendix's conclusion is that every measured cumulant moves toward the
         # decisive limit, so this falsifies it -- and the recompute from the
