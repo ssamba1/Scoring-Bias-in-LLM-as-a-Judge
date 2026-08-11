@@ -3,7 +3,7 @@
   "built_from": "scoring_bias_v2.tex",
   "sources": {
     "scoring_bias_v2.tex": "ebcd2448e1385c6391c8594884f89f8bb766bc164e00238ec80bd35fd710bae5",
-    "macros.tex": "4c0776e96a9e6e5460173b4d234f6ee9b5e445ac4255362c852d4d89286ca859",
+    "macros.tex": "efece46d331b6fdb6d851b9b306f7447ed72d4af6eb4cd728eecce05f63aac84",
     "honest.bib": "25a17e05941f9f29027b047035486a76badd82946f4525db8dfc567330024067"
   },
   "note": "Digests are of the paper sources at packaging time, line-ending normalised. If they no longer match, this archive is stale: rebuild before submitting."

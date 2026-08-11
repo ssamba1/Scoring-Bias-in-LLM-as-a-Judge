@@ -216,6 +216,15 @@ MUTATIONS = [
         "tests/test_analysis_stack_matches_the_pins.py",
         "local regeneration overwrites CI's rounding",
     ),
+    (
+        # The external dataset loses its licence attribution. CC BY-SA asks for
+        # it whether or not the text itself is redistributed.
+        "paper/honest/macros.tex",
+        "(Databricks, CC BY-SA 3.0; open",
+        "(open",
+        "tests/test_third_party_data_is_attributed.py",
+        "third-party dataset loses its attribution",
+    ),
 ]
 
 
