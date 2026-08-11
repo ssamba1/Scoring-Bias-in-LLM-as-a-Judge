@@ -365,6 +365,32 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- frontier judges: the stated range must bracket the measured means -------
+# The prose quoted "mean Delta of 0.84--1.01" while the judges' means are 0.820,
+# 0.843 and 1.007. The low end was the second-smallest value, not the smallest.
+# A range is two claims and it is easy to check only the memorable one, so both
+# ends are computed from the per-judge means here.
+closed = json.loads((HERE / "results_closed_analysis.json").read_text())
+per_judge = next(
+    (v for k, v in closed.items()
+     if isinstance(v, dict) and any(isinstance(r, dict) and "mean_delta" in r for r in v.values())),
+    None,
+)
+if per_judge:
+    means = sorted(r["mean_delta"] for r in per_judge.values() if isinstance(r, dict))
+    lo, hi = means[0], means[-1]
+    stated = re.search(r"mean \$\\Delta\$ of \$([\d.]+)\$--\$([\d.]+)\$", text)
+    if not stated:
+        FAILS.append("prose no longer states a frontier mean-delta range")
+    else:
+        s_lo, s_hi = float(stated.group(1)), float(stated.group(2))
+        if abs(s_lo - lo) > 0.006:
+            FAILS.append(f"frontier range starts at {s_lo}, smallest judge mean is {lo:.3f}")
+        if abs(s_hi - hi) > 0.006:
+            FAILS.append(f"frontier range ends at {s_hi}, largest judge mean is {hi:.3f}")
+    if len(means) < 3:
+        FAILS.append(f"only {len(means)} frontier judges parsed; the range check is vacuous")
+
 # ---- causal patching layer profile -------------------------------------------
 # The paper's only intervention, and its shape is the claim: inert early, a jump
 # at one layer, full transfer thereafter. Each of those three parts is pinned to
