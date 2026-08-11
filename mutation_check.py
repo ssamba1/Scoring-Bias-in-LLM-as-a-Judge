@@ -1037,6 +1037,16 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # A recorded verdict stops agreeing with the numbers beside it. The
+        # summary table's asterisks are read from this flag, not from the
+        # interval, so the interval could move and the asterisk stay.
+        "paper/honest/repro/results_peritem.json",
+        '"boot_ci95": [\n        0.081,',
+        '"boot_ci95": [\n        -0.081,',
+        "tests/test_flags_agree_with_their_numbers.py",
+        "a verdict flag disagrees with its own interval",
+    ),
+    (
         # The measured sensitivity exceeds the bound the paper proves for it.
         # Either the measurement or the proposition would be wrong, and nothing
         # checked the inequality -- only the number summarising its slack.
