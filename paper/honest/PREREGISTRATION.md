@@ -30,6 +30,54 @@ and the metric definitions were fixed in advance; only the raw scores were pendi
 - **P6 (validity).** Nuisance perturbations reduce ground-truth good-vs-bad
   discrimination (accuracy and margin), and instruction tuning reduces this loss.
 
+**Outcomes for H0 and P1–P6 (recorded 2026-08-11, late).** Every addendum below
+records its outcomes; this original block did not. The verdicts were reported in
+the paper as it was written, but were never written back here, so a reader
+opening the preregistration found decisions for the exploratory additions and
+none for the confirmatory core. They are recorded now from the committed
+analyses rather than from a fresh run, and each names the file it comes from.
+
+- **H0 — directionally confirmed, not significant per probe.** Mean bias rises
+  on all five probes (+0.207 to +0.375; `results_peritem.json` → `summary`), and
+  the panel mean effect is +0.257 with 11/13 families positive
+  (`results_robustness.json` → `B3_sensitivity`). No probe survives Holm
+  correction across the five: the smallest Holm-adjusted p is 0.133 (score ID
+  and authority). The uncorrected bootstrap 95% intervals exclude zero for score
+  ID, authority and verbosity.
+- **P1 (sharpening) — confirmed.** Control-condition entropy falls 2.040 → 1.450,
+  lower in 11 of 13 families, paired Wilcoxon p = 0.0046
+  (`results_mechanism.json` → `decisiveness`).
+- **P2 (link) — refuted in sign, and the refutation is the paper's central
+  result.** Registered as Spearman > 0. Measured ρ = −0.413 (n = 130,
+  p < 1e-4), and −0.343 under the control-only reading of entropy
+  (`results_mechanism.json` → `entropy_bias_link`,
+  `entropy_bias_link_control_only`). The paper reports the refuted direction
+  under the label **P2₀**; that relabelling was never recorded here, so the
+  registered P2 appeared to have no verdict at all.
+- **P3 (causal) — confirmed as localization; the monotone clause holds only as a
+  step.** Patching the instruct representation into Qwen2.5-1.5B moves ≤ 17% of
+  items through layer 9, then ≥ 74% from layer 10 and 100% from layer 14
+  (`patch_results.json`); Qwen2.5-0.5B shows the same shape
+  (`patch_results_qwen05.json`). "Rises with layer depth" is true as a band, not
+  as a monotone increase, and is reported that way.
+- **P4 (generality) — confirmed, carrying the same reversed sign as P2.** On the
+  registered grouping (authority, verbosity): ρ = −0.351, p = 0.0108, n = 52. The
+  wider content group gives −0.294 (n = 78) and the format group −0.547 (n = 52)
+  (`results_mechanism.json` → `generality`).
+- **P5 (predictive) — met, unstable.** LOO R² = 0.272 (registered: > 0), Pearson
+  r = 0.549, p = 0.00371 across 26 checkpoints (`results_mechanism.json` →
+  `predictor`); the family-clustered bootstrap interval is [−0.618, 0.566] and
+  includes zero (`results_robustness.json` → `B2_predictor_bootstrap`). The
+  predictive sign is the measured one, opposite to P2₀.
+- **P6 (validity) — split.** First clause confirmed: nuisance destroys
+  discrimination, with reversed-rubric accuracy falling 0.98 → 0.02 (base) and
+  0.98 → 0.00 (instruct). Second clause **failed in the opposite direction**:
+  instruction tuning does not reduce the loss, it enlarges it. The instruct
+  margin drop is larger in 5/5 families under reversed (2.4319 vs 1.3254) and
+  5/5 under verbose (0.9655 vs 0.7111), paired Wilcoxon p = 0.0625 in both — the
+  smallest value attainable at n = 5 — while novice is a wash (p = 0.8125)
+  (`results_gold.json` → `degradation`).
+
 ## Addendum (registered 2026-07-19, before stage-ablation data arrived)
 
 The alignment-stage ablation (`repro/stage_harness.py`: OLMo-2 1B and 7B

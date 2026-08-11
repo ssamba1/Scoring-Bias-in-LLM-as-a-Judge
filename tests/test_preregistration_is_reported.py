@@ -97,6 +97,53 @@ def test_the_registered_grouping_is_reported_where_it_differs():
     )
 
 
+def test_every_registered_prediction_has_a_recorded_outcome():
+    """An outcome in the preregistration itself, not only in the paper.
+
+    Outcomes were recorded for every addendum -- P7 through P20 -- and for none
+    of H0 and P1--P6, the confirmatory core. A reader opening this file found
+    verdicts for the exploratory additions and nothing for the predictions the
+    study was designed around. P2 was the worst of it: registered as a positive
+    correlation, measured negative, and reported in the paper under a different
+    label (P2_0), so the registered id looked simply unadjudicated.
+
+    Outcomes are written in two shapes here -- a per-prediction line ("**P12
+    outcome ...**") and a grouped block ("- P7 **confirmed**: ..."), so both
+    count. What does not count is silence.
+    """
+    text = _prereg()
+    registered = _registered_ids()
+    assert registered, "no registered predictions parsed from PREREGISTRATION.md"
+
+    adjudicated = {int(n) for n in re.findall(r"\*\*P(\d{1,2}) outcome", text)}
+    adjudicated |= {int(n) for n in re.findall(r"^\s*-\s+P(\d{1,2})\s+\*\*", text, re.M)}
+    # "- **P1 (sharpening) -- confirmed.**": the dash after the closing paren is
+    # what separates an outcome from the registration line, which reads
+    # "- **P1 (sharpening).** Instruction tuning lowers ...".
+    adjudicated |= {
+        int(n) for n in re.findall(r"\*\*P(\d{1,2})\s*\([^)]*\)\s*(?:--|—)", text)
+    }
+
+    missing = [f"P{i}" for i in registered if i not in adjudicated]
+    assert not missing, (
+        f"registered with no outcome recorded in the preregistration: {missing}. "
+        f"The paper may well report them, but a preregistration that records "
+        f"outcomes for some predictions and not others is not evidence of "
+        f"anything -- the omissions are exactly where a reader would look."
+    )
+
+
+def test_the_null_hypothesis_has_an_outcome_too():
+    """H0 is registered without a P-number, so the id sweep cannot see it."""
+    text = _prereg()
+    if "**H0" not in text:
+        pytest.skip("[preregistration] H0 not registered under that name")
+    assert re.search(r"\*\*H0\s*(\([^)]*\))?\s*(--|—)", text), (
+        "H0 is registered but no outcome is recorded for it; it is the "
+        "hypothesis the whole panel was run to test"
+    )
+
+
 def test_the_prediction_list_is_actually_parsed():
     """Vacuity guard: an empty id list satisfies every check above."""
     registered = _registered_ids()

@@ -1107,6 +1107,26 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The refuted core prediction loses its recorded outcome. P2 was
+        # registered as a positive correlation, measured negative, and reported
+        # in the paper under a different label -- which is exactly how a
+        # registered id comes to look merely unadjudicated.
+        "paper/honest/PREREGISTRATION.md",
+        "**P2 (link) — refuted in sign",
+        "**P2 (link).** Refuted in sign",
+        "tests/test_preregistration_is_reported.py",
+        "a registered prediction loses its recorded outcome",
+    ),
+    (
+        # An outcome's evidence drifts from the analysis it cites. The verdict
+        # would still read as though it had been checked.
+        "paper/honest/PREREGISTRATION.md",
+        "p = 0.00371 across 26 checkpoints",
+        "p = 0.00171 across 26 checkpoints",
+        "tests/test_preregistration_outcomes_match_the_data.py",
+        "a recorded outcome drifts from its evidence",
+    ),
+    (
         # A full-panel statistic quietly drops cells. The range it reports stays
         # correct for the cells it kept, which is why the paper's "across all
         # 130 cells" would go on reading fine.
