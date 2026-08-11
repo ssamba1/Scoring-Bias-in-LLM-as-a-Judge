@@ -365,6 +365,29 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- per-template correlations -----------------------------------------------
+# Three rho values quoted for three prompt templates. They were computed once and
+# written into the prose; no analysis emitted them, so the release could not be
+# used to check them. Now emitted as C8b and pinned here, in the order the
+# sentence states them.
+per_template = rob.get("C8b_per_template_link", {})
+if not per_template:
+    FAILS.append("no per-template entropy-bias link in results_robustness.json")
+else:
+    quoted = [(-0.46, 0.011), (-0.43, 0.016), (-0.63, None)]
+    names = sorted(per_template)
+    if len(names) != len(quoted):
+        FAILS.append(f"prose quotes {len(quoted)} templates, the analysis has {len(names)}")
+    for name, (rho, pval) in zip(names, quoted):
+        got = per_template[name]
+        close(f"template {name} rho", rho, got["spearman_rho"], 0.006)
+        if pval is not None:
+            close(f"template {name} p", pval, got["p"], 0.0006)
+        if got["n"] != 30:
+            FAILS.append(f"prose says n=30 points per template, {name} has {got['n']}")
+        if got["spearman_rho"] >= 0:
+            FAILS.append(f"template {name} correlation is {got['spearman_rho']}, prose says negative")
+
 # ---- stage trajectory and the concentration arrows ---------------------------
 # A four-step trajectory is four claims sharing one sentence, so a single stale
 # step hides among three correct ones. Recomputed per stage from the per-cell

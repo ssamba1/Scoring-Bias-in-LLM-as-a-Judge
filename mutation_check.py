@@ -1036,6 +1036,16 @@ MUTATIONS = [
         "tests/test_model_description_matches_the_fit.py",
         "paper claims a random effect the model lacks",
     ),
+    (
+        # A per-template correlation drifts. These were quoted in the prose while
+        # no analysis emitted them, so nothing could compare them to the data;
+        # they are emitted as C8b now and this proves the comparison bites.
+        "paper/honest/repro/results_robustness.json",
+        '"spearman_rho": -0.457',
+        '"spearman_rho": -0.157',
+        "tests/test_prose_matches_derived_values.py",
+        "per-template correlation drifts from the data",
+    ),
 ]
 
 

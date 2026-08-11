@@ -277,6 +277,38 @@ def main():
             "mean_ensembled_bias": round(float(np.mean(ensembles)), 3),
             "reduction_frac": round(red, 3),
             "wilcoxon_p": round(float(wt2.pvalue), 6)}
+
+        # ---- C8b: the entropy-bias relation holds under each template ----
+        # The paper quotes a correlation per template, and nothing emitted them,
+        # so they could not be checked against the release. Entropy is the mean
+        # over a probe's variants, the same reading the headline uses.
+        per_template = {}
+        for key, rec in mt.items():
+            model, tname = key.split("__")
+            for kind in ("base", "instruct"):
+                kd = rec.get(kind)
+                if not isinstance(kd, dict):
+                    continue
+                for p in PROBES:
+                    cell = kd.get(p)
+                    if not isinstance(cell, dict):
+                        continue
+                    means = {v: c["mean"] for v, c in cell.items()
+                             if isinstance(c, dict) and "mean" in c}
+                    ents = [c["mean_entropy"] for c in cell.values()
+                            if isinstance(c, dict) and "mean_entropy" in c]
+                    if len(means) < 2 or not ents:
+                        continue
+                    per_template.setdefault(tname, []).append(
+                        (float(np.mean(ents)), delta(means)))
+        out["C8b_per_template_link"] = {}
+        for tname in sorted(per_template):
+            pts = per_template[tname]
+            r = stats.spearmanr([e for e, _ in pts], [b for _, b in pts])
+            out["C8b_per_template_link"][tname] = {
+                "spearman_rho": round(float(r.statistic), 3),
+                "p": round(float(r.pvalue), 4),
+                "n": len(pts)}
     except FileNotFoundError:
         out["C8_template_ensemble"] = {"note": "results_multitemplate.json absent"}
 
