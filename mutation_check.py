@@ -1108,6 +1108,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The limitation names a prediction among the failures that is recorded
+        # as confirmed. A reckoning with a wrong entry in it reads as one that
+        # has been done.
+        "paper/honest/scoring_bias_v2.tex",
+        "(P14 and P16 outright",
+        "(P11 and P16 outright",
+        "tests/test_preregistration_is_reported.py",
+        "a confirmed prediction is listed among the failures",
+    ),
+    (
         # A tool starts using a scratch path inside the repo that .gitignore
         # does not cover. Such a directory survives an interrupted run, and
         # `git add -A` would then commit an entire virtualenv.

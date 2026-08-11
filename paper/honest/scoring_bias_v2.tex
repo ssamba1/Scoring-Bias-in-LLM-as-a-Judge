@@ -617,6 +617,17 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         (\S\ref{sec:zh}), but all templates are instruction-style; radically different
         scoring interfaces are untested, and the Chinese replication covers one
         (natively bilingual) model series.
+  \item \textbf{Many tests, correction only within the headline comparison.} We
+        preregistered twenty predictions and report each with its clauses, plus the
+        robustness checks of \S\ref{sec:spec}; the paper therefore reports a large
+        number of $p$-values. Holm correction is
+        applied across the five probes of the headline comparison and nowhere else,
+        so no family-wise error rate is controlled across predictions. Three things
+        limit what this can be hiding: the headline rests on effect sizes, intervals
+        and an exact permutation test rather than on any single $p$; the predictions
+        were registered before their data existed; and several of them failed and are
+        reported as failures (P14 and P16 outright, clauses of P10, P13, P15, P19 and P20),
+        which is the pattern selective reporting does not produce.
   \item \textbf{Theory scope.} The all-order argument shows decisiveness controls every
         cumulant in the decisive limit, but the finite-entropy regime is characterized
         only up to the cumulants we compute; a closed form of the bias for arbitrary

@@ -144,6 +144,40 @@ def test_the_null_hypothesis_has_an_outcome_too():
     )
 
 
+def test_the_multiplicity_limitation_matches_the_register():
+    """The limitation names the count and the failures. Both come from this file.
+
+    A limitation that understates how many tests were run, or names a prediction
+    as failed that is recorded as confirmed, is worse than none: it reads as a
+    reckoning that has been done. Both halves are checked against the register.
+    """
+    paper = _paper()
+    if "no family-wise error rate is controlled" not in paper:
+        pytest.skip("[paper] the multiplicity limitation is not stated")
+
+    registered = _registered_ids()
+    words = {20: "twenty", 21: "twenty-one", 19: "nineteen", 22: "twenty-two"}
+    count = words.get(len(registered), str(len(registered)))
+    assert f"preregistered {count} predictions" in paper, (
+        f"the limitation states a number of registered predictions that is not "
+        f"{count}; the register holds {len(registered)}"
+    )
+
+    prereg = _prereg()
+    flat = " ".join(paper.split())
+    claimed = re.search(r"reported as failures \(([^)]*)\)", flat)
+    assert claimed, "the limitation no longer lists which predictions failed"
+    for ident in re.findall(r"P(\d{1,2})", claimed.group(1)):
+        block = re.search(rf"\*\*P{ident} outcome[^*]*\*\*(.{{0,120}})", prereg, re.S)
+        grouped = re.search(rf"^\s*-\s+P{ident}\s+\*\*([^*]*)\*\*", prereg, re.M)
+        verdict = (block.group(1) if block else "") + (grouped.group(1) if grouped else "")
+        assert verdict, f"P{ident} is named as failed but records no outcome"
+        assert re.search(r"(?i)fail|split|nominal", verdict), (
+            f"the limitation names P{ident} among the failures, but its recorded "
+            f"outcome reads {verdict.strip()[:60]!r}"
+        )
+
+
 def test_the_prediction_list_is_actually_parsed():
     """Vacuity guard: an empty id list satisfies every check above."""
     registered = _registered_ids()
