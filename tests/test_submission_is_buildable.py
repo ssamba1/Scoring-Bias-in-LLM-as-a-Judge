@@ -105,7 +105,10 @@ def test_the_archive_matches_the_current_sources(archive_members):
 def test_the_paper_builds_without_overfull_boxes():
     """The bar the companion papers hold: nothing in the margin."""
     if not LOG.exists():
-        pytest.skip("no build log; compile paper/honest/scoring_bias_v2.tex")
+        pytest.skip(
+            "no build log locally; the submission-compiles CI job builds the "
+            "archive and asserts the same properties, so this is not unchecked"
+        )
     log = LOG.read_text(encoding="utf-8", errors="ignore")
     boxes = re.findall(r"Overfull \\hbox \(([\d.]+)pt", log)
     assert not boxes, f"{len(boxes)} overfull box(es): {boxes[:5]}"
@@ -113,7 +116,44 @@ def test_the_paper_builds_without_overfull_boxes():
 
 def test_the_paper_has_no_undefined_references():
     if not LOG.exists():
-        pytest.skip("no build log; compile paper/honest/scoring_bias_v2.tex")
+        pytest.skip(
+            "no build log locally; the submission-compiles CI job builds the "
+            "archive and asserts the same properties, so this is not unchecked"
+        )
     log = LOG.read_text(encoding="utf-8", errors="ignore")
     undefined = re.findall(r"(?:Citation|Reference) .*? undefined", log)
     assert not undefined, f"{len(undefined)} undefined: {undefined[:3]}"
+
+
+def test_ci_really_compiles_the_archive():
+    """The two skips above claim CI covers them. Check that it does.
+
+    Both build-log assertions skip without a local build, and their skip message
+    says the submission-compiles job checks the same properties. A skip that
+    points elsewhere for its coverage is only honest while the elsewhere exists;
+    otherwise it is a nicer-sounding way of not checking.
+
+    This asserts the job is present, builds the archive rather than the working
+    tree, and asserts the same three properties.
+    """
+    workflow = ROOT / ".github" / "workflows" / "repro.yml"
+    if not workflow.exists():
+        pytest.skip("[workflow] repro.yml not present")
+    body = workflow.read_text(encoding="utf-8", errors="replace")
+
+    assert "submission-compiles:" in body, (
+        "the build-log tests skip on the promise that a submission-compiles job "
+        "covers them; that job is gone"
+    )
+    job = body[body.index("submission-compiles:"):]
+    job = job[: job.find("\n  regenerate-and-diff:")] if "\n  regenerate-and-diff:" in job else job
+
+    for needle, what in (
+        ("arxiv_submission.tar.gz", "builds the archive rather than the working tree"),
+        ("pdflatex", "runs a LaTeX build"),
+        ("main.bbl", "checks the bibliography ships"),
+        ("Overfull", "checks for overfull boxes"),
+        ("undefined", "checks for undefined references"),
+        ("not found", "checks for missing files"),
+    ):
+        assert needle in job, f"the submission-compiles job no longer {what}"
