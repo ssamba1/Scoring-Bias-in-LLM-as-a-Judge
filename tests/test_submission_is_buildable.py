@@ -125,6 +125,55 @@ def test_the_paper_has_no_undefined_references():
     assert not undefined, f"{len(undefined)} undefined: {undefined[:3]}"
 
 
+def _unresolved_citations(tex, bbl):
+    """Keys cited in `tex` that `bbl` does not define. Pure, so it can be tested."""
+    cited = set()
+    for match in re.finditer(r"\\cite[a-zA-Z]*\*?(?:\[[^\]]*\])*\{([^}]*)\}", tex):
+        cited |= {k.strip() for k in match.group(1).split(",") if k.strip()}
+    defined = set(re.findall(r"\\bibitem(?:\[[^\]]*\])?\{([^}]+)\}", bbl))
+    return sorted(cited - defined), sorted(defined - cited)
+
+
+def test_the_shipped_bibliography_defines_every_citation():
+    """arXiv does not run BibTeX; the shipped .bbl is the bibliography.
+
+    A key cited in the text but missing from the .bbl renders as a bold [?] in
+    the published PDF. The local build catches it as "Citation undefined", but
+    only where LaTeX is installed -- which is not most machines, and has not
+    been CI for the whole of this session. This reads the archive directly.
+    """
+    import tarfile
+
+    if not ARCHIVE.exists():
+        pytest.skip("[submission] archive not present")
+    with tarfile.open(ARCHIVE, "r:gz") as tar:
+        names = {m.name for m in tar.getmembers()}
+        if not {"main.tex", "main.bbl"} <= names:
+            pytest.skip("[submission] archive lacks main.tex or main.bbl")
+        tex = tar.extractfile("main.tex").read().decode("utf-8", "replace")
+        if "macros.tex" in names:
+            tex += tar.extractfile("macros.tex").read().decode("utf-8", "replace")
+        bbl = tar.extractfile("main.bbl").read().decode("utf-8", "replace")
+
+    missing, unused = _unresolved_citations(tex, bbl)
+    assert not missing, (
+        f"{len(missing)} citation(s) have no entry in the shipped bibliography "
+        f"and would render as [?] on arXiv: {missing}"
+    )
+    assert len(bbl) > 1000, f"the shipped .bbl is only {len(bbl)} characters"
+    # Unused entries are harmless, but a large excess means the .bbl came from a
+    # different paper -- which is how a stale bibliography usually looks.
+    assert len(unused) <= 3, f"{len(unused)} entries in the .bbl are never cited: {unused[:6]}"
+
+
+def test_the_citation_check_can_fail():
+    """The comparison above must actually detect a missing entry."""
+    tex = r"Text \citep{present} and \citet{absent}."
+    bbl = r"\bibitem[P]{present} A paper."
+    missing, _ = _unresolved_citations(tex, bbl)
+    assert missing == ["absent"], f"the check missed an unresolved citation: {missing}"
+
+
 def test_the_staged_directory_and_the_tarball_are_the_same_submission():
     """Two copies of the submission are committed; they must not disagree.
 
