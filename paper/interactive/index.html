@@ -115,8 +115,8 @@ body {
 <div class="container">
   <div class="header">
     <h1>Evaluation Bias in Language Models</h1>
-    <p class="subtitle">Interactive supplementary material for the scoring-bias study: how instruction tuning changes LLM-as-a-judge bias across the open-weight families measured on Kaggle T4.</p>
-    <span class="badge">7 families, base ↔ instruct · 3 evaluation probes</span>
+    <p class="subtitle">Interactive supplementary material for the scoring-bias study, covering the seven open-weight families measured on Kaggle T4 with three probes. The paper itself reports a larger panel &mdash; 13 families, 26 checkpoints, five bias types &mdash; so the counts below describe this page, not the study.</p>
+    <span class="badge">this page: 7 families, base &harr; instruct &middot; 3 evaluation probes &middot; paper: 13 families, 5 bias types</span>
   </div>
 
   <div class="stats-bar">
@@ -147,7 +147,11 @@ body {
     </p>
     <p style="margin:8px 0 0">
       The dashboard below is unaffected. It is built from the provenance-verified Kaggle&nbsp;T4
-      run over six open-weight families, which is the evidence the honest paper rests on.
+      run over seven open-weight families. That run is <em>not</em> what the paper rests on:
+      the paper's evidence is the 13-family, 26-checkpoint panel in
+      <code>results_scaled.json</code>, measured over five bias types. The Kaggle&nbsp;T4 run
+      covers seven families and three probes, and its early conclusion was overturned when
+      the larger panel was measured. Read it as a smaller earlier slice, not as the result.
     </p>
   </div>
 

@@ -120,10 +120,19 @@ def _macro(name):
     return match.group(1)
 
 
+README = REPO / "README.md"
+
+
 def _paper_text():
     if not PAPER.exists():
         pytest.skip("[paper] scoring_bias_v2.tex not present")
     return PAPER.read_text(encoding="utf-8", errors="replace")
+
+
+def _readme():
+    if not README.exists():
+        pytest.skip("[readme] README.md not present")
+    return README.read_text(encoding="utf-8", errors="replace")
 
 
 def test_family_count_macro_matches_the_panel():
@@ -216,6 +225,59 @@ def test_the_released_data_holds_the_judgments_the_paper_claims():
     assert total >= floor, (
         f"the paper claims over {floor:,} scored judgments; the released data "
         f"contains {total:,}. Per file: {per_file}"
+    )
+
+
+def test_the_readme_states_the_same_scale_as_the_paper():
+    """README.md repeats every scale claim, and is read far more often.
+
+    The guards above read the paper. The README carries the same counts in its
+    summary, is the first thing anyone sees, and was covered by nothing -- the
+    quarantine sweep found the retracted version's counts surviving longest
+    exactly in the places nobody thought of as "the paper".
+    """
+    readme = _readme()
+    families = _panel()
+    checkpoints = sum(
+        len([arm for arm in arms if arm not in NOT_AN_ARM])
+        for arms in families.values()
+        if isinstance(arms, dict)
+    )
+
+    wrong = sorted({c for c in re.findall(r"(\d+)\s+checkpoints", readme) if int(c) != checkpoints})
+    assert not wrong, f"README claims {wrong} checkpoints; the panel data has {checkpoints}"
+
+    wrong = sorted(
+        {c for c in re.findall(r"(\d+)\s+open-weight families", readme) if int(c) != len(families)}
+    )
+    assert not wrong, f"README claims {wrong} families; the panel data has {len(families)}"
+
+    claimed = re.search(r"over\s+([\d,]+)\s+across all datasets", readme)
+    assert claimed, "README no longer states a total judgment count"
+    floor = int(claimed.group(1).replace(",", ""))
+    total, _ = _count_judgments()
+    assert total >= floor, f"README claims over {floor:,} judgments; the data holds {total:,}"
+
+
+def test_the_main_panel_count_matches_the_panel_file():
+    """"19,500 per-item scores in the main panel" is counted, not asserted."""
+    readme = _readme()
+    claimed = re.search(r"([\d,]+)\s+per-item scores in the\s*\n?\s*main panel", readme)
+    if not claimed:
+        pytest.skip("[readme] main-panel score count no longer stated")
+    stated = int(claimed.group(1).replace(",", ""))
+
+    if not PANEL.exists():
+        pytest.skip(f"[panel data] {PANEL.name} not present")
+    counted = 0
+    for keypath, value in _walk(_load(PANEL)):
+        if keypath.rsplit(".", 1)[-1] != "per_item":
+            continue
+        if value and all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in value):
+            counted += len(value)
+    assert counted == stated, (
+        f"README says {stated:,} per-item scores in the main panel; "
+        f"{PANEL.name} contains {counted:,}"
     )
 
 

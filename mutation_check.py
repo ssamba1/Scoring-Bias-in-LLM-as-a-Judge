@@ -943,6 +943,27 @@ MUTATIONS = [
         "tests/test_submission_is_buildable.py",
         "regenerated table ships stale in the archive",
     ),
+    (
+        # The README's scale claim drifts from the panel. The README is read far
+        # more often than the paper and was covered by nothing; the quarantine
+        # sweep found the retracted counts surviving longest in exactly the
+        # places nobody thinks of as "the paper".
+        "README.md",
+        "26 checkpoints",
+        "36 checkpoints",
+        "tests/test_scale_claims_match_the_data.py",
+        "README checkpoint count drifts from the panel",
+    ),
+    (
+        # The main-panel score count drifts. This one is counted out of
+        # results_scaled.json rather than compared to another prose copy of
+        # itself, so a matching drift in both places still fails.
+        "README.md",
+        "19,500 per-item",
+        "29,500 per-item",
+        "tests/test_scale_claims_match_the_data.py",
+        "README main-panel score count drifts",
+    ),
 ]
 
 
