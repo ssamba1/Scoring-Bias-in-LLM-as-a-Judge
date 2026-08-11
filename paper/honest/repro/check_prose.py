@@ -365,6 +365,39 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- causal patching layer profile -------------------------------------------
+# The paper's only intervention, and its shape is the claim: inert early, a jump
+# at one layer, full transfer thereafter. Each of those three parts is pinned to
+# the measured per-layer fractions.
+patch = json.loads((HERE / "patch_results.json").read_text())
+frac = {int(k): v for k, v in patch["frac_toward_instruct"].items()}
+
+close("patch layer 9", 0.06, frac[9], 0.006)
+close("patch layer 10", 0.89, frac[10], 0.006)
+check("patch jump in prose", "0.06", frac[9])
+check("patch jump in prose", "0.89", frac[10])
+
+# "reaches 100% from layer 14 onward" -- every later layer, not just layer 14.
+not_full = [layer for layer, v in frac.items() if layer >= 14 and v < 1.0]
+if not_full:
+    FAILS.append(f"prose says full transfer from layer 14 onward; layers {not_full} are below 1.0")
+
+# The early-layer clause said "approx 0" while layer 0 is 0.17. It now states
+# the real bound, so the bound is what gets checked.
+early = {layer: v for layer, v in frac.items() if layer <= 9}
+if max(early.values()) > 0.18 + 1e-9:
+    FAILS.append(
+        f"prose bounds the early-layer fraction at 0.18; the data reach "
+        f"{max(early.values())} at layer {max(early, key=early.get)}"
+    )
+if sum(1 for v in early.values() if v == 0.0) != 6:
+    FAILS.append(
+        f"prose says the fraction is exactly zero at six of layers 0-9; the data "
+        f"show {sum(1 for v in early.values() if v == 0.0)}"
+    )
+if patch["n_items_used"] != 35:
+    FAILS.append(f"prose says n=35 patched items, the run used {patch['n_items_used']}")
+
 # ---- gold-standard discrimination ("accuracy 0.98 -> 0") ---------------------
 # An abstract headline that was pinned to nothing. The arrow is arm-specific:
 # under rubric reversal the instruct arm falls to exactly 0.00 while the base arm
