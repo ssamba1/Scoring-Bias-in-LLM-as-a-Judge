@@ -9,6 +9,15 @@ on:
     branches: [honest-rewrite, main]
   pull_request:
 
+# A run takes minutes -- the mutation pass alone re-runs a test file per
+# registered mutation -- so a burst of commits queues faster than the runners
+# drain it, and the result is a backlog where nothing reports on anything. Only
+# the newest commit on a branch needs a verdict: superseded runs are cancelled
+# so the queue always drains to what HEAD actually is.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Nothing fabricated may be on display, and no credential may be in the
   # history. Both are checked here because both have actually gone wrong in this
