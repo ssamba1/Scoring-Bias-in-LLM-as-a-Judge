@@ -86,8 +86,20 @@ def _geometry(path):
 
 def main(keep=False):
     if shutil.which("pdftotext") is None:
-        print("pdftotext not available; cannot compare figure content")
-        return 0
+        # Exiting 0 here meant "figures verified" on any machine without
+        # poppler, which is the whole failure this file was written against:
+        # the companion projects' figure check skips when its tooling is absent
+        # and so lapses exactly when the environment changes. There is no other
+        # check covering figure content, so there is nothing to defer to.
+        print("CANNOT CHECK THE FIGURES: pdftotext is not installed.")
+        print(
+            "  This check compares the text drawn into each figure against a\n"
+            "  fresh render, and without poppler it cannot run at all. It exits\n"
+            "  non-zero rather than reporting success it has not established.\n"
+            "  Debian/Ubuntu: apt-get install poppler-utils\n"
+            "  macOS:         brew install poppler"
+        )
+        return 1
 
     required = _included_figures()
     if not required:
