@@ -808,8 +808,10 @@ per-experiment cost: 13-family main run $\sim$3\,h; stage ablation $\sim$3\,h; n
 bias types $\sim$2\,h; multi-template $\sim$1.5\,h; public-items replication
 $\sim$1.5\,h; Chinese replication $\sim$1.5\,h; activation patching, span patching,
 14B (4-bit), ground-truth, and attention runs $\sim$0.5--1\,h each. The
-frontier-judge run (\S\ref{sec:frontier}) used the OpenRouter API: $\sim$4{,}500
-single-token logprob calls, under US\$2 total. The environment is
+frontier-judge run (\S\ref{sec:frontier}) used the OpenRouter API: $2{,}250$
+single-token logprob calls that produced the released data (three judges $\times$
+five probes $\times$ three variants $\times$ 50 items), plus a fourth judge that
+served no logprobs, under US\$2 total. The environment is
 pinned (torch 2.6.0+cu124, transformers 4.49.0); all analysis is CPU-only and pinned
 in \texttt{repro/requirements-repro.txt}.
 

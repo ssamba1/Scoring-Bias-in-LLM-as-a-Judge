@@ -401,6 +401,35 @@ if shares:
             f"{lo:.1f}--{hi:.1f}% over {sorted(shares)}"
         )
 
+# ---- frontier API call count -------------------------------------------------
+# The compute disclosure said ~4,500 single-token logprob calls. The harness
+# issues exactly one call per (judge, probe, variant, item), and its design
+# maximum is 4 x 5 x 3 x 50 = 3,000 -- so 4,500 exceeded what the run could have
+# made, let alone what it kept. Counted from the released data instead, which is
+# what a reader can check.
+closed_raw = json.loads((HERE / "results_closed.json").read_text())["results"]
+calls = sum(
+    len(variant["per_item"])
+    for arms in closed_raw.values()
+    if isinstance(arms, dict)
+    for probes in arms.values()
+    if isinstance(probes, dict)
+    for cell in probes.values()
+    if isinstance(cell, dict)
+    for variant in cell.values()
+    if isinstance(variant, dict) and "per_item" in variant
+)
+stated_calls = re.search(r"\$([\d{},]+)\$\s*\n?single-token logprob calls", text)
+if not stated_calls:
+    FAILS.append("the compute disclosure no longer states a logprob call count")
+else:
+    n = int(re.sub(r"[^\d]", "", stated_calls.group(1)))
+    if n != calls:
+        FAILS.append(
+            f"compute disclosure claims {n:,} logprob calls; the released frontier "
+            f"data accounts for {calls:,}"
+        )
+
 # ---- attention null ----------------------------------------------------------
 # The paper reports that attention to nuisance tokens does *not* explain the
 # responsiveness rise: the instruct/base ratio stays in 0.95--1.00 across all six
