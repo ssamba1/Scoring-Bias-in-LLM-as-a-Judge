@@ -964,6 +964,16 @@ MUTATIONS = [
         "tests/test_scale_claims_match_the_data.py",
         "README main-panel score count drifts",
     ),
+    (
+        # The overturned direction is asserted again on a live page. This is the
+        # defect that survived three fabrication sweeps, because an honestly
+        # measured number from a smaller slice looks nothing like a fabrication.
+        "paper/interactive/base_vs_instruct.html",
+        "bias mostly falls after instruction tuning",
+        "instruction tuning reduces evaluation bias",
+        "tests/test_superseded_claims_are_not_asserted.py",
+        "superseded direction asserted on a live page",
+    ),
 ]
 
 

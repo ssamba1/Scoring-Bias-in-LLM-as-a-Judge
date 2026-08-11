@@ -110,13 +110,30 @@ def main(keep=False):
         (scratch / name).write_bytes(data)
 
     failures, unverifiable = [], []
+    writers = {}  # figure name -> [generators that wrote it]
     try:
         for script in _generators():
+            before = {p.name: p.read_bytes() for p in FIGURES.iterdir() if p.is_file()}
             result = subprocess.run(
                 [sys.executable, str(script)], cwd=HERE, capture_output=True, text=True, timeout=1800
             )
             if result.returncode != 0:
                 failures.append(f"{script.name} failed to run:\n{result.stderr[-600:]}")
+            # Regenerating a PDF always changes its bytes (embedded timestamp),
+            # so "changed" identifies exactly what this generator wrote. Running
+            # them one at a time and diffing after each is the only way to see a
+            # collision: run them all at once and the last writer silently wins.
+            for path in FIGURES.iterdir():
+                if path.is_file() and before.get(path.name) != path.read_bytes():
+                    writers.setdefault(path.name, []).append(script.name)
+
+        for name in sorted(set(required) & set(writers)):
+            if len(writers[name]) > 1:
+                failures.append(
+                    f"{name}: written by {len(writers[name])} generators "
+                    f"({', '.join(writers[name])}). Which one the paper ships is "
+                    f"decided by filename order, not by intent."
+                )
 
         for name in required:
             committed = scratch / name
@@ -124,11 +141,9 @@ def main(keep=False):
             if not committed.exists():
                 failures.append(f"{name}: included by the paper but not committed")
                 continue
-            if regenerated.read_bytes() == originals[name]:
-                # Every generator ran and none rewrote this file. Regenerating a
-                # PDF always changes its bytes (embedded timestamp), so identical
-                # bytes mean nothing produced it -- it cannot be checked against
-                # the data, and saying so is the point.
+            if name not in writers:
+                # No generator wrote this file, so it cannot be checked against
+                # the data. Saying so is the point.
                 unverifiable.append(name)
                 continue
             old_text, new_text = _text(committed), _text(regenerated)
