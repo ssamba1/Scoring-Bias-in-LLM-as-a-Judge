@@ -125,6 +125,45 @@ def test_the_paper_has_no_undefined_references():
     assert not undefined, f"{len(undefined)} undefined: {undefined[:3]}"
 
 
+def test_the_staged_directory_and_the_tarball_are_the_same_submission():
+    """Two copies of the submission are committed; they must not disagree.
+
+    `arxiv_submission/` is the staging directory and `arxiv_submission.tar.gz`
+    is what gets uploaded. Both are in the repository, which makes it easy to
+    edit the readable one -- a quick fix to main.tex before submitting -- and
+    upload the other. Nothing then says which is the paper: the digests in
+    SOURCE.json tie the archive to the *sources*, not to the directory sitting
+    beside it.
+    """
+    import hashlib
+    import tarfile
+
+    staged = HONEST / "arxiv_submission"
+    if not ARCHIVE.exists() or not staged.is_dir():
+        pytest.skip("[submission] archive or staging directory not present")
+
+    with tarfile.open(ARCHIVE, "r:gz") as tar:
+        in_tar = {
+            m.name: hashlib.sha256(tar.extractfile(m).read()).hexdigest()
+            for m in tar.getmembers() if m.isfile()
+        }
+    on_disk = {
+        p.relative_to(staged).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in staged.rglob("*") if p.is_file()
+    }
+
+    assert in_tar, "the archive contains no files"
+    only_tar = sorted(set(in_tar) - set(on_disk))
+    only_dir = sorted(set(on_disk) - set(in_tar))
+    differ = sorted(n for n in set(in_tar) & set(on_disk) if in_tar[n] != on_disk[n])
+    assert not (only_tar or only_dir or differ), (
+        f"the staged directory and the tarball are not the same submission -- "
+        f"only in the tarball: {only_tar}; only in the directory: {only_dir}; "
+        f"same name but different bytes: {differ}. Rerun arxiv_package.py so "
+        f"both describe what would actually be uploaded."
+    )
+
+
 def test_ci_really_compiles_the_archive():
     """The two skips above claim CI covers them. Check that it does.
 
