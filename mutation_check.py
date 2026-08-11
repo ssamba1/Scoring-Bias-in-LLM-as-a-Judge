@@ -1107,6 +1107,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # One domain stops supporting "instruct bias exceeds base bias in every
+        # one of the five item domains". The audit's FABRICATED verdict was on a
+        # per-domain table, so this is the claim a sceptical reader checks first.
+        "paper/honest/repro/results_peritem.json",
+        '"humanities": {\n      "base": 0.428',
+        '"humanities": {\n      "base": 0.828',
+        "tests/test_prose_matches_derived_values.py",
+        "a domain stops backing the not-domain-specific claim",
+    ),
+    (
         # The measured sensitivity exceeds the bound the paper proves for it.
         # Either the measurement or the proposition would be wrong, and nothing
         # checked the inequality -- only the number summarising its slack.
