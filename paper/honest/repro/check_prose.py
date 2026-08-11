@@ -365,6 +365,31 @@ states("chat-template cells", "4/6", 1)
 states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
+# ---- gold-standard discrimination ("accuracy 0.98 -> 0") ---------------------
+# An abstract headline that was pinned to nothing. The arrow is arm-specific:
+# under rubric reversal the instruct arm falls to exactly 0.00 while the base arm
+# lands at 0.02, so quoting "-> 0" is right for instruct and wrong for base. The
+# check encodes which arm it is, otherwise a later edit could swap arms and still
+# look correct.
+gold = json.loads((HERE / "results_gold.json").read_text())
+gold_control = gold["control"]
+gold_reversed = gold["degradation"]["reversed"]
+
+close("gold control accuracy (instruct)", 0.98, gold_control["instruct"]["mean_accuracy"], 0.006)
+check("gold control accuracy in prose", "0.98", gold_control["instruct"]["mean_accuracy"])
+if gold_reversed["instruct"]["accuracy_under_bias"] != 0.0:
+    FAILS.append(
+        f"prose says rubric reversal drops instruct accuracy to 0, but the "
+        f"analysis reports {gold_reversed['instruct']['accuracy_under_bias']}"
+    )
+if gold_reversed["base"]["accuracy_under_bias"] == gold_reversed["instruct"]["accuracy_under_bias"]:
+    FAILS.append(
+        "base and instruct collapse to the same value; the arm-specific '-> 0' "
+        "claim can no longer be distinguished and this check is vacuous"
+    )
+if not re.search(r"0\.98.{0,12}to.{0,12}0[^.\d]", text):
+    FAILS.append("prose no longer states the 0.98 -> 0 discrimination collapse")
+
 # ---- count claims ("8/9 families", "24/26 checkpoints") ----------------------
 # Fractions are the easiest claim to leave behind: they are typed as literals,
 # they change whenever a family is added or an exclusion is revised, and nothing
