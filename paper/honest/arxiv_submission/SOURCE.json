@@ -2,7 +2,7 @@
   "main": "main.tex",
   "built_from": "scoring_bias_v2.tex",
   "sources": {
-    "scoring_bias_v2.tex": "7362c7f04e20ca493153e04101f80385ccca18396ba064b3150f1f8dd05482c2",
+    "scoring_bias_v2.tex": "ebcd2448e1385c6391c8594884f89f8bb766bc164e00238ec80bd35fd710bae5",
     "macros.tex": "0743238e2bde0190d86685893820a266d1316a801085f4d5776ca98988b6e62a",
     "honest.bib": "25a17e05941f9f29027b047035486a76badd82946f4525db8dfc567330024067"
   },

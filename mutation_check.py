@@ -174,6 +174,15 @@ MUTATIONS = [
         "tests/test_quotation_integrity.py",
         "cited work's design mischaracterised again",
     ),
+    (
+        # The ethics statement reverts to claiming every model is open-weight
+        # while the frontier run queries GPT-4o through a commercial API.
+        "paper/honest/scoring_bias_v2.tex",
+        "No human subjects. The \\NFAM-family panel and every ablation use public open-weight",
+        "No human subjects. All models are public open-weight checkpoints, and every ablation uses",
+        "tests/test_ethics_matches_the_experiments.py",
+        "ethics claims every model is open-weight",
+    ),
 ]
 
 

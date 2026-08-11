@@ -678,8 +678,12 @@ simulated data is used; a full integrity audit of a prior, fabricated version is
 as \texttt{DATA\_INTEGRITY\_AUDIT.md}.
 
 \section*{Ethics and Broader Impact}
-No human subjects. All models are public open-weight checkpoints used under their
-licenses. Compute is a free tier at zero monetary cost (Appendix~\ref{app:compute}).
+No human subjects. The \NFAM-family panel and every ablation use public open-weight
+checkpoints under their licenses; the frontier-judge run (\S\ref{sec:frontier})
+additionally queries two proprietary models (GPT-4o-mini, GPT-4o) and one open-weight
+model through a commercial API, where we obtain token logprobs and never the weights.
+Compute is a free-tier GPU at zero monetary cost plus under US\$2 of API calls
+(Appendix~\ref{app:compute}).
 Two deployment implications deserve emphasis. First, LLM judges gate real decisions
 ---which models ship, which responses are rewarded in RLHF---and our results say the
 natural heuristic of trusting the most confident judge selects the most biased one;
