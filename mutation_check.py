@@ -123,6 +123,26 @@ MUTATIONS = [
         "tests/test_scale_claims_match_the_data.py",
         "checkpoint count drifts in one place of three",
     ),
+    (
+        # A derived file drops out of the diff list. This is the regression that
+        # actually happened: results_14b_analysis.json was committed, cited by
+        # the paper for "positive for 3/5 probes", and compared against nothing.
+        ".github/workflows/repro.yml",
+        "paper/honest/repro/results_14b_analysis.json",
+        "paper/honest/repro/results_zh_analysis.json",
+        "tests/test_every_derived_file_is_reproduced.py",
+        "derived file drops out of the diff list",
+    ),
+    (
+        # The file is still diffed but no longer regenerated, so the diff
+        # compares it to itself and passes forever. A reproduction gate that
+        # cannot fail is the failure mode this whole file exists to catch.
+        ".github/workflows/repro.yml",
+        "analyze_newprobes.py results_14b.json",
+        "analyze_newprobes.py results_zh.json",
+        "tests/test_every_derived_file_is_reproduced.py",
+        "derived file diffed but never regenerated",
+    ),
 ]
 
 
