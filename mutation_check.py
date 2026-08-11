@@ -287,6 +287,40 @@ MUTATIONS = [
         "tests/test_cited_tables_are_pinned.py",
         "table metadata disagrees with the data",
     ),
+    (
+        # A headline effect size drifts in the summary table.
+        "paper/honest/tables/tab_v2_summary.tex",
+        "Rubric order & 0.32 & 0.55",
+        "Rubric order & 0.32 & 0.95",
+        "tests/test_summary_tables_are_pinned.py",
+        "summary table effect size drifts",
+    ),
+    (
+        # A confidence interval's lower endpoint changes sign, turning an
+        # interval that contains zero into one that excludes it. A guard
+        # comparing magnitudes would pass this; that is why it compares signed.
+        "paper/honest/tables/tab_v2_summary.tex",
+        "[-0.09, +0.75]",
+        "[+0.09, +0.75]",
+        "tests/test_summary_tables_are_pinned.py",
+        "CI endpoint flips sign (contains zero -> excludes)",
+    ),
+    (
+        # The domain breakdown stops matching its source.
+        "paper/honest/tables/tab_v2_domain.tex",
+        "Daily Life & 0.44 & 0.70",
+        "Daily Life & 0.44 & 0.90",
+        "tests/test_summary_tables_are_pinned.py",
+        "domain table cell drifts",
+    ),
+    (
+        # The ground-truth degradation table stops matching its source.
+        "paper/honest/tables/tab_gold.tex",
+        "Verbose & 0.70 & 0.73",
+        "Verbose & 0.70 & 0.93",
+        "tests/test_summary_tables_are_pinned.py",
+        "ground-truth table cell drifts",
+    ),
 ]
 
 
