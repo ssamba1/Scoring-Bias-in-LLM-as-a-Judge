@@ -1,9 +1,13 @@
 cff-version: 1.2.0
 title: "Confidence Is Not Robustness: Instruction Tuning Makes LLM-as-a-Judge Sharper and More Biased"
 authors:
+  # An ORCID belongs to the person, not the record: it is a property of an entry
+  # in this list, e.g. `orcid: "https://orcid.org/0000-0000-0000-0000"` indented
+  # under the author it identifies. A top-level `orcid: ""` made this file fail
+  # CFF 1.2.0 validation outright (the schema sets additionalProperties: false),
+  # so GitHub's citation widget and Zenodo would have ignored the whole record.
   - family-names: Samba
     given-names: Sricharan
-orcid: ""
 doi: 10.5281/zenodo.21499823
 # NOTE: a prior Zenodo record (10.5281/zenodo.21361920) archived an earlier version
 # whose results were fabricated; it was removed at the author's request prior to any

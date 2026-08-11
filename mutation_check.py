@@ -225,6 +225,23 @@ MUTATIONS = [
         "tests/test_third_party_data_is_attributed.py",
         "third-party dataset loses its attribution",
     ),
+    (
+        # A person-level property returns to the top level, which is exactly what
+        # made the record fail CFF validation and be ignored by GitHub/Zenodo.
+        "CITATION.cff",
+        "doi: 10.5281/zenodo.21499823",
+        "orcid: \"\"\ndoi: 10.5281/zenodo.21499823",
+        "tests/test_citation_metadata_is_valid.py",
+        "citation record invalid again (misplaced orcid)",
+    ),
+    (
+        # The citation record advertises the withdrawn, fabricated Zenodo version.
+        "CITATION.cff",
+        "doi: 10.5281/zenodo.21499823",
+        "doi: 10.5281/zenodo.21361920",
+        "tests/test_citation_metadata_is_valid.py",
+        "citation record points at the retracted archive",
+    ),
 ]
 
 
