@@ -1006,6 +1006,25 @@ MUTATIONS = [
         "tests/test_bootstrap_verdicts_are_seed_stable.py",
         "seed-fragile CI verdict stops being disclosed",
     ),
+    (
+        # The exact test's p-value drifts to a value no enumeration over 13
+        # families could produce. 0.0012 sits between 9/8192 and 10/8192 and
+        # looks like a perfectly ordinary p-value.
+        "paper/honest/repro/results_robustness.json",
+        '"exact_p_two_sided": 0.00098',
+        '"exact_p_two_sided": 0.0012',
+        "tests/test_exact_permutation_test_is_exact.py",
+        "exact p is not attainable at this n",
+    ),
+    (
+        # The test becomes a Monte Carlo approximation while still being called
+        # exact. Half the sign patterns is a plausible-looking resample count.
+        "paper/honest/repro/results_robustness.json",
+        '"n_patterns": 8192',
+        '"n_patterns": 4096',
+        "tests/test_exact_permutation_test_is_exact.py",
+        "sampled test described as exact",
+    ),
 ]
 
 
