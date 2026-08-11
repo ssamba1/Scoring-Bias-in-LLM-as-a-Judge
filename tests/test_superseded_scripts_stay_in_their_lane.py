@@ -21,9 +21,20 @@ find out where they write is precisely the thing that would do the damage.
 """
 
 import re
+import shutil
+import subprocess
 from pathlib import Path
 
 import pytest
+
+
+def _figure_text(path):
+    """The text drawn into a figure, or None if it cannot be read."""
+    result = subprocess.run(
+        ["pdftotext", "-raw", str(path), "-"],
+        capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=180,
+    )
+    return " ".join(result.stdout.split()) if result.returncode == 0 else None
 
 REPO = Path(__file__).resolve().parent.parent
 SUPERSEDED = REPO / "paper" / "honest" / "superseded"
@@ -121,7 +132,24 @@ def test_superseded_outputs_are_not_shared_with_the_paper():
             if path.is_file() and path.name in live_names:
                 clashes.append(f"{sub}/{path.name}")
     # Sharing a filename is expected -- the superseded draft has its own fig1 --
-    # and is harmless as long as no script can address the live tree, which the
-    # test above enforces. Recorded here so the pairing stays visible: if that
-    # test is ever weakened, these are the files that would be overwritten.
-    assert isinstance(clashes, list)
+    # so the question is not whether names collide but whether the live copy is
+    # the superseded one. `assert isinstance(clashes, list)` stood here and
+    # could not fail; this checks the thing that would actually be wrong.
+    if not clashes:
+        pytest.skip("[no shared names] nothing to distinguish")
+    if shutil.which("pdftotext") is None:
+        pytest.skip("[pdftotext] cannot read figure text to tell the copies apart")
+
+    same = []
+    for name in clashes:
+        live = REPO / "paper" / "honest" / name
+        mirror = SUPERSEDED / name
+        if not (live.exists() and mirror.exists() and live.suffix == ".pdf"):
+            continue
+        if _figure_text(live) == _figure_text(mirror):
+            same.append(name)
+    assert not same, (
+        f"the paper ships {same}, whose drawn text is identical to the "
+        f"superseded draft's copy -- a superseded generator has written into "
+        f"the live tree"
+    )
