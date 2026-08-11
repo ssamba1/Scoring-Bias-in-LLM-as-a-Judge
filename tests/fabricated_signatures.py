@@ -31,6 +31,15 @@ SIGNATURES = {
     "22-model landscape": (r"22[- ]model landscape", "the 22-model landscape"),
     "40,500 judgments": (r"40,?500\s+judgments", "40,500 judgments"),
     "31 variants": (r"\b31\s+variants", "across 31 variants"),
+    # The same inflated counts as they appeared in the graphical abstract, which
+    # sat in the live tree until 2026-08-11. "31 variants" above did not match
+    # "31 Model Variants": a word in between and a capital letter were enough.
+    # Written case-insensitively and tolerant of the intervening word, because
+    # the wording varies between artefacts while the number is the tell.
+    "31 model variants": (r"(?i)\b31\s+model\s+variants", "Across 31 Model Variants"),
+    "15 model families": (r"(?i)\b15\s+model\s+families", "15 model families \xb7 50 items"),
+    "22 instruct models": (r"(?i)\b22\s+instruct\s+models", "9 base-instruct pairs \xb7 22 instruct models"),
+    "54,000 judgments": (r"54,?000\+?\s+total\s+judgments", "54,000+ total judgments"),
     # Placeholder authorship from the retracted submission metadata.
     "placeholder authors": (r"Student A, Student B", "authors: Student A, Student B"),
 }

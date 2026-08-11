@@ -7,11 +7,9 @@ nothing would say so -- which is how a companion project ended up with a
 published chart contradicting its own table for months.
 
 Byte comparison does not work here. A PDF embeds a creation timestamp, so
-regenerating produces different bytes for identical content; the four figures
-this script checks differ byte-for-byte on every run and are drawn from exactly
-the same numbers. The companion projects compare PNG bytes instead and skip the
-check whenever the rendering stack differs, which means it lapses precisely when
-someone changes environment.
+regenerating produces different bytes for identical content. The companion
+projects compare PNG bytes instead and skip the check whenever the rendering
+stack differs, which means it lapses precisely when someone changes environment.
 
 These figures are vector PDFs, so there is a better signal: the text drawn into
 them -- axis labels, tick values, annotations, legend entries -- together with
@@ -19,13 +17,21 @@ the page geometry. Both are stack-independent in a way raster bytes are not. A
 figure plotted from changed numbers moves its ticks or its annotations; a figure
 rendered by a different matplotlib does not.
 
+Which figures get checked is read off the paper, not listed here. The previous
+version named four generators by hand while the paper included ten figures, so
+six were unchecked and nothing said so -- the same failure as a hand-maintained
+CI list, which is what this file exists to prevent. Now every \\includegraphics
+in the paper must be reproduced by some generator, and one that no generator
+writes is reported as unverifiable rather than passed over.
+
     python check_figures.py [--keep]
 
 Regenerates into a scratch directory, compares content, and leaves the committed
-figures untouched. Exit code 1 on any content difference.
+figures untouched. Exit code 1 on any content difference or uncovered figure.
 """
 
 import argparse
+import re
 import shutil
 import subprocess
 import sys
@@ -33,15 +39,25 @@ import tempfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-FIGURES = HERE.parent / "figures"
+PAPER = HERE.parent
+FIGURES = PAPER / "figures"
 
-# generator -> the figures it writes
-GENERATORS = {
-    "make_concept_figure.py": ["fig_concept.pdf"],
-    "make_forest_figure.py": ["fig_forest.pdf"],
-    "make_dose_figure.py": ["fig_dose.pdf"],
-    "make_stage_figure.py": ["fig_stages.pdf"],
-}
+
+def _included_figures():
+    """Every figure the paper actually draws, resolved from its \\includegraphics."""
+    names = set()
+    for tex in PAPER.glob("*.tex"):
+        body = tex.read_text(encoding="utf-8", errors="replace")
+        for match in re.finditer(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]*)\}", body):
+            name = match.group(1).strip()
+            if not name.lower().endswith(".pdf"):
+                name += ".pdf"
+            names.add(Path(name).name)
+    return sorted(names)
+
+
+def _generators():
+    return sorted(HERE.glob("make_*.py"))
 
 
 def _text(path):
@@ -73,12 +89,18 @@ def main(keep=False):
         print("pdftotext not available; cannot compare figure content")
         return 0
 
-    originals = {}
-    for names in GENERATORS.values():
-        for name in names:
-            path = FIGURES / name
-            if path.exists():
-                originals[name] = path.read_bytes()
+    required = _included_figures()
+    if not required:
+        print("no figures referenced by the paper")
+        return 0
+
+    # Snapshot *every* file in the figure directory, not only the ones the paper
+    # includes. The generators also emit PNG companions and figures the current
+    # paper no longer draws; restoring just the required set left those rewritten
+    # in the working tree, which is exactly the spurious diff this check exists
+    # to avoid creating.
+    originals = {p.name: p.read_bytes() for p in FIGURES.iterdir() if p.is_file()}
+
     if not originals:
         print("no committed figures to check")
         return 0
@@ -87,21 +109,28 @@ def main(keep=False):
     for name, data in originals.items():
         (scratch / name).write_bytes(data)
 
-    failures = []
+    failures, unverifiable = [], []
     try:
-        for generator in GENERATORS:
-            script = HERE / generator
-            if not script.exists():
-                failures.append(f"{generator} is missing; its figures cannot be checked")
-                continue
+        for script in _generators():
             result = subprocess.run(
                 [sys.executable, str(script)], cwd=HERE, capture_output=True, text=True, timeout=1800
             )
             if result.returncode != 0:
-                failures.append(f"{generator} failed to run:\n{result.stderr[-600:]}")
+                failures.append(f"{script.name} failed to run:\n{result.stderr[-600:]}")
 
-        for name in originals:
-            committed, regenerated = scratch / name, FIGURES / name
+        for name in required:
+            committed = scratch / name
+            regenerated = FIGURES / name
+            if not committed.exists():
+                failures.append(f"{name}: included by the paper but not committed")
+                continue
+            if regenerated.read_bytes() == originals[name]:
+                # Every generator ran and none rewrote this file. Regenerating a
+                # PDF always changes its bytes (embedded timestamp), so identical
+                # bytes mean nothing produced it -- it cannot be checked against
+                # the data, and saying so is the point.
+                unverifiable.append(name)
+                continue
             old_text, new_text = _text(committed), _text(regenerated)
             if old_text != new_text:
                 failures.append(
@@ -109,7 +138,10 @@ def main(keep=False):
                     f"figure does not show what the current data produces."
                 )
             elif _geometry(committed) != _geometry(regenerated):
-                failures.append(f"{name}: page geometry changed ({_geometry(committed)} -> {_geometry(regenerated)})")
+                failures.append(
+                    f"{name}: page geometry changed "
+                    f"({_geometry(committed)} -> {_geometry(regenerated)})"
+                )
     finally:
         # Put the committed bytes back: regenerating changes only the embedded
         # timestamp, and leaving that behind would show as a spurious diff.
@@ -124,7 +156,14 @@ def main(keep=False):
             print(" -", failure)
         return 1
 
-    print(f"figures match the current data ({len(originals)} checked, content compared)")
+    checked = len(required) - len(unverifiable)
+    print(f"figures match the current data ({checked}/{len(required)} checked, content compared)")
+    if unverifiable:
+        print(
+            "  no generator in this directory writes: "
+            + ", ".join(unverifiable)
+            + "\n  these are committed but cannot be checked against the data."
+        )
     return 0
 
 

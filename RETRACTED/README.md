@@ -80,3 +80,52 @@ replaced: several files instructed readers to cite the removed DOI
 (10.5281/zenodo.21361920) or described fabricated results. Nothing in `legacy/`
 is part of the paper of record. The retracted-era `data/`, `docs/`,
 `appendices/`, and `outreach/` trees moved here likewise.
+
+## paper figures, tables, slides (added 2026-08-11)
+
+`paper/figures/`, `paper/figures_png/`, `paper/tables/`, `paper/slides/` and
+`paper/auto_generated/` were still in the live tree, outside this directory,
+until this sweep. They are the retracted version's display artefacts, and
+`PROVENANCE_AUDIT.md` had already classified their contents: `fig6` (per-domain)
+**FABRICATED**, seven figures **SUSPECT-DERIVED** from the 22-model `study1`
+set, `fig8` **MISLABELED** from the 8-item pilot, and `tab_main.tex` carrying the
+suspect 0.56/0.68/0.41 row.
+
+The clearest case was `graphical_abstract.svg`, which stated a conclusion
+opposite to the paper of record. It advertised "31 Model Variants",
+"15 model families", "9 base-instruct pairs Â· 22 instruct models",
+"54,000+ total judgments", three probes, and---in its largest panel---
+"Format Bias â†“ Decreases After instruction tuning". The honest paper reports
+13 families, 26 checkpoints, five bias types, 62,940 judgments, and bias that
+*increases* under instruction tuning for all five.
+
+Earlier sweeps missed this tree because the fabrication sweep matches specific
+signatures (invented model names, invented values). These files carry no such
+signature: their numbers are real numbers from a superseded and inflated
+analysis, which is why the check that finds them is now a count check against
+the data rather than a name check.
+
+`make figures` and `make paper` pointed here too---`make paper` compiled
+`camera_ready_full.tex`, which this directory already held, so the target was
+both broken and aimed at retracted material. Both now build the honest paper.
+
+The same sweep found five more files still live, all built on the suspect
+22-model `study1` set: `generate_all_figures.py` (which draws the SUSPECT
+fig14), `_gen_manifest.py`, `results_rootcause/comprehensive_analysis.py`,
+`results_rootcause/analysis_output/probe_correlations.json`, and
+`paper/rebuttal_prewrite.md`. They are here now.
+
+Two live entry points were pointing at retracted material and have been
+repointed rather than quarantined, because both are meant to be used:
+
+* `run_all.sh` described itself as the "complete end-to-end reproduction
+  pipeline" and reproduced the *retracted* paper -- it built
+  `camera_ready_full.tex`, regenerated the fabricated-era figures, and ran the
+  analyses over the suspect set. Every step would have succeeded. It now
+  reproduces `paper/honest/`.
+* `.hermes.md` is read as instructions by coding agents working in this repo.
+  Under "Key Findings (must be correct in all outputs)" it asserted the
+  retracted conclusion -- format bias *decreasing* after instruction tuning,
+  "ROBUST across ALL 8 model families" -- and cited the deleted Zenodo DOI. An
+  agent following it would have reintroduced the retracted claims as a matter of
+  course. Rewritten to the findings of record.

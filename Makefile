@@ -67,15 +67,17 @@ lint:  # Run code quality checks (flake8 + black)
 		--max-line-length=100 --count --statistics
 	black --check --diff src/scoring_bias/ cli.py tests/*.py scripts/*.py api/app.py
 
-figures:  # Generate publication-quality PNG figures
-	python paper/generate_png_figures.py
+figures:  # Regenerate the paper's figures from the committed data
+	cd paper/honest/repro && for f in make_*.py; do python $$f; done
 
-paper: figures  # Compile paper PDF from LaTeX (generates figures first)
-	cd paper && pdflatex -interaction=nonstopmode camera_ready_full.tex && \
-		pdflatex -interaction=nonstopmode camera_ready_full.tex
+paper: figures  # Compile the paper PDF (regenerates figures first)
+	cd paper/honest && pdflatex -interaction=nonstopmode scoring_bias_v2.tex && \
+		bibtex scoring_bias_v2 && \
+		pdflatex -interaction=nonstopmode scoring_bias_v2.tex && \
+		pdflatex -interaction=nonstopmode scoring_bias_v2.tex
 
-validate:  # Run data validation pipeline
-	python results_rootcause/validation/run_all_validation.py
+validate:  # Check the paper's prose and figures against the derived data
+	cd paper/honest/repro && python check_prose.py && python check_figures.py
 
 docs:  # Build project documentation
 	@echo "Building documentation..."
