@@ -1037,6 +1037,16 @@ MUTATIONS = [
         "paper claims a random effect the model lacks",
     ),
     (
+        # One of the four copies of the bias measure drifts to a different
+        # statistic. Every file would still emit plausible numbers; only the
+        # cross-file comparisons would stop meaning the same thing.
+        "paper/honest/repro/analyze_stages.py",
+        "return max(means.values()) - min(means.values())",
+        "return sum(means.values()) / len(means)",
+        "tests/test_the_bias_measure_matches_its_definition.py",
+        "a copy of the bias measure drifts from the definition",
+    ),
+    (
         # A variance decomposition loses a component, so the shares no longer
         # sum to one. Every share still looks like a plausible proportion.
         "paper/honest/repro/results_robustness.json",
