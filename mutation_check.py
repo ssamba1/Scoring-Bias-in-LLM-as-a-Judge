@@ -83,6 +83,16 @@ MUTATIONS = [
         "tests/test_submission_is_buildable.py",
         "paper edited without repackaging",
     ),
+    (
+        # A small-n rank correlation drifts to where the choice of p-value method
+        # decides the verdict. This is the shape of the defect that moved a
+        # companion paper's claim from the significant side of 0.05 to the other.
+        "paper/honest/repro/results_peritem.json",
+        '"spearman_p": 0.8301',
+        '"spearman_p": 0.049',
+        "tests/test_small_n_statistics.py",
+        "small-n correlation drifts near 0.05",
+    ),
 ]
 
 
