@@ -1025,6 +1025,17 @@ MUTATIONS = [
         "tests/test_exact_permutation_test_is_exact.py",
         "sampled test described as exact",
     ),
+    (
+        # The paper describes a random effect the model does not fit. This is
+        # the defect the guard was written for: the prose claimed intercepts for
+        # family AND item while the fit declares family alone, which describes a
+        # more conservative model than was run.
+        "paper/honest/macros.tex",
+        "random intercept for family,",
+        "random intercepts for family and item;",
+        "tests/test_model_description_matches_the_fit.py",
+        "paper claims a random effect the model lacks",
+    ),
 ]
 
 
