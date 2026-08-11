@@ -1113,6 +1113,22 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A guard loses its only registration, so nothing shows it can fail.
+        #
+        # The replacement misspells the *directory* rather than the file. Written
+        # as another tests/ path it would itself read as a registration -- the
+        # coverage sweep scans this file for exactly that pattern -- and the
+        # unmutated tree would fail on a test file that never existed.
+        # Split for the same reason as the lock anchor below: written whole, the
+        # find string would occur here as well as in the entry it targets, and
+        # the checker would mutate its own registration to no effect.
+        "mutation_check.py",
+        '"tests/test_holm' '_correction_is_correct.py"',
+        '"testz/test_holm_correction_is_correct.py"',
+        "tests/test_every_guard_has_a_mutation.py",
+        "a guard loses its only registered mutation",
+    ),
+    (
         # This checker releases a lock it does not hold, so a run refused for
         # colliding with another deletes that run's stash -- the refusal causing
         # the damage it exists to prevent.
