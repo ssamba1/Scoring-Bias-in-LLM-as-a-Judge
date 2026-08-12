@@ -75,6 +75,9 @@ EXEMPT_FILES = {
     # guards against; the exemption is by exact path so a new file cannot inherit
     # the licence quietly.
     "tests/test_superseded_scripts_stay_in_their_lane.py",
+    # Fourth time. This one sweeps every live document for the overturned
+    # direction, so its pattern list necessarily spells the direction out.
+    "tests/test_no_document_states_the_overturned_direction.py",
 }
 
 BINARY = {".png", ".pdf", ".gz", ".jpg", ".jpeg", ".ico", ".pyc", ".zip"}
