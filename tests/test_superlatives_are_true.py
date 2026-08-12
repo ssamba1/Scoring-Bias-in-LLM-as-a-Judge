@@ -27,6 +27,7 @@ import pytest
 REPO = Path(__file__).resolve().parent.parent
 REPRO = REPO / "paper" / "honest" / "repro"
 MACROS = REPO / "paper" / "honest" / "macros.tex"
+PAPER_TEX = REPO / "paper" / "honest" / "scoring_bias_v2.tex"
 
 PANEL_FAMILIES = 13
 
@@ -95,6 +96,52 @@ def test_the_larger_effects_elsewhere_are_disclosed():
         f"not state them: {undisclosed}. A scoped superlative is only honest "
         f"while the exceptions outside its scope are named."
     )
+
+
+def test_the_abstract_carries_the_same_scope_as_the_body():
+    """A claim scoped in its section and left bare in the abstract.
+
+    This happened twice. The sycophancy superlative was corrected in its own
+    section and stayed unscoped in the abstract and the discussion until a sweep
+    found them. The frontier group comparison was corrected in its section and
+    stayed unqualified in the abstract until the built PDF was read.
+
+    Both are the same mistake: the section is where the claim gets fixed, the
+    abstract is where it gets read. Each scoped claim is required to carry its
+    qualifier in both places.
+    """
+    body = _prose()
+    if not PAPER_TEX.exists():
+        pytest.skip("[paper] source not present")
+    tex = " ".join(PAPER_TEX.read_text(encoding="utf-8", errors="replace").split())
+    abstract = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", tex, re.S)
+    if not abstract:
+        pytest.skip("[paper] no abstract")
+    abstract = abstract.group(1)
+
+    # (claim in the abstract, the qualifier it must carry, why)
+    # (claim, qualifier required in the abstract, token the body scopes it with, why)
+    SCOPED = [
+        ("largest tuning effect", "on the panel", "panel",
+         "the Chinese replication holds larger per-probe effects"),
+        ("most confident", "as a group", "as a group",
+         "one frontier judge is out-decisived by open cells"),
+    ]
+    missing = []
+    for claim, qualifier, _, why in SCOPED:
+        if claim in abstract and qualifier not in abstract:
+            missing.append(f"{claim!r} needs {qualifier!r} ({why})")
+    assert not missing, (
+        f"the abstract states scoped claims without their scope: {missing}. The "
+        f"section is where a claim gets corrected; the abstract is where it gets "
+        f"read."
+    )
+    for claim, _, body_token, _ in SCOPED:
+        if claim in abstract:
+            assert body_token in body or body_token in tex, (
+                f"the body no longer scopes {claim!r} with {body_token!r}; this "
+                f"check is comparing the abstract against nothing"
+            )
 
 
 def test_the_instruct_side_comparison_holds():

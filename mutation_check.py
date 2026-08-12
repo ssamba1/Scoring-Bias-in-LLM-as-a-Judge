@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The abstract drops the scope its section carries. Twice today a claim
+        # was corrected in its section and left bare in the abstract, which is
+        # where it is actually read.
+        "paper/honest/scoring_bias_v2.tex",
+        "are as a group the most\nconfident",
+        "are the most\nconfident",
+        "tests/test_superlatives_are_true.py",
+        "the abstract drops a scope the body carries",
+    ),
+    (
         # One variant of the Chinese suite reverts to English. The run still
         # produces a full set of numbers, described as a Chinese replication,
         # while testing something between two languages that nobody named.
