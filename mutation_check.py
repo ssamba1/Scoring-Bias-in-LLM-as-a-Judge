@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The out-of-sample R^2 becomes the squared correlation. Both are
+        # plausible numbers to see printed beside "R^2" -- 0.301 against 0.272
+        # -- but r^2 ignores whether the predictions are on the right scale, and
+        # only the variance-explained form supports "predictable out-of-sample".
+        "paper/honest/repro/results_mechanism.json",
+        '"loo_r2": 0.272',
+        '"loo_r2": 0.301',
+        "tests/test_the_headline_correlation_recomputes.py",
+        "the out-of-sample R^2 becomes a squared correlation",
+    ),
+    (
         # The stored headline correlation stops matching the points it was
         # computed from. Every other check on this number reads the stored value
         # -- paper matches JSON, JSON regenerates from raw -- which is a closed

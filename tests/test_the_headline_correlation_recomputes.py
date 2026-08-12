@@ -110,6 +110,61 @@ def test_the_ranking_handles_ties_the_way_spearman_does():
     assert abs(_spearman(tied, [1.0, 2.0, 3.0, 4.0]) - 0.9486832980505138) < 1e-9
 
 
+def test_the_out_of_sample_r2_recomputes_from_its_predictions():
+    """P5's claim -- entropy predicts a held-out judge's bias -- from its points.
+
+    The release stores the leave-one-family-out R^2 beside the 26 (actual,
+    predicted) pairs it summarises, and nothing recomputed one from the other.
+
+    The check also separates R^2 from r^2, which is the error that would be
+    easiest to make and hardest to see: the squared correlation here is 0.301,
+    the variance-explained R^2 is 0.272, and both are plausible numbers to find
+    printed beside "R^2". They are different claims -- r^2 ignores whether the
+    predictions are on the right scale, R^2 does not -- and only one of them
+    supports "predictable out-of-sample".
+    """
+    mech = _mechanism()
+    predictor = mech.get("predictor")
+    if not isinstance(predictor, dict) or "points" not in predictor:
+        pytest.skip("[repro] the predictor points are not in the release")
+    points = predictor["points"]
+    actual, predicted = points.get("actual"), points.get("predicted")
+    assert isinstance(actual, list) and isinstance(predicted, list), (
+        "the predictor does not carry actual and predicted as lists"
+    )
+    assert len(actual) == len(predicted) == predictor["n_models"], (
+        f"the predictor reports {predictor['n_models']} models over "
+        f"{len(actual)} actual and {len(predicted)} predicted values"
+    )
+
+    n = len(actual)
+    mean_actual = sum(actual) / n
+    ss_res = sum((a - p) ** 2 for a, p in zip(actual, predicted))
+    ss_tot = sum((a - mean_actual) ** 2 for a in actual)
+    assert ss_tot > 0, "the held-out biases have no variance to explain"
+    r2 = 1 - ss_res / ss_tot
+    assert abs(r2 - predictor["loo_r2"]) <= 0.0006, (
+        f"the release stores LOO R^2 = {predictor['loo_r2']}, its own "
+        f"predictions give {r2:.4f}"
+    )
+
+    r = _pearson(actual, predicted)
+    assert abs(r - predictor["loo_pearson_r"]) <= 0.0006, (
+        f"the release stores r = {predictor['loo_pearson_r']}, its points give {r:.4f}"
+    )
+    assert abs(r ** 2 - predictor["loo_r2"]) > 0.006, (
+        f"the stored R^2 ({predictor['loo_r2']}) is indistinguishable from the "
+        f"squared correlation ({r ** 2:.4f}); these are different claims and the "
+        f"paper makes the stronger one"
+    )
+
+    rho = _spearman(actual, predicted)
+    assert abs(rho - predictor["loo_spearman_rho"]) <= 0.0006, (
+        f"the release stores rank correlation {predictor['loo_spearman_rho']}, "
+        f"its points give {rho:.4f}"
+    )
+
+
 def test_the_headline_relation_is_still_negative():
     """The sign is the claim; the magnitude is the evidence for it."""
     mech = _mechanism()
