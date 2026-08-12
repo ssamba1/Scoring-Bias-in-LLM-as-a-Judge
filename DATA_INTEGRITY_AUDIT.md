@@ -271,4 +271,7 @@ Every claim was verified by:
 3. Comparing computed value to paper value
 4. Tracing the provenance chain (paper table → intermediate analysis → raw data)
 
-Verification script: `_verify_claims.py` in the repo root.
+Verification script: `RETRACTED/legacy/scripts/_verify_claims.py`. It verifies claims in
+`camera_ready_full.tex` -- the retracted paper -- so it is quarantined with the rest of that
+era's tooling rather than left in the repository root, where it read as a live check of the
+paper of record.

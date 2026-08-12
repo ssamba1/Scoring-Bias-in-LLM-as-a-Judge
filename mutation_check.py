@@ -1113,6 +1113,15 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The map agents read points at a directory that is not there. A wrong
+        # instruction file is worse than a missing one: it is followed.
+        ".hermes.md",
+        "├── tests/                      # pytest suite",
+        "├── testz/                      # pytest suite",
+        "tests/test_agent_instructions_map_this_repo.py",
+        "the agent instructions map a path that does not exist",
+    ),
+    (
         # The README's raw-file table drops the frontier-judge data. Whole
         # sections of the paper lose their listed source, in the first place
         # anyone looks for it.
