@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The mixed-model coefficient stops matching the per-item scores it was
+        # fitted on. Rerunning the fit would reproduce it either way; only
+        # arithmetic that shares no code with the model can tell.
+        "paper/honest/repro/results_mechanism.json",
+        '"instruct_coef": 0.1559',
+        '"instruct_coef": 0.2559',
+        "tests/test_the_mixed_model_effect_reproduces.py",
+        "the mixed-model effect leaves its own rows behind",
+    ),
+    (
         # The stored reduction stops equalling the two means it cuts between.
         # check_prose compares the paper's 22% against this fraction, so a
         # fraction that disagrees with its own inputs passes that check exactly.
