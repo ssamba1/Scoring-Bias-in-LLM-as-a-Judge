@@ -122,6 +122,16 @@ def test_the_packaging_metadata_points_at_files_that_exist():
                 if not (REPO / token).exists():
                     offenders.append(f"Dockerfile {line.split()[0]} -> {token}")
 
+    compose = REPO / "docker-compose.yml"
+    if compose.exists():
+        text = compose.read_text(encoding="utf-8", errors="replace")
+        for token in re.findall(r'"([\w./-]+\.(?:py|sh))"', text):
+            if not (REPO / token).exists():
+                offenders.append(f"docker-compose command -> {token}")
+        for source in re.findall(r"^\s*-\s+\./([\w./-]+):", text, re.M):
+            if not (REPO / source).exists():
+                offenders.append(f"docker-compose mounts ./{source} (missing)")
+
     assert not offenders, (
         f"published entry points name things that are not there: {offenders}"
     )

@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A compose service mounts a directory that does not exist. Docker
+        # creates an empty bind mount and the service serves nothing -- three of
+        # the four services here were in that state.
+        "docker-compose.yml",
+        "    command: [\"python\", \"-m\", \"pytest\", \"tests/\", \"-q\"]",
+        "    command: [\"python\", \"-m\", \"pytest\", \"tests/\", \"-q\"]\n    volumes:\n      - ./notebooks:/app/notebooks",
+        "tests/test_live_entry_points_are_alive.py",
+        "a compose service mounts a missing directory",
+    ),
+    (
         # The container's default command runs a script that is not there --
         # or, as it did until now, one that displayed the synthetic datasets.
         # `docker run` is a published entry point and no test read it.

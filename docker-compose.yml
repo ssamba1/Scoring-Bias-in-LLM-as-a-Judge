@@ -1,53 +1,31 @@
 version: '3.8'
 
+# Two services, both of which do something a reader of this repository wants:
+# run the test suite, or run everything CI runs.
+#
+# Removed: a jupyter service mounting ./notebooks and ./data, a dashboard
+# service running dashboard.py and mounting ./dashboard, and an nginx service
+# serving ./docs. None of those five directories exists, and dashboard.py served
+# the fabrication-era synthetic datasets; it is quarantined under
+# RETRACTED/legacy/scripts/. Docker would have created empty bind mounts and
+# served nothing, which is the failure mode this repository keeps finding:
+# infrastructure that looks maintained and is not.
+
 services:
-  # Service 1: Run tests
+  # The test suite, the same way CI runs it.
   test:
     build: .
     container_name: bias-test
-    command: ["python", "-m", "pytest", "tests/", "-x", "-v", "--tb=short"]
+    command: ["python", "-m", "pytest", "tests/", "-q"]
     networks:
       - bias-net
 
-  # Service 2: Jupyter notebook server
-  jupyter:
+  # Everything CI checks: suite, mutation pass, credential scan, prose gate,
+  # archive build, and the regenerate-and-diff of every analysis.
+  verify:
     build: .
-    container_name: bias-jupyter
-    ports:
-      - "8888:8888"
-    volumes:
-      - ./results:/app/results
-      - ./notebooks:/app/notebooks
-      - ./data:/app/data
-    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
-    restart: unless-stopped
-    networks:
-      - bias-net
-
-  # Service 3: Streamlit dashboard
-  dashboard:
-    build: .
-    container_name: bias-dashboard
-    ports:
-      - "8501:8501"
-    volumes:
-      - ./dashboard:/app/dashboard
-      - ./data:/app/data
-      - ./results:/app/results
-    command: ["streamlit", "run", "dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
-    restart: unless-stopped
-    networks:
-      - bias-net
-
-  # Service 4: Static docs site via nginx
-  website:
-    image: nginx:alpine
-    container_name: bias-website
-    ports:
-      - "8080:80"
-    volumes:
-      - ./docs:/usr/share/nginx/html:ro
-    restart: unless-stopped
+    container_name: bias-verify
+    command: ["python", "verify_like_ci.py"]
     networks:
       - bias-net
 
