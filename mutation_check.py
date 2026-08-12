@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The ground-truth table stops matching the runs behind it. Its margin
+        # drops are what P6's failed second clause rests on -- instruct loses
+        # more margin than base -- and the prose gate only compares the paper
+        # against this same derived file.
+        "paper/honest/repro/results_gold.json",
+        '"margin_drop": 2.4319',
+        '"margin_drop": 1.4319',
+        "tests/test_the_ground_truth_table_recomputes.py",
+        "the ground-truth table leaves its own runs behind",
+    ),
+    (
         # Responsiveness stops being the total-variation shift the paper defines
         # it as. It is the term the mechanism argument turns on -- "far more
         # tightly than decisiveness" -- and reading what the analyzer wrote
