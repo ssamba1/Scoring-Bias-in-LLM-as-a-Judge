@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A macro used inside the abstract's parentheses takes its sentence-final
+        # period back, so the sentence stops mid-clause on the page. Compiles
+        # clean, no box overfull, every number right; only visible when read.
+        "paper/honest/macros.tex",
+        "instruction tuning does not protect it}",
+        "instruction tuning does not protect it.}",
+        "tests/test_macro_sentences_punctuate_once.py",
+        "a parenthesised macro ends the sentence early",
+    ),
+    (
         # The abstract drops the scope its section carries. Twice today a claim
         # was corrected in its section and left bare in the abstract, which is
         # where it is actually read.
