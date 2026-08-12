@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A script under paper/ starts acting on the retracted manuscript again.
+        # Seventeen such scripts sat beside paper/honest/ until they were
+        # quarantined, orphaned and unreferenced -- which is why every earlier
+        # sweep missed them.
+        "paper/__init__.py",
+        "# Package",
+        'PAPER = "camera_ready_full.tex"',
+        "tests/test_agent_instructions_map_this_repo.py",
+        "a paper/ script acts on the retracted manuscript",
+    ),
+    (
         # A root entry point starts reading the fabrication-era synthetic data
         # again, in a repository whose paper states none is used. Nothing else
         # fails when this happens: no test imports it, CI does not run it, and

@@ -97,7 +97,13 @@ def test_no_live_script_serves_the_retracted_paper():
     # exemption is by exact filename so a new script cannot inherit it.
     EXEMPT = {"mutation_check.py"}
 
-    offenders = [p.name for p in REPO.glob("*.py")
+    # paper/ as well as the root: seventeen scripts there built and validated
+    # camera_ready*.tex, beside paper/honest/ and orphaned -- nothing referenced
+    # them, which is exactly why they survived every earlier sweep.
+    candidates = [p for p in REPO.glob("*.py")] + [
+        p for p in (REPO / "paper").glob("*.py")
+    ] + [p for p in (REPO / "paper").glob("*.sh")]
+    offenders = [str(p.relative_to(REPO)) for p in candidates
                  if p.name not in EXEMPT and acts_on_it(p)]
     offenders += [p.name for p in (REPO / "run_all.sh", REPO / "Makefile")
                   if p.exists() and acts_on_it(p)]
