@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # One arm scores its answer tokens differently from the others, so its
+        # bias values stop belonging on the same axis -- while every number it
+        # produces still looks entirely plausible. The paper compares these arms
+        # directly ("the largest tuning effect of any probe on the panel").
+        "paper/honest/repro/probes2_harness.py",
+        'SCALE = "on a scale of 1 to 5, where 1 is worst and 5 is best"',
+        'SCALE = "on a scale of 1 to 5, where 1 is best and 5 is worst"',
+        "tests/test_every_arm_measures_the_same_thing.py",
+        "an arm is scored under a different rubric from the panel",
+    ),
+    (
         # A published dashboard shows a value that is in no data file. Forty-two
         # hand-copied numbers sat on that page, compared against nothing --
         # which is the shape of what this project retracted.
