@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The GPU-hour total drifts away from the itemisation beneath it. A
+        # total that no longer matches its parts is arithmetic over an intended
+        # design rather than a record of what ran -- the audit's finding about
+        # the retracted version, in one number.
+        "paper/honest/scoring_bias_v2.tex",
+        "17 GPU-hours",
+        "25 GPU-hours",
+        "tests/test_compute_disclosure_matches_the_run.py",
+        "the GPU-hour total leaves its own breakdown",
+    ),
+    (
         # The compute disclosure's call count stops matching the data those
         # calls produced. This is the number the retracted version inflated.
         "paper/honest/scoring_bias_v2.tex",

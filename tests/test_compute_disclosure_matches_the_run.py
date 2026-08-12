@@ -127,6 +127,54 @@ def test_the_excluded_judge_is_still_excluded():
     )
 
 
+def test_the_gpu_hours_total_agrees_with_its_own_breakdown():
+    """The stated total must lie inside the range its itemisation allows.
+
+    The appendix gives a total and then itemises it, several items as ranges
+    ("0.5--1 h each") and one as a count of runs. Nothing tied the two together,
+    and a total that no longer matches its parts is the shape of the inflation
+    the audit found: arithmetic over an intended design rather than a record of
+    what ran.
+    """
+    paper = _paper()
+    total = re.search(r"total\s*\{?\\raise[^}]*\}?[^0-9]*(\d+(?:\.\d+)?)\s*GPU-hours", paper)
+    if not total:
+        total = re.search(r"(\d+(?:\.\d+)?)\s*GPU-hours", paper)
+    assert total, "the compute appendix no longer states a GPU-hour total"
+    stated = float(total.group(1))
+
+    breakdown = re.search(r"per-experiment cost:(.*?)The\s+frontier-judge", paper)
+    assert breakdown, "the compute appendix no longer itemises its GPU hours"
+    body = breakdown.group(1)
+
+    low = high = 0.0
+    for item in body.split(";"):
+        span = re.search(r"\$?\\sim\$?\s*(\d+(?:\.\d+)?)(?:--(\d+(?:\.\d+)?))?\\?,?\s*h", item)
+        if not span:
+            continue
+        lo = float(span.group(1))
+        hi = float(span.group(2)) if span.group(2) else lo
+        if "each" in item:
+            # Count the run names, which sit before the duration. Splitting the
+            # whole item on commas overcounts: LaTeX's thin space is "\,", and
+            # the comma inside it reads as a separator.
+            names = item[: item.index("$\\sim$") if "$\\sim$" in item else len(item)]
+            runs = len([p for p in re.split(r",|\band\b", names) if p.strip()])
+            lo, hi = lo * runs, hi * runs
+        low += lo
+        high += hi
+
+    assert low > 0, (
+        f"no itemised hours parsed from {body[:120]!r}; the check would pass on "
+        f"an empty breakdown"
+    )
+    assert low <= stated <= high + 1e-9, (
+        f"the appendix states {stated} GPU-hours, but its own itemisation allows "
+        f"{low}--{high}. A total that no longer matches its parts is arithmetic "
+        f"over a plan, not a record of a run."
+    )
+
+
 def test_the_cost_is_stated_as_a_bound():
     """A point estimate of spend cannot be verified from here; a bound can."""
     paper = _paper()
