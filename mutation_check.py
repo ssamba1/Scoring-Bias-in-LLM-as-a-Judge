@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A quoted value drifts far enough to print differently but not far
+        # enough to trip the old 0.006 tolerance: -0.4155 rounds to -0.42 beside
+        # a paper saying -0.41. Only the half-unit-in-the-last-place cap catches
+        # this band; it passed for as long as the tolerance was a flat constant.
+        "paper/honest/repro/results_mechanism.json",
+        '"spearman_rho": -0.413',
+        '"spearman_rho": -0.4155',
+        "tests/test_prose_matches_derived_values.py",
+        "a quoted value drifts into the next printed digit",
+    ),
+    (
         # A macro used inside the abstract's parentheses takes its sentence-final
         # period back, so the sentence stops mid-clause on the page. Compiles
         # clean, no box overfull, every number right; only visible when read.

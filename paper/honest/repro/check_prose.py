@@ -31,7 +31,23 @@ def check(desc, claim_in_text, actual, fmt=lambda x: x):
 
 
 def close(desc, quoted, actual, tol=0.006):
-    if actual is None or abs(quoted - actual) > tol:
+    """Compare a quoted value with the data behind it.
+
+    The tolerance is capped at half a unit in the quoted number's last printed
+    place. The call sites almost all pass 0.006, which is looser than the 0.005
+    that separates two-decimal values: a datum drifting to 0.455 would keep
+    passing beside a paper printing 0.45, even though it now rounds to 0.46.
+    The cap makes the check mean what it reads as -- the printed digits are the
+    right digits -- while an explicitly coarser tolerance still applies where a
+    number is quoted deliberately roughly.
+    """
+    if actual is None:
+        FAILS.append(f"{desc}: prose says {quoted}, data says {actual}")
+        return
+    decimals = len(f"{quoted!r}".split(".")[1]) if "." in f"{quoted!r}" else 0
+    if decimals >= 2:
+        tol = min(tol, 0.5 * 10 ** -decimals + 1e-9)
+    if abs(quoted - actual) > tol:
         FAILS.append(f"{desc}: prose says {quoted}, data says {actual}")
 
 
