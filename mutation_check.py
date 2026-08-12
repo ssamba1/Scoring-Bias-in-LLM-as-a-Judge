@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A cell loses a variant. Δ is a max-minus-min over variants, so a
+        # spread computed over a subset can only be smaller -- the cell reports
+        # too little bias, in a paper whose headline is that bias rises, and
+        # every value in it stays perfectly plausible.
+        "paper/honest/repro/results_zh.json",
+        '"random": {',
+        '"random_REMOVED": {',
+        "tests/test_no_cell_is_missing_a_variant.py",
+        "a cell is scored over fewer variants than the probe defines",
+    ),
+    (
         # A scoring harness starts sampling. The released scores would carry
         # sampling noise while the paper still called them deterministic, and a
         # noisy score is still a number in range -- nothing else would notice.
