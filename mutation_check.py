@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A live document states the direction the data overturned. Two
+        # public-facing artifacts did -- a graphical abstract and a video
+        # narration -- and neither carried a fabricated signature, so the
+        # signature sweep could not see them.
+        "README.md",
+        "## How to cite",
+        "Instruction tuning improves format robustness.\n\n## How to cite",
+        "tests/test_no_document_states_the_overturned_direction.py",
+        "a live document asserts the overturned direction",
+    ),
+    (
         # A script under paper/ starts acting on the retracted manuscript again.
         # Seventeen such scripts sat beside paper/honest/ until they were
         # quarantined, orphaned and unreferenced -- which is why every earlier
