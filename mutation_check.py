@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # One variant of the Chinese suite reverts to English. The run still
+        # produces a full set of numbers, described as a Chinese replication,
+        # while testing something between two languages that nobody named.
+        "paper/honest/repro/zh_harness.py",
+        '"reversed": ("按1到5分评分，1分最好，5分最差"',
+        '"reversed": ("on a scale of 1 to 5, where 1 is best and 5 is worst"',
+        "tests/test_the_chinese_replication_is_chinese.py",
+        "a variant of the Chinese suite reverts to English",
+    ),
+    (
         # The letter scale is scored the way it reads rather than the way the
         # judge was instructed: A worth 1 instead of 5. Every number downstream
         # stays plausible and one whole probe is inverted.
