@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A scoring harness starts sampling. The released scores would carry
+        # sampling noise while the paper still called them deterministic, and a
+        # noisy score is still a number in range -- nothing else would notice.
+        "paper/honest/repro/probes2_harness.py",
+        "@torch.no_grad()",
+        "@torch.no_grad()\ndef _sampled(m, **kw): return m.generate(do_sample=True)",
+        "tests/test_only_the_sampled_arm_samples.py",
+        "a scoring harness starts sampling",
+    ),
+    (
         # One arm scores its answer tokens differently from the others, so its
         # bias values stop belonging on the same axis -- while every number it
         # produces still looks entirely plausible. The paper compares these arms
