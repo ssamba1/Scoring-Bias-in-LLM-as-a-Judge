@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The abstract goes back to calling the fabricated predecessor merely
+        # unreliable. Softening in the most-read sentence while the accurate
+        # word survives in an appendix is how this drifts back.
+        "paper/honest/scoring_bias_v2.tex",
+        "prior, fabricated version of this project is included",
+        "prior, unreliable version of this project is included",
+        "tests/test_the_retraction_is_not_softened.py",
+        "the retraction is described more gently than the audit",
+    ),
+    (
         # The GPU-hour total drifts away from the itemisation beneath it. A
         # total that no longer matches its parts is arithmetic over an intended
         # design rather than a record of what ran -- the audit's finding about
