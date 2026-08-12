@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A root entry point starts reading the fabrication-era synthetic data
+        # again, in a repository whose paper states none is used. Nothing else
+        # fails when this happens: no test imports it, CI does not run it, and
+        # the paper does not cite it. It just sits there looking maintained.
+        "setup.sh",
+        'echo "  2. Reproduce every number:   bash run_all.sh"',
+        'echo "  2. Pilot: python3 gen.py results/bias_interaction_synthetic.csv"',
+        "tests/test_live_entry_points_are_alive.py",
+        "a root entry point serves the synthetic data again",
+    ),
+    (
         # The map agents read points at a directory that is not there. A wrong
         # instruction file is worse than a missing one: it is followed.
         ".hermes.md",
@@ -1515,9 +1526,15 @@ MUTATIONS = [
     (
         # A make target points at a file that does not exist. This is the state
         # eight targets were actually in.
+        #
+        # Re-anchored: the previous anchor was `streamlit run dashboard.py`, and
+        # run-dashboard has since been removed -- it served the fabrication-era
+        # synthetic data. A stale anchor means the guard stops being exercised
+        # while the run still prints a cheerful total, so it is repaired rather
+        # than dropped.
         "Makefile",
-        "streamlit run dashboard.py",
-        "streamlit run dashboard/app.py",
+        "python scan_secrets.py",
+        "python scan_secrets_missing.py",
         "tests/test_make_targets_are_not_broken.py",
         "make target names a missing file",
     ),

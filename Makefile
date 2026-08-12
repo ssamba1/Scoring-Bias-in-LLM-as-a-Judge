@@ -1,5 +1,5 @@
 .PHONY: help install test lint figures paper archive ci setup clean reproduce-all pre-commit \
-        install-package run-api run-dashboard check-credentials health-check \
+        install-package check-credentials health-check \
         validate docs integrity verify-clean verify-like-ci arxiv-package
 
 help:  # Show available targets
@@ -32,8 +32,7 @@ help:  # Show available targets
 	@printf "  \033[36m%-22s\033[0m %s\n" "make clean" "Remove all build artifacts and caches"
 	@printf "  \033[36m%-22s\033[0m %s\n" "make check-credentials" "Scan for accidentally committed credentials"
 	@printf "  \033[36m%-22s\033[0m %s\n" "make health-check" "Verify project integrity"
-	@printf "  \033[36m%-22s\033[0m %s\n" "make run-api" "Start the FastAPI server"
-	@printf "  \033[36m%-22s\033[0m %s\n" "make run-dashboard" "Start the Streamlit dashboard"
+	@printf "  \033[36m%-22s\033[0m %s\n" "make verify-like-ci" "Run every CI job locally"
 	@echo ""
 	@echo "── Pipeline ───────────────────────────────────────────────────"
 	@printf "  \033[36m%-22s\033[0m %s\n" "make reproduce-all" "Full end-to-end reproduction: setup → test → paper → archive"
@@ -60,9 +59,9 @@ test-cov:  # Run tests with coverage report
 
 lint:  # Run code quality checks (flake8 + black)
 	pip install flake8 black -q
-	flake8 src/scoring_bias/ cli.py tests/*.py api.py \
+	flake8 tests/*.py mutation_check.py verify_like_ci.py scan_secrets.py \
 		--max-line-length=100 --count --statistics
-	black --check --diff src/scoring_bias/ cli.py tests/*.py api.py
+	black --check --diff tests/*.py mutation_check.py verify_like_ci.py scan_secrets.py
 
 figures:  # Regenerate the paper's figures from the committed data
 	cd paper/honest/repro && for f in make_*.py; do python $$f; done
@@ -93,11 +92,11 @@ ci: test lint  # Run all CI checks (test + lint)
 
 reproduce-all: setup test paper archive  # Full end-to-end reproduction pipeline
 
-run-api:  # Start the FastAPI server
-	uvicorn api.app:app --host 0.0.0.0 --port 8000 --reload
-
-run-dashboard:  # Start the Streamlit dashboard
-	streamlit run dashboard.py
+# run-api and run-dashboard are gone. Both served the fabrication-era synthetic
+# datasets (results/bias_interaction_synthetic*.csv), which no part of the paper
+# of record reads, from scripts that now live under RETRACTED/legacy/scripts/.
+# An advertised target that publishes synthetic data does not belong in a repo
+# whose paper states that none is used.
 
 check-credentials:  # Scan every commit for credentials
 	python scan_secrets.py
