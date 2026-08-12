@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The positioning table's own row overstates the study. The audit caught
+        # the retracted version's row saying "31 models" against a body that said
+        # otherwise; a self-row is the one row nobody re-derives.
+        "paper/honest/scoring_bias_v2.tex",
+        "\\textbf{7 (4 new)}",
+        "\\textbf{9 (4 new)}",
+        "tests/test_the_positioning_row_matches_the_study.py",
+        "the positioning row overstates the bias types",
+    ),
+    (
         # The abstract goes back to calling the fabricated predecessor merely
         # unreliable. Softening in the most-read sentence while the accurate
         # word survives in an appendix is how this drifts back.
