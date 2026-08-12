@@ -89,6 +89,44 @@ def test_no_root_script_depends_on_an_untracked_directory():
     )
 
 
+def test_the_packaging_metadata_points_at_files_that_exist():
+    """`pip install .` and `docker run` are entry points too.
+
+    pyproject.toml declared `scoring-bias = "cli:main"`, so installing produced
+    a command that failed on import; packages.find pointed at src/, which has no
+    tracked files; and the Dockerfile's default command ran dashboard.py, which
+    displayed the fabrication-era synthetic datasets. Three published surfaces,
+    none of them exercised by any test, all broken or worse.
+    """
+    offenders = []
+
+    pyproject = REPO / "pyproject.toml"
+    if pyproject.exists():
+        text = pyproject.read_text(encoding="utf-8", errors="replace")
+        for module in re.findall(r'^\s*[\w-]+\s*=\s*"([\w.]+):\w+"', text, re.M):
+            path = REPO / (module.replace(".", "/") + ".py")
+            if not path.exists():
+                offenders.append(f"pyproject console script -> {module} (no such module)")
+        for where in re.findall(r'where\s*=\s*\["([^"]+)"\]', text):
+            listing = subprocess.run(["git", "ls-files", where], cwd=REPO,
+                                     capture_output=True, text=True, timeout=300).stdout
+            if not listing.strip():
+                offenders.append(f"pyproject packages.find where={where} (no tracked files)")
+
+    dockerfile = REPO / "Dockerfile"
+    if dockerfile.exists():
+        for line in dockerfile.read_text(encoding="utf-8", errors="replace").splitlines():
+            if not line.strip().startswith(("CMD", "ENTRYPOINT")):
+                continue
+            for token in re.findall(r'"([\w./-]+\.(?:py|sh))"', line):
+                if not (REPO / token).exists():
+                    offenders.append(f"Dockerfile {line.split()[0]} -> {token}")
+
+    assert not offenders, (
+        f"published entry points name things that are not there: {offenders}"
+    )
+
+
 def test_the_issue_templates_point_at_live_files():
     """GitHub renders these to anyone reporting a problem.
 

@@ -33,7 +33,10 @@ COPY . .
 RUN chmod +x *.sh 2>/dev/null || true
 
 # Create working directories
-RUN mkdir -p results results_rootcause cache benchmark
+RUN mkdir -p cache
 
-# Default command
-CMD ["python3", "dashboard.py"]
+# Default command: verify the paper reproduces. The previous default was
+# `python3 dashboard.py`, which reported the status of the fabrication-era
+# synthetic datasets -- so `docker run` on this image showed a reader the
+# retracted project's data as though it were the release.
+CMD ["python3", "verify_like_ci.py"]

@@ -39,19 +39,16 @@ dev = [
     "flake8>=7.2",
     "black>=24.10",
 ]
-api = [
-    "fastapi>=0.115",
-    "uvicorn>=0.34",
-]
-dashboard = [
-    "streamlit>=1.40",
-]
+# The api and dashboard extras are gone with the scripts that needed them:
+# both served the fabrication-era synthetic datasets and are quarantined under
+# RETRACTED/legacy/scripts/. Installing fastapi and streamlit to run nothing is
+# how a dead surface keeps looking maintained.
 notebook = [
     "jupyter>=1.1",
     "jupytext>=1.16",
 ]
 all = [
-    "scoring-bias-llm-as-judge[dev,api,dashboard,notebook]",
+    "scoring-bias-llm-as-judge[dev,notebook]",
 ]
 
 [project.urls]
@@ -59,12 +56,15 @@ Homepage = "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
 Repository = "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
 Documentation = "https://github.com/ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
 
-[project.scripts]
-scoring-bias = "cli:main"
-
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["scoring_bias*"]
+# No console script and no packaged module. `scoring-bias = "cli:main"` pointed
+# at cli.py, which imported a scoring_bias package that has no tracked files --
+# so `pip install .` produced a command that failed on import, and
+# packages.find pointed at src/, which does not exist in a clean clone.
+#
+# This repository is a paper and its reproduction, not a library. The entry
+# points that matter are run_all.sh, verify_like_ci.py and mutation_check.py.
+[tool.setuptools]
+py-modules = []
 
 [tool.pytest.ini_options]
 minversion = "7.0"
@@ -81,5 +81,8 @@ max-line-length = 100
 exclude = [".git", "__pycache__", "build", "dist", "*.egg-info"]
 
 [tool.coverage.run]
-source = ["src", "cli.py", "scripts"]
+# All three of the old sources are gone: src/ and scripts/ have no tracked
+# files and cli.py is quarantined. Coverage over the code this project actually
+# runs is the analysis pipeline and the two verification tools.
+source = ["paper/honest/repro", "mutation_check.py", "verify_like_ci.py"]
 omit = ["tests/*"]

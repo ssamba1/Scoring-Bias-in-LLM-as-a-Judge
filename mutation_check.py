@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The container's default command runs a script that is not there --
+        # or, as it did until now, one that displayed the synthetic datasets.
+        # `docker run` is a published entry point and no test read it.
+        "Dockerfile",
+        'CMD ["python3", "verify_like_ci.py"]',
+        'CMD ["python3", "dashboard.py"]',
+        "tests/test_live_entry_points_are_alive.py",
+        "the container's default command names a missing script",
+    ),
+    (
         # The issue template hands a first-time contributor the fabricated
         # dataset as its worked example. GitHub renders this to anyone reporting
         # a problem, and nothing else in the suite reads .github/.
