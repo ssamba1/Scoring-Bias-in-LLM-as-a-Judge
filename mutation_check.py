@@ -1113,6 +1113,24 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The letter scale is scored the way it reads rather than the way the
+        # judge was instructed: A worth 1 instead of 5. Every number downstream
+        # stays plausible and one whole probe is inverted.
+        "paper/honest/repro/scaled_harness.py",
+        "list(range(5, 0, -1)) if a is LET",
+        "list(range(1, 6)) if a is LET",
+        "tests/test_the_printed_prompt_is_the_prompt_that_ran.py",
+        "the letter scale is scored backwards",
+    ),
+    (
+        # The appendix prints a prompt the harness does not send.
+        "paper/honest/scoring_bias_v2.tex",
+        "Evaluate the following response to the instruction",
+        "Rate the following response to the instruction",
+        "tests/test_the_printed_prompt_is_the_prompt_that_ran.py",
+        "the printed prompt stops being the prompt that ran",
+    ),
+    (
         # The positioning table's own row overstates the study. The audit caught
         # the retracted version's row saying "31 models" against a body that said
         # otherwise; a self-row is the one row nobody re-derives.
