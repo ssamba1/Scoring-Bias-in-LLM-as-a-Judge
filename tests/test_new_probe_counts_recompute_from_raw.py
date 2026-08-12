@@ -85,7 +85,12 @@ def test_per_probe_counts_recompute_from_the_raw_run(analysis, raw):
                 f"the raw run gives {recomputed}"
             )
         mean = sum(changes.values()) / len(changes)
-        if abs(mean - stored["mean_change"]) > 0.002:
+        # 0.00075, not 0.002. The stored value is rounded to three decimals, so
+        # the recomputation can differ by at most half a unit there (0.0005) plus
+        # float slack; measured across all twelve probe summaries, the largest
+        # residual is exactly 0.0005. A tolerance four times the achievable error
+        # accepts a genuinely different mean as agreement.
+        if abs(mean - stored["mean_change"]) > 0.00075:
             wrong.append(
                 f"{probe}: stored mean change {stored['mean_change']}, "
                 f"recomputed {mean:.4f}"

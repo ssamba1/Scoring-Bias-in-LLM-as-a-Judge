@@ -112,7 +112,12 @@ def test_each_mean_change_is_the_difference_of_its_means():
         if not isinstance(record, dict) or "mean_change" not in record:
             continue
         expected = record["instruct_mean"] - record["base_mean"]
-        if abs(expected - record["mean_change"]) > 0.002:
+        # 0.00015, not 0.002. All three values are stored to four decimals, so
+        # the identity can only fail by rounding: each operand carries at most
+        # 5e-5 and the stored difference another 5e-5. Measured residuals here
+        # are 0.0000, 0.0001, 0.0000. At 0.002 the check would accept a stored
+        # change that is simply a different number.
+        if abs(expected - record["mean_change"]) > 0.00015:
             wrong.append(
                 f"{name}: {record['instruct_mean']} - {record['base_mean']} = "
                 f"{expected:.4f}, stored {record['mean_change']}"

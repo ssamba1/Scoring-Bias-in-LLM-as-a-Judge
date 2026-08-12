@@ -623,9 +623,12 @@ if per_judge:
         FAILS.append("prose no longer states a frontier mean-delta range")
     else:
         s_lo, s_hi = float(stated.group(1)), float(stated.group(2))
-        if abs(s_lo - lo) > 0.006:
+        # Half a unit in the last printed place, as in close(): the range is
+        # quoted to two decimals, so 0.006 would let an endpoint drift into a
+        # different printed value.
+        if abs(s_lo - lo) > 0.005:
             FAILS.append(f"frontier range starts at {s_lo}, smallest judge mean is {lo:.3f}")
-        if abs(s_hi - hi) > 0.006:
+        if abs(s_hi - hi) > 0.005:
             FAILS.append(f"frontier range ends at {s_hi}, largest judge mean is {hi:.3f}")
     if len(means) < 3:
         FAILS.append(f"only {len(means)} frontier judges parsed; the range check is vacuous")
