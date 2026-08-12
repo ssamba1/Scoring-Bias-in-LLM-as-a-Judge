@@ -89,6 +89,31 @@ def test_no_root_script_depends_on_an_untracked_directory():
     )
 
 
+def test_the_issue_templates_point_at_live_files():
+    """GitHub renders these to anyone reporting a problem.
+
+    The data-issue template offered `results_rootcause/study1_results.json` as
+    its worked example -- the fabricated 22-model dataset, whose models the audit
+    found do not exist. A contributor filing their first issue was being handed
+    the retracted data as the canonical thing to talk about.
+    """
+    templates = sorted((REPO / ".github" / "ISSUE_TEMPLATE").glob("*.md"))
+    if not templates:
+        pytest.skip("[repo] no issue templates")
+    offenders = []
+    for path in templates:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for cited in re.findall(r"`([\w./-]+\.(?:json|py|tex|sh|csv))`", text):
+            if not (REPO / cited).exists():
+                offenders.append(f"{path.name} -> {cited}")
+                continue
+            if cited.startswith(("results_rootcause/", "RETRACTED/")):
+                offenders.append(f"{path.name} -> {cited} (superseded data)")
+    assert not offenders, (
+        f"issue templates offer files that are missing or superseded: {offenders}"
+    )
+
+
 def test_the_makefile_advertises_no_removed_target():
     makefile = REPO / "Makefile"
     if not makefile.exists():

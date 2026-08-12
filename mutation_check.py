@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The issue template hands a first-time contributor the fabricated
+        # dataset as its worked example. GitHub renders this to anyone reporting
+        # a problem, and nothing else in the suite reads .github/.
+        ".github/ISSUE_TEMPLATE/data_issue.md",
+        "`paper/honest/repro/results_scaled.json`",
+        "`results_rootcause/study1_results.json`",
+        "tests/test_live_entry_points_are_alive.py",
+        "the issue template cites the fabricated dataset",
+    ),
+    (
         # A live document states the direction the data overturned. Two
         # public-facing artifacts did -- a graphical abstract and a video
         # narration -- and neither carried a fabricated signature, so the

@@ -11,9 +11,9 @@ assignees: ''
 What seems wrong with the data? Describe the problem clearly.
 
 ## Affected Data
-- File(s): [e.g., `results_rootcause/study1_results.json`]
-- Variable(s) / column(s): [e.g., `flip_rate`, `effect_size`]
-- Model(s) or probe(s) involved: [e.g., Llama 3 8B, rubric order probe]
+- File(s): [e.g., `paper/honest/repro/results_scaled.json`]
+- Variable(s) / column(s): [e.g., `mean_dist`, `per_item`, `bias`]
+- Model(s) or probe(s) involved: [e.g., Qwen2.5-1.5B, rubric order probe]
 
 ## Expected Values
 What values or patterns did you expect to see?
