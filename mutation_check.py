@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The README's raw-file table drops the frontier-judge data. Whole
+        # sections of the paper lose their listed source, in the first place
+        # anyone looks for it.
+        "README.md",
+        "| `repro/results_closed.json` |",
+        "| `repro/results_closed_OMITTED.json` |",
+        "tests/test_the_release_promises_hold.py",
+        "the README's data table drops a released run",
+    ),
+    (
         # A quoted value drifts far enough to print differently but not far
         # enough to trip the old 0.006 tolerance: -0.4155 rounds to -0.42 beside
         # a paper saying -0.41. Only the half-unit-in-the-last-place cap catches

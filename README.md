@@ -99,9 +99,25 @@ files and fails on any numerical drift. **No synthetic or simulated data is used
 | `repro/attn_results.json` | attention-to-nuisance null | `attention_harness.py` |
 | `repro/results_dolly.json.gz` | public-items replication (Dolly-15k) | `dolly_harness.py` |
 | `repro/results_stages.json.gz` | alignment-stage ablation (preregistered) | `stage_harness.py` |
+| `repro/results_probes2.json` | sycophancy + anchoring (preregistered P10) | `probes2_harness.py` |
+| `repro/results_zh.json` | Chinese replication (P11) | `zh_harness.py` |
+| `repro/results_closed.json` | frontier judges via API logprobs (P20) | `closed_harness.py` |
+| `repro/results_14b.json` | Qwen2.5-14B 4-bit extension (P12) | `q14b_harness.py` |
+| `repro/results_dose.json` | graded nuisance dose-response (P14) | `dose_harness.py` |
+| `repro/results_gran.json` | rating-scale granularity (P17) | `granularity_harness.py` |
+| `repro/results_chat.json` | chat-template scoring (P19) | `chattemplate_harness.py` |
+| `repro/results_t10.json` | ten-template extension (P15) | `template10_harness.py` |
+| `repro/results_tokvar.json` | answer-token variants | `tokvar_harness.py` |
+| `repro/results_sampled.json` | sampled-parse protocol comparison | `sampled_harness.py` |
+| `repro/spanpatch_results.json` | nuisance-span patching (P13) | `spanpatch_harness.py` |
+| `repro/patch_results_qwen05.json` | activation patching, second family | `patch_harness.py` |
+
+All nineteen are listed; `tests/test_the_release_promises_hold.py` checks the table against the
+directory, because a hand-written list of what matters is how the paper's own reproduction recipe
+came to name six of its fourteen analysis scripts.
 
 Preregistrations (predictions committed before data): `paper/honest/PREREGISTRATION.md`
-(P1-P6 main, P7-P9 stages, P10-P13 in-flight). Prior fabricated artifacts:
+— H0 and P1-P20, every one carrying a recorded outcome. Prior fabricated artifacts:
 quarantined in `RETRACTED/`, audited in `DATA_INTEGRITY_AUDIT.md`.
 
 ## How to cite

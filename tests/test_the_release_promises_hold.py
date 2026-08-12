@@ -141,6 +141,66 @@ def test_the_scripts_the_reproduction_invokes_exist():
     )
 
 
+def test_the_readme_lists_every_raw_run_file():
+    """The README's table is the first thing anyone reads about the data.
+
+    It listed seven files while the release holds nineteen -- the frontier
+    judges, the Chinese replication, the two new probes and the dose-response
+    among the missing, i.e. whole sections of the paper. Same defect as the
+    Reproducibility section naming six of fourteen analysis scripts: a
+    hand-written list of what matters, written once, while the study grew
+    around it.
+    """
+    readme = REPO / "README.md"
+    if not readme.exists():
+        pytest.skip("[repo] no README")
+    text = readme.read_text(encoding="utf-8", errors="replace")
+
+    repro = HONEST / "repro"
+    produced = set()
+    for path in list(repro.glob("analyze_*.py")) + list(repro.glob("make_*.py")):
+        body = path.read_text(encoding="utf-8", errors="replace")
+        produced |= set(re.findall(
+            r'\(\s*HERE\s*/\s*["\']([\w.]+\.json)["\']\s*\)\.write_text', body))
+        produced |= set(re.findall(r'_write\w*\(\s*["\']([\w.]+\.json)["\']', body))
+
+    raw = sorted(
+        p.name for p in list(repro.glob("*.json")) + list(repro.glob("*.json.gz"))
+        if p.name not in produced and "_analysis" not in p.name
+    )
+    if not raw:
+        pytest.skip("[repro] no raw run files present")
+
+    missing = [name for name in raw if name not in text]
+    assert not missing, (
+        f"the README's raw-file table omits {missing}. These are committed raw "
+        f"runs the paper draws on; a reader looking for the data behind a "
+        f"section will not find them listed."
+    )
+
+
+def test_the_readme_does_not_describe_settled_predictions_as_in_flight():
+    """It said "P10-P13 in-flight" long after all four were adjudicated."""
+    readme = REPO / "README.md"
+    prereg = HONEST / "PREREGISTRATION.md"
+    if not readme.exists() or not prereg.exists():
+        pytest.skip("[repo] README or preregistration missing")
+    text = readme.read_text(encoding="utf-8", errors="replace")
+    registered = {int(n) for n in re.findall(r"\*\*P(\d{1,2})\s*\(", prereg.read_text(
+        encoding="utf-8", errors="replace"))}
+
+    stale = re.search(r"P(\d{1,2})\s*-\s*P(\d{1,2})\s+in-flight", text)
+    assert not stale, (
+        f"the README calls {stale.group(0)!r} in flight; those predictions carry "
+        f"recorded outcomes"
+    )
+    if registered:
+        assert f"P{max(registered)}" in text, (
+            f"the README's preregistration summary stops before P{max(registered)}, "
+            f"the last registered prediction"
+        )
+
+
 def test_the_integrity_audit_exists_and_names_its_evidence():
     """The audit is two documents: the narrative and the per-artefact verdicts.
 
