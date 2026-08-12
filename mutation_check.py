@@ -1113,6 +1113,25 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The stored reduction stops equalling the two means it cuts between.
+        # check_prose compares the paper's 22% against this fraction, so a
+        # fraction that disagrees with its own inputs passes that check exactly.
+        "paper/honest/repro/results_robustness.json",
+        '"reduction_frac": 0.216',
+        '"reduction_frac": 0.316',
+        "tests/test_stored_statistics_satisfy_their_identities.py",
+        "a stored reduction disagrees with its own means",
+    ),
+    (
+        # The SFT share stops being a share of the rise it names. The abstract,
+        # the contribution list and the stage section all carry this number.
+        "paper/honest/repro/results_stages_analysis.json",
+        '"sft_share_of_total_rise": [\n      0.839,',
+        '"sft_share_of_total_rise": [\n      0.639,',
+        "tests/test_stored_statistics_satisfy_their_identities.py",
+        "the SFT share stops matching its responsiveness path",
+    ),
+    (
         # The out-of-sample R^2 becomes the squared correlation. Both are
         # plausible numbers to see printed beside "R^2" -- 0.301 against 0.272
         # -- but r^2 ignores whether the predictions are on the right scale, and

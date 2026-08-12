@@ -123,3 +123,64 @@ def test_each_mean_change_is_the_difference_of_its_means():
                 f"{expected:.4f}, stored {record['mean_change']}"
             )
     assert not wrong, f"a stored change does not equal the difference of its means: {wrong}"
+
+
+def test_the_ensembling_reduction_equals_its_own_two_means():
+    """"cuts single-template bias by 22%" -- from the two means it cuts between.
+
+    check_prose compares the paper's 22% against the stored reduction_frac. That
+    catches the paper drifting from the release; it cannot catch the release
+    storing a fraction that its own two means do not produce. Both numbers are
+    printed in the same sentence, so a disagreement between them would read as
+    perfectly ordinary.
+    """
+    ensemble = _load("results_robustness.json").get("C8_template_ensemble")
+    if not isinstance(ensemble, dict):
+        pytest.skip("[repro] the template-ensemble result is not in the release")
+    single = ensemble["mean_single_template_bias"]
+    ensembled = ensemble["mean_ensembled_bias"]
+    assert single > 0, "the single-template bias is zero; the fraction is undefined"
+    expected = 1 - ensembled / single
+    # Both means carry three decimals, so the quotient can move by ~0.001.
+    assert abs(expected - ensemble["reduction_frac"]) <= 0.0015, (
+        f"the release stores a reduction of {ensemble['reduction_frac']}, but "
+        f"{single} -> {ensembled} is a reduction of {expected:.4f}"
+    )
+
+
+def test_the_sft_share_equals_the_rise_it_is_a_share_of():
+    """"SFT installs 84--99% of the total rise" -- from the responsiveness paths.
+
+    The abstract, the contribution list and the stage section all carry this
+    claim. It is a ratio of two differences along a path that is stored right
+    beside it, and nothing had divided one by the other.
+    """
+    stages = _load("results_stages_analysis.json")
+    paths, p7 = stages.get("P8_paths"), stages.get("P7")
+    if not isinstance(paths, dict) or not isinstance(p7, dict):
+        pytest.skip("[repro] the stage paths are not in the release")
+    stored = p7.get("sft_share_of_total_rise")
+    if not isinstance(stored, list) or not stored:
+        pytest.skip("[repro] no SFT share is recorded")
+
+    shares = []
+    for family, record in sorted(paths.items()):
+        names, resp = record.get("stages", []), record.get("resp_path", [])
+        if "base" not in names or "SFT" not in names or len(resp) != len(names):
+            continue  # Tulu has no base checkpoint; it cannot carry this ratio
+        base = resp[names.index("base")]
+        sft = resp[names.index("SFT")]
+        total = resp[-1] - base
+        if abs(total) < 1e-9:
+            continue
+        shares.append(round((sft - base) / total, 3))
+
+    assert len(shares) == len(stored), (
+        f"the release records {len(stored)} SFT shares; {len(shares)} families "
+        f"carry a base checkpoint to compute one from"
+    )
+    for computed, recorded in zip(sorted(shares), sorted(stored)):
+        assert abs(computed - recorded) <= 0.0015, (
+            f"the release stores an SFT share of {recorded}; its own "
+            f"responsiveness path gives {computed}"
+        )
