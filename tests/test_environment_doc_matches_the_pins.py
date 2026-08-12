@@ -13,7 +13,9 @@ mismatch, and a reproducibility claim that does not say where it holds invites
 exactly that confusion.
 """
 
+import itertools
 import re
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -97,3 +99,52 @@ def test_the_job_the_document_names_still_exists():
         "reproduction; that job is gone"
     )
     assert "ubuntu-latest" in body, "the workflow no longer runs on Linux"
+
+
+def _pin_files():
+    """Every tracked file that pins a version, with its (package -> version)."""
+    listing = subprocess.run(
+        ["git", "ls-files", "*.txt", "*.yml", "Dockerfile"],
+        cwd=REPO, capture_output=True, text=True, timeout=300,
+    ).stdout.split()
+    pins = {}
+    for rel in listing:
+        if rel.startswith(("RETRACTED/", ".verify-venv")):
+            continue
+        path = REPO / rel
+        if not path.exists():
+            continue
+        found = {}
+        for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+            code = line.split("#", 1)[0].strip()
+            match = re.match(r"^-?\s*([A-Za-z][\w.-]*)\s*==\s*([\w.+]+)", code)
+            if match:
+                found[match.group(1).lower()] = match.group(2)
+        if found:
+            pins[rel] = found
+    return pins
+
+
+def test_no_two_files_pin_the_same_package_differently():
+    """One package, one version, across the whole repository.
+
+    requirements.txt pinned numpy==1.26.4 and scipy==1.13.1 while the analysis
+    stack pins 2.4.4 and 1.17.1, and the Dockerfile installed the former -- so
+    the published container reproduced none of the paper's numbers. A second set
+    of pins is not redundancy; it is a second answer to the same question.
+    """
+    pins = _pin_files()
+    assert len(pins) >= 2, f"only {sorted(pins)} carry pins; the sweep found too little"
+
+    conflicts = []
+    for (left, right) in itertools.combinations(sorted(pins), 2):
+        for package in set(pins[left]) & set(pins[right]):
+            if pins[left][package] != pins[right][package]:
+                conflicts.append(
+                    f"{package}: {left} says {pins[left][package]}, "
+                    f"{right} says {pins[right][package]}"
+                )
+    assert not conflicts, (
+        f"the same package is pinned to different versions in different files: "
+        f"{conflicts}"
+    )

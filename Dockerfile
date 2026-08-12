@@ -12,8 +12,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc g++ curl git build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# Install Python dependencies. requirements.txt defers to the pinned analysis
+# stack in paper/honest/repro/, so both files have to be present before pip runs
+# -- installing requirements.txt alone used to give the container a numpy and
+# scipy that reproduce none of the paper's numbers.
 COPY requirements.txt .
+COPY paper/honest/repro/requirements-repro.txt paper/honest/repro/
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 

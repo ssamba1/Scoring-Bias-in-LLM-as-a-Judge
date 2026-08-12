@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A second, disagreeing pin for the same package. requirements.txt held
+        # numpy==1.26.4 against the analysis stack's 2.4.4, and the Dockerfile
+        # installed requirements.txt -- so the published container reproduced
+        # none of the paper's numbers.
+        "requirements.txt",
+        "pytest==8.3.4",
+        "pytest==8.3.4\nnumpy==1.26.4",
+        "tests/test_environment_doc_matches_the_pins.py",
+        "two files pin the same package differently",
+    ),
+    (
         # A compose service mounts a directory that does not exist. Docker
         # creates an empty bind mount and the service serves nothing -- three of
         # the four services here were in that state.

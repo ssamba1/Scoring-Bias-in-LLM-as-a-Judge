@@ -1,20 +1,24 @@
-# Project dependencies  pinned from pip freeze
-# Full environment snapshot in requirements-all.txt
-transformers==5.12.1
-torch>=2.0.0
-accelerate==1.6.0
-huggingface_hub==1.21.0
-numpy==1.26.4
-scipy==1.13.1
-pandas==2.2.2
-matplotlib==3.10.2
-seaborn==0.13.2
-openai==2.24.0
-requests==2.33.0
-tqdm==4.68.4
-pyyaml==6.0.3
-pydantic==2.13.4
+# Dependencies for reproducing this paper.
+#
+# The analysis stack is NOT pinned here. It is pinned once, in
+# paper/honest/repro/requirements-repro.txt, which is what CI installs and what
+# verify_like_ci.py builds its venv from. This file used to carry a second set
+# of pins (numpy==1.26.4, scipy==1.13.1, transformers==5.12.1) that agreed with
+# neither the analysis environment (numpy 2.4.4, scipy 1.17.1) nor the GPU
+# harness environment (transformers 4.49.0) -- and the Dockerfile installed
+# this file, so the container reproduced neither.
+#
+# Analysis (CPU, reproduces every number in the paper):
+-r paper/honest/repro/requirements-repro.txt
+
+# Test suite and lint.
 pytest==8.3.4
 pytest-cov==7.1.0
 flake8==7.2.0
 black==24.10.0
+
+# The GPU harnesses under paper/honest/repro/*_harness.py are NOT run by CI and
+# are not installable from here: they need a CUDA build of torch and ran on a
+# free-tier Kaggle P100. Their exact versions are recorded at the top of
+# requirements-repro.txt and in paper/honest/repro/ENVIRONMENT.md. Rerunning the
+# analyses does not require them -- the raw runs they produced are committed.
