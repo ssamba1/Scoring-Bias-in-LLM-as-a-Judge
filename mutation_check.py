@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # One analyzer's copy of the control mapping drifts. Decisiveness and
+        # bias would then be measured against different baselines, and both
+        # numbers would look entirely ordinary. Five copies of one rule is how
+        # the sibling paper's denial regex went wrong for months.
+        "paper/honest/repro/analyze_stages.py",
+        'CONTROL = {"rubric_order": "control", "score_id": "numeric"',
+        'CONTROL = {"rubric_order": "reversed", "score_id": "numeric"',
+        "tests/test_the_control_variant_is_one_definition.py",
+        "an analyzer's control variant drifts from the others",
+    ),
+    (
         # A cell loses a variant. Δ is a max-minus-min over variants, so a
         # spread computed over a subset can only be smaller -- the cell reports
         # too little bias, in a paper whose headline is that bias rises, and
