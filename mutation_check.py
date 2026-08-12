@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # Responsiveness stops being the total-variation shift the paper defines
+        # it as. It is the term the mechanism argument turns on -- "far more
+        # tightly than decisiveness" -- and reading what the analyzer wrote
+        # cannot tell that apart from the analyzer computing something else.
+        "paper/honest/repro/results_mechanism.json",
+        '"base_mean": 0.1446',
+        '"base_mean": 0.1146',
+        "tests/test_responsiveness_recomputes_from_the_shifts.py",
+        "responsiveness stops being a total-variation shift",
+    ),
+    (
         # A cell's decisiveness stops being the mean of its own per-item
         # entropies. Entropy is the "confidence" in the paper's title and the
         # x-axis of its headline correlation.
