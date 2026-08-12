@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A cell's decisiveness stops being the mean of its own per-item
+        # entropies. Entropy is the "confidence" in the paper's title and the
+        # x-axis of its headline correlation.
+        "paper/honest/repro/results_scaled.json",
+        '"mean_entropy": 2.0947',
+        '"mean_entropy": 1.0947',
+        "tests/test_entropy_recomputes_from_the_distributions.py",
+        "a stored entropy leaves its own items behind",
+    ),
+    (
         # The mixed-model coefficient stops matching the per-item scores it was
         # fitted on. Rerunning the fit would reproduce it either way; only
         # arithmetic that shares no code with the model can tell.
