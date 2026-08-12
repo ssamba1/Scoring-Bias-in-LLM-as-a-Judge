@@ -1113,6 +1113,17 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The stored headline correlation stops matching the points it was
+        # computed from. Every other check on this number reads the stored value
+        # -- paper matches JSON, JSON regenerates from raw -- which is a closed
+        # circle an analysis that is consistently wrong satisfies.
+        "paper/honest/repro/results_mechanism.json",
+        "2.2799",
+        "0.2799",
+        "tests/test_the_headline_correlation_recomputes.py",
+        "the headline correlation leaves its own points behind",
+    ),
+    (
         # One analyzer's copy of the control mapping drifts. Decisiveness and
         # bias would then be measured against different baselines, and both
         # numbers would look entirely ordinary. Five copies of one rule is how
