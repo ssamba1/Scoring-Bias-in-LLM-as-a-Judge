@@ -137,7 +137,14 @@ def test_the_recomputed_interval_matches_the_published_one():
             continue
         lo, hi = _ci(diffs, n_boot, seed)
         published_lo, published_hi = summary["boot_ci95"]
-        if abs(lo - published_lo) > 0.02 or abs(hi - published_hi) > 0.02:
+        # 0.01. Unlike the other comparisons in this suite the residual here is
+        # not rounding: this reimplementation draws its resamples in a different
+        # order from the analyzer, so the two percentile bounds differ by genuine
+        # Monte-Carlo noise at 10^4 resamples. Measured across the five probes the
+        # worst gap is 0.0066 (score ID), so 0.01 leaves a margin without
+        # admitting an interval that is simply different -- 0.02 was twice as
+        # loose as anything the procedure produces.
+        if abs(lo - published_lo) > 0.01 or abs(hi - published_hi) > 0.01:
             mismatched.append(
                 f"{probe}: recomputed [{lo:+.3f},{hi:+.3f}] vs published "
                 f"[{published_lo:+.3f},{published_hi:+.3f}]"

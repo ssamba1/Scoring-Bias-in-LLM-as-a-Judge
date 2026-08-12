@@ -95,7 +95,11 @@ def test_the_stored_cumulants_recompute_from_the_distributions():
         for k in ("k2", "k3", "k4"):
             mine = round(_mean([c[k] for c in per[kind]]), 3)
             theirs = stored[kind][k]
-            assert abs(mine - theirs) <= 0.002, (
+            # The stored cumulants are rounded to three decimals, so rounding
+            # alone permits 0.0005; the observed residuals are at most 0.0002
+            # (base k2: 1.8008 recomputed against 1.801 stored). 0.002 was my
+            # own four-times-too-loose constant, written before measuring.
+            assert abs(mine - theirs) <= 0.00075, (
                 f"{kind} {k}: released {theirs}, recomputed {mine} from the "
                 f"control distributions in results_scaled.json. The appendix's "
                 f"all-order claim rests on these three numbers."
