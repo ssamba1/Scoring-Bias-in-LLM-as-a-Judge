@@ -9,7 +9,7 @@ a plain integer in a prose sentence and matches none of those patterns.
 This check assumes no shape. It takes every numeric literal in the paper and
 requires each to be explained, where explained means one of:
 
-  * it appears in a derived result file, at one, two or three decimals, or as a
+  * it appears in a derived result file at its own printed precision, or as a
     percentage of a stored fraction
   * it is named in check_prose.py, which pins it deliberately
   * it is listed below, with a reason
@@ -18,6 +18,22 @@ The allowlist is the honest part. A number that is genuinely not data -- a year,
 a scale bound, a figure of the retracted version quoted in the retraction notice
 -- has to be written down as such rather than silently skipped, so the set of
 numbers nobody is checking stays visible and small.
+
+**Precision.** This originally accepted a match at one, two *or* three decimals.
+Against 6,708 stored values that is nearly free -- 0.437 rounded to 0.4 finds
+something almost surely -- so the sweep could report that every number traces
+while proving very little. Measured before tightening: 79 numbers reached the
+data loosely and 77 of them at their own precision. The two that did not were
+both the Zenodo DOI prefix, which is an identifier and is now stripped rather
+than allowlisted as though it were a value.
+
+**No mutation distinguishes the two rules, and that is worth stating rather than
+faking.** A mutation would need a number that matches loosely but not strictly;
+none can be built from this paper, because every decimal in it is either pinned
+by name in check_prose.py or matches at full precision. The evidence for the
+tightening is the 79/77 measurement above, not a harness entry. The registered
+mutation on this file covers the sweep itself -- an unexplained number returning
+to the paper -- which is the property that can be demonstrated.
 """
 
 import json
@@ -46,6 +62,11 @@ ALLOWED = {
 
 # LaTeX machinery whose digits are not claims.
 STRIP = (
+    # A DOI is an identifier, not a measurement. Its prefix (10.5281) was the
+    # only thing in the paper reaching the data by a loose match and nothing at
+    # its own precision -- exactly the false confidence the tightened rule
+    # removes, so it has to go rather than be allowlisted as if it were a value.
+    r"10\.\d{4,}/[^\s}$,]+",
     r"\\(?:ref|label|cite[a-z]*|includegraphics|input|usepackage|newcommand|section"
     r"|subsection|documentclass|hbox|raise|scriptstyle|vspace|hspace|setlength"
     r"|tabcolsep|linewidth|textwidth|columnwidth)\{[^}]*\}",
@@ -148,7 +169,15 @@ def test_every_number_in_the_paper_is_explained():
         bare = raw.lstrip("+-")
         if bare in ALLOWED or bare.replace(".", "").lstrip("0") in ALLOWED:
             continue
-        if any(round(abs(value), d) in stored for d in (1, 2, 3)):
+        # Match at the PAPER's own precision, not at whichever of one, two or
+        # three decimals happens to land. With 6,708 stored values a loose match
+        # is nearly free: rounding 0.437 to 0.4 finds something almost surely,
+        # so the sweep would report "every number traces" while proving little.
+        # Measured before tightening: 79 numbers passed loosely, 77 of them at
+        # their own precision. A number printed to three decimals is a claim
+        # about three decimals.
+        decimals = len(bare.split(".")[1]) if "." in bare else 0
+        if round(abs(value), decimals) in stored:
             continue
         if bare in checker:
             continue
