@@ -1113,6 +1113,16 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # A published dashboard shows a value that is in no data file. Forty-two
+        # hand-copied numbers sat on that page, compared against nothing --
+        # which is the shape of what this project retracted.
+        "paper/interactive/base_vs_instruct.html",
+        '"Qwen2.5-7B":      {rubric_order:0.6',
+        '"Qwen2.5-7B":      {rubric_order:1.6',
+        "tests/test_the_interactive_page_matches_its_data.py",
+        "the dashboard publishes a value not in its run",
+    ),
+    (
         # A second, disagreeing pin for the same package. requirements.txt held
         # numpy==1.26.4 against the analysis stack's 2.4.4, and the Dockerfile
         # installed requirements.txt -- so the published container reproduced
