@@ -1113,6 +1113,24 @@ MUTATIONS = [
         "a verdict flag disagrees with its own interval",
     ),
     (
+        # The compute disclosure's call count stops matching the data those
+        # calls produced. This is the number the retracted version inflated.
+        "paper/honest/scoring_bias_v2.tex",
+        "$2{,}250$\nsingle-token logprob calls",
+        "$2{,}500$\nsingle-token logprob calls",
+        "tests/test_compute_disclosure_matches_the_run.py",
+        "the stated API call count leaves the data behind",
+    ),
+    (
+        # A factor of the same product drifts while the product still looks
+        # plausible -- the failure a total-only check cannot see.
+        "paper/honest/scoring_bias_v2.tex",
+        "(three judges $\\times$",
+        "(four judges $\\times$",
+        "tests/test_compute_disclosure_matches_the_run.py",
+        "a factor of the call count drifts from the run",
+    ),
+    (
         # A guard loses its only registration, so nothing shows it can fail.
         #
         # The replacement misspells the *directory* rather than the file. Written
