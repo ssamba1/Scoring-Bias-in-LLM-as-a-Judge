@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A quarantined pre-retraction rebuttal returns to the live tree,
+        # asserting the mechanism story the corrected paper overturned.
+        "paper/paper_biasinteraction.md",
+        "# Bias Interaction",
+        "Pretrained representations are inherently bias-free.\n\n# Bias Interaction",
+        "tests/test_superseded_claims_are_not_asserted.py",
+        "an overturned mechanism claim returns to the live tree",
+    ),
+    (
         # A reviewer-facing pointer goes back to the section it used to mean,
         # which still exists and now holds something else entirely.
         "paper/honest/REBUTTAL_FAQ.md",

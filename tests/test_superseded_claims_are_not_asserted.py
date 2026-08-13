@@ -51,6 +51,17 @@ CLAIMS = {
         r"(?i)which is the evidence the honest paper rests on",
         "run over six open-weight families, which is the evidence the honest paper rests on.",
     ),
+    # From paper/rebuttals.md, the pre-retraction rebuttal document that sat
+    # beside the honest one until 2026-08-13. Its answer to the base-model
+    # objection was that pretrained representations carry no surface-form bias
+    # and that instruction tuning introduces the capability. P16 re-scoped the
+    # parse-failure confound to protocol-dependent, and base checkpoints are
+    # measurably biased throughout the panel, so the claim is overturned rather
+    # than merely unsupported.
+    "representations are bias-free": (
+        r"(?i)inherently\s+bias[-\s]free",
+        "pre-trained representations are inherently bias-free with respect to surface form",
+    ),
     "format bias decreases": (
         r"(?i)format\s+bias\s*(?:&#8595;|↓|â)?\s*decreases",
         "Format Bias ↓ Decreases After instruction tuning",
