@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # An unattributed byline reaches the live tree under the spelling the
+        # literal placeholder pattern did not match.
+        "paper/paper_rootcause.md",
+        "# Where Does Scoring Bias Come From?",
+        "Author Name, Author Name\n\n# Where Does Scoring Bias Come From?",
+        "tests/test_no_fabricated_artefacts.py",
+        "a placeholder byline reaches the live tree",
+    ),
+    (
         # The checklist's figure count drifts from the paper it describes.
         "paper/submission_checklist.md",
         "Results: 10 figures and 5 tables",

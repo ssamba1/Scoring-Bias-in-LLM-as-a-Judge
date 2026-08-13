@@ -42,6 +42,12 @@ SIGNATURES = {
     "54,000 judgments": (r"54,?000\+?\s+total\s+judgments", "54,000+ total judgments"),
     # Placeholder authorship from the retracted submission metadata.
     "placeholder authors": (r"Student A, Student B", "authors: Student A, Student B"),
+    # A second placeholder byline, found in paper/preregistration.md on
+    # 2026-08-13 and quarantined with it. The pattern above is a literal, so it
+    # matched one spelling of "we have not filled in the authors yet" and not
+    # the other; an unattributed preregistration is the thing to catch, not a
+    # particular pair of stand-in names.
+    "placeholder byline": (r"(?i)\bAuthor Name\b", "Author Name, Author Name"),
 }
 
 PATTERNS = {label: pattern for label, (pattern, _) in SIGNATURES.items()}

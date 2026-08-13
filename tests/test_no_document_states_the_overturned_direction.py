@@ -36,7 +36,6 @@ EXEMPT_FILES = {
     "tests/test_no_document_states_the_overturned_direction.py",
     "tests/test_superseded_claims_are_not_asserted.py",
     "paper/honest/PREREGISTRATION.md",  # states the hypothesis in both directions
-    "paper/preregistration.md",         # ditto: "if bias increases ... if it decreases"
 }
 
 # Phrasings of the overturned direction. Each is a claim, not a hypothesis: the
