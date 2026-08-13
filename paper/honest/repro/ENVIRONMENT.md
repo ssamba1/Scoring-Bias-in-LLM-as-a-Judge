@@ -1,5 +1,16 @@
 # Reproduction environment
 
+## Two empty keys in the patching files
+
+`patch_results.json` and `patch_results_qwen05.json` carry `"raw": []` and
+`"per_layer_gap_closed": {}`. Both are empty because the harness initialised them and
+never wrote to them — not because per-item patching data was withheld or lost. Nothing
+reads either key, and the measurements the causal claim rests on are
+`frac_toward_instruct`, `median_recovery`, `n_items_used` and `best_layer`, all present.
+The harness no longer emits the unused keys. The released files are left exactly as they
+were produced, because they are the record of what ran.
+
+
 The analysis stack is pinned in [`requirements-repro.txt`](requirements-repro.txt):
 
     numpy==2.4.4   scipy==1.17.1   statsmodels==0.14.6

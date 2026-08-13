@@ -69,8 +69,12 @@ def main():
     model_tok = tok
     nL = base.config.num_hidden_layers
     layers_base = base.model.layers
-    report = {"model": BASE, "n_layers": nL, "n_items": len(ITEMS), "variants": list(SCALES),
-              "per_layer_gap_closed": {}, "raw": []}
+    # No "per_layer_gap_closed" or "raw" keys. Earlier runs initialised both and
+    # never filled them, so the released patch_results.json carries an empty
+    # "raw": [] -- which reads as per-item data withheld or lost rather than
+    # never collected. The measurements this harness actually produces are
+    # frac_toward_instruct, median_recovery, n_items_used and best_layer.
+    report = {"model": BASE, "n_layers": nL, "n_items": len(ITEMS), "variants": list(SCALES)}
 
     GAP_MIN = 0.3   # only items where base and instruct meaningfully disagree
     import statistics as st

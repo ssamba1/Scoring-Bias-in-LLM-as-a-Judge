@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The patching harness initialises a container it never fills again. A
+        # future run would ship an empty "raw" that a reader auditing a
+        # retracted project cannot tell from per-item data withheld or lost.
+        "paper/honest/repro/patch_harness.py",
+        'report = {"model": BASE, "n_layers": nL, "n_items": len(ITEMS), "variants": list(SCALES)}',
+        'report = {"model": BASE, "n_layers": nL, "n_items": len(ITEMS), "variants": list(SCALES), "raw": []}',
+        "tests/test_released_files_promise_no_missing_data.py",
+        "a harness reintroduces a container it never fills",
+    ),
+    (
         # Responsiveness stops being the total-variation shift the paper defines
         # it as. It is the term the mechanism argument turns on -- "far more
         # tightly than decisiveness" -- and reading what the analyzer wrote
