@@ -1124,6 +1124,17 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # An item vanishes from a sampled cell, leaving 19 scores where the
+        # file declares 20. Until the per-item detectors learned the affixed
+        # key names and learned that null is a recorded outcome, no guard in
+        # the suite could see this array at all.
+        "paper/honest/repro/results_sampled.json",
+        "              3.4286,\n              2.5,\n              5.0,\n              1.6667,\n",
+        "              3.4286,\n              5.0,\n              1.6667,\n",
+        "tests/test_the_item_panel_is_what_the_paper_says.py",
+        "a sampled cell is scored on a short panel",
+    ),
+    (
         # The sampled run's recorded parse rates stop supporting the parse
         # rate the release reports for them.
         "paper/honest/repro/results_sampled.json",

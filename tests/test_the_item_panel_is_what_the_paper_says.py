@@ -108,6 +108,21 @@ def test_every_panel_of_this_size_is_the_same_panel():
         )
 
 
+def _is_per_item_key(key):
+    """Does this key name a vector with one entry per scored item?
+
+    Matching the literal key "per_item" and nothing else made this check skip
+    the whole sampled harness -- it names its vectors ev_per_item and
+    sampled_per_item -- and ignore per_item_argmax and per_item_entropy
+    everywhere, which is 780 unchecked vectors in results_scaled.json alone.
+    The harnesses agree on the phrase and disagree on the affix, so the phrase
+    is what to match, as a whole underscore-separated component so that a
+    future per_items_dropped counter is not mistaken for a score vector.
+    """
+    parts = str(key).split("_")
+    return any(a == "per" and b == "item" for a, b in zip(parts, parts[1:]))
+
+
 def _per_cell_lengths(blob):
     """(path, len) for every per-item score vector in a released raw file."""
     found = []
@@ -115,8 +130,8 @@ def _per_cell_lengths(blob):
     def walk(node, path):
         if isinstance(node, dict):
             for key, value in node.items():
-                if key == "per_item" and isinstance(value, list):
-                    found.append((path + "/per_item", len(value)))
+                if _is_per_item_key(key) and isinstance(value, list):
+                    found.append((f"{path}/{key}", len(value)))
                 else:
                     walk(value, path + "/" + str(key))
         elif isinstance(node, list):

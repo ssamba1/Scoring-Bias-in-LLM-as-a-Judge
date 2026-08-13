@@ -80,13 +80,30 @@ def _raw_files():
 
 
 def _arrays(data):
-    """(keypath, leaf, values) for every numeric per-item array in a file."""
+    """(keypath, leaf, values) for every numeric per-item array in a file.
+
+    null is a recorded outcome, not a malformed entry: the sampled harness
+    writes it for an item whose k draws never parsed. Requiring every entry to
+    be numeric dropped all 36 sampled_per_item arrays from the length and
+    raggedness checks, and dropped them silently, because the ev_per_item
+    arrays beside them kept the file out of the skip list. An array of 20 with
+    two nulls is still an array of 20, and its length is exactly what these
+    checks exist to compare.
+    """
     for keypath, value in _walk(data):
         leaf = keypath.rsplit(".", 1)[-1]
         if leaf not in ALL_ARRAYS or not value:
             continue
-        if all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in value):
+        if all(
+            v is None or (isinstance(v, (int, float)) and not isinstance(v, bool))
+            for v in value
+        ):
             yield keypath, leaf, value
+
+
+def _numeric(values):
+    """The recorded values, dropping items that never parsed."""
+    return [v for v in values if v is not None]
 
 
 @pytest.mark.parametrize("path", _raw_files(), ids=lambda p: p.name)
@@ -105,7 +122,7 @@ def test_scores_lie_on_the_rating_scale(path):
     for keypath, leaf, values in _arrays(_load(path)):
         if leaf not in SCORE_ARRAYS:
             continue
-        out = [v for v in values if not (SCORE_MIN <= v <= SCORE_MAX)]
+        out = [v for v in _numeric(values) if not (SCORE_MIN <= v <= SCORE_MAX)]
         if out:
             bad.append(f"{keypath}: {out[:3]}")
     assert not bad, (
@@ -121,7 +138,7 @@ def test_entropies_are_not_negative(path):
     for keypath, leaf, values in _arrays(_load(path)):
         if leaf != "per_item_entropy":
             continue
-        neg = [v for v in values if v < 0]
+        neg = [v for v in _numeric(values) if v < 0]
         if neg:
             bad.append(f"{keypath}: {neg[:3]}")
     assert not bad, f"{path.name} holds negative entropy values: {bad[:5]}"
