@@ -1124,6 +1124,31 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The sampled run's recorded parse rates stop supporting the parse
+        # rate the release reports for them.
+        "paper/honest/repro/results_sampled.json",
+        '"parse_rate": 0.5188',
+        '"parse_rate": 0.9188',
+        "tests/test_the_readout_predictions_recompute.py",
+        "a reported parse rate drifts from the conditions it averages",
+    ),
+    (
+        # Bias per unit range stops being bias divided by the range.
+        "paper/honest/repro/results_gran_analysis.json",
+        '"bias_per_unit_range_base": 0.0414',
+        '"bias_per_unit_range_base": 0.0814',
+        "tests/test_the_readout_predictions_recompute.py",
+        "a per-unit-range figure stops dividing by the range",
+    ),
+    (
+        # The answer mass at the space-appended position drifts from the run.
+        "paper/honest/repro/results_tokvar.json",
+        '"mean_mass": 0.66763',
+        '"mean_mass": 0.16763',
+        "tests/test_the_readout_predictions_recompute.py",
+        "a readout's reported answer mass drifts from its cells",
+    ),
+    (
         # A split verdict's weak half strengthens without the sentence changing.
         # "6/10 templates" carries the whole qualification; at 8/10 the prose
         # still reads as reporting a failed clause.
