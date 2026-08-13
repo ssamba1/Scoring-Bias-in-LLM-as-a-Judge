@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A split verdict's weak half strengthens without the sentence changing.
+        # "6/10 templates" carries the whole qualification; at 8/10 the prose
+        # still reads as reporting a failed clause.
+        "paper/honest/repro/results_t10_analysis.json",
+        '"T02": -0.076',
+        '"T02": 0.076',
+        "tests/test_the_split_verdicts_recompute.py",
+        "a split verdict's count drifts from its own values",
+    ),
+    (
         # A reported failure quietly becomes a success. Nobody re-derives a
         # number that already says the prediction did not work, so P14's counts
         # could drift in either direction unnoticed.
