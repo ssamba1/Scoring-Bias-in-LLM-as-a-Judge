@@ -51,6 +51,16 @@ CLAIMS = {
         r"(?i)which is the evidence the honest paper rests on",
         "run over six open-weight families, which is the evidence the honest paper rests on.",
     ),
+    # From paper_rootcause.md, a three-family draft that sat in paper/ until
+    # 2026-08-13 while this repository's own archive README described its era
+    # as overturned. It concluded that instruct models "consistently exhibit
+    # 3-12x more scoring bias" -- a multiplicative claim from ratios of small
+    # deltas, against a corrected paper whose pooled increase is +0.16 with no
+    # probe individually significant.
+    "multiplicative bias increase": (
+        r"(?i)\d+\s*[-–]\s*\d+\s*(?:x|×)\s+more\s+scoring\s+bias",
+        "instruct models consistently exhibit 3-12x more scoring bias than base models",
+    ),
     # From paper/rebuttals.md, the pre-retraction rebuttal document that sat
     # beside the honest one until 2026-08-13. Its answer to the base-model
     # objection was that pretrained representations carry no surface-form bias

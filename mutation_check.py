@@ -1124,11 +1124,19 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The overturned multiplicative claim returns to the live tree.
+        "paper/paper_biasinteraction.md",
+        "## Abstract",
+        "## Abstract\nInstruct models exhibit 3-12x more scoring bias than base models.",
+        "tests/test_superseded_claims_are_not_asserted.py",
+        "a multiplicative bias claim returns to the live tree",
+    ),
+    (
         # An unattributed byline reaches the live tree under the spelling the
         # literal placeholder pattern did not match.
-        "paper/paper_rootcause.md",
-        "# Where Does Scoring Bias Come From?",
-        "Author Name, Author Name\n\n# Where Does Scoring Bias Come From?",
+        "paper/submission_checklist.md",
+        "# Submission checklist",
+        "Author Name, Author Name\n\n# Submission checklist",
         "tests/test_no_fabricated_artefacts.py",
         "a placeholder byline reaches the live tree",
     ),
