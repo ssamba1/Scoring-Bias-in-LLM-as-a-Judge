@@ -114,6 +114,41 @@ def test_the_recorded_files_are_still_aggregate_only():
     )
 
 
+def test_the_environment_note_names_the_same_files():
+    """A reader learns this from ENVIRONMENT.md, not from the test file."""
+    note = REPRO / "ENVIRONMENT.md"
+    if not note.exists():
+        pytest.skip("[repro] ENVIRONMENT.md not present")
+    # Only this section counts. patch_results.json is also discussed under the
+    # empty-keys heading, and a file named anywhere else in the document would
+    # otherwise read as a disclosure it is not part of.
+    body = note.read_text(encoding="utf-8", errors="replace")
+    heading = "## Seven declared panel sizes cannot be checked"
+    if heading not in body:
+        raise AssertionError(
+            f"ENVIRONMENT.md has no section beginning {heading!r}; the seven "
+            f"unverifiable panel sizes are disclosed nowhere a reader will look"
+        )
+    section = body.split(heading, 1)[1]
+    text = section.split("\n## ", 1)[0]
+
+    missing = sorted(name for name in MEANS_ONLY if name not in text)
+    assert not missing, (
+        f"ENVIRONMENT.md does not name {missing}, whose declared panel size "
+        f"nothing in the release can check; the disclosure has to list every "
+        f"file it covers or it understates what is unverifiable"
+    )
+
+    checkable = sorted(
+        name for name, blob in _declaring_files()
+        if name not in MEANS_ONLY and _per_item_lengths(blob) and name in text
+    )
+    assert not checkable, (
+        f"ENVIRONMENT.md lists {checkable} as aggregate-only, but they record "
+        f"per-item vectors; the note overstates what is unverifiable"
+    )
+
+
 def test_the_exemption_list_is_not_a_dumping_ground():
     present = {name for name, _ in _declaring_files()}
     stale = sorted(set(MEANS_ONLY) - present)

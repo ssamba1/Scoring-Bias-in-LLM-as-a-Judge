@@ -11,6 +11,27 @@ The harness no longer emits the unused keys. The released files are left exactly
 were produced, because they are the record of what ran.
 
 
+## Seven declared panel sizes cannot be checked from the released files
+
+Thirteen raw files declare `n_items`, the panel each cell was scored on and the
+denominator of every mean in the file. Six of them also store per-item score
+vectors, so the declaration is checkable against the data, and
+`tests/test_the_item_panel_is_what_the_paper_says.py` checks every vector in
+them.
+
+The other seven — `results_chat.json`, `results_gran.json`, `results_t10.json`,
+`results_tokvar.json`, `patch_results.json`, `patch_results_qwen05.json` and
+`spanpatch_results.json` — record only aggregates, because their harnesses wrote
+one mean per cell and never wrote the per-item scores. Nothing in the release
+can therefore confirm that those runs used the panel they declare. This is a
+limitation of what was recorded, not withheld data, and the missing vectors are
+not reconstructible after the fact; producing them any other way would be
+fabrication.
+
+The set is pinned in `tests/test_a_declared_panel_is_checkable_or_recorded.py`,
+so it can shrink when a harness starts recording vectors but cannot grow
+silently.
+
 The analysis stack is pinned in [`requirements-repro.txt`](requirements-repro.txt):
 
     numpy==2.4.4   scipy==1.17.1   statsmodels==0.14.6

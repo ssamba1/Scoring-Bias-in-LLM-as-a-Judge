@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The disclosure drops one of the seven files whose declared panel
+        # size nothing in the release can check.
+        "paper/honest/repro/ENVIRONMENT.md",
+        "`results_tokvar.json`, `patch_results.json`",
+        "`patch_results.json`",
+        "tests/test_a_declared_panel_is_checkable_or_recorded.py",
+        "the unverifiable-panel disclosure drops a file",
+    ),
+    (
         # A file exempted as aggregate-only starts carrying a per-item vector,
         # so its panel size became checkable and the exemption is now hiding a
         # check that could run.
