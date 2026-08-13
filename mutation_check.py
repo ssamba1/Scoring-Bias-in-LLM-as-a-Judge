@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A file exempted as aggregate-only starts carrying a per-item vector,
+        # so its panel size became checkable and the exemption is now hiding a
+        # check that could run.
+        "paper/honest/repro/patch_results.json",
+        '"raw": [',
+        '"per_item_raw": [',
+        "tests/test_a_declared_panel_is_checkable_or_recorded.py",
+        "an aggregate-only exemption outlives its reason",
+    ),
+    (
         # An item vanishes from a sampled cell, leaving 19 scores where the
         # file declares 20. Until the per-item detectors learned the affixed
         # key names and learned that null is a recorded outcome, no guard in
