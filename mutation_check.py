@@ -1124,6 +1124,24 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A reviewer-facing pointer goes back to the section it used to mean,
+        # which still exists and now holds something else entirely.
+        "paper/honest/REBUTTAL_FAQ.md",
+        "7/8 families, ρ=−0.44 (§5.17)",
+        "7/8 families, ρ=−0.44 (§5.10)",
+        "tests/test_the_rebuttal_faq_points_at_the_paper.py",
+        "the FAQ points a reviewer at the wrong section",
+    ),
+    (
+        # The FAQ goes back to claiming per-probe significance the registered
+        # test does not support.
+        "paper/honest/REBUTTAL_FAQ.md",
+        '**"No probe is individually significant."**',
+        '**"Only 3/5 probes individually significant."**',
+        "tests/test_the_rebuttal_faq_points_at_the_paper.py",
+        "the FAQ overstates the per-probe evidence",
+    ),
+    (
         # The disclosure drops one of the seven files whose declared panel
         # size nothing in the release can check.
         "paper/honest/repro/ENVIRONMENT.md",
