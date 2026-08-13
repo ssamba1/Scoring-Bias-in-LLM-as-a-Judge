@@ -21,6 +21,8 @@ replacements they sat beside.
 | `depth_theory.md` | A Python script named `.md` | Never imported or run by anything; not a document. |
 | `software_and_data.md` | Software versions and data description | Superseded by `paper/honest/repro/ENVIRONMENT.md` and `README.md`, which are checked against the environment that actually ran. |
 | `paper_biasinteraction_compiled.md` | A compiled draft of the bias-interaction paper | A different project's paper. `paper/paper_biasinteraction.md` remains in the live tree because the agent instructions reference it. |
+| `supplementary.md` | "Supplementary Materials" for the retracted multi-study write-up | Describes Study 2 — a full-factorial design over 400 items judged by five frontier models — which is not this paper's design, and opens by pointing at `literature_audit/bias_inventory.md`, a path quarantined in an earlier pass. The corrected paper's appendices are in the paper itself. |
+| `submission_checklist.md` | The retracted paper's checklist | Claimed 20 figures, 10 tables, 286 references and "47 models, 41 complete" against a paper with 10 figures, 5 tables and 28 references, with every box ticked including ones nobody had done. Replaced by an honest `paper/submission_checklist.md` whose counts are recomputed from the paper. |
 
 Nothing here should be cited, reused, or treated as describing the current
 study. For that, see [`paper/honest/`](../../../paper/honest/).

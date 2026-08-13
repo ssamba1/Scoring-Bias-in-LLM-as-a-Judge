@@ -1,61 +1,90 @@
-# Submission Checklist — Scoring Bias in LLM-as-a-Judge
+# Submission checklist — Confidence Is Not Robustness
+
+Describes `paper/honest/scoring_bias_v2.tex`, the corrected paper. The previous
+version of this file described the retracted one — 20 figures, 10 tables, 286
+references, "47 models, 41 complete" — and had every box ticked including items
+that were never done. It is kept at
+[`RETRACTED/legacy/paper_planning/`](../RETRACTED/legacy/paper_planning/) as part
+of the record.
+
+Counts below are checked against the paper by
+`tests/test_the_submission_checklist_describes_this_paper.py`, so a box cannot
+quietly outlive what it describes.
 
 ## Manuscript
+
 - [x] Title and abstract accurately describe the work
-- [x] All author information complete (name, affiliation, email)
 - [x] Keywords present
-- [x] Code availability statement with GitHub URL
-- [x] Data availability statement with DOI
-- [x] Ethics statement included
+- [x] Code availability statement with the GitHub URL
+- [x] Ethics and broader-impact section (§10)
 - [x] Competing interests declared
-- [x] Pre-registration status noted
+- [x] Preregistration status noted — twenty predictions, git-timestamped before
+      their data existed, in `paper/honest/PREREGISTRATION.md`
+- [x] Retraction of the prior version stated in the abstract, not only in an
+      appendix
+- [ ] **Author information complete.** `CITATION.cff` carries name and
+      affiliation; no ORCID is set. Adding one is the author's own action — an
+      ORCID identifies a person and cannot be minted on their behalf.
 
 ## Structure
-- [x] Introduction with clear problem statement and research questions
-- [x] Related work section with comparison table
-- [x] Method section with full reproducibility details
-- [x] Results section with all 20 figures and 10 tables
-- [x] Discussion section with theoretical interpretation
-- [x] Limitations section with 6 quantified limitations
-- [x] Broader impact section with actionable recommendations
-- [x] Conclusion summarizing all findings
-- [x] Author contributions (CRediT)
-- [x] Acknowledgments
-- [x] References (286 entries)
-- [x] Supplementary materials
 
-## Figures & Tables
-- [x] All 20 figures present in paper/figures/
-- [x] All figures have captions and are referenced in text
-- [x] All 10 tables have captions and are referenced in text
-- [x] No broken `\ref{}` or `\label{}` cross-references
+- [x] Introduction with the problem statement and research questions
+- [x] Related work with a positioning table
+- [x] Method with full reproduction details (§3)
+- [x] Results: 10 figures and 5 tables
+- [x] Discussion with the theoretical interpretation
+- [x] Limitations: 10 items (§7)
+- [x] Conclusion
+- [x] Reproducibility section naming every analyzer (§9)
+- [x] References: 28 entries in `honest.bib`
 
-## Data & Code
-- [x] All experimental code in GitHub repository
-- [x] All results data in repository (47 models, 41 complete)
-- [x] DOI archived at Zenodo (10.5281/zenodo.21361920)
-- [x] Reproduction pipeline documented
-- [x] Dockerfile for reproduction
+## Figures and tables
 
-## arXiv Submission
-- [x] `arxiv_submission/main.tex` — complete LaTeX source
-- [x] `arxiv_submission/metadata.yaml` — arXiv metadata
-- [x] All figures bundled
-- [x] Bibliography file included
-- [x] Supplementary materials included
-- [x] Source compiles with `latexmk -pdf`
+- [x] Every figure included by the paper is present and regenerates from
+      committed data — `repro/check_figures.py` compares the text drawn into
+      each vector PDF against the current analysis
+- [x] Every figure and table has a caption and is referenced in the text
+- [x] No undefined `\ref{}` or `\label{}` — the archive build reports
+      `undefined=0 overfull=0 missing=0`
 
-## Style & Formatting
-- [x] Line numbers enabled
-- [x] Two-column layout
-- [x] Standard arXiv format (no custom classes)
-- [x] All URLs use `\url{}`
-- [x] All citations use `\cite{}`
-- [x] Consistent notation throughout
+## Data and code
 
-## Final Checks
-- [ ] Run `latexmk -pdf` to verify compilation
-- [ ] Verify all figures render at correct resolution
-- [ ] Check DOI resolves correctly
-- [ ] Confirm GitHub repo is public
-- [ ] Run arXiv auto-format check after upload
+- [x] All analysis code in the repository, CPU-only under `paper/honest/repro/`
+- [x] All raw data committed, so no GPU and no API access is needed to
+      reproduce any derived number
+- [x] Reproduction pipeline documented (`ENVIRONMENT.md`)
+- [x] Dockerfile and `docker-compose.yml` build and run the analysis
+- [x] Seven raw files declare a panel size nothing in the release can verify,
+      and that is disclosed rather than left implicit (`ENVIRONMENT.md`)
+- [ ] **Zenodo DOI for this version.** The repository cites earlier deposits;
+      minting a DOI for the corrected paper is the author's own action.
+
+## Verification
+
+- [x] `verify_like_ci.py` passes 8/8 locally, including regenerating every
+      analysis and diffing the derived numbers against the committed ones
+- [x] Full suite green
+- [x] Every registered guard fails when its subject is mutated
+      (`mutation_check.py`)
+- [ ] **A green run on GitHub's own runners.** The local gate runs what CI runs;
+      it is not the same as CI having run it.
+
+## arXiv
+
+- [x] `paper/honest/arxiv_submission/` holds the complete source, bundled
+      figures, and bibliography
+- [x] The archive rebuilds from the current paper rather than shipping a stale
+      copy — a staleness guard compares it against the live source
+- [ ] **Withdraw or replace the on-hold submission.** The earlier submission
+      predates the retraction; check the on-hold PDF for the fabricated
+      per-domain table before doing anything else, and do not resubmit from the
+      old tarball. The author's action.
+- [ ] **arXiv identifier, endorsement, categories, and licence.** The author's
+      actions.
+
+## Not claimed
+
+- No human raters or human-gold labels were collected; the gold-standard
+  analysis uses the released derived scores.
+- No frontier base checkpoints exist publicly, so no causal base-vs-instruct
+  contrast is possible at the frontier, and none is claimed.

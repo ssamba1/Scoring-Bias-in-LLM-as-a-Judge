@@ -1124,6 +1124,22 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The checklist's figure count drifts from the paper it describes.
+        "paper/submission_checklist.md",
+        "Results: 10 figures and 5 tables",
+        "Results: 20 figures and 5 tables",
+        "tests/test_the_submission_checklist_describes_this_paper.py",
+        "the checklist miscounts the paper's figures",
+    ),
+    (
+        # A box only the author can complete is ticked as done.
+        "paper/submission_checklist.md",
+        "- [ ] **Zenodo DOI for this version.**",
+        "- [x] **Zenodo DOI for this version.**",
+        "tests/test_the_submission_checklist_describes_this_paper.py",
+        "an author-only action is ticked as done",
+    ),
+    (
         # A quarantined pre-retraction rebuttal returns to the live tree,
         # asserting the mechanism story the corrected paper overturned.
         "paper/paper_biasinteraction.md",
