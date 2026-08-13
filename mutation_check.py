@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A reported failure quietly becomes a success. Nobody re-derives a
+        # number that already says the prediction did not work, so P14's counts
+        # could drift in either direction unnoticed.
+        "paper/honest/repro/results_dose_analysis.json",
+        '"instruct_steeper": "3/8"',
+        '"instruct_steeper": "7/8"',
+        "tests/test_the_dose_failure_recomputes.py",
+        "a reported failure stops matching its own cells",
+    ),
+    (
         # The span-patch band stops matching the curve beneath it. "Localized in
         # a mid-network band" is what makes this a causal finding rather than a
         # diffuse one, and the band and the curve are printed in one sentence.
