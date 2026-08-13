@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The span-patch band stops matching the curve beneath it. "Localized in
+        # a mid-network band" is what makes this a causal finding rather than a
+        # diffuse one, and the band and the curve are printed in one sentence.
+        "paper/honest/repro/spanpatch_analysis.json",
+        '"layers_with_reduction_ge_50pct": [\n        3,',
+        '"layers_with_reduction_ge_50pct": [\n        2,\n        3,',
+        "tests/test_the_span_patch_band_recomputes.py",
+        "the span-patch band stops matching its curve",
+    ),
+    (
         # The patching harness initialises a container it never fills again. A
         # future run would ship an empty "raw" that a reader auditing a
         # retracted project cannot tell from per-item data withheld or lost.
