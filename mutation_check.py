@@ -1124,6 +1124,17 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The ground-truth run's lost model stops being disclosed, leaving a
+        # shell entry in the data with no path to a reader.
+        "paper/honest/repro/ENVIRONMENT.md",
+        "**The ground-truth run lost StableLM-2-1.6B.** Both its checkpoints failed with\n"
+        "`AttributeError: 'StableLmConfig' object has no attribute 'pad_token_id'`, a\n"
+        "known quirk of that config.",
+        "**The ground-truth run completed.**",
+        "tests/test_recorded_failures_are_disclosed.py",
+        "a recorded run failure stops being disclosed",
+    ),
+    (
         # Instruct attention to the nuisance rises above base, restoring the
         # mechanism the retracted version invented at exactly this point.
         "paper/honest/repro/attn_results.json",

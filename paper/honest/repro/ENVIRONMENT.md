@@ -11,6 +11,32 @@ The harness no longer emits the unused keys. The released files are left exactly
 were produced, because they are the record of what ran.
 
 
+## Two runs record failures, and one of them leaves a shell entry
+
+`gold_results.json` and `results_closed.json` are the only released runs whose
+`errors` block is non-empty. Both failures are real and neither changes a
+reported number, but only one of them was written down anywhere a reader would
+see.
+
+**The ground-truth run lost StableLM-2-1.6B.** Both its checkpoints failed with
+`AttributeError: 'StableLmConfig' object has no attribute 'pad_token_id'`, a
+known quirk of that config. The file still carries a `StableLM-2-1.6B` entry
+holding `params_b` and nothing else, so counting the models in the file gives
+six while only five have data. The ground-truth analysis therefore rests on five
+families: SmolLM2-360M, Qwen2.5-0.5B, Falcon3-1B, Qwen2.5-1.5B and Qwen2.5-3B.
+No number in the paper claims otherwise — the section quotes accuracies and
+margins, not a family count — but the shell entry makes the panel look larger
+than it is, and that is worth stating rather than leaving in a raw file.
+
+**The frontier run lost qwen-2.5-72b-instruct** to a 404 from the provider. That
+one was already disclosed: `results_closed_analysis.json` lists it under
+`excluded` with the reason, and the paper says Claude and Gemini expose no
+logprobs.
+
+`tests/test_recorded_failures_are_disclosed.py` requires any run that records a
+failure to name it here, and any model entry with no condition data to be named
+as well.
+
 ## The local gate is not evidence about CI
 
 `verify_like_ci.py` runs what the GitHub workflow runs, and it is what every
