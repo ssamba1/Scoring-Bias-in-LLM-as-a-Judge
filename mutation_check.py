@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The public page's figures button points back at the quarantined
+        # directory, inviting a reader to look at withdrawn material.
+        "paper/interactive/index.html",
+        'href="../honest/arxiv_submission/figures/"',
+        'href="../figures/"',
+        "tests/test_documents_point_at_files_that_exist.py",
+        "a public page links to a quarantined directory",
+    ),
+    (
         # The README's headline link points at a built PDF that .gitignore
         # excludes, so it is a 404 for everyone who has not built it.
         "README.md",

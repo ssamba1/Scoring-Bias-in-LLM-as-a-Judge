@@ -136,6 +136,47 @@ def test_every_markdown_link_is_to_something_published(doc):
     )
 
 
+def _pages():
+    listing = subprocess.run(
+        ["git", "ls-files", "*.html"], cwd=REPO, capture_output=True, text=True, timeout=300
+    ).stdout.split()
+    pages = [p for p in listing if not p.startswith(EXEMPT_PREFIXES)]
+    if not pages:
+        pytest.skip("[pages] none tracked")
+    return sorted(pages)
+
+
+@pytest.mark.parametrize("page", _pages())
+def test_every_page_link_is_to_something_published(page):
+    """The interactive pages are the public face; a dead link there is seen.
+
+    index.html footer offered "View Paper Figures" pointing at paper/figures/,
+    the directory whose contents were quarantined in the August sweep for being
+    fabricated. Nothing under it is tracked, so the button was a 404 -- and an
+    invitation to look at exactly the material that was withdrawn.
+    """
+    tracked = _tracked()
+    tracked_dirs = {t.rsplit("/", 1)[0] for t in tracked if "/" in t}
+    text = (REPO / page).read_text(encoding="utf-8", errors="replace")
+    dead = []
+    for match in re.finditer(r'(?:href|src)\s*=\s*["\']([^"\'#][^"\']*)["\']', text):
+        target = match.group(1).split("#")[0].split("?")[0]
+        if not target or target.startswith(("http", "mailto:", "data:", "//")):
+            continue
+        resolved = posixpath.normpath(
+            posixpath.join(posixpath.dirname(page), target)
+        ).rstrip("/")
+        if resolved in tracked or resolved in tracked_dirs:
+            continue
+        if any(t.startswith(resolved + "/") for t in tracked):
+            continue
+        dead.append(target)
+    assert not dead, (
+        f"{page} links to {sorted(set(dead))}, which nothing tracked lives "
+        f"under; a visitor clicking that link gets a 404"
+    )
+
+
 def _scripts():
     listing = subprocess.run(
         ["git", "ls-files", "*.sh"], cwd=REPO, capture_output=True, text=True, timeout=300
