@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The smallest Chinese family effect flips sign, turning the paper's
+        # 4/4 replication into 3/4 while every string pin still matches.
+        "paper/honest/repro/results_zh_analysis.json",
+        '"Qwen2.5-1.5B": 0.115',
+        '"Qwen2.5-1.5B": -0.115',
+        "tests/test_the_chinese_replication_recomputes.py",
+        "a Chinese family effect flips sign",
+    ),
+    (
         # Pooling the frontier judges is reported as strengthening the law;
         # the stored pooled correlation drifts to weaker than the open-only
         # one, which reverses the point of having run them.
