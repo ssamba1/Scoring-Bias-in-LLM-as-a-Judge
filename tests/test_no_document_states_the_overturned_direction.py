@@ -40,12 +40,18 @@ EXEMPT_FILES = {
 
 # Phrasings of the overturned direction. Each is a claim, not a hypothesis: the
 # preregistrations above pose both directions and are exempt by name.
+# Probed against restatements on 2026-08-14. Every pattern here was
+# case-sensitive, so "Instruction tuning improves robustness" -- the sentence
+# with a capital at the start of it, which is how anyone would actually write
+# it -- passed the whole set. That is the third pattern set in this repository
+# found narrowed to the exact casing and wording of the artefact that prompted
+# it. The verbs and the agent are alternated for the same reason.
 REVERSED = (
-    r"instruction tuning (?:naturally )?improves (?:format )?robustness",
-    r"tuning makes (?:the )?judges? more robust",
-    r"format bias decreases after",
-    r"bias (?:is )?reduced by instruction tuning",
-    r"more robust after (?:instruction )?tuning",
+    r"(?i)instruction tuning (?:naturally )?(?:improves|enhances|increases) (?:format )?robustness",
+    r"(?i)tuning makes (?:the )?judges? more robust",
+    r"(?i)format bias (?:decreases|declines|drops|falls) after",
+    r"(?i)bias (?:is )?reduced by (?:instruction )?tuning",
+    r"(?i)more robust after (?:instruction )?tuning",
 )
 
 

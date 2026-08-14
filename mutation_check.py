@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The overturned direction returns with a capital at the start of the
+        # sentence -- the spelling the whole pattern set missed until the
+        # casing was fixed.
+        "paper/submission_checklist.md",
+        "## Manuscript",
+        "## Manuscript\nInstruction tuning improves robustness.",
+        "tests/test_no_document_states_the_overturned_direction.py",
+        "the overturned direction returns at the start of a sentence",
+    ),
+    (
         # A bibliography entry citing the retracted paper returns to the live
         # tree, with the withdrawn record as its doi field.
         "CITATION.cff",
