@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # Pooling the frontier judges is reported as strengthening the law;
+        # the stored pooled correlation drifts to weaker than the open-only
+        # one, which reverses the point of having run them.
+        "paper/honest/repro/results_closed_analysis.json",
+        '"pooled_rho": -0.452',
+        '"pooled_rho": -0.352',
+        "tests/test_the_frontier_pooling_recomputes.py",
+        "the frontier pooling stops strengthening the law",
+    ),
+    (
         # The stage ladder's exception disappears: Tulu-3-8B's RLVR step is
         # made to fall, so entropy falls at all eight transitions and the
         # caption's original "every stage sharpens" becomes true again.
