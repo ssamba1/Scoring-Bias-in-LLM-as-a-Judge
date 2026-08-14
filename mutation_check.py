@@ -1124,6 +1124,24 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A bibliography entry citing the retracted paper returns to the live
+        # tree, with the withdrawn record as its doi field.
+        "CITATION.cff",
+        "repository-code:",
+        "doi = {10.5281/zenodo.21361920}\nrepository-code:",
+        "tests/test_one_doi_is_cited_everywhere.py",
+        "the withdrawn DOI is used as a citable field",
+    ),
+    (
+        # The retracted paper's fabricated title returns in title case, the
+        # spelling the case-sensitive pattern missed for a year.
+        "CITATION.cff",
+        'title: "Confidence Is Not Robustness',
+        'x-prior-title: A 22-Model Landscape with Base-Instruct Comparison\ntitle: "Confidence Is Not Robustness',
+        "tests/test_no_fabricated_artefacts.py",
+        "a fabricated scale claim returns in a different case",
+    ),
+    (
         # An artifact stops naming the archive of record, so two files answer
         # "where does this work live" differently.
         ".hermes.md",

@@ -19,6 +19,7 @@ matching a string would be the kind of guard that reads stronger than it is.
 """
 
 import re
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -27,6 +28,14 @@ REPO = Path(__file__).resolve().parent.parent
 
 LIVE_DOI = "10.5281/zenodo.21499823"
 WITHDRAWN_DOI = "10.5281/zenodo.21361920"
+
+# Files whose purpose is to name the withdrawn record.
+EXEMPT = {
+    "tests/test_one_doi_is_cited_everywhere.py",
+    "mutation_check.py",
+    "DATA_INTEGRITY_AUDIT.md",
+    "paper/PROVENANCE_AUDIT.md",
+}
 
 # Files that state where the work is archived. Each must agree.
 PUBLISHING = (
@@ -82,6 +91,39 @@ def test_the_withdrawn_doi_is_never_on_offer(rel):
             f"nothing nearby saying it was removed or why; it reads as a "
             f"citable DOI for a version that was fabricated"
         )
+
+
+def test_the_withdrawn_doi_is_not_a_citable_field_anywhere():
+    """A bibliography entry is a citation whatever the prose around it says.
+
+    paper/references.bib and paper/scoring_bias_paper.bib each held a
+    self-citation to the retracted paper -- its fabricated title, the withdrawn
+    record as the doi field, and a placeholder arXiv id -- ready to paste. The
+    files above are where a DOI is *stated*; a bib entry is where one is
+    *used*, and nothing was checking those.
+    """
+    listing = subprocess.run(
+        ["git", "ls-files"], cwd=REPO, capture_output=True, text=True, timeout=300
+    ).stdout.split()
+    offenders = []
+    for rel in listing:
+        if rel.startswith(("RETRACTED/", "paper/archive/")) or rel in EXEMPT:
+            continue
+        path = REPO / rel
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        except (OSError, UnicodeDecodeError):
+            continue
+        if re.search(
+            r"(?im)^\s*(?:doi|url|eprint)\s*[=:]\s*[{\"']?\S*" + re.escape(WITHDRAWN_DOI),
+            text,
+        ):
+            offenders.append(rel)
+    assert not offenders, (
+        f"{offenders} give the withdrawn record {WITHDRAWN_DOI} as a doi, url "
+        f"or eprint field. That is a citation to the fabricated version, "
+        f"regardless of any note elsewhere in the file."
+    )
 
 
 def test_no_other_doi_is_advertised():
