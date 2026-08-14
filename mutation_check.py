@@ -1542,6 +1542,17 @@ MUTATIONS = [
         "a split verdict's count drifts from its own values",
     ),
     (
+        # A family crosses a band boundary. The paper's "strong below 3B, flat
+        # above" reading depends on where the line sits, and moving one family
+        # changes both bands' correlations while every sentence still reads as
+        # a size-robustness check that passed.
+        "paper/honest/repro/results_scaled.json",
+        '      "params_b": 3.0,',
+        '      "params_b": 4.0,',
+        "tests/test_the_mechanism_subgroups_recompute.py",
+        "a judge family moves across a size band boundary",
+    ),
+    (
         # The clustering disclosure is dropped. Without it the pooled p reads as
         # 180 independent draws when it is 60 judge x template cells of three
         # probes, which is where its <1e-6 comes from.
