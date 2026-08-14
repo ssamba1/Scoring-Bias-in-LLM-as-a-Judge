@@ -36,7 +36,7 @@ The analysis stack is pinned in [`requirements-repro.txt`](requirements-repro.tx
 
     numpy==2.4.4   scipy==1.17.1   statsmodels==0.14.6
 
-Everything under `repro/` is CPU-only. The raw data is committed, so no GPU and
+Everything under `paper/honest/repro/` is CPU-only. The raw data is committed, so no GPU and
 no API access are needed to reproduce any derived number in the paper.
 
 ## Where bit-exact reproduction is verified

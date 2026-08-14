@@ -1124,6 +1124,14 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The README's data table points at a directory the reader is not in.
+        "README.md",
+        "| `paper/honest/repro/results_scaled.json` |",
+        "| `repro/results_scaled.json` |",
+        "tests/test_documents_point_at_files_that_exist.py",
+        "a document quotes a path that does not resolve",
+    ),
+    (
         # The agent instructions send a reader to a path that is not there.
         ".hermes.md",
         "- arXiv package: `paper/honest/arxiv_package.py`",
@@ -1515,8 +1523,8 @@ MUTATIONS = [
         # sections of the paper lose their listed source, in the first place
         # anyone looks for it.
         "README.md",
-        "| `repro/results_closed.json` |",
-        "| `repro/results_closed_OMITTED.json` |",
+        "| `paper/honest/repro/results_closed.json` |",
+        "| `paper/honest/repro/results_closed_OMITTED.json` |",
         "tests/test_the_release_promises_hold.py",
         "the README's data table drops a released run",
     ),

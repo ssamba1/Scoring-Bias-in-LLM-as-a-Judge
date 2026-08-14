@@ -41,7 +41,7 @@ quietly outlive what it describes.
 ## Figures and tables
 
 - [x] Every figure included by the paper is present and regenerates from
-      committed data — `repro/check_figures.py` compares the text drawn into
+      committed data — `paper/honest/repro/check_figures.py` compares the text drawn into
       each vector PDF against the current analysis
 - [x] Every figure and table has a caption and is referenced in the text
 - [x] No undefined `\ref{}` or `\label{}` — the archive build reports
