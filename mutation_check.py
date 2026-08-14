@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A per-family pair moves, so the registered test's p-value no longer
+        # follows from the thirteen pairs it is computed over. The Holm check
+        # takes the raw p as given, so only the enumeration sees this.
+        "paper/honest/repro/results_peritem.json",
+        '"score_id": {\n        "base_delta": 1.609',
+        '"score_id": {\n        "base_delta": 2.609',
+        "tests/test_the_registered_per_probe_test_recomputes.py",
+        "a preregistered p-value stops following from its pairs",
+    ),
+    (
         # Two variance components swap. They still sum to one, so the identity
         # check passes and only a recompute from the cells sees it.
         "paper/honest/repro/results_robustness.json",
