@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The paper goes back to calling 35 item-by-rubric-order pairs "items",
+        # which is impossible from a 20-item panel and overstates how
+        # independent the causal test's sample is.
+        "paper/honest/macros.tex",
+        "$n=35$ of the 40 item$\\times$rubric-order pairs",
+        "$n=35$ items",
+        "tests/test_the_patched_units_are_described_correctly.py",
+        "the patched pairs are called items again",
+    ),
+    (
         # The ground-truth run's lost model stops being disclosed, leaving a
         # shell entry in the data with no path to a reader.
         "paper/honest/repro/ENVIRONMENT.md",
