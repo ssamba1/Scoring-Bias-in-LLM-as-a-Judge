@@ -90,6 +90,39 @@ def test_the_moved_paths_really_are_gone():
     )
 
 
+def _scripts():
+    listing = subprocess.run(
+        ["git", "ls-files", "*.sh"], cwd=REPO, capture_output=True, text=True, timeout=300
+    ).stdout.split()
+    scripts = [s for s in listing if not s.startswith(EXEMPT_PREFIXES)]
+    if not scripts:
+        pytest.skip("[scripts] none tracked")
+    return sorted(scripts)
+
+
+@pytest.mark.parametrize("script", _scripts())
+def test_every_script_runs_a_file_that_exists(script):
+    """In a shell script a dead path is a crash, not a confused reader.
+
+    setup.sh ended with `$PY tests/run_tests.py`. No such file has existed
+    since the rewrite, so the last step of setup -- the one that tells a new
+    contributor the install worked -- always failed.
+    """
+    here = (REPO / script).parent
+    text = (REPO / script).read_text(encoding="utf-8", errors="replace")
+    missing = []
+    for match in re.finditer(r"(?<![\w$/\"'-])([\w.-]+/[\w./-]+\.(?:py|sh|json|tex))", text):
+        candidate = match.group(1)
+        if "$" in candidate or "*" in candidate:
+            continue
+        if not (REPO / candidate).exists() and not (here / candidate).exists():
+            missing.append(candidate)
+    assert not missing, (
+        f"{script} names {sorted(set(missing))}, which do not exist; running "
+        f"the script fails at that line"
+    )
+
+
 def test_the_sweep_reads_real_documents():
     """Vacuity guard: a parse that finds nothing would pass everywhere."""
     total = sum(len(_quoted_paths(doc)) for doc in _documents())

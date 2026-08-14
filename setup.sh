@@ -41,9 +41,12 @@ $PY -m pip install --quiet openai anthropic google-generativeai pandas numpy sci
 echo "  Installing GPU pipeline dependencies..."
 $PY -m pip install --quiet transformers torch accelerate huggingface_hub 2>/dev/null || echo "  (Some packages may have failed  install manually if needed)"
 
-# Run tests
+# Run tests. Until 2026-08-13 this invoked a runner script under tests/ that has
+# not existed since the rewrite, so the last step of setup always failed. The
+# path is not repeated here: a guard reads this file for paths that do not
+# resolve, and naming it would trip the check that caught it.
 echo "[4/4] Running tests..."
-$PY tests/run_tests.py
+$PY -m pytest tests/ -q
 
 echo ""
 echo "========================================"

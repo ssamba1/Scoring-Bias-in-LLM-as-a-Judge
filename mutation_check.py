@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The setup script's last step runs a file that is not there, so a new
+        # contributor's install fails where it should say it worked.
+        "setup.sh",
+        "$PY -m pytest tests/ -q",
+        "$PY tests/run_all_tests.py",
+        "tests/test_documents_point_at_files_that_exist.py",
+        "a script runs a file that does not exist",
+    ),
+    (
         # The README's data table points at a directory the reader is not in.
         "README.md",
         "| `paper/honest/repro/results_scaled.json` |",
