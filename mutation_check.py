@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The agent instructions state a study size no count of the released
+        # data produces, in the section headed "must be correct in all outputs".
+        ".hermes.md",
+        "63,040 across the",
+        "62,940 across the",
+        "tests/test_the_agent_findings_match_the_data.py",
+        "the agent instructions state an uncountable study size",
+    ),
+    (
         # A dead import returns, which is what the lint gate is for.
         "verify_like_ci.py",
         "import subprocess",
