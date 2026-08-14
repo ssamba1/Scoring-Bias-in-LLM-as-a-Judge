@@ -11,6 +11,24 @@ The harness no longer emits the unused keys. The released files are left exactly
 were produced, because they are the record of what ran.
 
 
+## The local gate is not evidence about CI
+
+`verify_like_ci.py` runs what the GitHub workflow runs, and it is what every
+verification claim in this repository's commit history rests on. It has one
+blind spot, and it hid a real failure for as long as the run history goes back:
+it builds its own pinned virtualenv, so it installs exactly what the suite needs
+and cannot fail the way a runner fails when the workflow installs too little.
+
+That is what happened. The integrity job installed pytest alone, the suite grew
+tests importing numpy and scipy, and collection died on the runner before any
+check ran — while the local gate reported 8/8 every time. Fixed 2026-08-14, with
+`tests/test_ci_installs_what_the_suite_imports.py` comparing what the suite
+imports at module level against what the workflow installs.
+
+Read the local gate as what it is: a check that the analyses reproduce and the
+paper matches its data on one machine. Whether the workflow passes is a separate
+fact, visible only in the Actions tab.
+
 ## Seven declared panel sizes cannot be checked from the released files
 
 Thirteen raw files declare `n_items`, the panel each cell was scored on and the
