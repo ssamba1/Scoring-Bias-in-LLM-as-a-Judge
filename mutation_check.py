@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The stage ladder's exception disappears: Tulu-3-8B's RLVR step is
+        # made to fall, so entropy falls at all eight transitions and the
+        # caption's original "every stage sharpens" becomes true again.
+        "paper/honest/repro/results_stages_analysis.json",
+        '        0.9209,\n        1.1061\n      ],',
+        '        0.9209,\n        0.8061\n      ],',
+        "tests/test_the_stage_ladder_recomputes.py",
+        "the stage ladder's one exception disappears",
+    ),
+    (
         # The bound's measured tightness drifts from the distributions. The
         # mean still sits inside min and max, so the relationships the theory
         # test checks all still hold.
