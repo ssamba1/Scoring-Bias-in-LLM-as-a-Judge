@@ -1124,10 +1124,18 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The inverted judge attribution returns to the live tree.
+        "paper/submission_checklist.md",
+        "## Structure",
+        "## Structure\nGemini shows near-additive behavior.",
+        "tests/test_superseded_claims_are_not_asserted.py",
+        "an inverted judge attribution returns to the live tree",
+    ),
+    (
         # The overturned multiplicative claim returns to the live tree.
-        "paper/paper_biasinteraction.md",
-        "## Abstract",
-        "## Abstract\nInstruct models exhibit 3-12x more scoring bias than base models.",
+        "paper/submission_checklist.md",
+        "## Manuscript",
+        "## Manuscript\nInstruct models exhibit 3-12x more scoring bias than base models.",
         "tests/test_superseded_claims_are_not_asserted.py",
         "a multiplicative bias claim returns to the live tree",
     ),
@@ -1159,9 +1167,9 @@ MUTATIONS = [
     (
         # A quarantined pre-retraction rebuttal returns to the live tree,
         # asserting the mechanism story the corrected paper overturned.
-        "paper/paper_biasinteraction.md",
-        "# Bias Interaction",
-        "Pretrained representations are inherently bias-free.\n\n# Bias Interaction",
+        "paper/submission_checklist.md",
+        "## Verification",
+        "## Verification\nPretrained representations are inherently bias-free.",
         "tests/test_superseded_claims_are_not_asserted.py",
         "an overturned mechanism claim returns to the live tree",
     ),

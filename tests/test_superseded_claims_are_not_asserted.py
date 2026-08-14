@@ -51,6 +51,16 @@ CLAIMS = {
         r"(?i)which is the evidence the honest paper rests on",
         "run over six open-weight families, which is the evidence the honest paper rests on.",
     ),
+    # From paper_biasinteraction.md, quarantined 2026-08-13. The completed
+    # bias-interaction study finds the interaction is attributable to Gemini
+    # 2.5 Flash alone, with the other four judges certified additive by an
+    # equivalence test. The draft asserted the inverse -- Gemini near-additive,
+    # Claude and Llama compounding -- so the attribution, not just the strength,
+    # was backwards.
+    "gemini is near-additive": (
+        r"(?i)gemini\s+shows\s+near-additive",
+        "Gemini shows near-additive behavior",
+    ),
     # From paper_rootcause.md, a three-family draft that sat in paper/ until
     # 2026-08-13 while this repository's own archive README described its era
     # as overturned. It concluded that instruct models "consistently exhibit
