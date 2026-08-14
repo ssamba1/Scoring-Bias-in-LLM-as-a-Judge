@@ -151,7 +151,8 @@ def _domain_cases():
         if not record or len(cells) < 3:
             continue
         out.append(pytest.param(key, "base", cells[1], record["base"], id=f"{key}-base"))
-        out.append(pytest.param(key, "instruct", cells[2], record["instruct"], id=f"{key}-instruct"))
+        out.append(pytest.param(key, "instruct", cells[2], record["instruct"],
+                                id=f"{key}-instruct"))
     return out
 
 

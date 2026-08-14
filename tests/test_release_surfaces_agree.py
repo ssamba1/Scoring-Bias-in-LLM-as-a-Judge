@@ -76,7 +76,8 @@ def test_the_citation_record_matches_the_licence_file():
     licence = _declared_licence()
     if not CFF.exists():
         pytest.skip("[metadata] no CITATION.cff")
-    declared = re.search(r"^license:\s*(.+)$", CFF.read_text(encoding="utf-8", errors="replace"), re.M)
+    cff_text = CFF.read_text(encoding="utf-8", errors="replace")
+    declared = re.search(r"^license:\s*(.+)$", cff_text, re.M)
     if not declared:
         pytest.skip("[metadata] CITATION.cff declares no licence")
     value = declared.group(1).strip().strip("\"'")

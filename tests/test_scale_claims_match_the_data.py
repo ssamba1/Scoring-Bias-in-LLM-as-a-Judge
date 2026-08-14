@@ -99,7 +99,10 @@ def _count_judgments():
             leaf = keypath.rsplit(".", 1)[-1]
             if leaf not in SCORE_ARRAYS:
                 continue
-            if value and all(isinstance(v, (int, float)) and not isinstance(v, bool) for v in value):
+            numeric = all(
+                isinstance(v, (int, float)) and not isinstance(v, bool) for v in value
+            )
+            if value and numeric:
                 count += len(value)
         if count:
             per_file[path.name] = count
@@ -200,7 +203,10 @@ def test_bias_type_count_matches_the_panel():
         "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
     }
     claims = re.findall(r"(\w+)\}?\s*(?:distinct\s+)?bias types", text)
-    counted = [(word, number_words[word.lower()]) for word in claims if word.lower() in number_words]
+    counted = [
+        (word, number_words[word.lower()])
+        for word in claims if word.lower() in number_words
+    ]
     assert counted, (
         "the paper no longer states a bias-type count in words; update this "
         "guard to match the new wording rather than deleting it"
@@ -210,7 +216,9 @@ def test_bias_type_count_matches_the_panel():
         f"the paper says {wrong} bias types in {len(counted)} statement(s); the "
         f"panel ran {len(probes)}: {sorted(probes)}"
     )
-    assert len(probes) == 5, f"the paper claims five bias types; the data has {len(probes)}: {sorted(probes)}"
+    assert len(probes) == 5, (
+        f"the paper claims five bias types; the data has {len(probes)}: {sorted(probes)}"
+    )
 
 
 def test_the_released_data_holds_the_judgments_the_paper_claims():

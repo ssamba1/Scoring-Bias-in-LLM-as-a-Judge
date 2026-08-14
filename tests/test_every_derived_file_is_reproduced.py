@@ -106,7 +106,8 @@ def test_every_derived_file_is_regenerated():
         # Only decidable for the newprobes family: its output is named after its
         # input. A source file that exists but is never passed to the script is
         # a derived file nothing recomputes.
-        if source and (REPRO / source).exists() and source in {f"{s[:-5]}.json" for s in invoked} | invoked:
+        produced = {f"{s[:-5]}.json" for s in invoked} | invoked
+        if source and (REPRO / source).exists() and source in produced:
             continue
         if source and (REPRO / source).exists() and source not in invoked:
             # Distinguish "written by newprobes" from "written by its own script".

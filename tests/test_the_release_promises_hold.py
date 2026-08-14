@@ -209,7 +209,9 @@ def test_the_integrity_audit_exists_and_names_its_evidence():
     item. Counting verdicts in the first alone understates the audit, which is
     what a first version of this check did.
     """
-    assert AUDIT.exists(), "the paper promises a full integrity audit; DATA_INTEGRITY_AUDIT.md is absent"
+    assert AUDIT.exists(), (
+        "the paper promises a full integrity audit; DATA_INTEGRITY_AUDIT.md is absent"
+    )
     body = AUDIT.read_text(encoding="utf-8", errors="replace")
     assert len(body) > 2000, "the integrity audit is too short to be the promised full audit"
 

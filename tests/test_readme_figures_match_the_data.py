@@ -50,10 +50,13 @@ def _at(root, dotted):
 # (label, regex with one numeric group, source, dotted path, decimals)
 CLAIMS = [
     ("entropy before tuning", r"entropy (\d\.\d\d) ->", MECH, "decisiveness.base_mean", 2),
-    ("entropy after tuning", r"entropy \d\.\d\d -> (\d\.\d\d)", MECH, "decisiveness.instruct_mean", 2),
+    ("entropy after tuning", r"entropy \d\.\d\d -> (\d\.\d\d)", MECH,
+     "decisiveness.instruct_mean", 2),
     ("mixed-effects coefficient", r"instruct coef \*\*\+(\d\.\d\d)", MECH, "lmm.instruct_coef", 2),
-    ("exact permutation p", r"\*\*p=(\d\.\d+)\*\*", ROB, "F1_exact_permutation.exact_p_two_sided", 5),
-    ("entropy-bias correlation", r"rho=(-\d\.\d\d) pooled", MECH, "entropy_bias_link.spearman_rho", 2),
+    ("exact permutation p", r"\*\*p=(\d\.\d+)\*\*", ROB,
+     "F1_exact_permutation.exact_p_two_sided", 5),
+    ("entropy-bias correlation", r"rho=(-\d\.\d\d) pooled", MECH,
+     "entropy_bias_link.spearman_rho", 2),
     ("size-partialled correlation", r"pooled; (-\d\.\d\d) partialling", MECH,
      "size_confound_control.partial_rank_rho_given_log10_params", 2),
     ("within-judge correlation", r"within-judge rho=\+(\d\.\d\d)", ROB,
@@ -79,7 +82,8 @@ def _cases():
     out = []
     for label, pattern, source, dotted, places in CLAIMS:
         if source and _at(source, dotted) is not None:
-            out.append(pytest.param(label, pattern, source, dotted, places, id=label.replace(" ", "-")))
+            out.append(pytest.param(label, pattern, source, dotted, places,
+                                    id=label.replace(" ", "-")))
     return out
 
 

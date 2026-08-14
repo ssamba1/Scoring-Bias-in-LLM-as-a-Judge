@@ -59,7 +59,8 @@ def test_the_predecessor_is_not_described_more_gently_than_the_audit(softener):
         for match in re.finditer(
             rf"\b(?:prior|earlier|previous|first|original)[,\s]+{softener}\b", text
         ):
-            offenders.append(f"{path.name}: ...{text[max(0, match.start() - 60):match.end() + 40]}...")
+            excerpt = text[max(0, match.start() - 60):match.end() + 40]
+            offenders.append(f"{path.name}: ...{excerpt}...")
     assert not offenders, (
         f"the paper calls its predecessor {softener!r}, which is weaker than the "
         f"audit's own verdict on it: {offenders}"

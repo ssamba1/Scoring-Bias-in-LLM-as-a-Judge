@@ -43,7 +43,8 @@ def test_the_runner_reruns_every_analysis(runner):
     path = RUNNERS[runner]
     if not path.exists():
         pytest.skip(f"[{runner}] not present")
-    named = set(re.findall(r"(analyze_[\w]+\.py)", path.read_text(encoding="utf-8", errors="replace")))
+    text = path.read_text(encoding="utf-8", errors="replace")
+    named = set(re.findall(r"(analyze_[\w]+\.py)", text))
 
     analyzers = _analyzers()
     missing = sorted(analyzers - named)

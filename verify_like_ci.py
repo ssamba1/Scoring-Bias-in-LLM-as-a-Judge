@@ -27,7 +27,6 @@ failures -- the point is to surface what is *not* accounted for.
 """
 
 import argparse
-import json
 import re
 import shutil
 import subprocess
@@ -102,7 +101,8 @@ def job_compile(skip_compile):
     print("\n[2/3] submission-compiles")
     archive = HONEST / "arxiv_submission.tar.gz"
     if skip_compile or shutil.which("pdflatex") is None:
-        step("archive builds", True, "skipped: no pdflatex" if not skip_compile else "skipped by request")
+        why = "skipped: no pdflatex" if not skip_compile else "skipped by request"
+        step("archive builds", True, why)
         return
     if not archive.exists():
         step("archive builds", False, "arxiv_submission.tar.gz absent")

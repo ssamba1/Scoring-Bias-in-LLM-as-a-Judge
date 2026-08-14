@@ -69,7 +69,7 @@ def test_every_arm_maps_answer_tokens_to_the_same_values():
         pytest.skip("[repro] no harness defines token_values")
     assert len(variants) == 1, (
         f"the answer-token mapping differs between arms, so their Δ values are "
-        f"not on the same scale: { {k: v for k, v in variants.items()} }"
+        f"not on the same scale: {dict(variants)}"
     )
     assert len(next(iter(variants.values()))) >= 5, (
         "fewer than five harnesses define token_values; the comparison is thin"

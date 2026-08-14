@@ -118,7 +118,8 @@ def test_every_file_the_section_names_exists():
 def test_the_named_examples_are_raw_not_derived():
     """The examples illustrate the raw inputs; a derived file among them misleads."""
     section = _section()
-    named = {n for n in re.findall(r"\\path\{([^}]+)\}", section) if n.endswith((".json", ".json.gz"))}
+    paths = re.findall(r"\\path\{([^}]+)\}", section)
+    named = {n for n in paths if n.endswith((".json", ".json.gz"))}
     derived = _derived_names()
     wrong = sorted(named & derived)
     assert not wrong, (

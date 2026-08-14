@@ -16,7 +16,6 @@ number written to three decimals is a claim about three decimals.
 """
 
 import json
-import re
 from pathlib import Path
 
 import pytest

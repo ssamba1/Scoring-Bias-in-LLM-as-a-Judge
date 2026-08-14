@@ -19,7 +19,6 @@ outputs to look tidier is the habit this project is furthest from.
 
 import ast
 import json
-import re
 import subprocess
 from pathlib import Path
 

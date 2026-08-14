@@ -1124,6 +1124,22 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A dead import returns, which is what the lint gate is for.
+        "verify_like_ci.py",
+        "import subprocess",
+        "import json\nimport subprocess",
+        "tests/test_the_lint_gate_passes.py",
+        "the lint gate stops being clean",
+    ),
+    (
+        # black goes back into the gate it has never passed.
+        "Makefile",
+        "lint:  # Run code quality checks (flake8)",
+        "lint:  # Run code quality checks (flake8)\n\tblack --check tests/",
+        "tests/test_the_lint_gate_passes.py",
+        "black returns to a gate it has never passed",
+    ),
+    (
         # CI stops installing the stack the suite imports, so collection dies
         # on the runner while every local check stays green.
         ".github/workflows/repro.yml",

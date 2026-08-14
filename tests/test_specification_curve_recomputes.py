@@ -84,7 +84,8 @@ def test_each_expected_value_specification_recomputes(metric, probe_set):
         pytest.skip(f"[{key}] not in the specification curve")
     stored = specs[key]
 
-    effects = _family_effects(_load("results_scaled.json")["results"], PROBE_SETS[probe_set], metric)
+    results = _load("results_scaled.json")["results"]
+    effects = _family_effects(results, PROBE_SETS[probe_set], metric)
     assert len(effects) >= 10, f"{key}: only {len(effects)} families; the panel is 13"
 
     recomputed_positive = f"{sum(1 for e in effects if e > 0)}/{len(effects)}"

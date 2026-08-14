@@ -189,7 +189,7 @@ def test_every_number_in_the_paper_is_explained():
         f"by no check, and not on the allowlist:\n"
         + "\n".join(f"  {v}  ...{c}" for v, c in unexplained.items())
         + "\n\nEither the number is derived and should come from the data, or it "
-        f"is not a measurement and belongs in ALLOWED with a reason."
+        "is not a measurement and belongs in ALLOWED with a reason."
     )
 
 

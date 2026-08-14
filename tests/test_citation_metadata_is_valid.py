@@ -87,7 +87,8 @@ def test_the_archived_doi_matches_the_one_the_paper_cites():
     paper = REPO / "paper" / "honest" / "scoring_bias_v2.tex"
     if not paper.exists():
         pytest.skip("[paper] scoring_bias_v2.tex not present")
-    in_paper = set(re.findall(r"10\.5281/zenodo\.\d+", paper.read_text(encoding="utf-8", errors="replace")))
+    text = paper.read_text(encoding="utf-8", errors="replace")
+    in_paper = set(re.findall(r"10\.5281/zenodo\.\d+", text))
     in_cff = set(re.findall(r"10\.5281/zenodo\.\d+", _text()))
     cited_cff = {d for d in in_cff if re.search(r"^doi:\s*" + re.escape(d), _text(), re.M)}
     assert cited_cff <= in_paper or not in_paper, (

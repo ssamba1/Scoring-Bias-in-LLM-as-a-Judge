@@ -92,7 +92,9 @@ def test_the_harnesses_score_that_variant_first():
         if not block:
             continue
         if f'"{variant}"' not in block.group(1):
-            missing.append(f"{probe}: the analyzers use {variant!r}, the harness has no such variant")
+            missing.append(
+                f"{probe}: the analyzers use {variant!r}, the harness has no such variant"
+            )
     assert not missing, (
         f"the analyzers measure against a variant the harness never produced: "
         f"{missing}"

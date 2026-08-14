@@ -13,7 +13,7 @@ Please include a summary of the changes and the motivation behind them. Link to 
 Describe the testing you've done to verify your changes:
 - [ ] All existing tests pass (`python -m pytest tests/ -v`)
 - [ ] New tests added for new functionality
-- [ ] Linting passes (`flake8` and `black --check`)
+- [ ] Linting passes (`make lint`, which is `flake8`; `black` is advisory, see the Makefile)
 
 ## Reproducibility Checklist
 - [ ] All random seeds are fixed (seed=42)

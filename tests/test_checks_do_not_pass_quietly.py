@@ -28,7 +28,6 @@ than left as a failing entry or a passing illusion.
 """
 
 import ast
-import re
 import subprocess
 from pathlib import Path
 
@@ -44,6 +43,8 @@ ADMISSIONS = (
 
 # Scripts whose job is to check something. Excludes tests/ (pytest decides the
 # exit code) and RETRACTED/ (not part of the release's verification).
+
+
 def _checkers():
     listing = subprocess.run(
         ["git", "ls-files", "*.py"], cwd=REPO, capture_output=True, text=True, timeout=300
@@ -56,7 +57,8 @@ def _checkers():
         if not path.is_file():
             continue
         body = path.read_text(encoding="utf-8", errors="replace")
-        if "check" not in rel and "verify" not in rel and "scan" not in rel and "mutation" not in rel:
+        markers = ("check", "verify", "scan", "mutation")
+        if not any(marker in rel for marker in markers):
             continue
         out.append((rel, path, body))
     if not out:

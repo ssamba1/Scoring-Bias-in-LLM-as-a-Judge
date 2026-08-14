@@ -75,7 +75,9 @@ def test_per_probe_counts_recompute_from_the_raw_run(analysis, raw):
     for probe, stored in summaries.items():
         changes = _per_family_change(results, probe)
         if not changes:
-            wrong.append(f"{probe}: no family in {raw} yields a change; the summary rests on nothing")
+            wrong.append(
+                f"{probe}: no family in {raw} yields a change; the summary rests on nothing"
+            )
             continue
         checked += 1
         recomputed = f"{sum(1 for v in changes.values() if v > 0)}/{len(changes)}"

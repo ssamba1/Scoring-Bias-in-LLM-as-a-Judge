@@ -75,8 +75,12 @@ def test_the_main_panel_is_balanced_across_domains():
     )
     items = panels["scaled_harness.py"]
     counts = collections.Counter(i[2] for i in items)
-    assert len(items) == PANEL_SIZE, f"the panel has {len(items)} items, the paper says {PANEL_SIZE}"
-    assert len(counts) == DOMAINS, f"the panel spans {len(counts)} domains, the paper says {DOMAINS}"
+    assert len(items) == PANEL_SIZE, (
+        f"the panel has {len(items)} items, the paper says {PANEL_SIZE}"
+    )
+    assert len(counts) == DOMAINS, (
+        f"the panel spans {len(counts)} domains, the paper says {DOMAINS}"
+    )
     unbalanced = {d: n for d, n in counts.items() if n != PER_DOMAIN}
     assert not unbalanced, (
         f"the paper says 10 items in each domain; {unbalanced} say otherwise. "

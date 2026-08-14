@@ -189,4 +189,6 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         f"{unaccounted} are booleans in the released results that no test "
         f"recomputes and that are not listed as deliberately unchecked"
     )
-    assert len(found) >= 10, f"only {len(found)} booleans found; the sweep is not reading the release"
+    assert len(found) >= 10, (
+        f"only {len(found)} booleans found; the sweep is not reading the release"
+    )

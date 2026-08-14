@@ -36,6 +36,7 @@ def _figure_text(path):
     )
     return " ".join(result.stdout.split()) if result.returncode == 0 else None
 
+
 REPO = Path(__file__).resolve().parent.parent
 SUPERSEDED = REPO / "paper" / "honest" / "superseded"
 
