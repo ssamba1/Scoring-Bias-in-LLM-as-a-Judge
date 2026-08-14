@@ -29,8 +29,20 @@
 
 ## The paper
 
-**[`paper/honest/scoring_bias_v2.pdf`](paper/honest/scoring_bias_v2.pdf)** — *Confidence Is Not
-Robustness.* Source: `paper/honest/scoring_bias_v2.tex` (+ `macros.tex`, `honest.bib`).
+**[`paper/honest/scoring_bias_v2.tex`](paper/honest/scoring_bias_v2.tex)** — *Confidence Is Not
+Robustness*, with `macros.tex` (every quoted statistic) and `honest.bib`. The archived version
+is at [DOI 10.5281/zenodo.21499823](https://doi.org/10.5281/zenodo.21499823), and
+[`paper/honest/arxiv_submission.tar.gz`](paper/honest/arxiv_submission.tar.gz) is the
+self-contained submission tarball.
+
+Built PDFs are not committed — `.gitignore` excludes them, because they are regenerable and
+the tarball is the artifact of record. This heading linked to `scoring_bias_v2.pdf` until
+2026-08-14, which meant the most prominent link in this README was a 404 for everyone who had
+not built it themselves. To build it:
+
+```bash
+cd paper/honest && pdflatex scoring_bias_v2 && bibtex scoring_bias_v2 && pdflatex scoring_bias_v2 && pdflatex scoring_bias_v2
+```
 
 We study whether a stronger, more instruction-tuned LLM judge is a fairer one. It is not.
 

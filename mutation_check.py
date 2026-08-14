@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The README's headline link points at a built PDF that .gitignore
+        # excludes, so it is a 404 for everyone who has not built it.
+        "README.md",
+        "**[`paper/honest/scoring_bias_v2.tex`](paper/honest/scoring_bias_v2.tex)**",
+        "**[`paper/honest/scoring_bias_v2.pdf`](paper/honest/scoring_bias_v2.pdf)**",
+        "tests/test_documents_point_at_files_that_exist.py",
+        "a document links to something that is not published",
+    ),
+    (
         # A placeholder arXiv identifier reaches the paper, the exact shape
         # found in the bib entry quarantined earlier today.
         "paper/honest/macros.tex",

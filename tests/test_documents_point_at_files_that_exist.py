@@ -21,6 +21,7 @@ DOIs, URLs, absolute platform paths, globs and file:line references are not
 paths to check.
 """
 
+import posixpath
 import re
 import subprocess
 from pathlib import Path
@@ -87,6 +88,51 @@ def test_the_moved_paths_really_are_gone():
     assert not back, (
         f"{back} exist again, but a document describes them as moved; either "
         f"that sentence is now wrong or the file should not be there"
+    )
+
+
+def _tracked():
+    return set(subprocess.run(
+        ["git", "ls-files"], cwd=REPO, capture_output=True, text=True, timeout=300
+    ).stdout.split())
+
+
+@pytest.mark.parametrize("doc", _documents())
+def test_every_markdown_link_is_to_something_published(doc):
+    """Existing on my disk is not the same as existing for a reader.
+
+    README.md opened with a link to paper/honest/scoring_bias_v2.pdf. The file
+    is there when you have built it and .gitignore excludes it from the
+    repository, so the most prominent link in the README was a 404 for every
+    visitor while passing every check that asked whether the path existed.
+    """
+    tracked = _tracked()
+    here = (REPO / doc).parent
+    text = (REPO / doc).read_text(encoding="utf-8", errors="replace")
+    unpublished = []
+    for match in re.finditer(r"\]\(([^)\s]+)\)", text):
+        target = match.group(1).split("#")[0]
+        if not target or target.startswith(("http", "mailto:", "#")):
+            continue
+        # Normalised, so that "../../../.github/..." from a nested document
+        # resolves to the tracked path rather than to a literal string with
+        # parent segments still in it.
+        candidates = [
+            posixpath.normpath(target),
+            posixpath.normpath(posixpath.join(posixpath.dirname(doc), target)),
+        ]
+        resolved = [c for c in candidates if (REPO / c).exists() or (here / c).exists()]
+        if not resolved:
+            continue  # missing entirely -- the other test reports that
+        if not any(c in tracked or f"{c}/" in {t.rsplit('/', 1)[0] + '/' for t in tracked}
+                   for c in candidates):
+            if any((REPO / c).is_dir() or (here / c).is_dir() for c in candidates):
+                continue
+            unpublished.append(target)
+    assert not unpublished, (
+        f"{doc} links to {sorted(set(unpublished))}, which exist locally but "
+        f"are not tracked by git; a reader following the link on the forge "
+        f"gets a 404"
     )
 
 
