@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # Instruct attention to the nuisance rises above base, restoring the
+        # mechanism the retracted version invented at exactly this point.
+        "paper/honest/repro/attn_results.json",
+        '"authority_expert": 0.37777',
+        '"authority_expert": 0.40777',
+        "tests/test_the_attention_null_holds.py",
+        "the refuted attention mechanism comes back",
+    ),
+    (
         # The smallest Chinese family effect flips sign, turning the paper's
         # 4/4 replication into 3/4 while every string pin still matches.
         "paper/honest/repro/results_zh_analysis.json",
