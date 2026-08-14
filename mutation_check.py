@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # Two variance components swap. They still sum to one, so the identity
+        # check passes and only a recompute from the cells sees it.
+        "paper/honest/repro/results_robustness.json",
+        '"probe": 0.236,\n    "kind": 0.056,',
+        '"probe": 0.056,\n    "kind": 0.236,',
+        "tests/test_the_variance_decomposition_recomputes.py",
+        "variance components swap while still summing to one",
+    ),
+    (
         # The answer to the size-confound objection drifts from the runs it is
         # computed on. Pinning it as a string proves only that the sentence was
         # not reworded, so only a recompute sees this.
