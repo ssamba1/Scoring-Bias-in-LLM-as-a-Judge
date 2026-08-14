@@ -1124,6 +1124,22 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The paper goes back to claiming one command re-collects the data.
+        "paper/honest/scoring_bias_v2.tex",
+        "\\path{run_all.sh} runs the CPU half of that pipeline in order",
+        "\\path{run_all.sh} runs all of them in order",
+        "tests/test_the_reproduction_script_does_what_the_paper_says.py",
+        "the paper overstates what one command reproduces",
+    ),
+    (
+        # The reproduction script silently stops regenerating one analysis.
+        "run_all.sh",
+        "analyze_tokvar.py",
+        "analyze_SKIPPED.py",
+        "tests/test_the_reproduction_script_does_what_the_paper_says.py",
+        "the reproduction script drops an analyzer",
+    ),
+    (
         # The public page's figures button points back at the quarantined
         # directory, inviting a reader to look at withdrawn material.
         "paper/interactive/index.html",
