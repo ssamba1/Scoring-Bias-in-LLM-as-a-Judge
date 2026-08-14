@@ -36,8 +36,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install pytest
-        run: pip install pytest
+      - name: Install pytest and the pinned analysis stack
+        # pytest alone until 2026-08-14, which had stopped being enough: the
+        # suite grew tests that import numpy and scipy to recompute statistics
+        # from the raw data, so collection died with ModuleNotFoundError before
+        # a single check ran. Every run of this workflow had been failing or
+        # cancelled for as long as the run history goes back, while the paper
+        # and README described the project as CI-enforced.
+        run: |
+          pip install pytest
+          pip install -r paper/honest/repro/requirements-repro.txt
       - name: No fabricated artefact outside RETRACTED/, submission intact
         run: python -m pytest tests/ -q -rs
       - name: The guards must be able to fail

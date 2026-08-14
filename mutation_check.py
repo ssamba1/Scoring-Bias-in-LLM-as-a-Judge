@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # CI stops installing the stack the suite imports, so collection dies
+        # on the runner while every local check stays green.
+        ".github/workflows/repro.yml",
+        "pip install -r paper/honest/repro/requirements-repro.txt",
+        "pip install -r paper/honest/repro/requirements-absent.txt",
+        "tests/test_ci_installs_what_the_suite_imports.py",
+        "CI stops installing what the suite imports",
+    ),
+    (
         # The paper goes back to claiming one command re-collects the data.
         "paper/honest/scoring_bias_v2.tex",
         "\\path{run_all.sh} runs the CPU half of that pipeline in order",
