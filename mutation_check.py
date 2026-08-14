@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The ground-truth prose goes back to generalising one authority
+        # framing to the probe, claiming the untested expert variant too.
+        "paper/honest/macros.tex",
+        "the authority framing tested here---the novice variant, the only one this run used---is nearly harmless",
+        "authority framing is nearly harmless",
+        "tests/test_the_gold_conditions_are_named_precisely.py",
+        "one authority variant is generalised to the probe",
+    ),
+    (
         # The paper goes back to calling 35 item-by-rubric-order pairs "items",
         # which is impossible from a 20-item panel and overstates how
         # independent the causal test's sample is.
