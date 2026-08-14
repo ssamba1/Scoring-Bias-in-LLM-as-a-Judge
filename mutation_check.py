@@ -1542,6 +1542,17 @@ MUTATIONS = [
         "a split verdict's count drifts from its own values",
     ),
     (
+        # The unperturbed baseline moves. score_id's control is "numeric", not
+        # anything guessable, and every responsiveness figure is a shift
+        # measured from it; point it at another variant and the decomposition's
+        # second term is measuring from the wrong place.
+        "paper/honest/repro/analyze_robustness.py",
+        '"score_id": "numeric"',
+        '"score_id": "letter"',
+        "tests/test_the_two_entropy_readings_stay_distinct.py",
+        "a probe's unperturbed baseline points at another variant",
+    ),
+    (
         # A family crosses a band boundary. The paper's "strong below 3B, flat
         # above" reading depends on where the line sits, and moving one family
         # changes both bands' correlations while every sentence still reads as
