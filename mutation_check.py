@@ -1542,6 +1542,18 @@ MUTATIONS = [
         "a split verdict's count drifts from its own values",
     ),
     (
+        # A stored distribution stops agreeing with its own mean. Expected score
+        # is linear in the distribution, so the two cannot disagree unless the
+        # vector is indexed by something other than the assumed score order --
+        # which is exactly how the score_id letter misalignment survived three
+        # implementations that all shared the assumption.
+        "paper/honest/repro/results_scaled.json",
+        '"mean": 4.583',
+        '"mean": 3.583',
+        "tests/test_distributions_are_indexed_by_score.py",
+        "a distribution stops reproducing its own stored mean",
+    ),
+    (
         # The unperturbed baseline moves. score_id's control is "numeric", not
         # anything guessable, and every responsiveness figure is a shift
         # measured from it; point it at another variant and the decomposition's

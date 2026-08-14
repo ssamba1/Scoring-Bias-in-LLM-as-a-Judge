@@ -30,10 +30,25 @@ def tv(a, b):
     return 0.5 * sum(abs(x - y) for x, y in zip(a, b))
 
 
-def cell_feats(d, cv):
+# score_id's "letter" variant records its distribution in TOKEN order, A..E,
+# which the harness maps to scores 5..1. Every other variant records ascending
+# scores, so an index-wise comparison pits P(score 1) against P(score 5). Only
+# between-variant comparisons need this; the stored means already apply the
+# value map and entropy is unchanged by reversing a support.
+DESCENDING = {("score_id", "letter")}
+
+
+def score_ordered(probe, variant, record):
+    """The variant's distribution indexed by ascending score."""
+    dist = record["mean_dist"]
+    return list(reversed(dist)) if (probe, variant) in DESCENDING else dist
+
+
+def cell_feats(d, cv, probe):
     ctrl = d[cv]
     ent = float(np.mean([d[v]["mean_entropy"] for v in d]))
-    resp = float(np.mean([tv(ctrl["mean_dist"], d[v]["mean_dist"])
+    resp = float(np.mean([tv(score_ordered(probe, cv, ctrl),
+                             score_ordered(probe, v, d[v]))
                           for v in d if v != cv]))
     bias = delta({v: d[v]["mean"] for v in d})
     return ent, resp, bias
@@ -57,7 +72,7 @@ def main():
         for p in PROBES:
             if p not in rec["scores"]:
                 continue
-            ent, resp, bias = cell_feats(rec["scores"][p], CONTROL[p])
+            ent, resp, bias = cell_feats(rec["scores"][p], CONTROL[p], p)
             rows.append(dict(family=rec["family"], stage=rec["stage"],
                              order=rec["stage_order"], probe=p,
                              entropy=round(ent, 4), resp=round(resp, 4),

@@ -38,6 +38,21 @@ CONTROL = {
 
 TOLERANCE = 0.0006  # stored to four decimals, averaged over ten shifts
 
+# score_id's "letter" variant records its distribution in TOKEN order, A..E,
+# which the harness maps to scores 5..1. Every other variant records ascending
+# scores, so comparing them index-wise measures the distance between P(score 1)
+# and P(score 5). This test originally did exactly that, and agreed with an
+# analysis making the same mistake -- two implementations, one assumption, and
+# a green result that verified nothing about the alignment.
+DESCENDING = {("score_id", "letter")}
+
+
+def _score_ordered(probe, variant, distribution):
+    """The variant's distribution indexed by ascending score."""
+    if (probe, variant) in DESCENDING:
+        return list(reversed(distribution))
+    return distribution
+
 
 def _total_variation(left, right):
     """Half the L1 distance between two distributions."""
@@ -67,12 +82,14 @@ def _per_checkpoint():
                 baseline = control.get("mean_dist") if isinstance(control, dict) else None
                 if not baseline:
                     continue
+                baseline = _score_ordered(probe, control_name, baseline)
                 for name, record in variants.items():
                     if name == control_name or not isinstance(record, dict):
                         continue
                     distribution = record.get("mean_dist")
                     if distribution and len(distribution) == len(baseline):
-                        values.append(_total_variation(distribution, baseline))
+                        values.append(_total_variation(
+                            _score_ordered(probe, name, distribution), baseline))
             if values:
                 shifts[(family, arm)] = sum(values) / len(values)
     if not shifts:

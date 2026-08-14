@@ -45,16 +45,29 @@ PINS = REPRO / "requirements-repro.txt"
 # local regeneration which flips them fails immediately rather than three
 # commits later.
 #
+# Every entry here is responsiveness-derived, so all eight moved when the
+# score-ordering fix landed: score_id's "letter" variant records its
+# distribution in token order A..E, which maps to scores 5..1, and the total
+# variation against the ascending control had been taken index-wise. These are
+# the corrected values.
+#
+# One honest caveat. These are what this machine produces after the fix, not
+# what CI has been observed to produce -- the point of the list is to record
+# CI's rounding, and CI has not run since the values changed. Whether any of
+# them still lands on a tie is unknown until it does. If the reproduction gate
+# goes red on one of these, the diff it prints is the authority and this list
+# should be updated to match, exactly as it was when the first four were added.
+#
 # (file, dotted path, value CI produces)
 CI_VALUES = [
-    ("results_mechanism.json", "responsiveness_link_points.resp[6]", 0.6995),
-    ("results_mechanism.json", "responsiveness_link_points.resp[18]", 0.1083),
-    ("results_mechanism.json", "responsiveness_link_points.resp[91]", 0.3871),
-    ("results_mechanism.json", "responsiveness_link_points.resp[92]", 0.2231),
-    ("results_stages_analysis.json", "per_cell[16].resp", 0.4863),
-    ("results_stages_analysis.json", "trajectories.OLMo-2-1B.RLVR.resp", 0.1967),
-    ("results_stages_analysis.json", "P8_paths.OLMo-2-1B.resp_path[3]", 0.1967),
-    ("results_stages_analysis.json", "P7.sft_share_of_total_rise[0]", 0.839),
+    ("results_mechanism.json", "responsiveness_link_points.resp[6]", 0.5182),
+    ("results_mechanism.json", "responsiveness_link_points.resp[18]", 0.1084),
+    ("results_mechanism.json", "responsiveness_link_points.resp[91]", 0.3826),
+    ("results_mechanism.json", "responsiveness_link_points.resp[92]", 0.223),
+    ("results_stages_analysis.json", "per_cell[16].resp", 0.4362),
+    ("results_stages_analysis.json", "trajectories.OLMo-2-1B.RLVR.resp", 0.1866),
+    ("results_stages_analysis.json", "P8_paths.OLMo-2-1B.resp_path[3]", 0.1866),
+    ("results_stages_analysis.json", "P7.sft_share_of_total_rise[0]", 0.871),
 ]
 
 NUMERIC = ("numpy", "scipy", "statsmodels", "pandas")

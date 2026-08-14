@@ -57,6 +57,27 @@ def tv(a, b):
     return 0.5 * sum(abs(x - y) for x, y in zip(a, b))
 
 
+# score_id's "letter" variant records its answer distribution in TOKEN order,
+# A..E, and the harness maps those tokens to scores 5..1 (token_values returns
+# range(5, 0, -1) for the letter list alone). Every other variant records
+# ascending scores. Comparing the two index-wise therefore compares P(score 1)
+# against P(score 5) -- a total-variation distance between misaligned supports,
+# which inflates score_id's responsiveness.
+#
+# The stored per-variant "mean" is unaffected: the harness applies the value
+# map when computing the expected score. Only comparisons *between* variant
+# distributions need the alignment, which is why this went unseen -- every
+# single-variant statistic (entropy, sqrt_var, the means) is either
+# permutation-invariant or already correct.
+DESCENDING = {("score_id", "letter")}
+
+
+def score_ordered(probe, variant, record):
+    """The variant's distribution indexed by ascending score."""
+    dist = record["mean_dist"]
+    return list(reversed(dist)) if (probe, variant) in DESCENDING else dist
+
+
 def load(name):
     path = HERE / name
     if path.exists():
@@ -86,8 +107,9 @@ def main():
                 d = kd[p]
                 ctrl = d[CONTROL[p]]
                 ent = float(np.mean([d[v]["mean_entropy"] for v in d]))
-                sv = float(np.mean([sqrt_var(d[v]["mean_dist"]) for v in d]))
-                resp = float(np.mean([tv(ctrl["mean_dist"], d[v]["mean_dist"])
+                sv = float(np.mean([sqrt_var(score_ordered(p, v, d[v])) for v in d]))
+                resp = float(np.mean([tv(score_ordered(p, CONTROL[p], ctrl),
+                                         score_ordered(p, v, d[v]))
                                       for v in d if v != CONTROL[p]]))
                 bias = delta({v: d[v]["mean"] for v in d})
                 ca = ctrl["per_item_argmax"]

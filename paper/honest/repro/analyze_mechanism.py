@@ -80,6 +80,21 @@ def delta(vmeans):
     v = list(vmeans.values()); return max(v) - min(v)
 
 
+# score_id's "letter" variant records its distribution in TOKEN order, A..E,
+# which the harness maps to scores 5..1 (token_values returns range(5, 0, -1)
+# for that list alone). Every other variant records ascending scores, so
+# comparing them index-wise compares P(score 1) with P(score 5). Only
+# comparisons *between* variants need this; the stored means already apply the
+# value map, and entropy and sqrt_var are unchanged by reversing a support.
+DESCENDING = {("score_id", "letter")}
+
+
+def score_ordered(probe, variant, record):
+    """The variant's distribution indexed by ascending score."""
+    dist = record["mean_dist"]
+    return list(reversed(dist)) if (probe, variant) in DESCENDING else dist
+
+
 def main():
     payload = json.loads(SRC.read_text())
     pairs = pairs_from(payload)
@@ -231,11 +246,11 @@ def main():
         def responsiveness(model):
             tvs = []
             for p in PROBES:
-                c = model[p][CONTROL[p]]["mean_dist"]
+                c = score_ordered(p, CONTROL[p], model[p][CONTROL[p]])
                 for v in model[p]:
                     if v == CONTROL[p]:
                         continue
-                    d = model[p][v]["mean_dist"]
+                    d = score_ordered(p, v, model[p][v])
                     tvs.append(0.5 * sum(abs(a - b) for a, b in zip(c, d)))  # total variation
             return float(np.mean(tvs))
         rb = [responsiveness(pairs[f]["base"]) for f in fams]
@@ -247,8 +262,9 @@ def main():
             for kind in ("base", "instruct"):
                 d = pairs[f][kind]
                 for p in PROBES:
-                    c = d[p][CONTROL[p]]["mean_dist"]
-                    resp = np.mean([0.5 * sum(abs(a - b) for a, b in zip(c, d[p][v]["mean_dist"]))
+                    c = score_ordered(p, CONTROL[p], d[p][CONTROL[p]])
+                    resp = np.mean([0.5 * sum(abs(a - b) for a, b in
+                                              zip(c, score_ordered(p, v, d[p][v])))
                                     for v in d[p] if v != CONTROL[p]])
                     rx.append(resp); ry.append(delta({v: d[p][v]["mean"] for v in d[p]}))
         rr, rp = stats.spearmanr(rx, ry)

@@ -21,7 +21,7 @@
       "order": 0,
       "probe": "score_id",
       "entropy": 2.1717,
-      "resp": 0.2067,
+      "resp": 0.2096,
       "bias": 0.4974
     },
     {
@@ -66,7 +66,7 @@
       "order": 1,
       "probe": "score_id",
       "entropy": 1.8121,
-      "resp": 0.2739,
+      "resp": 0.2472,
       "bias": 0.9997
     },
     {
@@ -111,7 +111,7 @@
       "order": 2,
       "probe": "score_id",
       "entropy": 1.3213,
-      "resp": 0.4529,
+      "resp": 0.4923,
       "bias": 1.9442
     },
     {
@@ -156,7 +156,7 @@
       "order": 3,
       "probe": "score_id",
       "entropy": 1.324,
-      "resp": 0.4863,
+      "resp": 0.4362,
       "bias": 1.612
     },
     {
@@ -201,7 +201,7 @@
       "order": 0,
       "probe": "score_id",
       "entropy": 2.0644,
-      "resp": 0.2947,
+      "resp": 0.2492,
       "bias": 0.8229
     },
     {
@@ -246,7 +246,7 @@
       "order": 1,
       "probe": "score_id",
       "entropy": 1.5275,
-      "resp": 0.4471,
+      "resp": 0.4525,
       "bias": 1.553
     },
     {
@@ -291,7 +291,7 @@
       "order": 2,
       "probe": "score_id",
       "entropy": 1.3237,
-      "resp": 0.4717,
+      "resp": 0.4939,
       "bias": 1.7204
     },
     {
@@ -336,7 +336,7 @@
       "order": 3,
       "probe": "score_id",
       "entropy": 1.2458,
-      "resp": 0.483,
+      "resp": 0.5059,
       "bias": 1.7873
     },
     {
@@ -381,7 +381,7 @@
       "order": 1,
       "probe": "score_id",
       "entropy": 1.6324,
-      "resp": 0.5061,
+      "resp": 0.4133,
       "bias": 0.7544
     },
     {
@@ -426,7 +426,7 @@
       "order": 2,
       "probe": "score_id",
       "entropy": 0.9923,
-      "resp": 0.6078,
+      "resp": 0.4686,
       "bias": 0.8156
     },
     {
@@ -471,7 +471,7 @@
       "order": 3,
       "probe": "score_id",
       "entropy": 1.012,
-      "resp": 0.5217,
+      "resp": 0.3573,
       "bias": 0.7131
     },
     {
@@ -506,61 +506,61 @@
     "OLMo-2-1B": {
       "base": {
         "entropy": 2.2143,
-        "resp": 0.0885,
+        "resp": 0.0891,
         "bias": 0.2433
       },
       "SFT": {
         "entropy": 1.8044,
-        "resp": 0.1793,
+        "resp": 0.174,
         "bias": 0.7961
       },
       "DPO": {
         "entropy": 1.0392,
-        "resp": 0.2165,
+        "resp": 0.2244,
         "bias": 0.8719
       },
       "RLVR": {
         "entropy": 0.9865,
-        "resp": 0.1967,
+        "resp": 0.1866,
         "bias": 0.6806
       }
     },
     "OLMo-2-7B": {
       "base": {
         "entropy": 1.9929,
-        "resp": 0.1547,
+        "resp": 0.1456,
         "bias": 0.5173
       },
       "SFT": {
         "entropy": 1.5583,
-        "resp": 0.2116,
+        "resp": 0.2127,
         "bias": 0.6214
       },
       "DPO": {
         "entropy": 1.3182,
-        "resp": 0.1978,
+        "resp": 0.2023,
         "bias": 0.6196
       },
       "RLVR": {
         "entropy": 1.2014,
-        "resp": 0.2122,
+        "resp": 0.2168,
         "bias": 0.6193
       }
     },
     "Tulu-3-8B": {
       "SFT": {
         "entropy": 1.5836,
-        "resp": 0.3887,
+        "resp": 0.3701,
         "bias": 1.3296
       },
       "DPO": {
         "entropy": 0.9209,
-        "resp": 0.4398,
+        "resp": 0.412,
         "bias": 1.4746
       },
       "RLVR": {
         "entropy": 1.1061,
-        "resp": 0.4352,
+        "resp": 0.4023,
         "bias": 1.3787
       }
     }
@@ -568,8 +568,8 @@
   "P7": {
     "sft_resp_up_cells": "10/10",
     "sft_share_of_total_rise": [
-      0.839,
-      0.99
+      0.871,
+      0.942
     ]
   },
   "P8_paths": {
@@ -581,10 +581,10 @@
         0.9865
       ],
       "resp_path": [
-        0.0885,
-        0.1793,
-        0.2165,
-        0.1967
+        0.0891,
+        0.174,
+        0.2244,
+        0.1866
       ],
       "bias_path": [
         0.2433,
@@ -607,10 +607,10 @@
         1.2014
       ],
       "resp_path": [
-        0.1547,
-        0.2116,
-        0.1978,
-        0.2122
+        0.1456,
+        0.2127,
+        0.2023,
+        0.2168
       ],
       "bias_path": [
         0.5173,
@@ -632,9 +632,9 @@
         1.1061
       ],
       "resp_path": [
-        0.3887,
-        0.4398,
-        0.4352
+        0.3701,
+        0.412,
+        0.4023
       ],
       "bias_path": [
         1.3296,

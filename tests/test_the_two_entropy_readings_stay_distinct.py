@@ -44,6 +44,23 @@ CONTROL = {
     "verbosity": "control",
 }
 
+# score_id's "letter" variant records its distribution in TOKEN order, A..E,
+# which the harness maps to scores 5..1 (token_values). Every other variant
+# records ascending scores. Comparing them index-wise measures the distance
+# between P(score 1) and P(score 5).
+#
+# The first version of this file omitted the alignment and agreed with an
+# analysis that omitted it too. Two implementations sharing one assumption
+# produce agreement, not verification -- the numbers matched to three decimals
+# and both were wrong.
+DESCENDING = {("score_id", "letter")}
+
+
+def _score_ordered(probe, variant, record):
+    """The variant's distribution indexed by ascending score."""
+    dist = record["mean_dist"]
+    return list(reversed(dist)) if (probe, variant) in DESCENDING else dist
+
 
 def _results():
     path = REPRO / "results_scaled.json"
@@ -96,7 +113,8 @@ def _cells():
                 if not control or "mean_dist" not in control:
                     continue
                 means = [v["mean"] for v in variants.values()]
-                perturbed = [v for name, v in variants.items() if name != CONTROL[probe]]
+                perturbed = [(name, v) for name, v in variants.items()
+                             if name != CONTROL[probe]]
                 rows.append({
                     "family": family,
                     "kind": kind,
@@ -105,9 +123,11 @@ def _cells():
                     "variant_entropy": (sum(v["mean_entropy"] for v in variants.values())
                                         / len(variants)),
                     "bias": max(means) - min(means),
-                    "responsiveness": (sum(_total_variation(control["mean_dist"],
-                                                            v["mean_dist"])
-                                           for v in perturbed) / len(perturbed)),
+                    "responsiveness": (
+                        sum(_total_variation(
+                            _score_ordered(probe, CONTROL[probe], control),
+                            _score_ordered(probe, name, v))
+                            for name, v in perturbed) / len(perturbed)),
                 })
     return rows
 
@@ -216,7 +236,7 @@ def test_responsiveness_tracks_bias_in_both_arms():
         f"reports +0.82, far tighter than decisiveness's -0.41, which is the "
         f"decomposition's main empirical claim"
     )
-    for kind, expected in (("base", 0.80), ("instruct", 0.81)):
+    for kind, expected in (("base", 0.80), ("instruct", 0.83)):
         sel = [r for r in rows if r["kind"] == kind]
         rho = _spearman([r["responsiveness"] for r in sel], [r["bias"] for r in sel])
         assert abs(rho - expected) < 0.015, (
@@ -227,9 +247,9 @@ def test_responsiveness_tracks_bias_in_both_arms():
 
     base = _arm_mean(rows, "base", "responsiveness")
     instruct = _arm_mean(rows, "instruct", "responsiveness")
-    assert abs(base - 0.14) < 0.006 and abs(instruct - 0.26) < 0.006, (
+    assert abs(base - 0.14) < 0.006 and abs(instruct - 0.24) < 0.006, (
         f"mean responsiveness is {base:.3f} then {instruct:.3f}; the paper "
-        f"reports 0.14 to 0.26"
+        f"reports 0.14 to 0.24"
     )
 
 
@@ -249,13 +269,13 @@ def test_responsiveness_ranks_probes_within_a_checkpoint():
     assert len(per_checkpoint) == 26, f"{len(per_checkpoint)} checkpoints, not 26"
     mean = sum(per_checkpoint) / len(per_checkpoint)
     positive = sum(1 for v in per_checkpoint if v > 0)
-    assert abs(mean - 0.64) < 0.02, (
+    assert abs(mean - 0.65) < 0.02, (
         f"the mean within-checkpoint responsiveness-bias correlation is "
-        f"{mean:.3f}; the paper reports +0.64"
+        f"{mean:.3f}; the paper reports +0.65"
     )
-    assert positive == 24, (
+    assert positive == 25, (
         f"responsiveness ranks probes correctly in {positive}/26 checkpoints; "
-        f"the paper reports 24/26. This is the half of the decomposition that "
+        f"the paper reports 25/26. This is the half of the decomposition that "
         f"is *not* null within a judge, which is what assigns responsiveness to "
         f"the judge x perturbation level"
     )

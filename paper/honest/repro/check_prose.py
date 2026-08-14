@@ -74,7 +74,7 @@ if rob["B3_sensitivity"]["excl_qwen_positive"] != "8/9":
     FAILS.append("excl-Qwen 8/9 stale")
 close("EV/flip concordance", 0.56, rob["B4_readout_concordance"]["spearman_evbias_fliprate"], 0.006)
 close("within-checkpoint entropy", -0.05, rob["B1_within_checkpoint"]["mean_within_rho"], 0.006)
-close("within-checkpoint responsiveness", 0.64,
+close("within-checkpoint responsiveness", 0.65,
       rob["B1_within_checkpoint_responsiveness"]["mean_within_rho"], 0.006)
 close("LMM entropy coef", -0.46, rob["B1_lmm"]["entropy_coef"], 0.006)
 r2ci = rob["B2_predictor_bootstrap"]["r2_ci95"]
@@ -82,8 +82,8 @@ close("R2 CI low", -0.62, r2ci[0], 0.02)
 close("R2 CI high", 0.57, r2ci[1], 0.02)
 close("split-half SB", 0.99, rob["F4_split_half"]["spearman_brown"], 0.006)
 close("bound tightness", 0.45, rob["F5_bound_tightness"]["mean_gradnorm_over_sqrtvar"], 0.006)
-close("crossover sign acc", 0.75, rob["D3_crossover"]["sign_accuracy"], 0.006)
-close("crossover magnitude rho", 0.64, rob["D3_crossover"]["spearman_dlogpred_dlogact"], 0.006)
+close("crossover sign acc", 0.74, rob["D3_crossover"]["sign_accuracy"], 0.006)
+close("crossover magnitude rho", 0.60, rob["D3_crossover"]["spearman_dlogpred_dlogact"], 0.006)
 vdec = rob["E_variance_decomposition"]
 close("anatomy interaction", 0.37, vdec.get("family:probe"), 0.006)
 close("anatomy probe", 0.24, vdec.get("probe"), 0.006)
@@ -211,8 +211,8 @@ if fp.exists():
 if stages["P7"]["sft_resp_up_cells"] != "10/10":
     FAILS.append("P7 10/10 stale")
 shares = stages["P7"]["sft_share_of_total_rise"]
-if not (0.83 <= shares[0] <= 0.85 and 0.98 <= shares[1] <= 1.0):
-    FAILS.append(f"84%/99% SFT-share stale: {shares}")
+if not (0.86 <= shares[0] <= 0.88 and 0.93 <= shares[1] <= 0.95):
+    FAILS.append(f"87%/94% SFT-share stale: {shares}")
 lel = stages.get("ladder_entropy_bias_link", {})
 close("ladder entropy-bias null", 0.01, lel.get("spearman_rho"), 0.006)
 if stages["P9"]["sign_agreement"] != "7/8":
@@ -322,7 +322,7 @@ states("entropy-bias correlation", r"\rho=-0.41", 5)
 states("variance-term correlation", r"\rho=-0.25", 3)
 states("decisiveness family count", "11/13", 5)
 states("responsiveness family count", "12/13", 1)
-states("within-checkpoint checkpoint count", "24/26", 1)
+states("within-checkpoint checkpoint count", "25/26", 1)
 states("predictor rank correlation", r"\rho=0.58", 3)
 states("predictor R^2", "R^2=0.27", 2)
 states("control-variant correlation", r"\rho=-0.34", 1)
@@ -338,17 +338,17 @@ states("control-variant correlation", r"\rho=-0.34", 1)
 # the ones that are also derivable are compared numerically as well.
 resp_pair = mech["responsiveness"]
 close("responsiveness before tuning", 0.14, resp_pair["base_mean"], 0.006)
-close("responsiveness after tuning", 0.26, resp_pair["instruct_mean"], 0.006)
-check("responsiveness rise in prose", r"0.14\!\to\!0.26", resp_pair["base_mean"])
-states("responsiveness rise", r"0.14\!\to\!0.26", 1)
-states("responsiveness effect size", "d_z=1.44", 2)
+close("responsiveness after tuning", 0.24, resp_pair["instruct_mean"], 0.006)
+check("responsiveness rise in prose", r"0.14\!\to\!0.24", resp_pair["base_mean"])
+states("responsiveness rise", r"0.14\!\to\!0.24", 1)
+states("responsiveness effect size", "d_z=1.48", 2)
 states("responsiveness-bias correlation", r"\rho=+0.82", 2)
 states("mixed-model coefficient", "+0.16", 2)
 states("mixed-model observations", "n=13{,}000", 2)
 states("size-partialled correlation", r"\rho=-0.38", 1)
 states("size-bias correlation", r"\rho=+0.18", 1)
 states("sub-1B band correlation", r"\rho=-0.51", 2)
-states("within-checkpoint responsiveness", r"\rho=+0.64", 2)
+states("within-checkpoint responsiveness", r"\rho=+0.65", 2)
 states("within-checkpoint entropy", r"\rho=-0.05", 1)
 states("readout concordance", r"\rho=0.56", 2)
 states("exact permutation p", "0.00098", 1)
@@ -392,7 +392,7 @@ if mech["mitigation"]["argmax"] <= mech["mitigation"]["expected"]:
         f"argmax ({mech['mitigation']['argmax']}) is no longer the more biased readout"
     )
 
-# "SFT installs 84--99% of the total rise." An integer percentage range, which
+# "SFT installs 87--94% of the total rise." An integer percentage range, which
 # the earlier range sweep did not match -- it looked for decimals. Recomputed
 # per family from the stage table.
 shares = {}
@@ -411,9 +411,9 @@ for fam in {c["family"] for c in stages["per_cell"]}:
 
 if shares:
     lo, hi = min(shares.values()) * 100, max(shares.values()) * 100
-    if not (83.5 <= lo <= 84.5) or not (98.5 <= hi <= 99.5):
+    if not (86.5 <= lo <= 87.5) or not (93.5 <= hi <= 94.5):
         FAILS.append(
-            f"prose says SFT installs 84--99% of the responsiveness rise; measured "
+            f"prose says SFT installs 87--94% of the responsiveness rise; measured "
             f"{lo:.1f}--{hi:.1f}% over {sorted(shares)}"
         )
 
@@ -761,12 +761,12 @@ for label, quoted, actual in [
 
 wcr = rob["B1_within_checkpoint_responsiveness"]
 n_pos = round(wcr["frac_positive"] * wcr["n_checkpoints"])
-if f"{n_pos}/{wcr['n_checkpoints']}" != "24/26":
+if f"{n_pos}/{wcr['n_checkpoints']}" != "25/26":
     FAILS.append(
         f"responsiveness ranks probes in {n_pos}/{wcr['n_checkpoints']} checkpoints, "
-        f"prose says 24/26"
+        f"prose says 25/26"
     )
-close("within-checkpoint responsiveness rho", 0.64, wcr["mean_within_rho"], 0.006)
+close("within-checkpoint responsiveness rho", 0.65, wcr["mean_within_rho"], 0.006)
 close("within-checkpoint entropy rho", -0.05, rob["B1_within_checkpoint"]["mean_within_rho"], 0.006)
 
 if FAILS:
