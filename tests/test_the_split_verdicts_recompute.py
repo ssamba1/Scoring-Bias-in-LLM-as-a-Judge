@@ -3,9 +3,11 @@
 Two predictions came back split, and the paper reports both halves.
 
 P15 (ten templates): the entropy-bias law holds pooled at rho = -0.51 over 180
-points -- the broadest template-robustness evidence in the paper -- while the
-instruct > base direction holds in only 6 of 10 templates at the 135M--0.5B
-scale. The paper's sentence is "strengthens the first clause and fails the
+points -- the paper's broadest template coverage, though probe-centred its
+weakest evidence, which
+tests/test_the_pooled_template_law_is_a_between_probe_contrast.py pins -- while
+the instruct > base direction holds in only 6 of 10 templates at the
+135M--0.5B scale. The paper's sentence is "strengthens the first clause and fails the
 second, and we report both".
 
 P19 (chat template): bias under the model's own chat template is substantial in
@@ -53,7 +55,7 @@ def test_the_ten_template_count_recomputes():
 
 
 def test_the_pooled_template_law_is_still_the_strong_half():
-    """The first clause is what the paper calls its broadest evidence."""
+    """The first clause is the half the paper reports as strengthened."""
     blob = _load("results_t10_analysis.json")
     pooled = blob.get("P15a_entropy_bias")
     if not isinstance(pooled, dict):
@@ -64,7 +66,9 @@ def test_the_pooled_template_law_is_still_the_strong_half():
     )
     assert pooled["n"] == 180, (
         f"the pooled correlation is over {pooled['n']} points; the paper says "
-        f"180 (three families x ten templates x six cells)"
+        f"180 -- three families x two checkpoints x ten templates x three "
+        f"probes, which is 60 judge x template cells of three probes, not 180 "
+        f"independent draws"
     )
 
 

@@ -1542,6 +1542,27 @@ MUTATIONS = [
         "a split verdict's count drifts from its own values",
     ),
     (
+        # The clustering disclosure is dropped. Without it the pooled p reads as
+        # 180 independent draws when it is 60 judge x template cells of three
+        # probes, which is where its <1e-6 comes from.
+        "paper/honest/macros.tex",
+        "not 180 independent draws",
+        "180 fully independent draws",
+        "tests/test_the_pooled_template_law_is_a_between_probe_contrast.py",
+        "the ten-template pooled p stops disclosing its clustering",
+    ),
+    (
+        # The probe-centred value drifts toward the pooled one. At -0.39 the
+        # qualification still reads as present while no longer being a
+        # qualification: it would say the law survives probe-centring nearly
+        # intact, which is the claim the recomputation refutes.
+        "paper/honest/macros.tex",
+        "the relation weakens to $r=-0.19$",
+        "the relation weakens to $r=-0.39$",
+        "tests/test_the_pooled_template_law_is_a_between_probe_contrast.py",
+        "the probe-centred template value drifts from the data",
+    ),
+    (
         # A reported failure quietly becomes a success. Nobody re-derives a
         # number that already says the prediction did not work, so P14's counts
         # could drift in either direction unnoticed.
