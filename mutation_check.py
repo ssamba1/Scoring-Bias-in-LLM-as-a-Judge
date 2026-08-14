@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The answer to the size-confound objection drifts from the runs it is
+        # computed on. Pinning it as a string proves only that the sentence was
+        # not reworded, so only a recompute sees this.
+        "paper/honest/repro/results_mechanism.json",
+        '"partial_rank_rho_given_log10_params": -0.382',
+        '"partial_rank_rho_given_log10_params": -0.582',
+        "tests/test_the_size_confound_control_recomputes.py",
+        "the size-partialled correlation drifts from the runs",
+    ),
+    (
         # The reliability the paper offers against "n=13 is small" drifts from
         # the scores it is measured on. Both stored numbers move together, so
         # the Spearman-Brown identity still holds and only a recompute sees it.
