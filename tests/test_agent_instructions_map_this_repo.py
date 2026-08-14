@@ -78,6 +78,85 @@ def test_the_map_names_the_paper_of_record():
         )
 
 
+# Paths .hermes.md names only to say where they went. Each is checked to be
+# genuinely absent by test_the_moved_paths_really_are_gone.
+MOVED = {
+    "paper/paper_biasinteraction.md",
+    "paper/supplementary.md",
+}
+
+
+def _quoted_paths():
+    """Every backtick-quoted repository path in the instructions.
+
+    The tree parse above reads one ASCII block. Everything else the file says
+    -- the conventions, the workflow, the entry points -- was unchecked, which
+    is how "Main paper: `paper/paper_biasinteraction.md`" survived: a different
+    project's pre-data draft, named as this repository's paper of record, in
+    the file an agent reads first.
+    """
+    text = (REPO / ".hermes.md").read_text(encoding="utf-8", errors="replace")
+    found = []
+    for match in re.finditer(r"`([^`\s]+)`", text):
+        candidate = match.group(1).rstrip(".,;:)")
+        if candidate.startswith(("http", "-", "$", "/")) or " " in candidate:
+            # A leading slash is a Kaggle or Colab path, named to explain that
+            # the platforms differ. It is not a claim about this repository.
+            continue
+        if candidate in MOVED:
+            # Named in a sentence that says where the file went. The pointer is
+            # the correction, so requiring it to exist would forbid explaining
+            # the move -- the same self-reference that has tripped guards here
+            # before.
+            continue
+        if "/" not in candidate and not candidate.startswith("."):
+            continue
+        if candidate.endswith("/") or Path(candidate).suffix:
+            found.append(candidate)
+    return sorted(dict.fromkeys(found))
+
+
+def test_the_moved_paths_really_are_gone():
+    """MOVED excuses a path from existing, so it must not quietly come back."""
+    back = [p for p in MOVED if (REPO / p).exists()]
+    assert not back, (
+        f"{back} exist again, but .hermes.md describes them as moved; either "
+        f"the sentence is now wrong or the file should not be there"
+    )
+
+
+def test_every_quoted_path_exists():
+    quoted = _quoted_paths()
+    # Nine parse today. The floor is a check that the parse still works, not a
+    # target: bare filenames like `macros.tex` are deliberately skipped because
+    # they are ambiguous about which directory they mean.
+    assert len(quoted) >= 8, (
+        f"only {len(quoted)} quoted paths parsed from .hermes.md ({quoted}); "
+        f"the parse no longer matches the file and would pass on anything"
+    )
+    missing = [p for p in quoted if not (REPO / p).exists()]
+    assert not missing, (
+        f".hermes.md quotes {len(missing)} path(s) that do not exist: {missing}. "
+        f"An agent reading this file is being sent somewhere that is not here."
+    )
+
+
+def test_the_main_paper_line_names_the_paper_of_record():
+    text = (REPO / ".hermes.md").read_text(encoding="utf-8", errors="replace")
+    match = re.search(r"Main paper:\s*`([^`]+)`", text)
+    if not match:
+        raise AssertionError(
+            ".hermes.md no longer states which file is the main paper; that "
+            "line named a different project's draft until 2026-08-13, and its "
+            "absence is not an improvement"
+        )
+    named = match.group(1)
+    assert named == "paper/honest/scoring_bias_v2.tex", (
+        f".hermes.md calls {named!r} the main paper; the paper of record is "
+        f"paper/honest/scoring_bias_v2.tex"
+    )
+
+
 def test_no_live_script_serves_the_retracted_paper():
     """A tool in the root that rebuilds or verifies camera_ready_full.tex reads
     as part of the release, whatever its filename suggests."""

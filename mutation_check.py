@@ -1124,6 +1124,22 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The agent instructions send a reader to a path that is not there.
+        ".hermes.md",
+        "- arXiv package: `paper/honest/arxiv_package.py`",
+        "- arXiv package: `paper/arxiv_package.py`",
+        "tests/test_agent_instructions_map_this_repo.py",
+        "the agent map quotes a path that does not exist",
+    ),
+    (
+        # The map names something other than the paper of record as the paper.
+        ".hermes.md",
+        "- Main paper: `paper/honest/scoring_bias_v2.tex`",
+        "- Main paper: `paper/honest/superseded_draft.tex`",
+        "tests/test_agent_instructions_map_this_repo.py",
+        "the agent map names the wrong paper of record",
+    ),
+    (
         # The inverted judge attribution returns to the live tree.
         "paper/submission_checklist.md",
         "## Structure",
