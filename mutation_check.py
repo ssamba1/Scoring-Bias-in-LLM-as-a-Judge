@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The reliability the paper offers against "n=13 is small" drifts from
+        # the scores it is measured on. Both stored numbers move together, so
+        # the Spearman-Brown identity still holds and only a recompute sees it.
+        "paper/honest/repro/results_robustness.json",
+        '"split_half_spearman": 0.986,\n    "spearman_brown": 0.993,',
+        '"split_half_spearman": 0.886,\n    "spearman_brown": 0.94,',
+        "tests/test_split_half_reliability_recomputes.py",
+        "the estimator's reliability drifts from its scores",
+    ),
+    (
         # The agent instructions state a study size no count of the released
         # data produces, in the section headed "must be correct in all outputs".
         ".hermes.md",
