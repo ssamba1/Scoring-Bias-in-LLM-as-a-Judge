@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The concordance between the distributional readout and the discrete
+        # one drifts from the cells. Its n is checked elsewhere and stays 130,
+        # so only recomputing the value sees this.
+        "paper/honest/repro/results_robustness.json",
+        '"spearman_evbias_fliprate": 0.557',
+        '"spearman_evbias_fliprate": 0.257',
+        "tests/test_the_readout_concordance_recomputes.py",
+        "the readout concordance drifts from the cells",
+    ),
+    (
         # A per-family pair moves, so the registered test's p-value no longer
         # follows from the thirteen pairs it is computed over. The Holm check
         # takes the raw p as given, so only the enumeration sees this.
