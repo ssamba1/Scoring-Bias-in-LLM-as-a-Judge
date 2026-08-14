@@ -1124,6 +1124,26 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # An artifact stops naming the archive of record, so two files answer
+        # "where does this work live" differently.
+        ".hermes.md",
+        "archived at DOI\n10.5281/zenodo.21499823",
+        "archived at DOI\n10.5281/zenodo.99999999",
+        "tests/test_one_doi_is_cited_everywhere.py",
+        "a publishing artifact drifts from the archive of record",
+    ),
+    (
+        # The withdrawn record is offered as citable, with nothing saying it
+        # archived the fabricated version.
+        "CITATION.cff",
+        "# NOTE: a prior Zenodo record (10.5281/zenodo.21361920) archived an earlier version\n"
+        "# whose results were fabricated; it was removed at the author's request prior to any\n"
+        "# dissemination. Cite only the DOI above. Full audit: DATA_INTEGRITY_AUDIT.md.",
+        "# See also 10.5281/zenodo.21361920",
+        "tests/test_one_doi_is_cited_everywhere.py",
+        "the withdrawn DOI is presented as citable",
+    ),
+    (
         # The setup script's last step runs a file that is not there, so a new
         # contributor's install fails where it should say it worked.
         "setup.sh",
