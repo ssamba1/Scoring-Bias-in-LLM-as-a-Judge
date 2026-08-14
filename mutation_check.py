@@ -1124,6 +1124,15 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # A placeholder arXiv identifier reaches the paper, the exact shape
+        # found in the bib entry quarantined earlier today.
+        "paper/honest/macros.tex",
+        "% Macros filled from the real 13-family",
+        "\\newcommand{\\ARXIVID}{2607.xxxxx}\n% Macros filled from the real 13-family",
+        "tests/test_no_draft_markers_reach_the_reader.py",
+        "a placeholder identifier reaches the paper",
+    ),
+    (
         # The overturned direction returns with a capital at the start of the
         # sentence -- the spelling the whole pattern set missed until the
         # casing was fixed.

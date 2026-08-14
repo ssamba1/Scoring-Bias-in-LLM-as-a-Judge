@@ -23,11 +23,29 @@ ARCHIVE = HONEST / "arxiv_submission.tar.gz"
 PDF = HONEST / "scoring_bias_v2.pdf"
 
 # label -> (pattern, a string it must match, so a broken regex fails loudly)
+# Probed against restatements on 2026-08-14. The four shouted markers were
+# case-sensitive, so "todo:", "fixme" and "tbd" -- how they are actually typed
+# when someone is mid-thought rather than mid-shout -- all passed. That is the
+# fourth pattern set in this repository found matching only the casing of the
+# example that prompted it.
+#
+# The additions are markers this project has already produced. The bib entry
+# quarantined earlier today carried `eprint = {2607.xxxxx}`: a placeholder
+# arXiv identifier, in a citation, formatted for pasting. None of the words
+# below appears anywhere in the paper sources, so each is an unambiguous sign
+# that something was left unfinished.
 MARKERS = {
-    "TODO": (r"\bTODO\b", "TODO: rewrite this"),
-    "FIXME": (r"\bFIXME\b", "FIXME before submission"),
+    "TODO": (r"(?i)\bTODO\b", "TODO: rewrite this"),
+    "FIXME": (r"(?i)\bFIXME\b", "FIXME before submission"),
     "XXX": (r"\bXXX\b", "XXX check this number"),
-    "TBD": (r"\bTBD\b", "value TBD"),
+    "TBD": (r"(?i)\bTBD\b", "value TBD"),
+    "HACK": (r"(?i)\bHACK:", "HACK: temporary"),
+    "placeholder": (r"(?i)\bplaceholder\b", "PLACEHOLDER value"),
+    "to be determined": (r"(?i)\bto be determined\b", "count to be determined"),
+    "placeholder identifier": (
+        r"(?i)\b(?:arxiv:)?\d{4}\.x{4,}|\bx{4,}\.x{4,}",
+        "2607.xxxxx",
+    ),
     "citation needed": (r"(?i)citation needed", "[citation needed]"),
     "lorem ipsum": (r"(?i)lorem ipsum", "Lorem ipsum dolor"),
     "note to self": (r"(?i)\bnote to self\b", "note to self: check"),
