@@ -1124,6 +1124,16 @@ MUTATIONS = [
         "the ground-truth table leaves its own runs behind",
     ),
     (
+        # The bound's measured tightness drifts from the distributions. The
+        # mean still sits inside min and max, so the relationships the theory
+        # test checks all still hold.
+        "paper/honest/repro/results_robustness.json",
+        '"mean_gradnorm_over_sqrtvar": 0.451',
+        '"mean_gradnorm_over_sqrtvar": 0.471',
+        "tests/test_the_bound_tightness_recomputes.py",
+        "the bound's tightness drifts from the distributions",
+    ),
+    (
         # The concordance between the distributional readout and the discrete
         # one drifts from the cells. Its n is checked elsewhere and stays 130,
         # so only recomputing the value sees this.
