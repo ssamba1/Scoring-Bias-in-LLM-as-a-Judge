@@ -39,12 +39,22 @@ REPO = Path(__file__).resolve().parent.parent
 # mention of it: a sentence explaining that the direction was overturned has to
 # be able to say so.
 CLAIMS = {
+    # Probed against restatements on 2026-08-14. The originals matched only
+    # "reduces", and only the two nouns the offending artefacts happened to
+    # use, so "instruction tuning reduces FORMAT bias" -- nearest to the
+    # retracted headline -- and "lowers"/"decreases" all passed.
+    #
+    # The subject is required to be the tuning, not any intervention. The paper
+    # legitimately reports that a mitigation reduces bias by 59%, and a pattern
+    # broad enough to catch "reduces bias" would forbid saying so.
     "reduces scoring bias": (
-        r"(?i)reduces\s+scoring\s+bias",
+        r"(?i)(?:instruction[-\s]tun\w+|tuning|instruct\s+models?)[^.\n]{0,40}"
+        r"(?:reduc|lower|decreas|diminish)\w*\s+(?:the\s+)?"
+        r"(?:scoring|evaluation|format)\s+bias",
         "Instruction tuning reduces scoring bias ($n=7$ families)",
     ),
     "reduces evaluation bias": (
-        r"(?i)reduces\s+evaluation\s+bias",
+        r"(?i)(?:reduc|lower|decreas|diminish)\w*\s+(?:the\s+)?evaluation\s+bias",
         "Instruction tuning generally reduces evaluation bias.",
     ),
     "rests on the T4 run": (
@@ -58,7 +68,7 @@ CLAIMS = {
     # Claude and Llama compounding -- so the attribution, not just the strength,
     # was backwards.
     "gemini is near-additive": (
-        r"(?i)gemini\s+shows\s+near-additive",
+        r"(?i)gemini\s+(?:shows|is|remains|behaves)\s+(?:as\s+)?near[-\s]additive",
         "Gemini shows near-additive behavior",
     ),
     # From paper_rootcause.md, a three-family draft that sat in paper/ until
@@ -68,7 +78,7 @@ CLAIMS = {
     # deltas, against a corrected paper whose pooled increase is +0.16 with no
     # probe individually significant.
     "multiplicative bias increase": (
-        r"(?i)\d+\s*[-–]\s*\d+\s*(?:x|×)\s+more\s+scoring\s+bias",
+        r"(?i)\d+\s*(?:[-–]|\s+to\s+)\s*\d+\s*(?:x|×)\s+more\s+scoring\s+bias",
         "instruct models consistently exhibit 3-12x more scoring bias than base models",
     ),
     # From paper/rebuttals.md, the pre-retraction rebuttal document that sat
@@ -83,7 +93,7 @@ CLAIMS = {
         "pre-trained representations are inherently bias-free with respect to surface form",
     ),
     "format bias decreases": (
-        r"(?i)format\s+bias\s*(?:&#8595;|↓|â)?\s*decreases",
+        r"(?i)format\s+bias\s*(?:&#8595;|↓|â)?\s*(?:decreas|drop|fall)\w*",
         "Format Bias ↓ Decreases After instruction tuning",
     ),
 }
@@ -93,6 +103,12 @@ EXEMPT_PREFIXES = (
     "RETRACTED/",
     "paper/honest/superseded/",
     "paper/archive/",
+    # The early root-cause pilot, whose own README opens "Superseded pilot data
+    # -- the paper of record derives nothing from this directory". It is the
+    # same category as the three above and was simply never listed; the
+    # widened patterns found it stating the overturned direction, which is what
+    # a preserved superseded record is supposed to do.
+    "results_rootcause/",
 )
 EXEMPT_FILES = {
     "DATA_INTEGRITY_AUDIT.md",
