@@ -216,9 +216,11 @@ MUTATIONS = [
         # A local regeneration overwrites CI's value for a tie-prone entry. This
         # is the exact byte that turned the reproduction gate red for five
         # consecutive commits.
+        # (The value itself changed with the score-ordering fix; it is the same
+        # entry, resp[6], and still the one the gate diffed.)
         "paper/honest/repro/results_mechanism.json",
-        "      0.6995,",
-        "      0.6996,",
+        "      0.5182,",
+        "      0.5183,",
         "tests/test_analysis_stack_matches_the_pins.py",
         "local regeneration overwrites CI's rounding",
     ),
@@ -228,8 +230,8 @@ MUTATIONS = [
         # guard covers the values that have not yet gone wrong, not only the four
         # that did.
         "paper/honest/repro/results_stages_analysis.json",
-        '"resp": 0.4863,',
-        '"resp": 0.4862,',
+        '"resp": 0.4362,',
+        '"resp": 0.4361,',
         "tests/test_analysis_stack_matches_the_pins.py",
         "tie-prone value drifts in a second file",
     ),
@@ -684,15 +686,15 @@ MUTATIONS = [
     ),
     (
         "paper/honest/macros.tex",
-        "$d_z=1.44$, 12/13 families",
-        "$d_z=1.44$, 13/13 families",
+        "$d_z=1.48$, 12/13 families",
+        "$d_z=1.48$, 13/13 families",
         "tests/test_prose_matches_derived_values.py",
         "headline: responsiveness family count drifts",
     ),
     (
         "paper/honest/macros.tex",
-        "positive in 24/26 checkpoints",
         "positive in 25/26 checkpoints",
+        "positive in 24/26 checkpoints",
         "tests/test_prose_matches_derived_values.py",
         "headline: within-checkpoint count drifts",
     ),
@@ -743,12 +745,13 @@ MUTATIONS = [
     # nobody chose.
     (
         # The published value was 0.15 and the data give 0.1446; corrected to
-        # 0.14, so the anchor moves with it.
-        "paper/honest/macros.tex", "0.14\\!\\to\\!0.26", "0.14\\!\\to\\!0.36",
+        # 0.14, so the anchor moves with it. The upper end moved again, to 0.24,
+        # when the score-ordering fix landed.
+        "paper/honest/macros.tex", "0.14\\!\\to\\!0.24", "0.14\\!\\to\\!0.34",
         "tests/test_prose_matches_derived_values.py", "headline: responsiveness rise drifts",
     ),
     (
-        "paper/honest/macros.tex", "d_z=1.44", "d_z=1.54",
+        "paper/honest/macros.tex", "d_z=1.48", "d_z=1.58",
         "tests/test_prose_matches_derived_values.py", "headline: responsiveness effect size drifts",
     ),
     (
@@ -776,7 +779,7 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py", "headline: sub-1B band rho drifts",
     ),
     (
-        "paper/honest/macros.tex", "\\rho=+0.64", "\\rho=+0.74",
+        "paper/honest/macros.tex", "\\rho=+0.65", "\\rho=+0.75",
         "tests/test_prose_matches_derived_values.py", "headline: within-checkpoint responsiveness drifts",
     ),
     (
@@ -1632,8 +1635,8 @@ MUTATIONS = [
         # tightly than decisiveness" -- and reading what the analyzer wrote
         # cannot tell that apart from the analyzer computing something else.
         "paper/honest/repro/results_mechanism.json",
-        '"base_mean": 0.1446',
-        '"base_mean": 0.1146',
+        '"base_mean": 0.1387',
+        '"base_mean": 0.1087',
         "tests/test_responsiveness_recomputes_from_the_shifts.py",
         "responsiveness stops being a total-variation shift",
     ),
@@ -1671,8 +1674,8 @@ MUTATIONS = [
         # The SFT share stops being a share of the rise it names. The abstract,
         # the contribution list and the stage section all carry this number.
         "paper/honest/repro/results_stages_analysis.json",
-        '"sft_share_of_total_rise": [\n      0.839,',
-        '"sft_share_of_total_rise": [\n      0.639,',
+        '"sft_share_of_total_rise": [\n      0.871,',
+        '"sft_share_of_total_rise": [\n      0.671,',
         "tests/test_stored_statistics_satisfy_their_identities.py",
         "the SFT share stops matching its responsiveness path",
     ),
