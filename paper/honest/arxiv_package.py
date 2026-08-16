@@ -72,6 +72,26 @@ def _digest(path: Path) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def _stage(src: Path, dest: Path) -> None:
+    """Copy into the package, normalising text to LF.
+
+    A plain byte copy carries the working tree's line endings into the archive,
+    so a package built on Windows holds CRLF for files git stores as LF. The
+    archive then genuinely differs from the sources on any Linux checkout, and
+    the guard that exists to prove "the archive is these sources" fails there
+    while passing where it was built -- the check reports clean exactly where it
+    is least needed. Normalising here makes the package canonical, which is also
+    what git stores and what arXiv's build sees.
+
+    Figures are copied byte-for-byte: they are binary, and replacing \\r\\n in a
+    PNG corrupts it.
+    """
+    if src.suffix in {".tex", ".bib", ".md", ".bbl"}:
+        dest.write_bytes(src.read_bytes().replace(b"\r\n", b"\n"))
+    else:
+        shutil.copy(src, dest)
+
+
 def _latex(cmd, cwd):
     return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=900)
 
@@ -105,16 +125,16 @@ def build():
     (STAGING / "figures").mkdir(parents=True)
     (STAGING / "tables").mkdir(parents=True)
 
-    shutil.copy(HERE / f"{MAIN}.tex", STAGING / "main.tex")
-    shutil.copy(HERE / f"{MAIN}.bbl", STAGING / "main.bbl")
-    shutil.copy(HERE / "macros.tex", STAGING / "macros.tex")
+    _stage(HERE / f"{MAIN}.tex", STAGING / "main.tex")
+    _stage(HERE / f"{MAIN}.bbl", STAGING / "main.bbl")
+    _stage(HERE / "macros.tex", STAGING / "macros.tex")
     for name in set(figures):
         src = _resolve(name)
-        shutil.copy(src, STAGING / "figures" / src.name)
+        _stage(src, STAGING / "figures" / src.name)
     for name in set(inputs):
         src = _resolve(name)
         if src.parent.name == "tables":
-            shutil.copy(src, STAGING / "tables" / src.name)
+            _stage(src, STAGING / "tables" / src.name)
 
     # The tables are \input by the paper and bundled above, but they were not
     # digested, so a regenerated table shipped stale and silently: the analysis
@@ -142,7 +162,10 @@ def build():
             "rebuild before submitting."
         ),
     }
-    (STAGING / "SOURCE.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    # write_bytes, not write_text: on Windows the text writer translates \n to
+    # \r\n, which put CRLF into the manifest of an otherwise LF package.
+    (STAGING / "SOURCE.json").write_bytes(
+        json.dumps(manifest, indent=2).encode("utf-8"))
 
     if ARCHIVE.exists():
         ARCHIVE.unlink()

@@ -97,10 +97,22 @@ def test_the_archive_contains_the_paper_and_its_assets(archive_members):
     assert not unresolved, f"the paper inputs {unresolved}, which the archive does not carry"
 
 
+def _same_content(left: bytes, right: bytes, name: str) -> bool:
+    """Compare bytes, ignoring line endings for text.
+
+    The package is written LF-canonical, but git hands a Windows checkout CRLF,
+    so a raw byte comparison of a .tex asset reports a difference that is purely
+    the checkout's newline convention. Comparing raw here made this test pass on
+    the machine that built the archive and fail on Linux -- the one place it had
+    to hold. Figures stay byte-exact: they are binary and must not be normalised.
+    """
+    if name.endswith((".tex", ".bib", ".md", ".bbl")):
+        return left.replace(b"\r\n", b"\n") == right.replace(b"\r\n", b"\n")
+    return left == right
+
+
 def test_the_archived_assets_match_the_working_tree(archive_members):
     """What ships must be the figures I have been checking, not older copies."""
-    import hashlib
-
     differing = []
     for name, data in archive_members.items():
         if not name.startswith(("figures/", "tables/")):
@@ -108,7 +120,7 @@ def test_the_archived_assets_match_the_working_tree(archive_members):
         live = HONEST / name
         if not live.exists():
             differing.append(f"{name}: not in the working tree")
-        elif hashlib.sha256(live.read_bytes()).hexdigest() != hashlib.sha256(data).hexdigest():
+        elif not _same_content(live.read_bytes(), data, name):
             differing.append(f"{name}: archive copy differs")
     assert not differing, (
         f"the archive's assets are not the ones in the working tree: {differing}. "
@@ -255,9 +267,23 @@ def test_the_staged_directory_and_the_tarball_are_the_same_submission():
     }
 
     assert in_tar, "the archive contains no files"
-    only_tar = sorted(set(in_tar) - set(on_disk))
+
+    # main.bbl has to be in the tarball -- arXiv does not run BibTeX, so the
+    # compiled bibliography is a required input -- but `*.bbl` is gitignored, so
+    # it is never in a fresh checkout's staging directory. Comparing the two
+    # sets raw therefore fails on every clean clone while passing wherever the
+    # package was just built. Exempt it here and assert its presence directly,
+    # which is the property that actually matters.
+    assert "main.bbl" in in_tar, (
+        "the archive has no main.bbl; arXiv does not run BibTeX, so the "
+        "bibliography would be missing from the built paper"
+    )
+    build_outputs = {"main.bbl"}
+
+    only_tar = sorted(set(in_tar) - set(on_disk) - build_outputs)
     only_dir = sorted(set(on_disk) - set(in_tar))
-    differ = sorted(n for n in set(in_tar) & set(on_disk) if in_tar[n] != on_disk[n])
+    differ = sorted(n for n in (set(in_tar) & set(on_disk)) - build_outputs
+                    if in_tar[n] != on_disk[n])
     assert not (only_tar or only_dir or differ), (
         f"the staged directory and the tarball are not the same submission -- "
         f"only in the tarball: {only_tar}; only in the directory: {only_dir}; "
