@@ -23,8 +23,14 @@ import subprocess
 import sys
 import urllib.request
 
-# Substituted from git HEAD at push time; see kaggle/push.sh.
+# Both substituted at push time; see kaggle/push.sh.
+#
+# EXPECTED_SHA256 is the digest of the GIT BLOB, not of the working file: this
+# repository is checked out with CRLF on Windows, and GitHub serves what git
+# stores, which is LF. Hashing the working copy would produce a digest that
+# never matches and a check that always fails.
 COMMIT = "__COMMIT__"
+EXPECTED_SHA256 = "__SHA256__"
 REPO = "ssamba1/Scoring-Bias-in-LLM-as-a-Judge"
 HARNESS = f"https://raw.githubusercontent.com/{REPO}/{COMMIT}/paper/honest/repro/q14b_harness.py"
 WORK = "/kaggle/working"
@@ -35,6 +41,18 @@ subprocess.run([sys.executable, "-m", "pip", "install", "-q",
 source = urllib.request.urlopen(HARNESS, timeout=120).read()
 digest = hashlib.sha256(source).hexdigest()
 print(f"harness {COMMIT[:7]} sha256={digest[:16]}... ({len(source)} bytes)", flush=True)
+
+# Recording a digest proves nothing on its own; it has to be compared against
+# one fixed before the run. Without this the "pinned" harness is only pinned by
+# hope -- a raw URL that resolved to something else would sail straight through
+# and produce numbers attributed to a commit that did not generate them.
+if digest != EXPECTED_SHA256:
+    raise SystemExit(
+        f"harness digest mismatch\n  expected {EXPECTED_SHA256}\n  got      {digest}\n"
+        f"The pinned commit did not serve the bytes this kernel was built for. "
+        f"Refusing to run rather than attribute results to the wrong harness."
+    )
+print("digest matches the pinned commit", flush=True)
 
 path = os.path.join(WORK, "q14b_harness.py")
 with open(path, "wb") as fh:
