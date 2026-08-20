@@ -114,3 +114,57 @@ def test_the_caption_repeats_the_same_numbers():
             f"the figure draws {value} but the caption does not state it "
             f"({token!r} absent). The caption is the number a reader quotes."
         )
+
+
+def test_no_other_generator_draws_numbers_it_does_not_read():
+    """Structural: a figure generator either reads the data or is recomputed here.
+
+    Fixing the one stale ratio is not the fix; the fix is that a generator
+    cannot quietly acquire hardcoded values again. Every make_*.py either names
+    a released JSON -- in which case check_figures.py compares what it drew
+    against that file -- or it hardcodes, in which case something has to
+    recompute the constants, as this file does for the schematic.
+
+    Swept when this was written: six of the seven read a JSON and hold no
+    numeric literal lists at all. make_concept_figure.py is the sole exception,
+    and it is the one that shipped a stale number through a correction.
+    """
+    import ast
+
+    generators = sorted(REPRO.glob("make_*.py"))
+    if not generators:
+        pytest.skip("[repro] no figure generators")
+
+    recomputed_here = {"make_concept_figure.py"}
+    offenders = []
+    for path in generators:
+        tree = ast.parse(path.read_text(encoding="utf-8", errors="replace"))
+        reads_json = any(
+            isinstance(n, ast.Constant) and isinstance(n.value, str)
+            and n.value.endswith(".json")
+            for n in ast.walk(tree)
+        )
+        literal_series = []
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.Assign):
+                continue
+            try:
+                value = ast.literal_eval(node.value)
+            except (ValueError, SyntaxError):
+                continue
+            if (isinstance(value, (list, tuple)) and value
+                    and all(isinstance(x, (int, float)) and not isinstance(x, bool)
+                            for x in value)):
+                names = [t.id for t in node.targets if isinstance(t, ast.Name)]
+                if names:
+                    literal_series.append(names[0])
+        if reads_json or path.name in recomputed_here or not literal_series:
+            continue
+        offenders.append(f"{path.name}: draws {literal_series} but reads no released file")
+
+    assert not offenders, (
+        f"{offenders}. A generator that hardcodes the numbers it plots cannot be "
+        f"checked by check_figures.py, which compares drawn content against the "
+        f"data. Either read the values from a released JSON, or recompute them "
+        f"in a test the way the schematic's three ratios are recomputed above."
+    )
