@@ -164,3 +164,85 @@ More auditing of the existing numbers. That work is done: every figure traces to
 raw data recomputed independently, CI is green, and 259 mutations confirm the
 guards can fail. Further passes over the same 63,040 scored judgments would be
 motion, not progress. Everything above adds evidence rather than re-checking it.
+
+---
+
+# Tiers to maximum, and the gap count
+
+The paper names nine limitations. Seven more gaps are real but unnamed. Seventeen
+total -- but only four are load-bearing, and the distinction matters more than
+the count.
+
+## The seventeen
+
+**Named in the paper (9).** L1 causal contrast stops at open weights, frontier
+is three cross-sectional judges. L2 family as unit, greedy decoding,
+instruction-style templates only, Chinese replication is one bilingual series.
+L3 twenty predictions, family-wise error controlled only within the headline.
+L4 theory characterized only in the decisive limit. L5 expected-value readout
+defended behaviorally, not by mass. L6 reversed-rubric ground truth is
+ambiguous. L7 verbosity's terse variant can remove information (largely defused:
+99% of the effect is the padded variant). L8 the increase is a property of the
+continuous readout; argmax washes out the format probes. L9 the attention null
+uses one operationalization of attention.
+
+**Unnamed (8).** U1 pairwise A/B judging is untested entirely. U2 no human
+validation that the perturbations are nuisance -- "bias" is definitional. U3 one
+task distribution. U4 patching rests on one family. U5 the stage ladder is
+essentially one lab. U6 mitigation is one method at 59%, with no composition and
+no accuracy cost. U7 the only causal point above 8B is 4-bit quantized. U8 the
+registered per-probe test is null for every probe.
+
+## The ladder
+
+Each tier states what it closes and what it buys. Cost is order-of-magnitude.
+
+**T0 -- where it is.** Honest, mechanistically interesting, mid-tier. Held back
+by U8, L1/U7, U1.
+
+**T1 Scope hole closed** (L1 partial, U7; ~3 GPU-weeks). Unquantized 14B, the
+32B harness that already exists, plus Llama-3.1-8B / Gemma-2-9B / Mistral-7B.
+Buys: the causal claim reaches the regime small judges are deployed in, and the
+flat >3B band becomes a result instead of an ambiguity.
+
+**T2 Registered analysis works** (L3, U8; free once T1 lands). n≈20 families
+re-runs the registered test with real power; Bayes factors and a hierarchical
+refit make the nulls informative. Buys: removes the one-line dismissal.
+
+**T3 Mechanism general and controllable** (U4, U5, L9, L4 partial; ~4 GPU-weeks).
+Patching on three-plus families, component-level within the band, a second stage
+ladder, and a responsiveness steering vector. Buys: the contribution stops being
+observational. **This is the tier that changes the venue.**
+
+**T4 About real judging** (U1, U3, L2 partial; ~2 GPU-weeks + API). Pairwise A/B,
+a second dataset, a non-instruction scoring interface. Buys: external validity
+for how judges are actually used.
+
+**T5 Bias validated, not defined** (U2, L6, L7; annotator budget + ethics
+decision). Buys: the construct itself. Without it, a determined referee can
+always say the perturbations were assumed to be nuisance rather than shown.
+
+**T6 Actionable** (U6; ~1 GPU-week). Mitigation suite with accuracy costs and
+composition. Pairs with T3: mechanism plus defense is a complete story.
+
+**T7 Theory complete** (L4, L5, L8; free, hard). Finite-entropy characterization,
+sampled-score validation, a readout theory that explains why argmax compresses.
+
+**T8 Independently replicated** (U9). Not work you do; work someone else does.
+The terminal state, and it is not purchasable.
+
+## The four that carry weight
+
+U8, L1/U7, U1, U2. The registered null, the scale ceiling, pairwise judging, and
+human grounding. Every claim in the paper either rests on these or is scoped
+around them. The other thirteen are already defused, honestly bounded, or
+refinements a referee would call future work.
+
+## The honest caveat about "nothing left"
+
+Closing seventeen gaps is a research programme -- realistically three papers, not
+one revision -- and a paper that tries to close all of them stops having a
+thesis. The right target is not "nothing left" but **"nothing left that the
+claims depend on."** That is T1+T2 for defensibility, plus T3 if the goal is the
+top tier, plus T5 if the goal is that no referee can reopen the construct.
+Everything else is a better second paper than a bigger first one.
