@@ -14,7 +14,21 @@
   "B1_lmm": {
     "entropy_coef": -0.4623,
     "entropy_p": 7e-06,
-    "n": 130
+    "n": 130,
+    "converged": false,
+    "group_var": 0.000597,
+    "resid_scale": 0.254446,
+    "se_finite": true,
+    "clustered_ols_coef": -0.4617,
+    "clustered_ols_p": 0.000465,
+    "fit_warnings": [
+      "Gradient optimization failed, |grad| = 2.009389",
+      "Maximum Likelihood optimization failed to converge. Check mle_retvals",
+      "MixedLM optimization failed, trying a different optimizer may help.",
+      "Retrying MixedLM optimization with cg",
+      "Retrying MixedLM optimization with lbfgs",
+      "The MLE may be on the boundary of the parameter space."
+    ]
   },
   "B2_predictor_bootstrap": {
     "loo_r2": 0.273,

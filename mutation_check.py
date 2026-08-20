@@ -1562,6 +1562,17 @@ MUTATIONS = [
         "the stale-archive item is ticked without a new deposit",
     ),
     (
+        # The non-convergence disclosure is dropped from the released record.
+        # The coefficient survives the diagnosis, so nothing numeric changes --
+        # which is exactly why a reader would never know the fit sat on the
+        # boundary unless the record says so.
+        "paper/honest/repro/results_robustness.json",
+        '"converged": false',
+        '"converged": true',
+        "tests/test_the_mixed_model_reports_its_own_health.py",
+        "a boundary fit is recorded as having converged",
+    ),
+    (
         # A mechanism panel stops matching the numbers it plots. The figure is
         # the only surface a skimming reader takes the mechanism claim from,
         # and it drifted for real when the responsiveness fix landed: every

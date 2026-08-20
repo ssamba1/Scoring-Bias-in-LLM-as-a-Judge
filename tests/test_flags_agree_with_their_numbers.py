@@ -158,6 +158,13 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         "smoke": "a run-mode marker, not a verdict about the data",
         "all_cells_gt_0p1": "summarises per-cell values the analysis does not emit",
         "all_judges_ge_half_probes": "its detail field is a string per judge, checked in prose",
+        # These two describe the health of a fit rather than a property of the
+        # data, so nothing recomputes them from the release. They are not
+        # unchecked: test_the_mixed_model_reports_its_own_health.py requires both
+        # to be present, requires se_finite to be true, and refuses to let
+        # converged disagree with the fit's own captured warnings.
+        "converged": "fit diagnostics, asserted in test_the_mixed_model_reports_its_own_health",
+        "se_finite": "fit diagnostics, asserted in test_the_mixed_model_reports_its_own_health",
     }
     found = set()
     for path in sorted(REPRO.glob("*.json")):

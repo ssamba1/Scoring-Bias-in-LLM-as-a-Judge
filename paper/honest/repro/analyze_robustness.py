@@ -18,6 +18,7 @@ Output : results_robustness.json + printed report
 import json
 import math
 import sys
+import warnings
 from pathlib import Path
 
 import numpy as np
@@ -156,9 +157,31 @@ def main():
         import pandas as pd
         import statsmodels.formula.api as smf
         df = pd.DataFrame(recs)
-        m = smf.mixedlm("bias ~ entropy", df, groups=df["family"]).fit(reml=False)
+        # Record whether the fit converged, and what the random effect is doing.
+        # This model does NOT converge: the family variance sits at the boundary
+        # (~0.0008 against a residual scale of ~0.26), which is exactly the case
+        # statsmodels warns about. The coefficient is unaffected -- OLS and a
+        # family-clustered OLS give the same estimate -- but a coefficient
+        # reported from a non-converged fit, with nothing recording that, is the
+        # shape of defect this project has already had once. Store the diagnosis
+        # beside the estimate, and store the cluster-robust cross-check so a
+        # reader can see the conclusion does not depend on the random effect.
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            m = smf.mixedlm("bias ~ entropy", df, groups=df["family"]).fit(reml=False)
+            notes = sorted({str(w.message)[:80] for w in caught})
+        clustered = smf.ols("bias ~ entropy", df).fit(
+            cov_type="cluster", cov_kwds={"groups": df["family"]})
         out["B1_lmm"] = {"entropy_coef": round(float(m.params["entropy"]), 4),
-                         "entropy_p": round(float(m.pvalues["entropy"]), 6), "n": len(df)}
+                         "entropy_p": round(float(m.pvalues["entropy"]), 6),
+                         "n": len(df),
+                         "converged": bool(m.converged),
+                         "group_var": round(float(m.cov_re.iloc[0, 0]), 6),
+                         "resid_scale": round(float(m.scale), 6),
+                         "se_finite": bool(np.isfinite(m.bse).all()),
+                         "clustered_ols_coef": round(float(clustered.params["entropy"]), 4),
+                         "clustered_ols_p": round(float(clustered.pvalues["entropy"]), 6),
+                         "fit_warnings": notes}
     except Exception as e:  # noqa: BLE001
         out["B1_lmm"] = {"error": str(e)[:120]}
 
