@@ -143,12 +143,17 @@ EXEMPT_FILES = {
     # Fourth time. This one sweeps every live document for the overturned
     # direction, so its pattern list necessarily spells the direction out.
     "tests/test_no_document_states_the_overturned_direction.py",
-    # Fifth and sixth. Both exist to record that the Zenodo deposit the paper
-    # cites still contains the superseded figures, which cannot be said without
-    # naming them. The checklist is the one place a reader is told the archive
-    # is stale, so exempting it is the point rather than a concession.
+    # Fifth. Exists to record that the Zenodo deposit the paper cites still
+    # contains the superseded figures, which cannot be said without naming them.
+    #
+    # paper/submission_checklist.md is deliberately NOT exempt, though it names
+    # the same values. Exempting it removed the whole file from the sweep, and
+    # three older mutations inject superseded claims into that file precisely
+    # because it is swept -- so the exemption silently retired three guards and
+    # CI caught all three as NOT CAUGHT. An exemption is not free: it is a hole
+    # the size of the file. The checklist is worded to describe the stale values
+    # without asserting them instead.
     "tests/test_the_archived_snapshot_claim_is_current.py",
-    "paper/submission_checklist.md",
 }
 
 BINARY = {".png", ".pdf", ".gz", ".jpg", ".jpeg", ".ico", ".pyc", ".zip"}

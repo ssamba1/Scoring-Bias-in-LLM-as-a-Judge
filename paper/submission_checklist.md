@@ -60,7 +60,7 @@ quietly outlive what it describes.
       states, present tense, that "the repository snapshot, paper, and all raw
       data are archived at DOI 10.5281/zenodo.21499823". That record is v2.1.0,
       published 2026-07-22. Its PDF was downloaded and checked on 2026-08-20: it
-      still carries d_z=1.44, 24/26, 75% sign accuracy, responsiveness 0.14->0.26
+      still carries d_z=1.44, 24/26, sign accuracy 75%, responsiveness 0.14->0.26
       and rho=+0.64 -- every figure the score-ordering correction changed. A
       referee following that DOI gets the paper with the errors in it, which is
       the worst possible surface for this project to be wrong on.
