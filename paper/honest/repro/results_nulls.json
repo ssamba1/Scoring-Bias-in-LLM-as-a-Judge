@@ -1,0 +1,67 @@
+{
+  "note": "POST HOC. Not preregistered. Characterises the registered per-probe null; does not replace it.",
+  "prior": "JZS / Cauchy(0, 0.707) on standardised effect size",
+  "per_probe": {
+    "rubric_order": {
+      "n": 13,
+      "mean_difference": 0.2288,
+      "t": 0.951,
+      "ci90": [
+        -0.1998,
+        0.6573
+      ],
+      "equivalence_bound": 0.6573,
+      "bf01": 2.449
+    },
+    "score_id": {
+      "n": 13,
+      "mean_difference": 0.3751,
+      "t": 2.55,
+      "ci90": [
+        0.113,
+        0.6373
+      ],
+      "equivalence_bound": 0.6373,
+      "bf01": 0.366
+    },
+    "reference_answer": {
+      "n": 13,
+      "mean_difference": 0.2073,
+      "t": 1.608,
+      "ci90": [
+        -0.0224,
+        0.437
+      ],
+      "equivalence_bound": 0.437,
+      "bf01": 1.284
+    },
+    "authority": {
+      "n": 13,
+      "mean_difference": 0.2331,
+      "t": 2.333,
+      "ci90": [
+        0.055,
+        0.4112
+      ],
+      "equivalence_bound": 0.4112,
+      "bf01": 0.5
+    },
+    "verbosity": {
+      "n": 13,
+      "mean_difference": 0.2395,
+      "t": 1.753,
+      "ci90": [
+        -0.004,
+        0.4831
+      ],
+      "equivalence_bound": 0.4831,
+      "bf01": 1.08
+    }
+  },
+  "moderate_evidence_for_null": [],
+  "leans_toward_effect": [
+    "authority",
+    "score_id"
+  ],
+  "summary": "No probe reaches BF01 >= 3, so none of the registered nulls is moderate evidence of absence; 2 of 5 lean toward an effect. The nulls are uninformative rather than supportive, which is what n=13 buys."
+}

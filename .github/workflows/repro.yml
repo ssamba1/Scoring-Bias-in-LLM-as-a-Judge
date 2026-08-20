@@ -136,6 +136,7 @@ jobs:
           python analyze_gran.py
           python analyze_chat.py
           python analyze_sampled.py
+          python analyze_nulls.py
           python analyze_t10.py
           python analyze_tokvar.py
           python analyze_closed.py

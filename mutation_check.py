@@ -1611,6 +1611,17 @@ MUTATIONS = [
         "a figure stops showing what the data produces",
     ),
     (
+        # A registered null is upgraded into evidence of absence. No probe
+        # reaches BF01 >= 3, so none of them supports the null; claiming one
+        # does is a stronger result than the paper has, and in the direction
+        # a tired author is most tempted to drift.
+        "paper/honest/repro/results_nulls.json",
+        '"bf01": 2.449',
+        '"bf01": 4.449',
+        "tests/test_the_null_characterisation_recomputes.py",
+        "a registered null becomes evidence of absence",
+    ),
+    (
         # An aggregate stops summarising its own array. The generalisation of
         # the identity that caught the letter-variant misalignment: a mean that
         # is not the mean of the scores beside it means one of the two
