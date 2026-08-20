@@ -1585,6 +1585,17 @@ MUTATIONS = [
         "the schematic's ratio drifts from the data",
     ),
     (
+        # A surface that cites the DOI drops off the release tool's list. The
+        # tool rewrites eight files in one pass; a missing one means a refreshed
+        # deposit leaves that file pointing at the retired record, and
+        # CITATION.cff is the copy that travels furthest.
+        "release_doi.py",
+        '    "CITATION.cff",',
+        '    # "CITATION.cff",',
+        "tests/test_the_release_tool_knows_every_doi_surface.py",
+        "a DOI surface drops off the release tool's list",
+    ),
+    (
         # A mechanism panel stops matching the numbers it plots. The figure is
         # the only surface a skimming reader takes the mechanism claim from,
         # and it drifted for real when the responsiveness fix landed: every
