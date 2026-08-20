@@ -99,15 +99,12 @@ python 3.13:
 
 | file | field | Linux (committed) | Windows |
 |---|---|---|---|
-| `results_stages_analysis.json` | Tulu-3-8B DPO `resp` | 0.4863 | 0.4862 |
-| `results_stages_analysis.json` | OLMo-2-1B RLVR `resp` | 0.1967 | 0.1966 |
-| `results_stages_analysis.json` | P7 SFT share | 0.839 | 0.84 |
-| `results_mechanism.json` | `link_points.resp` | 0.6995 | 0.6996 |
-| `results_mechanism.json` | `link_points.resp` | 0.1083 | 0.1084 |
-| `results_mechanism.json` | `link_points.resp` | 0.3871 | 0.3872 |
-| `results_mechanism.json` | `link_points.resp` | 0.2231 | 0.2230 |
+| `results_mechanism.json` | `link_points.resp[18]` | 0.1083 | 0.1084 |
+| `results_mechanism.json` | `link_points.resp[61]` | 0.1465 | 0.1466 |
+| `results_mechanism.json` | `link_points.resp[91]` | 0.3825 | 0.3826 |
+| `results_mechanism.json` | `link_points.resp[92]` | 0.2231 | 0.2230 |
 
-Eight values in total, all in the fourth decimal place, all in the
+Four values in total, all in the fourth decimal place, all in the
 responsiveness term -- a mean of total-variation distances, where the summation
 order and the platform's libm decide the last bit. The differences are
 deterministic: rerunning on the same machine reproduces the same values exactly,
@@ -115,10 +112,19 @@ so this is a platform difference and not nondeterminism in the analysis.
 
 **No number the paper reports changes.** Every affected value is quoted to two or
 three decimals, and `check_prose.py` passes unmodified against the Windows
-output -- including the "84--99%" SFT share, whose lower end is 0.839 on Linux
-and 0.840 on Windows and rounds to 84 either way. The correlations these values
-feed (responsiveness--bias rho=+0.82, the stage ladder) are unchanged at the
-precision reported.
+output. The correlations these values feed (responsiveness--bias rho=+0.82, the
+stage ladder) are unchanged at the precision reported.
+
+This list was larger and is now smaller, for a reason worth recording. It used to
+include three `results_stages_analysis.json` entries and the P7 SFT share, whose
+lower end was 0.839 on Linux against 0.840 on Windows. Correcting the
+score-ordering bug moved every responsiveness figure, and the stage values landed
+off the rounding boundary they had been sitting on: the reproduction gate now
+regenerates them identically on both platforms. The SFT share is 0.871 in both,
+so the share the paper quotes is 87--94% and no longer straddles a tie. Platform
+divergence here is a property of where a value falls relative to a rounding
+boundary, not a fixed set of fields -- entries can leave this table as well as
+join it, and `resp[61]` joined it.
 
 If you reproduce on Windows or macOS and `git diff` shows these eight values,
 that is expected. A difference anywhere else is not, and is worth reporting.

@@ -47,7 +47,7 @@ trims the first but inflates the second, and the second wins
 (Proposition~\ref{prop:main}, Corollary~\ref{cor:diff}). A causal activation-patching
 experiment localizes where this is written into the network (\PATCHSENTENCE{}), a
 preregistered stage ablation localizes it in the pipeline (SFT installs the
-responsiveness, 84--99\% of the total rise; preference tuning installs the
+responsiveness, 87--94\% of the total rise; preference tuning installs the
 confidence), a ground-truth test shows the bias corrupts real judgments
 (\GOLDSENTENCE{}), and a marginalization mitigation cuts bias by 59\% where raising
 confidence cannot. The findings replicate on public-dataset items and in Chinese; judge-side
@@ -130,10 +130,10 @@ also the right object for the mechanism.
         measured directly and operate at their predicted levels: decisiveness tracks
         \emph{which judges} are biased (negatively, between judges), responsiveness tracks
         \emph{which nuisances} bias a given judge (within judges), and their first-order
-        product predicts the per-cell direction of bias change under tuning (75\% sign
+        product predicts the per-cell direction of bias change under tuning (74\% sign
         accuracy over 65 cells). Activation patching shows the instruct representation
         causally carries the change in a localized network band, and a preregistered
-        alignment-stage ablation shows SFT installs the responsiveness (84--99\% of the
+        alignment-stage ablation shows SFT installs the responsiveness (87--94\% of the
         rise) while preference tuning installs the confidence.
   \item \textbf{Measurement + mitigation.} We show the standard parse-based readout
         \emph{confounds} base-vs-instruct comparisons (weak judges are silently dropped)
@@ -499,7 +499,7 @@ Appendix~\ref{app:prompts}). \MTPROSE{}
 \caption{Alignment-stage ablation (preregistered P7--P9). \textbf{(a)} Entropy falls at seven of the eight stage transitions, and the
 largest fall is at a preference stage in two of the three families; the exception
 is T\"ulu-3-8B's RLVR step, where entropy rises ($0.92\!\to\!1.11$). \textbf{(b)} Responsiveness
-rises almost entirely at the \emph{SFT} step (84--99\% of the total rise).
+rises almost entirely at the \emph{SFT} step (87--94\% of the total rise).
 \textbf{(c)} Bias follows responsiveness, jumping at SFT and flat thereafter. SFT
 installs the bias; DPO/RLVR install the confidence.}
 \label{fig:stages}\end{figure}

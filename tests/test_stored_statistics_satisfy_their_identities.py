@@ -149,7 +149,7 @@ def test_the_ensembling_reduction_equals_its_own_two_means():
 
 
 def test_the_sft_share_equals_the_rise_it_is_a_share_of():
-    """"SFT installs 84--99% of the total rise" -- from the responsiveness paths.
+    """"SFT installs 87--94% of the total rise" -- from the responsiveness paths.
 
     The abstract, the contribution list and the stage section all carry this
     claim. It is a ratio of two differences along a path that is stored right

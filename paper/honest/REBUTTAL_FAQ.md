@@ -11,7 +11,7 @@ documentation and (ii) using the distribution as the measured object of the theo
 It is (softmax Jacobian + Cauchy–Schwarz + CGF tilt), and the paper never claims
 otherwise. Its value is the *decomposition framing* and that both terms are measured
 independently and confirmed at their predicted levels (§5.3–5.4). The per-cell test
-(75% sign accuracy) makes it predictive, not decorative.
+(74% sign accuracy) makes it predictive, not decorative.
 
 **"The entropy–bias correlation is a capability/size confound."**
 Partial correlation given log-size: −0.38 (p<10⁻⁴), and size correlates *positively*
@@ -55,7 +55,7 @@ preregistered as P11.
 
 **"'Instruction tuning' is a black box — which stage?"**
 The preregistered stage ablation answers this: SFT installs the responsiveness
-(84–99% of the rise, 10/10 cells), preference tuning installs the confidence (§5.16).
+(87–94% of the rise, 10/10 cells), preference tuning installs the confidence (§5.16).
 Predictions are timestamped in git before the data existed.
 
 **"Correlational mechanism."**

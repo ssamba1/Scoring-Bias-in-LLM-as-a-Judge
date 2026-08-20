@@ -92,6 +92,24 @@ CLAIMS = {
         r"(?i)inherently\s+bias[-\s]free",
         "pre-trained representations are inherently bias-free with respect to surface form",
     ),
+    # The score-ordering fix (score_id's letter variant is stored in token
+    # order, so a total-variation distance against the ascending control was
+    # taken across misaligned supports) moved five published figures. The
+    # macros were corrected and the prose gate pins them -- but the
+    # contributions list, the README and the rebuttal FAQ each keep their own
+    # copy of the same numbers, and all three kept the superseded values
+    # through four commits that described the correction as complete. The
+    # gate could not see them: it pins the macro, not its paraphrases.
+    # Found by reading the compiled PDF, which is the only surface that shows
+    # what a referee actually reads.
+    "superseded sign accuracy": (
+        r"(?i)75\s*\\?%\s*(?:of\s+65\s+cells|sign\s*accuracy)",
+        "75% sign accuracy over 65 cells (the corrected value is 74%)",
+    ),
+    "superseded SFT share": (
+        r"84\s*(?:--|[-\u2013])\s*99\s*\\?%",
+        "SFT installs 84-99% of the responsiveness rise (corrected: 87-94%)",
+    ),
     "format bias decreases": (
         r"(?i)format\s+bias\s*(?:&#8595;|↓|â)?\s*(?:decreas|drop|fall)\w*",
         "Format Bias ↓ Decreases After instruction tuning",

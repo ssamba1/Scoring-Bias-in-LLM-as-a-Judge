@@ -227,9 +227,9 @@ DONE since the morning review: B1 (within-checkpoint + LMM; found and reported t
 within-judge entropy null and the within-judge responsiveness ρ=+0.64), B2 (clustered
 bootstrap; predictor downgraded to rank signal), B3 (leave-one-family/vendor/size),
 B4 (EV/flip concordance ρ=0.56), C2 (stage ablation, preregistered P7–P9: SFT installs
-the responsiveness 84–99%, preference tuning the confidence), C5 (Dolly-15k public-items
+the responsiveness 87–94%, preference tuning the confidence), C5 (Dolly-15k public-items
 replication: 7/8 families, ρ=−0.44), C8 (template ensembling −22%), D1 (cumulant
-appendix), D2 (TV→logit-displacement lemma), D3 (per-cell test, 75% sign accuracy),
+appendix), D2 (TV→logit-displacement lemma), D3 (per-cell test, 74% sign accuracy),
 E1 (concept figure), E2 (evidence scale), E3 (terminology), F2 (numbers-match CI),
 F3 (pinned requirements). Paper: 18 pages, clean build, CI-verified reproduction.
 
@@ -248,7 +248,7 @@ synthesis (26/30 positive, +0.23), D1-exact series appendix, CI-gate bug found+f
 
 PREREGISTRATION SCOREBOARD (FINAL, all 20 adjudicated 2026-07-19/20):
 CONFIRMED: P1 sharpening; P3 patching; P4 generality; P7 SFT installs
-responsiveness (84-99%); P8 preference tuning sharpens; P10a sycophancy
+responsiveness (87-94%); P8 preference tuning sharpens; P10a sycophancy
 (largest effect, +0.46); P11 Chinese (4/4); P13a authority span-encoding
 (layers 3-14); P15a entropy-bias across 10 templates (rho=-0.51, n=180);
 P17 range scaling (both clauses); P18 readout robustness (rho=0.79, mass

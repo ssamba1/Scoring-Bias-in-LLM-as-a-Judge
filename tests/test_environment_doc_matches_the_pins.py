@@ -76,7 +76,12 @@ def test_the_document_says_where_reproduction_is_verified():
 def test_the_platform_caveat_names_the_affected_values():
     """A caveat without the numbers is not checkable, and would not be believed."""
     doc = _doc()
-    for value in ("0.4863", "0.1967", "0.839"):
+    # The set is not fixed. Platform divergence is a property of where a value
+    # falls relative to a rounding boundary, so correcting the score-ordering bug
+    # moved the stage entries (0.4863, 0.1967, 0.839) off their tie and put
+    # resp[61] onto one. These are the values the reproduction gate currently
+    # diffs; when that changes again, the gate's own output is the authority.
+    for value in ("0.1083", "0.1465", "0.3825", "0.2231"):
         assert value in doc, (
             f"the platform caveat no longer names {value}; a reader seeing that "
             f"value in their own diff cannot tell whether it is the known "
