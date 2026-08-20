@@ -73,6 +73,8 @@ def test_no_root_script_serves_the_synthetic_data():
 def test_no_root_script_depends_on_an_untracked_directory():
     """cli.py imported a package with no tracked files; it cannot run in a clone."""
     tracked_dirs = _tracked_dirs()
+    gitignore = REPO / ".gitignore"
+    ignored = gitignore.read_text(encoding="utf-8", errors="replace") if gitignore.exists() else ""
     offenders = []
     for name in _root_scripts():
         body = (REPO / name).read_text(encoding="utf-8", errors="replace")
@@ -81,6 +83,16 @@ def test_no_root_script_depends_on_an_untracked_directory():
             if not (REPO / directory).exists():
                 continue
             if directory in tracked_dirs or directory.startswith("."):
+                continue
+            # A directory the script CREATES is an output, not a dependency --
+            # you cannot fail to find something you mkdir. release_doi.py writes
+            # the Zenodo deposit bundle to dist/, which .gitignore declares as a
+            # build output, and the only mention of it here was in a docstring.
+            # The failure this test exists for is the opposite case: cli.py
+            # importing a package with no tracked files, which cannot run at all.
+            declared_output = re.search(
+                rf"^\s*{re.escape(directory)}/", ignored, re.M) is not None
+            if declared_output and ".mkdir(" in body:
                 continue
             offenders.append(f"{name} -> {directory}/ (no tracked files)")
     assert not offenders, (

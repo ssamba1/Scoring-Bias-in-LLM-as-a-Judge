@@ -47,6 +47,10 @@ DOI_SURFACES = (
     # file without them goes STALE, and a stale anchor is a guard that stops
     # being exercised while the run still reports success.
     "mutation_check.py",
+    # This file, whose LIVE constant is what set-doi retires. Left out, a second
+    # refresh would target the DOI the first one replaced. Only LIVE moves --
+    # CONCEPT and RETRACTED are in PROTECTED and are verified untouched.
+    "release_doi.py",
 )
 
 # Files that name a Zenodo DOI and must NOT be rewritten, with the reason.
