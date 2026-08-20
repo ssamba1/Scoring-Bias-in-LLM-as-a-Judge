@@ -610,18 +610,22 @@ MUTATIONS = [
     # ---- reaching the "is this reading real data" guards ---------------------
     # These exist to fail when a parse silently returns less than it should, and
     # none had ever been made to do it. Dropping one scored item from the panel,
-    # and renaming one frontier judge, is enough -- and both anchors carry \r\n
-    # because these files are CRLF in the working tree.
+    # and renaming one frontier judge, is enough. Both anchors are written with
+    # \n, never \r\n: _apply retries with the file's own endings when a \n anchor
+    # misses against a CRLF checkout, but there is no reverse fallback, so a
+    # literal \r\n anchor matched on Windows and went STALE on Linux -- leaving
+    # the guard unexercised in the one environment that gates a merge, while the
+    # local run reported every guard caught.
     (
         "paper/honest/repro/results_scaled.json",
-        "\r\n              2.3313,",
+        "\n              2.3313,",
         "",
         "tests/test_effects_recompute_from_raw.py",
         "a scored item vanishes from the panel",
     ),
     (
         "paper/honest/repro/results_scaled.json",
-        "\r\n              2.3313,",
+        "\n              2.3313,",
         "",
         "tests/test_release_surfaces_agree.py",
         "panel shrinks below the count the README states",
