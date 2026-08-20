@@ -92,3 +92,46 @@ def test_the_paper_does_not_claim_the_script_collects_data():
         "harnesses, which is the limit a reader needs in order to know what "
         "one command actually reproduces"
     )
+
+
+def test_the_paper_does_not_claim_the_script_redraws_the_figures():
+    """It verifies figures; it does not regenerate them.
+
+    The paper said run_all.sh "regenerates every derived number and figure".
+    It regenerates the numbers -- fourteen analyze_*.py runs -- and then calls
+    check_figures.py, which compares the committed figures against the data and
+    fails on a mismatch. None of the seven make_*.py generators is invoked, so
+    a reader expecting the figures to be redrawn gets them verified instead.
+
+    Verification is arguably the stronger property, which is exactly why the
+    wrong word survived: the pipeline does fail on a stale figure, so nobody
+    checking the claim's *effect* would notice. The claim is about what the
+    script does.
+
+    This is the second inaccuracy in that one sentence. It previously said the
+    script "runs all of them in order", which read as including the harnesses.
+    """
+    script = _script()
+    if script is None:
+        pytest.skip("[repro] run_all.sh not present")
+
+    redrawn = [line for line in script.splitlines()
+               if "make_" in line and not line.lstrip().startswith("#")]
+    assert not redrawn, (
+        f"run_all.sh now invokes a figure generator ({redrawn[:2]}). If that is "
+        f"deliberate, the paper's description should say it regenerates the "
+        f"figures, and this test should be retired with it."
+    )
+    assert "check_figures.py" in script, (
+        "run_all.sh no longer checks the figures at all, so neither redrawing "
+        "nor verification happens and the paper's claim is false either way"
+    )
+
+    paper = _paper()
+    if paper is None:
+        pytest.skip("[paper] source not present")
+    flat = " ".join(paper.split())
+    assert "derived number and figure from the committed raw files" not in flat, (
+        "the paper again claims the script regenerates the figures; it verifies "
+        "them against the data instead"
+    )

@@ -683,9 +683,12 @@ main panel, \path{results_closed.json} for the frontier judges,
 for the new probes, \path{gold_results.json} for the ground-truth test, and the
 rest---each collected by the matching \path{repro/*_harness.py} script, seed 42.
 \path{run_all.sh} runs the CPU half of that pipeline in order: it regenerates every
-derived number and figure from the committed raw files, fails if any of them differs
-from what is committed, runs the guards and the prose and figure checks, compiles the
-paper and rebuilds the submission package. It does not rerun the harnesses; collecting
+derived number from the committed raw files and fails if any of them differs from what
+is committed, then runs the guards, checks the committed figures against the data they
+plot, checks the prose against the derived numbers, compiles the paper and rebuilds the
+submission package. It verifies the figures rather than redrawing them---the seven
+\path{make_*.py} generators are run by hand when a figure changes, and
+\path{check_figures.py} is what fails if a committed figure stops matching the data. It does not rerun the harnesses; collecting
 the raw files again needs the GPU and API access described above, so each harness is
 run on its own.
 A continuous-integration check reruns every analysis script on the committed raw files
