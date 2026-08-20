@@ -1573,6 +1573,18 @@ MUTATIONS = [
         "a boundary fit is recorded as having converged",
     ),
     (
+        # The schematic's hand-maintained ratio drifts from the run it
+        # summarises. Figure 1's three bars are constants in the generator, not
+        # values read from a released file, so check_figures has nothing to
+        # compare them against -- this is the one figure the figure checker
+        # cannot verify, and it shipped a stale ratio through the correction.
+        "paper/honest/repro/make_concept_figure.py",
+        "inst_v = [0.71, 1.72, 1.59]",
+        "inst_v = [0.71, 1.79, 1.59]",
+        "tests/test_the_concept_figure_ratios_match_the_data.py",
+        "the schematic's ratio drifts from the data",
+    ),
+    (
         # A mechanism panel stops matching the numbers it plots. The figure is
         # the only surface a skimming reader takes the mechanism claim from,
         # and it drifted for real when the responsiveness fix landed: every

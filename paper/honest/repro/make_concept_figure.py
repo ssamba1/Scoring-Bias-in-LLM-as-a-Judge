@@ -55,7 +55,14 @@ ax.set_title("(b) A nuisance moves the mean", fontsize=9)
 ax = axes[2]
 terms = ["decisiveness\n(spread)", "responsiveness\n(nuisance shift)", "bias\n(product)"]
 base_v = [1.0, 1.0, 1.0]
-inst_v = [0.71, 1.73, 1.59]   # entropy 2.04->1.45 bits; TV .15->.26; mean Delta x1.59
+inst_v = [0.71, 1.72, 1.59]   # entropy 2.040->1.450 bits; TV .1387->.2387;
+#                              mean Delta .4370->.6938. Hand-maintained ratios:
+#                              test_the_concept_figure_ratios_match_the_data.py
+#                              recomputes all three from the released runs, because
+#                              check_figures cannot -- these are constants in this
+#                              file, not values read from a JSON, so a stale one
+#                              survives every figure check. The TV ratio was 1.73
+#                              until the score-ordering fix.
 x = np.arange(3)
 ax.bar(x - 0.17, base_v, width=0.32, color="#808898", label="base")
 ax.bar(x + 0.17, inst_v, width=0.32, color="#b04848", label="instruct")
