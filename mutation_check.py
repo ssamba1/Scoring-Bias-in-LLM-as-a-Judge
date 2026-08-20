@@ -1545,6 +1545,17 @@ MUTATIONS = [
         "a split verdict's count drifts from its own values",
     ),
     (
+        # A mechanism panel stops matching the numbers it plots. The figure is
+        # the only surface a skimming reader takes the mechanism claim from,
+        # and it drifted for real when the responsiveness fix landed: every
+        # local check stayed green while fig_mech drew the old values.
+        "paper/honest/repro/results_mechanism.json",
+        '"instruct_mean": 0.2387',
+        '"instruct_mean": 0.3387',
+        "tests/test_figures_show_the_current_data.py",
+        "a figure stops showing what the data produces",
+    ),
+    (
         # A stored distribution stops agreeing with its own mean. Expected score
         # is linear in the distribution, so the two cannot disagree unless the
         # vector is indexed by something other than the assumed score order --

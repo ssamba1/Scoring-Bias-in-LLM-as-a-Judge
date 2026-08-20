@@ -74,7 +74,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq --no-install-recommends \
             texlive-latex-base texlive-latex-recommended texlive-latex-extra \
-            texlive-fonts-recommended texlive-science
+            texlive-fonts-recommended texlive-science lmodern
       - name: Compile the archive exactly as arXiv would
         # From the tarball, not the working tree: arXiv gets the tarball, and a
         # paper that builds in the repository but not in the archive is the
@@ -85,8 +85,13 @@ jobs:
           mkdir -p /tmp/arxiv && tar xzf paper/honest/arxiv_submission.tar.gz -C /tmp/arxiv
           cd /tmp/arxiv
           test -f main.bbl || { echo "no .bbl in the archive; arXiv would render no references"; exit 1; }
-          pdflatex -interaction=nonstopmode -halt-on-error main.tex > pass1.log
-          pdflatex -interaction=nonstopmode -halt-on-error main.tex > pass2.log
+          # A redirect plus -halt-on-error means a failure prints nothing:
+          # this job went red twice with no diagnostic beyond "exit code 1",
+          # because the reason was sitting in pass1.log. Dump it before failing.
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex > pass1.log \
+            || { echo '--- pass1.log tail ---'; tail -60 pass1.log; exit 1; }
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex > pass2.log \
+            || { echo '--- pass2.log tail ---'; tail -60 pass2.log; exit 1; }
           test -f main.pdf || { echo "no PDF produced"; exit 1; }
       - name: The build must be clean
         run: |
