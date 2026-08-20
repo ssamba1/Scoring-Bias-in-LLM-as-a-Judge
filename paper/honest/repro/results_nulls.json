@@ -58,10 +58,8 @@
       "bf01": 1.08
     }
   },
-  "moderate_evidence_for_null": [],
-  "leans_toward_effect": [
-    "authority",
-    "score_id"
-  ],
-  "summary": "No probe reaches BF01 >= 3, so none of the registered nulls is moderate evidence of absence; 2 of 5 lean toward an effect. The nulls are uninformative rather than supportive, which is what n=13 buys."
+  "threshold_bf01": 3.0,
+  "n_moderate_evidence_for_null": 0,
+  "n_leaning_toward_effect": 2,
+  "summary": "0 of 5 probes reach BF01 >= 3, so the registered nulls are not evidence of absence; 2 of 5 lean toward an effect. The nulls are uninformative rather than supportive, which is what n=13 buys."
 }

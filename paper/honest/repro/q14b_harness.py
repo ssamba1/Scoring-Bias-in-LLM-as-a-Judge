@@ -27,7 +27,28 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 SMOKE = os.environ.get("SMOKE", "0") == "1"
-OUT_PATH = "/kaggle/working/results_14b.json"
+
+# Weight precision. The committed results_14b.json is the nf4 run, so nf4 stays
+# the default and that file remains reproducible by the original command.
+#
+# It also remains the paper's only data point above 8B, and it is 4-bit -- which
+# makes the attenuation it shows (+0.06 against the panel's +0.26) impossible to
+# attribute. Quantization reshapes the score distribution, which is the exact
+# quantity measured here, so the one piece of evidence that the effect fades
+# with scale is confounded by the variable most likely to fade it artificially.
+#
+# Running fp16 and int8 from THIS file rather than a fork is deliberate: the
+# items, probes, prompts and scoring stay byte-identical across arms, so any
+# difference is precision and nothing else. A forked harness could drift in a
+# way that would be indistinguishable from the effect being measured.
+#
+# T4 and P100 are pre-Ampere and have no bfloat16, so the 16-bit arm is fp16 --
+# which is also what the main panel used.
+PRECISION = os.environ.get("PRECISION", "nf4")
+if PRECISION not in {"nf4", "int8", "fp16"}:
+    raise SystemExit(f"PRECISION must be nf4, int8 or fp16; got {PRECISION!r}")
+OUT_PATH = ("/kaggle/working/results_14b.json" if PRECISION == "nf4"
+            else f"/kaggle/working/results_14b_{PRECISION}.json")
 
 # (family_label, base_id, instruct_id, params_b, training_of_instruct)
 # ascending by size so the small families all complete + save before big ones
@@ -178,11 +199,23 @@ def score_logits(tok, model, prompt, answer_tokens):
 
 def score_one(name):
     tok = AutoTokenizer.from_pretrained(name, trust_remote_code=True)
-    from transformers import BitsAndBytesConfig
-    qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
-                            bnb_4bit_compute_dtype=torch.float16)
-    model = AutoModelForCausalLM.from_pretrained(name, quantization_config=qc,
-                                                 device_map={"": 0}, trust_remote_code=True)
+    if PRECISION == "fp16":
+        # ~29.6 GB of weights: too much for one 16 GB card, so shard across both
+        # with device_map="auto". Activations are negligible here -- one short
+        # prompt, batch of one, a single forward pass for the next-token logits.
+        model = AutoModelForCausalLM.from_pretrained(
+            name, torch_dtype=torch.float16, device_map="auto",
+            trust_remote_code=True)
+    else:
+        from transformers import BitsAndBytesConfig
+        if PRECISION == "int8":
+            qc = BitsAndBytesConfig(load_in_8bit=True)
+        else:
+            qc = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                                    bnb_4bit_compute_dtype=torch.float16)
+        model = AutoModelForCausalLM.from_pretrained(
+            name, quantization_config=qc, device_map={"": 0},
+            trust_remote_code=True)
     model.eval()
     def measure(prompts, atok):
         exp, arg, ent, maxp, mass, dists = [], [], [], [], [], []
@@ -223,7 +256,11 @@ def main():
     env = {"torch": torch.__version__, "transformers": transformers.__version__,
            "device": DEVICE, "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None}
     print("ENV", env, flush=True)
-    payload = {"env": env, "smoke": SMOKE, "n_items": len(ITEMS),
+    # precision is recorded in the payload, not only in the filename: a results
+    # file that does not say how its weights were loaded is one rename away from
+    # being compared against the wrong arm.
+    payload = {"env": env, "smoke": SMOKE, "precision": PRECISION,
+               "n_items": len(ITEMS),
                "domains": [d for *_, d in ITEMS], "errors": {}, "results": {}}
     for label, base_id, inst_id, pb, train in PAIRS:
         rec = {"params_b": pb, "training": train}

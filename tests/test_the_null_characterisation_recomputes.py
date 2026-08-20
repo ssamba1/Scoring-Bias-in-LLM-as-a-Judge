@@ -100,10 +100,13 @@ def test_every_point_estimate_still_points_the_same_way():
 
 def test_no_probe_is_evidence_of_absence():
     stored = _stored()
-    supportive = sorted(p for p, v in stored["per_probe"].items() if v["bf01"] >= 3)
-    assert supportive == stored["moderate_evidence_for_null"], (
-        f"the release lists {stored['moderate_evidence_for_null']} as having "
-        f"moderate evidence for the null; its own Bayes factors give {supportive}"
+    threshold = stored.get("threshold_bf01", 3.0)
+    supportive = sorted(p for p, v in stored["per_probe"].items()
+                        if v["bf01"] >= threshold)
+    assert len(supportive) == stored["n_moderate_evidence_for_null"], (
+        f"the release records {stored['n_moderate_evidence_for_null']} probes "
+        f"with moderate evidence for the null; its own Bayes factors give "
+        f"{len(supportive)} ({supportive})"
     )
     assert not supportive, (
         f"{supportive} now reach BF01 >= 3. If a registered null has become "

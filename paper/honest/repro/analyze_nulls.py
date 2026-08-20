@@ -99,13 +99,19 @@ def main():
         }
 
     bfs = {p: v["bf01"] for p, v in out["per_probe"].items()}
-    out["moderate_evidence_for_null"] = sorted(p for p, b in bfs.items() if b >= 3)
-    out["leans_toward_effect"] = sorted(p for p, b in bfs.items() if b < 1)
+    # Counts, not lists. The interesting answer here is "none", and an empty
+    # list cannot be told from a field nobody populated -- which is the whole
+    # reason this release forbids empty containers. A zero says it outright, and
+    # the per-probe bf01 values above let a reader rebuild either set.
+    out["threshold_bf01"] = 3.0
+    out["n_moderate_evidence_for_null"] = sum(1 for b in bfs.values() if b >= 3)
+    out["n_leaning_toward_effect"] = sum(1 for b in bfs.values() if b < 1)
     out["summary"] = (
-        f"No probe reaches BF01 >= 3, so none of the registered nulls is "
-        f"moderate evidence of absence; {len(out['leans_toward_effect'])} of "
-        f"{len(bfs)} lean toward an effect. The nulls are uninformative rather "
-        f"than supportive, which is what n=13 buys."
+        f"{out['n_moderate_evidence_for_null']} of {len(bfs)} probes reach "
+        f"BF01 >= 3, so the registered nulls are not evidence of absence; "
+        f"{out['n_leaning_toward_effect']} of {len(bfs)} lean toward an effect. "
+        f"The nulls are uninformative rather than supportive, which is what "
+        f"n=13 buys."
     )
 
     (HERE / "results_nulls.json").write_text(json.dumps(out, indent=2) + "\n")
