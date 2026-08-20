@@ -35,6 +35,13 @@ PATTERNS = {
     "huggingface token": rb"\bhf_[A-Za-z0-9]{30,}",
     "kaggle key (json)": rb'"key"\s*:\s*"[0-9a-f]{28,}"',
     "kaggle key (env)": rb"KAGGLE_KEY\s*[=:]\s*['\"]?[0-9a-f]{28,}",
+    # Kaggle rotated to a prefixed token (KGAT_...) read from
+    # ~/.kaggle/access_token or KAGGLE_API_TOKEN. The two patterns above match
+    # only the legacy 28-hex key, so a token in the new format would have
+    # scanned clean. Added after one was pasted into a chat window, which is
+    # the likeliest way it reaches a file in the first place.
+    "kaggle token (prefixed)": rb"KGAT_[A-Za-z0-9]{24,}",
+    "kaggle token (env)": rb"KAGGLE_API_TOKEN\s*[=:]\s*['\"]?KGAT_[A-Za-z0-9]{8,}",
     "openrouter key": rb"sk-or-v1-[a-f0-9]{16,}",
     "openai key": rb"\bsk-[A-Za-z0-9]{32,}",
     "anthropic key": rb"\bsk-ant-[A-Za-z0-9\-]{24,}",
