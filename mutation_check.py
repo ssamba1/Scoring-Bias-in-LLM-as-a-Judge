@@ -1611,6 +1611,17 @@ MUTATIONS = [
         "a figure stops showing what the data produces",
     ),
     (
+        # An aggregate stops summarising its own array. The generalisation of
+        # the identity that caught the letter-variant misalignment: a mean that
+        # is not the mean of the scores beside it means one of the two
+        # describes something else, whatever any analysis computes from them.
+        "paper/honest/repro/results_scaled.json",
+        '"mean": 4.583',
+        '"mean": 4.283',
+        "tests/test_released_aggregates_match_their_arrays.py",
+        "an aggregate stops matching the array it summarises",
+    ),
+    (
         # A stored distribution stops agreeing with its own mean. Expected score
         # is linear in the distribution, so the two cannot disagree unless the
         # vector is indexed by something other than the assumed score order --
