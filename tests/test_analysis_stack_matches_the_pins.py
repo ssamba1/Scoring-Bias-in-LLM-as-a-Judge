@@ -1,11 +1,12 @@
 r"""Pin the derived values that sit on a rounding tie to CI's output.
 
 The committed derived JSON is a build output, and the reproduction gate
-regenerates it in CI and fails on any difference. Four entries of
+regenerates it in CI and fails on any difference. Five entries of
 responsiveness_link_points land within a whisker of a rounding tie: `round(x, 4)`
 where x is just either side of ...5 in the fifth decimal. Which way it rounds
-depends on the last bits of x, so it differs between environments. CI computes
-0.6995 where this machine computes 0.6996.
+depends on the last bits of x, so it differs between environments. The original
+instance was CI computing 0.6995 where this machine computed 0.6996; the values
+have since moved with the score-ordering fix, but the behaviour has not.
 
 The obvious explanation was package drift -- scipy 1.18.0 against a 1.17.1 pin.
 It was wrong, and worth recording as wrong: installing the pinned stack exactly
@@ -51,19 +52,18 @@ PINS = REPRO / "requirements-repro.txt"
 # variation against the ascending control had been taken index-wise. These are
 # the corrected values.
 #
-# One honest caveat. These are what this machine produces after the fix, not
-# what CI has been observed to produce -- the point of the list is to record
-# CI's rounding, and CI has not run since the values changed. Whether any of
-# them still lands on a tie is unknown until it does. If the reproduction gate
-# goes red on one of these, the diff it prints is the authority and this list
-# should be updated to match, exactly as it was when the first four were added.
-#
+# The caveat that stood here -- "these are this machine's values, not ones CI
+# has been observed to produce" -- has been discharged. The gate ran, diffed,
+# and printed what it computes, so the mechanism entries below are CI's own
+# output. resp[61] is on the list because that run surfaced it; it had never
+# been pinned, which is why the first post-fix run still went red.
 # (file, dotted path, value CI produces)
 CI_VALUES = [
     ("results_mechanism.json", "responsiveness_link_points.resp[6]", 0.5182),
-    ("results_mechanism.json", "responsiveness_link_points.resp[18]", 0.1084),
-    ("results_mechanism.json", "responsiveness_link_points.resp[91]", 0.3826),
-    ("results_mechanism.json", "responsiveness_link_points.resp[92]", 0.223),
+    ("results_mechanism.json", "responsiveness_link_points.resp[18]", 0.1083),
+    ("results_mechanism.json", "responsiveness_link_points.resp[91]", 0.3825),
+    ("results_mechanism.json", "responsiveness_link_points.resp[92]", 0.2231),
+    ("results_mechanism.json", "responsiveness_link_points.resp[61]", 0.1465),
     ("results_stages_analysis.json", "per_cell[16].resp", 0.4362),
     ("results_stages_analysis.json", "trajectories.OLMo-2-1B.RLVR.resp", 0.1866),
     ("results_stages_analysis.json", "P8_paths.OLMo-2-1B.resp_path[3]", 0.1866),

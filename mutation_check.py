@@ -1549,9 +1549,13 @@ MUTATIONS = [
         # the only surface a skimming reader takes the mechanism claim from,
         # and it drifted for real when the responsiveness fix landed: every
         # local check stayed green while fig_mech drew the old values.
+        # Anchor on a value the figure DRAWS: the scatter panel renders this
+        # rho in its title. The first attempt mutated instruct_mean, which
+        # the figure never prints, so nothing changed and the harness
+        # correctly reported the guard as not catching it.
         "paper/honest/repro/results_mechanism.json",
-        '"instruct_mean": 0.2387',
-        '"instruct_mean": 0.3387',
+        '"spearman_rho": 0.824',
+        '"spearman_rho": 0.924',
         "tests/test_figures_show_the_current_data.py",
         "a figure stops showing what the data produces",
     ),

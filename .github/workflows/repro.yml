@@ -44,8 +44,15 @@ jobs:
         # cancelled for as long as the run history goes back, while the paper
         # and README described the project as CI-enforced.
         run: |
-          pip install pytest
+          pip install pytest flake8
           pip install -r paper/honest/repro/requirements-repro.txt
+      - name: Tools the guards need in order to run at all
+        # Two guards were skipping here, and the mutation harness reported
+        # both as not catching their mutation -- correctly, because a
+        # skipped guard cannot fail. The lint gate needs flake8 and the
+        # figure-content check needs pdftotext. Without them the suite was
+        # green on strictly less than it appeared to cover.
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
       - name: No fabricated artefact outside RETRACTED/, submission intact
         run: python -m pytest tests/ -q -rs
       - name: The guards must be able to fail
