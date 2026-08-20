@@ -143,6 +143,12 @@ EXEMPT_FILES = {
     # Fourth time. This one sweeps every live document for the overturned
     # direction, so its pattern list necessarily spells the direction out.
     "tests/test_no_document_states_the_overturned_direction.py",
+    # Fifth and sixth. Both exist to record that the Zenodo deposit the paper
+    # cites still contains the superseded figures, which cannot be said without
+    # naming them. The checklist is the one place a reader is told the archive
+    # is stale, so exempting it is the point rather than a concession.
+    "tests/test_the_archived_snapshot_claim_is_current.py",
+    "paper/submission_checklist.md",
 }
 
 BINARY = {".png", ".pdf", ".gz", ".jpg", ".jpeg", ".ico", ".pyc", ".zip"}

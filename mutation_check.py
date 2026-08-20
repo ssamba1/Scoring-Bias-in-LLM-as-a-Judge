@@ -1451,8 +1451,8 @@ MUTATIONS = [
     (
         # A box only the author can complete is ticked as done.
         "paper/submission_checklist.md",
-        "- [ ] **Zenodo DOI for this version.**",
-        "- [x] **Zenodo DOI for this version.**",
+        "- [ ] **Zenodo DOI for this version -- BLOCKING, and verified stale.**",
+        "- [x] **Zenodo DOI for this version -- BLOCKING, and verified stale.**",
         "tests/test_the_submission_checklist_describes_this_paper.py",
         "an author-only action is ticked as done",
     ),
@@ -1547,6 +1547,19 @@ MUTATIONS = [
         '"T02": 0.076',
         "tests/test_the_split_verdicts_recompute.py",
         "a split verdict's count drifts from its own values",
+    ),
+    (
+        # The stale-archive item is ticked off while the paper still cites the
+        # deposit that carries the superseded numbers. Ticking a box mints
+        # nothing, and this is the last thing standing between the corrected
+        # paper and a DOI that resolves to the uncorrected one. Anchored on the
+        # DOI rather than the checkbox: the box already carries a mutation for a
+        # different guard, and two entries perturbing one line test one thing.
+        "paper/submission_checklist.md",
+        "10.5281/zenodo.21499823",
+        "10.5281/zenodo.21499824",
+        "tests/test_the_archived_snapshot_claim_is_current.py",
+        "the stale-archive item is ticked without a new deposit",
     ),
     (
         # A mechanism panel stops matching the numbers it plots. The figure is
