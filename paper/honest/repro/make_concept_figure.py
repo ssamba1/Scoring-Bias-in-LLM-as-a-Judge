@@ -24,7 +24,12 @@ ax = axes[0]
 p = np.array([0.10, 0.18, 0.34, 0.24, 0.14])
 ax.bar(vals, p, color="#4878a8", width=0.62)
 s = float((p * vals).sum())
-ax.axvline(s, color="k", lw=1.4, ls="--")
+# Stop the mean line above the decisiveness label. Drawn full height it ran
+# through the centre of that annotation -- the label is centred on s because it
+# labels an arrow centred on s, so the two are guaranteed to collide -- and the
+# dashes struck through the v in Var_sigma(v). The line only has to reach the
+# distribution it marks.
+ax.axvline(s, color="k", lw=1.4, ls="--", ymin=0.30, ymax=1.0)
 ax.annotate(f"score $s=E_\\sigma[v]$", (s + 0.08, 0.345), fontsize=9)
 ax.annotate("", xy=(s - 1.15, 0.06), xytext=(s + 1.15, 0.06),
             arrowprops=dict(arrowstyle="<->", color="#a04040", lw=1.3))
