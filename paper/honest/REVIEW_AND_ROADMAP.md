@@ -85,8 +85,11 @@ Per-claim verdicts from a systematic search:
 - **One-forward-pass bias predictor** — MOSTLY NOVEL. Nearest: entropy→correctness
   predictors (arXiv:2602.13699). Bias as the target is new.
 - **Patching/attention** — methodology NOT novel (ROME/MEMIT lineage;
-  arXiv:2510.12229 patches tuning-induced moral bias to mid layers); application to
-  judge scoring bias is incremental but sound.
+  arXiv:2510.12229 localizes a tuning-induced moral bias to "a specific set of
+  layers" and eliminates it by patching *pretrained* activations into "just a few
+  critical layers" — checked against its abstract 2026-08-21, which does not say
+  *mid* layers, and note the patching direction is the reverse of ours);
+  application to judge scoring bias is incremental but sound.
 
 **Overall:** competition-level (ISEF/Regeneron): competitive. Top venue: workshop /
 Findings realistic after Parts B–C; main-track needs frontier judges (C1) and the
