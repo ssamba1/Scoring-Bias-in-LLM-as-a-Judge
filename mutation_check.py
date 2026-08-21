@@ -514,6 +514,17 @@ MUTATIONS = [
         "platform allowlist stops naming the file each value belongs to",
     ),
     (
+        # The mitigation sentence drifts from the values stored beside it.
+        # Those four numbers used to be literals in a released record, on the
+        # one claim in this paper already published wrong once; they are
+        # interpolated now, and this is what says so if they are typed back in.
+        "paper/honest/repro/results_mechanism.json",
+        "costs 0.45 per item",
+        "costs 0.55 per item",
+        "tests/test_the_mitigation_comparison_is_like_for_like.py",
+        "mitigation prose drifts from the values beside it",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",

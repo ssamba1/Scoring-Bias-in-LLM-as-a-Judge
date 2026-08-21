@@ -116,3 +116,41 @@ def test_the_paper_does_not_claim_the_retired_reduction():
         "definitional. Averaging over the dimension the bias is measured on "
         "cannot fail, and a reader needs to be told that before the number."
     )
+
+
+def test_the_reading_sentence_quotes_the_values_beside_it():
+    """The prose in this record must not drift from the record.
+
+    Four numbers in `reading` were literals: the single-format cost, the
+    unmitigated deviation, and the two ends of the argmax spread. They sat in a
+    released sentence next to the fields they describe, with nothing keeping
+    them in step -- on the one claim in this paper that has already been
+    published wrong once, when a max-min spread was compared against a mean
+    absolute deviation and reported as a 59% reduction.
+
+    They are interpolated now, so the sentence cannot disagree with the record.
+    This is what says so if someone types them back in. The 59% is deliberately
+    not checked: it names the retired figure, so it is history rather than a
+    quantity this file computes.
+    """
+    mitigation = _mitigation()
+    reading = mitigation.get("reading")
+    if not reading:
+        pytest.skip("[repro] no mitigation reading")
+
+    expected = {
+        "single_format_cost_mad": mitigation["single_format_cost_mad"],
+        "unmitigated_mad": mitigation["unmitigated_mad"],
+        "expected_maxmin": mitigation["expected_maxmin"],
+        "argmax_maxmin": mitigation["argmax_maxmin"],
+    }
+    missing = [
+        f"{field}={value} renders as {value:.2f}, which is absent from the "
+        f"reading sentence"
+        for field, value in expected.items()
+        if f"{value:.2f}" not in reading
+    ]
+    assert not missing, (
+        f"the mitigation sentence no longer quotes the values stored beside "
+        f"it: {missing}. Reading: {reading!r}"
+    )

@@ -61,11 +61,21 @@ def test_the_allowlist_records_which_file_each_value_belongs_to():
         f"difference in any file, which is how a regression in one file passes "
         f"because an unrelated file is documented as differing by that amount."
     )
+    # Not a type check: the values came out of float(), so asserting they are
+    # floats cannot fail. What can fail is the pairing being read off the wrong
+    # column -- a field name captured where a file name belongs, or a value
+    # that appears nowhere in the document it claims to come from.
+    doc = " ".join(ENVDOC.read_text(encoding="utf-8", errors="replace").split())
+    wrong = []
     for name, value in entries:
-        assert isinstance(name, str) and name.endswith(".json"), (
-            f"{name!r} is not a results file name"
-        )
-        assert isinstance(value, float), f"{value!r} is not a number"
+        if f"`{name}`" not in doc:
+            wrong.append(f"{name!r} is allowlisted but is not named in ENVIRONMENT.md")
+        if str(value) not in doc and f"{value:.4f}" not in doc:
+            wrong.append(f"{value} is allowlisted but appears nowhere in the document")
+    assert not wrong, (
+        f"the allowlist does not correspond to what ENVIRONMENT.md records: "
+        f"{wrong}"
+    )
 
 
 def test_every_allowlisted_file_exists():

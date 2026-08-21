@@ -380,27 +380,38 @@ def mitigation(pairs):
             fm = np.array(means)
             mad_unmitigated.append(float(np.abs(fm - fm.mean()).mean()))
 
+    ev_spread = float(np.mean(maxmin))
+    argmax_spread = float(np.mean(argmax_maxmin))
+    single_cost = float(np.mean(single_format_cost))
+    unmitigated = float(np.mean(mad_unmitigated))
+
     return {
         "estimator_note": ("max-min spreads are comparable with each other; the "
                            "deviation measures are comparable with each other; "
                            "the two families are not comparable across"),
-        "expected_maxmin": round(float(np.mean(maxmin)), 4),
-        "argmax_maxmin": round(float(np.mean(argmax_maxmin)), 4),
+        "expected_maxmin": round(ev_spread, 4),
+        "argmax_maxmin": round(argmax_spread, 4),
         "marginalized_maxmin": 0.0,
         "marginalized_is_zero_by_construction": True,
-        "single_format_cost_mad": round(float(np.mean(single_format_cost)), 4),
-        "unmitigated_mad": round(float(np.mean(mad_unmitigated)), 4),
-        "reading": ("Marginalizing over the score-ID formats removes score-ID "
-                    "bias by construction, since one averaged score per item "
-                    "has no spread across formats; that is definitional, not a "
-                    "measurement. Committing to a single format instead costs "
-                    "0.45 per item on average. The like-for-like comparison "
-                    "against the unmitigated deviation (0.41) shows no "
-                    "reduction, so the previously reported 59% was the "
-                    "difference between a max-min spread and a mean absolute "
-                    "deviation. The argmax comparison is like-for-like and "
-                    "stands: a more decisive readout raises the spread from "
-                    "1.09 to 1.88."),
+        "single_format_cost_mad": round(single_cost, 4),
+        "unmitigated_mad": round(unmitigated, 4),
+        # Interpolated, not typed. These four numbers were literals in this
+        # sentence, sitting beside the values they describe with nothing to
+        # keep them in step -- on the one claim in this paper that was already
+        # published wrong once. The 59% stays a literal because it is history:
+        # it names the retired figure, not a quantity computed here.
+        "reading": (f"Marginalizing over the score-ID formats removes score-ID "
+                    f"bias by construction, since one averaged score per item "
+                    f"has no spread across formats; that is definitional, not "
+                    f"a measurement. Committing to a single format instead "
+                    f"costs {single_cost:.2f} per item on average. The "
+                    f"like-for-like comparison against the unmitigated "
+                    f"deviation ({unmitigated:.2f}) shows no reduction, so the "
+                    f"previously reported 59% was the difference between a "
+                    f"max-min spread and a mean absolute deviation. The argmax "
+                    f"comparison is like-for-like and stands: a more decisive "
+                    f"readout raises the spread from {ev_spread:.2f} to "
+                    f"{argmax_spread:.2f}."),
     }
 
 
