@@ -31,7 +31,7 @@ quietly outlive what it describes.
 - [x] Introduction with the problem statement and research questions
 - [x] Related work with a positioning table
 - [x] Method with full reproduction details (§3)
-- [x] Results: 10 figures and 5 tables
+- [x] Results: 11 figures and 5 tables
 - [x] Discussion with the theoretical interpretation
 - [x] Limitations: 10 items (§7)
 - [x] Conclusion

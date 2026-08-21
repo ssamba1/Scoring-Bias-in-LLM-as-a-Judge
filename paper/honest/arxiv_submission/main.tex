@@ -402,6 +402,20 @@ sign-flip permutation $p$ over all $2^{13}$ sign patterns.}
 
 \subsection{Mechanism: sharper, but more biased}\label{sec:mech}
 \MECHPROSE{}
+\begin{figure}[t]\centering
+\includegraphics[width=0.82\linewidth]{fig_scale.pdf}
+\caption{The tuning effect against judge size. Each point is one family's
+mean bias increase under instruction tuning, over the five probes. The
+panel spans $0.1$--$8$B and shows a positive effect that is noisy across
+families with no clean trend inside that range. The single point above it
+is the 4-bit 14B extension, and it is low. That point was uninterpretable
+until the quantization control: running Qwen2.5-7B---which the panel holds
+at fp16---at the same 4-bit setting \emph{inflates} the tuning delta by
+about $6\%$, so the low 14B value is not an artefact of quantization. It
+remains one unreplicated observation at one scale, and we read it as an
+open question about scale rather than as a demonstrated limit.}
+\label{fig:scale}\end{figure}
+
 \begin{figure*}[t]\centering
 \includegraphics[width=0.98\linewidth]{fig_mech.pdf}
 \caption{The decomposition, both terms measured ($n=\NFAM$ families). \textbf{(a)}
@@ -682,7 +696,7 @@ because a mechanism claim is only as trustworthy as the measurement under it.
 
 \section*{Reproducibility}
 Every statistic and figure is produced by the eighteen \path{repro/analyze_*.py}
-scripts and seven \path{repro/make_*.py} figure generators, from the twenty
+scripts and eight \path{repro/make_*.py} figure generators, from the twenty
 committed raw run files in \path{repro/}---\path{results_scaled.json} for the
 main panel, \path{results_closed.json} for the frontier judges,
 \path{results_stages.json.gz} for the stage ablation, \path{results_probes2.json}
