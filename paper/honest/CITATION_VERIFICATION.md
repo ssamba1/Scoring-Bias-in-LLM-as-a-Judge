@@ -69,3 +69,23 @@ instance. This is the usual convention for model reports and is applied
 consistently across all of them; it is recorded here so the difference from the
 arXiv metadata is not later mistaken for an error.
 
+## Characterizations of cited work
+
+A resolving identifier says nothing about whether the sentence around it is
+true. The verbs are where the unsupported claim hides: "introduced", "first",
+"showed" are assertions about the literature, and a plural subject generalises a
+result that may have been measured on one model. The companion project shipped
+three defects of exactly this kind, and this paper has already corrected two of
+its own (an inexact quotation of Li et al., and a mischaracterisation of Thakur
+et al.'s design -- both recorded in `tests/test_quotation_integrity.py`).
+
+Every remaining priority verb next to a citation was checked on 2026-08-21.
+
+| claim in the paper | checked against | verdict |
+|---|---|---|
+| `liu2023geval` "introduced probability-weighted scores" | G-Eval body (ar5iv, 2303.16634) | Supported. Their scoring function is `score = sum_i p(s_i) * s_i`, presented as their own proposal to obtain "more fine-grained, continuous scores". |
+| `wang2025judgmentdist` "show the distribution mean outperforms the mode across judging settings" | abstract, 2503.03064 | Supported, and close to verbatim: "taking the mean of the judgment distribution consistently outperforms taking the mode (i.e. greedy decoding) in all evaluation settings (i.e. pointwise, pairwise, and listwise)". |
+| `li2025scoring` "introduced the three scoring biases and called for root-cause analysis" | 2506.22316 | Supported. They examine rubric order, score ID and reference answer, and their Limitations ask for the causes to be validated -- the sentence this paper quotes. |
+| `thakur2024judging` "evaluated thirteen instruction-tuned judges on answers from both base and instruction-tuned exam-takers" | 2406.12624 | Supported. This is the corrected wording; the earlier version said they "found base and instruct judges differ", which reversed which side of their design the split is on. |
+
+No priority verb in the paper claims something its source does not.
