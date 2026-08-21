@@ -361,6 +361,19 @@ states("exact permutation p", "0.00098", 1)
 # construction anyway. The template ensemble is the measured mitigation, and it
 # is what the abstract, the mitigation prose and the README now quote.
 states("template ensemble mitigation", r"22\%", 2)
+
+# The quantization control that discharges the 14B caveat. Both deltas are
+# quoted in the prose, so both are pinned to the released measurement.
+qpath = HERE / "results_quantization.json"
+if qpath.exists():
+    quant = json.loads(qpath.read_text())
+    close("quantization fp16 delta", 0.54, quant["fp16_tuning_delta"], 0.006)
+    close("quantization nf4 delta", 0.58, quant["nf4_tuning_delta"], 0.006)
+    if quant["quantization_attenuates_delta"]:
+        FAILS.append(
+            "the prose says 4-bit inflates the tuning delta; the release says "
+            "it attenuates, which would restore the confound on the 14B point"
+        )
 states("argmax readout", "1.88", 2)
 states("frontier pooled correlation", r"\rho=-0.45", 2)
 states("frontier pooled n", "n=145", 3)
