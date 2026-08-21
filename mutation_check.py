@@ -799,8 +799,15 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py", "headline: exact permutation p drifts",
     ),
     (
-        "paper/honest/macros.tex", "59\\%", "69\\%",
-        "tests/test_prose_matches_derived_values.py", "headline: marginalization mitigation drifts",
+        # Was: mutate the 59% marginalization figure. That claim is retired --
+        # it compared a mean absolute deviation against a max-min spread -- so
+        # the digits now appear only in the sentence explaining the retraction,
+        # where changing them breaks nothing and the mutation went uncaught.
+        # The live reduction claim is the template ensemble, which is measured.
+        "paper/honest/macros.tex", "score variants---by 22\\%",
+        "score variants---by 32\\%",
+        "tests/test_prose_matches_derived_values.py",
+        "headline: template ensemble mitigation drifts",
         True,
     ),
     (
