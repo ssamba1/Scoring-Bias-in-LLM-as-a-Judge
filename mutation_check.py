@@ -583,6 +583,20 @@ MUTATIONS = [
         "rebuttal FAQ re-sources the pooled p to the degenerate fit",
     ),
     (
+        # The retraction notice undercounts what it withdrew. This is the
+        # defect as it shipped: the notice said three of four dashboards were
+        # retracted and named three, while four sit quarantined -- the fourth
+        # being the Root-Cause Summary, which git shows was moved out of
+        # paper/interactive/ by the fabricated-artefact quarantine. Nothing was
+        # hidden, but a reader checking the notice against the directory finds
+        # withdrawn material the notice never mentions.
+        "paper/interactive/index.html",
+        "Four of the five dashboards here have been retracted.",
+        "Three of the four dashboards here have been retracted.",
+        "tests/test_the_retraction_notice_counts_what_was_retracted.py",
+        "retraction notice undercounts the dashboards it withdrew",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
