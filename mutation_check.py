@@ -1452,8 +1452,8 @@ MUTATIONS = [
     (
         # The checklist's figure count drifts from the paper it describes.
         "paper/submission_checklist.md",
-        "Results: 10 figures and 5 tables",
-        "Results: 20 figures and 5 tables",
+        "Results: 11 figures and 5 tables",
+        "Results: 21 figures and 5 tables",
         "tests/test_the_submission_checklist_describes_this_paper.py",
         "the checklist miscounts the paper's figures",
     ),
