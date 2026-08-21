@@ -572,6 +572,17 @@ MUTATIONS = [
         "a citation identifier stops matching the verified record",
     ),
     (
+        # The rebuttal FAQ goes back to sourcing the pooled p from the
+        # mixed-effects fit the paper disclaims as degenerate. The coefficient
+        # is identical under both estimators, which is exactly why the wrong
+        # provenance survived unnoticed in a referee-facing document.
+        "paper/honest/REBUTTAL_FAQ.md",
+        "The aggregate rests on the pooled per-item model",
+        "The aggregate rests on the pooled mixed-effects model",
+        "tests/test_superseded_claims_are_not_asserted.py",
+        "rebuttal FAQ re-sources the pooled p to the degenerate fit",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",

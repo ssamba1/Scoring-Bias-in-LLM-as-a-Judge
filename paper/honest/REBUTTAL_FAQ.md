@@ -29,8 +29,11 @@ Holm-corrected across the five probes — is null for *every* probe, the smalles
 being p_Holm=0.13 (score ID and authority). Three of the five bootstrap CIs
 exclude zero and are seed-stable, which is weaker evidence than significance and
 is not offered as a substitute. With n=13 paired families per probe that test
-has little power. The aggregate rests on the pooled mixed-effects model
-(instruct coefficient +0.16, p<10⁻³), the exact sign-flip permutation test, and
+has little power. The aggregate rests on the pooled per-item model
+(instruct coefficient +0.16; p=4×10⁻⁶ from a family-clustered OLS, not from the
+mixed-effects fit, whose family variance component is exactly zero and whose
+standard errors are not all finite — the coefficient is identical under both),
+the exact sign-flip permutation test, and
 the twelve-specification sweep — not on any single probe.
 
 **"The predictor R²=0.27 won't replicate."**

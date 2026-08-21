@@ -53,7 +53,7 @@ main panel, over 56,000 across all datasets)** and
 **5 bias types** (rubric order, score ID, reference answer + authority, verbosity):
 
 - Instruction tuning **sharpens** the score distribution (entropy 2.04 -> 1.45 bits, 11/13 families)...
-- ...yet **increases** bias (mixed-effects instruct coef **+0.16, p<1e-3**; exact sign-flip
+- ...yet **increases** bias (pooled per-item instruct coef **+0.16**, family-clustered OLS **p=4e-6**; exact sign-flip
   permutation over all 2^13 family patterns **p=0.00098**; stable under leave-one-family,
   leave-one-vendor, and >=1B-only sensitivity checks, and under all six expected-value
   analysis specifications).

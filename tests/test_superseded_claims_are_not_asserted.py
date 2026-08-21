@@ -39,6 +39,27 @@ REPO = Path(__file__).resolve().parent.parent
 # mention of it: a sentence explaining that the direction was overturned has to
 # be able to say so.
 CLAIMS = {
+    # The pooled p sourced to the mixed-effects fit. The paper says plainly
+    # that a p read off that fit "would not be trustworthy" -- its family
+    # variance component is exactly zero, its random-effects covariance is
+    # singular, and its standard errors are not all finite -- and re-sources
+    # the p to a family-clustered OLS. The coefficient is identical either way,
+    # which is why the wrong attribution survived in the rebuttal FAQ and the
+    # README headline: the number was right and only its provenance was not.
+    #
+    # Deliberately narrow. The paper legitimately discusses that fit, and
+    # MECHPROSE legitimately reports a different mixed-effects regression (the
+    # entropy-bias one) with its own p. A pattern broad enough to forbid saying
+    # "mixed-effects" near a p-value would forbid the correct sentences too.
+    "pooled p sourced to the mixed-effects fit": (
+        r"(?i)rests on the pooled mixed-effects",
+        "The aggregate rests on the pooled mixed-effects model "
+        "(instruct coefficient +0.16, p<10-3)",
+    ),
+    "README sources the instruct coefficient p to the mixed model": (
+        r"(?i)mixed-effects instruct coef",
+        "yet **increases** bias (mixed-effects instruct coef **+0.16, p<1e-3**)",
+    ),
     # Probed against restatements on 2026-08-14. The originals matched only
     # "reduces", and only the two nouns the offending artefacts happened to
     # use, so "instruction tuning reduces FORMAT bias" -- nearest to the
