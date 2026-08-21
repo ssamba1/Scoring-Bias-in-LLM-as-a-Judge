@@ -47,14 +47,33 @@ SMOKE = os.environ.get("SMOKE", "0") == "1"
 PRECISION = os.environ.get("PRECISION", "nf4")
 if PRECISION not in {"nf4", "int8", "fp16"}:
     raise SystemExit(f"PRECISION must be nf4, int8 or fp16; got {PRECISION!r}")
-OUT_PATH = ("/kaggle/working/results_14b.json" if PRECISION == "nf4"
-            else f"/kaggle/working/results_14b_{PRECISION}.json")
+
+# Which pair to score. The 14B extension is the default and what the committed
+# results_14b.json holds.
+#
+# QUANT_MODEL=qwen7b selects Qwen2.5-7B instead, which exists in the main panel
+# at fp16. That pairing is the whole point: running it here at nf4 gives an
+# exact same-items, same-harness fp16 reference to difference against, so the
+# quantization effect can be measured rather than assumed. Without it, the only
+# 4-bit point in the project is the 14B one, whose fp16 counterpart does not
+# exist and cannot be produced on a 16 GB card.
+QUANT_MODEL = os.environ.get("QUANT_MODEL", "qwen14b")
+_PAIRS = {
+    "qwen14b": ("Qwen2.5-14B", "Qwen/Qwen2.5-14B", "Qwen/Qwen2.5-14B-Instruct",
+                14.0, "RLHF"),
+    "qwen7b": ("Qwen2.5-7B", "Qwen/Qwen2.5-7B", "Qwen/Qwen2.5-7B-Instruct",
+               7.0, "RLHF"),
+}
+if QUANT_MODEL not in _PAIRS:
+    raise SystemExit(f"QUANT_MODEL must be one of {sorted(_PAIRS)}; got {QUANT_MODEL!r}")
+
+_stem = "results_14b" if QUANT_MODEL == "qwen14b" else "results_7b"
+OUT_PATH = (f"/kaggle/working/{_stem}.json" if PRECISION == "nf4" and _stem == "results_14b"
+            else f"/kaggle/working/{_stem}_{PRECISION}.json")
 
 # (family_label, base_id, instruct_id, params_b, training_of_instruct)
 # ascending by size so the small families all complete + save before big ones
-PAIRS = [
-    ("Qwen2.5-14B", "Qwen/Qwen2.5-14B", "Qwen/Qwen2.5-14B-Instruct", 14.0, "RLHF"),
-]
+PAIRS = [_PAIRS[QUANT_MODEL]]
 if SMOKE:
     PAIRS = PAIRS[:2]
 
