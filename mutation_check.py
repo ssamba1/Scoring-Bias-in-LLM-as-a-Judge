@@ -371,6 +371,27 @@ MUTATIONS = [
         "gold margin drop stops following from the gold pairs",
     ),
     (
+        # A bootstrap endpoint stops being the digit its own value prints.
+        # The five recomputed columns cannot see this one: reproducing the
+        # interval needs numpy's generator, so it is checked by reproducing
+        # the draw at the stored seed and comparing only the rendering.
+        "paper/honest/tables/tab_v2_summary.tex",
+        "[+0.08, +0.64]",
+        "[+0.09, +0.64]",
+        "tests/test_the_last_two_columns_round_once.py",
+        "interval endpoint loses a digit between value and page",
+    ),
+    (
+        # The corrected p stops matching Holm over unrounded inputs. Holm here
+        # multiplies p-values that were already rounded to four decimals; that
+        # is harmless on this data and the guard is what says so.
+        "paper/honest/tables/tab_v2_summary.tex",
+        "& 0.133 & 0.75",
+        "& 0.134 & 0.75",
+        "tests/test_the_last_two_columns_round_once.py",
+        "corrected p drifts from Holm over unrounded inputs",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
