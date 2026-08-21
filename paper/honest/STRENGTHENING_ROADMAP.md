@@ -160,10 +160,30 @@ otherwise press indefinitely.
 
 ## What is deliberately not on this list
 
-More auditing of the existing numbers. That work is done: every figure traces to
-raw data recomputed independently, CI is green, and 259 mutations confirm the
-guards can fail. Further passes over the same 63,040 scored judgments would be
-motion, not progress. Everything above adds evidence rather than re-checking it.
+Another undirected pass over the existing numbers — a re-check with no
+hypothesis behind it.
+
+This section used to say something stronger and worse: that auditing the
+existing numbers was *done*, and that further passes over the same 63,040
+judgments would be "motion, not progress". The day after that was written is
+what refuted it. Auditing on 2026-08-21 found three published digits wrong from
+a value rounded once for storage and again for display; a registered Wilcoxon
+p that was a rounding artefact (0.600, actually 0.588, because rounding to three
+decimals manufactured a tie between two families); the asterisk in the main
+table decided by a single arbitrary bootstrap seed while the prose separately
+asserted the intervals were seed-stable; five derived files that CI regenerated
+and never compared against what was committed; and a platform allowlist still
+accepting a divergence the documentation says was fixed.
+
+The narrower claim is the true one. Re-checking the same numbers the same way is
+motion. What found things was auditing along an axis nobody had used yet — the
+composition of two individually correct steps, a hand-maintained list against
+what it is supposed to cover, a verdict against the precision it is stored at.
+Those axes are recorded so they are not rediscovered by accident.
+
+Everything above still adds evidence rather than re-checking it, and that is
+still why it is the priority. But "done" was the wrong word, and the list should
+not have claimed it.
 
 ---
 
