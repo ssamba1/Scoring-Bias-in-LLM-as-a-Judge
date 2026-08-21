@@ -99,6 +99,13 @@ quietly outlive what it describes.
       predates the retraction; check the on-hold PDF for the fabricated
       per-domain table before doing anything else, and do not resubmit from the
       old tarball. The author's action.
+- [x] `paper/honest/ARXIV_ABSTRACT.txt` is the abstract to paste into the
+      submission form. The paper's own abstract is 3,184 characters against
+      arXiv's 1,920-character metadata field, and arXiv truncates from the end
+      rather than refusing it -- which would silently drop the ground-truth
+      result, the mitigation figure, the frontier-judge finding, and last of
+      all the sentence disclosing the prior fabricated version. Do not paste
+      the abstract out of the PDF.
 - [ ] **arXiv identifier, endorsement, categories, and licence.** The author's
       actions.
 
