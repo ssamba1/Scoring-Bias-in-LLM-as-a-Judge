@@ -2121,7 +2121,7 @@ MUTATIONS = [
         # directory. The section is what a replicator follows; an undercount
         # sends them away having reproduced part of the paper.
         "paper/honest/scoring_bias_v2.tex",
-        "the sixteen \\path{repro/analyze_*.py}",
+        "the seventeen \\path{repro/analyze_*.py}",
         "the twelve \\path{repro/analyze_*.py}",
         "tests/test_reproducibility_section_is_complete.py",
         "the reproduction recipe undercounts its own scripts",
