@@ -146,7 +146,9 @@ function getDelta(name, probe) {
 function getChange(family, probe) {
   const b = getDelta(family.base, probe);
   const i = getDelta(family.instruct, probe);
-  return i - b; // negative = decrease (improvement)
+  return i - b; // negative = bias fell after tuning on this slice; the
+                // paper's full panel finds the opposite, so this is a
+                // direction, not a verdict
 }
 
 // ─── DRAW CHART ────────────────────────────────────────────────────────────
@@ -272,7 +274,7 @@ function updateDetailTable(probe) {
     const b = getDelta(f.base, probe);
     const i = getDelta(f.instruct, probe);
     const change = i - b;
-    const dir = change < -0.05 ? 'Decrease ✓' : change > 0.05 ? 'Increase ✗' : 'Neutral';
+    const dir = change < -0.05 ? 'Decrease' : change > 0.05 ? 'Increase' : 'Neutral';
     const cls = change < -0.05 ? 'change-decrease' : change > 0.05 ? 'change-increase' : '';
     return `<tr>
       <td style="font-weight:600">${f.label}</td>
