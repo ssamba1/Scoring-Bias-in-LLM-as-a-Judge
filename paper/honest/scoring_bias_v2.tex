@@ -635,8 +635,13 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         $\sigma$ and perturbation $\delta$ is left open.
   \item \textbf{Expected-value vs sampled scores.} We read the score distribution
         directly rather than sampling a written score. The probability mass these
-        judges place on a bare score token is small (much of the numeric mass sits on
-        tokenizer variants such as space-prefixed digits), so expected-value scoring
+        judges place on a bare score token is small---a mean of $0.15\%$ across the
+        390 measured variants, median $0.03\%$---and, worth stating because it
+        differs between the two arms being compared, smaller for instruct
+        checkpoints than base ones ($0.03\%$ vs.\ $0.26\%$), presumably because
+        instruction tuning moves mass toward conversational openings. Much of the
+        numeric mass sits on tokenizer variants such as space-prefixed digits, so
+        expected-value scoring
         reads the \emph{conditional} distribution over a valid-token subset---the
         standard constrained-scoring readout, and exactly why parse-based scoring
         fails. Its validity is behavioral rather than mass-based: near-perfect
@@ -675,7 +680,7 @@ because a mechanism claim is only as trustworthy as the measurement under it.
 \CONCLUSION{}
 
 \section*{Reproducibility}
-Every statistic and figure is produced by the sixteen \path{repro/analyze_*.py}
+Every statistic and figure is produced by the seventeen \path{repro/analyze_*.py}
 scripts and seven \path{repro/make_*.py} figure generators, from the nineteen
 committed raw run files in \path{repro/}---\path{results_scaled.json} for the
 main panel, \path{results_closed.json} for the frontier judges,

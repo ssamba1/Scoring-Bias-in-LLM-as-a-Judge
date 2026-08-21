@@ -138,6 +138,7 @@ jobs:
           python analyze_sampled.py
           python analyze_nulls.py
           python analyze_bands.py
+          python analyze_readout.py
           python analyze_t10.py
           python analyze_tokvar.py
           python analyze_closed.py

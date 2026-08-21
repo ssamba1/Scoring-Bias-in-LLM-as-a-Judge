@@ -196,6 +196,8 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         "clustered_ci_crosses_zero",
         # Same pattern: re-derived from its interval, not read.
         "excludes_zero",
+        # Re-derived from the two means it compares.
+        "instruct_below_base",
     }
     unaccounted = sorted(found - checked - set(UNCHECKED))
     assert not unaccounted, (

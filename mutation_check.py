@@ -1611,6 +1611,17 @@ MUTATIONS = [
         "a figure stops showing what the data produces",
     ),
     (
+        # The quantified answer-token mass drifts from the release. It was
+        # 'small' until it was measured; a number that nothing recomputes
+        # would drift back to being decorative, and this one records an
+        # asymmetry between the two arms the paper compares.
+        "paper/honest/scoring_bias_v2.tex",
+        r"a mean of $0.15\%$ across the",
+        r"a mean of $0.95\%$ across the",
+        "tests/test_the_answer_token_mass_is_quantified.py",
+        "the stated answer-token mass drifts from the data",
+    ),
+    (
         # The stored verdict stops matching the interval it summarises. Three
         # families cannot resolve the relation, and the clustered interval for
         # the between-band difference spans zero; flipping the flag turns an

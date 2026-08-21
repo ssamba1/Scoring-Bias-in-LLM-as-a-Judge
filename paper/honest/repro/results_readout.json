@@ -1,0 +1,27 @@
+{
+  "note": "POST HOC. Not preregistered. Quantifies Limitation 5.",
+  "what": "probability mass on the bare score tokens, before the readout renormalises over them",
+  "overall": {
+    "n_variants": 390,
+    "mean_pct": 0.1467,
+    "median_pct": 0.03,
+    "min_pct": 0.0,
+    "max_pct": 1.73
+  },
+  "base": {
+    "n_variants": 195,
+    "mean_pct": 0.2603,
+    "median_pct": 0.15,
+    "min_pct": 0.0,
+    "max_pct": 1.2
+  },
+  "instruct": {
+    "n_variants": 195,
+    "mean_pct": 0.0331,
+    "median_pct": 0.01,
+    "min_pct": 0.0,
+    "max_pct": 1.73
+  },
+  "instruct_below_base": true,
+  "reading": "Mass on bare score tokens averages 0.1467% across 390 variants. It is 0.2603% for base checkpoints and 0.0331% for instruct ones -- an asymmetry between the compared arms, running against the reported effect rather than for it, since the arm with the larger measured bias is the one placing less mass on the tokens the readout conditions on."
+}
