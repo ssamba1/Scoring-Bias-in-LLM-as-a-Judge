@@ -31,16 +31,53 @@ REPO = Path(__file__).resolve().parent.parent
 REPRO = REPO / "paper" / "honest" / "repro"
 WORKFLOW = REPO / ".github" / "workflows" / "repro.yml"
 
-# Derived files whose names do not end in _analysis.json. Listed explicitly
-# because there is no way to tell them from raw inputs by name alone; the test
-# below asserts each still exists, so a rename cannot quietly empty this set.
+# Derived files whose names do not end in _analysis.json. There is no way to
+# tell them from raw inputs by name alone, so they were listed by hand -- and
+# the list went stale exactly the way this file's docstring warns a list does.
+# Five analyses added after it was written (nulls, bands, readout,
+# quantization, speccurve) write outputs that end in neither _analysis.json nor
+# any name here, so they fell out of the guard, and out of the workflow's diff
+# list with nothing to notice.
+#
+# The set is still written down, because a reader should be able to see it. But
+# it is no longer trusted: _analyzer_outputs() below reads the write targets off
+# the analyses themselves, and a test requires the two to agree. Adding a
+# nineteenth analysis now fails here until its output is covered.
 DERIVED_WITHOUT_SUFFIX = {
     "results_peritem.json",
     "results_mechanism.json",
     "results_gold.json",
     "results_robustness.json",
     "spanpatch_analysis.json",
+    "results_nulls.json",
+    "results_bands.json",
+    "results_readout.json",
+    "results_quantization.json",
+    "results_speccurve.json",
 }
+
+# `p = HERE / "x.json"` followed by `p.write_text(...)`, and the direct form.
+_ASSIGNED = re.compile(r'^\s*(\w+)\s*=\s*HERE\s*/\s*"([A-Za-z0-9_]+\.json)"', re.M)
+_LITERAL = re.compile(r'"([A-Za-z0-9_]+\.json)"')
+
+
+def _analyzer_outputs():
+    """Every file an analyze_*.py writes, read from the analyses themselves.
+
+    Templated targets are deliberately not resolved. analyze_newprobes.py
+    writes f"{stem}_analysis.json" for three different inputs, and those are
+    covered by the _analysis.json suffix rule rather than by name.
+    """
+    outputs = set()
+    for source in sorted(REPRO.glob("analyze_*.py")):
+        text = source.read_text(encoding="utf-8", errors="replace")
+        for line in text.splitlines():
+            if "write_text" in line or "write_bytes" in line:
+                outputs |= set(_LITERAL.findall(line))
+        for variable, name in _ASSIGNED.findall(text):
+            if re.search(rf"\b{variable}\.write_(?:text|bytes)", text):
+                outputs.add(name)
+    return outputs
 
 
 def _workflow():
@@ -129,4 +166,37 @@ def test_the_derived_list_is_not_empty_or_stale():
     assert not gone, (
         f"{gone} is named as a derived file but is no longer tracked; update "
         f"DERIVED_WITHOUT_SUFFIX rather than leaving a name that matches nothing"
+    )
+
+
+def test_the_derived_list_is_what_the_analyses_actually_write():
+    """The hand-written set must equal what the analyses produce.
+
+    This is the check that was missing. The previous list was correct when it
+    was written and wrong five analyses later, with nothing to say so -- the
+    same shape as the omission it was created to prevent, one level up.
+    """
+    written = _analyzer_outputs()
+    if not written:
+        pytest.skip("[repro] no analyses found to read write targets from")
+
+    covered = {name for name in written if name.endswith("_analysis.json")}
+    needing_entry = written - covered
+
+    missing = sorted(needing_entry - DERIVED_WITHOUT_SUFFIX)
+    assert not missing, (
+        f"{missing} are written by an analysis but named nowhere in "
+        f"DERIVED_WITHOUT_SUFFIX, so the coverage checks in this file skip "
+        f"them entirely -- which is how five outputs came to be regenerated in "
+        f"CI and never diffed."
+    )
+
+    stale = sorted(
+        name for name in DERIVED_WITHOUT_SUFFIX
+        if name not in written and not name.endswith("_analysis.json")
+    )
+    assert not stale, (
+        f"{stale} are listed as derived but no analysis writes them. Either the "
+        f"analysis was removed and the entry outlived it, or the write target "
+        f"was renamed and this list still names the old one."
     )

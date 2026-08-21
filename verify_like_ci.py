@@ -65,8 +65,24 @@ def run(cmd, cwd=REPO, timeout=3600):
     return proc.returncode, (proc.stdout or "") + (proc.stderr or "")
 
 
+# | `file.json` | `field` | linux-value | windows-value |
+ENVDOC_ROW = re.compile(
+    r"^\|\s*`([^`]+)`\s*\|\s*[^|]+?\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|", re.M)
+
+
 def documented_platform_differences():
-    """The values ENVIRONMENT.md already accounts for, read from its table.
+    """(file, value) pairs from ENVIRONMENT.md's difference table.
+
+    Read from the table, not from every number in the prose, and kept with the
+    file each value belongs to. Both parts matter.
+
+    Scraping bare numbers accepted a difference in any file so long as some
+    other file was documented as differing by that amount. And the document
+    discusses, in the past tense, a divergence in results_stages_analysis.json
+    that has since been fixed -- 0.839 against 0.840, and an SFT share now
+    0.871 on both platforms. Those numbers are still in the text, so the loose
+    rule would accept a regression back to exactly the divergence the document
+    says no longer exists.
 
     Compared as numbers, not as text: the document writes 0.2230 where the diff
     prints 0.223, and a string comparison calls that an undocumented difference.
@@ -74,7 +90,12 @@ def documented_platform_differences():
     if not ENVDOC.exists():
         return set()
     doc = ENVDOC.read_text(encoding="utf-8", errors="replace")
-    return {float(v) for v in re.findall(r"\b\d\.\d{3,4}\b", doc)}
+    pairs = set()
+    for row in ENVDOC_ROW.finditer(doc):
+        name, linux, windows = row.groups()
+        pairs.add((name, float(linux)))
+        pairs.add((name, float(windows)))
+    return pairs
 
 
 def job_integrity(skip_mutations):
@@ -163,9 +184,20 @@ def job_regenerate():
 
     code, diff = run(["git", "diff", "--unified=0", "--",
                       "paper/honest/repro/", "paper/honest/tables/"])
-    changed = [line[1:].strip().rstrip(",") for line in diff.splitlines()
-               if line.startswith(("+", "-")) and not line.startswith(("+++", "---"))]
-    values = {float(v) for line in changed for v in re.findall(r"\b\d\.\d{3,4}\b", line)}
+    # Attribute every changed value to the file it changed in; "+++ b/path"
+    # opens each file's hunks in the diff.
+    changed, values, current = [], set(), None
+    for line in diff.splitlines():
+        if line.startswith("+++ b/"):
+            current = Path(line[6:].strip()).name
+            continue
+        if line.startswith(("+++", "---")):
+            continue
+        if line.startswith(("+", "-")):
+            text = line[1:].strip().rstrip(",")
+            changed.append(text)
+            for v in re.findall(r"\b\d\.\d{3,4}\b", text):
+                values.add((current, float(v)))
     documented = documented_platform_differences()
     undocumented = sorted(values - documented)
 

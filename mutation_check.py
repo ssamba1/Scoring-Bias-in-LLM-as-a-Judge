@@ -392,6 +392,128 @@ MUTATIONS = [
         "corrected p drifts from Holm over unrounded inputs",
     ),
     (
+        # A Bayes factor lands on a threshold boundary. bf01 is stored to three
+        # decimals and then compared against 3 and 1, so a value within a
+        # rounding step of either is decided by the rounding rather than the
+        # data -- the same composition that put three wrong digits in the paper.
+        "paper/honest/repro/results_nulls.json",
+        '"bf01": 1.08',
+        '"bf01": 1.0003',
+        "tests/test_the_two_readings_of_the_null_share_their_data.py",
+        "Bayes-factor verdict decided by the third decimal",
+    ),
+    (
+        # A Bayes factor crosses the moderate-evidence threshold, so the count
+        # in the paper's summary sentence should change and does not.
+        "paper/honest/repro/results_nulls.json",
+        '"bf01": 2.449',
+        '"bf01": 3.101',
+        "tests/test_the_two_readings_of_the_null_share_their_data.py",
+        "reported null counts stop following from the Bayes factors",
+    ),
+    (
+        # The characterisation stops covering a probe of the registered family.
+        # Each file stays internally consistent; only comparing them sees it.
+        "paper/honest/repro/results_nulls.json",
+        '"verbosity": {',
+        '"verbosity_renamed": {',
+        "tests/test_the_two_readings_of_the_null_share_their_data.py",
+        "a registered probe loses its Bayes-factor characterisation",
+    ),
+    (
+        # A scale-ladder verdict is left resting on the last stored digit: the
+        # two means it compares become equal at the precision they are stored
+        # at, so P17b would be decided by the rounding rather than the data.
+        "paper/honest/repro/results_gran_analysis.json",
+        '"mean_bias_instruct": 0.193',
+        '"mean_bias_instruct": 0.083',
+        "tests/test_no_verdict_rests_on_a_stored_digit.py",
+        "scale-ladder verdict decided by the stored digit",
+    ),
+    (
+        # The same file starts storing more decimals than its round() call
+        # declares. This is the escape hatch the guard originally had: reading
+        # the precision off each value's own repr let a mutation widen its own
+        # tolerance, so the step is declared and the declaration is checked.
+        "paper/honest/repro/results_gran_analysis.json",
+        '"mean_bias_instruct": 0.323',
+        '"mean_bias_instruct": 0.32345',
+        "tests/test_no_verdict_rests_on_a_stored_digit.py",
+        "stored precision exceeds what the analyser declares",
+    ),
+    (
+        # A specification lands on the sign boundary, so whether it counts
+        # toward "all six expected-value specifications are positive" is
+        # decided by a rounding step.
+        "paper/honest/repro/results_robustness.json",
+        '"mean_effect": 0.03',
+        '"mean_effect": 0.0',
+        "tests/test_no_verdict_rests_on_a_stored_digit.py",
+        "specification sits on the sign boundary",
+    ),
+    (
+        # A key name starts asserting a threshold the code did not use. The
+        # JSON stays internally consistent and every value-level test passes;
+        # only comparing the name against the computation behind it can tell.
+        "paper/honest/repro/results_chat_analysis.json",
+        '"all_cells_gt_0p1"',
+        '"all_cells_gt_0p2"',
+        "tests/test_a_key_name_matches_the_number_it_claims.py",
+        "key name states a threshold the analysis did not use",
+    ),
+    (
+        # A specification-curve family count drifts from the panel. These are
+        # the strings the paper quotes as "9--11/13 families positive", and
+        # nothing parsed them until this guard.
+        "paper/honest/repro/results_robustness.json",
+        '"families_positive": "6/13"',
+        '"families_positive": "8/13"',
+        "tests/test_the_ratio_strings_say_what_they_count.py",
+        "spec-curve family count stops following from the panel",
+    ),
+    (
+        # A derived file falls back out of the workflow's diff list. This is
+        # the regression that had actually recurred: CI regenerated twenty-one
+        # analyses and diffed sixteen, so five outputs backing real claims were
+        # recomputed and thrown away. The guard that existed for this missed
+        # them because its own definition of "derived" was a hand-written list.
+        ".github/workflows/repro.yml",
+        "            paper/honest/repro/results_speccurve.json \\",
+        "",
+        "tests/test_every_derived_file_is_reproduced.py",
+        "derived file falls back out of the diff list",
+    ),
+    (
+        # An analysis renames its output, so the coverage list no longer names
+        # what it writes. Without this the list can drift from the analyses
+        # silently, which is exactly how the five above went uncovered.
+        "paper/honest/repro/analyze_nulls.py",
+        '"results_nulls.json"',
+        '"results_nulls_v2.json"',
+        "tests/test_every_derived_file_is_reproduced.py",
+        "an analysis output drops out of the derived list",
+    ),
+    (
+        # The Reproducibility section counts the repository, and the count
+        # drifts. Nobody adding a twentieth analysis rereads that paragraph.
+        "paper/honest/scoring_bias_v2.tex",
+        "the nineteen \\path{repro/analyze_*.py}",
+        "the eighteen \\path{repro/analyze_*.py}",
+        "tests/test_the_reproducibility_section_counts_the_repository.py",
+        "the paper's analysis count drifts from the repository",
+    ),
+    (
+        # The reproduction gate's platform allowlist stops recording which file
+        # each value belongs to. A bare number accepts a difference anywhere,
+        # so a real regression in one file passes because an unrelated file is
+        # documented as differing by that amount. This is what the gate did.
+        "verify_like_ci.py",
+        "        pairs.add((name, float(linux)))",
+        "        pairs.add(float(linux))",
+        "tests/test_the_platform_allowlist_is_not_a_loophole.py",
+        "platform allowlist stops naming the file each value belongs to",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",

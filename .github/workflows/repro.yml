@@ -175,4 +175,9 @@ jobs:
             paper/honest/repro/results_t10_analysis.json \
             paper/honest/repro/results_tokvar_analysis.json \
             paper/honest/repro/results_closed_analysis.json \
+            paper/honest/repro/results_nulls.json \
+            paper/honest/repro/results_bands.json \
+            paper/honest/repro/results_readout.json \
+            paper/honest/repro/results_quantization.json \
+            paper/honest/repro/results_speccurve.json \
             paper/honest/tables/
