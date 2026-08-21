@@ -560,6 +560,18 @@ MUTATIONS = [
         "submission abstract states a number the paper does not",
     ),
     (
+        # A citation's arXiv identifier is swapped for one nobody checked. It
+        # still resolves and still compiles; only comparing it against the
+        # record of what was actually fetched can tell. A previous version of
+        # this bibliography cited a real identifier belonging to a math.AG
+        # paper about associative algebras.
+        "paper/honest/honest.bib",
+        "eprint    = {2306.05685}",
+        "eprint    = {2306.05686}",
+        "tests/test_citations_match_the_verified_record.py",
+        "a citation identifier stops matching the verified record",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
