@@ -38,6 +38,38 @@ WORK = "/kaggle/working"
 subprocess.run([sys.executable, "-m", "pip", "install", "-q",
                 "transformers>=4.44", "accelerate>=0.33"], check=True)
 
+# Refuse before downloading 30 GB if the GPU cannot hold the model.
+#
+# The first run of this kernel asked for 2x T4 via "accelerator" in
+# kernel-metadata.json. Kaggle ignored the field -- the pushed kernel came back
+# with machine_shape "Gpu", one card -- and device_map="auto" responded by
+# offloading most of the model to CPU RAM instead of raising. It crawled for two
+# hours and produced nothing. A silently dropped config field turned a hard
+# error into an indefinite one, which is far harder to notice than a crash.
+#
+# fp16 weights are ~29.6 GB. Check first, and say what to run instead.
+import torch
+
+if not torch.cuda.is_available():
+    raise SystemExit("no CUDA device; this kernel needs a GPU accelerator")
+
+total = sum(torch.cuda.get_device_properties(i).total_memory
+            for i in range(torch.cuda.device_count())) / 1e9
+names = ", ".join(torch.cuda.get_device_properties(i).name
+                  for i in range(torch.cuda.device_count()))
+print(f"visible GPUs: {names} ({total:.1f} GB total)", flush=True)
+
+NEEDED_GB = 31.0   # ~29.6 GB of weights plus headroom
+if total < NEEDED_GB:
+    raise SystemExit(
+        f"fp16 Qwen2.5-14B needs about {NEEDED_GB:.0f} GB and this session has "
+        f"{total:.1f} GB. device_map='auto' would offload to CPU and run for "
+        f"hours without failing, so stopping here instead.\n"
+        f"Run the int8 arm (kaggle/q14b_int8, ~14.8 GB, fits one 16 GB card), "
+        f"or obtain a genuine multi-GPU session -- note that the 'accelerator' "
+        f"field in kernel-metadata.json did not take effect."
+    )
+
 source = urllib.request.urlopen(HARNESS, timeout=120).read()
 digest = hashlib.sha256(source).hexdigest()
 print(f"harness {COMMIT[:7]} sha256={digest[:16]}... ({len(source)} bytes)", flush=True)
