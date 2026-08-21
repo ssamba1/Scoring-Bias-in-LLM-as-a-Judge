@@ -198,6 +198,8 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         "excludes_zero",
         # Re-derived from the two means it compares.
         "instruct_below_base",
+        # Re-derived from marginalized_maxmin, which is 0 by construction.
+        "marginalized_is_zero_by_construction",
     }
     unaccounted = sorted(found - checked - set(UNCHECKED))
     assert not unaccounted, (

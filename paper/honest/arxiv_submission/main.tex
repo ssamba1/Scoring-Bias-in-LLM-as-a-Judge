@@ -49,8 +49,8 @@ experiment localizes where this is written into the network (\PATCHSENTENCE{}), 
 preregistered stage ablation localizes it in the pipeline (SFT installs the
 responsiveness, 87--94\% of the total rise; preference tuning installs the
 confidence), a ground-truth test shows the bias corrupts real judgments
-(\GOLDSENTENCE{}), and a marginalization mitigation cuts bias by 59\% where raising
-confidence cannot. The findings replicate on public-dataset items and in Chinese; judge-side
+(\GOLDSENTENCE{}), and removing a nuisance dimension---ensembling the score over three
+prompt templates---cuts bias by 22\% where raising confidence increases it. The findings replicate on public-dataset items and in Chinese; judge-side
 \emph{sycophancy} shows the largest tuning effect of any probe on the panel while
 numeric \emph{anchoring} stays null; and the law survives its sharpest test: three deployed
 frontier judges (GPT-4o among them), probed via API logprobs, are as a group the most

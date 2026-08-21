@@ -968,9 +968,14 @@
     "note": "predict bias from one unperturbed forward pass (control entropy)"
   },
   "mitigation": {
-    "expected": 1.0869,
-    "argmax": 1.8754,
-    "marginalized": 0.4467
+    "estimator_note": "max-min spreads are comparable with each other; the deviation measures are comparable with each other; the two families are not comparable across",
+    "expected_maxmin": 1.0869,
+    "argmax_maxmin": 1.8754,
+    "marginalized_maxmin": 0.0,
+    "marginalized_is_zero_by_construction": true,
+    "single_format_cost_mad": 0.4467,
+    "unmitigated_mad": 0.4116,
+    "reading": "Marginalizing over the score-ID formats removes score-ID bias by construction, since one averaged score per item has no spread across formats; that is definitional, not a measurement. Committing to a single format instead costs 0.45 per item on average. The like-for-like comparison against the unmitigated deviation (0.41) shows no reduction, so the previously reported 59% was the difference between a max-min spread and a mean absolute deviation. The argmax comparison is like-for-like and stands: a more decisive readout raises the spread from 1.09 to 1.88."
   },
   "lmm": {
     "instruct_coef": 0.1559,

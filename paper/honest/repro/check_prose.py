@@ -59,13 +59,17 @@ close("size-partial rho", -0.38, mech["size_confound_control"]["partial_rank_rho
 close("size-bias rho", 0.18, mech["size_confound_control"]["size_bias_spearman_rho"], 0.006)
 close("mixed-effects coef", 0.16, mech["lmm"]["instruct_coef"], 0.006)
 mit = mech["mitigation"]
-close("mitigation expected", 1.09, mit["expected"], 0.006)
-close("mitigation argmax", 1.88, mit["argmax"], 0.006)
-close("mitigation marginalized", 0.45, mit["marginalized"], 0.006)
-red = 1 - mit["marginalized"] / mit["expected"]
-check("59% reduction", "59\\%", round(red * 100))
-if not (58.5 <= red * 100 < 59.5):
-    FAILS.append(f"59% claim: data gives {red*100:.1f}%")
+# The two max-min readouts are comparable with each other, and the deviation
+# measures are comparable with each other. Comparing across the two families is
+# what produced the retired 59% claim, so each pin below stays inside one.
+close("mitigation expected", 1.09, mit["expected_maxmin"], 0.006)
+close("mitigation argmax", 1.88, mit["argmax_maxmin"], 0.006)
+close("single-format cost", 0.45, mit["single_format_cost_mad"], 0.006)
+close("unmitigated deviation", 0.41, mit["unmitigated_mad"], 0.006)
+if mit["marginalized_maxmin"] != 0.0:
+    FAILS.append("marginalized max-min is not 0, but it is 0 by construction")
+if mit["argmax_maxmin"] <= mit["expected_maxmin"]:
+    FAILS.append("argmax no longer increases the spread over expected value")
 
 # ---- robustness ----
 close("exact permutation p", 0.00098, rob["F1_exact_permutation"]["exact_p_two_sided"], 0.00005)
@@ -352,7 +356,11 @@ states("within-checkpoint responsiveness", r"\rho=+0.65", 2)
 states("within-checkpoint entropy", r"\rho=-0.05", 1)
 states("readout concordance", r"\rho=0.56", 2)
 states("exact permutation p", "0.00098", 1)
-states("marginalization mitigation", r"59\%", 3)
+# Retired: the 59% compared a mean absolute deviation against a max-min spread,
+# and marginalizing over the score-ID formats zeroes score-ID bias by
+# construction anyway. The template ensemble is the measured mitigation, and it
+# is what the abstract, the mitigation prose and the README now quote.
+states("template ensemble mitigation", r"22\%", 2)
 states("argmax readout", "1.88", 2)
 states("frontier pooled correlation", r"\rho=-0.45", 2)
 states("frontier pooled n", "n=145", 3)
@@ -382,14 +390,17 @@ states("smallest-family count", "2/4", 2)
 states("chat-vs-raw families", "1/3", 1)
 
 # ---- the SFT share of the responsiveness rise --------------------------------
-# The 59% mitigation claim and its three inputs are already checked above. What
-# was not checked is the direction the claim depends on: "where raising
-# confidence cannot" only means anything while the argmax readout -- the
-# maximally confident one -- is the *more* biased of the two.
-if mech["mitigation"]["argmax"] <= mech["mitigation"]["expected"]:
+# The readout comparison is already pinned above; this keeps the direction the
+# surrounding claim depends on. "Where raising confidence increases it" only
+# means anything while the argmax readout -- the maximally confident one -- is
+# the more biased of the two, and both sides are max-min spreads, so the
+# comparison is like-for-like. That was the flaw in the retired 59%: it put a
+# mean absolute deviation against a max-min spread.
+if mech["mitigation"]["argmax_maxmin"] <= mech["mitigation"]["expected_maxmin"]:
     FAILS.append(
-        "the mitigation claim contrasts marginalizing against raising confidence; "
-        f"argmax ({mech['mitigation']['argmax']}) is no longer the more biased readout"
+        "the mitigation claim contrasts nuisance removal against raising "
+        f"confidence; argmax ({mech['mitigation']['argmax_maxmin']}) is no "
+        f"longer the more biased readout"
     )
 
 # "SFT installs 87--94% of the total rise." An integer percentage range, which

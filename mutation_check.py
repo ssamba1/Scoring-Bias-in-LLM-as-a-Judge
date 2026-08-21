@@ -804,7 +804,9 @@ MUTATIONS = [
         True,
     ),
     (
-        "paper/honest/macros.tex", "increases} it to $1.88$", "increases} it to $1.98$",
+        "paper/honest/macros.tex",
+        "the max--min spread from $1.09$ to $1.88$",
+        "the max--min spread from $1.09$ to $1.98$",
         "tests/test_prose_matches_derived_values.py", "headline: argmax readout drifts",
     ),
     (
@@ -1609,6 +1611,20 @@ MUTATIONS = [
         '"spearman_rho": 0.924',
         "tests/test_figures_show_the_current_data.py",
         "a figure stops showing what the data produces",
+    ),
+    (
+        # A reduction is manufactured where the like-for-like comparison shows
+        # none. Dropping the single-format cost below the unmitigated deviation
+        # is exactly the shape of the retired 59% claim, which reached the
+        # abstract by comparing a mean absolute deviation against a max-min
+        # spread. The first version of this mutation moved the other operand and
+        # was not caught -- the guard tests for a manufactured *gain*, so the
+        # mutation has to manufacture one.
+        "paper/honest/repro/results_mechanism.json",
+        '"single_format_cost_mad": 0.4467',
+        '"single_format_cost_mad": 0.1467',
+        "tests/test_the_mitigation_comparison_is_like_for_like.py",
+        "the mitigation comparison mixes estimator families again",
     ),
     (
         # The quantified answer-token mass drifts from the release. It was

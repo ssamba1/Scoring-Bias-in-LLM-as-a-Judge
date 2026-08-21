@@ -72,7 +72,7 @@ main panel, over 56,000 across all datasets)** and
   more in flight (new bias types, Chinese, 14B - preregistered P10-P13).
 - **Ground truth:** nuisances wreck real good-vs-bad discrimination (rubric reversal:
   accuracy 0.98->0); tuning does not protect it.
-- **Mitigations:** marginalizing over score formats cuts bias **59%**; template ensembling
+- **Mitigations:** template ensembling
   cuts **22%**; a *more decisive* readout (argmax) makes it **worse** (1.09 -> 1.88).
 - **Honest boundaries** (reported, not hidden): the out-of-sample predictor is a rank signal
   (rho=0.58) whose R^2 CI spans zero at n=13; the increase attaches to the continuous

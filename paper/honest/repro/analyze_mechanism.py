@@ -339,28 +339,69 @@ def loo_predictor(pairs, fams):
 
 
 def mitigation(pairs):
-    """For score_id (the format probe), compare bias measured by expected value,
-    by discrete argmax, and by marginalizing over formats (mean of the three
-    variant means -> residual spread). Lower = a more bias-robust scoring rule."""
-    res = {}
-    for method in ("expected", "argmax", "marginalized"):
-        vals = []
-        for f in pairs:
-            for kind in ("base", "instruct"):
-                d = pairs[f][kind]["score_id"]
-                if method == "expected":
-                    means = [d[v]["mean"] for v in d]
-                    vals.append(max(means) - min(means))
-                elif method == "argmax":
-                    means = [float(np.mean(d[v]["per_item_argmax"])) for v in d]
-                    vals.append(max(means) - min(means))
-                else:  # marginalized: per-item mean across formats, then spread is ~0 by construction
-                    per_item = np.array([d[v]["per_item"] for v in d])       # (3, 50)
-                    marg = per_item.mean(axis=0)                             # (50,)
-                    # residual bias = how far each format sits from the marginal, averaged
-                    vals.append(float(np.abs(per_item - marg).mean()))
-        res[method] = round(float(np.mean(vals)), 4)
-    return res
+    """Score-ID bias under three readouts, with the estimator held fixed.
+
+    An earlier version compared "expected" and "argmax" as max-min spreads
+    against "marginalized" as a mean absolute deviation, and reported the gap as
+    a 59% bias reduction. Those are different dispersion statistics: for three
+    values a max-min spread runs about three times a mean absolute deviation, so
+    most of that 59% was the change of estimator, not the mitigation. Holding
+    the estimator fixed, the unmitigated mean absolute deviation is 0.41 against
+    the "mitigated" 0.45 -- no reduction at all.
+
+    The deeper problem is that marginalizing over the score-ID formats is
+    averaging over the very dimension score-ID bias is measured on, so the
+    mitigated bias is exactly zero by construction and cannot be a finding. What
+    the 0.45 actually measured is the per-item cost of committing to one format
+    instead of the average, which is a useful quantity under its own name.
+
+    So: the two max-min readouts are compared with each other, the definitional
+    result is stated as definitional, and the deviation is reported as what it
+    is. The genuine measured mitigation is the template ensemble in
+    analyze_robustness.py (C8), which averages over templates while measuring
+    bias over score variants -- a different dimension, so nothing is built in.
+    """
+    maxmin, argmax_maxmin, single_format_cost, mad_unmitigated = [], [], [], []
+    for f in pairs:
+        for kind in ("base", "instruct"):
+            d = pairs[f][kind]["score_id"]
+            means = [d[v]["mean"] for v in d]
+            maxmin.append(max(means) - min(means))
+
+            arg = [float(np.mean(d[v]["per_item_argmax"])) for v in d]
+            argmax_maxmin.append(max(arg) - min(arg))
+
+            per_item = np.array([d[v]["per_item"] for v in d])   # (formats, items)
+            marg = per_item.mean(axis=0)
+            single_format_cost.append(float(np.abs(per_item - marg).mean()))
+            # The same statistic as the line above, applied to the UNMITIGATED
+            # format means: this is the like-for-like comparator that shows the
+            # old 59% was an estimator artefact.
+            fm = np.array(means)
+            mad_unmitigated.append(float(np.abs(fm - fm.mean()).mean()))
+
+    return {
+        "estimator_note": ("max-min spreads are comparable with each other; the "
+                           "deviation measures are comparable with each other; "
+                           "the two families are not comparable across"),
+        "expected_maxmin": round(float(np.mean(maxmin)), 4),
+        "argmax_maxmin": round(float(np.mean(argmax_maxmin)), 4),
+        "marginalized_maxmin": 0.0,
+        "marginalized_is_zero_by_construction": True,
+        "single_format_cost_mad": round(float(np.mean(single_format_cost)), 4),
+        "unmitigated_mad": round(float(np.mean(mad_unmitigated)), 4),
+        "reading": ("Marginalizing over the score-ID formats removes score-ID "
+                    "bias by construction, since one averaged score per item "
+                    "has no spread across formats; that is definitional, not a "
+                    "measurement. Committing to a single format instead costs "
+                    "0.45 per item on average. The like-for-like comparison "
+                    "against the unmitigated deviation (0.41) shows no "
+                    "reduction, so the previously reported 59% was the "
+                    "difference between a max-min spread and a mean absolute "
+                    "deviation. The argmax comparison is like-for-like and "
+                    "stands: a more decisive readout raises the spread from "
+                    "1.09 to 1.88."),
+    }
 
 
 def lmm(pairs):
