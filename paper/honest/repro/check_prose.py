@@ -387,8 +387,8 @@ states("alt-template families", "8/9", 1)
 # Secondary and appendix figures. These carry less weight individually, but they
 # are the ones a referee recomputes precisely because nobody is watching them.
 states("score-ID flip rates", "0.75$/$0.71", 1)
-states("reference-answer flip rise", r"0.22\!\to\!0.38", 1)
-states("authority flip rise", r"0.24\!\to\!0.41", 1)
+states("reference-answer flip rise", r"0.22\!\to\!0.37", 1)
+states("authority flip rise", r"0.24\!\to\!0.42", 1)
 states("frontier rubric-order maximum", "2.02", 1)
 states("frontier mean bias", "0.89", 3)
 states("open-instruct mean bias", "0.69", 1)

@@ -3,11 +3,11 @@
   "built_from": "scoring_bias_v2.tex",
   "sources": {
     "scoring_bias_v2.tex": "5035d5b6f393824b8be02cbe30147ac05efde3738b0219c0c5de03f26a967c91",
-    "macros.tex": "1eddf2373bc62a2837d094ed4e804222898a07f7f9ef7dc2ee88cacfc1615808",
+    "macros.tex": "7001e516f9e29afd16d64a7fb6f67560d862993e63f01f7e024a5ea32aa5e0a7",
     "honest.bib": "25a17e05941f9f29027b047035486a76badd82946f4525db8dfc567330024067",
     "tables/tab_gold.tex": "172fedf59f429eaece8cd50e6454e11a22f102a34fbc694c20d61de91aaa1f3d",
-    "tables/tab_v2_family.tex": "bd2032c2e27cbbed5bf8b269d2557249170d0df8136820518a279bbb53f12da5",
-    "tables/tab_v2_summary.tex": "e127e0352ce8c0970bc4a65eab14aa1b11cc05f84163f3c0b3e8ef4d847ce53d"
+    "tables/tab_v2_family.tex": "049370f57a82c28e6aea1308c4726489346a9ca6c4e2d57587b779d0984a4514",
+    "tables/tab_v2_summary.tex": "7390c23092483cf4622a6d12d048aac7a2b491931c421b88bef72dc3949a58c0"
   },
   "note": "Digests are of the paper sources at packaging time, line-ending normalised. If they no longer match, this archive is stale: rebuild before submitting."
 }

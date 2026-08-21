@@ -33,19 +33,60 @@ def _load(name):
     return json.loads(path.read_text(encoding="utf-8", errors="replace"))
 
 
-def test_ci_excludes_zero_follows_from_the_interval():
+def test_ci_excludes_zero_is_the_seed_stable_verdict():
+    """The asterisk means stable across seeds, not lucky at one seed.
+
+    This flag used to be read off a single bootstrap interval, which is
+    fragile in both directions when a bound sits near zero -- and reference
+    answer's does, at +0.00015. That interval excludes zero at the reported
+    seed and fails to at roughly three seeds in four. The paper's claim has
+    always been the stable one ("the intervals we count are seed-stable"), so
+    the flag is now that: excludes zero at every stability seed.
+    """
     summary = _load("results_peritem.json")["summary"]
     assert summary, "no probe summaries to check"
     wrong = []
     for probe, record in summary.items():
-        low, high = record["boot_ci95"]
-        expected = low > 0 or high < 0
-        if record["ci_excludes_zero"] != expected:
+        frac = record.get("ci_excludes_zero_seed_fraction")
+        if frac is None:
+            wrong.append(f"{probe}: no seed-stability fraction recorded")
+            continue
+        if record["ci_excludes_zero"] != (frac == 1.0):
             wrong.append(
-                f"{probe}: interval [{low}, {high}] excludes zero = {expected}, "
-                f"flag says {record['ci_excludes_zero']}"
+                f"{probe}: excludes zero at {frac:.0%} of seeds, so the "
+                f"seed-stable verdict is {frac == 1.0}, but the flag says "
+                f"{record['ci_excludes_zero']}"
             )
-    assert not wrong, f"the summary table's asterisks disagree with the intervals: {wrong}"
+    assert not wrong, f"the summary table's asterisks are not the stable verdict: {wrong}"
+
+
+def test_the_single_seed_flag_matches_its_own_interval():
+    """`ci_excludes_zero_at_seed` must follow from the reported interval.
+
+    Only up to the interval's own rounding: it is stored to three decimals, so
+    a bound inside 0.0005 of zero cannot be read off it either way. Reference
+    answer is exactly that case, and saying so is the point -- a flag that
+    disagreed with its printed interval by more than the printing error would
+    be a real inconsistency.
+    """
+    summary = _load("results_peritem.json")["summary"]
+    wrong = []
+    for probe, record in summary.items():
+        if "ci_excludes_zero_at_seed" not in record:
+            continue
+        low, high = record["boot_ci95"]
+        from_interval = low > 0 or high < 0
+        if record["ci_excludes_zero_at_seed"] == from_interval:
+            continue
+        nearest = min(abs(low), abs(high))
+        if nearest > 0.0005:
+            wrong.append(
+                f"{probe}: interval [{low}, {high}] reads as {from_interval} "
+                f"but the flag says {record['ci_excludes_zero_at_seed']}, and "
+                f"the nearest bound is {nearest} from zero -- too far to be a "
+                f"rounding artefact of the stored interval"
+            )
+    assert not wrong, f"a single-seed flag contradicts its printed interval: {wrong}"
 
 
 def test_the_equivalence_flag_follows_from_the_interval_and_margin():
@@ -187,7 +228,11 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         walk(data)
 
     checked = {
-        "ci_excludes_zero", "within_pm_0p15", "frontier_below_open",
+        "ci_excludes_zero",
+        # Checked against the interval it is read from, allowing for that
+        # interval being stored to three decimals.
+        "ci_excludes_zero_at_seed",
+        "within_pm_0p15", "frontier_below_open",
         "registered_direction_negative_observed", "monotone_increasing",
         "K3", "K5", "K10", "p13_met",
         # Re-derived from the interval it summarises, not read, in

@@ -26,31 +26,41 @@
         "base_delta": 0.011,
         "instruct_delta": 0.165,
         "base_flip": 0.05,
-        "instruct_flip": 0.16
+        "instruct_flip": 0.16,
+        "base_delta_full": 0.011099999999999888,
+        "instruct_delta_full": 0.16500000000000004
       },
       "score_id": {
         "base_delta": 1.609,
         "instruct_delta": 2.612,
         "base_flip": 0.71,
-        "instruct_flip": 0.55
+        "instruct_flip": 0.55,
+        "base_delta_full": 1.6088,
+        "instruct_delta_full": 2.6124
       },
       "reference_answer": {
         "base_delta": 0.217,
         "instruct_delta": 0.419,
         "base_flip": 0.17,
-        "instruct_flip": 0.23
+        "instruct_flip": 0.23,
+        "base_delta_full": 0.21720000000000006,
+        "instruct_delta_full": 0.4190999999999998
       },
       "authority": {
         "base_delta": 0.093,
         "instruct_delta": 0.577,
         "base_flip": 0.1,
-        "instruct_flip": 0.27
+        "instruct_flip": 0.27,
+        "base_delta_full": 0.09339999999999993,
+        "instruct_delta_full": 0.5773999999999999
       },
       "verbosity": {
         "base_delta": 0.224,
         "instruct_delta": 0.263,
         "base_flip": 0.16,
-        "instruct_flip": 0.07
+        "instruct_flip": 0.07,
+        "base_delta_full": 0.22449999999999992,
+        "instruct_delta_full": 0.2632000000000003
       }
     },
     "SmolLM2-360M": {
@@ -60,31 +70,41 @@
         "base_delta": 0.198,
         "instruct_delta": 0.27,
         "base_flip": 0.3,
-        "instruct_flip": 0.59
+        "instruct_flip": 0.59,
+        "base_delta_full": 0.19799999999999995,
+        "instruct_delta_full": 0.27
       },
       "score_id": {
         "base_delta": 1.638,
         "instruct_delta": 2.367,
         "base_flip": 0.46,
-        "instruct_flip": 0.65
+        "instruct_flip": 0.65,
+        "base_delta_full": 1.6378,
+        "instruct_delta_full": 2.3667000000000002
       },
       "reference_answer": {
         "base_delta": 0.15,
         "instruct_delta": 0.048,
         "base_flip": 0.02,
-        "instruct_flip": 0.34
+        "instruct_flip": 0.34,
+        "base_delta_full": 0.15009999999999968,
+        "instruct_delta_full": 0.04809999999999981
       },
       "authority": {
         "base_delta": 0.208,
         "instruct_delta": 0.146,
         "base_flip": 0.02,
-        "instruct_flip": 0.39
+        "instruct_flip": 0.39,
+        "base_delta_full": 0.20829999999999993,
+        "instruct_delta_full": 0.1459999999999999
       },
       "verbosity": {
         "base_delta": 0.087,
         "instruct_delta": 0.261,
         "base_flip": 0.01,
-        "instruct_flip": 0.23
+        "instruct_flip": 0.23,
+        "base_delta_full": 0.0873999999999997,
+        "instruct_delta_full": 0.2608999999999999
       }
     },
     "Qwen2.5-0.5B": {
@@ -94,31 +114,41 @@
         "base_delta": 0.067,
         "instruct_delta": 0.052,
         "base_flip": 0.44,
-        "instruct_flip": 0.28
+        "instruct_flip": 0.28,
+        "base_delta_full": 0.0665,
+        "instruct_delta_full": 0.05169999999999986
       },
       "score_id": {
         "base_delta": 1.711,
         "instruct_delta": 1.018,
         "base_flip": 0.87,
-        "instruct_flip": 0.96
+        "instruct_flip": 0.96,
+        "base_delta_full": 1.7109999999999999,
+        "instruct_delta_full": 1.0179
       },
       "reference_answer": {
         "base_delta": 0.216,
         "instruct_delta": 0.031,
         "base_flip": 0.28,
-        "instruct_flip": 0.05
+        "instruct_flip": 0.05,
+        "base_delta_full": 0.21589999999999998,
+        "instruct_delta_full": 0.031099999999999905
       },
       "authority": {
         "base_delta": 0.316,
         "instruct_delta": 0.48,
         "base_flip": 0.35,
-        "instruct_flip": 0.31
+        "instruct_flip": 0.31,
+        "base_delta_full": 0.3161999999999998,
+        "instruct_delta_full": 0.47950000000000026
       },
       "verbosity": {
         "base_delta": 0.093,
         "instruct_delta": 0.434,
         "base_flip": 0.12,
-        "instruct_flip": 0.03
+        "instruct_flip": 0.03,
+        "base_delta_full": 0.0929000000000002,
+        "instruct_delta_full": 0.43359999999999976
       }
     },
     "Falcon3-1B": {
@@ -128,31 +158,41 @@
         "base_delta": 0.308,
         "instruct_delta": 0.074,
         "base_flip": 0.48,
-        "instruct_flip": 0.04
+        "instruct_flip": 0.04,
+        "base_delta_full": 0.30840000000000023,
+        "instruct_delta_full": 0.07419999999999982
       },
       "score_id": {
         "base_delta": 1.021,
         "instruct_delta": 1.27,
         "base_flip": 0.95,
-        "instruct_flip": 0.88
+        "instruct_flip": 0.88,
+        "base_delta_full": 1.0206999999999997,
+        "instruct_delta_full": 1.2699000000000003
       },
       "reference_answer": {
         "base_delta": 0.441,
         "instruct_delta": 0.607,
         "base_flip": 0.05,
-        "instruct_flip": 0.34
+        "instruct_flip": 0.34,
+        "base_delta_full": 0.4405000000000001,
+        "instruct_delta_full": 0.6068000000000002
       },
       "authority": {
         "base_delta": 0.226,
         "instruct_delta": 0.394,
         "base_flip": 0.02,
-        "instruct_flip": 0.39
+        "instruct_flip": 0.39,
+        "base_delta_full": 0.2258,
+        "instruct_delta_full": 0.3944000000000001
       },
       "verbosity": {
         "base_delta": 0.228,
         "instruct_delta": 0.379,
         "base_flip": 0.0,
-        "instruct_flip": 0.18
+        "instruct_flip": 0.18,
+        "base_delta_full": 0.22849999999999993,
+        "instruct_delta_full": 0.3791000000000002
       }
     },
     "Qwen2.5-1.5B": {
@@ -162,31 +202,41 @@
         "base_delta": 0.164,
         "instruct_delta": 0.207,
         "base_flip": 0.13,
-        "instruct_flip": 0.35
+        "instruct_flip": 0.35,
+        "base_delta_full": 0.1642999999999999,
+        "instruct_delta_full": 0.20650000000000013
       },
       "score_id": {
         "base_delta": 0.623,
         "instruct_delta": 1.107,
         "base_flip": 0.9,
-        "instruct_flip": 0.76
+        "instruct_flip": 0.76,
+        "base_delta_full": 0.6226000000000003,
+        "instruct_delta_full": 1.1067999999999998
       },
       "reference_answer": {
         "base_delta": 0.373,
         "instruct_delta": 0.691,
         "base_flip": 0.0,
-        "instruct_flip": 0.89
+        "instruct_flip": 0.89,
+        "base_delta_full": 0.3731,
+        "instruct_delta_full": 0.6913
       },
       "authority": {
         "base_delta": 0.837,
         "instruct_delta": 0.875,
         "base_flip": 0.6,
-        "instruct_flip": 0.66
+        "instruct_flip": 0.66,
+        "base_delta_full": 0.8365,
+        "instruct_delta_full": 0.8751
       },
       "verbosity": {
         "base_delta": 0.689,
         "instruct_delta": 0.323,
         "base_flip": 0.0,
-        "instruct_flip": 0.25
+        "instruct_flip": 0.25,
+        "base_delta_full": 0.6889999999999996,
+        "instruct_delta_full": 0.32289999999999974
       }
     },
     "StableLM-2-1.6B": {
@@ -196,31 +246,41 @@
         "base_delta": 0.318,
         "instruct_delta": 0.647,
         "base_flip": 0.43,
-        "instruct_flip": 0.32
+        "instruct_flip": 0.32,
+        "base_delta_full": 0.31789999999999985,
+        "instruct_delta_full": 0.6465000000000001
       },
       "score_id": {
         "base_delta": 0.326,
         "instruct_delta": 0.544,
         "base_flip": 0.77,
-        "instruct_flip": 0.72
+        "instruct_flip": 0.72,
+        "base_delta_full": 0.32589999999999986,
+        "instruct_delta_full": 0.5444999999999998
       },
       "reference_answer": {
         "base_delta": 0.193,
         "instruct_delta": 0.028,
         "base_flip": 0.41,
-        "instruct_flip": 0.28
+        "instruct_flip": 0.28,
+        "base_delta_full": 0.19280000000000008,
+        "instruct_delta_full": 0.028200000000000003
       },
       "authority": {
         "base_delta": 0.523,
         "instruct_delta": 0.867,
         "base_flip": 0.55,
-        "instruct_flip": 0.53
+        "instruct_flip": 0.53,
+        "base_delta_full": 0.5228999999999999,
+        "instruct_delta_full": 0.8667000000000002
       },
       "verbosity": {
         "base_delta": 0.299,
         "instruct_delta": 0.398,
         "base_flip": 0.21,
-        "instruct_flip": 0.25
+        "instruct_flip": 0.25,
+        "base_delta_full": 0.2987000000000002,
+        "instruct_delta_full": 0.3978999999999999
       }
     },
     "SmolLM2-1.7B": {
@@ -230,31 +290,41 @@
         "base_delta": 0.142,
         "instruct_delta": 0.079,
         "base_flip": 0.44,
-        "instruct_flip": 0.26
+        "instruct_flip": 0.26,
+        "base_delta_full": 0.14150000000000018,
+        "instruct_delta_full": 0.0794999999999999
       },
       "score_id": {
         "base_delta": 0.187,
         "instruct_delta": 0.081,
         "base_flip": 0.63,
-        "instruct_flip": 0.68
+        "instruct_flip": 0.68,
+        "base_delta_full": 0.1868000000000003,
+        "instruct_delta_full": 0.08139999999999992
       },
       "reference_answer": {
         "base_delta": 0.443,
         "instruct_delta": 0.226,
         "base_flip": 0.3,
-        "instruct_flip": 0.76
+        "instruct_flip": 0.76,
+        "base_delta_full": 0.4426000000000001,
+        "instruct_delta_full": 0.2258
       },
       "authority": {
         "base_delta": 0.371,
         "instruct_delta": 0.31,
         "base_flip": 0.25,
-        "instruct_flip": 0.67
+        "instruct_flip": 0.67,
+        "base_delta_full": 0.37090000000000023,
+        "instruct_delta_full": 0.31000000000000005
       },
       "verbosity": {
         "base_delta": 0.022,
         "instruct_delta": 0.393,
         "base_flip": 0.08,
-        "instruct_flip": 0.47
+        "instruct_flip": 0.47,
+        "base_delta_full": 0.021500000000000075,
+        "instruct_delta_full": 0.3933
       }
     },
     "Granite-3.1-2B": {
@@ -264,31 +334,41 @@
         "base_delta": 0.846,
         "instruct_delta": 0.725,
         "base_flip": 0.31,
-        "instruct_flip": 0.33
+        "instruct_flip": 0.33,
+        "base_delta_full": 0.8464,
+        "instruct_delta_full": 0.7248000000000006
       },
       "score_id": {
         "base_delta": 1.076,
         "instruct_delta": 0.622,
         "base_flip": 0.83,
-        "instruct_flip": 0.45
+        "instruct_flip": 0.45,
+        "base_delta_full": 1.0756000000000001,
+        "instruct_delta_full": 0.6220000000000003
       },
       "reference_answer": {
         "base_delta": 0.133,
         "instruct_delta": 0.747,
         "base_flip": 0.02,
-        "instruct_flip": 0.26
+        "instruct_flip": 0.26,
+        "base_delta_full": 0.13290000000000024,
+        "instruct_delta_full": 0.7473000000000005
       },
       "authority": {
         "base_delta": 0.421,
         "instruct_delta": 1.468,
         "base_flip": 0.02,
-        "instruct_flip": 0.49
+        "instruct_flip": 0.49,
+        "base_delta_full": 0.4207000000000005,
+        "instruct_delta_full": 1.4680000000000004
       },
       "verbosity": {
         "base_delta": 0.378,
         "instruct_delta": 1.104,
         "base_flip": 0.0,
-        "instruct_flip": 0.33
+        "instruct_flip": 0.33,
+        "base_delta_full": 0.37849999999999984,
+        "instruct_delta_full": 1.1039000000000003
       }
     },
     "Qwen2.5-3B": {
@@ -298,31 +378,41 @@
         "base_delta": 0.635,
         "instruct_delta": 0.463,
         "base_flip": 0.5,
-        "instruct_flip": 0.29
+        "instruct_flip": 0.29,
+        "base_delta_full": 0.6349999999999998,
+        "instruct_delta_full": 0.4628000000000001
       },
       "score_id": {
         "base_delta": 0.587,
         "instruct_delta": 1.239,
         "base_flip": 0.67,
-        "instruct_flip": 0.85
+        "instruct_flip": 0.85,
+        "base_delta_full": 0.5865,
+        "instruct_delta_full": 1.2389000000000001
       },
       "reference_answer": {
         "base_delta": 0.022,
         "instruct_delta": 1.541,
         "base_flip": 0.07,
-        "instruct_flip": 0.65
+        "instruct_flip": 0.65,
+        "base_delta_full": 0.021999999999999797,
+        "instruct_delta_full": 1.5413999999999999
       },
       "authority": {
         "base_delta": 0.244,
         "instruct_delta": 0.378,
         "base_flip": 0.05,
-        "instruct_flip": 0.39
+        "instruct_flip": 0.39,
+        "base_delta_full": 0.24350000000000005,
+        "instruct_delta_full": 0.37780000000000014
       },
       "verbosity": {
         "base_delta": 0.285,
         "instruct_delta": 0.392,
         "base_flip": 0.02,
-        "instruct_flip": 0.24
+        "instruct_flip": 0.24,
+        "base_delta_full": 0.28469999999999995,
+        "instruct_delta_full": 0.39159999999999995
       }
     },
     "Falcon3-3B": {
@@ -332,31 +422,41 @@
         "base_delta": 0.228,
         "instruct_delta": 0.531,
         "base_flip": 0.54,
-        "instruct_flip": 0.29
+        "instruct_flip": 0.29,
+        "base_delta_full": 0.22829999999999995,
+        "instruct_delta_full": 0.5307999999999997
       },
       "score_id": {
         "base_delta": 1.124,
         "instruct_delta": 1.947,
         "base_flip": 0.95,
-        "instruct_flip": 0.74
+        "instruct_flip": 0.74,
+        "base_delta_full": 1.1242999999999999,
+        "instruct_delta_full": 1.9470999999999998
       },
       "reference_answer": {
         "base_delta": 0.697,
         "instruct_delta": 1.009,
         "base_flip": 0.88,
-        "instruct_flip": 0.81
+        "instruct_flip": 0.81,
+        "base_delta_full": 0.6974,
+        "instruct_delta_full": 1.0094999999999996
       },
       "authority": {
         "base_delta": 0.813,
         "instruct_delta": 1.631,
         "base_flip": 0.74,
-        "instruct_flip": 0.98
+        "instruct_flip": 0.98,
+        "base_delta_full": 0.8130999999999999,
+        "instruct_delta_full": 1.6313999999999997
       },
       "verbosity": {
         "base_delta": 0.486,
         "instruct_delta": 0.674,
         "base_flip": 0.35,
-        "instruct_flip": 0.24
+        "instruct_flip": 0.24,
+        "base_delta_full": 0.48649999999999993,
+        "instruct_delta_full": 0.6743999999999999
       }
     },
     "Qwen2.5-7B": {
@@ -366,31 +466,41 @@
         "base_delta": 0.113,
         "instruct_delta": 3.126,
         "base_flip": 0.12,
-        "instruct_flip": 0.6
+        "instruct_flip": 0.6,
+        "base_delta_full": 0.11309999999999976,
+        "instruct_delta_full": 3.1264999999999996
       },
       "score_id": {
         "base_delta": 0.612,
         "instruct_delta": 0.905,
         "base_flip": 0.82,
-        "instruct_flip": 0.76
+        "instruct_flip": 0.76,
+        "base_delta_full": 0.6120999999999999,
+        "instruct_delta_full": 0.9051
       },
       "reference_answer": {
         "base_delta": 0.216,
         "instruct_delta": 0.105,
         "base_flip": 0.18,
-        "instruct_flip": 0.04
+        "instruct_flip": 0.04,
+        "base_delta_full": 0.2155999999999998,
+        "instruct_delta_full": 0.10539999999999994
       },
       "authority": {
         "base_delta": 0.19,
         "instruct_delta": 0.063,
         "base_flip": 0.17,
-        "instruct_flip": 0.05
+        "instruct_flip": 0.05,
+        "base_delta_full": 0.1896,
+        "instruct_delta_full": 0.06279999999999997
       },
       "verbosity": {
         "base_delta": 0.526,
         "instruct_delta": 0.174,
         "base_flip": 0.39,
-        "instruct_flip": 0.02
+        "instruct_flip": 0.02,
+        "base_delta_full": 0.5255000000000001,
+        "instruct_delta_full": 0.17389999999999994
       }
     },
     "OLMo-2-7B": {
@@ -400,31 +510,41 @@
         "base_delta": 0.804,
         "instruct_delta": 0.298,
         "base_flip": 0.05,
-        "instruct_flip": 0.07
+        "instruct_flip": 0.07,
+        "base_delta_full": 0.8042000000000002,
+        "instruct_delta_full": 0.29780000000000006
       },
       "score_id": {
         "base_delta": 0.823,
         "instruct_delta": 1.787,
         "base_flip": 0.5,
-        "instruct_flip": 0.74
+        "instruct_flip": 0.74,
+        "base_delta_full": 0.8229000000000002,
+        "instruct_delta_full": 1.7873
       },
       "reference_answer": {
         "base_delta": 0.126,
         "instruct_delta": 0.231,
         "base_flip": 0.0,
-        "instruct_flip": 0.04
+        "instruct_flip": 0.04,
+        "base_delta_full": 0.1261000000000001,
+        "instruct_delta_full": 0.23080000000000034
       },
       "authority": {
         "base_delta": 0.555,
         "instruct_delta": 0.449,
         "base_flip": 0.0,
-        "instruct_flip": 0.09
+        "instruct_flip": 0.09,
+        "base_delta_full": 0.5552000000000001,
+        "instruct_delta_full": 0.4489000000000001
       },
       "verbosity": {
         "base_delta": 0.278,
         "instruct_delta": 0.332,
         "base_flip": 0.48,
-        "instruct_flip": 0.43
+        "instruct_flip": 0.43,
+        "base_delta_full": 0.2782,
+        "instruct_delta_full": 0.3318000000000003
       }
     },
     "Granite-3.1-8B": {
@@ -434,31 +554,41 @@
         "base_delta": 0.324,
         "instruct_delta": 0.496,
         "base_flip": 0.77,
-        "instruct_flip": 0.12
+        "instruct_flip": 0.12,
+        "base_delta_full": 0.3235000000000001,
+        "instruct_delta_full": 0.4960999999999993
       },
       "score_id": {
         "base_delta": 0.357,
         "instruct_delta": 1.068,
         "base_flip": 0.65,
-        "instruct_flip": 0.51
+        "instruct_flip": 0.51,
+        "base_delta_full": 0.35660000000000025,
+        "instruct_delta_full": 1.0682999999999998
       },
       "reference_answer": {
         "base_delta": 0.409,
         "instruct_delta": 0.645,
         "base_flip": 0.51,
-        "instruct_flip": 0.18
+        "instruct_flip": 0.18,
+        "base_delta_full": 0.4085000000000001,
+        "instruct_delta_full": 0.6447999999999996
       },
       "authority": {
         "base_delta": 0.362,
         "instruct_delta": 0.55,
         "base_flip": 0.28,
-        "instruct_flip": 0.18
+        "instruct_flip": 0.18,
+        "base_delta_full": 0.3620000000000001,
+        "instruct_delta_full": 0.5501999999999998
       },
       "verbosity": {
         "base_delta": 0.169,
         "instruct_delta": 1.752,
         "base_flip": 0.34,
-        "instruct_flip": 0.33
+        "instruct_flip": 0.33,
+        "base_delta_full": 0.16880000000000006,
+        "instruct_delta_full": 1.7521999999999998
       }
     }
   },
@@ -471,20 +601,25 @@
       "mean_change": 0.229,
       "cohen_dz": 0.264,
       "boot_ci95": [
-        -0.093,
+        -0.094,
         0.746
       ],
       "ci_excludes_zero": false,
-      "wilcoxon_p": 0.6003,
+      "ci_excludes_zero_at_seed": false,
+      "ci_excludes_zero_seed_fraction": 0.0,
+      "n_stability_seeds": 200,
+      "wilcoxon_p": 0.5879,
       "n_decreased": 6,
       "base_mean_flip": 0.351,
       "instruct_mean_flip": 0.285,
-      "wilcoxon_p_holm": 0.6003
+      "base_mean_flip_full": 0.35076923076923083,
+      "instruct_mean_flip_full": 0.2846153846153846,
+      "wilcoxon_p_holm": 0.5879
     },
     "score_id": {
       "label": "Score ID",
       "n_families": 13,
-      "base_mean_delta": 0.9,
+      "base_mean_delta": 0.899,
       "instruct_mean_delta": 1.274,
       "mean_change": 0.375,
       "cohen_dz": 0.707,
@@ -493,10 +628,15 @@
         0.637
       ],
       "ci_excludes_zero": true,
+      "ci_excludes_zero_at_seed": true,
+      "ci_excludes_zero_seed_fraction": 1.0,
+      "n_stability_seeds": 200,
       "wilcoxon_p": 0.0266,
       "n_decreased": 3,
       "base_mean_flip": 0.747,
       "instruct_mean_flip": 0.712,
+      "base_mean_flip_full": 0.7469230769230768,
+      "instruct_mean_flip_full": 0.7115384615384616,
       "wilcoxon_p_holm": 0.133
     },
     "reference_answer": {
@@ -507,14 +647,19 @@
       "mean_change": 0.207,
       "cohen_dz": 0.446,
       "boot_ci95": [
-        -0.0,
+        0.0,
         0.473
       ],
       "ci_excludes_zero": false,
+      "ci_excludes_zero_at_seed": true,
+      "ci_excludes_zero_seed_fraction": 0.265,
+      "n_stability_seeds": 200,
       "wilcoxon_p": 0.1099,
       "n_decreased": 5,
       "base_mean_flip": 0.222,
       "instruct_mean_flip": 0.375,
+      "base_mean_flip_full": 0.22230769230769235,
+      "instruct_mean_flip_full": 0.3746153846153846,
       "wilcoxon_p_holm": 0.2198
     },
     "authority": {
@@ -529,10 +674,15 @@
         0.436
       ],
       "ci_excludes_zero": true,
+      "ci_excludes_zero_at_seed": true,
+      "ci_excludes_zero_seed_fraction": 1.0,
+      "n_stability_seeds": 200,
       "wilcoxon_p": 0.0266,
       "n_decreased": 4,
       "base_mean_flip": 0.242,
       "instruct_mean_flip": 0.415,
+      "base_mean_flip_full": 0.24230769230769234,
+      "instruct_mean_flip_full": 0.41538461538461535,
       "wilcoxon_p_holm": 0.133
     },
     "verbosity": {
@@ -547,10 +697,15 @@
         0.517
       ],
       "ci_excludes_zero": true,
+      "ci_excludes_zero_at_seed": true,
+      "ci_excludes_zero_seed_fraction": 1.0,
+      "n_stability_seeds": 200,
       "wilcoxon_p": 0.0681,
       "n_decreased": 2,
       "base_mean_flip": 0.166,
       "instruct_mean_flip": 0.236,
+      "base_mean_flip_full": 0.16615384615384615,
+      "instruct_mean_flip_full": 0.2361538461538462,
       "wilcoxon_p_holm": 0.2043
     }
   },
@@ -589,23 +744,33 @@
   "domain": {
     "daily_life": {
       "base": 0.436,
-      "instruct": 0.703
+      "instruct": 0.703,
+      "base_full": 0.4362183076923077,
+      "instruct_full": 0.7034466153846153
     },
     "humanities": {
       "base": 0.428,
-      "instruct": 0.69
+      "instruct": 0.69,
+      "base_full": 0.4279755384615385,
+      "instruct_full": 0.6903456923076923
     },
     "mathematics": {
       "base": 0.464,
-      "instruct": 0.708
+      "instruct": 0.708,
+      "base_full": 0.46379738461538467,
+      "instruct_full": 0.7077795384615385
     },
     "science": {
       "base": 0.461,
-      "instruct": 0.713
+      "instruct": 0.713,
+      "base_full": 0.4606090769230769,
+      "instruct_full": 0.7131816923076921
     },
     "technology": {
       "base": 0.442,
-      "instruct": 0.699
+      "instruct": 0.699,
+      "base_full": 0.44204599999999994,
+      "instruct_full": 0.699003076923077
     }
   }
 }

@@ -17,13 +17,23 @@ These are recomputed by enumeration rather than by calling a library. At n = 13
 the exact null distribution is 8192 sign assignments of the signed ranks, small
 enough to walk directly, which is the same argument the paper makes for its
 sign-flip permutation test being exact rather than sampled. All five reproduce:
-0.6003, 0.0266, 0.0266, 0.0681, 0.1099.
+0.5879, 0.0266, 0.0266, 0.0681, 0.1099.
 
-Ties are the reason to check rather than assume. rubric_order has repeated
-values among the absolute differences, so its ranks are averaged; a tie-blind
-implementation gets a different p there and the same p everywhere else, which is
-the kind of discrepancy that looks like a rounding difference until someone
-checks which probe it lands on.
+Ties were the reason to check rather than assume, and checking found that the
+tie was not real. rubric_order used to show one pair of equal absolute
+differences, so its ranks were averaged and its p came out 0.6003. That tie
+existed only because the per-family deltas were rounded to three decimals
+before the test saw them: two families whose absolute differences agree to
+three places do not actually agree, and at full precision rubric_order has no
+ties at all. Its exact p is 0.5879. The conclusion is unchanged -- it was null
+and remains null, by a wide margin -- but the published digit was an artefact
+of a rounding step, so this file now reads the unrounded deltas.
+
+With no probe tied any more, nothing in the release exercises the averaged-rank
+branch below. Deleting it would be wrong -- a future data change can reintroduce
+a tie, and a tie-blind implementation would then be silently incorrect -- so it
+is covered directly by a synthetic case instead of relying on the data to
+happen to hit it.
 """
 
 import itertools
@@ -85,8 +95,10 @@ def _pairs(probe):
     diffs = []
     for _family, record in per_family.items():
         cell = record.get(probe)
-        if isinstance(cell, dict) and "base_delta" in cell and "instruct_delta" in cell:
-            diffs.append(cell["base_delta"] - cell["instruct_delta"])
+        # The unrounded deltas, deliberately: rounding to three decimals
+        # manufactures ties that change the exact p (see the module docstring).
+        if isinstance(cell, dict) and "base_delta_full" in cell:
+            diffs.append(cell["base_delta_full"] - cell["instruct_delta_full"])
     if not diffs:
         pytest.skip(f"[repro] no paired deltas for {probe}")
     return diffs
@@ -128,3 +140,29 @@ def test_no_probe_is_individually_significant_after_correction():
         f"claim is built to not rest on any single one; if this changes, the "
         f"prose and the preregistration outcome both have to change with it."
     )
+
+
+def test_the_averaged_rank_branch_is_correct_even_though_no_probe_hits_it():
+    """Cover the tie handling directly, since the data no longer does.
+
+    Four differences with two sharing an absolute value. Ranks of
+    |d| = [1, 2, 2, 4] are [1, 2.5, 2.5, 4]; with signs [+, -, +, +] the
+    negative rank sum is 2.5 against a total of 10, so the two-sided exact p
+    counts the sign assignments whose smaller branch is at most 2.5. Of the
+    sixteen, eight qualify -- the empty set, {1}, either {2.5}, either
+    {1, 2.5, 4}, {2.5, 2.5, 4}, and the full set -- giving exactly 1/2.
+    """
+    ranks = _average_ranks([1.0, 2.0, 2.0, 4.0])
+    assert ranks == [1.0, 2.5, 2.5, 4.0], ranks
+
+    # A tie-blind implementation would rank these [1, 2, 3, 4] and get a
+    # different p; that is the failure this branch exists to prevent.
+    blind = sorted(range(4), key=lambda i: [1.0, 2.0, 2.0, 4.0][i])
+    assert [b + 1 for b in blind] != [int(r) for r in ranks], (
+        "the tie-blind and tie-aware rankings coincide, so this case no "
+        "longer tests anything"
+    )
+
+    p_tied = _exact_signed_rank_p([1.0, -2.0, 2.0, 4.0])
+    assert 0.0 < p_tied <= 1.0
+    assert abs(p_tied - 0.5) < 1e-12, p_tied

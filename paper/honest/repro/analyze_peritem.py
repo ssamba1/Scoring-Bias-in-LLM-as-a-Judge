@@ -19,6 +19,7 @@ from scipy import stats
 
 SEED = 42
 N_BOOT = 10_000
+N_SEED_STABILITY = 200
 HERE = Path(__file__).resolve().parent
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "results_scaled.json"
 
@@ -56,6 +57,29 @@ def boot_ci(diffs: np.ndarray, rng) -> tuple[float, float]:
     return tuple(np.percentile(m, [2.5, 97.5]))
 
 
+def excludes_zero_fraction(diffs: np.ndarray) -> float:
+    """Fraction of bootstrap seeds whose 95% interval excludes zero.
+
+    Whether an interval excludes zero was decided here by one arbitrary seed,
+    which is fragile in both directions when the bound sits near zero -- and
+    the paper separately asserts in prose that the intervals it counts are
+    seed-stable. That assertion was never computed. This computes it.
+
+    Reference answer is the case that matters: its lower bound is within
+    0.0002 of zero, and it excludes zero in about a quarter of seeds. The
+    single-seed flag happened to read that as "includes zero", which is the
+    conservative and correct reading, but only by accident of the seed.
+    """
+    n = len(diffs)
+    hits = 0
+    for seed in range(N_SEED_STABILITY):
+        rng = np.random.default_rng(seed)
+        means = diffs[rng.integers(0, n, size=(N_BOOT, n))].mean(axis=1)
+        lo, hi = np.percentile(means, [2.5, 97.5])
+        hits += bool(hi < 0 or lo > 0)
+    return hits / N_SEED_STABILITY
+
+
 def main() -> None:
     rng = np.random.default_rng(SEED)
     payload = json.loads(SRC.read_text())
@@ -89,6 +113,17 @@ def main() -> None:
     sample = next(iter(pairs.values()))["base"]
     PROBES = [p for p in CONTROL if p in sample]
 
+    # Every per-family quantity is rounded to 3dp for the JSON, and the tables
+    # then render it at 1dp or 2dp. Rounding twice moves a digit whenever the
+    # first round crosses a boundary the second one is deciding, and it did so
+    # in two places here:
+    #
+    #   reference answer instruct flip  0.37462 -> 0.375 -> 0.38   (2dp: 0.37)
+    #   SmolLM2-360M ref-answer base d  0.15010 -> 0.150 -> 0.1    (1dp: 0.2)
+    #
+    # So keep the unrounded values and round exactly once per output. The
+    # rounded fields stay in the JSON; only the rendering path changes.
+    flip_full = {}
     per_family = {}
     for fam, d in pairs.items():
         row = {"params_b": meta.get(fam, {}).get("params_b"),
@@ -96,21 +131,28 @@ def main() -> None:
         for probe in PROBES:
             b_means = {v: d["base"][probe][v]["mean"] for v in d["base"][probe]}
             i_means = {v: d["instruct"][probe][v]["mean"] for v in d["instruct"][probe]}
+            bd, idl = delta(b_means), delta(i_means)
+            bf = flip_rate(d["base"][probe], probe)
+            inf = flip_rate(d["instruct"][probe], probe)
             row[probe] = {
-                "base_delta": round(delta(b_means), 3),
-                "instruct_delta": round(delta(i_means), 3),
-                "base_flip": round(flip_rate(d["base"][probe], probe), 3),
-                "instruct_flip": round(flip_rate(d["instruct"][probe], probe), 3),
+                "base_delta": round(bd, 3),
+                "instruct_delta": round(idl, 3),
+                "base_flip": round(bf, 3),
+                "instruct_flip": round(inf, 3),
+                "base_delta_full": bd,
+                "instruct_delta_full": idl,
             }
+            flip_full[(fam, probe)] = (bf, inf)
         per_family[fam] = row
 
     # family-level paired inference on delta (base vs instruct)
     summary = {}
     for probe in PROBES:
-        base = np.array([per_family[f][probe]["base_delta"] for f in per_family], float)
-        inst = np.array([per_family[f][probe]["instruct_delta"] for f in per_family], float)
+        base = np.array([per_family[f][probe]["base_delta_full"] for f in per_family], float)
+        inst = np.array([per_family[f][probe]["instruct_delta_full"] for f in per_family], float)
         diffs = inst - base
         lo, hi = boot_ci(diffs, rng)
+        frac = excludes_zero_fraction(diffs)
         try:
             _, wp = stats.wilcoxon(base, inst); wp = float(wp)
         except ValueError:
@@ -122,11 +164,16 @@ def main() -> None:
             "mean_change": round(float(diffs.mean()), 3),
             "cohen_dz": round(cohen_dz(diffs), 3),
             "boot_ci95": [round(lo, 3), round(hi, 3)],
-            "ci_excludes_zero": bool(hi < 0 or lo > 0),
+            "ci_excludes_zero": frac == 1.0,
+            "ci_excludes_zero_at_seed": bool(hi < 0 or lo > 0),
+            "ci_excludes_zero_seed_fraction": round(frac, 3),
+            "n_stability_seeds": N_SEED_STABILITY,
             "wilcoxon_p": None if np.isnan(wp) else round(wp, 4),
             "n_decreased": int((diffs < 0).sum()),
-            "base_mean_flip": round(float(np.mean([per_family[f][probe]["base_flip"] for f in per_family])), 3),
-            "instruct_mean_flip": round(float(np.mean([per_family[f][probe]["instruct_flip"] for f in per_family])), 3),
+            "base_mean_flip": round(float(np.mean([flip_full[(f, probe)][0] for f in per_family])), 3),
+            "instruct_mean_flip": round(float(np.mean([flip_full[(f, probe)][1] for f in per_family])), 3),
+            "base_mean_flip_full": float(np.mean([flip_full[(f, probe)][0] for f in per_family])),
+            "instruct_mean_flip_full": float(np.mean([flip_full[(f, probe)][1] for f in per_family])),
         }
 
     # Holm-Bonferroni across the 3 probes (family-level Wilcoxon)
@@ -157,7 +204,7 @@ def main() -> None:
         star = "*" if s["ci_excludes_zero"] else " "
         print(f"{s['label']:16s} {s['base_mean_delta']:7.2f} {s['instruct_mean_delta']:7.2f} "
               f"{s['mean_change']:+7.2f} {s['cohen_dz']:+6.2f} {s['n_decreased']:d}/{s['n_families']:d} "
-              f"{ci:>15}{star} {str(s['wilcoxon_p']):>7} | {s['base_mean_flip']:6.2f} {s['instruct_mean_flip']:6.2f}")
+              f"{ci:>15}{star} {str(s['wilcoxon_p']):>7} | {s['base_mean_flip_full']:6.2f} {s['instruct_mean_flip_full']:6.2f}")
     print("* = bootstrap 95% CI excludes zero.  FR = flip rate (discrete argmax vs control).")
     if domain_summary:
         print("\nPer-domain mean bias (avg |delta| across families & probes):")
@@ -198,7 +245,7 @@ def write_tables(out: dict) -> None:
         ph = x.get("wilcoxon_p_holm"); phs = f"{ph:.3f}" if ph is not None else "--"
         L.append(f"{x['label']} & {x['base_mean_delta']:.2f} & {x['instruct_mean_delta']:.2f} & "
                  f"{bold}{{{x['mean_change']:+.2f} ({pct}\\%)}} & {x['cohen_dz']:+.2f} & {ci} & {phs} & "
-                 f"{x['base_mean_flip']:.2f}$\\to${x['instruct_mean_flip']:.2f} \\\\")
+                 f"{x['base_mean_flip_full']:.2f}$\\to${x['instruct_mean_flip_full']:.2f} \\\\")
     L += [r"\bottomrule", r"\end{tabular}"]
     (tdir / "tab_v2_summary.tex").write_text("\n".join(L) + "\n")
 
@@ -209,7 +256,7 @@ def write_tables(out: dict) -> None:
          r" & & & " + " & ".join("b & i" for _ in PROBES) + r" \\", r"\midrule"]
     for fam in sorted(pf, key=lambda f: (pf[f].get("params_b") or 0)):
         r = pf[fam]; pb = r.get("params_b"); tr = r.get("training") or "--"
-        cells = " & ".join(f"{r[p]['base_delta']:.1f} & {r[p]['instruct_delta']:.1f}" for p in PROBES)
+        cells = " & ".join(f"{r[p]['base_delta_full']:.1f} & {r[p]['instruct_delta_full']:.1f}" for p in PROBES)
         L.append(f"{fam} & {pb:g} & {tr} & {cells} \\\\" if pb else f"{fam} & -- & {tr} & {cells} \\\\")
     L += [r"\bottomrule", r"\end{tabular}"]
     (tdir / "tab_v2_family.tex").write_text("\n".join(L) + "\n")
@@ -219,7 +266,7 @@ def write_tables(out: dict) -> None:
         L = [r"% AUTO-GENERATED", r"\begin{tabular}{lcc}", r"\toprule",
              r"\textbf{Domain} & \textbf{Base $\bar\Delta$} & \textbf{Instruct $\bar\Delta$} \\", r"\midrule"]
         for dom, v in out["domain"].items():
-            L.append(f"{dom.replace('_',' ').title()} & {v['base']:.2f} & {v['instruct']:.2f} \\\\")
+            L.append(f"{dom.replace('_',' ').title()} & {v['base_full']:.2f} & {v['instruct_full']:.2f} \\\\")
         L += [r"\bottomrule", r"\end{tabular}"]
         (tdir / "tab_v2_domain.tex").write_text("\n".join(L) + "\n")
 
@@ -268,7 +315,9 @@ def domain_analysis(pairs: dict, domains: list) -> dict:
                         means.append(float(np.mean([pi[i] for i in ii])))
                     acc.append(max(means) - min(means))
         out[dom] = {"base": round(float(np.mean(base_deltas)), 3),
-                    "instruct": round(float(np.mean(inst_deltas)), 3)}
+                    "instruct": round(float(np.mean(inst_deltas)), 3),
+                    "base_full": float(np.mean(base_deltas)),
+                    "instruct_full": float(np.mean(inst_deltas))}
     return out
 
 

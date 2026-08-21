@@ -150,18 +150,22 @@ def test_probe_means_match_the_stored_summary(probe):
         values = [v for v in values if v is not None]
         assert values, f"no {arm} values recomputed for {probe}"
 
-        # The documented route: spreads over the stored condition means, each
-        # family rounded to 3dp, then averaged and rounded again.
+        # The documented route: spreads over the stored condition means,
+        # averaged across families, and rounded exactly once at the end.
+        # There used to be a per-family round to 3dp in the middle of this,
+        # matching the analysis; it was removed from both, because rounding
+        # twice moves a rendered digit and because it manufactured a tie in
+        # the rubric-order signed-rank test that changed a published p.
         analysed = [
             _bias_as_analysed(PANEL_DATA[f][arm][probe])
             for f in FAMILIES
             if probe in PANEL_DATA[f].get(arm, {})
         ]
-        as_pipeline = round(st.fmean([round(v, 3) for v in analysed if v is not None]), 3)
+        as_pipeline = round(st.fmean([v for v in analysed if v is not None]), 3)
         assert as_pipeline == summary[key], (
             f"{probe}/{arm}: the documented route (spread of stored condition "
-            f"means, per family to 3dp, then averaged) gives {as_pipeline}, "
-            f"results_peritem.json stores {summary[key]}"
+            f"means, averaged across families, rounded once) gives "
+            f"{as_pipeline}, results_peritem.json stores {summary[key]}"
         )
 
         # Recomputing from the per-item scores instead must land in the same

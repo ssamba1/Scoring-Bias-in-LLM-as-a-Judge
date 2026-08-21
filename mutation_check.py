@@ -314,6 +314,42 @@ MUTATIONS = [
         "CI endpoint flips sign (contains zero -> excludes)",
     ),
     (
+        # The double-rounding defect, restored. analyze_peritem.py rounded
+        # each family's flip rate to three places and the table then
+        # rendered the mean at two: 0.37462 became 0.375 became 0.38, when
+        # two places is 0.37. The value was quoted in the paper. Only a
+        # guard comparing the rendered digits against a recomputation from
+        # raw can see this -- a float tolerance passes on it.
+        "paper/honest/tables/tab_v2_summary.tex",
+        "0.22$\\to$0.37",
+        "0.22$\\to$0.38",
+        "tests/test_the_main_table_recomputes_from_raw.py",
+        "flip rate double-rounded (3dp then 2dp) onto the wrong digit",
+    ),
+    (
+        # The same double-rounding one table over, at one decimal place.
+        # SmolLM2-360M's reference-answer base spread is 0.15010: 0.2 at one
+        # place, 0.1 if it goes through 0.150 first. Sixty-five cells render
+        # this way and only this one sits close enough to a boundary to move.
+        "paper/honest/tables/tab_v2_family.tex",
+        "SFT+DPO & 0.2 & 0.3 & 1.6 & 2.4 & 0.2 & 0.0",
+        "SFT+DPO & 0.2 & 0.3 & 1.6 & 2.4 & 0.1 & 0.0",
+        "tests/test_the_main_table_recomputes_from_raw.py",
+        "per-family spread double-rounded (3dp then 1dp) onto the wrong digit",
+    ),
+    (
+        # The seed-stability verdict stops matching the fraction it summarises.
+        # Reference answer's interval excludes zero at 53 of 200 seeds, so the
+        # stable verdict is False; claiming the fraction is 1.0 while the flag
+        # stays False is the inconsistency the guard exists to catch, and it is
+        # the direction that would quietly promote a null probe to significant.
+        "paper/honest/repro/results_peritem.json",
+        '"ci_excludes_zero_seed_fraction": 0.265',
+        '"ci_excludes_zero_seed_fraction": 1.0',
+        "tests/test_flags_agree_with_their_numbers.py",
+        "seed-stability fraction contradicts the excludes-zero verdict",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
@@ -409,7 +445,7 @@ MUTATIONS = [
         # A family disappears from the table: the per-cell cases would simply
         # stop being generated, so only the completeness guard can catch it.
         "paper/honest/tables/tab_v2_family.tex",
-        "SmolLM2-360M & 0.36 & SFT+DPO & 0.2 & 0.3 & 1.6 & 2.4 & 0.1 & 0.0 & 0.2 & 0.1 & 0.1 & 0.3 \\\\",
+        "SmolLM2-360M & 0.36 & SFT+DPO & 0.2 & 0.3 & 1.6 & 2.4 & 0.2 & 0.0 & 0.2 & 0.1 & 0.1 & 0.3 \\\\",
         "",
         "tests/test_cited_tables_are_pinned.py",
         "family silently dropped from the table",
@@ -848,11 +884,11 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py", "secondary: score-ID flip rates drift",
     ),
     (
-        "paper/honest/macros.tex", "0.22\\!\\to\\!0.38", "0.22\\!\\to\\!0.48",
+        "paper/honest/macros.tex", "0.22\\!\\to\\!0.37", "0.22\\!\\to\\!0.47",
         "tests/test_prose_matches_derived_values.py", "secondary: reference-answer flip rise drifts",
     ),
     (
-        "paper/honest/macros.tex", "0.24\\!\\to\\!0.41", "0.24\\!\\to\\!0.51",
+        "paper/honest/macros.tex", "0.24\\!\\to\\!0.42", "0.24\\!\\to\\!0.52",
         "tests/test_prose_matches_derived_values.py", "secondary: authority flip rise drifts",
     ),
     (
@@ -1232,8 +1268,14 @@ MUTATIONS = [
         # follows from the thirteen pairs it is computed over. The Holm check
         # takes the raw p as given, so only the enumeration sees this.
         "paper/honest/repro/results_peritem.json",
-        '"score_id": {\n        "base_delta": 1.609',
-        '"score_id": {\n        "base_delta": 2.609',
+        #
+        # Targets base_delta_full, not base_delta. The rounded field is
+        # no longer what the registered test reads -- rounding to three
+        # places manufactured a tie that changed rubric_order's p -- so
+        # mutating it stopped being seen by anything. That is exactly the
+        # stale-anchor failure this harness exists to surface.
+        '"base_delta_full": 1.6088',
+        '"base_delta_full": 2.6088',
         "tests/test_the_registered_per_probe_test_recomputes.py",
         "a preregistered p-value stops following from its pairs",
     ),
