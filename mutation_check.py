@@ -537,6 +537,29 @@ MUTATIONS = [
         "the paper states the generator count two different ways",
     ),
     (
+        # The submission abstract loses the disclosure of the prior fabricated
+        # version. arXiv truncates its metadata field from the end, so this is
+        # the first sentence a length limit takes -- and the one this project
+        # can least afford to drop.
+        "paper/honest/ARXIV_ABSTRACT.txt",
+        # Retargeted: changing "is used" to "was used" left the phrase the
+        # guard reads still present, so the mutation could not fail. A
+        # mutation has to remove the thing the guard actually looks at.
+        "no synthetic data is used",
+        "only real measurements are used",
+        "tests/test_the_arxiv_abstract_fits_and_agrees.py",
+        "submission abstract loses its integrity disclosure",
+    ),
+    (
+        # The submission abstract states a number the paper's abstract does
+        # not. Shortening may drop claims; it may not introduce one.
+        "paper/honest/ARXIV_ABSTRACT.txt",
+        "11/13 families",
+        "12/13 families",
+        "tests/test_the_arxiv_abstract_fits_and_agrees.py",
+        "submission abstract states a number the paper does not",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
