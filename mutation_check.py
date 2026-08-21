@@ -597,6 +597,18 @@ MUTATIONS = [
         "retraction notice undercounts the dashboards it withdrew",
     ),
     (
+        # A superseded results page stops naming the panel that overturned it.
+        # figures_study1.html shipped with no warning at all -- "Key finding:
+        # format bias down", rows marked IMPROVED, "instruct models less biased
+        # on average" -- while the correction sat in a README one directory up
+        # that nobody opening the figures would read.
+        "results_rootcause/publication/figures_study1.html",
+        "13-family,",
+        "larger,",
+        "tests/test_superseded_pages_say_so_on_the_page.py",
+        "superseded page stops naming what overturned it",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
