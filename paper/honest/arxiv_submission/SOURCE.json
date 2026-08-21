@@ -2,8 +2,8 @@
   "main": "main.tex",
   "built_from": "scoring_bias_v2.tex",
   "sources": {
-    "scoring_bias_v2.tex": "e65a2335e699ec3ed8615abc20c98faa23e70fffa908652390ceae3ba21cfbb1",
-    "macros.tex": "e9a2233ce3215bba3f425757584b4cab34e415841f7664bfb8920663e63261cb",
+    "scoring_bias_v2.tex": "d1e5c943b39c00f6579baf315227d737b43240665618cce9ffe15f97a20312c6",
+    "macros.tex": "c3c5621cf287d9dd251cdecaa51eefd5ca83751c55c60c8f969511119fa9da3e",
     "honest.bib": "25a17e05941f9f29027b047035486a76badd82946f4525db8dfc567330024067",
     "tables/tab_gold.tex": "172fedf59f429eaece8cd50e6454e11a22f102a34fbc694c20d61de91aaa1f3d",
     "tables/tab_v2_family.tex": "bd2032c2e27cbbed5bf8b269d2557249170d0df8136820518a279bbb53f12da5",

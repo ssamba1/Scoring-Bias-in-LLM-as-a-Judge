@@ -190,6 +190,10 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         "ci_excludes_zero", "within_pm_0p15", "frontier_below_open",
         "registered_direction_negative_observed", "monotone_increasing",
         "K3", "K5", "K10", "p13_met",
+        # Re-derived from the interval it summarises, not read, in
+        # test_the_size_bands_are_not_overread.py: a stored verdict that
+        # nothing recomputes is a claim rather than a check.
+        "clustered_ci_crosses_zero",
     }
     unaccounted = sorted(found - checked - set(UNCHECKED))
     assert not unaccounted, (

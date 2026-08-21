@@ -1,0 +1,45 @@
+{
+  "note": "POST HOC. Not preregistered. Characterises the >3B scope claim.",
+  "method": "family-clustered bootstrap; validated by simulation against the naive Fisher interval, which covers 72-77% at nominal 95% when rows are clustered",
+  "draws": 20000,
+  "seed": 20260820,
+  "bands": {
+    "<=3B": {
+      "n_families": 10,
+      "n_cells": 100,
+      "spearman_rho": -0.4885,
+      "naive_ci95": [
+        -0.625,
+        -0.3231
+      ],
+      "clustered_ci95": [
+        -0.5821,
+        -0.3337
+      ]
+    },
+    ">3B": {
+      "n_families": 3,
+      "n_cells": 30,
+      "spearman_rho": -0.0149,
+      "naive_ci95": [
+        -0.3732,
+        0.3472
+      ],
+      "clustered_ci95": [
+        -0.7091,
+        0.1879
+      ]
+    }
+  },
+  "difference": {
+    "naive_fisher_z": -2.386,
+    "naive_p": 0.017,
+    "clustered_ci95": [
+      -0.7108,
+      0.2025
+    ],
+    "clustered_ci_crosses_zero": true,
+    "share_at_or_above_zero": 0.0377
+  },
+  "reading": "The naive test calls the bands different (p=0.017), but it treats 30 rows from 3 judges as 30 independent observations. Respecting family clustering, the interval for the difference includes zero, and the >3B band alone is consistent with correlations from -0.7091 to 0.1879. The band does not resolve the relation; it is not evidence that the relation is absent there."
+}

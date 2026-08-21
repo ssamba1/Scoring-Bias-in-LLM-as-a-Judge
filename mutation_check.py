@@ -1611,6 +1611,19 @@ MUTATIONS = [
         "a figure stops showing what the data produces",
     ),
     (
+        # The stored verdict stops matching the interval it summarises. Three
+        # families cannot resolve the relation, and the clustered interval for
+        # the between-band difference spans zero; flipping the flag turns an
+        # open question into a scale-dependence finding the panel cannot carry.
+        # The guard re-derives the flag from the bounds rather than reading it,
+        # which is the only reason this mutation has anything to catch.
+        "paper/honest/repro/results_bands.json",
+        '"clustered_ci_crosses_zero": true',
+        '"clustered_ci_crosses_zero": false',
+        "tests/test_the_size_bands_are_not_overread.py",
+        "the >3B band is read as flat rather than unresolved",
+    ),
+    (
         # A registered null is upgraded into evidence of absence. No probe
         # reaches BF01 >= 3, so none of them supports the null; claiming one
         # does is a stronger result than the paper has, and in the direction
@@ -2097,7 +2110,7 @@ MUTATIONS = [
         # directory. The section is what a replicator follows; an undercount
         # sends them away having reproduced part of the paper.
         "paper/honest/scoring_bias_v2.tex",
-        "the fourteen \\path{repro/analyze_*.py}",
+        "the sixteen \\path{repro/analyze_*.py}",
         "the twelve \\path{repro/analyze_*.py}",
         "tests/test_reproducibility_section_is_complete.py",
         "the reproduction recipe undercounts its own scripts",
