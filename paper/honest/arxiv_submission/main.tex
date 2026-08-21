@@ -38,7 +38,7 @@ open-weight families (0.1--\MAXB{}B; 26 checkpoints; over 56{,}000 scored judgme
 across all datasets) and five
 distinct bias types (including two, authority and verbosity, from outside the
 scoring-bias literature),
-\DECISIVESENTENCE{} \RESULTSENTENCE{} (mixed-effects $p<10^{-3}$). The intuition that a
+\DECISIVESENTENCE{} \RESULTSENTENCE{} (family-clustered $p=4\times10^{-6}$). The intuition that a
 decisive judge is a robust one fails: \LINKSENTENCE{} \PREDSENTENCE{} We explain this
 with a simple theory---a judge's score is the mean of its answer distribution, so its
 bias factorizes into a \emph{decisiveness} term (the distribution's variance) and a
@@ -247,7 +247,8 @@ The inferential unit is the model family (base $\Delta$ vs instruct $\Delta$ per
 probe). We report paired mean change, standardized effect $d_z$, percentile-bootstrap
 95\% CIs ($10^4$ resamples, seed 42), exact Wilcoxon tests with Holm correction across
 probes, flip rates, a $\log_{10}$-size dependence test, per-domain analysis, and a
-linear mixed-effects model with random intercepts for family and item. Because pooled
+linear mixed-effects model with a random intercept for family, reported alongside a
+family-clustered OLS because that variance component is estimated at zero. Because pooled
 correlations mix points from the same checkpoint, every pooled correlation in \S5 is
 accompanied by a cluster-respecting counterpart: within-checkpoint correlations, a
 family-random-intercept regression, a size-partialled correlation, and a

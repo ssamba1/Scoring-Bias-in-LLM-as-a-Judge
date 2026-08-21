@@ -763,7 +763,7 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py", "headline: responsiveness-bias rho drifts",
     ),
     (
-        "paper/honest/macros.tex", "coefficient $+0.16$", "coefficient $+0.26$",
+        "paper/honest/macros.tex", "instruct coefficient is $+0.16$", "instruct coefficient is $+0.26$",
         "tests/test_prose_matches_derived_values.py", "headline: mixed-model coefficient drifts",
     ),
     (
@@ -1046,8 +1046,8 @@ MUTATIONS = [
         # family AND item while the fit declares family alone, which describes a
         # more conservative model than was run.
         "paper/honest/macros.tex",
-        "random intercept for family,",
-        "random intercepts for family and item;",
+        "which uses a random intercept for family,",
+        "which uses random intercepts for family and item,",
         "tests/test_model_description_matches_the_fit.py",
         "paper claims a random effect the model lacks",
     ),
@@ -1611,6 +1611,23 @@ MUTATIONS = [
         '"spearman_rho": 0.924',
         "tests/test_figures_show_the_current_data.py",
         "a figure stops showing what the data produces",
+    ),
+    (
+        # The cross-check stops corroborating the fit it exists to corroborate.
+        # The mixed model here is degenerate -- singular random effect, standard
+        # errors not all finite -- so the reported p comes from the clustered
+        # OLS, and the whole reason that is acceptable is that the two give the
+        # same coefficient. Move one and the conclusion is resting on a fit
+        # whose standard errors cannot support it.
+        #
+        # Mutating se_finite instead makes the guard SKIP rather than fail: the
+        # disclosure is only required while the errors are non-finite. A
+        # mutation that turns a check off is not a mutation that check catches.
+        "paper/honest/repro/results_mechanism.json",
+        '"clustered_ols_coef": 0.1559',
+        '"clustered_ols_coef": 0.4559',
+        "tests/test_the_pooled_model_reports_its_own_health.py",
+        "the pooled model hides that its standard errors are not finite",
     ),
     (
         # A reduction is manufactured where the like-for-like comparison shows

@@ -982,6 +982,19 @@
     "instruct_p": 0.0,
     "note": "dev = |score - control score|; negative coef = instruct less biased",
     "n_obs": 13000,
-    "n_families": 13
+    "n_families": 13,
+    "converged": true,
+    "group_var": 0.0,
+    "resid_scale": 0.187859,
+    "icc": 0.0,
+    "se_finite": false,
+    "clustered_ols_coef": 0.1559,
+    "clustered_ols_p": 4e-06,
+    "fit_warnings": [
+      "Random effects covariance is singular",
+      "The Hessian matrix at the estimated parameter values is not positive definite.",
+      "The MLE may be on the boundary of the parameter space.",
+      "The random effects covariance matrix is singular."
+    ]
   }
 }

@@ -425,13 +425,51 @@ def lmm(pairs):
         return {"note": "no rows"}
     df = pd.DataFrame(rows)
     try:
-        m = smf.mixedlm("dev ~ C(kind, Treatment('base'))", df, groups=df["family"],
-                        re_formula="1").fit(reml=False, method="lbfgs")
+        # This is the model the abstract quotes as "mixed-effects p<1e-3", and
+        # it was the only fit in the project reporting a coefficient with no
+        # diagnosis beside it: no convergence flag, no variance component, no
+        # cluster-robust cross-check. analyze_robustness.py's B1_lmm has carried
+        # all three since it was found not to converge, and the argument for
+        # them there applies here with more force, because this coefficient is
+        # in the abstract.
+        import warnings
+
+        import numpy as np
+
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            m = smf.mixedlm("dev ~ C(kind, Treatment('base'))", df,
+                            groups=df["family"], re_formula="1"
+                            ).fit(reml=False, method="lbfgs")
+            notes = sorted({str(w.message)[:80] for w in caught})
         coef = [c for c in m.params.index if "kind" in c][0]
+
+        group_var = float(m.cov_re.iloc[0, 0])
+        resid = float(m.scale)
+        # Share of variance sitting between families rather than within them.
+        # With a boundary-ish variance component this is near zero, which is
+        # itself the useful statement: the effect is not a family-level artefact.
+        icc = group_var / (group_var + resid) if (group_var + resid) else float("nan")
+
+        # Same estimate without the random effect, with family-clustered errors.
+        # If the two agree, the conclusion does not rest on the variance
+        # component that statsmodels is struggling with.
+        clustered = smf.ols("dev ~ C(kind, Treatment('base'))", df).fit(
+            cov_type="cluster", cov_kwds={"groups": df["family"]})
+        ccoef = [c for c in clustered.params.index if "kind" in c][0]
+
         return {"instruct_coef": round(float(m.params[coef]), 4),
-                "instruct_p": round(float(m.pvalues[coef]), 4),
+                "instruct_p": round(float(m.pvalues[coef]), 6),
                 "note": "dev = |score - control score|; negative coef = instruct less biased",
-                "n_obs": len(df), "n_families": df["family"].nunique()}
+                "n_obs": len(df), "n_families": df["family"].nunique(),
+                "converged": bool(m.converged),
+                "group_var": round(group_var, 6),
+                "resid_scale": round(resid, 6),
+                "icc": round(icc, 6),
+                "se_finite": bool(np.isfinite(m.bse).all()),
+                "clustered_ols_coef": round(float(clustered.params[ccoef]), 4),
+                "clustered_ols_p": round(float(clustered.pvalues[ccoef]), 6),
+                "fit_warnings": notes}
     except Exception as e:
         return {"note": f"LMM fit failed: {e}", "n_obs": len(df)}
 
