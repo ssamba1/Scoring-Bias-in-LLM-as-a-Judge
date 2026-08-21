@@ -57,8 +57,8 @@ than a preprint and were checked by hand. No phantoms, no misattributions.**
 
 | key | source | checked |
 |---|---|---|
-| `falcon3` | `huggingface.co/blog/falcon3` | Page exists: "Welcome to the Falcon 3 Family of Open Models!", Technology Innovation Institute, December 2024. No arXiv report exists for Falcon 3. |
-| `granite3` | `github.com/ibm-granite/granite-3.0-language-models/` | Repository exists and publishes its own recommended citation, which is the entry used here: title, author `{Granite Team, IBM}`, October 2024. |
+| `falcon3` | <https://huggingface.co/blog/falcon3> | Page exists: "Welcome to the Falcon 3 Family of Open Models!", Technology Innovation Institute, December 2024. No arXiv report exists for Falcon 3. |
+| `granite3` | <https://github.com/ibm-granite/granite-3.0-language-models/> | Repository exists and publishes its own recommended citation, which is the entry used here: title, author `{Granite Team, IBM}`, October 2024. |
 
 ## Note on corporate authors
 
