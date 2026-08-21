@@ -67,7 +67,11 @@ ax.annotate(f"panel mean {mean_panel:+.2f}", xy=(0.13, mean_panel),
             color="#4878a8")
 ax.annotate(f"4-bit inflates the delta by {pct:.0f}%\nat 7B, so this point is not\n"
             f"a quantization artefact",
-            xy=(14.0, ext_delta), xytext=(-118, 26), textcoords="offset points",
+            # Below the point, not above it. Above, the text sat across the
+            # panel-mean line at +0.26 and the dashed rule struck through the
+            # first line of the annotation -- legible in the source, crossed
+            # out on the page. The region under the 14B point is empty.
+            xy=(14.0, ext_delta), xytext=(-126, -34), textcoords="offset points",
             fontsize=7.2, color="#b04848",
             arrowprops=dict(arrowstyle="->", color="#b04848", lw=0.8))
 

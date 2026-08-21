@@ -132,7 +132,11 @@ def fig_main(pi):
             ax.text(i, max(base[i], inst[i]) + 0.03, "$*$", ha="center", fontsize=11)
     if len(probes) > n_primary:
         ax.axvline(n_primary - 0.5, color="0.6", lw=0.8, ls=":")
-    ax.set_xticks(list(x)); ax.set_xticklabels(labels, fontsize=7.5)
+    # Wrap the two-word labels. Seven horizontal labels across 6.4 inches ran
+    # into each other -- "Score ID", "Reference answer" and "Authority"
+    # overlapped into one another on the page, on the paper's first figure.
+    wrapped = [lab.replace(" ", "\n", 1) if len(lab) > 10 else lab for lab in labels]
+    ax.set_xticks(list(x)); ax.set_xticklabels(wrapped, fontsize=7.5)
     ax.set_ylabel(r"Mean bias $\Delta$"); ax.legend(frameon=False, loc="upper left")
     ax.set_title(f"Scoring bias, base vs instruct ($n={pi['n_families']}$ families; "
                  "$\\dagger$ preregistered extension probes)")
