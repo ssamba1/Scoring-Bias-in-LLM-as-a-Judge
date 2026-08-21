@@ -1270,7 +1270,7 @@ MUTATIONS = [
         # The agent instructions state a study size no count of the released
         # data produces, in the section headed "must be correct in all outputs".
         ".hermes.md",
-        "63,040 across the",
+        "64,540 across the",
         "62,940 across the",
         "tests/test_the_agent_findings_match_the_data.py",
         "the agent instructions state an uncountable study size",
@@ -1635,6 +1635,18 @@ MUTATIONS = [
         '"clustered_ols_coef": 0.4559',
         "tests/test_the_pooled_model_reports_its_own_health.py",
         "the pooled model hides that its standard errors are not finite",
+    ),
+    (
+        # Quantization is made to look like it attenuates the tuning effect.
+        # That reading would restore the confound on the 14B point and make
+        # the paper's scale claim defensible for the wrong reason, which is
+        # the direction a tired author drifts. The measured answer is the
+        # inconvenient one: nf4 inflates the delta by about 6%.
+        "paper/honest/repro/results_quantization.json",
+        '"nf4_tuning_delta": 0.5757',
+        '"nf4_tuning_delta": 0.2757',
+        "tests/test_the_quantization_control_recomputes.py",
+        "quantization is made to look like it attenuates the effect",
     ),
     (
         # A reduction is manufactured where the like-for-like comparison shows
@@ -2161,7 +2173,7 @@ MUTATIONS = [
         # directory. The section is what a replicator follows; an undercount
         # sends them away having reproduced part of the paper.
         "paper/honest/scoring_bias_v2.tex",
-        "the seventeen \\path{repro/analyze_*.py}",
+        "the eighteen \\path{repro/analyze_*.py}",
         "the twelve \\path{repro/analyze_*.py}",
         "tests/test_reproducibility_section_is_complete.py",
         "the reproduction recipe undercounts its own scripts",

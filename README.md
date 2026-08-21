@@ -115,6 +115,7 @@ files and fails on any numerical drift. **No synthetic or simulated data is used
 | `paper/honest/repro/results_zh.json` | Chinese replication (P11) | `zh_harness.py` |
 | `paper/honest/repro/results_closed.json` | frontier judges via API logprobs (P20) | `closed_harness.py` |
 | `paper/honest/repro/results_14b.json` | Qwen2.5-14B 4-bit extension (P12) | `q14b_harness.py` |
+| `paper/honest/repro/results_7b_nf4.json` | Qwen2.5-7B at 4-bit, the quantization control for the 14B extension | `q14b_harness.py` (`QUANT_MODEL=qwen7b PRECISION=nf4`) |
 | `paper/honest/repro/results_dose.json` | graded nuisance dose-response (P14) | `dose_harness.py` |
 | `paper/honest/repro/results_gran.json` | rating-scale granularity (P17) | `granularity_harness.py` |
 | `paper/honest/repro/results_chat.json` | chat-template scoring (P19) | `chattemplate_harness.py` |

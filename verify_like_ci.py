@@ -44,7 +44,8 @@ ANALYSES = [
     "analyze_peritem.py", "analyze_mechanism.py", "analyze_gold.py",
     "analyze_robustness.py", "analyze_stages.py", "analyze_spanpatch.py",
     "analyze_dose.py", "analyze_gran.py", "analyze_chat.py", "analyze_sampled.py",
-    "analyze_nulls.py", "analyze_bands.py", "analyze_readout.py", "analyze_t10.py",
+    "analyze_nulls.py", "analyze_bands.py", "analyze_readout.py",
+    "analyze_quantization.py", "analyze_t10.py",
     "analyze_tokvar.py", "analyze_closed.py",
 ]
 NEWPROBES = ["results_probes2.json", "results_zh.json", "results_14b.json"]

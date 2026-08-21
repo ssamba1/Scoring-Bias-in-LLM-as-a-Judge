@@ -1,0 +1,70 @@
+{
+  "note": "POST HOC. Not preregistered. One family, one scheme.",
+  "family": "Qwen2.5-7B",
+  "reference": "fp16 arm is the committed main panel; nf4 arm is results_7b_nf4.json",
+  "fp16": {
+    "base": 0.3312,
+    "instruct": 0.8747
+  },
+  "nf4": {
+    "base": 0.4446,
+    "instruct": 1.0204
+  },
+  "fp16_tuning_delta": 0.5436,
+  "nf4_tuning_delta": 0.5757,
+  "delta_change_pct": 5.92,
+  "quantization_attenuates_delta": false,
+  "per_probe": {
+    "rubric_order": {
+      "base": {
+        "fp16": 0.1131,
+        "nf4": 0.4739
+      },
+      "instruct": {
+        "fp16": 3.1265,
+        "nf4": 3.4094
+      }
+    },
+    "score_id": {
+      "base": {
+        "fp16": 0.6121,
+        "nf4": 0.6147
+      },
+      "instruct": {
+        "fp16": 0.9051,
+        "nf4": 1.2535
+      }
+    },
+    "reference_answer": {
+      "base": {
+        "fp16": 0.2156,
+        "nf4": 0.1941
+      },
+      "instruct": {
+        "fp16": 0.1054,
+        "nf4": 0.1393
+      }
+    },
+    "authority": {
+      "base": {
+        "fp16": 0.1896,
+        "nf4": 0.2278
+      },
+      "instruct": {
+        "fp16": 0.0628,
+        "nf4": 0.2137
+      }
+    },
+    "verbosity": {
+      "base": {
+        "fp16": 0.5255,
+        "nf4": 0.7127
+      },
+      "instruct": {
+        "fp16": 0.1739,
+        "nf4": 0.0859
+      }
+    }
+  },
+  "reading": "nf4 moves the base-to-instruct bias delta from 0.5436 to 0.5757, an inflation of about 6%. Quantization therefore does not attenuate the tuning effect, so the 14B run's attenuation is not explained by its being 4-bit. Individual probes do move sharply under quantization; the base-versus-instruct contrast is what survives."
+}

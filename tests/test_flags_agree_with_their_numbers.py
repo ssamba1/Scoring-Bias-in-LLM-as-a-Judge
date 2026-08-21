@@ -200,6 +200,8 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         "instruct_below_base",
         # Re-derived from marginalized_maxmin, which is 0 by construction.
         "marginalized_is_zero_by_construction",
+        # Re-derived from the two tuning deltas it compares.
+        "quantization_attenuates_delta",
     }
     unaccounted = sorted(found - checked - set(UNCHECKED))
     assert not unaccounted, (
