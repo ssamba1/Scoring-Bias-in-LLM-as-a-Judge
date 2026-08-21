@@ -160,6 +160,21 @@ def main():
         "the relation; it is not evidence that the relation is absent there."
     )
 
+    # The same machinery answers a second question the paper leans on harder:
+    # does the headline correlation survive being clustered by judge? The paper
+    # already reports a family-random-intercept model (-0.46); this corroborates
+    # it by a different route, which matters because the pooled rho is quoted in
+    # the abstract with an n that counts cells, not judges.
+    boot_open = clustered_draws(rows, rng)
+    lo_o, hi_o = np.percentile(boot_open, [2.5, 97.5])
+    out["headline_open_panel"] = {
+        "n_families": len(sorted({r[0] for r in rows})),
+        "n_cells": len(rows),
+        "spearman_rho": round(rho(rows), 4),
+        "clustered_ci95": [round(float(lo_o), 4), round(float(hi_o), 4)],
+        "excludes_zero": bool(hi_o < 0),
+    }
+
     (HERE / "results_bands.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))
 

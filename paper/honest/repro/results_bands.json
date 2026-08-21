@@ -41,5 +41,15 @@
     "clustered_ci_crosses_zero": true,
     "share_at_or_above_zero": 0.0377
   },
-  "reading": "The naive test calls the bands different (p=0.017), but it treats 30 rows from 3 judges as 30 independent observations. Respecting family clustering, the interval for the difference includes zero, and the >3B band alone is consistent with correlations from -0.7091 to 0.1879. The band does not resolve the relation; it is not evidence that the relation is absent there."
+  "reading": "The naive test calls the bands different (p=0.017), but it treats 30 rows from 3 judges as 30 independent observations. Respecting family clustering, the interval for the difference includes zero, and the >3B band alone is consistent with correlations from -0.7091 to 0.1879. The band does not resolve the relation; it is not evidence that the relation is absent there.",
+  "headline_open_panel": {
+    "n_families": 13,
+    "n_cells": 130,
+    "spearman_rho": -0.4135,
+    "clustered_ci95": [
+      -0.5669,
+      -0.2038
+    ],
+    "excludes_zero": true
+  }
 }

@@ -93,6 +93,36 @@ def test_the_band_difference_is_reported_as_unresolved():
     )
 
 
+def test_the_headline_relation_survives_clustering():
+    """The caution above cuts both ways: the panel-level relation does hold.
+
+    The same objection raised against the >3B band -- 30 rows are 3 judges --
+    applies to the headline, where 130 cells are 13 families. It survives:
+    resampling families, the interval stays clear of zero. The paper reports a
+    family-random-intercept model for this; a clustered bootstrap is a second,
+    assumption-light route to the same conclusion, and it matters because the
+    abstract quotes the pooled rho with an n that counts cells, not judges.
+    """
+    head = _bands().get("headline_open_panel")
+    if head is None:
+        pytest.skip("[repro] headline panel not recorded")
+
+    low, high = head["clustered_ci95"]
+    assert (high < 0) == head["excludes_zero"], (
+        f"the release records excludes_zero={head['excludes_zero']} while its "
+        f"own interval [{low}, {high}] says {high < 0}"
+    )
+    assert head["excludes_zero"], (
+        f"the headline entropy-bias relation no longer excludes zero once "
+        f"families are resampled: [{low}, {high}]. The paper's central claim "
+        f"rests on this holding between judges, not merely across cells."
+    )
+    assert head["n_families"] == 13 and head["n_cells"] == 130, (
+        f"the panel is now {head['n_families']} families / {head['n_cells']} "
+        f"cells; the interval above was computed for 13 and 130"
+    )
+
+
 def test_the_paper_does_not_call_the_high_band_flat():
     if not MACROS.exists():
         pytest.skip("[paper] macros.tex not present")

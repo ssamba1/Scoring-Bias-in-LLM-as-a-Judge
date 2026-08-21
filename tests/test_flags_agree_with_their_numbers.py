@@ -194,6 +194,8 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         # test_the_size_bands_are_not_overread.py: a stored verdict that
         # nothing recomputes is a claim rather than a check.
         "clustered_ci_crosses_zero",
+        # Same pattern: re-derived from its interval, not read.
+        "excludes_zero",
     }
     unaccounted = sorted(found - checked - set(UNCHECKED))
     assert not unaccounted, (
