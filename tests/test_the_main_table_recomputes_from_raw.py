@@ -205,3 +205,73 @@ def test_the_per_family_table_rounds_once_too():
                     f"{exact:.5f} rounds to {direct!r}{note}"
                 )
     assert not wrong, f"per-family table cells do not recompute from raw: {wrong}"
+
+
+DOMAIN_TABLE = REPO / "paper" / "honest" / "tables" / "tab_v2_domain.tex"
+
+
+def _panel_payload():
+    path = REPRO / "results_scaled.json"
+    if not path.exists():
+        pytest.skip("[repro] results_scaled.json not present")
+    return json.loads(path.read_text(encoding="utf-8", errors="replace"))
+
+
+def test_the_domain_table_recomputes_from_the_per_item_scores():
+    """The third generated table, from per-item scores rather than means.
+
+    This one backs the paper's "not domain-specific" claim, so a referee who
+    doubts that claim recomputes exactly these ten cells. It renders at 2dp
+    from values the analysis rounds to 3dp; no cell sits near enough to a
+    boundary to move today, which is a fact about this data and not a property
+    of the code, so it is worth pinning rather than assuming.
+    """
+    payload = _panel_payload()
+    panel, domains = payload["results"], payload.get("domains")
+    if not domains:
+        pytest.skip("[repro] no domain tags in the panel")
+    if not DOMAIN_TABLE.exists():
+        pytest.skip("[repro] tab_v2_domain.tex not present")
+
+    index = {}
+    for position, tag in enumerate(domains):
+        index.setdefault(tag, []).append(position)
+
+    want = {}
+    for tag, positions in index.items():
+        spreads = {"base": [], "instruct": []}
+        for family in sorted(panel):
+            for probe in LABEL:
+                for arm in ("base", "instruct"):
+                    means = []
+                    for variant in panel[family][arm][probe].values():
+                        scores = variant["per_item"]
+                        means.append(sum(scores[i] for i in positions) / len(positions))
+                    spreads[arm].append(max(means) - min(means))
+        want[tag.replace("_", " ").title()] = {
+            arm: sum(v) / len(v) for arm, v in spreads.items()
+        }
+
+    rows = {}
+    for line in DOMAIN_TABLE.read_text(encoding="utf-8", errors="replace").splitlines():
+        cells = [c.strip() for c in line.rstrip().removesuffix("\\\\").split("&")]
+        if len(cells) == 3 and cells[0] in want:
+            rows[cells[0]] = cells[1:]
+    assert sorted(rows) == sorted(want), (
+        f"table lists {sorted(rows)}, the data has {sorted(want)}"
+    )
+
+    wrong = []
+    for label, cells in rows.items():
+        for cell, arm in zip(cells, ("base", "instruct")):
+            exact = want[label][arm]
+            direct = f"{exact:.2f}"
+            if cell == direct:
+                continue
+            via_three = f"{round(exact, 3):.2f}"
+            note = " (double-rounded)" if cell == via_three else ""
+            wrong.append(
+                f"{label}/{arm}: table {cell!r}, exact {exact:.5f} rounds to "
+                f"{direct!r}{note}"
+            )
+    assert not wrong, f"the domain table does not recompute from raw: {wrong}"

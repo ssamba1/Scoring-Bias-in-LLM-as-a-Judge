@@ -350,6 +350,27 @@ MUTATIONS = [
         "seed-stability fraction contradicts the excludes-zero verdict",
     ),
     (
+        # The domain table stops following from the per-item scores. The
+        # existing domain mutation checks it against results_peritem.json;
+        # this one checks it against the raw panel, so a defect that reaches
+        # both the table and the stored summary is still visible.
+        "paper/honest/tables/tab_v2_domain.tex",
+        "Mathematics & 0.46 & 0.71",
+        "Mathematics & 0.46 & 0.72",
+        "tests/test_the_main_table_recomputes_from_raw.py",
+        "domain cell stops following from the per-item scores",
+    ),
+    (
+        # The ground-truth table stops following from the gold pairs. This is
+        # the table carrying the causal claim, so a cell that does not
+        # recompute is the claim not recomputing.
+        "paper/honest/tables/tab_gold.tex",
+        "Verbose & 0.70 & 0.73 & 0.71 & 0.97",
+        "Verbose & 0.70 & 0.73 & 0.71 & 0.98",
+        "tests/test_the_gold_table_recomputes_from_raw.py",
+        "gold margin drop stops following from the gold pairs",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
