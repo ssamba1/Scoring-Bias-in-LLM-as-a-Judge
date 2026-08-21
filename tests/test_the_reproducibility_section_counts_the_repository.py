@@ -153,3 +153,44 @@ def test_every_analysis_output_is_a_file_that_exists():
         f"{missing} are written by an analysis but are not on disk, so the raw "
         f"run file count is subtracting names that do not correspond to files"
     )
+
+
+def test_the_generator_count_is_stated_the_same_way_everywhere():
+    """The paragraph stated it twice and disagreed with itself.
+
+    "eight repro/make_*.py figure generators" opened the Reproducibility
+    section; eleven lines later the same paragraph said "the seven make_*.py
+    generators are run by hand". There are eight. The second was written before
+    make_scale_figure.py existed and nothing looked at it again -- and the
+    check above reads only the first sentence, so it passed while the paper
+    contradicted itself in the same breath.
+
+    This finds every number word attached to make_*.py anywhere in the paper
+    and requires them all to be the real count. A count stated twice is a
+    quantity defined in two places, which is the shape that put three wrong
+    digits in this paper's tables.
+    """
+    if not PAPER.exists():
+        pytest.skip("[paper] main tex not present")
+    body = " ".join(PAPER.read_text(encoding="utf-8", errors="replace").split())
+    generators = len(_tracked(r"/make_[^/]+\.py$"))
+
+    # "eight \path{repro/make_*.py} figure generators", "the seven \path{make_*.py} generators"
+    pattern = re.compile(
+        r"\b([a-z-]+)\s+(?:\\path\{(?:repro/)?make_\*\.py\}|make_\*\.py)")
+    stated = [(word, WORDS.get(word)) for word in pattern.findall(body)]
+    assert stated, (
+        "no number word is attached to make_*.py anywhere in the paper. The "
+        "Reproducibility section states this count; if the wording changed, "
+        "update this pattern rather than letting the check find nothing."
+    )
+
+    wrong = [
+        f"{word!r} ({value}) where the repository has {generators}"
+        for word, value in stated if value != generators
+    ]
+    assert not wrong, (
+        f"the paper states the number of figure generators inconsistently or "
+        f"incorrectly: {wrong}. Every mention has to be the same number, and "
+        f"that number has to be the one on disk."
+    )

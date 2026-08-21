@@ -525,6 +525,18 @@ MUTATIONS = [
         "mitigation prose drifts from the values beside it",
     ),
     (
+        # The paper states the figure-generator count twice and the two
+        # disagree. This is the defect as it actually shipped: the section
+        # opened with "eight" and eleven lines later said "the seven", written
+        # before make_scale_figure.py existed. The count check read only the
+        # first sentence, so it passed while the paragraph contradicted itself.
+        "paper/honest/scoring_bias_v2.tex",
+        "redrawing them---the eight",
+        "redrawing them---the seven",
+        "tests/test_the_reproducibility_section_counts_the_repository.py",
+        "the paper states the generator count two different ways",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
