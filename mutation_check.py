@@ -1637,6 +1637,17 @@ MUTATIONS = [
         "the pooled model hides that its standard errors are not finite",
     ),
     (
+        # The weaker of the two specification-curve statistics is dropped.
+        # The median clears 0.05 and the count does not; keeping only the
+        # smaller is the selective reading the multiverse test exists to
+        # rule out, and it would read as a stronger result than the data give.
+        "paper/honest/repro/results_speccurve.json",
+        '"p_specs_positive_one_sided": 0.188698',
+        '"p_specs_positive_one_sided": 0.008698',
+        "tests/test_the_specification_curve_has_inference.py",
+        "the weaker specification-curve statistic is dropped",
+    ),
+    (
         # Quantization is made to look like it attenuates the tuning effect.
         # That reading would restore the confound on the 14B point and make
         # the paper's scale claim defensible for the wrong reason, which is
@@ -2173,7 +2184,7 @@ MUTATIONS = [
         # directory. The section is what a replicator follows; an undercount
         # sends them away having reproduced part of the paper.
         "paper/honest/scoring_bias_v2.tex",
-        "the eighteen \\path{repro/analyze_*.py}",
+        "the nineteen \\path{repro/analyze_*.py}",
         "the twelve \\path{repro/analyze_*.py}",
         "tests/test_reproducibility_section_is_complete.py",
         "the reproduction recipe undercounts its own scripts",

@@ -202,6 +202,9 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         "marginalized_is_zero_by_construction",
         # Re-derived from the two tuning deltas it compares.
         "quantization_attenuates_delta",
+        # Re-derived from the enumeration count in
+        # test_the_specification_curve_has_inference.
+        "exact",
     }
     unaccounted = sorted(found - checked - set(UNCHECKED))
     assert not unaccounted, (

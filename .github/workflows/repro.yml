@@ -140,6 +140,7 @@ jobs:
           python analyze_bands.py
           python analyze_readout.py
           python analyze_quantization.py
+          python analyze_speccurve.py
           python analyze_t10.py
           python analyze_tokvar.py
           python analyze_closed.py

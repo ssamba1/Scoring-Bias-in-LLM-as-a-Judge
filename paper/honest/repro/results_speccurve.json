@@ -1,0 +1,26 @@
+{
+  "note": "POST HOC. Not preregistered. Generalises the registered single-specification permutation test to the multiverse.",
+  "n_specifications": 12,
+  "n_families": 13,
+  "null_assignments": 8192,
+  "exact": true,
+  "observed_median_effect": 0.1241,
+  "observed_specs_positive": 9,
+  "p_median_one_sided": 0.018064,
+  "p_specs_positive_one_sided": 0.188698,
+  "per_spec_mean_effect": {
+    "argmax|maxmin|all": 0.0415,
+    "argmax|maxmin|content": 0.1123,
+    "argmax|maxmin|format": -0.0646,
+    "argmax|meandev|all": -0.0414,
+    "argmax|meandev|content": 0.0303,
+    "argmax|meandev|format": -0.1488,
+    "ev|maxmin|all": 0.2568,
+    "ev|maxmin|content": 0.2266,
+    "ev|maxmin|format": 0.3019,
+    "ev|meandev|all": 0.1408,
+    "ev|meandev|content": 0.1359,
+    "ev|meandev|format": 0.148
+  },
+  "reading": "Across 12 specifications the median effect is 0.1241 and 9 of 12 are positive. Enumerating all 8192 sign assignments over the 13 families -- the null the registered test already uses, applied to the whole curve -- gives an exact one-sided p of 0.0181 for the median. The curve is not what label-swapping produces."
+}
