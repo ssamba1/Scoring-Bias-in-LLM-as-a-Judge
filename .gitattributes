@@ -8,3 +8,12 @@
 *.ps1 text eol=crlf
 *.png binary
 *.pdf binary
+
+# The staged arXiv submission must match the tarball byte for byte, and the
+# tarball is written with LF. Without these rules a Windows clone renders the
+# staged .tex/.json as CRLF while the tarball members stay LF, so the two stop
+# being the same submission -- a clean-clone failure that never appears on
+# Linux CI, and never in a working tree where the packager has just rewritten
+# the files. Content was identical throughout; only the line endings differed.
+paper/honest/arxiv_submission/** text eol=lf
+paper/honest/arxiv_submission/figures/*.pdf binary

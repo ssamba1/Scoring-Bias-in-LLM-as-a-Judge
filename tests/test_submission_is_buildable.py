@@ -284,11 +284,32 @@ def test_the_staged_directory_and_the_tarball_are_the_same_submission():
     only_dir = sorted(set(on_disk) - set(in_tar))
     differ = sorted(n for n in (set(in_tar) & set(on_disk)) - build_outputs
                     if in_tar[n] != on_disk[n])
+
+    # Say which kind of difference it is. This failed once in a clean clone on
+    # Windows and nowhere else, and the message gave no way to tell a real
+    # content change from a checkout rendering the staged files CRLF while the
+    # tarball holds LF. .gitattributes now pins the staged submission to LF, so
+    # a difference here should mean content -- but if it is line endings again,
+    # the message should say so instead of sending someone after a phantom.
+    endings_only = []
+    if differ:
+        with tarfile.open(ARCHIVE, "r:gz") as tar:
+            members = {m.name: m for m in tar.getmembers() if m.isfile()}
+            for name in differ:
+                packed = tar.extractfile(members[name]).read()
+                present = (staged / name).read_bytes()
+                if packed.replace(b"\r\n", b"\n") == present.replace(b"\r\n", b"\n"):
+                    endings_only.append(name)
+
     assert not (only_tar or only_dir or differ), (
         f"the staged directory and the tarball are not the same submission -- "
         f"only in the tarball: {only_tar}; only in the directory: {only_dir}; "
-        f"same name but different bytes: {differ}. Rerun arxiv_package.py so "
-        f"both describe what would actually be uploaded."
+        f"same name but different bytes: {differ}"
+        + (f" (of which {endings_only} differ ONLY in line endings, so this is "
+           f"a checkout/.gitattributes problem and not a content change)"
+           if endings_only else "")
+        + f". Rerun arxiv_package.py so both describe what would actually be "
+          f"uploaded."
     )
 
 
