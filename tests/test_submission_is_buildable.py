@@ -308,8 +308,8 @@ def test_the_staged_directory_and_the_tarball_are_the_same_submission():
         + (f" (of which {endings_only} differ ONLY in line endings, so this is "
            f"a checkout/.gitattributes problem and not a content change)"
            if endings_only else "")
-        + f". Rerun arxiv_package.py so both describe what would actually be "
-          f"uploaded."
+        + ". Rerun arxiv_package.py so both describe what would actually be "
+          "uploaded."
     )
 
 
