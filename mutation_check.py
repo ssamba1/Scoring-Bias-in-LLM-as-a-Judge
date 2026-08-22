@@ -609,6 +609,18 @@ MUTATIONS = [
         "superseded page stops naming what overturned it",
     ),
     (
+        # The gold file's declared pair count drifts from its arrays. Nothing
+        # checked this: the general well-formedness sweep looks for n_items and
+        # this file calls it n_gold, so it skipped the one file backing the
+        # ground-truth claim -- honestly reported, and covering less than the
+        # sweep's name suggests.
+        "paper/honest/repro/gold_results.json",
+        '"n_gold": 20',
+        '"n_gold": 21',
+        "tests/test_the_gold_file_declares_what_it_holds.py",
+        "gold pair count drifts from the margins arrays",
+    ),
+    (
         # The domain breakdown stops matching its source.
         "paper/honest/tables/tab_v2_domain.tex",
         "Daily Life & 0.44 & 0.70",
