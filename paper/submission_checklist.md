@@ -56,6 +56,23 @@ quietly outlive what it describes.
 - [x] Dockerfile and `docker-compose.yml` build and run the analysis
 - [x] Seven raw files declare a panel size nothing in the release can verify,
       and that is disclosed rather than left implicit (`ENVIRONMENT.md`)
+- [x] **Public metadata outside the repository matches the study.** Checked
+      2026-08-21 with `gh repo view`. It did not: the GitHub description still
+      advertised "31 model variants, 3 perturbation probes, 40,500+ judgments" --
+      the retracted landscape figures, on the first line anyone reads, in search
+      results and link previews. Corrected to the current panel. Topics and
+      homepage are empty; there are no GitHub Releases; the issue and PR
+      templates carry no study figures.
+
+      No test can reach this. It lives outside the repository, so it is checked
+      here rather than guarded:
+
+          gh repo view <owner>/<repo> --json description,homepageUrl,repositoryTopics
+
+      The same question applies to the Zenodo record's own title and description
+      once a new version is minted -- deposit metadata is a separate surface from
+      the files in the deposit.
+
 - [ ] **Zenodo DOI for this version -- BLOCKING, and verified stale.** The paper
       states, present tense, that "the repository snapshot, paper, and all raw
       data are archived at DOI 10.5281/zenodo.21499823". That record is v2.1.0,
