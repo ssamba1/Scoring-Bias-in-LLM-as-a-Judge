@@ -26,9 +26,7 @@ than a preprint and were checked by hand. No phantoms, no misattributions.**
 
 | key | arXiv | title as arXiv reports it | first author |
 |---|---|---|---|
-| `bai2022constitutional` | 2212.08073 | Constitutional AI: Harmlessness from AI Feedback | Bai |
 | `chen2024humans` | 2402.10669 | Humans or LLMs as the Judge? A Study on Judgement Biases | Chen |
-| `gemma2` | 2408.00118 | Gemma 2: Improving Open Language Models at a Practical Size | Gemma Team |
 | `gu2024survey` | 2411.15594 | A Survey on LLM-as-a-Judge | Gu |
 | `guo2017calibration` | 1706.04599 | On Calibration of Modern Neural Networks | Guo |
 | `kadavath2022know` | 2207.05221 | Language Models (Mostly) Know What They Know | Kadavath |

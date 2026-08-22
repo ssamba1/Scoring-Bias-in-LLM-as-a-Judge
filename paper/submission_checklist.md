@@ -36,7 +36,7 @@ quietly outlive what it describes.
 - [x] Limitations: 10 items (§7)
 - [x] Conclusion
 - [x] Reproducibility section naming every analyzer (§9)
-- [x] References: 28 entries in `honest.bib`
+- [x] References: 26 entries in `honest.bib`, all cited
 
 ## Figures and tables
 
