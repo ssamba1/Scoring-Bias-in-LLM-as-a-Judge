@@ -323,8 +323,17 @@ def states(desc, literal, expected_count):
 states("entropy before tuning", "2.04", 2)
 states("entropy after tuning", "1.45", 2)
 states("entropy-bias correlation", r"\rho=-0.41", 5)
-states("variance-term correlation", r"\rho=-0.25", 3)
-states("decisiveness family count", "11/13", 5)
+states("variance-term correlation (macro)", r"variance term ($\rho=-0.25$)", 1)
+states("variance-term correlation (pooled)", r"($\rho=-0.25$, $p=0.004$)", 1)
+states("variance-term correlation (base-only)", r"base-only models ($\rho=-0.25$, $p=0.04$)", 1)
+# Four distinct results each hold in eleven of thirteen families: the
+# decisiveness drop, the bias increase, the alt-readout direction and the
+# control-variance shrink. As "11/13" this was a single pin over all of them.
+states("decisiveness families (macro)", "bits, 11/13 families", 1)
+states("decisiveness families (body)", "bits (11/13 families", 1)
+states("bias-increase families", "11/13 families, mean change", 1)
+states("alt-readout families", "after tuning, 11/13 families", 1)
+states("control-variance families", "($11/13$ families)", 1)
 states("responsiveness family count", "12/13", 1)
 states("within-checkpoint checkpoint count", "25/26", 1)
 states("predictor rank correlation", r"\rho=0.58", 3)
@@ -351,7 +360,8 @@ states("mixed-model coefficient", "+0.16", 2)
 states("mixed-model observations", "n=13{,}000", 2)
 states("size-partialled correlation", r"\rho=-0.38", 1)
 states("size-bias correlation", r"\rho=+0.18", 1)
-states("sub-1B band correlation", r"\rho=-0.51", 2)
+states("sub-1B band correlation", r"($\rho=-0.51$ and $-0.42$", 1)
+states("ten-template pooled correlation", r"$\rho=-0.51$ ($n=180$)", 1)
 states("within-checkpoint responsiveness", r"\rho=+0.65", 2)
 states("within-checkpoint entropy", r"\rho=-0.05", 1)
 states("readout concordance", r"\rho=0.56", 2)
@@ -377,9 +387,17 @@ if qpath.exists():
 states("argmax readout", "1.88", 2)
 states("frontier pooled correlation", r"\rho=-0.45", 2)
 states("frontier pooled n", "n=145", 3)
-states("14B attenuated effect", "+0.06", 3)
+# Pinned on the sentence, not the numeral. As "+0.06" this counted three
+# unrelated statements sharing the value -- the 14B extension, the high-mass
+# readout position, and (until it was corrected) OLMo-2-7B's SFT
+# responsiveness step, which should have read +0.07. A pin that counts a bare
+# number cannot tell the claim it names from any other printing the same
+# digits, so it kept passing while one of the three was wrong.
+states("14B attenuated effect", "$+0.06$ vs the panel's $+0.26$", 1)
+states("high-mass readout effect", "on average ($+0.06$) but in only 2/4", 1)
 states("14B probes positive", "3/5", 1)
-states("preregistered-analyzer families", "4/4", 2)
+states("preregistered-analyzer families", "mean bias in 4/4 families", 1)
+states("union-readout families", "union readout (4/4 families)", 1)
 states("SFT stage cells", "10/10", 1)
 states("public-item families", "7/8", 2)
 states("alt-template families", "8/9", 1)
