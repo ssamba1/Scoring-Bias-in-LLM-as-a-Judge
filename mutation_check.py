@@ -2775,6 +2775,19 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py",
         "per-template correlation drifts from the data",
     ),
+    (
+        # A step quoted in prose drifts back to the rounded-endpoint value.
+        # OLMo-2-7B's SFT responsiveness step is +0.0671; the paper printed
+        # +0.06, which is what rounding both endpoints to two decimals before
+        # subtracting gives (0.21 - 0.15). test_every_number_is_accounted_for
+        # passed throughout: 0.06 does occur in the released data, as an
+        # unrelated per-cell responsiveness. Provenance is not attribution.
+        "paper/honest/macros.tex",
+        "SFT's $+0.07$",
+        "SFT's $+0.06$",
+        "tests/test_the_stage_steps_match_the_prose.py",
+        "a prose step reverts to the rounded-endpoint difference",
+    ),
 ]
 
 
