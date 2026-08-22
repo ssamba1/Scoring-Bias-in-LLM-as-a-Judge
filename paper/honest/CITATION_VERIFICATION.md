@@ -89,3 +89,30 @@ Every remaining priority verb next to a citation was checked on 2026-08-21.
 | `thakur2024judging` "evaluated thirteen instruction-tuned judges on answers from both base and instruction-tuned exam-takers" | 2406.12624 | Supported. This is the corrected wording; the earlier version said they "found base and instruct judges differ", which reversed which side of their design the split is on. |
 
 No priority verb in the paper claims something its source does not.
+## DOIs
+
+Checked 2026-08-21 against Crossref. Every entry carrying a DOI was resolved and
+its metadata compared to the entry. **One was wrong.**
+
+| key | DOI | resolves to | verdict |
+|---|---|---|---|
+| `li2025scoring` | 10.1007/978-981-92-0372-7_2 | "Evaluating Scoring Bias in LLM-as-a-Judge", Qingquan Li, LNCS / DASFAA 2026, pp. 19-34 | correct |
+| `wang2023large` | 10.18653/v1/2024.acl-long.511 | "Large Language Models are not Fair Evaluators", Peiyi Wang, ACL 2024 | correct |
+| `gu2024survey` | 10.1016/j.xinn.2025.101253 | "A survey on LLM-as-a-judge", Jiawei Gu, The Innovation 7(6), 2026 | **corrected** from 10.1016/j.xinn.2025.100456, which resolves at neither doi.org nor Crossref |
+| `pan2025user` | 10.18653/v1/2026.findings-acl.449 | "User-Assistant Bias in LLMs", Xu Pan, Findings of ACL 2026 | correct |
+| `park2024offsetbias` | 10.18653/v1/2024.findings-emnlp.57 | "OffsetBias: Leveraging Debiased Data for Tuning Evaluators", Junsoo Park, Findings of EMNLP 2024 | correct |
+
+Two things this pass is worth recording beyond the fix.
+
+**A DOI that does not resolve is invisible to every other check here.** The
+arXiv identifier for that survey (2411.15594) is correct and was verified in the
+pass above; the entry was well-formed; the paper compiled. Only resolving the
+DOI itself found it. arXiv records no DOI for that preprint, so the published
+version had to be located by title search.
+
+**Read identifiers at full length.** A first pass printed the DOIs truncated to
+28 characters, which cut `2024.acl-long.511` down to `2024.acl-long.51` -- and
+that shorter string is itself a real DOI, belonging to Song et al.'s FineSurE.
+Chasing it produced a confident and completely false report of a
+wrong-paper citation. The bibliography was right; the display was not. Any
+identifier check has to be done on the full string.
