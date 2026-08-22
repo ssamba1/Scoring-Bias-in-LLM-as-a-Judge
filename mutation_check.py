@@ -2795,8 +2795,8 @@ MUTATIONS = [
         # band lived in results_bands.json, which check_prose.py did not read at
         # all, so four published numbers from that file were pinned by nothing.
         "paper/honest/macros.tex",
-        "$\rho=-0.01$",
-        "$\rho=-0.02$",
+        r"$\rho=-0.01$",
+        r"$\rho=-0.02$",
         "tests/test_prose_matches_derived_values.py",
         "the >3B point estimate reverts to a double-rounded digit",
     ),
