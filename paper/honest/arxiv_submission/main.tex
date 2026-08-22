@@ -175,7 +175,7 @@ show instruction tuning \emph{introduces} a user-deference bias. Our
 contribution is orthogonal to the sign of any single effect: we show bias is governed
 by a two-term decomposition of the score distribution (decisiveness and responsiveness),
 determine which term dominates empirically, and give a measured, causal mechanism rather
-than a description.
+than a description (Table~\ref{tab:positioning}).
 
 \begin{table}[t]\centering\small
 \caption{Positioning. Prior work documents or mitigates judge biases; we give a
@@ -262,7 +262,7 @@ $2^{13}$ family sign patterns, and to a twelve-specification robustness sweep
 Bias is the change in the score $s$ when a nuisance perturbation shifts the logits
 $\ell \to \ell + \delta$ without changing true quality. Because $s$ is the mean of
 $v$ under $\sigma(\ell)$, its sensitivity is governed by the \emph{spread} of
-$\sigma$.
+$\sigma$. (Symbols are collected in App.~\ref{app:notation}.)
 
 \begin{proposition}\label{prop:main}
 Let $s(\ell)=\sum_k v_k\,\sigma_k(\ell)$ with $\sigma$ the softmax over answer tokens.
@@ -336,7 +336,7 @@ $\nabla_\ell s$ induces no first-order bias regardless of its size. Thus \emph{w
 nuisances bias a given judge is itself predicted by the geometry of $\sigma$, and a
 decisive judge shrinks $\nabla_\ell s$ uniformly, closing every direction at once.
 
-\paragraph{Beyond first order.} A common worry is that a first-order bound governs only
+\paragraph{Beyond first order.} (App.~\ref{app:cumulants}.) A common worry is that a first-order bound governs only
 infinitesimal perturbations. It does not, because decisiveness controls \emph{every}
 order: along the tilt direction $\delta=t\,v$ the tilted score $s(\ell+tv)=E_{\sigma_t}[v]$
 with $\sigma_t\propto\sigma\,e^{tv}$ is the derivative of the cumulant generating function
