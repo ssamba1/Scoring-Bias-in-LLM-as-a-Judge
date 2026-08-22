@@ -52,6 +52,13 @@
     "spearman_p": 6.5e-05,
     "n": 130,
     "entropy_definition": "control variant only",
+    "n_distinct_entropies": 26,
+    "collapsed_to_checkpoints": {
+      "spearman_rho": -0.644,
+      "spearman_p": 0.000388,
+      "n": 26,
+      "note": "one row per checkpoint; bias averaged over that checkpoint's probes. The control prompt is shared across probes, so this is the reading without repeated predictor values."
+    },
     "note": "robustness: the headline link under the other reading of 'entropy'"
   },
   "link_points": {

@@ -58,6 +58,28 @@ close("LOO R2", 0.27, mech["predictor"]["loo_r2"], 0.006)
 close("size-partial rho", -0.38, mech["size_confound_control"]["partial_rank_rho_given_log10_params"], 0.006)
 close("size-bias rho", 0.18, mech["size_confound_control"]["size_bias_spearman_rho"], 0.006)
 close("mixed-effects coef", 0.16, mech["lmm"]["instruct_coef"], 0.006)
+# The control-only reading of the entropy-bias link repeats each checkpoint's
+# entropy once per probe: rubric_order/control, score_id/numeric,
+# reference_answer/none, authority/none and verbosity/control all reduce to the
+# same prompt, so a checkpoint has one control measurement, not five. Its 130
+# rows therefore carry 26 distinct entropies, and a p computed over 130 rows
+# counts repeats as independent. The paper states this and quotes the collapsed
+# reading; both the structural count and the collapsed statistic are pinned.
+_col = mech["entropy_bias_link_control_only"]
+close("control-only collapsed rho", -0.64,
+      _col["collapsed_to_checkpoints"]["spearman_rho"], 0.006)
+close("control-only collapsed p", 0.0004,
+      _col["collapsed_to_checkpoints"]["spearman_p"], 0.00006)
+if _col["n_distinct_entropies"] != 26:
+    FAILS.append(
+        f"the paper says the control-only reading carries 26 distinct entropies; "
+        f"the release has {_col['n_distinct_entropies']}"
+    )
+if _col["collapsed_to_checkpoints"]["n"] != 26:
+    FAILS.append(
+        f"the collapsed control-only reading should have one row per checkpoint "
+        f"(26); the release has {_col['collapsed_to_checkpoints']['n']}"
+    )
 mit = mech["mitigation"]
 # The two max-min readouts are comparable with each other, and the deviation
 # measures are comparable with each other. Comparing across the two families is
@@ -409,6 +431,7 @@ if bpath.exists():
             "includes zero; the release says it does not"
         )
 
+states("shared control disclosure", "carry only $26$ distinct entropies", 1)
 states("argmax readout", "1.88", 2)
 states("frontier pooled correlation", r"\rho=-0.45", 2)
 states("frontier pooled n", "n=145", 3)

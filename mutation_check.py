@@ -2800,6 +2800,19 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py",
         "the >3B point estimate reverts to a double-rounded digit",
     ),
+    (
+        # The count of distinct control entropies drifts from the checkpoint
+        # count. All five probes share one control prompt, so the control-only
+        # reading's 130 rows carry only 26 distinct entropies -- one per
+        # checkpoint. The paper states that and quotes the collapsed statistic;
+        # if the two counts stop agreeing, the disclosure is describing a design
+        # the release no longer has.
+        "paper/honest/repro/results_mechanism.json",
+        '"n_distinct_entropies": 26',
+        '"n_distinct_entropies": 25',
+        "tests/test_the_control_condition_is_shared_across_probes.py",
+        "the shared-control repeat count drifts from the checkpoint count",
+    ),
 ]
 
 

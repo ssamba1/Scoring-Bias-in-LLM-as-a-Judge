@@ -139,9 +139,33 @@ def main():
             for p in PROBES:
                 xs_ctrl.append(float(d[p][CONTROL[p]]["mean_entropy"]))
     rho_c, pv_c = stats.spearmanr(xs_ctrl, ys)
+    # Every probe's control condition is the SAME prompt: rubric_order/control,
+    # score_id/numeric, reference_answer/none, authority/none and
+    # verbosity/control all reduce to the identical string from build_prompt, so
+    # a checkpoint has one control measurement, not five. Under this reading the
+    # 130 rows therefore carry only len(fams) * 2 distinct entropies, each
+    # repeated once per probe, and a p-value computed over 130 rows treats
+    # repeats as independent observations. Report the collapsed statistic beside
+    # it -- one row per checkpoint, bias averaged over that checkpoint's probes
+    # -- so the reader can see what the relation looks like without the repeats.
+    collapsed_x, collapsed_y = [], []
+    for i, f in enumerate(fams):
+        for j, kind in enumerate(("base", "instruct")):
+            block = slice((i * 2 + j) * len(PROBES), (i * 2 + j + 1) * len(PROBES))
+            collapsed_x.append(xs_ctrl[block][0])
+            collapsed_y.append(float(np.mean(ys[block])))
+    rho_cc, pv_cc = stats.spearmanr(collapsed_x, collapsed_y)
     out["entropy_bias_link_control_only"] = {
         "spearman_rho": round(float(rho_c), 3), "spearman_p": round(float(pv_c), 6),
         "n": len(xs_ctrl), "entropy_definition": "control variant only",
+        "n_distinct_entropies": len(set(xs_ctrl)),
+        "collapsed_to_checkpoints": {
+            "spearman_rho": round(float(rho_cc), 3),
+            "spearman_p": round(float(pv_cc), 6),
+            "n": len(collapsed_x),
+            "note": "one row per checkpoint; bias averaged over that checkpoint's "
+                    "probes. The control prompt is shared across probes, so this "
+                    "is the reading without repeated predictor values."},
         "note": "robustness: the headline link under the other reading of 'entropy'"}
     # per-point + per-family data for figures
     out["link_points"] = {"entropy": [round(x, 4) for x in xs], "delta": [round(y, 4) for y in ys]}
