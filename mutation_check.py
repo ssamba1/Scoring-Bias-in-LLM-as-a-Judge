@@ -2788,6 +2788,18 @@ MUTATIONS = [
         "tests/test_the_stage_steps_match_the_prose.py",
         "a prose step reverts to the rounded-endpoint difference",
     ),
+    (
+        # The >3B band point estimate reverts to its double-rounded form. The
+        # stored correlation is -0.0149, which rounds to -0.015 at three decimals
+        # and then to -0.02 at two; the true value never rounds to -0.02. The
+        # band lived in results_bands.json, which check_prose.py did not read at
+        # all, so four published numbers from that file were pinned by nothing.
+        "paper/honest/macros.tex",
+        "$\rho=-0.01$",
+        "$\rho=-0.02$",
+        "tests/test_prose_matches_derived_values.py",
+        "the >3B point estimate reverts to a double-rounded digit",
+    ),
 ]
 
 

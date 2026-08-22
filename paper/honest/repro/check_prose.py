@@ -384,6 +384,31 @@ if qpath.exists():
             "the prose says 4-bit inflates the tuning delta; the release says "
             "it attenuates, which would restore the confound on the 14B point"
         )
+# The >3B size band. results_bands.json was pinned by nothing, and the paper
+# quotes four of its numbers. The point estimate was printed as -0.02: the
+# stored value is -0.0149, which rounds to -0.015 at three decimals and then to
+# -0.02 at two. The true correlation never rounds to -0.02 -- only the rounded
+# copy of it does. close() caps its tolerance at half a unit in the last printed
+# place, so pinning the value here is what makes a re-rounding fail.
+bpath = HERE / "results_bands.json"
+if bpath.exists():
+    bands = json.loads(bpath.read_text())
+    hi_band = bands["bands"][">3B"]
+    close(">3B band point estimate", -0.01, hi_band["spearman_rho"], 0.006)
+    close(">3B clustered CI low", -0.71, hi_band["clustered_ci95"][0], 0.006)
+    close(">3B clustered CI high", 0.19, hi_band["clustered_ci95"][1], 0.006)
+    close("band difference naive p", 0.017, bands["difference"]["naive_p"], 0.0006)
+    # close() ties this checker's constant to the data; states() ties the
+    # paper's printed digit to this checker. Both links are needed -- a pin
+    # on the data alone would not notice the paper drifting away from it.
+    states(">3B point estimate in prose",
+           "the point estimate is $\\rho=-0.01$", 1)
+    if not bands["difference"]["clustered_ci_crosses_zero"]:
+        FAILS.append(
+            "the prose says the clustered interval for the band difference "
+            "includes zero; the release says it does not"
+        )
+
 states("argmax readout", "1.88", 2)
 states("frontier pooled correlation", r"\rho=-0.45", 2)
 states("frontier pooled n", "n=145", 3)
