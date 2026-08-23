@@ -767,6 +767,20 @@ gold_control = gold["control"]
 gold_reversed = gold["degradation"]["reversed"]
 
 close("gold control accuracy (instruct)", 0.98, gold_control["instruct"]["mean_accuracy"], 0.006)
+# Reversal does not take accuracy to chance; it takes it PAST chance, to
+# inversion. These are binary good-vs-bad pairs, so chance is 0.5, and the
+# release measures 0.02 and 0.00 -- the judge ordering almost every pair the
+# wrong way round. The prose read "collapses accuracy to chance", which names a
+# weaker and different result than the one measured.
+for _arm in ("base", "instruct"):
+    _acc = gold_reversed[_arm]["accuracy_under_bias"]
+    if _acc >= 0.5:
+        FAILS.append(
+            f"gold reversed accuracy for {_arm} is {_acc}, at or above the 0.5 "
+            f"chance level for binary pairs; the paper describes near-total "
+            f"inversion, which that number would no longer support"
+        )
+states("gold inversion wording", "past it to near-total inversion", 1)
 check("gold control accuracy in prose", "0.98", gold_control["instruct"]["mean_accuracy"])
 if gold_reversed["instruct"]["accuracy_under_bias"] != 0.0:
     FAILS.append(

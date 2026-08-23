@@ -2813,6 +2813,20 @@ MUTATIONS = [
         "tests/test_the_control_condition_is_shared_across_probes.py",
         "the shared-control repeat count drifts from the checkpoint count",
     ),
+    (
+        # The stated chance level goes missing, leaving "past it to near-total
+        # inversion" with nothing to be past. The prose used to say rubric
+        # reversal collapses accuracy "to chance"; the measured accuracies are
+        # 0.02 and 0.00 against a chance level of 0.5 for binary good-vs-bad
+        # pairs, so the collapse goes through chance to inversion -- a stronger
+        # result than the word it was given. Every digit in that sentence was
+        # correct and pinned; only the characterisation was wrong.
+        "paper/honest/macros.tex",
+        "good-vs-bad pairs is $0.5$",
+        "good-vs-bad pairs is $0.4$",
+        "tests/test_the_gold_collapse_is_not_called_chance.py",
+        "the chance level the inversion claim contrasts against drifts",
+    ),
 ]
 
 
