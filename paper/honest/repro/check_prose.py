@@ -522,6 +522,11 @@ if scpath.exists():
     states("spec-curve family range", "$9$--$11$/13 families positive", 1)
 
 states("shared control disclosure", "carry only $26$ distinct entropies", 1)
+# close() above ties this checker's constant to the released value; this ties
+# the paper's printed range to the checker. Without both, mutating the page
+# alone changes nothing -- which is how the registered mutation for this fix
+# failed to fire the first time.
+states("leave-one-out range", "within $[+0.23, +0.28]$", 1)
 states("argmax readout", "1.88", 2)
 states("frontier pooled correlation", r"\rho=-0.45", 2)
 states("frontier pooled n", "n=145", 3)
