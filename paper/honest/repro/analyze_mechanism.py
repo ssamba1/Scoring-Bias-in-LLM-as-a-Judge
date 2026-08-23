@@ -167,6 +167,44 @@ def main():
                     "probes. The control prompt is shared across probes, so this "
                     "is the reading without repeated predictor values."},
         "note": "robustness: the headline link under the other reading of 'entropy'"}
+    # Proposition 1 uses H as a stand-in for sqrt(Var_sigma(v)). They share a
+    # minimum -- both vanish at a point mass -- but NOT a maximum: H is maximised
+    # by the uniform distribution, Var by the two-point distribution on the
+    # extreme values (Popoviciu, ((v_max-v_min)/2)^2 = 4 on a 1-5 scale, against
+    # 2 for uniform). The paper said "maximal when sigma is uniform", which is
+    # false, and the measured cells contain the discrepancy, so emit it rather
+    # than let the correction be a hand-typed number.
+    # score_ordered, not raw mean_dist: the letter-grade variants are stored
+    # descending, and while entropy is invariant to reversal, variance is not.
+    dists = []
+    for f in fams:
+        for kind in ("base", "instruct"):
+            for p_ in PROBES:
+                for variant in pairs[f][kind][p_]:
+                    rec = pairs[f][kind][p_][variant]
+                    if "mean_dist" not in rec:
+                        continue
+                    arr = np.array(score_ordered(p_, variant, rec), dtype=float)
+                    if arr.sum() > 0:
+                        dists.append(arr / arr.sum())
+    if dists:
+        vv = np.arange(1.0, len(dists[0]) + 1.0)
+        means = np.array([float(q @ vv) for q in dists])
+        variances = np.array([float(q @ (vv - m) ** 2) for q, m in zip(dists, means)])
+        ents = np.array([float(-(q[q > 0] * np.log2(q[q > 0])).sum()) for q in dists])
+        hv = stats.spearmanr(ents, np.sqrt(variances))
+        top = int(variances.argmax())
+        out["entropy_variance_relation"] = {
+            "n_distributions": len(dists),
+            "spearman_rho": round(float(hv.statistic), 3),
+            "uniform_variance": round(float(np.var(vv)), 3),
+            "attainable_max_variance": round(((vv.max() - vv.min()) / 2) ** 2, 3),
+            "max_measured_variance": round(float(variances[top]), 3),
+            "entropy_at_max_variance": round(float(ents[top]), 3),
+            "uniform_entropy": round(float(np.log2(len(vv))), 3),
+            "note": "H and Var share a minimum but not a maximum; uniform maximises "
+                    "H, the extreme two-point distribution maximises Var."}
+
     # per-point + per-family data for figures
     out["link_points"] = {"entropy": [round(x, 4) for x in xs], "delta": [round(y, 4) for y in ys]}
 

@@ -61,6 +61,16 @@
     },
     "note": "robustness: the headline link under the other reading of 'entropy'"
   },
+  "entropy_variance_relation": {
+    "n_distributions": 390,
+    "spearman_rho": 0.697,
+    "uniform_variance": 2.0,
+    "attainable_max_variance": 4.0,
+    "max_measured_variance": 3.097,
+    "entropy_at_max_variance": 1.791,
+    "uniform_entropy": 2.322,
+    "note": "H and Var share a minimum but not a maximum; uniform maximises H, the extreme two-point distribution maximises Var."
+  },
   "link_points": {
     "entropy": [
       2.0909,

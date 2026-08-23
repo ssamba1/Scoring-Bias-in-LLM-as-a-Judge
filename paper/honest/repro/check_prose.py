@@ -58,6 +58,30 @@ close("LOO R2", 0.27, mech["predictor"]["loo_r2"], 0.006)
 close("size-partial rho", -0.38, mech["size_confound_control"]["partial_rank_rho_given_log10_params"], 0.006)
 close("size-bias rho", 0.18, mech["size_confound_control"]["size_bias_spearman_rho"], 0.006)
 close("mixed-effects coef", 0.16, mech["lmm"]["instruct_coef"], 0.006)
+# Proposition 1 claimed Var_sigma(v) is "maximal when sigma is uniform". It is
+# not: uniform maximises entropy, while the variance is maximised by the
+# two-point distribution on the extreme values (Popoviciu). On a 1-5 scale that
+# is 4 against uniform's 2, and the measured cells contain the discrepancy --
+# the highest-variance distribution has MORE variance and LESS entropy than
+# uniform. The corrected sentences quote these, so they are pinned to the data.
+_evr = mech.get("entropy_variance_relation")
+if _evr:
+    close("H-vs-sqrtVar correlation", 0.70, _evr["spearman_rho"], 0.006)
+    close("uniform variance", 2.0, _evr["uniform_variance"], 0.006)
+    close("attainable max variance", 4.0, _evr["attainable_max_variance"], 0.006)
+    close("max measured variance", 3.10, _evr["max_measured_variance"], 0.006)
+    close("entropy at max variance", 1.79, _evr["entropy_at_max_variance"], 0.006)
+    if _evr["max_measured_variance"] <= _evr["uniform_variance"]:
+        FAILS.append(
+            "the paper says a measured cell exceeds the uniform distribution's "
+            "variance; the release no longer contains one, so the correction to "
+            "Proposition 1 has lost its empirical illustration"
+        )
+    if _evr["entropy_at_max_variance"] >= _evr["uniform_entropy"]:
+        FAILS.append(
+            "the highest-variance cell no longer has less entropy than uniform, "
+            "which is the point the corrected proposition makes"
+        )
 # The control-only reading of the entropy-bias link repeats each checkpoint's
 # entropy once per probe: rubric_order/control, score_id/numeric,
 # reference_answer/none, authority/none and verbosity/control all reduce to the

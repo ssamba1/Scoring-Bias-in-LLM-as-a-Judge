@@ -274,11 +274,20 @@ $\delta$,
 \|\nabla_\ell s\|_2 \;\le\; \sqrt{\mathrm{Var}_\sigma(v)} .
 \]
 The bound is exact and assumption-free. $\mathrm{Var}_\sigma(v)=\sum_k\sigma_k(v_k-s)^2$
-vanishes when $\sigma$ is a point mass and is maximal when $\sigma$ is uniform: a judge
+vanishes when $\sigma$ is a point mass, which is the end the prediction rests on: a judge
 that concentrates its answer distribution is, to first order, insensitive to \emph{every}
 nuisance perturbation. We use the entropy $H(\sigma)$ as the empirical decisiveness
-statistic; $H$ and $\mathrm{Var}_\sigma(v)$ share the same extremes and, in our data, are
-tightly correlated (\S\ref{sec:mech}), so the prediction is robust to which is used. We
+statistic; $H$ and $\mathrm{Var}_\sigma(v)$ share their minimum --- both vanish at a point
+mass --- but not their maximum: $H$ is maximised by the uniform distribution, whereas
+$\mathrm{Var}_\sigma(v)$ is maximised by the two-point distribution on the extreme
+values, where it attains $((v_{\max}-v_{\min})/2)^2$ (Popoviciu's inequality). On a
+$1$--$5$ scale that maximum is $4$, against $2$ for the uniform distribution, and our
+data contains the discrepancy directly: the highest-variance cell we measure has
+$\mathrm{Var}_\sigma(v)=3.10$ at $H=1.79$ bits, both further from uniform and more
+variable than it. In our data the two are
+strongly but not perfectly correlated (Spearman $\rho=0.70$ across the
+$390$ measured distributions; \S\ref{sec:mech}), so the prediction is robust to
+which is used. We
 report the entropy--bias relationship as the primary test and verify it also holds for
 $\sqrt{\mathrm{Var}_\sigma(v)}$ directly.
 \end{proposition}
@@ -350,7 +359,9 @@ statement in the decisive limit.
 \begin{corollary}[Bias is a calibration failure]\label{cor:calib}
 Define decisiveness $D(\sigma)=1-H(\sigma)/\log_2 K\in[0,1]$. A judge with $D=1$ (a point
 mass) has $\mathrm{Var}_\sigma(v)=0$ and hence zero nuisance-bias to all orders; a judge
-with $D=0$ (uniform) attains the maximal $\mathrm{Var}_\sigma(v)$ and the largest bias.
+with $D=0$ (uniform) has a large $\mathrm{Var}_\sigma(v)$ --- though not the largest
+attainable, which belongs to the extreme two-point distribution --- and correspondingly
+large bias.
 Robustness to nuisance perturbations and confidence in the score are therefore the same
 axis: an over-hedging judge is not merely less informative, it is maximally
 manipulable. This holds \emph{at fixed responsiveness} $\|\delta_\pi\|$; empirically,

@@ -2879,6 +2879,19 @@ MUTATIONS = [
         "tests/test_the_terse_variant_mostly_does_nothing.py",
         "the Chinese terse arm stops splitting on the ideographic period",
     ),
+    (
+        # Proposition 1's corrected claim about where Var_sigma(v) is maximised
+        # reverts. Uniform maximises ENTROPY; the variance is maximised by the
+        # two-point distribution on the extreme values (Popoviciu), which is 4 on
+        # a 1-5 scale against uniform's 2. The paper asserted uniform for both,
+        # and the measured cells contradict it directly: the highest-variance
+        # distribution has more variance and less entropy than uniform.
+        "paper/honest/repro/results_mechanism.json",
+        '"max_measured_variance": 3.097',
+        '"max_measured_variance": 1.097',
+        "tests/test_prose_matches_derived_values.py",
+        "the measured max variance stops exceeding the uniform distribution's",
+    ),
 ]
 
 
