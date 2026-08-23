@@ -41,6 +41,14 @@ def main():
             "per_layer_reduction": reds,
             "max_reduction": best,
             "layers_with_reduction_ge_50pct": best_layers,
+            # The band the paper calls the peak. "Erases ~100% of the gap" has
+            # to mean a threshold, and the prose quoted layers 6--11 -- a range
+            # no threshold produces: layer 11 reduces 0.846 while layer 5, which
+            # the range excludes, reduces 0.937. Emit the band at 95%, which is
+            # what "approximately 100%" reads as, so the prose quotes a derived
+            # range instead of a remembered one.
+            "layers_with_reduction_ge_95pct": [
+                i for i, r in enumerate(reds) if r is not None and r >= 0.95],
             "p13_met": bool(best is not None and best >= 0.5)}
     (HERE / "spanpatch_analysis.json").write_text(json.dumps(out, indent=2) + "\n")
     print(json.dumps(out, indent=2))

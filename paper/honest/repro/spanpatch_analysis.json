@@ -51,6 +51,13 @@
         13,
         14
       ],
+      "layers_with_reduction_ge_95pct": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
       "p13_met": true
     },
     "reference_good": {
@@ -88,6 +95,7 @@
       ],
       "max_reduction": 0.07,
       "layers_with_reduction_ge_50pct": [],
+      "layers_with_reduction_ge_95pct": [],
       "p13_met": false
     }
   }

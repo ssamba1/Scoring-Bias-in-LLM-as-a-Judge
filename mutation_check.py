@@ -2827,6 +2827,19 @@ MUTATIONS = [
         "tests/test_the_gold_collapse_is_not_called_chance.py",
         "the chance level the inversion claim contrasts against drifts",
     ),
+    (
+        # The span-patch peak band reverts to the range no threshold produces.
+        # The prose said the patch peaks at ~100% across layers 6--11; layer 11
+        # reduces 0.846, while layer 5 -- which that range excludes -- reduces
+        # 0.937. At 95%, the reading "approximately 100%" supports, the band is
+        # 6--10. The 50% band beside it was derived and correct all along, which
+        # is why a remembered peak sat unnoticed next to it.
+        "paper/honest/macros.tex",
+        "layers 6--10",
+        "layers 6--11",
+        "tests/test_the_span_patch_band_recomputes.py",
+        "the span-patch peak band drifts off the curve",
+    ),
 ]
 
 
