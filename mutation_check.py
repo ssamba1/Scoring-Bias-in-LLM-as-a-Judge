@@ -2866,6 +2866,19 @@ MUTATIONS = [
         "tests/test_the_terse_variant_mostly_does_nothing.py",
         "the terse variant's no-op count drifts from the item set",
     ),
+    (
+        # The Chinese replication's terse arm loses its ideographic period and
+        # splits on an ASCII one instead. Chinese sentences end in U+3002, so an
+        # ASCII split never fires: the terse variant becomes a no-op for all 50
+        # items rather than 49, and the verbosity number -- that section's
+        # largest effect -- would be a padding-only measurement with nothing
+        # saying so. The localisation is correct today; this keeps it that way.
+        "paper/honest/repro/zh_harness.py",
+        'def _terse(r): return (r.split("。")[0] or r).strip() + "。"',
+        'def _terse(r): return (r.split(".")[0] or r).strip() + "."',
+        "tests/test_the_terse_variant_mostly_does_nothing.py",
+        "the Chinese terse arm stops splitting on the ideographic period",
+    ),
 ]
 
 

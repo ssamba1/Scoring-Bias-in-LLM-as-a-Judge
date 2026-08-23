@@ -107,3 +107,74 @@ def test_the_one_shortened_response_is_the_one_with_two_sentences():
             f"responses pass through unchanged; if that stops being the reason, "
             f"the explanation is wrong even where the count still holds."
         )
+
+
+# The English runs do not each have their own items -- scaled, stage, q14b and
+# q32b share one list, which is why the paper can say "this item set" and mean
+# all of them. The Chinese replication has its own translated list with the same
+# single-sentence property and an ideographic-period split.
+ENGLISH_HARNESSES = ("scaled_harness.py", "stage_harness.py",
+                     "q14b_harness.py", "q32b_harness.py")
+ZH_HARNESS = "zh_harness.py"
+
+
+def _items_from(name):
+    path = REPO / "paper" / "honest" / "repro" / name
+    if not path.exists():
+        pytest.skip(f"[repro] {name} not present")
+    for node in ast.parse(path.read_text(encoding="utf-8", errors="replace")).body:
+        if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") == "ITEMS":
+            return ast.literal_eval(node.value)
+    pytest.skip(f"[repro] no ITEMS in {name}")
+
+
+def _terse_from(name):
+    path = REPO / "paper" / "honest" / "repro" / name
+    src = path.read_text(encoding="utf-8", errors="replace")
+    start = src.find("def _terse")
+    if start < 0:
+        pytest.skip(f"[repro] no _terse in {name}")
+    end = src.find(chr(10), start)
+    ns = {}
+    exec(compile(src[start:end if end > 0 else len(src)], "t", "exec"), ns)
+    return ns["_terse"]
+
+
+def test_the_english_runs_share_the_one_item_set():
+    """"This item set" in the paper has to mean all of them, or it means less."""
+    sets = {name: _items_from(name) for name in ENGLISH_HARNESSES}
+    first = sets[ENGLISH_HARNESSES[0]]
+    differing = [n for n, v in sets.items() if v != first]
+    assert not differing, (
+        f"these harnesses no longer share the panel's item set: {differing}. "
+        f"The paper's terse-variant caveat is written as a property of one item "
+        f"set; if they diverge it no longer covers every English run."
+    )
+
+
+def test_the_chinese_items_have_the_same_property():
+    """Verbosity is the Chinese section's largest effect, so this matters there."""
+    items = _items_from(ZH_HARNESS)
+    terse = _terse_from(ZH_HARNESS)
+    responses = [t[1] for t in items]
+    shortened = [r for r in responses if terse(r) != r]
+    assert len(responses) == 50, f"the Chinese item set is now {len(responses)} items"
+    assert len(shortened) == 1, (
+        f"the Chinese terse arm now shortens {len(shortened)} of "
+        f"{len(responses)} responses, not 1; the paper states 49 of 50 are "
+        f"unchanged there too"
+    )
+
+
+def test_the_chinese_terse_splits_on_the_ideographic_period():
+    """An ASCII split here would be a no-op for every item, not 49 of 50."""
+    path = REPO / "paper" / "honest" / "repro" / ZH_HARNESS
+    src = path.read_text(encoding="utf-8", errors="replace")
+    start = src.find("def _terse")
+    line = src[start:src.find(chr(10), start)]
+    ideographic_period = chr(0x3002)
+    assert ideographic_period in line, (
+        f"the Chinese terse transform does not split on the ideographic period: "
+        f"{line.strip()!r}. Splitting on an ASCII period would make it a no-op "
+        f"for all 50 items, and the paper's 49-of-50 statement would be wrong."
+    )
