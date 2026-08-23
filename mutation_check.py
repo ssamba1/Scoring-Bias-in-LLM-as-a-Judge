@@ -2932,6 +2932,16 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py",
         "the leave-one-out range reverts to its double-rounded maximum",
     ),
+    (
+        # The leave-one-out means go back to being rounded before the range is
+        # taken over them. That ordering is what turned an exact 0.28464 into a
+        # stored 0.285 and then a printed 0.29. Aggregate exactly, round once.
+        "paper/honest/repro/analyze_robustness.py",
+        "loo_exact = {f: float(np.mean([e for g, e in fam_effect.items() if g != f]))",
+        "loo_exact = {f: round(float(np.mean([e for g, e in fam_effect.items() if g != f])), 3)",
+        "tests/test_no_analysis_rounds_before_aggregating.py",
+        "an analysis script aggregates over rounded values again",
+    ),
 ]
 
 
