@@ -45,7 +45,7 @@
     "n_families": 13,
     "loo_range": [
       0.23,
-      0.285
+      0.2846
     ],
     "excl_qwen_mean": 0.258,
     "excl_qwen_positive": "8/9",

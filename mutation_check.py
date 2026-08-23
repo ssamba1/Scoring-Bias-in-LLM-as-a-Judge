@@ -2919,6 +2919,19 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py",
         "the format family's responsiveness rise drifts below content's",
     ),
+    (
+        # The leave-one-family-out maximum reverts to its double-rounded form.
+        # The exact value is 0.28464. analyze_robustness.py rounded each
+        # leave-one-out mean to three decimals before taking the max, storing
+        # 0.285, and the paper rounded that again to 0.29 -- a digit the exact
+        # number never reaches under any convention. It aggregates before
+        # rounding now and stores four decimals.
+        "paper/honest/macros.tex",
+        "within $[+0.23, +0.28]$",
+        "within $[+0.23, +0.29]$",
+        "tests/test_prose_matches_derived_values.py",
+        "the leave-one-out range reverts to its double-rounded maximum",
+    ),
 ]
 
 

@@ -217,15 +217,25 @@ def main():
         if b and i:
             fam_effect[fam] = float(np.mean(i) - np.mean(b))
     effs = np.array(list(fam_effect.values()))
-    loo_eff = {f: round(float(np.mean([e for g, e in fam_effect.items() if g != f])), 3)
-               for f in fam_effect}
+    # Round for storage, not before aggregating. Taking min/max over values
+    # already rounded to three decimals is what put 0.28464 into the release as
+    # 0.285, which the paper then rounded again to 0.29 -- a digit the exact
+    # value never reaches. Compute exactly, round once at the end.
+    loo_exact = {f: float(np.mean([e for g, e in fam_effect.items() if g != f]))
+                 for f in fam_effect}
+    loo_eff = {f: round(v, 3) for f, v in loo_exact.items()}
     non_qwen = [e for f, e in fam_effect.items() if not f.startswith(QWEN_PREFIX)]
     big = [e for f, e in fam_effect.items()
            if (scaled[f].get("params_b") or 0) >= 1.0]
     out["B3_sensitivity"] = {
         "full_mean_effect": round(float(effs.mean()), 3),
         "n_families_positive": int((effs > 0).sum()), "n_families": len(effs),
-        "loo_range": [min(loo_eff.values()), max(loo_eff.values())],
+        # Four decimals, not three: the maximum is 0.28464, and at three decimals
+        # it stores as 0.285 -- a value that rounds to 0.29 while the number it
+        # came from rounds to 0.28. The extra digit is what makes the paper's
+        # two-decimal quote checkable.
+        "loo_range": [round(min(loo_exact.values()), 4),
+                      round(max(loo_exact.values()), 4)],
         "excl_qwen_mean": round(float(np.mean(non_qwen)), 3),
         "excl_qwen_positive": f"{int(np.sum(np.array(non_qwen) > 0))}/{len(non_qwen)}",
         "only_ge1B_mean": round(float(np.mean(big)), 3),

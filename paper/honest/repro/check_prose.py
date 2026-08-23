@@ -157,6 +157,21 @@ close("crossover sign acc", 0.74, rob["D3_crossover"]["sign_accuracy"], 0.006)
 close("crossover magnitude rho", 0.60, rob["D3_crossover"]["spearman_dlogpred_dlogact"], 0.006)
 vdec = rob["E_variance_decomposition"]
 close("anatomy interaction", 0.37, vdec.get("family:probe"), 0.006)
+# The leave-one-family-out range. Its maximum is 0.28464; the analyser used to
+# round each leave-one-out mean to three decimals BEFORE taking the max, storing
+# 0.285, which the paper then rounded again to 0.29 -- a digit the exact value
+# never reaches. It aggregates exactly and stores four decimals now, so the
+# paper's two-decimal quote is checkable against it.
+_b3 = rob.get("B3_sensitivity", {})
+_loo = _b3.get("loo_range")
+if _loo:
+    close("leave-one-out minimum", 0.23, _loo[0], 0.006)
+    close("leave-one-out maximum", 0.28, _loo[1], 0.006)
+    if round(_loo[1], 2) != 0.28:
+        FAILS.append(
+            f"the paper quotes the leave-one-out range as ending at +0.28; the "
+            f"release maximum {_loo[1]} rounds to {round(_loo[1], 2)}"
+        )
 close("anatomy probe", 0.24, vdec.get("probe"), 0.006)
 close("item-consistency null", 0.01, rob["E2_item_consistency"]["mean_cross_judge_item_corr"], 0.006)
 c5 = rob["C5_public_items"]
