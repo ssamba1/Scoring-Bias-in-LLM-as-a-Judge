@@ -123,6 +123,13 @@ def main():
         "p_median_one_sided": round((ge_median + 1) / (total + 1), 6),
         "p_specs_positive_one_sided": round((ge_positive + 1) / (total + 1), 6),
         "per_spec_mean_effect": {s: round(observed_means[s], 4) for s in specs},
+        # How many families each specification is positive in. The prose
+        # quotes this as a range ("9--11/13 families positive") for the six
+        # expected-value specifications, and nothing stored it, so nothing
+        # could check it -- the same gap that let the span-patch peak band
+        # drift off its curve while the 50% band beside it stayed derived.
+        "per_spec_families_positive": {
+            s: sum(1 for v in effects[s] if v > 0) for s in specs},
         "reading": (
             f"Across {len(specs)} specifications the median effect is "
             f"{observed_median:.4f} and {observed_positive} of {len(specs)} are "

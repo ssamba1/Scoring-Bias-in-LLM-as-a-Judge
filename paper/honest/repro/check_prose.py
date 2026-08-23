@@ -431,6 +431,36 @@ if bpath.exists():
             "includes zero; the release says it does not"
         )
 
+# The specification curve. check_prose.py did not read results_speccurve.json
+# either, and the prose quotes a range from it: the six expected-value
+# specifications are all positive, in 9--11 of 13 families. The per-spec family
+# counts were computable but unstored, so the range was unverifiable -- the same
+# gap that let the span-patch peak band drift.
+scpath = HERE / "results_speccurve.json"
+if scpath.exists():
+    _sc = json.loads(scpath.read_text())
+    _fp = _sc.get("per_spec_families_positive", {})
+    _ev = {k: v for k, v in _fp.items() if k.startswith("ev|")}
+    _means = {k: v for k, v in _sc["per_spec_mean_effect"].items() if k.startswith("ev|")}
+    if len(_ev) != 6:
+        FAILS.append(
+            f"the paper says six expected-value specifications; the release has "
+            f"{len(_ev)}"
+        )
+    if _ev and (min(_ev.values()), max(_ev.values())) != (9, 11):
+        FAILS.append(
+            f"the paper says the expected-value specifications are positive in "
+            f"9--11 of 13 families; the release gives "
+            f"{min(_ev.values())}--{max(_ev.values())}"
+        )
+    _neg = [k for k, v in _means.items() if v <= 0]
+    if _neg:
+        FAILS.append(
+            f"the paper says all six expected-value specifications give a "
+            f"positive mean effect; these do not: {_neg}"
+        )
+    states("spec-curve family range", "$9$--$11$/13 families positive", 1)
+
 states("shared control disclosure", "carry only $26$ distinct entropies", 1)
 states("argmax readout", "1.88", 2)
 states("frontier pooled correlation", r"\rho=-0.45", 2)

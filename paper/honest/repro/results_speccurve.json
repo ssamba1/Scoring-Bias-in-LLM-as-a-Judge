@@ -22,5 +22,19 @@
     "ev|meandev|content": 0.1359,
     "ev|meandev|format": 0.148
   },
+  "per_spec_families_positive": {
+    "argmax|maxmin|all": 7,
+    "argmax|maxmin|content": 7,
+    "argmax|maxmin|format": 7,
+    "argmax|meandev|all": 6,
+    "argmax|meandev|content": 7,
+    "argmax|meandev|format": 7,
+    "ev|maxmin|all": 11,
+    "ev|maxmin|content": 11,
+    "ev|maxmin|format": 10,
+    "ev|meandev|all": 11,
+    "ev|meandev|content": 9,
+    "ev|meandev|format": 10
+  },
   "reading": "Across 12 specifications the median effect is 0.1241 and 9 of 12 are positive. Enumerating all 8192 sign assignments over the 13 families -- the null the registered test already uses, applied to the whole curve -- gives an exact one-sided p of 0.0181 for the median. The curve is not what label-swapping produces."
 }

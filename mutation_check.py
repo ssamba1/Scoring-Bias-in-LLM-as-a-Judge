@@ -2840,6 +2840,19 @@ MUTATIONS = [
         "tests/test_the_span_patch_band_recomputes.py",
         "the span-patch peak band drifts off the curve",
     ),
+    (
+        # A specification's family count drifts, moving the range the prose
+        # quotes. The six expected-value specifications are positive in 9, 10,
+        # 10, 11, 11 and 11 of 13 families; the paper quotes that as 9--11. The
+        # counts were computable inside analyze_speccurve.py but stored nowhere,
+        # so the range was correct and unverifiable at once -- the same gap that
+        # let the span-patch peak band drift off its curve.
+        "paper/honest/repro/results_speccurve.json",
+        '"ev|meandev|content": 9',
+        '"ev|meandev|content": 8',
+        "tests/test_prose_matches_derived_values.py",
+        "a spec-curve family count drifts out of the quoted range",
+    ),
 ]
 
 
