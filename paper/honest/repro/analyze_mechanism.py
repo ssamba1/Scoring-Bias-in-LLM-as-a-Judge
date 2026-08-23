@@ -329,6 +329,38 @@ def main():
                                               zip(c, score_ordered(p, v, d[p][v])))
                                     for v in d[p] if v != CONTROL[p]])
                     rx.append(resp); ry.append(delta({v: d[p][v]["mean"] for v in d[p]}))
+        # Per-probe responsiveness change. Corollary 2 asserts that format
+        # perturbations act mainly through sqrt(Var) while content ones can
+        # additionally raise ||delta_pi||. Nothing emitted the per-probe split,
+        # so that assertion could not be checked against the run it describes.
+        per_probe_resp = {}
+        for p_ in PROBES:
+            deltas = []
+            for f in fams:
+                vals = {}
+                for kind in ("base", "instruct"):
+                    dd = pairs[f][kind]
+                    cc = score_ordered(p_, CONTROL[p_], dd[p_][CONTROL[p_]])
+                    vals[kind] = float(np.mean([
+                        0.5 * sum(abs(a - b) for a, b in
+                                  zip(cc, score_ordered(p_, v, dd[p_][v])))
+                        for v in dd[p_] if v != CONTROL[p_]]))
+                deltas.append(vals["instruct"] - vals["base"])
+            per_probe_resp[p_] = {
+                "mean_change": round(float(np.mean(deltas)), 4),
+                "n_increased": int(sum(1 for x in deltas if x > 0)),
+                "n": len(deltas),
+                "family": "format" if p_ in FORMAT_PROBES else "content"}
+        _fmt = [v["mean_change"] for k, v in per_probe_resp.items() if k in FORMAT_PROBES]
+        _con = [v["mean_change"] for k, v in per_probe_resp.items() if k in CONTENT_PROBES]
+        out["responsiveness_per_probe"] = {
+            "per_probe": per_probe_resp,
+            "format_mean_change": round(float(np.mean(_fmt)), 4),
+            "content_mean_change": round(float(np.mean(_con)), 4),
+            "format_exceeds_content": bool(np.mean(_fmt) > np.mean(_con)),
+            "note": "responsiveness rises for BOTH probe families; the format "
+                    "family is not confined to the decisiveness term."}
+
         rr, rp = stats.spearmanr(rx, ry)
         out["responsiveness_bias_link"] = {"spearman_rho": round(float(rr), 3),
                                            "spearman_p": round(float(rp), 4), "n": len(rx)}

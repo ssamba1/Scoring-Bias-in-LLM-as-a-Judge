@@ -524,6 +524,44 @@
     "n": 13,
     "wilcoxon_p": 0.0005
   },
+  "responsiveness_per_probe": {
+    "per_probe": {
+      "rubric_order": {
+        "mean_change": 0.0415,
+        "n_increased": 8,
+        "n": 13,
+        "family": "format"
+      },
+      "score_id": {
+        "mean_change": 0.1712,
+        "n_increased": 11,
+        "n": 13,
+        "family": "format"
+      },
+      "reference_answer": {
+        "mean_change": 0.1067,
+        "n_increased": 11,
+        "n": 13,
+        "family": "content"
+      },
+      "authority": {
+        "mean_change": 0.1191,
+        "n_increased": 10,
+        "n": 13,
+        "family": "content"
+      },
+      "verbosity": {
+        "mean_change": 0.0611,
+        "n_increased": 11,
+        "n": 13,
+        "family": "content"
+      }
+    },
+    "format_mean_change": 0.1064,
+    "content_mean_change": 0.0956,
+    "format_exceeds_content": true,
+    "note": "responsiveness rises for BOTH probe families; the format family is not confined to the decisiveness term."
+  },
   "responsiveness_bias_link": {
     "spearman_rho": 0.824,
     "spearman_p": 0.0,

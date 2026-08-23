@@ -329,12 +329,16 @@ Instruction tuning changes both terms. When it sharpens the score distribution i
 lowers $\sqrt{\mathrm{Var}_\sigma(v)}$ for \emph{every} perturbation; when it also
 changes how strongly the model reacts to a particular perturbation it changes
 $\|\delta_\pi\|$ for that $\pi$ only. A bias therefore \emph{decreases} if the
-sharpening dominates and \emph{increases} if a rise in responsiveness dominates. Format
-perturbations (rubric, label) act mainly through $\sqrt{\mathrm{Var}_\sigma(v)}$;
-content perturbations (exemplar, framing, length) can additionally raise
-$\|\delta_\pi\|$ if tuning makes the judge attend more to in-context content. The two
-families can thus move in opposite directions under the same tuning---which is what we
-observe.
+sharpening dominates and \emph{increases} if a rise in responsiveness dominates. One might expect the
+split to follow the probe families --- format perturbations (rubric, label) acting mainly
+through $\sqrt{\mathrm{Var}_\sigma(v)}$, content ones (exemplar, framing, length)
+additionally raising $\|\delta_\pi\|$ as tuning makes the judge attend more to
+in-context content. It does not. Measured per probe, responsiveness rises for both
+families and by a similar amount ($+0.11$ format, $+0.10$ content), and the largest
+single rise is on score ID, a format probe. The decomposition does not assign a family
+to a term; what it does give is that two perturbations can move in opposite directions
+under the same tuning, which is what the argmax readout shows
+(\S\ref{sec:spec}).
 \end{corollary}
 
 \paragraph{The worst-case nuisance.} The bound is tight: the perturbation that maximizes

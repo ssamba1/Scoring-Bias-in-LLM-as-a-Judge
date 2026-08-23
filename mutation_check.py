@@ -2905,6 +2905,20 @@ MUTATIONS = [
         "tests/test_cumulants_recompute_from_raw.py",
         "the fourth cumulant is renamed a kurtosis again",
     ),
+    (
+        # The format family's mean responsiveness rise drifts below the content
+        # family's. Corollary 2 asserted that format perturbations act mainly
+        # through sqrt(Var) while content ones additionally raise ||delta_pi||.
+        # Measured, responsiveness rises for both by a similar amount (+0.11
+        # format, +0.10 content) and the largest single rise is score ID, a
+        # format probe. Nothing emitted the per-probe split, so the assertion
+        # could not be checked against the run it describes.
+        "paper/honest/repro/results_mechanism.json",
+        '"format_mean_change": 0.1064',
+        '"format_mean_change": 0.0164',
+        "tests/test_prose_matches_derived_values.py",
+        "the format family's responsiveness rise drifts below content's",
+    ),
 ]
 
 

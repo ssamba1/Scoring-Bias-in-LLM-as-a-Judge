@@ -64,6 +64,27 @@ close("mixed-effects coef", 0.16, mech["lmm"]["instruct_coef"], 0.006)
 # is 4 against uniform's 2, and the measured cells contain the discrepancy --
 # the highest-variance distribution has MORE variance and LESS entropy than
 # uniform. The corrected sentences quote these, so they are pinned to the data.
+# Corollary 2 asserted that format perturbations act mainly through sqrt(Var)
+# while content ones additionally raise ||delta_pi||. Nothing emitted the
+# per-probe responsiveness split, so the assertion could not be checked against
+# the run it describes. Measured, responsiveness rises for both families by a
+# similar amount, and the largest single rise is on a FORMAT probe.
+_rpp = mech.get("responsiveness_per_probe")
+if _rpp:
+    close("format responsiveness rise", 0.11, _rpp["format_mean_change"], 0.006)
+    close("content responsiveness rise", 0.10, _rpp["content_mean_change"], 0.006)
+    _largest = max(_rpp["per_probe"], key=lambda k: _rpp["per_probe"][k]["mean_change"])
+    if _rpp["per_probe"][_largest]["family"] != "format":
+        FAILS.append(
+            f"the paper says the largest per-probe responsiveness rise is on a "
+            f"format probe; it is now {_largest}, a "
+            f"{_rpp['per_probe'][_largest]['family']} probe"
+        )
+    if _largest != "score_id":
+        FAILS.append(
+            f"the paper names score ID as the largest responsiveness rise; the "
+            f"release gives {_largest}"
+        )
 _evr = mech.get("entropy_variance_relation")
 if _evr:
     close("H-vs-sqrtVar correlation", 0.70, _evr["spearman_rho"], 0.006)

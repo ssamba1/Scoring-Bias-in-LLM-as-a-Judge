@@ -193,6 +193,40 @@ def test_the_span_patch_verdict_follows_from_its_reduction():
     assert not wrong, f"span-patch verdicts disagree with their reductions: {wrong}"
 
 
+def test_the_format_exceeds_content_flag_follows_from_its_two_means():
+    """Corollary 2 predicted the split; the flag records that it does not hold.
+
+    The corollary once asserted that format perturbations act mainly through
+    sqrt(Var) while content ones additionally raise the responsiveness term.
+    Measured per probe, responsiveness rises for both families by a similar
+    amount and the largest single rise is on score ID -- a format probe. The
+    paper now says so, and this flag is the machine-readable form of it, so it
+    has to follow from the two means rather than sit beside them.
+    """
+    mech = _load("results_mechanism.json")
+    rpp = mech.get("responsiveness_per_probe")
+    if not rpp:
+        pytest.skip("[repro] no per-probe responsiveness in the release")
+
+    expected = rpp["format_mean_change"] > rpp["content_mean_change"]
+    assert rpp["format_exceeds_content"] == expected, (
+        f"format_exceeds_content is {rpp['format_exceeds_content']} but the "
+        f"means are format {rpp['format_mean_change']} and content "
+        f"{rpp['content_mean_change']}"
+    )
+
+    per = rpp["per_probe"]
+    for family, key in (("format", "format_mean_change"),
+                        ("content", "content_mean_change")):
+        values = [v["mean_change"] for v in per.values() if v["family"] == family]
+        assert values, f"no probes are labelled {family}"
+        recomputed = sum(values) / len(values)
+        assert abs(recomputed - rpp[key]) < 5e-4, (
+            f"{key} is {rpp[key]} but the {family} probes average "
+            f"{recomputed:.4f}"
+        )
+
+
 def test_every_boolean_in_the_release_is_covered_or_named():
     """Vacuity guard: new flags must be checked or explicitly set aside."""
     UNCHECKED = {
@@ -239,6 +273,12 @@ def test_every_boolean_in_the_release_is_covered_or_named():
         # test_the_size_bands_are_not_overread.py: a stored verdict that
         # nothing recomputes is a claim rather than a check.
         "clustered_ci_crosses_zero",
+        # Recomputed from the two family means it summarises, in
+        # test_the_format_exceeds_content_flag_follows_from_its_two_means. It
+        # records that responsiveness rises for the format probes at least as
+        # much as for the content ones, which is the opposite of what Corollary 2
+        # used to assert.
+        "format_exceeds_content",
         # Same pattern: re-derived from its interval, not read.
         "excludes_zero",
         # Re-derived from the two means it compares.
