@@ -2853,6 +2853,19 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py",
         "a spec-curve family count drifts out of the quoted range",
     ),
+    (
+        # The terse variant's no-op count drifts. The verbosity probe is
+        # described as "padded vs. shortened", but 49 of the 50 responses are a
+        # single sentence, so the terse transform returns them unchanged and
+        # only one item is truncated. The paper's empirical 99%/1% split was
+        # right; its method description was not, and a replicator building from
+        # "padded vs. shortened" would not reproduce the design.
+        "paper/honest/scoring_bias_v2.tex",
+        "$49$ of the $50$ responses",
+        "$48$ of the $50$ responses",
+        "tests/test_the_terse_variant_mostly_does_nothing.py",
+        "the terse variant's no-op count drifts from the item set",
+    ),
 ]
 
 

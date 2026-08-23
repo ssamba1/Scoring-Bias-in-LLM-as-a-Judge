@@ -673,8 +673,13 @@ because a mechanism claim is only as trustworthy as the measurement under it.
         condition.
   \item \textbf{Verbosity's terse variant.} The padded variant adds content-free
         filler and cannot change true quality; the terse variant truncates to the first
-        sentence, which can remove information. The verbosity $\Delta$ is therefore an
-        upper bound on pure length bias; the padded-vs-control contrast alone, which is
+        sentence, which can remove information. In this item set it almost never does,
+        and the reason is worth stating rather than leaving to a reader who rebuilds
+        the prompts: $49$ of the $50$ responses are a single sentence, so the transform
+        returns them unchanged, and exactly one item is actually shortened. The
+        verbosity probe is thus a padding-only manipulation in all but one item --- the
+        quality-preserving direction --- and the $\Delta$ is an upper bound on pure
+        length bias only in that one case; the padded-vs-control contrast alone, which is
         quality-preserving, shows the same direction (mean $|\Delta|$
         $0.29\!\to\!0.53$ after tuning, 11/13 families). Empirically the concern is
         immaterial: a variant-level decomposition attributes $99\%$ of the measured
