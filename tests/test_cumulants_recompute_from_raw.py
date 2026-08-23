@@ -173,3 +173,47 @@ def test_the_appendix_prints_the_cumulants_it_measured():
                 f"the appendix prints {k} {side} as {literal}, the released "
                 f"value is {value}"
             )
+
+
+def test_kappa4_is_not_called_excess_kurtosis():
+    """The fourth cumulant and the excess kurtosis are different quantities.
+
+    analyze_robustness.py computes k4 as mu4 - 3*mu2**2, which is the fourth
+    cumulant. The excess kurtosis is that divided by mu2 squared. The appendix
+    printed the cumulant and named it the excess kurtosis, so a reader who
+    normalised as the name instructs would get -1.17 and -0.30 rather than the
+    -3.79 and -0.29 on the page.
+
+    The numbers were right and the word was wrong, which is the failure that
+    pinning digits cannot catch: every value in that sentence traces to the
+    release, and the sentence still misnamed one of them.
+    """
+    paper = REPO / "paper" / "honest" / "scoring_bias_v2.tex"
+    if not paper.exists():
+        pytest.skip("[paper] sources not present")
+    text = " ".join(paper.read_text(encoding="utf-8", errors="replace").split())
+    idx = text.find("kurtosis")
+    while idx != -1:
+        window = text[max(0, idx - 200):idx + 200]
+        assert r"\kappa_4" not in window, (
+            r"the paper names $\kappa_4$ as a kurtosis. It is the fourth cumulant: "
+            "mu4 - 3*mu2^2. The excess kurtosis is kappa_4 / kappa_2^2, which for "
+            "these distributions is -1.17 and -0.30, not the -3.79 and -0.29 "
+            f"printed. Offending passage: ...{window[-160:]}"
+        )
+        idx = text.find("kurtosis", idx + 1)
+
+
+def test_the_stored_k4_is_the_cumulant_not_the_standardised_one():
+    """Guard the quantity as well as its name."""
+    _scaled, cum = _load()
+    if not cum:
+        pytest.skip("[repro] no D1_cumulants in results_robustness.json")
+    for arm in ("base", "instruct"):
+        k2, k4 = cum[arm]["k2"], cum[arm]["k4"]
+        excess = k4 / (k2 ** 2)
+        assert abs(k4 - excess) > 1e-6, (
+            f"for {arm}, kappa_4 ({k4}) equals kappa_4/kappa_2^2 ({excess:.4f}); "
+            f"the stored value may have been standardised, in which case the "
+            f"appendix's numbers describe a different quantity than its symbols"
+        )

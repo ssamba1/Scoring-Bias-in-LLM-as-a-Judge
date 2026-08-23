@@ -2892,6 +2892,19 @@ MUTATIONS = [
         "tests/test_prose_matches_derived_values.py",
         "the measured max variance stops exceeding the uniform distribution's",
     ),
+    (
+        # kappa_4 is renamed back to "the excess kurtosis". analyze_robustness.py
+        # computes mu4 - 3*mu2**2, which is the fourth cumulant; the excess
+        # kurtosis is that over mu2 squared, and for these distributions it is
+        # -1.17 and -0.30 rather than the -3.79 and -0.29 the appendix prints.
+        # The digits were right and the name was wrong -- which is why pinning
+        # values did not catch it.
+        "paper/honest/scoring_bias_v2.tex",
+        'the fourth cumulant $\\kappa_4$ from',
+        'the excess kurtosis $\\kappa_4$ from',
+        "tests/test_cumulants_recompute_from_raw.py",
+        "the fourth cumulant is renamed a kurtosis again",
+    ),
 ]
 
 
