@@ -1698,6 +1698,18 @@ MUTATIONS = [
         "a prose reflow disarms a registered mutation",
     ),
     (
+        # The record advertises a version it does not declare. Two fields state
+        # one fact -- `version:` and the `message` naming the version to cite --
+        # and release_doi.py rewrote neither until 2026-09-07, so a deposit left
+        # both stale and nothing compared them to each other. This is the file
+        # GitHub's citation widget and Zenodo read.
+        "CITATION.cff",
+        "cite version 2.0",
+        "cite version 3.0",
+        "tests/test_citation_metadata_is_valid.py",
+        "the citation record advertises a version it does not declare",
+    ),
+    (
         # The file count reverts to the narrow reading. Ten is what you get by
         # looking for the literal `per_item` key alone; results_sampled.json
         # stores ev_per_item and sampled_per_item, so the narrow count misses a

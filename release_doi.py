@@ -175,8 +175,60 @@ def set_doi(args):
 
     print(f"\n{LIVE} -> {new} across {len(changed)} file(s); "
           f"{len(protected_before)} protected DOI(s) untouched")
+
+    record = _refresh_citation_record(args.version, args.date)
+    for line in record:
+        print("  " + line)
+
     print("next: python paper/honest/arxiv_package.py && python -m pytest tests/ -q")
     return 0
+
+
+def _refresh_citation_record(version, date):
+    """Bring CITATION.cff's own version and date with the DOI.
+
+    Rewriting the DOI and leaving these behind is the shape of half-finished
+    edit this tool exists to prevent, applied to the tool: after a release the
+    record would still read version 2.0, released 2026-07-19, beside a DOI
+    minted months later. Three fields state that one fact -- `version`,
+    `date-released`, and the `message` telling a reader which version to cite --
+    and a release that moves one of them has to move all three.
+    """
+    path = REPO / "CITATION.cff"
+    text = path.read_text(encoding="utf-8")
+    notes = []
+
+    if date is None:
+        import datetime
+        date = datetime.date.today().isoformat()
+
+    updated, count = re.subn(r'(?m)^date-released:\s*".*?"$',
+                             f'date-released: "{date}"', text)
+    if count != 1:
+        raise SystemExit(f"FAIL: expected one date-released line, found {count}")
+    notes.append(f"CITATION.cff date-released -> {date}")
+    text = updated
+
+    if version is not None:
+        updated, count = re.subn(r'(?m)^version:\s*".*?"$',
+                                 f'version: "{version}"', text)
+        if count != 1:
+            raise SystemExit(f"FAIL: expected one version line, found {count}")
+        text = updated
+        updated, count = re.subn(r"cite version [0-9][^\s(]*",
+                                 f"cite version {version}", text)
+        if count != 1:
+            raise SystemExit(
+                f"FAIL: expected one 'cite version X' in the message, found {count}; "
+                f"the record would advertise a version it no longer declares"
+            )
+        text = updated
+        notes.append(f"CITATION.cff version -> {version} (declared and advertised)")
+    else:
+        notes.append("CITATION.cff version left as-is (pass --version to move it)")
+
+    path.write_text(text, encoding="utf-8")
+    return notes
 
 
 def main():
@@ -185,6 +237,9 @@ def main():
     sub.add_parser("bundle", help="build the files to upload").set_defaults(fn=bundle)
     p = sub.add_parser("set-doi", help="point every surface at a new DOI")
     p.add_argument("doi")
+    p.add_argument("--version", help="the deposited version, e.g. 2.2.0; also "
+                                     "rewrites the 'cite version X' message")
+    p.add_argument("--date", help="release date as YYYY-MM-DD (default: today)")
     p.set_defaults(fn=set_doi)
     args = parser.parse_args()
     return args.fn(args)

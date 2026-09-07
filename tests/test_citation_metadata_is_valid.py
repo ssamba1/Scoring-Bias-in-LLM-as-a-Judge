@@ -96,6 +96,41 @@ def test_the_archived_doi_matches_the_one_the_paper_cites():
     )
 
 
+def test_the_advertised_version_is_the_declared_version():
+    """Two fields state one fact, and only one of them gets edited.
+
+    `version:` declares the release; the `message:` tells a reader which version
+    to cite and names it again in prose. Nothing kept them together, and
+    release_doi.py rewrote neither -- so after a deposit the record could
+    declare one version while advertising another, both wrong, in the file
+    GitHub's citation widget and Zenodo read.
+    """
+    text = _text()
+    declared = re.search(r'(?m)^version:\s*"([^"]+)"', text)
+    assert declared, "CITATION.cff declares no version"
+    advertised = re.search(r"cite version ([0-9][^\s(]*)", text)
+    if not advertised:
+        pytest.skip("[citation] the message does not name a version to cite")
+    assert advertised.group(1) == declared.group(1), (
+        f"CITATION.cff declares version {declared.group(1)!r} but tells readers "
+        f"to cite version {advertised.group(1)!r}"
+    )
+
+
+def test_the_release_date_is_a_real_date():
+    text = _text()
+    found = re.search(r'(?m)^date-released:\s*"([^"]+)"', text)
+    assert found, "CITATION.cff carries no date-released"
+    import datetime
+    try:
+        datetime.date.fromisoformat(found.group(1))
+    except ValueError:
+        raise AssertionError(
+            f"date-released {found.group(1)!r} is not an ISO date; CFF requires "
+            f"YYYY-MM-DD and Zenodo will reject or silently drop it"
+        )
+
+
 def test_the_retracted_record_is_not_the_one_being_advertised():
     """The superseded Zenodo record may be named as retracted, never as the DOI."""
     text = _text()
