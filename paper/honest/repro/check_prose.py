@@ -452,7 +452,11 @@ states("exact permutation p", "0.00098", 1)
 # and marginalizing over the score-ID formats zeroes score-ID bias by
 # construction anyway. The template ensemble is the measured mitigation, and it
 # is what the abstract, the mitigation prose and the README now quote.
-states("template ensemble mitigation", r"22\%", 2)
+# Three since 2026-09-07: the abstract, the mitigation section, and the
+# Discussion. The Discussion used to say 59% here -- the figure section 5.21
+# withdraws -- so this count going from two to three is the withdrawn number
+# being replaced by the measured one, not a new claim.
+states("template ensemble mitigation", r"22\%", 3)
 
 # The quantization control that discharges the 14B caveat. Both deltas are
 # quoted in the prose, so both are pinned to the released measurement.
@@ -1061,6 +1065,35 @@ if rises != 1:
         f"the paper calls Tulu-3's RLVR step the single transition where "
         f"entropy rises; the ladder now holds {rises}"
     )
+
+# ---------------------------------------------------------------------------
+# A figure the paper itself withdrew must not survive somewhere else.
+#
+# Section 5.21 retracts the 59% mitigation reduction in as many words: it
+# compared a mean absolute deviation against a max-min spread, so it measured
+# the change of estimator rather than any mitigation. Held to one estimator
+# there is no reduction, and the measured mitigation is template ensembling at
+# 22%. The abstract says 22%. The Discussion went on saying 59% -- and credited
+# it to averaging over label formats, which is the one that shows no reduction.
+#
+# That is the direction summaries drift: toward the cleaner claim, in the
+# section furthest from the data. Nothing caught it, because a withdrawn number
+# matches no analysis and so no pin was ever written against it. The check is
+# therefore stated the other way round: the only place this figure may appear is
+# inside the sentence that retracts it.
+# ---------------------------------------------------------------------------
+_withdrawn = text.count(r"59\%")
+_retraction = text.count(r"reported a $59\%$ reduction")
+if _withdrawn != _retraction:
+    FAILS.append(
+        f"the withdrawn 59% mitigation figure appears {_withdrawn} time(s), of "
+        f"which {_retraction} is the retraction note in the mitigation section. "
+        f"It was withdrawn as an estimator mismatch; the measured figure is 22% "
+        f"for template ensembling."
+    )
+
+states("the measured mitigation in the Discussion",
+       r"Ensembling the score over three prompt templates cuts bias by $22\%$", 1)
 
 if FAILS:
     print("PROSE-CONSISTENCY FAILURES:")

@@ -686,8 +686,10 @@ the decisiveness term for all perturbations but raises the responsiveness term f
 it engages with more, so different bias types need not move together. In our data the
 responsiveness rise dominates and bias increases across all five types; the effective
 mitigation is therefore not to make the judge sharper but to remove the nuisance
-dimension (e.g.\ average over label formats, withhold exemplars), which we show cuts bias
-by 59\% where a more decisive readout makes it worse.
+dimension. Ensembling the score over three prompt templates cuts bias by $22\%$,
+whereas a more decisive readout makes it worse; averaging over the label formats
+themselves removes that bias by construction rather than by measurement, and is
+reported as a definition rather than as a result (\S\ref{sec:lmm}).
 
 \paragraph{A stage curve we did not measure.}\label{sec:retro} \citet{zahraei2026prior} ran the
 T\"ulu-3 ladder we ran, for a bias we did not study, with a different readout on
