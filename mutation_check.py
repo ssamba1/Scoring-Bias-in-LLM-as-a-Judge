@@ -3070,7 +3070,7 @@ def _run(test_file: str):
     return result.returncode
 
 
-def main(verbose=False, force=False):
+def main(verbose=False, force=False, only=None):
     if not (BASE / "tests").is_dir():
         raise SystemExit("no tests/ directory")
 
@@ -3078,11 +3078,27 @@ def main(verbose=False, force=False):
     if restored:
         print(f"restored {restored} from an interrupted run before starting\n")
 
+    # --only runs the mutations whose label contains one of the given
+    # substrings. A full run is 300-odd mutations, each invoking pytest, and
+    # takes the better part of an hour; when one guard has just been edited,
+    # that is the wrong loop to be in. The filtered run still takes the lock
+    # and still restores by bytes -- it is the same machinery, over fewer
+    # entries -- and it says plainly that it is not a full run, because a
+    # filtered pass reported as a clean sweep would be its own defect.
+    selected = MUTATIONS
+    if only:
+        selected = [entry for entry in MUTATIONS
+                    if any(needle in entry[4] for needle in only)]
+        if not selected:
+            raise SystemExit(f"--only matched no mutation label: {only}")
+        print(f"running {len(selected)} of {len(MUTATIONS)} mutations "
+              f"(--only {', '.join(only)}) -- NOT a full pass\n")
+
     print(f"{'mutation':46s} {'BASE':>5} {'MUT':>5}  verdict")
     print("-" * 72)
 
     misses, stale = [], []
-    for entry in MUTATIONS:
+    for entry in selected:
         rel, find, replace, test_file, label = entry[:5]
         replace_all = len(entry) > 5 and entry[5]
         path = BASE / rel
@@ -3127,7 +3143,7 @@ def main(verbose=False, force=False):
         print(f"{label:46s} {base_rc:>5} {mutated_rc:>5}  {verdict}")
 
     print()
-    checked = len(MUTATIONS) - len(stale)
+    checked = len(selected) - len(stale)
     if misses:
         print("guards that did NOT catch their mutation:", misses)
         return 1
@@ -3143,17 +3159,23 @@ def main(verbose=False, force=False):
         for entry in stale:
             print(f"  - {entry}")
         print(
-            f"\nonly {checked}/{len(MUTATIONS)} mutations were exercised. Repair the "
+            f"\nonly {checked}/{len(selected)} mutations were exercised. Repair the "
             f"anchor, or delete the entry if the mutation is obsolete -- a "
             f"registered mutation that never runs is a guard nobody is checking."
         )
         return 1
-    print(f"every guard caught its mutation ({checked} checked)")
+    if only:
+        print(f"every selected guard caught its mutation ({checked} of "
+              f"{len(MUTATIONS)} registered) -- this was NOT a full pass")
+    else:
+        print(f"every guard caught its mutation ({checked} checked)")
     return 0
 
 
 if __name__ == "__main__":
     try:
-        sys.exit(main("-v" in sys.argv, "--force" in sys.argv))
+        _only = [arg.split("=", 1)[1] for arg in sys.argv[1:]
+                 if arg.startswith("--only=")]
+        sys.exit(main("-v" in sys.argv, "--force" in sys.argv, _only or None))
     finally:
         _release_lock()

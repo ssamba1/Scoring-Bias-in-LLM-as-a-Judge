@@ -109,23 +109,48 @@ def _hermes():
     return HERMES.read_text(encoding="utf-8", errors="replace")
 
 
+def _claimed(pattern, label):
+    """The number the brief states *as* a given claim, not merely somewhere.
+
+    Both checks below used to ask whether the correct figure appeared anywhere
+    in the file. That is satisfiable by prose that is not the claim: when the
+    corrected total was explained in a note beneath the bullet, the file
+    mentioned it twice, so deleting the live one left the check green. The
+    registered mutation on this very line stopped being caught, and only the
+    hour-long mutation pass noticed. A guard on a number has to name where the
+    number is supposed to be.
+    """
+    import re
+
+    found = re.search(pattern, _hermes())
+    assert found, (
+        f"the brief no longer states {label} in the form this guard reads. "
+        f"Re-anchor it deliberately rather than leaving the claim unchecked."
+    )
+    return int(found.group(1).replace(",", ""))
+
+
 def test_the_main_panel_count_is_the_panel():
     per_file = _totals()
     scaled = per_file.get("results_scaled.json")
     if scaled is None:
         pytest.skip("[repro] results_scaled.json absent")
-    assert f"{scaled:,}" in _hermes(), (
-        f"the main panel holds {scaled:,} per-item scores; .hermes.md does not "
-        f"say so, and it instructs whoever reads it to reproduce its numbers"
+    stated = _claimed(r"([\d,]+)\s+per-item scores in the main panel",
+                      "the main-panel count")
+    assert stated == scaled, (
+        f"the brief says the main panel holds {stated:,} per-item scores; "
+        f"results_scaled.json holds {scaled:,}"
     )
 
 
 def test_the_total_count_is_the_total():
     per_file = _totals()
     total = sum(per_file.values())
-    assert f"{total:,}" in _hermes(), (
-        f"the released raw files hold {total:,} per-item scores between them; "
-        f".hermes.md states a different total"
+    stated = _claimed(r"([\d,]+)\s+across the\s+\w+\s+released raw files",
+                      "the total across the raw files")
+    assert stated == total, (
+        f"the brief says {stated:,} scored judgments across the raw files; the "
+        f"released data holds {total:,}. Per file: {per_file}"
     )
 
 
