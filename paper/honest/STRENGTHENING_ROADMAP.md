@@ -81,6 +81,17 @@ replicate). The stage ladder covers OLMo-2-1B/7B and Tulu-3-8B.
 24. **[gpu]** Extract a responsiveness steering vector and test whether adding or
     subtracting it modulates measured bias. Turns mechanism into control, and is
     the likeliest single result to lift this into a top-tier venue.
+
+    **Correction (2026-09-07):** the general form of this is now published. Xu
+    et al., *Inside the Unfair Judge* (arXiv:2607.11871, 13 July 2026), recover a
+    low-dimensional bias subspace from a judge's hidden states and show that
+    steering along it moves scores in both directions, over seven judges and
+    seven bias types. Building the same thing here is now a replication rather
+    than a venue-changing result, and the ranking below was written before that
+    was true. What nobody has done is the *join*: whether their subspace and the
+    responsiveness term measured here are the same object seen two ways. That
+    question is cheaper than either paper's original experiment and neither can
+    answer it alone.
 25. **[gpu]** Patch SFT-stage activations into the RLVR checkpoint -- can the
     SFT-installed responsiveness be undone downstream?
 26. **[gpu]** Tuned-lens or logit-lens at the score position, to visualize when
@@ -157,6 +168,13 @@ human judgement. The first two close the scope hole, the third covers the
 dominant deployment mode, the fourth is the likeliest route to a top-tier
 result, and the fifth answers the one objection a determined referee can
 otherwise press indefinitely.
+
+**Correction (2026-09-07):** re-rank this. Item 24's premise is gone (see its
+entry), so the strongest remaining move here is item 2 -- the 32B harness that
+is written, committed and has still never been run. It is also the gap a
+competitor has now closed from the other side: Zahraei et al. judge with
+OLMo-3.1-32B at base, SFT, DPO and RLVR, while the causal contrast in this
+paper still stops at a 4-bit quantized 14B.
 
 ## What is deliberately not on this list
 

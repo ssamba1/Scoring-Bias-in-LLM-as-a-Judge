@@ -137,6 +137,15 @@ answer is publishable; running it converts the paper's biggest limitation into a
 OLMo-2 and Tülu publish intermediate checkpoints (SFT-only, +DPO, +final). Run the
 harness on each stage: which stage inflates responsiveness? Turns "instruction tuning"
 from a black box into a stage-resolved claim. No other paper in this niche has this.
+
+**Correction (2026-09-07):** not true any more, and it was a claim about the
+literature rather than about this study -- the kind that ages without anyone
+editing it. Zahraei et al., *Prior Beliefs Prejudice LLM-as-Judge* (Findings of
+ACL 2026), trace a belief-agreement bias down the same Tulu-3 SFT/DPO/RLVR
+ladder, and also run OLMo-3.1-32B with base, SFT, DPO and RLVR checkpoints.
+What is still particular to this study is the two-term decomposition measured
+at each stage, not stage resolution itself. C1 and C2 are both done and in the
+paper; this section is left otherwise as the 2026-07-19 snapshot it says it is.
 *Cost*: 1–2 Kaggle GPU sessions, harness reuse.
 
 **C3. Human validation of the gold set.**
