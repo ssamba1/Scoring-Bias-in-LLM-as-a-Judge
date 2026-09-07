@@ -99,11 +99,19 @@ def _count_judgments():
             leaf = keypath.rsplit(".", 1)[-1]
             if leaf not in SCORE_ARRAYS:
                 continue
-            numeric = all(
-                isinstance(v, (int, float)) and not isinstance(v, bool) for v in value
-            )
-            if value and numeric:
-                count += len(value)
+            # A `null` is a recorded parse failure, not a malformed array.
+            # Dropping the whole vector around one loses the scores that did
+            # come back: five arrays of twenty hold nine nulls between them, so
+            # the old rule discarded 91 real scores to exclude 9 absent ones.
+            if not value:
+                continue
+            if any(
+                entry is not None
+                and (not isinstance(entry, (int, float)) or isinstance(entry, bool))
+                for entry in value
+            ):
+                continue
+            count += sum(1 for entry in value if entry is not None)
         if count:
             per_file[path.name] = count
             total += count

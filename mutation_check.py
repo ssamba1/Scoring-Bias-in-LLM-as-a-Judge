@@ -1583,7 +1583,7 @@ MUTATIONS = [
         # The agent instructions state a study size no count of the released
         # data produces, in the section headed "must be correct in all outputs".
         ".hermes.md",
-        "64,540 across the",
+        "64,531 across the",
         "62,940 across the",
         "tests/test_the_agent_findings_match_the_data.py",
         "the agent instructions state an uncountable study size",
@@ -1683,6 +1683,30 @@ MUTATIONS = [
         'x-prior-title: A 22-Model Landscape with Base-Instruct Comparison\ntitle: "Confidence Is Not Robustness',
         "tests/test_no_fabricated_artefacts.py",
         "a fabricated scale claim returns in a different case",
+    ),
+    (
+        # A prose reflow disarms a registered mutation. No word changes and the
+        # PDF is byte-identical, but the anchor of the "cited work's design
+        # mischaracterised again" entry now spans a newline and can no longer be
+        # applied -- so the guard it exercises stops being exercised, while the
+        # registration still reads as coverage. This happened for real on
+        # 2026-09-07, from an ordinary rewrap of the Related Work paragraph.
+        "paper/honest/scoring_bias_v2.tex",
+        "thirteen instruction-tuned judges on answers from both base and instruction-tuned",
+        "thirteen instruction-tuned judges on answers from both base and\ninstruction-tuned",
+        "tests/test_every_mutation_anchor_still_exists.py",
+        "a prose reflow disarms a registered mutation",
+    ),
+    (
+        # The file count reverts to the narrow reading. Ten is what you get by
+        # looking for the literal `per_item` key alone; results_sampled.json
+        # stores ev_per_item and sampled_per_item, so the narrow count misses a
+        # whole file. It read "ten" for weeks with nothing checking it.
+        ".hermes.md",
+        "eleven released raw files",
+        "ten released raw files",
+        "tests/test_the_agent_findings_match_the_data.py",
+        "the agent brief undercounts the released score files",
     ),
     (
         # An artifact stops naming the archive of record, so two files answer

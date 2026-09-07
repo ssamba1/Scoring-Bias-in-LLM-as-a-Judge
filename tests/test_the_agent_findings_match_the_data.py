@@ -4,9 +4,16 @@
 and tells the reader they "are checked against the data by check_prose.py".
 Every figure in it was -- every figure except one. "62,940 scored judgments"
 appeared in no other document, was absent from macros.tex, and matched no count
-of the released files. The main panel holds 19,500 per-item scores and the ten
-raw files that record per-item scores hold 63,040 between them. Excluding the
-nine unparsed sampled cells gives 63,031. Nothing gives 62,940.
+of the released files. The main panel holds 19,500 per-item scores, and the
+eleven raw files that record per-item scores hold 64,531 between them.
+
+That total is the number of scores actually recorded, which is neither of the
+two figures this repository was computing. Nine sampled cells failed to parse
+and are stored as `null`, in five arrays of twenty. Counting every slot gives
+64,540 and credits the study with nine judgments it never made; discarding each
+array that contains a null gives 64,440 and throws away the 91 scores that did
+come back. Two guards had drifted onto opposite sides of that hundred, and
+`_scored` below is now the single rule both use.
 
 A wrong number in that section is worse than a wrong number in the paper,
 because the section instructs whoever reads it to reproduce it downstream.
@@ -42,6 +49,26 @@ def _load(path):
     return json.loads(path.read_text(encoding="utf-8", errors="replace"))
 
 
+def _scored(value):
+    """Entries in a score vector that hold a score.
+
+    A `null` is a recorded parse failure: the harness tried and got nothing
+    back. Counting it inflates the study by cells that were never scored, and
+    discarding the whole array around it throws away the ones that were. Nine
+    nulls sit in five arrays of twenty, so the two mistakes differ by a hundred
+    -- which is exactly how far the two counters in this repository drifted
+    apart before both were pointed at this function's rule.
+    """
+    if not value:
+        return 0
+    for entry in value:
+        if entry is None:
+            continue
+        if not isinstance(entry, (int, float)) or isinstance(entry, bool):
+            return 0  # not a score vector at all
+    return sum(1 for entry in value if entry is not None)
+
+
 def _count(blob):
     total = 0
     stack = [blob]
@@ -50,7 +77,7 @@ def _count(blob):
         if isinstance(node, dict):
             for key, value in node.items():
                 if key in SCORE_KEYS and isinstance(value, list):
-                    total += len(value)
+                    total += _scored(value)
                 else:
                     stack.append(value)
         elif isinstance(node, list):
@@ -99,6 +126,26 @@ def test_the_total_count_is_the_total():
     assert f"{total:,}" in _hermes(), (
         f"the released raw files hold {total:,} per-item scores between them; "
         f".hermes.md states a different total"
+    )
+
+
+def test_the_file_count_is_the_file_count():
+    """The count of files was never checked, and was wrong for weeks.
+
+    Ten is what you get by looking for the literal `per_item` key;
+    results_sampled.json stores `ev_per_item` and `sampled_per_item`, so the
+    narrow reading misses it. The same narrowing has been corrected in two
+    per-item detectors already.
+    """
+    per_file = _totals()
+    words = {9: "nine", 10: "ten", 11: "eleven", 12: "twelve", 13: "thirteen"}
+    expected = words.get(len(per_file))
+    assert expected, (
+        f"{len(per_file)} raw files carry score vectors; extend this word list"
+    )
+    assert f"{expected} released raw files" in _hermes(), (
+        f"{len(per_file)} released raw files carry per-item score vectors "
+        f"({sorted(per_file)}); .hermes.md does not say {expected}"
     )
 
 
