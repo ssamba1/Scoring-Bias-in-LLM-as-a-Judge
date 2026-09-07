@@ -97,3 +97,76 @@ def test_the_sweep_actually_finds_the_known_surfaces():
         "none of the listed surfaces currently names a DOI, so the sweep has "
         "nothing to compare and would pass regardless"
     )
+
+
+_WORDS = {
+    "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
+    "ten": 10, "eleven": 11, "twelve": 12,
+}
+
+
+def _surfaces_naming_the_live_doi():
+    """file -> how many times it names the DOI the paper currently cites.
+
+    Taken from the tool's own sweep rather than reimplemented, so the guard and
+    the tool cannot disagree about what counts as a surface.
+    """
+    if not TOOL.exists():
+        pytest.skip("[release] release_doi.py not present")
+    sys.path.insert(0, str(REPO))
+    try:
+        import release_doi
+    finally:
+        sys.path.pop(0)
+    return dict(release_doi.current_dois().get(release_doi.LIVE, {}))
+
+
+def _stated(haystack, pattern, label):
+    found = re.search(pattern, haystack, re.I)
+    assert found, f"{label} is no longer stated in the form this guard reads"
+    word = found.group(1).lower()
+    assert word in _WORDS, f"{label}: {word!r} is not a number-word this guard knows"
+    return _WORDS[word]
+
+
+def test_the_prose_counts_of_doi_surfaces_recompute():
+    """Three places state how many files name the DOI. Two of them were wrong.
+
+    The tool's own docstring said "Five files cite it (README three times)" and
+    the checklist said eight, twice. The sweep reports nine, README five times,
+    every time it runs. DOI_SURFACES was correct throughout -- release_doi.py
+    became a surface itself when it grew a LIVE constant, and neither sentence
+    followed.
+
+    The existing guards compare the declared list against the filesystem. That
+    is the right check and structurally could not catch this: the list was not
+    wrong. The English beside it was, and nothing read the English.
+    """
+    surfaces = _surfaces_naming_the_live_doi()
+    total = len(surfaces)
+    readme = surfaces.get("README.md")
+    assert readme, "README.md no longer names the DOI; re-anchor this guard"
+
+    doc = (REPO / "release_doi.py").read_text(encoding="utf-8", errors="replace")
+    stated = _stated(doc, r"(\w+) files cite it", "the tool's docstring count")
+    assert stated == total, (
+        f"release_doi.py's docstring states {stated} citing files; the sweep "
+        f"finds {total}: {sorted(surfaces)}"
+    )
+    stated = _stated(doc, r"README (\w+) times", "the tool's README count")
+    assert stated == readme, (
+        f"release_doi.py's docstring states README names it {stated} times; the "
+        f"sweep finds {readme}"
+    )
+
+    checklist = (REPO / "paper" / "submission_checklist.md").read_text(
+        encoding="utf-8", errors="replace")
+    flat = " ".join(checklist.split())
+    stated = _stated(flat, r"(\w+) files name the DOI", "the checklist count")
+    assert stated == total, (
+        f"the checklist states {stated} files name the DOI; the sweep finds {total}"
+    )
+    stated = _stated(flat, r"the swap touches (\w+) files", "the checklist swap count")
+    assert stated == total, (
+        f"the checklist states the swap touches {stated} files; the sweep finds {total}"
+    )

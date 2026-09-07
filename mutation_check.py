@@ -1698,6 +1698,19 @@ MUTATIONS = [
         "a prose reflow disarms a registered mutation",
     ),
     (
+        # The tool's own docstring understates how many files it has to edit.
+        # DOI_SURFACES stays right, so every guard comparing the list against
+        # the filesystem still passes; only the sentence describing the list is
+        # wrong. It read "Five files ... README three times" against a real nine
+        # and five, because release_doi.py became a surface itself and the prose
+        # did not follow.
+        "release_doi.py",
+        "Nine files cite it (README five times)",
+        "Six files cite it (README five times)",
+        "tests/test_the_release_tool_knows_every_doi_surface.py",
+        "the release tool misstates how many files name the DOI",
+    ),
+    (
         # A total framing a disclosed limitation drifts from the data. The
         # limitation itself -- seven unverifiable panel sizes -- stays correct,
         # which is what makes this hard to see: the sentence everybody re-reads

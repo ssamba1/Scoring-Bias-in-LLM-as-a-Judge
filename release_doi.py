@@ -16,8 +16,12 @@ that is what this script does.
         Rewrites every surface that cites the DOI, in one pass, then verifies
         that none is left on the old one.
 
-Five files cite it (README three times), which is the shape of edit where one
-copy is missed and nobody notices until a reader clicks the wrong link.
+Nine files cite it (README five times), which is the shape of edit where one
+copy is missed and nobody notices until a reader clicks the wrong link. This
+line read "Five files ... README three times" until 2026-09-07, understating
+its own surface by four files -- including release_doi.py itself, which became
+a surface when it grew a LIVE constant. DOI_SURFACES was right the whole time;
+only the sentence describing it was wrong, and no guard read the sentence.
 tests/test_the_release_tool_knows_every_doi_surface.py fails if a sixth appears.
 """
 import argparse

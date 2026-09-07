@@ -87,14 +87,14 @@ quietly outlive what it describes.
       before submitting, or cite the concept DOI 10.5281/zenodo.21499822, which
       always resolves to the newest version. Minting is the author's own action.
 
-      The edit either side of minting is scripted, because eight files name the
+      The edit either side of minting is scripted, because nine files name the
       DOI and README names it five times:
 
           python release_doi.py bundle                    # files to upload
           python release_doi.py set-doi 10.5281/zenodo.<new>
           python paper/honest/arxiv_package.py && python -m pytest tests/ -q
 
-      Rehearsed end to end on a throwaway clone: the swap touches eight files,
+      Rehearsed end to end on a throwaway clone: the swap touches nine files,
       leaves the concept DOI and the retracted deposit's ID alone, and the suite
       passes afterwards with this item's guard standing down by itself.
 
