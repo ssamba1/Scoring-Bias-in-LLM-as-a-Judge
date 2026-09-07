@@ -36,9 +36,19 @@ def _row():
     text = PAPER.read_text(encoding="utf-8", errors="replace")
     match = re.search(
         r"\\textbf\{This work\}\s*&\s*\\textbf\{(\d+)\s*\((\d+)\s*new\)\}\s*&\s*"
-        r"\\textbf\{\\?(\w+)\}", text)
+        r"\\textbf\{([^}]*)\}", text)
     if not match:
-        pytest.skip("[paper] the positioning row is not in the expected form")
+        # Skipping here once meant that widening the judges column -- from a
+        # bare macro to "\\NFAM fam./26 ckpt." -- silently switched off every
+        # check below, and the registered mutation on this row stopped being
+        # caught. A row that exists but cannot be parsed is a defect in this
+        # guard, not a reason to stand down.
+        assert "\\textbf{This work}" not in text, (
+            "the positioning row is present but this guard cannot parse it; "
+            "every check below would have skipped silently. Update the "
+            "pattern deliberately rather than letting a reformat disable it."
+        )
+        pytest.skip("[paper] the table has no self-row")
     return match
 
 
@@ -83,7 +93,7 @@ def test_the_row_counts_the_families_in_the_panel():
     row = _row()
     families = row.group(3)
     text = PAPER.read_text(encoding="utf-8", errors="replace")
-    if families == "NFAM":
+    if "NFAM" in families:
         # The macro is checked against the panel elsewhere; here it only has to
         # be the macro rather than a number typed beside it.
         assert "\\newcommand{\\NFAM}" in text or "NFAM" in text

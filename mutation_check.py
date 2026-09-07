@@ -2444,6 +2444,17 @@ MUTATIONS = [
         "a factor of the call count drifts from the run",
     ),
     (
+        # A cross-reference range is turned around. Both ends still resolve, so
+        # the build is silent, no number changes, and the PDF prints "5.12-5.3".
+        # The paper carried exactly this defect -- anatomy--predict, rendering
+        # as 5.20-5.12 -- from the honest rewrite until the sweep of 2026-09-07.
+        "paper/honest/scoring_bias_v2.tex",
+        "tested in \\S\\ref{sec:mech}--\\ref{sec:predict}",
+        "tested in \\S\\ref{sec:predict}--\\ref{sec:mech}",
+        "tests/test_cross_reference_ranges_run_forwards.py",
+        "a cross-reference range is turned around",
+    ),
+    (
         # A guard loses its only registration, so nothing shows it can fail.
         #
         # The replacement misspells the *directory* rather than the file. Written

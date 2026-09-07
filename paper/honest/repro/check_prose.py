@@ -968,6 +968,100 @@ if f"{n_pos}/{wcr['n_checkpoints']}" != "25/26":
 close("within-checkpoint responsiveness rho", 0.65, wcr["mean_within_rho"], 0.006)
 close("within-checkpoint entropy rho", -0.05, rob["B1_within_checkpoint"]["mean_within_rho"], 0.006)
 
+# ---------------------------------------------------------------------------
+# Numbers nothing was watching.
+#
+# A coverage sweep on 2026-09-07 compared every decimal value in the paper
+# against the values named in this file and in tests/. Five were watched by
+# neither. All five proved correct, so this is a coverage gap rather than a
+# correction -- but they are the same shape as the two digits that WERE wrong
+# in the previous round: a value quoted once, derived in one file, and re-read
+# by nothing. Being unwatched is the condition those defects needed.
+# ---------------------------------------------------------------------------
+closed_pooled = json.loads((HERE / "results_closed_analysis.json").read_text())["pooled"]
+close("open-panel mean entropy, quoted against the frontier's",
+      1.77, closed_pooled["open_mean_entropy"])
+# Not the same quantity as P20c's open_instruct_mean_delta (0.694): this one
+# pools base and instruct cells, that one is instruct-only. The paper quotes
+# both, in different sentences, and quoting either where the other belongs
+# would read perfectly.
+close("open-panel mean bias over all cells, quoted against the frontier's",
+      0.57, closed_pooled["open_mean_delta_cells"])
+
+gold_control = json.loads((HERE / "results_gold.json").read_text())["control"]
+close("instruct good-bad margin on unperturbed items",
+      1.26, gold_control["instruct"]["mean_margin"])
+
+dose_cells = json.loads((HERE / "results_dose_analysis.json").read_text())["per_cell"]
+first_dose = [c for c in dose_cells if c["family"] == "Qwen2.5-1.5B"
+              and c["kind"] == "base" and c["probe"] == "authority"]
+if len(first_dose) != 1:
+    FAILS.append(
+        f"dose: expected exactly one Qwen2.5-1.5B base authority cell, "
+        f"found {len(first_dose)}"
+    )
+else:
+    close("the first-dose jump the step-function example quotes",
+          0.61, first_dose[0]["shifts"][1])
+
+# ---------------------------------------------------------------------------
+# The Tulu-3 ladder this paper and Zahraei et al. both measured. Their numbers
+# are theirs and are verified in CITATION_VERIFICATION.md, not here; these are
+# ours, and the paragraph's argument is entirely in the direction of each step.
+# ---------------------------------------------------------------------------
+tulu = stages["P8_paths"]["Tulu-3-8B"]
+for label, measured, quoted in (
+    ("Tulu-3 entropy path", tulu["entropy_path"], (1.58, 0.92, 1.11)),
+    ("Tulu-3 responsiveness path", tulu["resp_path"], (0.37, 0.41, 0.40)),
+    ("Tulu-3 bias path", tulu["bias_path"], (1.33, 1.47, 1.38)),
+):
+    if len(measured) != len(quoted):
+        FAILS.append(
+            f"{label}: the ladder holds {len(measured)} stages, the paper "
+            f"prints {len(quoted)}"
+        )
+        continue
+    for q, a in zip(quoted, measured):
+        close(label, q, a)
+
+states("the Tulu-3 entropy path as printed", r"$1.58 \to 0.92 \to 1.11$", 1)
+states("the Tulu-3 responsiveness path as printed", r"$0.37 \to 0.41 \to 0.40$", 1)
+states("the Tulu-3 bias path as printed", r"$1.33 \to 1.47 \to 1.38$", 1)
+
+# The paragraph's one quantitative comparison across the two studies.
+close("our DPO bias rise as a fraction",
+      0.11, (tulu["bias_path"][1] - tulu["bias_path"][0]) / tulu["bias_path"][0])
+states("the two DPO rises side by side",
+       r"their DPO rise is $35\%$ and ours $11\%$", 1)
+
+# The paragraph now says responsiveness and bias rise by the same 11% at DPO,
+# which is the sentence that withdraws the decisiveness attribution. If those
+# two stopped agreeing, the withdrawal would be the wrong call and the prose
+# would still read as though it were right.
+close("the DPO responsiveness rise as a fraction",
+      0.11, (tulu["resp_path"][1] - tulu["resp_path"][0]) / tulu["resp_path"][0])
+states("the sentence that declines to attribute the rise to either term",
+       r"responsiveness rises $11\%$ and bias rises $11\%$", 1)
+
+# The transition the paragraph declines to claim, and why.
+olmo7 = stages["P8_paths"]["OLMo-2-7B"]
+close("the OLMo-2-7B RLVR bias change the paragraph calls unresolvable",
+      -0.0003, olmo7["bias_path"][3] - olmo7["bias_path"][2])
+
+# Tulu-3's RLVR step is the one place entropy rises; the paragraph leans on it
+# being the only one, which P8 already reports as seven falls out of eight.
+rises = sum(
+    1
+    for fam in stages["P8_paths"].values()
+    for a, b in zip(fam["entropy_path"], fam["entropy_path"][1:])
+    if b > a
+)
+if rises != 1:
+    FAILS.append(
+        f"the paper calls Tulu-3's RLVR step the single transition where "
+        f"entropy rises; the ladder now holds {rises}"
+    )
+
 if FAILS:
     print("PROSE-CONSISTENCY FAILURES:")
     for f in FAILS:

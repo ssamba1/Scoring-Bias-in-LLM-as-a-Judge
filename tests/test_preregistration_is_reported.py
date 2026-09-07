@@ -91,7 +91,7 @@ def test_the_registered_grouping_is_reported_where_it_differs():
     if "P4" not in paper:
         pytest.skip("[paper] P4 not discussed")
     flat = " ".join(paper.split())
-    assert re.search(r"authority and verbosity alone|as registered", flat), (
+    assert re.search(r"authority and verbosity alone|\bas registered\b", flat), (
         "P4 registered the content group as (authority, verbosity); the paper "
         "must report that grouping, not only the wider one"
     )

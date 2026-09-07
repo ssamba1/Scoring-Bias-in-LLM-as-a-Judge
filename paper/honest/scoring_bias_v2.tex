@@ -154,7 +154,7 @@ susceptibility to irrelevant factors; \citet{shi2024position} study position bia
 systematically; \citet{gu2024survey} survey the field; \citet{park2024offsetbias}
 mitigate via debiased tuning data; and \citet{lee2025correctly} argue for careful,
 reproducible reporting---which our per-item, single-script protocol embodies. The
-largest audit to date is \citet{norman2026reliability}: 21 judges from nine
+largest of these audits is \citet{norman2026reliability}: 21 judges from nine
 providers over approximately $541{,}000$ judgments, reporting what they call a
 consistency--bias paradox---test--retest reliability above $0.95$ coexisting with
 position bias above $0.10$. That a judge can be highly \emph{repeatable} and highly
@@ -175,7 +175,7 @@ make the distribution itself the object of analysis. Concurrently,
 side, and \citet{soumik2026judging} benchmark bias-mitigation strategies; our
 decomposition supplies the missing account of \emph{why} confidence-raising
 mitigations fail while nuisance-removal succeeds
-(\S\ref{sec:anatomy}--\ref{sec:predict}).
+(\S\ref{sec:predict} and \S\ref{sec:anatomy}).
 
 \paragraph{Tuning as the origin of bias.} That alignment tuning can \emph{install}
 biases rather than remove them is established outside judging:
@@ -195,11 +195,13 @@ the T\"ulu-3 alignment pipeline and report it present at SFT, substantially
 amplified by DPO---misinformation $+2.44 \to +3.29$, a $35\%$ increase---and
 neither resolved nor significantly worsened by RLVR ($+3.14$); a model-organism
 experiment, fine-tuning on documents about a fictional person, makes their
-attribution causal. We take this as convergent rather than competing, and it is a
-sharper test of our account than any we ran ourselves: a stage that raises bias by
-a third while adding no new nuisance sensitivity is what a decisiveness-driven
-increase looks like, and the decomposition of \S\ref{sec:theory} predicts that
-where a description of the same curve does not. Our contribution is therefore not
+attribution causal. We take this as convergent rather than competing. On the same
+three checkpoints we measure both terms of the decomposition, and at each of
+their two transitions the terms point the same way, so the direction of their
+curve is one ours calls without ambiguity (\S\ref{sec:retro}). We are careful
+in that section about what this does and does not establish: their study did not
+measure responsiveness, and ours cannot say from these three points which term
+drove their rise. Our contribution is therefore not
 the sign of any single effect: it is that bias is governed by a two-term
 decomposition of the score distribution (decisiveness and responsiveness), that
 both terms are measured, that the split between them is causally localised, and
@@ -215,11 +217,11 @@ the same features anticipates judge failures on unseen benchmarks. Their causal
 handle and ours answer different questions. They intervene \emph{within} a fixed
 judge, showing a bias direction is causally load-bearing; we patch \emph{between} a
 base and an instruct checkpoint of the same model
-(\S\ref{sec:patch}--\ref{sec:spanpatch}), showing which representational change
+(\S\ref{sec:patch} and \S\ref{sec:spanpatch}), showing which representational change
 \emph{tuning made} is responsible. Neither subsumes the other, and the natural next
 question---whether their bias subspace and our responsiveness term
 $\|\delta_\pi\|$ are the same object measured two ways---is one we cannot settle
-here and flag as the most informative test either framework could run.
+here, and the one we would most like to see either framework run.
 \citet{kapetanovic2026anchoring} is likewise concurrent and bears directly on our
 one preregistered null: across $185{,}271$ successful evaluations they find that a
 \emph{prior score} carried in context metadata anchors judgments---on seven of the
@@ -685,6 +687,39 @@ responsiveness rise dominates and bias increases across all five types; the effe
 mitigation is therefore not to make the judge sharper but to remove the nuisance
 dimension (e.g.\ average over label formats, withhold exemplars), which we show cuts bias
 by 59\% where a more decisive readout makes it worse.
+
+\paragraph{A stage curve we did not measure.}\label{sec:retro} \citet{zahraei2026prior} ran the
+T\"ulu-3 ladder we ran, for a bias we did not study, with a different readout on
+a different scale, and published before this comparison was made. Their
+belief-agreement gap rises at DPO and falls slightly at RLVR in both of their
+categories (misinformation $+2.44 \to +3.29 \to +3.14$; harmful $+1.97 \to +2.44
+\to +2.38$). On the same three checkpoints we measured both terms
+(\S\ref{sec:stages}): entropy $1.58 \to 0.92 \to 1.11$ bits, responsiveness
+$0.37 \to 0.41 \to 0.40$, bias $1.33 \to 1.47 \to 1.38$. DPO sharpens hard while
+adding little responsiveness, and both terms point the same way; at RLVR---the
+single transition in the ladder where entropy \emph{rises}, the exception to
+P8---both point the other way. These are therefore the two transitions where the
+decomposition calls a direction without having to weigh one term against the
+other, and it calls both correctly: their curve turns where ours does.
+
+Five things this is not. It is a \emph{retrodiction}: their result existed
+before we looked, nothing about it was registered, and no forecast is claimed. It
+is a match in \emph{direction only}---their DPO rise is $35\%$ and ours $11\%$,
+on scales that do not convert. It is one model family and two transitions, which
+in isolation is a weak test. The agreement is not uniform across our own ladders
+either: on OLMo-2-7B's RLVR step both terms point up while bias moves by
+$-0.0003$, a change too small for the direction to mean anything, so the
+implication is not one we can claim always resolves. And---the constraint worth
+stating most plainly---it is \emph{not} an attribution to either term. At DPO
+responsiveness rises $11\%$ and bias rises $11\%$, so on this ladder the
+responsiveness term alone already accounts for the movement, which is what P9
+found across stage transitions generally; a decisiveness story would fit the
+entropy drop but is not what these three points show. What the comparison does
+establish is narrower and still worth reporting: an independent group's curve on
+this ladder turns at both stages where our two measured terms say a curve should
+turn, including at the one stage anywhere in the ladder that blunts the judge
+rather than sharpening it. Whether that holds beyond one ladder is the test we
+would most want to see run, and it needs no new data from us.
 
 \paragraph{What kind of thing is judge bias?} The preregistered extensions,
 including their failures, converge on a characterization. Bias is
