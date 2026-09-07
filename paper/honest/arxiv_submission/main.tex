@@ -972,7 +972,11 @@ and \textbf{authority} vary \emph{prefix} (empty / good / poor exemplar; expert 
 framing). \textbf{Verbosity} varies \emph{transform} (identity / padded / first-sentence).
 
 \section{Notation}\label{app:notation}
-\begin{table}[h]\centering\small
+% A glossary is the body of this section, not a float. A float may drift to
+% another page, which for a table of definitions is actively unhelpful, and an
+% uncaptioned float contradicts the submission checklist's claim that every
+% table carries a caption and is referenced.
+\begin{center}\small
 \begin{tabular}{ll}
 \toprule
 $a_k, v_k$ & answer tokens and their numeric values ($K=5$ throughout) \\
@@ -988,7 +992,7 @@ $\Delta$ & bias: max inter-variant spread of mean scores \citep{li2025scoring} \
 $D(\sigma)$ & normalized decisiveness $1-H(\sigma)/\log_2 K$ \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{center}
 
 \section{Compute disclosure}\label{app:compute}
 All experiments ran on a single free-tier Kaggle GPU (NVIDIA P100, 16\,GB); total

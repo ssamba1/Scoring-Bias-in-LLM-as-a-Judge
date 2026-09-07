@@ -1698,6 +1698,19 @@ MUTATIONS = [
         "a prose reflow disarms a registered mutation",
     ),
     (
+        # A figure loses its only reference. The float still typesets, the build
+        # reports nothing, and no number changes -- it simply sits on a page
+        # nobody sends the reader to. The submission checklist ticks the claim
+        # that every float is referenced, and until 2026-09-07 that tick was by
+        # eye. Uses the patching figure, whose reference lives inside a macro
+        # after an escaped percent sign, which is where a naive sweep loses it.
+        "paper/honest/macros.tex",
+        "layer~14 onward (Fig.~\\ref{fig:patch})",
+        "layer~14 onward",
+        "tests/test_every_float_is_captioned_and_referenced.py",
+        "a figure loses its only reference",
+    ),
+    (
         # The tool's own docstring understates how many files it has to edit.
         # DOI_SURFACES stays right, so every guard comparing the list against
         # the filesystem still passes; only the sentence describing the list is
@@ -1837,8 +1850,8 @@ MUTATIONS = [
     (
         # The checklist's figure count drifts from the paper it describes.
         "paper/submission_checklist.md",
-        "Results: 11 figures and 5 tables",
-        "Results: 21 figures and 5 tables",
+        "Results: 11 figures and 4 tables",
+        "Results: 21 figures and 4 tables",
         "tests/test_the_submission_checklist_describes_this_paper.py",
         "the checklist miscounts the paper's figures",
     ),

@@ -31,7 +31,7 @@ quietly outlive what it describes.
 - [x] Introduction with the problem statement and research questions
 - [x] Related work with a positioning table
 - [x] Method with full reproduction details (§3)
-- [x] Results: 11 figures and 5 tables
+- [x] Results: 11 figures and 4 tables
 - [x] Discussion with the theoretical interpretation
 - [x] Limitations: 10 items (§7)
 - [x] Conclusion
@@ -43,7 +43,14 @@ quietly outlive what it describes.
 - [x] Every figure included by the paper is present and regenerates from
       committed data — `paper/honest/repro/check_figures.py` compares the text drawn into
       each vector PDF against the current analysis
-- [x] Every figure and table has a caption and is referenced in the text
+- [x] Every figure and table has a caption and is referenced in the text --
+      checked by `tests/test_every_float_is_captioned_and_referenced.py`, not
+      by eye. It was not quite true when that guard was written: the Notation
+      glossary was a `table` float with no caption and no label, so the claim
+      covered a float it could not describe. A glossary is the body of its
+      section rather than a float -- a float may drift to another page, which
+      for a table of definitions is actively unhelpful -- so it is a plain
+      centred block now, and the table count above went from five to four.
 - [x] No undefined `\ref{}` or `\label{}` — the archive build reports
       `undefined=0 overfull=0 missing=0`
 
