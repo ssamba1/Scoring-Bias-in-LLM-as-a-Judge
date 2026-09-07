@@ -55,12 +55,15 @@ EXPECTED = {
     "5.4": "The decomposition predicts cell-by-cell",
     "5.5": "Causal test: patching localizes the fix",
     "5.6": "Where responsiveness comes from",
+    "5.7": "Where the nuisance is encoded",
+    "5.9": "Two preregistered probes",
     "5.10": "Dose--response: a preregistered failure",
     "5.12": "Bias is predictable from decisiveness",
     "5.15": "Robustness to prompt template",
     "5.16": "Which alignment stage installs the bias?",
     "5.17": "Replication on public-dataset items",
     "5.22": "Frontier judges",
+    "6": "Discussion",
     "7": "Limitations",
 }
 
@@ -157,6 +160,34 @@ def test_the_prediction_count_matches_the_paper():
     assert re.search(rf"\b{count.capitalize()}|\b{count}\b", faq), (
         f"the paper says it preregistered {count} predictions; the FAQ does not "
         f"say so, and a reviewer reading both sees two different projects"
+    )
+
+
+def test_every_percentage_in_the_faq_is_one_the_paper_states():
+    """The FAQ must not invent a figure the paper does not carry.
+
+    This is a floor, not a proof. It asks whether the number appears in the
+    paper at all, which a number can satisfy while being attached to the wrong
+    quantity -- the responsiveness endpoint 0.26 sat in .hermes.md for weeks and
+    would have passed a check of this shape, because 0.26 is also the panel mean
+    bias. What it does catch is the drift that actually happens to this file: a
+    figure written into an answer and never taken from the paper, or left behind
+    when the paper's moved. Both have happened here before.
+    """
+    faq = _faq()
+    paper = PAPER.read_text(encoding="utf-8", errors="replace")
+    macros = HONEST / "macros.tex"
+    if macros.exists():
+        paper += macros.read_text(encoding="utf-8", errors="replace")
+    flat = paper.replace(",", "")
+
+    stated = sorted(set(re.findall(r"(\d+(?:\.\d+)?)\s*%", faq)))
+    assert stated, "the FAQ quotes no percentages; retire this guard on purpose"
+    missing = [value for value in stated if value not in flat]
+    assert not missing, (
+        f"the FAQ states {missing} as percentages that appear nowhere in the "
+        f"paper or its macros. Either the paper moved and the FAQ did not, or "
+        f"the answer quotes a figure that was never derived."
     )
 
 

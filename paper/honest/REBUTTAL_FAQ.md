@@ -67,6 +67,39 @@ alignment-stage ablation; a third (nuisance-span patching, P13) is preregistered
 The attention account is an honest *null* (§5.6), explicitly contrasted with the
 fabricated mechanism of the retracted prior version.
 
+**"Xu et al. (2026) already give a mechanism for judge bias."**
+They give a different one, and the two do not overlap. They intervene *within* a
+fixed judge, steering hidden states along a bias subspace to show it is causally
+load-bearing. We patch *between* a base and an instruct checkpoint of the same
+model (§5.5, §5.7), which is the only way to attribute a change to what tuning
+did — their design has no base checkpoint to compare against. Neither subsumes
+the other, and the obvious joint question, whether their subspace and our
+responsiveness term are the same object seen two ways, is one neither paper can
+answer alone. The positioning table credits them the mechanism and causal
+columns rather than claiming those cells.
+
+**"Zahraei et al. (2026) already ran the stage ablation."**
+On the same Tülu-3 ladder, for a different bias family, and they report the
+curve rather than decomposing it — their design measures no responsiveness term.
+What ours adds is both terms measured at each checkpoint. The Discussion (§6)
+shows their curve turns at both transitions where our two terms say a curve
+should turn, and says plainly that this is a retrodiction, not a forecast, and
+not an attribution to either term: at DPO responsiveness and bias both rise 11%,
+so responsiveness alone accounts for the movement.
+
+**"Anchoring is null here, but Kapetanovic et al. (2026) measure a large
+anchoring effect."**
+Different manipulations. Ours is a population base rate ("most responses of this
+kind receive a score of 5"); theirs is a prior score attached to the very text
+being judged, carried as revision metadata. §5.9 already argues that tuning
+inflates responsiveness to social and content framing rather than to every
+injected signal, and a verdict attributed to an earlier evaluator is social
+framing where a base rate is not. We state that as the reconciliation we believe
+correct, not one we have tested — running both anchor variants on this panel is
+the direct test and needs no new models. Note also that their token-level probe
+independently reproduces the shape our preregistered dose–response prediction
+failed into (§5.10): the anchor acts on presence, not magnitude.
+
 **"No frontier models."**
 Now tested (preregistered P20, §5.22): GPT-4o-mini, GPT-4o, and Llama-3.1-70B
 via API logprobs are biased on 5/5 probes each — the largest biases in the study

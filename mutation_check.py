@@ -1698,6 +1698,17 @@ MUTATIONS = [
         "a prose reflow disarms a registered mutation",
     ),
     (
+        # The rebuttal FAQ quotes a figure the paper does not carry. The FAQ is
+        # referee-facing and has been wrong here before -- it once answered a
+        # question with the opposite of what the paper says -- and a number
+        # written into an answer is never re-derived from the data.
+        "paper/honest/REBUTTAL_FAQ.md",
+        "responsiveness and bias both rise 11%",
+        "responsiveness and bias both rise 93%",
+        "tests/test_the_rebuttal_faq_points_at_the_paper.py",
+        "the rebuttal FAQ quotes a figure the paper does not carry",
+    ),
+    (
         # The record advertises a version it does not declare. Two fields state
         # one fact -- `version:` and the `message` naming the version to cite --
         # and release_doi.py rewrote neither until 2026-09-07, so a deposit left
