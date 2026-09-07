@@ -153,49 +153,135 @@ catalogued twelve bias types; \citet{chen2024humans} found humans and LLMs share
 susceptibility to irrelevant factors; \citet{shi2024position} study position bias
 systematically; \citet{gu2024survey} survey the field; \citet{park2024offsetbias}
 mitigate via debiased tuning data; and \citet{lee2025correctly} argue for careful,
-reproducible reporting---which our per-item, single-script protocol embodies. Separately,
-a literature on neural-network \emph{calibration} \citep{guo2017calibration,kadavath2022know}
-studies how well a model's confidence matches its accuracy, and \citet{saferluckier2025}
-show that high human-agreement does not imply artifact-robustness in safety judges; we
-connect confidence to judge bias at the score-distribution level---to our knowledge a
-link not previously drawn---and find, counterintuitively, that greater confidence
-accompanies greater bias. A parallel line adopts the score \emph{distribution} as the
-readout \citep{liu2023geval,wang2025judgmentdist,trustjudge2025}; we use that readout
-and make the distribution itself the object of analysis. Concurrently,
-\citet{tian2025overconfidence} diagnose judge overconfidence from the calibration side,
-and \citet{soumik2026judging} benchmark bias-mitigation strategies; our decomposition
-supplies the missing account of \emph{why} confidence-raising mitigations fail while
-nuisance-removal succeeds (\S\ref{sec:anatomy}--\ref{sec:predict}).
+reproducible reporting---which our per-item, single-script protocol embodies. The
+largest audit to date is \citet{norman2026reliability}: 21 judges from nine
+providers over approximately $541{,}000$ judgments, reporting what they call a
+consistency--bias paradox---test--retest reliability above $0.95$ coexisting with
+position bias above $0.10$. That a judge can be highly \emph{repeatable} and highly
+biased is the lesson our title states, reached from stability rather than from
+confidence and on far more judges; the two are complementary readings of one
+phenomenon. Separately, a literature on neural-network \emph{calibration}
+\citep{guo2017calibration,kadavath2022know} studies how well a model's confidence
+matches its accuracy, and \citet{saferluckier2025} show that high human-agreement
+does not imply artifact-robustness in safety judges; we connect confidence to judge
+bias at the score-distribution level---a link we have not found drawn elsewhere,
+and distinct from the reliability--bias coexistence above, since stability under
+resampling is not the sharpness of the score distribution---and find,
+counterintuitively, that greater confidence accompanies greater bias. A parallel
+line adopts the score \emph{distribution} as the readout
+\citep{liu2023geval,wang2025judgmentdist,trustjudge2025}; we use that readout and
+make the distribution itself the object of analysis. Concurrently,
+\citet{tian2025overconfidence} diagnose judge overconfidence from the calibration
+side, and \citet{soumik2026judging} benchmark bias-mitigation strategies; our
+decomposition supplies the missing account of \emph{why} confidence-raising
+mitigations fail while nuisance-removal succeeds
+(\S\ref{sec:anatomy}--\ref{sec:predict}).
 
-\paragraph{Origin of scoring bias.} \citet{li2025scoring} introduced the three
-scoring biases and called for root-cause analysis. \citet{thakur2024judging} evaluated
-thirteen instruction-tuned judges on answers from both base and instruction-tuned
-exam-takers, and \citet{pan2025user} used a base-vs-instruct \emph{judge} design to
-show instruction tuning \emph{introduces} a user-deference bias. Our
-contribution is orthogonal to the sign of any single effect: we show bias is governed
-by a two-term decomposition of the score distribution (decisiveness and responsiveness),
-determine which term dominates empirically, and give a measured, causal mechanism rather
-than a description (Table~\ref{tab:positioning}).
+\paragraph{Tuning as the origin of bias.} That alignment tuning can \emph{install}
+biases rather than remove them is established outside judging:
+\citet{itzhak2024instructed} compare pretrained against instruction-tuned and RLHF
+models on three cognitive biases---the decoy effect, the certainty effect and
+belief bias---and find a stronger presence of all three in the tuned models. Our
+headline result is the judging-side counterpart of theirs, and reaching it through
+a different task, a different bias family and a different readout is evidence that
+the phenomenon is not an artifact of either setup. Within judging,
+\citet{li2025scoring} introduced the three scoring biases and called for root-cause
+analysis; \citet{thakur2024judging} evaluated thirteen instruction-tuned judges on
+answers from both base and instruction-tuned exam-takers; and \citet{pan2025user}
+used a base-vs-instruct \emph{judge} design to show instruction tuning
+\emph{introduces} a user-deference bias. Closest to our stage analysis
+(\S\ref{sec:stages}), \citet{zahraei2026prior} trace a belief-agreement bias down
+the T\"ulu-3 alignment pipeline and report it present at SFT, substantially
+amplified by DPO---misinformation $+2.44 \to +3.29$, a $35\%$ increase---and
+neither resolved nor significantly worsened by RLVR ($+3.14$); a model-organism
+experiment, fine-tuning on documents about a fictional person, makes their
+attribution causal. We take this as convergent rather than competing, and it is a
+sharper test of our account than any we ran ourselves: a stage that raises bias by
+a third while adding no new nuisance sensitivity is what a decisiveness-driven
+increase looks like, and the decomposition of \S\ref{sec:theory} predicts that
+where a description of the same curve does not. Our contribution is therefore not
+the sign of any single effect: it is that bias is governed by a two-term
+decomposition of the score distribution (decisiveness and responsiveness), that
+both terms are measured, that the split between them is causally localised, and
+that every prediction was registered before its data existed
+(Table~\ref{tab:positioning}).
+
+\paragraph{Mechanistic and representation-level accounts.} Concurrent with this
+work, \citet{xu2026inside} give a representation-level account of judge scoring
+bias across seven judges, nine benchmarks and seven kinds of bias: biased inputs are
+displaced along a low-dimensional, type-specific subspace, steering hidden states
+along that subspace shifts scores in both directions, and a linear projection onto
+the same features anticipates judge failures on unseen benchmarks. Their causal
+handle and ours answer different questions. They intervene \emph{within} a fixed
+judge, showing a bias direction is causally load-bearing; we patch \emph{between} a
+base and an instruct checkpoint of the same model
+(\S\ref{sec:patch}--\ref{sec:spanpatch}), showing which representational change
+\emph{tuning made} is responsible. Neither subsumes the other, and the natural next
+question---whether their bias subspace and our responsiveness term
+$\|\delta_\pi\|$ are the same object measured two ways---is one we cannot settle
+here and flag as the most informative test either framework could run.
+\citet{kapetanovic2026anchoring} is likewise concurrent and bears directly on our
+one preregistered null: across $185{,}271$ successful evaluations they find that a
+\emph{prior score} carried in context metadata anchors judgments---on seven of the
+eight models tested the bootstrap interval for the anchored-metadata effect lies
+below zero, and Cohen's $d$ reaches $0.71$. Our anchoring probe is a population
+base rate (``most responses of this kind receive a score of 5''), theirs a score
+previously assigned to the very text being judged; on our reading the difference is
+the one our results already draw---tuning inflates responsiveness to social and
+content framing, and a prior verdict attributed to an earlier evaluator is such a
+framing where a base rate is not. We state this as the reconciliation we believe
+correct, not one we have tested, and it is directly testable on our panel. On
+selected model--task probes they also report a threshold-like pattern:
+introducing the anchor markedly redistributes score probability, while varying its
+magnitude within the tested range changes little. That is, independently and on
+different models, the shape our preregistered dose--response prediction failed into
+(\S\ref{sec:dose}).
 
 \begin{table}[t]\centering\small
-\caption{Positioning. Prior work documents or mitigates judge biases; we give a
-mechanism that is theoretical, measured, and causal. ``Mech.'' = offers an explanatory
-mechanism; ``Causal'' = intervention, not correlation; ``Decomp.'' = a quantitative
-decomposition of bias into judge-intrinsic and perturbation-specific terms.}
+\setlength{\tabcolsep}{3pt}
+\caption{Positioning. Earlier work documents or mitigates judge bias; three
+concurrent papers explain it, and the columns are where those explanations differ.
+``Design'' distinguishes a cross-sectional comparison \emph{between} deployed
+judges from a within-model contrast across tuning stages. ``Causal'' means an
+intervention rather than a correlation---and the three that have one intervene at
+different places: \citet{zahraei2026prior} fine-tune on injected documents,
+\citet{xu2026inside} steer activations inside a fixed judge, and we patch
+representations \emph{between} a base and an instruct checkpoint of the same model.
+``Decomp.'' is a quantitative split of bias into a judge-intrinsic and a
+perturbation-specific term, with both terms measured. Rows report each paper's own
+stated design; judge counts are distinct checkpoints evaluated as judges.}
 \label{tab:positioning}
-\begin{tabular}{lccccc}
+{\footnotesize
+\begin{tabular}{llccccc}
 \toprule
-\textbf{Work} & \textbf{Bias types} & \textbf{Models} & \textbf{Mech.} & \textbf{Causal} & \textbf{Decomp.} \\
+\textbf{Work} & \textbf{Biases} & \textbf{Judges} & \textbf{Design} & \textbf{Mech.} & \textbf{Causal} & \textbf{Decomp.} \\
 \midrule
-Wang et al.\ \citeyearpar{wang2023large}   & position           & 2  & --          & --  & -- \\
-Zheng et al.\ \citeyearpar{zheng2023judging}& length, position   & 6  & --          & --  & -- \\
-Ye et al.\ \citeyearpar{ye2024justice}     & 12 types           & 6  & --          & --  & -- \\
-Li et al.\ \citeyearpar{li2025scoring}     & 3 scoring          & 5  & --          & --  & -- \\
-Pan et al.\ \citeyearpar{pan2025user}      & user-deference     & 8  & partial     & --  & -- \\
+Wang et al.\ \citeyearpar{wang2023large}        & position            & 2  & cross & --      & -- & -- \\
+Zheng et al.\ \citeyearpar{zheng2023judging}    & length, position    & 6  & cross & --      & -- & -- \\
+Ye et al.\ \citeyearpar{ye2024justice}          & 12 types            & 6  & cross & --      & -- & -- \\
+Li et al.\ \citeyearpar{li2025scoring}          & 3 scoring           & 5  & cross & --      & -- & -- \\
+Norman \citeyearpar{norman2026reliability} & position, verbosity & 21 & cross & -- & -- & -- \\
+Kapetanovic \citeyearpar{kapetanovic2026anchoring} & anchoring & 8 & cross & partial & -- & -- \\
+Xu et al.\ \citeyearpar{xu2026inside}           & 7 types             & 7  & cross & \boldmath$\checkmark$ & \boldmath$\checkmark$ & -- \\
 \midrule
-\textbf{This work} & \textbf{7 (4 new)} & \textbf{\NFAM} & \boldmath$\checkmark$ & \boldmath$\checkmark$ & \boldmath$\checkmark$ \\
+Itzhak \citeyearpar{itzhak2024instructed} & 3 cognitive$^{\dagger}$ & 3 fam.\ & base$\to$tuned & -- & -- & -- \\
+Pan et al.\ \citeyearpar{pan2025user}           & user-deference      & 8  & base$\to$instr. & partial & -- & -- \\
+Zahraei \citeyearpar{zahraei2026prior}  & belief agreement    & 15 & stage ladder & partial & \boldmath$\checkmark$ & -- \\
+\midrule
+\textbf{This work} & \textbf{7 (4 new)} & \textbf{\NFAM\,fam./26\,ckpt.} &
+\textbf{both} & \boldmath$\checkmark$ & \boldmath$\checkmark$ & \boldmath$\checkmark$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
+
+\vspace{2pt}
+{\footnotesize $^{\dagger}$Not a judging task: the decoy, certainty and
+belief-bias effects in decision making, over the GPT-3, Mistral and T5 families.
+Included because it is the closest prior test of the proposition that tuning
+installs bias.\par
+One column is deliberately absent because only one row could fill it: every
+prediction in this paper was registered, with its analysis code committed, before
+the corresponding data existed, and seven are reported as failures. No other row
+reports preregistration.}
 \end{table}
 
 \section{Method}

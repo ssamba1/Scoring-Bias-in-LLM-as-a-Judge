@@ -58,6 +58,19 @@ ALLOWED = {
         "scored judgments' and the release holds 62,940. It equals no stored "
         "value by design; test_scale_claims_match_the_data checks the inequality."
     ),
+    # Related Work reports what other papers measured. Those numbers cannot come
+    # from this release, and should not: they are checked against their sources
+    # in CITATION_VERIFICATION.md, which is where a citation's numbers belong.
+    "185271": (
+        "the successful-evaluation count of Kapetanovic et al. (2608.25869), "
+        "quoted in Related Work. Verified against their abstract in "
+        "CITATION_VERIFICATION.md; it is their measurement, not ours."
+    ),
+    "541000": (
+        "the judgment count of Norman et al. (2606.19544), quoted in Related "
+        "Work. Verified against their abstract in CITATION_VERIFICATION.md; it "
+        "is their measurement, not ours."
+    ),
 }
 
 # LaTeX machinery whose digits are not claims.

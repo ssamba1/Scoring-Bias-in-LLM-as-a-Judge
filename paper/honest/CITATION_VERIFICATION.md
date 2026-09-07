@@ -1,8 +1,10 @@
 # Citation verification
 
-Checked 2026-08-21 against primary sources: the arXiv API
+Checked 2026-08-21, and again on 2026-09-07 for the five entries added that
+day, against primary sources: the arXiv API
 (`export.arxiv.org/api/query?id_list=...`) for every entry carrying an arXiv
-identifier, and the publisher's own page for the two that do not.
+identifier, Crossref for every DOI, and the publisher's own page for the two
+that carry neither.
 
 This exists because the offline guard in
 `tests/test_citations_are_well_formed.py` says plainly what it cannot do: it
@@ -18,9 +20,11 @@ Associative Algebras", a math.AG paper. And the companion project shipped a
 sentence in quotation marks attributed to a survey that does not contain it.
 A resolving identifier and a correct one are different things.
 
-**Result: 26 arXiv identifiers, all resolving, every title and first
-author matching the entry. Two further entries cite a publisher page rather
-than a preprint and were checked by hand. No phantoms, no misattributions.**
+**Result: 30 arXiv identifiers, all resolving, every title and first
+author matching the entry. One further entry (`zahraei2026prior`) is a
+proceedings paper with a DOI and no preprint, resolved through Crossref; two
+more cite a publisher page rather than a preprint and were checked by hand.
+No phantoms, no misattributions.**
 
 ## arXiv entries
 
@@ -29,11 +33,14 @@ than a preprint and were checked by hand. No phantoms, no misattributions.**
 | `chen2024humans` | 2402.10669 | Humans or LLMs as the Judge? A Study on Judgement Biases | Chen |
 | `gu2024survey` | 2411.15594 | A Survey on LLM-as-a-Judge | Gu |
 | `guo2017calibration` | 1706.04599 | On Calibration of Modern Neural Networks | Guo |
+| `itzhak2024instructed` | 2308.00225 | Instructed to Bias: Instruction-Tuned Language Models Exhibit Emergent Cognitive Bias | Itzhak |
 | `kadavath2022know` | 2207.05221 | Language Models (Mostly) Know What They Know | Kadavath |
+| `kapetanovic2026anchoring` | 2608.25869 | Anchoring Bias in LLM-as-a-Judge Systems: Prior Scores Compromise Evaluation Independence | Kapetanovic |
 | `lee2025correctly` | 2511.21140 | How to Correctly Report LLM-as-a-Judge Evaluations | Lee |
 | `li2025scoring` | 2506.22316 | Evaluating Scoring Bias in LLM-as-a-Judge | Li |
 | `liu2023geval` | 2303.16634 | G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment | Liu |
 | `llama3` | 2407.21783 | The Llama 3 Herd of Models | Grattafiori |
+| `norman2026reliability` | 2606.19544 | Reliability without Validity: A Systematic, Large-Scale Evaluation of LLM-as-a-Judge Models Across Agreement, Consistency, and Bias | Norman |
 | `olmo2` | 2501.00656 | 2 OLMo 2 Furious | OLMo Team |
 | `pan2025user` | 2508.15815 | User-Assistant Bias in LLMs | Pan |
 | `park2024offsetbias` | 2407.06551 | OffsetBias: Leveraging Debiased Data for Tuning Evaluators | Park |
@@ -48,6 +55,7 @@ than a preprint and were checked by hand. No phantoms, no misattributions.**
 | `trustjudge2025` | 2509.21117 | TrustJudge: Inconsistencies of LLM-as-a-Judge and How to Alleviate Them | Wang |
 | `wang2023large` | 2305.17926 | Large Language Models are not Fair Evaluators | Wang |
 | `wang2025judgmentdist` | 2503.03064 | Improving LLM-as-a-Judge Inference with the Judgment Distribution | Wang |
+| `xu2026inside` | 2607.11871 | Inside the Unfair Judge: A Mechanistic Interpretability Account of LLM-as-Judge Bias | Xu |
 | `ye2024justice` | 2410.02736 | Justice or Prejudice? Quantifying Biases in LLM-as-a-Judge | Ye |
 | `zheng2023judging` | 2306.05685 | Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena | Zheng |
 
@@ -86,7 +94,32 @@ Every remaining priority verb next to a citation was checked on 2026-08-21.
 | `li2025scoring` "introduced the three scoring biases and called for root-cause analysis" | 2506.22316 | Supported. They examine rubric order, score ID and reference answer, and their Limitations ask for the causes to be validated -- the sentence this paper quotes. |
 | `thakur2024judging` "evaluated thirteen instruction-tuned judges on answers from both base and instruction-tuned exam-takers" | 2406.12624 | Supported. This is the corrected wording; the earlier version said they "found base and instruct judges differ", which reversed which side of their design the split is on. |
 
+| `itzhak2024instructed` "compare pretrained against instruction-tuned and RLHF models ... and find a stronger presence of all three in the tuned models" | abstract, 2308.00225 | Supported, close to verbatim: "we find a stronger presence of biases in models that have undergone instruction tuning". The three biases named in the paper (decoy, certainty, belief bias) are the three the abstract names. |
+| `norman2026reliability` "21 judges from nine providers over approximately 541,000 judgments ... test-retest reliability above 0.95 coexisting with position bias above 0.10" | abstract, 2606.19544 | Supported. "21 judges from nine providers", "approximately 541,000 individual judgments", and the consistency-bias paradox is their own term for ">0.95" reliability with ">0.10" position bias. |
+| `xu2026inside` "biased inputs are displaced along a low-dimensional, type-specific subspace ... steering shifts scores in both directions ... a linear projection anticipates judge failures on unseen benchmarks" | abstract and HTML body, 2607.11871 | Supported. Judge count (7), bias-type count (7: prestige, verbosity, bandwagon, authority, sentiment, refinement, diversity) and benchmark count (9) all read from the paper; the judge names are deliberately not listed here, because one of them matches a pattern in `tests/fabricated_signatures.py` and a record file is not worth weakening that sweep for. It reports no training-stage comparison, no decomposition and no preregistration -- the three cells its row leaves empty. |
+| `zahraei2026prior` "present at SFT, substantially amplified by DPO -- misinformation +2.44 -> +3.29, a 35% increase -- and neither resolved nor significantly worsened by RLVR (+3.14)" | Section 5.4 and Table 2 of the ACL PDF | Supported, and quoted from the section itself, not the project page. Table 2's misinformation T1 row reads 40.7% (+2.44) / 54.8% (+3.29) / 52.3% (+3.14). The causal claim in its table row is their model-organism experiment (Appendix C: fine-tuning on documents about a fictional person shifts ratings symmetrically), not the stage ladder. Judge count 15 taken from their main results figure. |
+| `kapetanovic2026anchoring` "across 185,271 successful evaluations ... on seven of the eight models tested the bootstrap interval ... lies below zero, and Cohen's d reaches 0.71" | abstract, 2608.25869 | Supported, and this row records a defect caught in drafting: an earlier version wrote "|d| up to 0.71 on seven of eight models", which joins two separate results. Seven of eight is the count whose task-stratified bootstrap interval for the total anchored-metadata effect lies below zero; 0.71 is the maximum absolute Cohen's d. Likewise their threshold finding is reported as a suggestion from "selected model-task probes", and the paper says so rather than calling it a reproduction. |
+
 No priority verb in the paper claims something its source does not.
+
+## Second pass, 2026-09-07
+
+Five entries were added in one pass: `itzhak2024instructed`,
+`norman2026reliability`, `xu2026inside`, `zahraei2026prior` and
+`kapetanovic2026anchoring`. All four arXiv identifiers were fetched from
+`export.arxiv.org` in a single query and their titles, author lists and posting
+dates compared to the entries; both new DOIs were resolved through Crossref;
+`zahraei2026prior`'s stage numbers were read from the published PDF rather than
+from the authors' project page, which states the same result in rounder terms.
+
+Worth recording, because it is the same failure this file already documents in a
+different costume: the drafting error in the `kapetanovic2026anchoring` row was
+not a wrong identifier or a wrong paper. Every number in the sentence was real
+and came from the right abstract. They were *joined wrongly* -- a count from one
+result attached to an effect size from another. Nothing downstream could have
+caught it: the entry is well-formed, the identifier resolves, the DOI is
+absent-but-not-required, and the sentence reads fluently. Only rereading the
+abstract against the sentence found it.
 ## DOIs
 
 Checked 2026-08-21 against Crossref. Every entry carrying a DOI was resolved and
@@ -94,10 +127,12 @@ its metadata compared to the entry. **One was wrong.**
 
 | key | DOI | resolves to | verdict |
 |---|---|---|---|
+| `itzhak2024instructed` | 10.1162/tacl_a_00673 | "Instructed to Bias: Instruction-Tuned Language Models Exhibit Emergent Cognitive Bias", Itay Itzhak, TACL 12, pp. 771-785, 2024 | correct |
 | `li2025scoring` | 10.1007/978-981-92-0372-7_2 | "Evaluating Scoring Bias in LLM-as-a-Judge", Qingquan Li, LNCS / DASFAA 2026, pp. 19-34 | correct |
 | `wang2023large` | 10.18653/v1/2024.acl-long.511 | "Large Language Models are not Fair Evaluators", Peiyi Wang, ACL 2024 | correct |
 | `gu2024survey` | 10.1016/j.xinn.2025.101253 | "A survey on LLM-as-a-judge", Jiawei Gu, The Innovation 7(6), 2026 | **corrected** from 10.1016/j.xinn.2025.100456, which resolves at neither doi.org nor Crossref |
 | `pan2025user` | 10.18653/v1/2026.findings-acl.449 | "User-Assistant Bias in LLMs", Xu Pan, Findings of ACL 2026 | correct |
+| `zahraei2026prior` | 10.18653/v1/2026.findings-acl.2087 | "Prior Beliefs Prejudice LLM-as-Judge: Evidence from Persuasion Evaluation", Pardis Sadat Zahraei, Findings of ACL 2026, pp. 42049-42082 | correct |
 | `park2024offsetbias` | 10.18653/v1/2024.findings-emnlp.57 | "OffsetBias: Leveraging Debiased Data for Tuning Evaluators", Junsoo Park, Findings of EMNLP 2024 | correct |
 
 Two things this pass is worth recording beyond the fix.
