@@ -1698,6 +1698,18 @@ MUTATIONS = [
         "a prose reflow disarms a registered mutation",
     ),
     (
+        # A total framing a disclosed limitation drifts from the data. The
+        # limitation itself -- seven unverifiable panel sizes -- stays correct,
+        # which is what makes this hard to see: the sentence everybody re-reads
+        # is right and the arithmetic beside it is not. Both totals read low for
+        # weeks because they counted one spelling of the per-item key.
+        "paper/honest/repro/ENVIRONMENT.md",
+        "Fourteen raw files declare `n_items`",
+        "Thirteen raw files declare `n_items`",
+        "tests/test_a_declared_panel_is_checkable_or_recorded.py",
+        "a total framing the disclosed limitation drifts from the data",
+    ),
+    (
         # The rebuttal FAQ quotes a figure the paper does not carry. The FAQ is
         # referee-facing and has been wrong here before -- it once answered a
         # question with the opposite of what the paper says -- and a number

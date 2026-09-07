@@ -57,8 +57,8 @@ fact, visible only in the Actions tab.
 
 ## Seven declared panel sizes cannot be checked from the released files
 
-Thirteen raw files declare `n_items`, the panel each cell was scored on and the
-denominator of every mean in the file. Six of them also store per-item score
+Fourteen raw files declare `n_items`, the panel each cell was scored on and the
+denominator of every mean in the file. Seven of them also store per-item score
 vectors, so the declaration is checkable against the data, and
 `tests/test_the_item_panel_is_what_the_paper_says.py` checks every vector in
 them.
@@ -75,6 +75,30 @@ fabrication.
 The set is pinned in `tests/test_a_declared_panel_is_checkable_or_recorded.py`,
 so it can shrink when a harness starts recording vectors but cannot grow
 silently.
+
+## Why the two totals above read low until 2026-09-07
+
+They said thirteen and six. Fourteen files declare `n_items` and seven of them
+store per-item vectors. The one both totals missed records its vectors under
+`ev_per_item` and `sampled_per_item` rather than the literal `per_item` key, so
+a count looking for that one spelling does not see it. This is the third
+undercount in this repository from the same cause: two per-item detectors were
+widened for it, and `.hermes.md` reported ten released files carrying score
+vectors where eleven do.
+
+Worth separating, because the two halves failed differently. **The disclosure
+itself never moved.** Seven declared panels are unverifiable, and the seven
+files named above are exactly the seven the data says -- that list is derived
+from a guard whose key matcher was already broad enough. What drifted was the
+arithmetic framing it, which is the half nobody re-reads, sitting beside the
+half everybody does. All four counts in that section -- including the number in
+its heading, which states it a second time -- now recompute in
+`tests/test_a_declared_panel_is_checkable_or_recorded.py`.
+
+(This section is deliberately not part of the disclosure above. The guard reads
+the disclosure section for filenames and treats each as a panel it covers, so a
+file named there in passing would read as a claim that it is unverifiable. The
+first version of this correction did exactly that and was caught.)
 
 The analysis stack is pinned in [`requirements-repro.txt`](requirements-repro.txt):
 

@@ -177,3 +177,66 @@ def test_the_exemption_list_is_not_a_dumping_ground():
             f"the exemption for {name} reads {reason!r}, which does not say "
             f"what the harness recorded instead"
         )
+
+
+# Number-words as the document writes them.
+_WORDS = {
+    "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+    "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14, "fifteen": 15,
+}
+
+
+def _environment_doc():
+    doc = Path(__file__).resolve().parent.parent / "paper" / "honest" / "repro" / "ENVIRONMENT.md"
+    if not doc.exists():
+        pytest.skip("[repro] ENVIRONMENT.md not present")
+    return doc.read_text(encoding="utf-8", errors="replace")
+
+
+def _word(doc, pattern, label):
+    import re as _re
+    found = _re.search(pattern, doc)
+    assert found, f"ENVIRONMENT.md no longer states {label} in the form this guard reads"
+    word = found.group(1).lower()
+    assert word in _WORDS, f"{label}: {word!r} is not a number-word this guard knows"
+    return _WORDS[word]
+
+
+def test_the_environment_doc_counts_recompute():
+    """The prose totals beside a disclosed limitation must match the data.
+
+    The limitation -- seven declared panels that nothing in the release can
+    verify -- was correct and its file list was correct. The two totals framing
+    it were not: thirteen declaring files where there are fourteen, six with
+    per-item vectors where there are seven. Both missed results_sampled.json,
+    which stores ev_per_item and sampled_per_item rather than the literal
+    per_item key -- the third undercount in this repository from looking for one
+    spelling of that key.
+
+    A wrong total beside a right limitation is the harder kind to notice,
+    because the limitation is what gets read and re-read.
+    """
+    doc = _environment_doc()
+    declaring = _declaring_files()
+    checkable = [name for name, blob in declaring if _per_item_lengths(blob)]
+    aggregate = [name for name, blob in declaring if not _per_item_lengths(blob)]
+
+    stated = _word(doc, r"(\w+) raw files declare `n_items`", "the declaring-file total")
+    assert stated == len(declaring), (
+        f"ENVIRONMENT.md states a different count of files declaring n_items; "
+        f"{len(declaring)} do: {sorted(name for name, _ in declaring)}"
+    )
+    stated = _word(doc, r"(\w+) of them also store per-item score", "the checkable total")
+    assert stated == len(checkable), (
+        f"ENVIRONMENT.md states a different count of declarations checkable "
+        f"against per-item vectors; {len(checkable)} are: {sorted(checkable)}"
+    )
+    assert _word(doc, r"The other (\w+)", "the aggregate-only total") == len(aggregate), (
+        f"ENVIRONMENT.md states a different count of aggregate-only files; "
+        f"{len(aggregate)} are: {sorted(aggregate)}"
+    )
+    stated = _word(doc, r"## (\w+) declared panel sizes cannot be checked", "the heading")
+    assert stated == len(aggregate), (
+        f"the heading disagrees with the body; {len(aggregate)} declared panels "
+        f"cannot be checked"
+    )
